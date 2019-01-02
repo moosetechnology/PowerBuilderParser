@@ -93,7 +93,8 @@ PWBAbstractParser >> expression [
 
 { #category : #accessing }
 PWBAbstractParser >> identifier [
-	^ ('end' parser not, (#letter parser / $_ parser) plus) flatten
+	^ ('end' parser not , (#letter parser / $_ parser)
+		, (#letter parser / $_ parser / #digit parser) star) flatten
 ]
 
 { #category : #accessing }
@@ -129,7 +130,8 @@ PWBAbstractParser >> type [
 
 { #category : #accessing }
 PWBAbstractParser >> variable [
-	^ 'this.' parser optional , identifier, '[]' parser optional
+	^ 'this.' parser optional , identifier , ($. parser , identifier) star
+		, '[]' parser optional
 ]
 
 { #category : #accessing }

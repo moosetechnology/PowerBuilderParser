@@ -16,11 +16,23 @@ PWBDataWindowParserTest >> testColumn [
 		rule: #column.
 	self
 		parse: 'column=(type=datetime updatewhereclause=no name=dct_dac dbname="dct_dac" )'
-		rule: #column.
+		rule: #column
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testColumnGraphicComponent [
 	self
 		parse:
 			'column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="33554432" x="9129" y="0" height="76" width="219" format="[general]" html.valueishtml="0"  name=dct_dss visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )'
-		rule: #column
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testComputeGraphicComponent [
+	self
+		parse:
+			'compute(band=summary alignment="1" expression="sum( anu_ht  for all)"border="0" color="20718592" x="713" y="4" height="76" width="402" format="0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )'
+		rule: #graphicComponent
 ]
 
 { #category : #accessing }
@@ -54,9 +66,19 @@ PWBDataWindowParserTest >> testHeader [
 { #category : #accessing }
 PWBDataWindowParserTest >> testOption [
 	self parse: 'name=dct_aoc' rule: #option.
-	self parse: 'type=char(24)' rule: #option
+	self parse: 'type=char(24)' rule: #option.
+	self parse: 'color="536870912"' rule: #option.
+	self parse: 'edit.limit=0' rule: #option.
+	self parse: 'name=compute_1' rule: #option.
+	self parse: 'print.orientation = 0' rule: #option.
+	
 	
 
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testOptions [
+	self parse: 'band=detail id=4' rule: #options
 ]
 
 { #category : #accessing }

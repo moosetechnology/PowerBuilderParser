@@ -14,7 +14,8 @@ Class {
 		'optionValue',
 		'column',
 		'columnDefinition',
-		'table'
+		'table',
+		'optionBad'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -51,13 +52,18 @@ PWBDataWindowParser >> graphicComponent [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> graphicComponentToken [
-	^ (#('detail' 'footer' 'header' 'summary' 'rectangle' 'text') collect: #parser)
+	^ (#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute') collect: #parser)
 		reduce: [ :a :b | a / b ]
 ]
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> option [
-	^ identifier, $= parser, optionValue
+	^ variable, $= parser trim, optionValue
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> optionBad [
+	^ #blank parser negate plus
 ]
 
 { #category : #'as yet unclassified' }
@@ -67,12 +73,12 @@ PWBDataWindowParser >> optionValue [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> options [
-	^ option separatedBy: blank
+	^ option separatedBy: blank optional
 ]
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> parameters [
-	^ $( parser, #any parser starLazy, $) parser
+	^ $( parser, options trim, $) parser
 ]
 
 { #category : #'as yet unclassified' }
