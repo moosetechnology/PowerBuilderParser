@@ -16,6 +16,10 @@ PWBDataWindowParserTest >> testColumn [
 		rule: #column.
 	self
 		parse: 'column=(type=datetime updatewhereclause=no name=dct_dac dbname="dct_dac" )'
+		rule: #column.
+	self
+		parse:
+			'column=(type=decimal(5) update=yes updatewhereclause=yes name=nov_ttc dbname="NOV_TTC" )'
 		rule: #column
 ]
 
@@ -46,13 +50,33 @@ PWBDataWindowParserTest >> testDetail [
 ]
 
 { #category : #accessing }
+PWBDataWindowParserTest >> testExport [
+	self parse: 'export.xhtml()' rule: #export.
+	self parse: 'export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )' rule: #export.
+	self parse: 'export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )' rule: #export
+]
+
+{ #category : #accessing }
 PWBDataWindowParserTest >> testExpression [
-	self parse: 'dct_aoc' rule: #expression
+	self parse: '(("al_chq_no", number))' rule: #expression
 ]
 
 { #category : #accessing }
 PWBDataWindowParserTest >> testFooter [
 	self parse: 'footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )' rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testGenerators [
+	self
+		parse:
+			'htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )'
+		rule: #generator.
+	self parse: 'xhtmlgen()' rule: #generator.
+	self parse: 'cssgen(sessionspecific="0" )' rule: #generator.
+	self parse: 'xmlgen(inline="0" )' rule: #generator.
+	self parse: 'xsltgen()' rule: #generator.
+	self parse: 'jsgen()' rule: #generator
 ]
 
 { #category : #accessing }
@@ -64,6 +88,16 @@ PWBDataWindowParserTest >> testHeader [
 ]
 
 { #category : #accessing }
+PWBDataWindowParserTest >> testHtmlTable [
+	self parse: 'htmltable(border="1" )' rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testImport [
+	self parse: 'import.xml()' rule: #import
+]
+
+{ #category : #accessing }
 PWBDataWindowParserTest >> testOption [
 	self parse: 'name=dct_aoc' rule: #option.
 	self parse: 'type=char(24)' rule: #option.
@@ -71,9 +105,10 @@ PWBDataWindowParserTest >> testOption [
 	self parse: 'edit.limit=0' rule: #option.
 	self parse: 'name=compute_1' rule: #option.
 	self parse: 'print.orientation = 0' rule: #option.
-	
-	
-
+	self
+		parse:
+			'arguments=(("al_par_no", number),("as_prt_adn", string),("al_sou_no", number),("al_annee", number),("al_gpp_no", number))'
+		rule: #option
 ]
 
 { #category : #accessing }
@@ -229,6 +264,47 @@ PWBDataWindowParserTest >> testTable2 [
  column=(type=long updatewhereclause=no name=paa_no dbname="paa_no" )
  column=(type=long updatewhereclause=yes name=ave_no dbname="ave_no" )
   sort="par_cal A " )' rule: #table
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testTable3 [
+	self parse: 'table(column=(type=char(12) updatewhereclause=yes name=dct_adn dbname="dct.dct_adn" )
+ column=(type=long updatewhereclause=yes name=par_cal dbname="dct.par_cal" )
+ column=(type=decimal(2) updatewhereclause=yes name=dct_dbt dbname="dct.dct_dbt" )
+ column=(type=decimal(2) updatewhereclause=yes name=dct_crt dbname="dct.dct_crt" )
+ column=(type=char(2) updatewhereclause=yes name=dct_evn dbname="dct.dct_evn" )
+ column=(type=long updatewhereclause=yes name=obi_no dbname="dct.obi_no" )
+ column=(type=char(2) updatewhereclause=yes name=dct_mdp dbname="dct.dct_mdp" )
+ column=(type=long updatewhereclause=yes name=dct_dss dbname="dct.dct_dss" )
+ column=(type=long updatewhereclause=yes name=dct_lig dbname="dct.dct_lig" )
+ column=(type=date updatewhereclause=yes name=dct_deb dbname="dct.dct_deb" )
+ column=(type=date updatewhereclause=yes name=dct_fin dbname="dct.dct_fin" )
+ column=(type=date updatewhereclause=yes name=dct_dtc dbname="dct.dct_dtc" )
+ column=(type=char(1) updatewhereclause=yes name=dct_gra dbname="dct.dct_gra" )
+ column=(type=date updatewhereclause=yes name=chq_ded dbname="chq.chq_ded" )
+ column=(type=char(7) updatewhereclause=yes name=gug_pie dbname="chq.gug_pie" )
+ column=(type=date updatewhereclause=yes name=gug_dre dbname="chq.gug_dre" )
+ column=(type=long updatewhereclause=yes name=org_no dbname="chq.org_no" )
+ retrieve="  SELECT dct.dct_adn,   
+         dct.par_cal,   
+         dct.dct_dbt,   
+         dct.dct_crt,   
+         dct.dct_evn,   
+         dct.obi_no,   
+         dct.dct_mdp,   
+         dct.dct_dss,   
+         dct.dct_lig,   
+         dct.dct_deb,   
+         dct.dct_fin,   
+         dct.dct_dtc,   
+         dct.dct_gra,
+			chq.chq_ded,
+			chq.gug_pie,
+			chq.gug_dre,
+			chq.org_no 
+    FROM dct, chq
+	where   dct.dct_tlg = ''C'' and dct.chq_no = :al_chq_no and chq.chq_no = :al_chq_no
+" arguments=(("al_chq_no", number))  sort="dct_evn A dct_dss D dct_lig D " )' rule: #table
 ]
 
 { #category : #accessing }
