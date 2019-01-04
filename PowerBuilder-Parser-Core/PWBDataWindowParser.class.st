@@ -15,7 +15,12 @@ Class {
 		'column',
 		'columnDefinition',
 		'table',
-		'optionBad'
+		'optionBad',
+		'generatorToken',
+		'generator',
+		'import',
+		'export',
+		'formatType'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -40,9 +45,35 @@ PWBDataWindowParser >> dataWindow [
 	^ 'datawindow' parser, parameters
 ]
 
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> export [
+	^ 'export.' parser, formatType, parameters
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> expression [
+	^ super expression
+]
+
 { #category : #accessing }
 PWBDataWindowParser >> file [
-	^ graphicComponent / dataWindow / table separatedBy: blank
+	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> formatType [
+	^ (#('xml' 'pdf' 'xhtml') collect: #parser)
+		reduce: [ :a :b | a / b ]
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> generator [
+	^ generatorToken, parameters
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> generatorToken [
+	^ (#('htmlgen' 'xhtmlgen' 'cssgen' 'xmlgen' 'xsltgen' 'jsgen') collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -52,8 +83,13 @@ PWBDataWindowParser >> graphicComponent [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> graphicComponentToken [
-	^ (#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute') collect: #parser)
+	^ (#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line') collect: #parser)
 		reduce: [ :a :b | a / b ]
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParser >> import [
+	^ 'import.' parser, formatType, parameters
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,7 +114,7 @@ PWBDataWindowParser >> options [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> parameters [
-	^ $( parser, options trim, $) parser
+	^ $( parser, options trim optional, $) parser
 ]
 
 { #category : #'as yet unclassified' }

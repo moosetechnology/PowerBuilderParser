@@ -19,7 +19,10 @@ Class {
 		'createInstruction',
 		'array',
 		'variableOrType',
-		'file'
+		'file',
+		'parenthesedExpression',
+		'operatorExpression',
+		'expressionTerm'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -62,7 +65,7 @@ PWBAbstractParser >> assignationStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> basicType [
-	^ (#('long' 'datetime' 'date' 'integer') collect: #parser) reduce: [ :a :b | a / b ]
+	^ self parserFor: #('long' 'datetime' 'date' 'integer')
 ]
 
 { #category : #accessing }
@@ -87,8 +90,12 @@ PWBAbstractParser >> customType [
 
 { #category : #accessing }
 PWBAbstractParser >> expression [
-	"should evolve, enough for now"
-	^ array / createInstruction / number / string / booleanValue / variableOrType
+	^ operatorExpression / parenthesedExpression / expressionTerm
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> expressionTerm [
+	^ array / createInstruction / number / string / variableOrType / booleanValue 
 ]
 
 { #category : #accessing }
@@ -103,9 +110,26 @@ PWBAbstractParser >> number [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> operatorExpression [
+	^ parenthesedExpression / expressionTerm , blank
+		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '>' '<' '<=' '>=' '<>' ',' 'AND' 'OR'))
+		, blank , expression
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> parametrizedType [
 	^ ((#('char' 'decimal') collect: #parser) reduce: [ :a :b | a / b ]) , $( parser , number
 		, $) parser
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> parenthesedExpression [
+	^ $( parser , blank , expression , blank , $) parser
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> parserFor: aCollectionOfString [
+	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #accessing }
@@ -138,5 +162,5 @@ PWBAbstractParser >> variable [
 PWBAbstractParser >> variableOrType [
 	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it"
 
-	^ type / variable
+	^ booleanValue not, type / variable
 ]
