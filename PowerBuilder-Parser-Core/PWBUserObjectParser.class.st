@@ -10,8 +10,9 @@ Class {
 		'fromClause',
 		'attributes',
 		'attribute',
-		'eventType',
-		'triggerDefinition'
+		'triggerDefinition',
+		'endForward',
+		'globalVariableDeclaration'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -19,6 +20,11 @@ Class {
 { #category : #parsing }
 PWBUserObjectParser class >> supportedExtensions [
 	^ {'sru' . 'srw'}
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> assignationStatement [ 
+	^ super assignationStatement 
 ]
 
 { #category : #accessing }
@@ -32,18 +38,28 @@ PWBUserObjectParser >> attributes [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> eventType [
-	^ 'create' parser
+PWBUserObjectParser >> callStatement [ 
+	^ super callStatement 
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> endForward [ 
+	^ 'end forward' parser
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeDeclaration separatedBy: blank
+	^ typeDeclaration / endForward / globalVariableDeclaration separatedBy: blank
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> fromClause [
 	^ 'from' parser , blank , customType , blank
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> globalVariableDeclaration [
+	^ 'global' parser , blank , type , blank , variable
 ]
 
 { #category : #accessing }

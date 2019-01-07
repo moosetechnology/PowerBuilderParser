@@ -22,7 +22,9 @@ Class {
 		'file',
 		'parenthesedExpression',
 		'operatorExpression',
-		'expressionTerm'
+		'expressionTerm',
+		'callStatement',
+		'eventType'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -79,6 +81,12 @@ PWBAbstractParser >> booleanValue [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> callStatement [
+	^ 'call' parser caseInsensitive , blank , variable , ($` parser , identifier) optional
+		, '::' parser , eventType
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> createInstruction [
 	^ 'create' parser, blank, variable
 ]
@@ -86,6 +94,13 @@ PWBAbstractParser >> createInstruction [
 { #category : #accessing }
 PWBAbstractParser >> customType [
 	^ identifier
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> eventType [
+	^ self
+		parserIgnoringCaseFor:
+			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create')
 ]
 
 { #category : #accessing }
@@ -100,7 +115,8 @@ PWBAbstractParser >> expressionTerm [
 
 { #category : #accessing }
 PWBAbstractParser >> identifier [
-	^ ('end' parser not , (#letter parser / $_ parser)
+	self flag: #TODO. "improve identifier to accept thisCustomer for example"
+	^ ('this' parser not , 'end' parser not , (#letter parser / $_ parser)
 		, (#letter parser / $_ parser / #digit parser) star) flatten
 ]
 
@@ -133,13 +149,18 @@ PWBAbstractParser >> parserFor: aCollectionOfString [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
+	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> start [
 	^ file end optimize
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> statements [
-	^ assignationStatement separatedBy: blank
+	^ assignationStatement / callStatement separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -149,7 +170,7 @@ PWBAbstractParser >> string [
 
 { #category : #accessing }
 PWBAbstractParser >> type [
-	^ 'this.' parser not, parametrizedType / basicType / customType 
+	^ parametrizedType / basicType / customType 
 ]
 
 { #category : #accessing }
@@ -162,5 +183,5 @@ PWBAbstractParser >> variable [
 PWBAbstractParser >> variableOrType [
 	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it"
 
-	^ booleanValue not, type / variable
+	^ type / variable	"booleanValue not ,"
 ]

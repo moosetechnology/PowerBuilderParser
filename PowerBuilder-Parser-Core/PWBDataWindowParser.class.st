@@ -50,11 +50,6 @@ PWBDataWindowParser >> export [
 	^ 'export.' parser, formatType, parameters
 ]
 
-{ #category : #'as yet unclassified' }
-PWBDataWindowParser >> expression [
-	^ super expression
-]
-
 { #category : #accessing }
 PWBDataWindowParser >> file [
 	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
