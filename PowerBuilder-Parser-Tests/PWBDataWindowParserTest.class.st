@@ -311,3 +311,14 @@ PWBDataWindowParserTest >> testTable3 [
 PWBDataWindowParserTest >> testText [
 	self parse: 'text(band=header alignment="2" text="Dct Dac" border="0" color="33554432" x="8722" y="0" height="64" width="219" html.valueishtml="0"  name=dct_dac_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )' rule: #graphicComponent
 ]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testType [
+	self fail: 'this.dw_liste' rule: #type.
+	self fail: 'this' rule: #type
+]
+
+{ #category : #accessing }
+PWBDataWindowParserTest >> testVariable [
+	self parse: 'this.dw_liste' rule: #variable
+]

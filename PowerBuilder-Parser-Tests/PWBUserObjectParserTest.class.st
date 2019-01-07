@@ -20,6 +20,17 @@ PWBUserObjectParserTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testCallStatement [
+	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
+	self parse: 'call uo_traitement::create' rule: #callStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testGlobalVariableDeclaration [
+	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testTriggerDefinition [
 	self
 		parse:
@@ -40,6 +51,40 @@ end type' rule: #typeDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testTypeDeclaration1 [
+	self parse: 'global type uo_cotisations_adherent from uo_deux_listes_en_synchro
+integer width = 1792
+integer height = 1304
+event edw_synchro_onglet pbm_custom01
+event ue_post_constructor pbm_custom02
+event ue_rdc ( )
+event ue_change_titre_onglet ( string as_mod )
+dw_grp dw_grp
+dw_det_app dw_det_app
+dw_caisse dw_caisse
+dw_det_cai dw_det_cai
+dw_sup_dct dw_sup_dct
+dw_his_dct dw_his_dct
+dw_det_imp dw_det_imp
+dw_ech dw_ech
+dw_det_ech dw_det_ech
+dw_indu dw_indu
+dw_annul_imp dw_annul_imp
+dw_lig dw_lig
+dw_ctrl_cot_mbs dw_ctrl_cot_mbs
+dw_lis_app dw_lis_app
+dw_ech_histo dw_ech_histo
+dw_det_ech_pour_histo dw_det_ech_pour_histo
+dw_ob dw_ob
+dw_ch dw_ch
+dw_es dw_es
+dw_ann_od dw_ann_od
+dw_detail_cot_ent dw_detail_cot_ent
+dw_detail_appel dw_detail_appel
+end type' rule: #typeDeclaration.
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testTypeDeclarationAddedAttributes [
 	self
 		parse:
@@ -55,4 +100,9 @@ dw_liste dw_liste
 dw_detail dw_detail
 end type'
 		rule: #typeDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testVariableOrType [
+	self parse: 'this.dw_liste' rule: #variableOrType
 ]

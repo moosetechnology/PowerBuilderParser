@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'unparsedString',
 		'progress',
-		'failure'
+		'failure',
+		'file'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
@@ -17,6 +18,16 @@ DebugObject >> failure [
 { #category : #accessing }
 DebugObject >> failure: anObject [
 	failure := anObject
+]
+
+{ #category : #accessing }
+DebugObject >> file [
+	^ file
+]
+
+{ #category : #accessing }
+DebugObject >> file: anObject [
+	file := anObject
 ]
 
 { #category : #accessing }
