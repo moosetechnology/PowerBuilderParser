@@ -24,7 +24,9 @@ Class {
 		'operatorExpression',
 		'expressionTerm',
 		'callStatement',
-		'eventType'
+		'eventType',
+		'arguments',
+		'argument'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -48,6 +50,16 @@ PWBAbstractParser class >> supportExtension: extension [
 { #category : #parsing }
 PWBAbstractParser class >> supportedExtensions [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> argument [
+	^ type, blank, identifier
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> arguments [
+	^ $( parser , blank , (argument separatedBy: $, parser) optional , blank , $) parser
 ]
 
 { #category : #accessing }
@@ -77,7 +89,7 @@ PWBAbstractParser >> blank [
 
 { #category : #accessing }
 PWBAbstractParser >> booleanValue [
-	^ 'yes' parser / 'no' parser
+	^ self parserFor: #('yes' 'no' 'YES' 'NO')
 ]
 
 { #category : #accessing }
@@ -122,7 +134,7 @@ PWBAbstractParser >> identifier [
 
 { #category : #accessing }
 PWBAbstractParser >> number [
-	^ #digit parser plus
+	^ ($+ parser / $- parser) optional , #digit parser plus
 ]
 
 { #category : #accessing }

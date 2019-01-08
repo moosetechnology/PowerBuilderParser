@@ -12,7 +12,8 @@ Class {
 		'attribute',
 		'triggerDefinition',
 		'endForward',
-		'globalVariableDeclaration'
+		'globalVariableDeclaration',
+		'eventAttribute'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -34,7 +35,7 @@ PWBUserObjectParser >> attribute [
 
 { #category : #accessing }
 PWBUserObjectParser >> attributes [
-	^ (attribute separatedBy: blank) , blank
+	^ (eventAttribute / attribute separatedBy: blank) , blank
 ]
 
 { #category : #accessing }
@@ -45,6 +46,11 @@ PWBUserObjectParser >> callStatement [
 { #category : #accessing }
 PWBUserObjectParser >> endForward [ 
 	^ 'end forward' parser
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> eventAttribute [
+	^ 'event' parser , blank , type , blank , (arguments / variable)
 ]
 
 { #category : #accessing }

@@ -20,9 +20,21 @@ PWBUserObjectParserTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testAttribute [
+	self parse: 'integer ii_dossier_type = -1' rule: #attribute
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testCallStatement [
 	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
 	self parse: 'call uo_traitement::create' rule: #callStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testEventAttribute [
+	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
+	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
+	self parse: 'event ue_change_titre_onglet ( string as_mod )' rule: #eventAttribute
 ]
 
 { #category : #tests }
