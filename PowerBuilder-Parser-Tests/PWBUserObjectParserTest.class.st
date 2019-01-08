@@ -11,12 +11,9 @@ PWBUserObjectParserTest >> parserClass [
 
 { #category : #tests }
 PWBUserObjectParserTest >> testAssignationStatement [
+	self parse: 'this.Control[]={this.dw_liste,this.dw_detail}' rule: #assignationStatement.
 	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
-	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement.
-	self
-		parse:
-			'this.Control[]={this.dw_liste,this.dw_detail}'
-		rule: #assignationStatement
+	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement
 ]
 
 { #category : #tests }
@@ -26,8 +23,8 @@ PWBUserObjectParserTest >> testAttribute [
 
 { #category : #tests }
 PWBUserObjectParserTest >> testCallStatement [
-	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
 	self parse: 'call uo_traitement::create' rule: #callStatement.
+	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement
 ]
 
 { #category : #tests }
@@ -112,6 +109,24 @@ dw_liste dw_liste
 dw_detail dw_detail
 end type'
 		rule: #typeDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testTypeVariable [
+	self parse: 'type variables
+date id_aujourd_hui
+string is_lst_rdg_capital = ""
+decimal id_montant_plafond = 0
+decimal id_montant_indexation = 0
+long id_nbs_annee_index = 0
+long il_nbs_gpp_trt = 0
+long il_nbs_plafond_atteint = 0
+long il_nbs_gpp_err = 0
+string is_guid = ""
+string is_uti_trt = "IDXAD"
+string is_sql_ave
+datastore lds_ave
+end variables' rule: #typeVariable.
 ]
 
 { #category : #tests }
