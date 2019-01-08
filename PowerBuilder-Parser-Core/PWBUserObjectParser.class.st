@@ -13,7 +13,8 @@ Class {
 		'triggerDefinition',
 		'endForward',
 		'globalVariableDeclaration',
-		'eventAttribute'
+		'eventAttribute',
+		'typeVariable'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -55,7 +56,8 @@ PWBUserObjectParser >> eventAttribute [
 
 { #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeDeclaration / endForward / globalVariableDeclaration separatedBy: blank
+	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration
+		separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -79,6 +81,11 @@ PWBUserObjectParser >> typeDeclaration [
 	^ ('global' parser , blank) parser optional , 'type' parser , blank , customType , blank
 		, 'enumerated' parser trim optional , fromClause , withinClause optional
 		, attributes optional , 'end type' parser
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> typeVariable [
+	^ 'type variables' parser , blank , attributes optional , blank , 'end variables' parser
 ]
 
 { #category : #accessing }
