@@ -13,7 +13,8 @@ PWBUserObjectParserTest >> parserClass [
 PWBUserObjectParserTest >> testAssignationStatement [
 	self parse: 'this.Control[]={this.dw_liste,this.dw_detail}' rule: #assignationStatement.
 	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
-	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement
+	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement.
+	
 ]
 
 { #category : #tests }
@@ -35,6 +36,14 @@ PWBUserObjectParserTest >> testEventAttribute [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionInvocation1 [
+	self
+		parse:
+			'destroy(this.dw_liste)'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -49,6 +58,17 @@ this.dw_detail=create dw_detail
 this.Control[]={this.dw_liste,this.dw_detail}
 end on'
 		rule: #triggerDefinition
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testTriggerDefinition2 [
+	(self
+		parse:
+			'on uo_consultation_histo_suppression_ech.destroy
+destroy(this.dw_liste)
+destroy(this.dw_detail)
+end on'
+		rule: #triggerDefinition) inspect
 ]
 
 { #category : #tests }
