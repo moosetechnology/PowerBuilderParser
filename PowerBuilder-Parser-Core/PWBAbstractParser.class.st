@@ -26,7 +26,10 @@ Class {
 		'callStatement',
 		'eventType',
 		'arguments',
-		'argument'
+		'argument',
+		'functionInvocation',
+		'functionArguments',
+		'functionArgument'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -94,7 +97,7 @@ PWBAbstractParser >> booleanValue [
 
 { #category : #accessing }
 PWBAbstractParser >> callStatement [
-	^ 'call' parser caseInsensitive , blank , variable , ($` parser , identifier) optional
+	^ ('call' parser / 'CALL' parser) , blank , variable , ($` parser , identifier) optional
 		, '::' parser , eventType
 ]
 
@@ -112,7 +115,7 @@ PWBAbstractParser >> customType [
 PWBAbstractParser >> eventType [
 	^ self
 		parserIgnoringCaseFor:
-			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create')
+			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create' 'destroy')
 ]
 
 { #category : #accessing }
@@ -123,6 +126,21 @@ PWBAbstractParser >> expression [
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
 	^ array / createInstruction / number / string / variableOrType / booleanValue 
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> functionArgument [
+	^ expression
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> functionArguments [
+	^ $( parser , blank , (functionArgument separatedBy: $, parser) optional , blank , $) parser
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> functionInvocation [
+	^ identifier, blank, functionArguments
 ]
 
 { #category : #accessing }
@@ -172,7 +190,7 @@ PWBAbstractParser >> start [
 
 { #category : #accessing }
 PWBAbstractParser >> statements [
-	^ assignationStatement / callStatement separatedBy: blank
+	^ assignationStatement / callStatement / functionInvocation separatedBy: blank
 ]
 
 { #category : #accessing }

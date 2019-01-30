@@ -56,7 +56,7 @@ PWBUserObjectParser >> eventAttribute [
 
 { #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration
+	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration / triggerDefinition
 		separatedBy: blank
 ]
 
