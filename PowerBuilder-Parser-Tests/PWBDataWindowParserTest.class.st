@@ -58,7 +58,11 @@ PWBDataWindowParserTest >> testExport [
 
 { #category : #accessing }
 PWBDataWindowParserTest >> testExpression [
-	self parse: '(("al_chq_no", number))' rule: #expression
+	self parse: '(("al_chq_no", number))' rule: #expression.
+	self parse: 'parent.width - 100' rule: #expression.
+	
+
+
 ]
 
 { #category : #accessing }

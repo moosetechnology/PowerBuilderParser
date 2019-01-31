@@ -19,7 +19,12 @@ PWBUserObjectParserTest >> testAssignationStatement [
 
 { #category : #tests }
 PWBUserObjectParserTest >> testAttribute [
-	self parse: 'integer ii_dossier_type = -1' rule: #attribute
+	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
+	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
+	self parse: 'string is_cre_uti = ''?''' rule: #attribute.
+	self parse: 'borderstyle borderstyle = stylelowered!' rule: #attribute.
+	
+
 ]
 
 { #category : #tests }
@@ -36,6 +41,17 @@ PWBUserObjectParserTest >> testEventAttribute [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testEventDeclaration [
+	self parse: 'event constructor;call super::constructor;
+this.ii_dw_type = DW_TYPE_LISTE
+this.x = 0
+this.y = 0
+this.width = parent.width - 100
+this.height = (parent.height / 2) - 200
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testFunctionInvocation1 [
 	self
 		parse:
@@ -46,6 +62,11 @@ PWBUserObjectParserTest >> testFunctionInvocation1 [
 { #category : #tests }
 PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testStatement [
+	self parse: 'dw_detail.setFocus()' rule: #statement
 ]
 
 { #category : #tests }
@@ -62,13 +83,13 @@ end on'
 
 { #category : #tests }
 PWBUserObjectParserTest >> testTriggerDefinition2 [
-	(self
+	self
 		parse:
 			'on uo_consultation_histo_suppression_ech.destroy
 destroy(this.dw_liste)
 destroy(this.dw_detail)
 end on'
-		rule: #triggerDefinition) inspect
+		rule: #triggerDefinition
 ]
 
 { #category : #tests }
@@ -147,6 +168,30 @@ string is_uti_trt = "IDXAD"
 string is_sql_ave
 datastore lds_ave
 end variables' rule: #typeVariable.
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testTypeVariableSlash [
+	self parse: 'type variables
+boolean ib_actif = FALSE
+
+integer ii_dossier_type = -1
+integer ii_sous_dossier_type = - 1
+long il_cur_par_no = -1
+string is_cur_adn = ""
+
+long il_cur_caisse, il_cot
+string is_cre_uti = ''?''
+string is_ech_neg, is_rgl_brd, is_cot_imp, is_gal_gca, is_gen_reg, is_ges_ind, is_des_aff
+decimal id_solde
+boolean ib_relecture = FALSE
+boolean ib_annul_rejet = FALSE
+string is_ges_arj
+
+
+String is_dct_ou_dct_int
+
+/' rule: #typeVariable.
 ]
 
 { #category : #tests }

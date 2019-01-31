@@ -14,7 +14,9 @@ Class {
 		'endForward',
 		'globalVariableDeclaration',
 		'eventAttribute',
-		'typeVariable'
+		'typeVariable',
+		'customCallStatement',
+		'eventDeclaration'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -31,7 +33,7 @@ PWBUserObjectParser >> assignationStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> attribute [
-	^ type, blank, identifier, assignation optional
+	^ type , (blank , identifier , assignation optional separatedBy: $, parser)
 ]
 
 { #category : #accessing }
@@ -40,8 +42,8 @@ PWBUserObjectParser >> attributes [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> callStatement [ 
-	^ super callStatement 
+PWBUserObjectParser >> customCallStatement [
+	^ 'call' parser / 'CALL' parser , blank , 'super' parser , '::' parser , identifier
 ]
 
 { #category : #accessing }
@@ -55,9 +57,16 @@ PWBUserObjectParser >> eventAttribute [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> eventDeclaration [
+	^ 'event' parser , blank , identifier , $; parser
+		, (customCallStatement , $; parser) optional , blank , statements , blank
+		, 'end event' parser
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration / triggerDefinition
-		separatedBy: blank
+	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration
+		/ triggerDefinition / eventDeclaration separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -85,7 +94,7 @@ PWBUserObjectParser >> typeDeclaration [
 
 { #category : #accessing }
 PWBUserObjectParser >> typeVariable [
-	^ 'type variables' parser , blank , attributes optional , blank , 'end variables' parser
+	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
 ]
 
 { #category : #accessing }

@@ -29,7 +29,9 @@ Class {
 		'argument',
 		'functionInvocation',
 		'functionArguments',
-		'functionArgument'
+		'functionArgument',
+		'constant',
+		'statement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -102,6 +104,11 @@ PWBAbstractParser >> callStatement [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> constant [
+	^ (#letter parser plus , $! parser) flatten
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> createInstruction [
 	^ 'create' parser, blank, variable
 ]
@@ -109,6 +116,12 @@ PWBAbstractParser >> createInstruction [
 { #category : #accessing }
 PWBAbstractParser >> customType [
 	^ identifier
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> endOf: aReservedWord [
+	"It seems that a / can finish anything"
+	^ ('end ' parser, aReservedWord parser) / $/ parser
 ]
 
 { #category : #accessing }
@@ -125,7 +138,7 @@ PWBAbstractParser >> expression [
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
-	^ array / createInstruction / number / string / variableOrType / booleanValue 
+	^ constant / array / createInstruction / number / string / variableOrType / booleanValue 
 ]
 
 { #category : #accessing }
@@ -140,7 +153,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	^ identifier, blank, functionArguments
+	^ expression, blank, functionArguments
 ]
 
 { #category : #accessing }
@@ -152,7 +165,7 @@ PWBAbstractParser >> identifier [
 
 { #category : #accessing }
 PWBAbstractParser >> number [
-	^ ($+ parser / $- parser) optional , #digit parser plus
+	^ ($+ parser / $- parser , blank) optional , #digit parser plus
 ]
 
 { #category : #accessing }
@@ -189,13 +202,18 @@ PWBAbstractParser >> start [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> statement [
+	^ assignationStatement / callStatement / functionInvocation
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> statements [
-	^ assignationStatement / callStatement / functionInvocation separatedBy: blank
+	^ statement separatedBy: blank
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> string [
-	^ $" parser , #any parser starLazy , $" parser
+	^ ($" parser , #any parser starLazy , $" parser) / ($' parser , #any parser starLazy , $' parser)
 ]
 
 { #category : #accessing }
@@ -211,7 +229,7 @@ PWBAbstractParser >> variable [
 
 { #category : #accessing }
 PWBAbstractParser >> variableOrType [
-	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it"
+	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it so a custom type will be considered as a variable"
 
-	^ type / variable	"booleanValue not ,"
+	^ parametrizedType / basicType / variable	
 ]
