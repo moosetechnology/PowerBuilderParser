@@ -64,12 +64,12 @@ PWBAbstractParser class >> supportedExtensions [
 
 { #category : #accessing }
 PWBAbstractParser >> argument [
-	^ type, blank, identifier
+	^ ('ref' parser , blank) optional , type , blank , identifier
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> arguments [
-	^ $( parser , blank , (argument separatedBy: $, parser) optional , blank , $) parser
+	^ $( parser , blank , (argument separatedBy: $, parser trim) optional , blank , $) parser
 ]
 
 { #category : #accessing }
@@ -89,7 +89,7 @@ PWBAbstractParser >> assignationStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> basicType [
-	^ self parserFor: #('long' 'datetime' 'date' 'integer')
+	^ self parserFor: #('long' 'datetime' 'date' 'integer' 'string')
 ]
 
 { #category : #accessing }

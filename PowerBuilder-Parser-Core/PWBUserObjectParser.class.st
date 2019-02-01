@@ -16,7 +16,11 @@ Class {
 		'eventAttribute',
 		'typeVariable',
 		'customCallStatement',
-		'eventDeclaration'
+		'eventDeclaration',
+		'functionDeclaration',
+		'accessModifier',
+		'prototypesDeclaration',
+		'subroutineDeclaration'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -24,6 +28,11 @@ Class {
 { #category : #parsing }
 PWBUserObjectParser class >> supportedExtensions [
 	^ {'sru' . 'srw'}
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> accessModifier [
+	^ self parserFor: #('public' 'private')
 ]
 
 { #category : #accessing }
@@ -71,7 +80,7 @@ PWBUserObjectParser >> eventDeclaration [
 { #category : #accessing }
 PWBUserObjectParser >> file [
 	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration
-		/ triggerDefinition / eventDeclaration separatedBy: blank
+		/ triggerDefinition / eventDeclaration / prototypesDeclaration separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -80,13 +89,30 @@ PWBUserObjectParser >> fromClause [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> functionDeclaration [
+	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
+		, arguments
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> globalVariableDeclaration [
 	^ 'global' parser , blank , type , blank , variable
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> prototypesDeclaration [
+	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
+		, blank , (self endOf: 'prototypes')
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> statement [
 	^ super statement
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> subroutineDeclaration [
+	^ accessModifier , blank , 'subroutine' parser , blank , identifier , blank , arguments
 ]
 
 { #category : #accessing }
