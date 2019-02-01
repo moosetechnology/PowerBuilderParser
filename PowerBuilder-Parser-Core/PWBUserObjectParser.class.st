@@ -42,6 +42,11 @@ PWBUserObjectParser >> attributes [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> condition [ 
+	^ super condition 
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> customCallStatement [
 	^ 'call' parser / 'CALL' parser , blank , 'super' parser , '::' parser , identifier
 ]
@@ -77,6 +82,11 @@ PWBUserObjectParser >> fromClause [
 { #category : #accessing }
 PWBUserObjectParser >> globalVariableDeclaration [
 	^ 'global' parser , blank , type , blank , variable
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> statement [
+	^ super statement
 ]
 
 { #category : #accessing }

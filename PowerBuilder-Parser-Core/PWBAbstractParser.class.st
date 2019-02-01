@@ -31,7 +31,12 @@ Class {
 		'functionArguments',
 		'functionArgument',
 		'constant',
-		'statement'
+		'statement',
+		'ifStatement',
+		'condition',
+		'returnStatement',
+		'methodInvocation',
+		'defaultVariable'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -104,6 +109,11 @@ PWBAbstractParser >> callStatement [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> condition [
+	^ expression
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> constant [
 	^ (#letter parser plus , $! parser) flatten
 ]
@@ -116,6 +126,11 @@ PWBAbstractParser >> createInstruction [
 { #category : #accessing }
 PWBAbstractParser >> customType [
 	^ identifier
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> defaultVariable [
+	^ self parserFor: #('this' 'super')
 ]
 
 { #category : #accessing }
@@ -133,12 +148,12 @@ PWBAbstractParser >> eventType [
 
 { #category : #accessing }
 PWBAbstractParser >> expression [
-	^ operatorExpression / parenthesedExpression / expressionTerm
+	^ (operatorExpression / parenthesedExpression / expressionTerm), methodInvocation optional
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
-	^ constant / array / createInstruction / number / string / variableOrType / booleanValue 
+	^ constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -153,7 +168,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	^ expression, blank, functionArguments
+	^ identifier, blank, functionArguments
 ]
 
 { #category : #accessing }
@@ -164,14 +179,27 @@ PWBAbstractParser >> identifier [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> ifStatement [
+	^ 'if' parser , blank , condition , blank , 'then' parser , blank , statements , blank
+		, (self endOf: 'if')
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> methodInvocation [
+	^ $. parser, identifier, blank, functionArguments
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> number [
 	^ ($+ parser / $- parser , blank) optional , #digit parser plus
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> operatorExpression [
-	^ parenthesedExpression / expressionTerm , blank
-		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '>' '<' '<=' '>=' '<>' ',' 'AND' 'OR'))
+	^ parenthesedExpression / expressionTerm , methodInvocation optional , blank
+		,
+			(self
+				parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or'))
 		, blank , expression
 ]
 
@@ -197,13 +225,19 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> returnStatement [
+	^ 'return' parser
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> start [
-	^ file end optimize
+	^ (file , blank) end optimize
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> statement [
-	^ assignationStatement / callStatement / functionInvocation
+	^ returnStatement / assignationStatement / callStatement / ifStatement / functionInvocation
+		/ expression
 ]
 
 { #category : #accessing }
@@ -223,8 +257,8 @@ PWBAbstractParser >> type [
 
 { #category : #accessing }
 PWBAbstractParser >> variable [
-	^ 'this.' parser optional , identifier , ($. parser , identifier) star
-		, '[]' parser optional
+	^ 'this.' parser optional , identifier , $( parser not
+		, ($. parser , identifier , $( parser not) star , '[]' parser optional
 ]
 
 { #category : #accessing }
