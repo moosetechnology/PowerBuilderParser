@@ -10,6 +10,11 @@ PWBUserObjectParserTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testArgument [
+	self parse: 'string as_param' rule: #argument
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testAssignationStatement [
 	self parse: 'this.Control[]={this.dw_liste,this.dw_detail}' rule: #assignationStatement.
 	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
@@ -63,6 +68,56 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionDeclaration [
+	self
+		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
+		rule: #functionDeclaration.
+	self parse: 'public function boolean uf_ouvre_caisse ()' rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_desaff_imput (long al_dss)'
+		rule: #functionDeclaration.
+	self parse: 'public function integer uf_verif_cot_ech ()' rule: #functionDeclaration.
+	self
+		parse:
+			'public function integer f_annul_appel (string as_adh, long al_par_no, long al_dss, long al_lig)'
+		rule: #functionDeclaration.
+	self parse: 'public function long uf_dct_lig (long al_dss)' rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_rdg_cot_mbs (long al_dct_dss)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function string uf_init_col (integer al_month)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function string uf_lettrage (string as_dct_adn, long al_par_no)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_annul_od (long al_dss, long al_lig, string as_cod_od)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function string uf_traduit_ech (string as_nom_col, string as_exe)'
+		rule: #functionDeclaration.
+	self
+		parse:
+			'public function integer uf_desactiver_menu_contextuel_adherent (ref mc_dossier_participation am_menu)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_desactiver_menu_contextuel (ref ma_contextuel am_menu)'
+		rule: #functionDeclaration.
+	self
+		parse:
+			'public function integer f_annul_appel (string as_adh, long al_par_no, long al_dss, long al_lig, string as_dct_aoc, string as_dct_ref)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function string uf_fenetre_ges_ofm (string as_type_contrat)'
+		rule: #functionDeclaration.
+	self
+		parse:
+			'public function integer uf_saisie_effectif_montant (string as_adh_ctr, long al_prt_no, long al_dct_dss, long al_org_no)'
+		rule: #functionDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testFunctionInvocation1 [
 	self
 		parse:
@@ -84,9 +139,41 @@ end if' rule: #ifStatement
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testPrototypesDeclaration [
+	self
+		parse:
+			'forward prototypes
+public function boolean uf_init_caisse ()
+public function integer uf_maj_caisse (long al_num, string as_param)
+public function boolean uf_ouvre_caisse ()
+public function integer uf_desaff_imput (long al_dss)
+public function integer uf_verif_cot_ech ()
+public function integer f_annul_appel (string as_adh, long al_par_no, long al_dss, long al_lig)
+public function long uf_dct_lig (long al_dss)
+public function integer uf_rdg_cot_mbs (long al_dct_dss)
+public function string uf_init_col (integer al_month)
+public subroutine uf_histo_echeancier (long al_par_no, string as_ech_exe, string as_adh_ctr)
+public function string uf_lettrage (string as_dct_adn, long al_par_no)
+public function integer uf_annul_od (long al_dss, long al_lig, string as_cod_od)
+public function string uf_traduit_ech (string as_nom_col, string as_exe)
+public function integer uf_desactiver_menu_contextuel_adherent (ref mc_dossier_participation am_menu)
+public function integer uf_desactiver_menu_contextuel (ref ma_contextuel am_menu)
+public function integer f_annul_appel (string as_adh, long al_par_no, long al_dss, long al_lig, string as_dct_aoc, string as_dct_ref)
+public function string uf_fenetre_ges_ofm (string as_type_contrat)
+public function integer uf_saisie_effectif_montant (string as_adh_ctr, long al_prt_no, long al_dct_dss, long al_org_no)
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testStatement [
 	self parse: 'dw_detail.setFocus()' rule: #statement.
 	self parse: 'return' rule: #statement
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSubroutineDeclaration [
+	self parse: 'public subroutine uf_histo_echeancier (long al_par_no, string as_ech_exe, string as_adh_ctr)' rule: #subroutineDeclaration.
 ]
 
 { #category : #tests }
