@@ -67,7 +67,10 @@ PWBDataWindowParserTest >> testExpression [
 
 { #category : #accessing }
 PWBDataWindowParserTest >> testFooter [
-	self parse: 'footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )' rule: #graphicComponent
+	self
+		parse:
+			'footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
+		rule: #graphicComponent
 ]
 
 { #category : #accessing }

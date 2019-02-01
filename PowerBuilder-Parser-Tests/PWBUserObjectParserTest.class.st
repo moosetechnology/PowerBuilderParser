@@ -34,6 +34,17 @@ PWBUserObjectParserTest >> testCallStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testCondition [
+	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
+	self parse: 'this.validate()' rule: #condition.
+	self parse: 'true <> false' rule: #condition.
+	self parse: 'dw_detail.getRow() <> this.getRow()' rule: #condition.
+	self
+		parse: 'dw_detail.visible = TRUE and dw_detail.getRow() <> this.getRow()'
+		rule: #condition
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testEventAttribute [
 	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
 	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
@@ -64,9 +75,18 @@ PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
 
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement [
+	self parse: 'if this.ib_exe_cascade = TRUE then
+	this.postEvent(rowFocusChanged!)
+	return
+end if' rule: #ifStatement
+]
+
 { #category : #tests }
 PWBUserObjectParserTest >> testStatement [
-	self parse: 'dw_detail.setFocus()' rule: #statement
+	self parse: 'dw_detail.setFocus()' rule: #statement.
+	self parse: 'return' rule: #statement
 ]
 
 { #category : #tests }
