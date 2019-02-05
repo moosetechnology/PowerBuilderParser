@@ -20,7 +20,10 @@ Class {
 		'functionDeclaration',
 		'accessModifier',
 		'prototypesDeclaration',
-		'subroutineDeclaration'
+		'subroutineDeclaration',
+		'case',
+		'expressionList',
+		'chooseCase'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -51,8 +54,14 @@ PWBUserObjectParser >> attributes [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> condition [ 
-	^ super condition 
+PWBUserObjectParser >> case [
+	^ 'case' token, blank, expressionList, blank, statements
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> chooseCase [
+	^ 'choose' token , blank , 'case' token , blank , expression , blank
+		, (case separatedBy: blank) , blank , 'end choose' token
 ]
 
 { #category : #accessing }
@@ -75,6 +84,11 @@ PWBUserObjectParser >> eventDeclaration [
 	^ 'event' parser , blank , identifier , $; parser
 		, (customCallStatement , $; parser) optional , blank , statements , blank
 		, 'end event' parser
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> expressionList [
+	^ expression separatedBy: $, parser
 ]
 
 { #category : #accessing }
@@ -107,7 +121,7 @@ PWBUserObjectParser >> prototypesDeclaration [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ super statement
+	^ chooseCase / super statement
 ]
 
 { #category : #accessing }
