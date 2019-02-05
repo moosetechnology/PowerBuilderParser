@@ -39,6 +39,53 @@ PWBUserObjectParserTest >> testCallStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testChooseCase [
+	self parse: 'choose case message.wordParm
+	case SYNCHRO_OPEN, SYNCHRO_SELECTION_DOSSIER
+		this.ib_actif = TRUE
+		long ll_par_no
+		if ldw_wz.getRow() > 0 then
+			ll_par_no = ldw_wz.getItemNumber(ldw_wz.getRow(), "par_no")
+				il_cur_par_no = ll_par_no
+				if ldw_wz.dataobject = "dw_liste_aid_prt" then
+					il_cur_par_no = ldw_wz.getItemNumber(ldw_wz.getRow(), "ads_par_no")
+				else
+					il_cur_par_no = ll_par_no
+				end if
+				if ii_dossier_type = -1 then
+					wa_dossier lwa_dss
+					lwa_dss = dw_liste.iw_dossier
+					lwa_dss.triggerEvent("init_proprietes", 0, "")
+					ii_dossier_type = lwa_dss.ii_dossier_type	
+					ii_typ_dos = lwa_dss.ii_typ_dos
+				end if
+				if ii_dossier_type = DOSSIER_ADHERENT then
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "prt_adn")
+				elseif ii_dossier_type = DOSSIER_PARTENAIRE then
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "ptn_no")
+				else
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "ent_cod")
+				end if
+				if is_typ_ind = "O" and ii_typ_dos = DOSSIER_PREVOYANCE and ii_pass = 1 then
+				
+					dw_liste.visible = FALSE
+					dw_indu.visible = TRUE
+					dw_indu.triggerEvent("edw_lecture", 0, "")
+					ii_pass = 2
+				else
+					dw_liste.triggerEvent("edw_lecture", 0, "")
+				end if
+		end if
+	case SYNCHRO_CLOSE
+		this.ib_actif = FALSE
+	case SYNCHRO_CLOSE_QUERY
+	case SYNCHRO_RESET
+		il_cur_par_no = -1
+		dw_liste.triggerEvent("edw_lecture", 0, "")
+end choose' rule: #chooseCase
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testCondition [
 	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
 	self parse: 'this.validate()' rule: #condition.
