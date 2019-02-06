@@ -520,5 +520,6 @@ String is_dct_ou_dct_int
 { #category : #tests }
 PWBUserObjectParserTest >> testVariableOrType [
 	self parse: 'this.dw_liste' rule: #variableOrType.
-	self fail: 'if' rule: #variableOrType
+	self fail: 'if' rule: #variableOrType.
+	self parse: 'thisMatch' rule: #variableOrType.
 ]
