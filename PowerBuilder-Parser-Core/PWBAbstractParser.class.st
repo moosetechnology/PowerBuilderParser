@@ -40,7 +40,9 @@ Class {
 		'reservedKeyword',
 		'ifMultiLine',
 		'ifSingleLine',
-		'newlines'
+		'newlines',
+		'specialStatement',
+		'exitStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -68,7 +70,7 @@ PWBAbstractParser class >> supportedExtensions [
 
 { #category : #accessing }
 PWBAbstractParser >> argument [
-	^ ('ref' parser , blank) optional , type , blank , identifier
+	^ ('ref' token , blank) optional , type , blank , identifier
 ]
 
 { #category : #accessing }
@@ -177,15 +179,16 @@ PWBAbstractParser >> functionInvocation [
 
 { #category : #accessing }
 PWBAbstractParser >> identifier [
-	self flag: #TODO. "improve identifier to accept thisCustomer for example"
-	^ (reservedKeyword not , (#letter parser / $_ parser)
-		, (#letter parser / $_ parser / #digit parser) star) flatten
+	self flag: #TODO.	"improve identifier to accept thisCustomer for example"
+	^ ((reservedKeyword not , (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star)
+		/ (reservedKeyword , (#letter parser / $_ parser / #digit parser) plus)) flatten
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> ifMultiLine [
-	^ 'if' token , blank , condition , blank , 'then' token , blank , statements , blank
-		, ('else' token , blank , statements) optional , (self endOf: 'if')
+	^ 'if' token , blank , condition , blank , 'then' token , blank , statements
+		, (blank , 'elseif' token , blank , expression , blank , 'then' token , blank , statements) star , (blank , 'else' token , blank , statements) optional , newlines
+		, (self endOf: 'if')
 ]
 
 { #category : #accessing }
@@ -205,7 +208,7 @@ PWBAbstractParser >> methodInvocation [
 
 { #category : #accessing }
 PWBAbstractParser >> newlines [
-	^ (#blank parser / #newline parser) star
+	^ (#blank parser star , #newline parser) plus, blank
 ]
 
 { #category : #accessing }
@@ -216,10 +219,7 @@ PWBAbstractParser >> number [
 { #category : #accessing }
 PWBAbstractParser >> operatorExpression [
 	^ parenthesedExpression / expressionTerm , methodInvocation optional , blank
-		,
-			(self
-				parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or'))
-		, blank , expression
+		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or')) , blank , expression
 ]
 
 { #category : #accessing }
@@ -245,12 +245,12 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 
 { #category : #accessing }
 PWBAbstractParser >> reservedKeyword [
-	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while')
+	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for')
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> returnStatement [
-	^ 'return' parser
+	^ 'return' parser , (blank , expression) optional
 ]
 
 { #category : #accessing }
@@ -266,7 +266,7 @@ PWBAbstractParser >> statement [
 
 { #category : #accessing }
 PWBAbstractParser >> statements [
-	^ statement separatedBy: newlines
+	^ statement separatedBy: blank
 ]
 
 { #category : #accessing }
