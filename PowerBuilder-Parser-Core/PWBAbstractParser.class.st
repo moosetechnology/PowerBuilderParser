@@ -36,7 +36,11 @@ Class {
 		'condition',
 		'returnStatement',
 		'methodInvocation',
-		'defaultVariable'
+		'defaultVariable',
+		'reservedKeyword',
+		'ifMultiLine',
+		'ifSingleLine',
+		'newlines'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -174,19 +178,34 @@ PWBAbstractParser >> functionInvocation [
 { #category : #accessing }
 PWBAbstractParser >> identifier [
 	self flag: #TODO. "improve identifier to accept thisCustomer for example"
-	^ ('this' parser not , 'end' parser not , (#letter parser / $_ parser)
+	^ (reservedKeyword not , (#letter parser / $_ parser)
 		, (#letter parser / $_ parser / #digit parser) star) flatten
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> ifMultiLine [
+	^ 'if' token , blank , condition , blank , 'then' token , blank , statements , blank
+		, ('else' token , blank , statements) optional , (self endOf: 'if')
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> ifSingleLine [
+	^ 'if' token , blank , condition , blank , 'then' token , blank , statement
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> ifStatement [
-	^ 'if' parser , blank , condition , blank , 'then' parser , blank , statements , blank
-		, (self endOf: 'if')
+	^ ifMultiLine / ifSingleLine
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> methodInvocation [
 	^ $. parser, identifier, blank, functionArguments
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> newlines [
+	^ (#blank parser / #newline parser) star
 ]
 
 { #category : #accessing }
@@ -225,6 +244,11 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> reservedKeyword [
+	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while')
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> returnStatement [
 	^ 'return' parser
 ]
@@ -242,7 +266,7 @@ PWBAbstractParser >> statement [
 
 { #category : #accessing }
 PWBAbstractParser >> statements [
-	^ statement separatedBy: blank
+	^ statement separatedBy: newlines
 ]
 
 { #category : #accessing }

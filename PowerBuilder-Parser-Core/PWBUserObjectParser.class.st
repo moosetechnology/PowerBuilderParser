@@ -23,7 +23,10 @@ Class {
 		'subroutineDeclaration',
 		'case',
 		'expressionList',
-		'chooseCase'
+		'chooseCase',
+		'functionSignature',
+		'functionDefinition',
+		'doLoopWhile'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -70,6 +73,12 @@ PWBUserObjectParser >> customCallStatement [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> doLoopWhile [
+	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
+		, expression
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> endForward [ 
 	^ 'end forward' parser
 ]
@@ -81,9 +90,8 @@ PWBUserObjectParser >> eventAttribute [
 
 { #category : #accessing }
 PWBUserObjectParser >> eventDeclaration [
-	^ 'event' parser , blank , identifier , $; parser
-		, (customCallStatement , $; parser) optional , blank , statements , blank
-		, 'end event' parser
+	^ 'event' parser , blank , identifier , arguments optional , $; parser
+		, (customCallStatement , $; parser) optional , blank , statements optional , blank , 'end event' parser
 ]
 
 { #category : #accessing }
@@ -104,6 +112,16 @@ PWBUserObjectParser >> fromClause [
 
 { #category : #accessing }
 PWBUserObjectParser >> functionDeclaration [
+	^ functionSignature
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> functionDefinition [
+	^ functionSignature , $; parser , blank , statements , blank , (self endOf: 'function')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> functionSignature [
 	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
 		, arguments
 ]
@@ -114,6 +132,11 @@ PWBUserObjectParser >> globalVariableDeclaration [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> ifStatement [
+	^ super ifStatement
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> prototypesDeclaration [
 	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
 		, blank , (self endOf: 'prototypes')
@@ -121,7 +144,7 @@ PWBUserObjectParser >> prototypesDeclaration [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ chooseCase / super statement
+	^ chooseCase / functionDefinition / doLoopWhile / super statement
 ]
 
 { #category : #accessing }
