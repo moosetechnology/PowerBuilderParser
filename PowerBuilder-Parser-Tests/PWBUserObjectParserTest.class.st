@@ -354,6 +354,20 @@ end if'
 		rule: #ifStatement
 ]
 
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement3 [
+	self
+		parse:
+			'if ii_dossier_type = DOSSIER_ADHERENT then
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "prt_adn")
+				elseif ii_dossier_type = DOSSIER_PARTENAIRE then
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "ptn_no")
+				else
+					is_cur_adn = ldw_wz.getItemString(ldw_wz.getRow(), "ent_cod")
+				end if'
+		rule: #ifStatement
+]
+
 { #category : #tests }
 PWBUserObjectParserTest >> testPrototypesDeclaration [
 	self
