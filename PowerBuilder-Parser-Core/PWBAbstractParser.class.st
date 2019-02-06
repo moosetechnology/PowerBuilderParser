@@ -153,6 +153,11 @@ PWBAbstractParser >> eventType [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> exitStatement [
+	^ 'exit' token
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> expression [
 	^ (operatorExpression / parenthesedExpression / expressionTerm), methodInvocation optional
 ]
@@ -254,13 +259,18 @@ PWBAbstractParser >> returnStatement [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> specialStatement [
+	^ returnStatement / exitStatement
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> start [
 	^ (file , blank) end optimize
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> statement [
-	^ returnStatement / assignationStatement / callStatement / ifStatement / functionInvocation
+	^ specialStatement / assignationStatement / callStatement / ifStatement / functionInvocation
 		/ expression
 ]
 
