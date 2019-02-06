@@ -97,6 +97,16 @@ PWBUserObjectParserTest >> testCondition [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testDoLoopWhile [
+	self parse: 'do 
+	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
+	if ll_wz = -1 then exit
+	atv_cible.collapseItem(ll_wz)
+	atv_cible.deleteItem(ll_wz)
+loop while 1 = 1' rule: #doLoopWhile
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testEventAttribute [
 	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
 	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
@@ -111,6 +121,23 @@ this.x = 0
 this.y = 0
 this.width = parent.width - 100
 this.height = (parent.height / 2) - 200
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testEventDeclaration2 [
+	self parse: 'event ue_rdc();
+if il_cot = 1 then
+	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
+else
+	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
+end if
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testEventDeclarationEmpty [
+	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
 ]
 
@@ -165,6 +192,103 @@ PWBUserObjectParserTest >> testFunctionDeclaration [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionDefinition [
+	self
+		parse: 'public function integer uf_charge_tv (ref datawindow adw_liste, ref treeview atv_cible, string as_col_phd, string as_col_hdl, long al_niveaux, ref str_tv_param astr_tv_param);
+
+
+if is_col_hdl = "xxx_xxx" or is_col_phd = "xxx_xxx" then
+	messageBox("Erreur", "les colonnes hdl et phd ne sont pas connues ...")
+	halt
+end if
+
+long ll_wz, ll_nz, ll_xz, ll_hz
+treeViewItem ltvi_wz
+
+
+do 
+	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
+	if ll_wz = -1 then exit
+	atv_cible.collapseItem(ll_wz)
+	atv_cible.deleteItem(ll_wz)
+loop while 1 = 1
+
+ll_nz = adw_liste.rowCount()
+
+if ll_nz < 1 then return 0
+
+
+for ll_wz = 1 to ll_nz
+	astr_tv_param.ligne = ll_wz
+	
+	
+	this.event etv_item_niveau(0, 0)
+	
+	ltvi_wz.pictureIndex = astr_tv_param.pictureIndex
+	ltvi_wz.selectedPictureIndex = astr_tv_param.selectedPictureIndex
+	
+	if astr_tv_param.niveau = 0 then
+		
+		
+		this.event etv_item_label(0, 0)
+		
+		ltvi_wz.label = astr_tv_param.label
+		ll_hz = atv_cible.insertItemSort(0, ltvi_wz)
+		adw_liste.setItem(ll_wz, as_col_phd, 0)
+		adw_liste.setItem(ll_wz, as_col_hdl, ll_hz)
+	else
+		adw_liste.setItem(ll_wz, as_col_phd, 0)
+		adw_liste.setItem(ll_wz, as_col_hdl, 0)
+	end if
+next
+
+
+for ll_xz = 1 to al_niveaux
+	for ll_wz = 1 to ll_nz
+		ll_hz = adw_liste.getItemNumber(ll_wz, as_col_hdl)
+		if ll_hz = 0 then
+			astr_tv_param.ligne = ll_wz
+			
+			
+			this.event etv_item_niveau(0, 0)
+			
+			ltvi_wz.pictureIndex = astr_tv_param.pictureIndex
+			ltvi_wz.selectedPictureIndex = astr_tv_param.selectedPictureIndex
+			if astr_tv_param.niveau = ll_xz then
+				
+				
+				this.event etv_item_label(0, 0)
+				
+				ltvi_wz.label = astr_tv_param.label
+				
+				
+				this.event etv_item_parent(0, 0)
+				
+				ll_hz = atv_cible.insertItemSort(astr_tv_param.parent_hdl, ltvi_wz)
+				adw_liste.setItem(ll_wz, as_col_phd, astr_tv_param.parent_hdl)
+				adw_liste.setItem(ll_wz, as_col_hdl, ll_hz)
+			end if
+		end if
+		if ll_xz = al_niveaux then	
+			adw_liste.setItemStatus(ll_wz, as_col_phd, primary!, notModified!)
+			adw_liste.setItemStatus(ll_wz, as_col_hdl, primary!, notModified!)
+		end if		
+	next
+next
+
+
+ll_wz = atv_cible.findItem(rootTreeItem!, 0)
+atv_cible.selectItem(ll_wz)
+atv_cible.collapseItem(ll_wz)
+atv_cible.setFocus()
+
+return 1
+
+end function'
+		rule: #functionDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testFunctionInvocation1 [
 	self
 		parse:
@@ -182,7 +306,23 @@ PWBUserObjectParserTest >> testIfStatement [
 	self parse: 'if this.ib_exe_cascade = TRUE then
 	this.postEvent(rowFocusChanged!)
 	return
-end if' rule: #ifStatement
+end if' rule: #ifStatement.
+	self parse: 'if ll_wz = -1 then exit' rule: #ifStatement.
+
+
+
+]
+
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement2 [
+	self
+		parse:
+			'if il_cot = 1 then
+	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
+else
+	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
+end if'
+		rule: #ifStatement
 ]
 
 { #category : #tests }
@@ -350,5 +490,6 @@ String is_dct_ou_dct_int
 
 { #category : #tests }
 PWBUserObjectParserTest >> testVariableOrType [
-	self parse: 'this.dw_liste' rule: #variableOrType
+	self parse: 'this.dw_liste' rule: #variableOrType.
+	self fail: 'if' rule: #variableOrType
 ]
