@@ -142,6 +142,35 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testForLoop1 [
+	self
+		parse: 'for ll_wz = 1 to ll_nz
+	astr_tv_param.ligne = ll_wz
+	
+	
+	this.event.etv_item_niveau(0, 0)
+	
+	ltvi_wz.pictureIndex = astr_tv_param.pictureIndex
+	ltvi_wz.selectedPictureIndex = astr_tv_param.selectedPictureIndex
+	
+	if astr_tv_param.niveau = 0 then
+		
+		
+		this.event.etv_item_label(0, 0)
+		
+		ltvi_wz.label = astr_tv_param.label
+		ll_hz = atv_cible.insertItemSort(0, ltvi_wz)
+		adw_liste.setItem(ll_wz, as_col_phd, 0)
+		adw_liste.setItem(ll_wz, as_col_hdl, ll_hz)
+	else
+		adw_liste.setItem(ll_wz, as_col_phd, 0)
+		adw_liste.setItem(ll_wz, as_col_hdl, 0)
+	end if
+next'
+		rule: #forLoop
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testFunctionDeclaration [
 	self
 		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
