@@ -26,7 +26,9 @@ Class {
 		'chooseCase',
 		'functionSignature',
 		'functionDefinition',
-		'doLoopWhile'
+		'doLoopWhile',
+		'variableDeclarations',
+		'forLoop'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -48,7 +50,7 @@ PWBUserObjectParser >> assignationStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> attribute [
-	^ type , (blank , identifier , assignation optional separatedBy: $, parser)
+	^ variableDeclarations
 ]
 
 { #category : #accessing }
@@ -106,6 +108,12 @@ PWBUserObjectParser >> file [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> forLoop [
+	^ 'for' token , blank , assignationStatement , blank , 'to' token , blank , expression , (blank , 'step' token , blank , expression) optional , newlines , statements
+		, newlines , 'next' token
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> fromClause [
 	^ 'from' parser , blank , customType , blank
 ]
@@ -144,7 +152,7 @@ PWBUserObjectParser >> prototypesDeclaration [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ chooseCase / functionDefinition / doLoopWhile / super statement
+	^ forLoop / chooseCase / functionDefinition / doLoopWhile / variableDeclarations / super statement
 ]
 
 { #category : #accessing }
@@ -168,6 +176,11 @@ PWBUserObjectParser >> typeDeclaration [
 { #category : #accessing }
 PWBUserObjectParser >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> variableDeclarations [
+	^ type , (blank , identifier , assignation optional separatedBy: $, parser)
 ]
 
 { #category : #accessing }
