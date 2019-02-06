@@ -396,9 +396,16 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testReturnStatement [
+	self parse: 'return 0' rule: #returnStatement.
+	self parse: 'return' rule: #returnStatement
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testStatement [
 	self parse: 'dw_detail.setFocus()' rule: #statement.
-	self parse: 'return' rule: #statement
+	self parse: 'return' rule: #statement.
+	self parse: 'long ll_par_no' rule: #statement
 ]
 
 { #category : #tests }
