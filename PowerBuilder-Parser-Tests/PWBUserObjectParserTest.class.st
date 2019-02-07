@@ -19,7 +19,7 @@ PWBUserObjectParserTest >> testAssignationStatement [
 	self parse: 'this.Control[]={this.dw_liste,this.dw_detail}' rule: #assignationStatement.
 	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
 	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement.
-	
+	self parse: 'll_qtm = Long(f_liq_cod("QTM"))' rule: #assignationStatement.
 ]
 
 { #category : #tests }
@@ -326,6 +326,14 @@ PWBUserObjectParserTest >> testFunctionInvocation1 [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionInvocation2 [
+	self
+		parse:
+			'MessageBox("Montant calculé # : correction   caisse:" + ls_num_cai_pre, 			           "Ld_MT_Solde=" + string(Ld_MT_Solde) + " ~r~n" + 						  "ld_mt_report_pre=" + string(ld_mt_report_pre) + " ~r~n" + 						  "ld_ent_pre = " + string(ld_ent_pre) + " ~r~n" + 						  "ld_sor_pre = " + string(ld_sor_pre))'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -368,6 +376,18 @@ PWBUserObjectParserTest >> testIfStatement3 [
 		rule: #ifStatement
 ]
 
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement4 [
+	self
+		parse:
+			'IF Ld_MT_Solde <> (ld_mt_report_pre + ld_ent_pre - ld_sor_pre) THEN
+		If gs_uti_mdp = ''tdebug'' THEN
+		   MessageBox("Montant calculé # : correction   caisse:" + ls_num_cai_pre, 			           "Ld_MT_Solde=" + string(Ld_MT_Solde) + " ~r~n" + 						  "ld_mt_report_pre=" + string(ld_mt_report_pre) + " ~r~n" + 						  "ld_ent_pre = " + string(ld_ent_pre) + " ~r~n" + 						  "ld_sor_pre = " + string(ld_sor_pre))
+		
+	   END IF'
+		rule: #ifStatement
+]
+
 { #category : #tests }
 PWBUserObjectParserTest >> testPrototypesDeclaration [
 	self
@@ -398,7 +418,25 @@ end prototypes'
 { #category : #tests }
 PWBUserObjectParserTest >> testReturnStatement [
 	self parse: 'return 0' rule: #returnStatement.
-	self parse: 'return' rule: #returnStatement
+	self parse: 'return' rule: #returnStatement. 
+	self parse: 'RETURN FALSE' rule: #returnStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlCommitStatement [
+	self parse: 'commit;' rule: #sqlCommitStatement.
+	self parse: 'COMMIT USING Emp_tran ;' rule: #sqlCommitStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlQuery [
+	self
+		parse:
+			'SELECT max(caisse.num_cai)  
+   INTO :ls_num_cai_pre
+   FROM caisse  
+  WHERE caisse.uti = :is_cre_uti   ;'
+		rule: #sqlQuery
 ]
 
 { #category : #tests }
