@@ -42,7 +42,8 @@ Class {
 		'ifSingleLine',
 		'newlines',
 		'specialStatement',
-		'exitStatement'
+		'exitStatement',
+		'uncheckedIdentifier'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -56,6 +57,70 @@ PWBAbstractParser class >> parse: content fileExtension: fileExtension [
 { #category : #parsing }
 PWBAbstractParser class >> parse: aString fileName: aString2 [ 
 	self shouldBeImplemented.
+]
+
+{ #category : #parsing }
+PWBAbstractParser class >> scripts [
+	"just to store it"
+
+	| outputFile keep stream commentParser fileCleaner |
+	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/export' asFileReference
+		files
+		do: [ :aFile | 
+			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport/'
+				, aFile basename) asFileReference.
+			outputFile ensureDelete.
+			outputFile
+				writeStreamDo: [ :s | 
+					keep := false.
+					stream := aFile readStream.
+					stream encoder: ZnUTF16Encoder new.
+					ZnCharacterEncoder detectEncoding: aFile.
+					stream contents
+						linesDo: [ :aLine | 
+							keep
+								ifFalse: [ keep := (aLine beginsWith: '$') not ]
+								ifTrue: [ s nextPutAll: aLine.
+									s cr ] ] ] ].
+	commentParser := ('/*' parser , '*/' parser negate plus , '*/' parser)
+		/
+			($& parser , ' ' parser star
+				,
+					'
+' parser).
+	fileCleaner := ((commentParser negate plus flatten , commentParser optional)
+		==> [ :s | s first ]) plus
+		==> [ :s | String streamContents: [ :str | s do: [ :string | str nextPutAll: string ] ] ].
+	fileCleaner parse: 'testt /* comment */ of /* comment */ cleaning'.
+	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport'
+		asFileReference files
+		do: [ :aFile | 
+			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments/'
+				, aFile basename) asFileReference.
+			outputFile ensureDelete.
+			outputFile
+				writeStreamDo: [ :s | 
+					stream := aFile readStream.
+					s
+						nextPutAll:
+							(fileCleaner
+								parse:
+									(String
+										streamContents: [ :str | 
+											stream contents
+												linesDo: [ :aLine | 
+													str nextPutAll: ('//.*' asRegex copy: aLine replacingMatchesWith: '').
+													str cr ] ])) ] ].
+	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments'
+		asFileReference files
+		collect: [ :aFile | 
+			| result |
+			stream := aFile readStream.
+			stream encoder: ZnUTF8Encoder new.
+			result := PWBAbstractParser parse: stream contents fileExtension: aFile extension.
+			result isPetit2Failure
+				ifTrue: [ result debugObject file: aFile ]
+				ifFalse: [ result ] ]
 ]
 
 { #category : #parsing }
@@ -105,7 +170,7 @@ PWBAbstractParser >> blank [
 
 { #category : #accessing }
 PWBAbstractParser >> booleanValue [
-	^ self parserFor: #('yes' 'no' 'YES' 'NO')
+	^ 'yes' token / 'no' token
 ]
 
 { #category : #accessing }
@@ -142,7 +207,7 @@ PWBAbstractParser >> defaultVariable [
 { #category : #accessing }
 PWBAbstractParser >> endOf: aReservedWord [
 	"It seems that a / can finish anything"
-	^ ('end ' parser, aReservedWord parser) / $/ parser
+	^ ('end ' token, aReservedWord token) 
 ]
 
 { #category : #accessing }
@@ -164,7 +229,7 @@ PWBAbstractParser >> expression [
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
-	^ constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
+	^ functionInvocation / constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -179,7 +244,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	^ identifier, blank, functionArguments
+	^ uncheckedIdentifier, blank, functionArguments
 ]
 
 { #category : #accessing }
@@ -255,7 +320,7 @@ PWBAbstractParser >> reservedKeyword [
 
 { #category : #accessing }
 PWBAbstractParser >> returnStatement [
-	^ 'return' parser , (blank , expression) optional
+	^ 'return' token , (blank , expression) optional
 ]
 
 { #category : #accessing }
@@ -287,6 +352,11 @@ PWBAbstractParser >> string [
 { #category : #accessing }
 PWBAbstractParser >> type [
 	^ parametrizedType / basicType / customType 
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> uncheckedIdentifier [
+	^ (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star
 ]
 
 { #category : #accessing }

@@ -28,7 +28,10 @@ Class {
 		'functionDefinition',
 		'doLoopWhile',
 		'variableDeclarations',
-		'forLoop'
+		'forLoop',
+		'sqlQuery',
+		'transactionObject',
+		'sqlCommitStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -151,13 +154,30 @@ PWBUserObjectParser >> prototypesDeclaration [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> sqlCommitStatement [
+	^ 'commit' token , blank , ('using' token , blank , transactionObject , blank) optional
+		, $; parser
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> sqlQuery [
+	^ 'select' token , blank , (string / $; parser negate) plus , $; parser
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ forLoop / chooseCase / functionDefinition / doLoopWhile / variableDeclarations / super statement
+	^ sqlCommitStatement / sqlQuery / forLoop / chooseCase / functionDefinition / doLoopWhile
+		/ variableDeclarations / super statement
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> subroutineDeclaration [
 	^ accessModifier , blank , 'subroutine' parser , blank , identifier , blank , arguments
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> transactionObject [
+	^ identifier
 ]
 
 { #category : #accessing }
