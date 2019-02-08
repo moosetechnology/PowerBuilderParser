@@ -20,6 +20,9 @@ PWBUserObjectParserTest >> testAssignationStatement [
 	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
 	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement.
 	self parse: 'll_qtm = Long(f_liq_cod("QTM"))' rule: #assignationStatement.
+	self
+		parse: 'Ls_SqlSelect += " where det_cai.lib like " + "''" + ls_dct_dss + "%''"'
+		rule: #assignationStatement
 ]
 
 { #category : #tests }
@@ -381,6 +384,17 @@ end function'
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionDefinition1 [
+	self
+		parse: 'private function integer uf_traitement_dossier (long al_lig);
+
+return 1
+
+end function'
+		rule: #functionDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testFunctionInvocation1 [
 	self
 		parse:
@@ -463,6 +477,11 @@ PWBUserObjectParserTest >> testIfStatement5 [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testMethodInvocation [
+	self parse: '.setitem(1,"mt_tra", -ld_mt_mvt)' rule: #methodInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testPrototypesDeclaration [
 	self
 		parse:
@@ -510,6 +529,16 @@ PWBUserObjectParserTest >> testSqlQuery [
    INTO :ls_num_cai_pre
    FROM caisse  
   WHERE caisse.uti = :is_cre_uti   ;'
+		rule: #sqlQuery
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlQuery2 [
+	self
+		parse:
+			'update dct
+		set dct_nbe = :ll_nbe
+		where ( dct.dct_dss = :al_dss ) ;'
 		rule: #sqlQuery
 ]
 
