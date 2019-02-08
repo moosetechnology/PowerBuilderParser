@@ -152,7 +152,7 @@ PWBAbstractParser >> array [
 
 { #category : #accessing }
 PWBAbstractParser >> assignation [
-	^ blank, $= parser, blank, expression
+	^ blank , ($= parser / '+=' parser) , blank , expression
 ]
 
 { #category : #accessing }

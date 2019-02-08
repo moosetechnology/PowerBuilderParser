@@ -32,7 +32,8 @@ Class {
 		'sqlQuery',
 		'transactionObject',
 		'sqlCommitStatement',
-		'doWhileLoop'
+		'doWhileLoop',
+		'dirtyStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -79,6 +80,11 @@ PWBUserObjectParser >> customCallStatement [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> dirtyStatement [
+	^ #newline parser negate plus
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> doLoopWhile [
 	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
 		, expression
@@ -114,8 +120,9 @@ PWBUserObjectParser >> expressionList [
 
 { #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeVariable / typeDeclaration / endForward / globalVariableDeclaration
-		/ triggerDefinition / eventDeclaration / prototypesDeclaration separatedBy: blank
+	^ typeVariable / typeDeclaration / functionDefinition / endForward
+		/ globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration
+		separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -169,13 +176,13 @@ PWBUserObjectParser >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> sqlQuery [
-	^ 'select' token , blank , (string / $; parser negate) plus , $; parser
+	^ 'select' token / 'update' token , blank , (string / $; parser negate) plus , $; parser
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ sqlCommitStatement / sqlQuery / forLoop / chooseCase / functionDefinition / doLoopWhile
-		/ doWhileLoop / variableDeclarations / super statement
+	^ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
+		/ doWhileLoop / variableDeclarations / super statement 
 ]
 
 { #category : #accessing }
