@@ -31,7 +31,8 @@ Class {
 		'forLoop',
 		'sqlQuery',
 		'transactionObject',
-		'sqlCommitStatement'
+		'sqlCommitStatement',
+		'doWhileLoop'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -84,19 +85,26 @@ PWBUserObjectParser >> doLoopWhile [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> doWhileLoop [
+	^ 'do' token , blank , 'while' token , blank , expression , blank , statements , blank
+		, 'loop' token
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> endForward [ 
 	^ 'end forward' parser
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> eventAttribute [
-	^ 'event' parser , blank , type , blank , (arguments / variable)
+	^ 'event' token , blank , type , blank , (arguments / variable)
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> eventDeclaration [
-	^ 'event' parser , blank , identifier , arguments optional , $; parser
-		, (customCallStatement , $; parser) optional , blank , statements optional , blank , 'end event' parser
+	^ 'event' token , blank , identifier , arguments optional , $; parser
+		, (customCallStatement , $; parser) optional , blank , statements optional , blank
+		, (self endOf: 'event')
 ]
 
 { #category : #accessing }
@@ -167,7 +175,7 @@ PWBUserObjectParser >> sqlQuery [
 { #category : #accessing }
 PWBUserObjectParser >> statement [
 	^ sqlCommitStatement / sqlQuery / forLoop / chooseCase / functionDefinition / doLoopWhile
-		/ variableDeclarations / super statement
+		/ doWhileLoop / variableDeclarations / super statement
 ]
 
 { #category : #accessing }
@@ -189,8 +197,8 @@ PWBUserObjectParser >> triggerDefinition [
 { #category : #accessing }
 PWBUserObjectParser >> typeDeclaration [
 	^ ('global' parser , blank) parser optional , 'type' parser , blank , customType , blank
-		, 'enumerated' parser trim optional , fromClause , withinClause optional
-		, attributes optional , 'end type' parser
+		, ('enumerated' parser , blank) optional , fromClause , ($` parser , customType, blank) optional
+		, withinClause optional , attributes optional , 'end type' parser
 ]
 
 { #category : #accessing }
@@ -205,5 +213,5 @@ PWBUserObjectParser >> variableDeclarations [
 
 { #category : #accessing }
 PWBUserObjectParser >> withinClause [
-	^ 'within' parser , blank , customType , blank
+	^ 'within' token , blank , customType , blank
 ]

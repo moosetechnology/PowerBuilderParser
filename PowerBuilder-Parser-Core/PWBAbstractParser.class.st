@@ -43,7 +43,9 @@ Class {
 		'newlines',
 		'specialStatement',
 		'exitStatement',
-		'uncheckedIdentifier'
+		'uncheckedIdentifier',
+		'notExpression',
+		'variableIncrement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -175,7 +177,7 @@ PWBAbstractParser >> booleanValue [
 
 { #category : #accessing }
 PWBAbstractParser >> callStatement [
-	^ ('call' parser / 'CALL' parser) , blank , variable , ($` parser , identifier) optional
+	^ ('call' token) , blank , variable , ($` parser , identifier) optional
 		, '::' parser , eventType
 ]
 
@@ -229,7 +231,7 @@ PWBAbstractParser >> expression [
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
-	^ functionInvocation / constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -282,6 +284,11 @@ PWBAbstractParser >> newlines [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> notExpression [
+	^ 'not' token , blank , expression
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> number [
 	^ ($+ parser / $- parser , blank) optional , #digit parser plus
 ]
@@ -315,7 +322,7 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 
 { #category : #accessing }
 PWBAbstractParser >> reservedKeyword [
-	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for')
+	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not')
 ]
 
 { #category : #accessing }
@@ -335,8 +342,8 @@ PWBAbstractParser >> start [
 
 { #category : #accessing }
 PWBAbstractParser >> statement [
-	^ specialStatement / assignationStatement / callStatement / ifStatement / functionInvocation
-		/ expression
+	^ specialStatement / assignationStatement / callStatement / ifStatement
+		/ functionInvocation / variableIncrement / expression
 ]
 
 { #category : #accessing }
@@ -363,6 +370,11 @@ PWBAbstractParser >> uncheckedIdentifier [
 PWBAbstractParser >> variable [
 	^ 'this.' parser optional , identifier , $( parser not
 		, ($. parser , identifier , $( parser not) star , '[]' parser optional
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> variableIncrement [
+	^ variable , blank , '++' parser
 ]
 
 { #category : #accessing }
