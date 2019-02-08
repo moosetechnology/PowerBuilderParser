@@ -107,6 +107,69 @@ loop while 1 = 1' rule: #doLoopWhile
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testDoWhileLoop [
+	self parse: 'do while ll_lig_gpp <= ll_nbs_lig_gpp and not  iw_trt.wf_annuler()
+		
+		ll_gpp_no = dw_gpp_a_reval.getitemNumber(ll_lig_gpp, "gpp_no")
+		ls_gpp_ids = dw_gpp_a_reval.getitemString(ll_lig_gpp, "gpp_ids")
+		ls_adh_ctr = dw_gpp_a_reval.getitemString(ll_lig_gpp, "adh_ctr")
+		ll_par_par = dw_gpp_a_reval.getitemNumber(ll_lig_gpp, "par_par")
+		ls_acc_mcp = dw_gpp_a_reval.getitemString(ll_lig_gpp, "acc_mcp")
+		
+		
+		if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			string ls
+			ls = ""
+		end if
+		
+		
+
+
+		is_jrn_trt.s_prt_adn = ls_gpp_ids
+		is_jrn_trt.s_adh_ctr = ls_adh_ctr
+		
+		uf_aff("ctr_cur",ls_gpp_ids)
+		uf_aff("ctr_trt", string(ll_lig_gpp))
+		
+		ll_retour_fct = uf_modifications_paa(ls_gpp_ids, ll_par_par, ll_gpp_no)
+		
+		if ll_retour_fct = 1 then
+			
+			if dw_insert_paa.rowcount() > 0 then
+				ls_paa_val = dw_insert_paa.getitemstring(1, "paa_val")
+				
+				ll_retour_fct = uf_modification_ave(ls_gpp_ids, ll_gpp_no, ls_paa_val)
+				if ll_retour_fct = 1 then
+					
+					dw_paa.triggerEvent("edw_sauver", 0, "")
+					dw_insert_paa.triggerEvent("edw_sauver", 0, "")
+					
+					
+					uf_creer_evn_mtr(ls_adh_ctr, "INDEX", "INDEX", ll_gpp_no, ll_par_par, "INDEX", ls_gpp_ids, ls_acc_mcp)
+					
+					
+					dw_paa.reset()
+					dw_insert_paa.reset()
+									
+					il_nbs_gpp_trt ++
+				end if	
+			end if
+		end if
+		
+		if ll_retour_fct = 0 then
+			
+			il_nbs_plafond_atteint ++
+		elseif ll_retour_fct <> 1 then
+			
+			il_nbs_gpp_err ++
+		end if
+
+		ll_lig_gpp ++
+		
+	loop' rule: #doWhileLoop
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testEventAttribute [
 	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
 	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
@@ -388,6 +451,17 @@ PWBUserObjectParserTest >> testIfStatement4 [
 		rule: #ifStatement
 ]
 
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement5 [
+	self
+		parse:
+			'if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			string ls
+			ls = ""
+		end if'
+		rule: #ifStatement
+]
+
 { #category : #tests }
 PWBUserObjectParserTest >> testPrototypesDeclaration [
 	self
@@ -443,7 +517,8 @@ PWBUserObjectParserTest >> testSqlQuery [
 PWBUserObjectParserTest >> testStatement [
 	self parse: 'dw_detail.setFocus()' rule: #statement.
 	self parse: 'return' rule: #statement.
-	self parse: 'long ll_par_no' rule: #statement
+	self parse: 'long ll_par_no' rule: #statement.
+	self parse: 'il_nbs_gpp_trt ++' rule: #statement
 ]
 
 { #category : #tests }
@@ -517,6 +592,14 @@ end type' rule: #typeDeclaration.
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testTypeDeclaration2 [
+	self parse: 'type st_titre from uo_traitement`st_titre within uo_traitement_cot_prb
+int Width=819
+string Text="COT_PRB"
+end type' rule: #typeDeclaration.
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testTypeDeclarationAddedAttributes [
 	self
 		parse:
@@ -550,30 +633,6 @@ string is_uti_trt = "IDXAD"
 string is_sql_ave
 datastore lds_ave
 end variables' rule: #typeVariable.
-]
-
-{ #category : #tests }
-PWBUserObjectParserTest >> testTypeVariableSlash [
-	self parse: 'type variables
-boolean ib_actif = FALSE
-
-integer ii_dossier_type = -1
-integer ii_sous_dossier_type = - 1
-long il_cur_par_no = -1
-string is_cur_adn = ""
-
-long il_cur_caisse, il_cot
-string is_cre_uti = ''?''
-string is_ech_neg, is_rgl_brd, is_cot_imp, is_gal_gca, is_gen_reg, is_ges_ind, is_des_aff
-decimal id_solde
-boolean ib_relecture = FALSE
-boolean ib_annul_rejet = FALSE
-string is_ges_arj
-
-
-String is_dct_ou_dct_int
-
-/' rule: #typeVariable.
 ]
 
 { #category : #tests }

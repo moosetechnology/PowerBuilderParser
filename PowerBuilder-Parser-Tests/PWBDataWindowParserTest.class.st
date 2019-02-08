@@ -61,10 +61,7 @@ PWBDataWindowParserTest >> testExpression [
 	self parse: '(("al_chq_no", number))' rule: #expression.
 	self parse: 'parent.width - 100' rule: #expression.
 	self parse: '1 = 1' rule: #expression.
-	
-
-
-
+	self parse: 'not isValid(gw_utile)' rule: #expression
 ]
 
 { #category : #accessing }
