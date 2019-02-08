@@ -45,7 +45,8 @@ Class {
 		'exitStatement',
 		'uncheckedIdentifier',
 		'notExpression',
-		'variableIncrement'
+		'variableIncrement',
+		'expressionWithSign'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -226,12 +227,17 @@ PWBAbstractParser >> exitStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> expression [
-	^ (operatorExpression / parenthesedExpression / expressionTerm), methodInvocation optional
+	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation optional
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
 	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> expressionWithSign [
+	^ $+ parser / $- parser , expression
 ]
 
 { #category : #accessing }

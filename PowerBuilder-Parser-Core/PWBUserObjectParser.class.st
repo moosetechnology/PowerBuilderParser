@@ -147,6 +147,11 @@ PWBUserObjectParser >> functionDefinition [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> functionInvocation [ 
+	^ super functionInvocation 
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> functionSignature [
 	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
 		, arguments
