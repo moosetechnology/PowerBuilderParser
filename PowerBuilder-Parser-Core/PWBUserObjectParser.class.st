@@ -171,8 +171,19 @@ PWBUserObjectParser >> globalVariableDeclaration [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> gotoStatement [
+	^ 'goto' token , blank , identifier
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> ifStatement [
 	^ super ifStatement
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> programStep [
+	"It is a program step that can be the target of a goto"
+	^ identifier , $: parser
 ]
 
 { #category : #accessing }
@@ -234,11 +245,6 @@ PWBUserObjectParser >> typeDeclaration [
 { #category : #accessing }
 PWBUserObjectParser >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
-]
-
-{ #category : #accessing }
-PWBUserObjectParser >> unknownStatement [
-	^ identifier , $: parser
 ]
 
 { #category : #accessing }
