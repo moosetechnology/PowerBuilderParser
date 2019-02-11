@@ -40,7 +40,9 @@ Class {
 		'usingClause',
 		'sqlRollbackStatement',
 		'subroutineSignature',
-		'subroutineDefinition'
+		'subroutineDefinition',
+		'doUntilLoop',
+		'doLoopUntil'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -98,9 +100,21 @@ PWBUserObjectParser >> dirtyStatement [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> doLoopUntil [
+	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'until' token , blank
+		, expression
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> doLoopWhile [
 	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
 		, expression
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> doUntilLoop [
+	^ 'do' token , blank , 'until' token , blank , expression , blank , statements , blank
+		, 'loop' token
 ]
 
 { #category : #accessing }
@@ -218,8 +232,9 @@ PWBUserObjectParser >> sqlRollbackStatement [
 { #category : #accessing }
 PWBUserObjectParser >> statement [
 	^ programStep / gotoStatement / sqlRollbackStatement
-		/ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
-		/ doWhileLoop / variableDeclarations / super statement
+		/ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doWhileLoop
+		/ doUntilLoop / doLoopWhile / doLoopUntil / variableDeclarations
+		/ super statement
 ]
 
 { #category : #accessing }
