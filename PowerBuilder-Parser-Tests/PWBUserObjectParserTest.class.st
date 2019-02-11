@@ -41,7 +41,12 @@ PWBUserObjectParserTest >> testAssignationStatement [
 		rule: #assignationStatement.
 	self
 		parse: 'am_menu.m_contextuel.m_nouveau_dd.item[1].enabled = false'
+		rule: #assignationStatement.
+	self
+		parse: 'this.Control[iCurrent+1]=this.dw_grp'
 		rule: #assignationStatement
+		
+	
 ]
 
 { #category : #tests }
