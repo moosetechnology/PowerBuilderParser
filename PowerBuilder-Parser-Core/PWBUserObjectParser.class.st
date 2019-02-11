@@ -194,8 +194,7 @@ PWBUserObjectParser >> prototypesDeclaration [
 
 { #category : #accessing }
 PWBUserObjectParser >> sqlCommitStatement [
-	^ 'commit' token , blank , ('using' token , blank , transactionObject , blank) optional
-		, $; parser
+	^ 'commit' token , blank , (usingClause , blank) optional , $; parser
 ]
 
 { #category : #accessing }
@@ -252,6 +251,11 @@ PWBUserObjectParser >> typeDeclaration [
 { #category : #accessing }
 PWBUserObjectParser >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> usingClause [
+	^ 'using' token , blank , transactionObject
 ]
 
 { #category : #accessing }
