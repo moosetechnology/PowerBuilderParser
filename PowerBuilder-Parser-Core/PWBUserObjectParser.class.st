@@ -34,7 +34,13 @@ Class {
 		'sqlCommitStatement',
 		'doWhileLoop',
 		'dirtyStatement',
-		'unknownStatement'
+		'programStep',
+		'gotoStatement',
+		'caseElse',
+		'usingClause',
+		'sqlRollbackStatement',
+		'subroutineSignature',
+		'subroutineDefinition'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -121,8 +127,9 @@ PWBUserObjectParser >> expressionList [
 
 { #category : #accessing }
 PWBUserObjectParser >> file [
-	^ typeVariable / typeDeclaration / functionDefinition / endForward
-		/ globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration
+	^ typeVariable / typeDeclaration / functionDefinition
+		/ subroutineDefinition / endForward / globalVariableDeclaration
+		/ triggerDefinition / eventDeclaration / prototypesDeclaration
 		separatedBy: blank
 ]
 
@@ -193,6 +200,16 @@ PWBUserObjectParser >> statement [
 
 { #category : #accessing }
 PWBUserObjectParser >> subroutineDeclaration [
+	^ subroutineSignature
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> subroutineDefinition [
+	^ subroutineSignature , $; parser , blank , statements , blank , (self endOf: 'subroutine')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> subroutineSignature [
 	^ accessModifier , blank , 'subroutine' parser , blank , identifier , blank , arguments
 ]
 
