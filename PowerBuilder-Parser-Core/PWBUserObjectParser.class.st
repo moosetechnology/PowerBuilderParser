@@ -72,13 +72,19 @@ PWBUserObjectParser >> attributes [
 
 { #category : #accessing }
 PWBUserObjectParser >> case [
-	^ 'case' token, blank, expressionList, blank, statements
+	^ 'case' token, blank, expressionList, blank, statements optional
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> caseElse [
+	^ 'case' token , blank , 'else' token , blank , statements optional
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> chooseCase [
 	^ 'choose' token , blank , 'case' token , blank , expression , blank
-		, (case separatedBy: blank) , blank , 'end choose' token
+		, (case separatedBy: blank) , blank , (caseElse , blank) optional
+		, 'end choose' token
 ]
 
 { #category : #accessing }
@@ -211,8 +217,9 @@ PWBUserObjectParser >> sqlRollbackStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ unknownStatement / sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
-		/ doWhileLoop / variableDeclarations / super statement 
+	^ programStep / gotoStatement / sqlRollbackStatement
+		/ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
+		/ doWhileLoop / variableDeclarations / super statement
 ]
 
 { #category : #accessing }
