@@ -205,6 +205,12 @@ PWBUserObjectParser >> sqlQuery [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> sqlRollbackStatement [
+	^ 'rollback' token , blank , (usingClause , blank) optional
+		, $; parser
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> statement [
 	^ unknownStatement / sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
 		/ doWhileLoop / variableDeclarations / super statement 
