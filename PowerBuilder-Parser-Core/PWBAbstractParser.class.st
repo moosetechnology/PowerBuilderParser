@@ -264,7 +264,7 @@ PWBAbstractParser >> identifier [
 
 { #category : #accessing }
 PWBAbstractParser >> ifMultiLine [
-	^ 'if' token , blank , condition , blank , 'then' token , blank , statements
+	^ 'if' token , blank , condition , blank , 'then' token , newlines , statements
 		, (blank , 'elseif' token , blank , expression , blank , 'then' token , blank , statements) star , (blank , 'else' token , blank , statements) optional , newlines
 		, (self endOf: 'if')
 ]

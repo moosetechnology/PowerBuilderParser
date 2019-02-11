@@ -33,7 +33,8 @@ Class {
 		'transactionObject',
 		'sqlCommitStatement',
 		'doWhileLoop',
-		'dirtyStatement'
+		'dirtyStatement',
+		'unknownStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -186,7 +187,7 @@ PWBUserObjectParser >> sqlQuery [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
+	^ unknownStatement / sqlCommitStatement / sqlQuery / forLoop / chooseCase / doLoopWhile
 		/ doWhileLoop / variableDeclarations / super statement 
 ]
 
@@ -216,6 +217,11 @@ PWBUserObjectParser >> typeDeclaration [
 { #category : #accessing }
 PWBUserObjectParser >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> unknownStatement [
+	^ identifier , $: parser
 ]
 
 { #category : #accessing }
