@@ -89,7 +89,7 @@ PWBDataWindowParser >> import [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> option [
-	^ variable, $= parser trim, optionValue
+	^ access, $= parser trim, optionValue
 ]
 
 { #category : #'as yet unclassified' }

@@ -10,6 +10,13 @@ PWBUserObjectParserTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testAccessOrType [
+	self parse: 'this.dw_liste' rule: #accessOrType.
+	self fail: 'if' rule: #accessOrType.
+	self parse: 'thisMatch' rule: #accessOrType.
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testArgument [
 	self parse: 'string as_param' rule: #argument
 ]
@@ -740,11 +747,4 @@ string is_uti_trt = "IDXAD"
 string is_sql_ave
 datastore lds_ave
 end variables' rule: #typeVariable.
-]
-
-{ #category : #tests }
-PWBUserObjectParserTest >> testVariableOrType [
-	self parse: 'this.dw_liste' rule: #variableOrType.
-	self fail: 'if' rule: #variableOrType.
-	self parse: 'thisMatch' rule: #variableOrType.
 ]

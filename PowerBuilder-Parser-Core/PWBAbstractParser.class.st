@@ -18,7 +18,6 @@ Class {
 		'assignationStatement',
 		'createInstruction',
 		'array',
-		'variableOrType',
 		'file',
 		'parenthesedExpression',
 		'operatorExpression',
@@ -47,7 +46,10 @@ Class {
 		'notExpression',
 		'variableIncrement',
 		'expressionWithSign',
-		'access'
+		'access',
+		'attributeAccess',
+		'arrayPosition',
+		'accessOrType'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -138,6 +140,19 @@ PWBAbstractParser class >> supportedExtensions [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> access [
+	^ variable
+		, attributeAccess star
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> accessOrType [
+	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it so a custom type will be considered as a variable"
+
+	^ parametrizedType / basicType / access	
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> argument [
 	^ ('ref' token , blank) optional , type , blank , identifier
 ]
@@ -153,13 +168,24 @@ PWBAbstractParser >> array [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> arrayPosition [
+	^ '[' parser , expression, ']' parser
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> assignation [
 	^ blank , ($= parser / '+=' parser) , blank , expression
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> assignationStatement [
-	^ variable , assignation 
+	^ access , assignation 
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> attributeAccess [
+	^ $. parser , uncheckedIdentifier , $( parser not
+		, arrayPosition optional
 ]
 
 { #category : #accessing }
@@ -233,7 +259,7 @@ PWBAbstractParser >> expression [
 
 { #category : #accessing }
 PWBAbstractParser >> expressionTerm [
-	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / variableOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -330,7 +356,7 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 
 { #category : #accessing }
 PWBAbstractParser >> reservedKeyword [
-	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not')
+	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case')
 ]
 
 { #category : #accessing }
@@ -376,18 +402,17 @@ PWBAbstractParser >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractParser >> variable [
-	^ 'this.' parser optional , identifier , $( parser not
-		, ($. parser , identifier , $( parser not) star , '[]' parser optional
+	^ 'this.' parser optional , identifier , $( parser not, '[]' parser optional
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> variableIncrement [
-	^ variable , blank , '++' parser
+	^ access , blank , '++' parser
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> variableOrType [
 	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it so a custom type will be considered as a variable"
 
-	^ parametrizedType / basicType / variable	
+	^ parametrizedType / basicType / access	
 ]
