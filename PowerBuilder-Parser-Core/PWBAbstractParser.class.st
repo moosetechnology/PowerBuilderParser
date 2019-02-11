@@ -141,8 +141,7 @@ PWBAbstractParser class >> supportedExtensions [
 
 { #category : #accessing }
 PWBAbstractParser >> access [
-	^ variable
-		, attributeAccess star
+	^ variable , arrayPosition optional , attributeAccess star
 ]
 
 { #category : #accessing }
