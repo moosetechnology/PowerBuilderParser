@@ -16,12 +16,24 @@ PWBUserObjectParserTest >> testArgument [
 
 { #category : #tests }
 PWBUserObjectParserTest >> testAssignationStatement [
-	self parse: 'this.Control[]={this.dw_liste,this.dw_detail}' rule: #assignationStatement.
-	self parse: 'this.dw_liste=create dw_liste' rule: #assignationStatement.
-	self parse: 'this.dw_detail=create dw_detail' rule: #assignationStatement.
-	self parse: 'll_qtm = Long(f_liq_cod("QTM"))' rule: #assignationStatement.
 	self
-		parse: 'Ls_SqlSelect += " where det_cai.lib like " + "''" + ls_dct_dss + "%''"'
+		parse: 'this.Control[]={this.dw_liste,this.dw_detail}'
+		rule: #assignationStatement.
+	self
+		parse: 'this.dw_liste=create dw_liste'
+		rule: #assignationStatement.
+	self
+		parse: 'this.dw_detail=create dw_detail'
+		rule: #assignationStatement.
+	self
+		parse: 'll_qtm = Long(f_liq_cod("QTM"))'
+		rule: #assignationStatement.
+	self
+		parse:
+			'Ls_SqlSelect += " where det_cai.lib like " + "''" + ls_dct_dss + "%''"'
+		rule: #assignationStatement.
+	self
+		parse: 'am_menu.m_contextuel.m_nouveau_dd.item[1].enabled = false'
 		rule: #assignationStatement
 ]
 
@@ -86,6 +98,52 @@ PWBUserObjectParserTest >> testChooseCase [
 		il_cur_par_no = -1
 		dw_liste.triggerEvent("edw_lecture", 0, "")
 end choose' rule: #chooseCase
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testChooseCase2 [
+	self parse: 'choose case ls_evn
+		case "AC","EN"
+			dw_det_app.setItem(ll_xz, "dct_evn", "AA")
+			dw_det_app.setItem(ll_xz, "dct_tlg", "C")
+			dw_det_app.setItem(ll_wz, "dct_crt", ld_dbt)
+			
+			
+			if ls_ValeurRDG_GAL_GCA = ''O'' then dw_det_app.setItem(ll_xz, "dct_trt", "SM") 
+			
+			
+			ld_dbt_aa = ld_dbt
+			ll_old_ll_wz = ll_wz
+			ll_old_nbe = ll_nbe
+			ll_old_ll_xz = ll_xz
+		case "DC"
+			dw_det_app.setItem(ll_xz, "dct_tlg", "D")
+			if ld_dbt = 0.00 then
+				dw_det_app.setItem(ll_xz, "dct_dbt", ld_crt)
+			else
+				dw_det_app.setItem(ll_xz, "dct_dbt", 0)
+			end if
+		case else
+			dw_det_app.setItem(ll_xz, "dct_tlg", "O")
+			if ld_dbt = 0.00 then
+				dw_det_app.setItem(ll_xz, "dct_dbt", ld_crt)
+			else
+				dw_det_app.setItem(ll_xz, "dct_dbt", 0)
+			end if
+	end choose' rule: #chooseCase
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testChooseCase3 [
+	self parse: 'choose case ls_evn
+		case "AC","EN"
+			ll_old_nbe = ll_nbe
+			ll_old_ll_xz = ll_xz
+		case "DC"
+			
+		case else
+			
+	end choose' rule: #chooseCase
 ]
 
 { #category : #tests }
@@ -415,6 +473,12 @@ PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
 
+{ #category : #tests }
+PWBUserObjectParserTest >> testGotoStatement [
+	self parse: 'Goto NextStep' rule: #gotoStatement.
+	self parse: 'GOTO OK' rule: #gotoStatement
+]
+
 { #category : #accessing }
 PWBUserObjectParserTest >> testIfStatement [
 	self parse: 'if this.ib_exe_cascade = TRUE then
@@ -540,6 +604,20 @@ PWBUserObjectParserTest >> testSqlQuery2 [
 		set dct_nbe = :ll_nbe
 		where ( dct.dct_dss = :al_dss ) ;'
 		rule: #sqlQuery
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlQuery3 [
+	self
+		parse:
+			'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;'
+		rule: #sqlQuery
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlRollbackStatement [
+	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
+	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
 ]
 
 { #category : #tests }

@@ -46,7 +46,8 @@ Class {
 		'uncheckedIdentifier',
 		'notExpression',
 		'variableIncrement',
-		'expressionWithSign'
+		'expressionWithSign',
+		'access'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -297,6 +298,7 @@ PWBAbstractParser >> notExpression [
 { #category : #accessing }
 PWBAbstractParser >> number [
 	^ ($+ parser / $- parser , blank) optional , #digit parser plus
+		, ($. parser , #digit parser plus) optional
 ]
 
 { #category : #accessing }
