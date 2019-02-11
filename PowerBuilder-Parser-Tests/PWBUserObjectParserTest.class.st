@@ -165,6 +165,20 @@ PWBUserObjectParserTest >> testCondition [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testDoLoopUntil [
+	self parse: 'do
+	ll_lig ++
+	ls_exp_val = gw_utile.dw_sys_ddex.getitemString(ll_lig, "exp_val") + ";"
+	ls_type_contrat_fen_sai = f_trt_param(ls_exp_val, "FEN_SAI")
+	
+	if pos("," + ls_type_contrat_fen_sai + ",", "," + as_type_contrat + ",") > 0 then
+		ls_typ_fen = f_trt_param(ls_exp_val, "TYP_FEN")
+		lb_trouve = true
+	end if
+loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testDoLoopWhile [
 	self parse: 'do 
 	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
@@ -172,6 +186,20 @@ PWBUserObjectParserTest >> testDoLoopWhile [
 	atv_cible.collapseItem(ll_wz)
 	atv_cible.deleteItem(ll_wz)
 loop while 1 = 1' rule: #doLoopWhile
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testDoUntilLoop [
+	self parse: 'do until ll_lig >= ll_nbs_lig or lb_trouve
+	ll_lig ++
+	ls_exp_val = gw_utile.dw_sys_ddex.getitemString(ll_lig, "exp_val") + ";"
+	ls_type_contrat_fen_sai = f_trt_param(ls_exp_val, "FEN_SAI")
+	
+	if pos("," + ls_type_contrat_fen_sai + ",", "," + as_type_contrat + ",") > 0 then
+		ls_typ_fen = f_trt_param(ls_exp_val, "TYP_FEN")
+		lb_trouve = true
+	end if
+loop' rule: #doUntilLoop
 ]
 
 { #category : #tests }
