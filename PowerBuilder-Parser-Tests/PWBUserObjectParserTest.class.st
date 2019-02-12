@@ -739,6 +739,27 @@ end on'
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testTryCatch [
+	self parse: 'try
+	string ll_test
+	if ll_wz = 0 then
+		setnull(ll_test)
+	else
+		ll_test = this.getItemString(ll_wz, "grp_cod")
+	end if
+	lm_menu.m_contextuel.m_ouv_orn_10.text = "Filtre population courante"
+	lm_menu.m_contextuel.m_ouv_orn_10.visible = TRUE
+	
+	if isnull(ll_test) then
+		lm_menu.m_contextuel.m_ouv_orn_10.enabled = FALSE
+	else
+		lm_menu.m_contextuel.m_ouv_orn_10.enabled = TRUE
+	end if
+	catch (runtimeerror E)
+	end try' rule: #tryCatch.
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testTypeDeclaration [
 	self parse: 'global type uo_consultation_histo_suppression_ech from userobject
 end type' rule: #typeDeclaration.
