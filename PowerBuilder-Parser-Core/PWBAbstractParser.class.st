@@ -189,8 +189,8 @@ PWBAbstractParser >> booleanValue [
 
 { #category : #accessing }
 PWBAbstractParser >> callStatement [
-	^ ('call' token) , blank , variable , ($` parser , identifier) optional
-		, '::' parser , eventType
+	^ 'call' token , blank , (variable / defaultVariable)
+		, ($` parser , identifier) optional , '::' parser , eventType
 ]
 
 { #category : #accessing }
@@ -214,6 +214,13 @@ PWBAbstractParser >> customType [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> defaultEventType [
+	^ self
+		parserIgnoringCaseFor:
+			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create' 'destroy')
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> defaultVariable [
 	^ self parserIgnoringCaseFor: #('this' 'super')
 ]
@@ -226,9 +233,7 @@ PWBAbstractParser >> endOf: aReservedWord [
 
 { #category : #accessing }
 PWBAbstractParser >> eventType [
-	^ self
-		parserIgnoringCaseFor:
-			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create' 'destroy')
+	^ defaultEventType / identifier
 ]
 
 { #category : #accessing }
@@ -347,12 +352,17 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 PWBAbstractParser >> reservedKeyword [
 	^ self
 		parserIgnoringCaseFor:
-			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch')
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super')
 ]
 
 { #category : #accessing }
 PWBAbstractParser >> returnStatement [
-	^ 'return' token , (blank , expression) optional
+	^ 'return' token , (spaces , expression) optional
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> spaces [
+	^ (Character space parser / Character tab parser) star
 ]
 
 { #category : #accessing }
