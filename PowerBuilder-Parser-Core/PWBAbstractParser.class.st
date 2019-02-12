@@ -220,7 +220,7 @@ PWBAbstractParser >> constant [
 
 { #category : #accessing }
 PWBAbstractParser >> createInstruction [
-	^ 'create' parser, blank, variable
+	^ 'create' token, blank, variable
 ]
 
 { #category : #accessing }
@@ -402,7 +402,7 @@ PWBAbstractParser >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractParser >> variable [
-	^ 'this.' parser optional , identifier , $( parser not, '[]' parser optional
+	^ 'this.' token optional , identifier , $( parser not, '[]' parser optional
 ]
 
 { #category : #accessing }

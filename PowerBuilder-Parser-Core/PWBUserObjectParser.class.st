@@ -92,7 +92,7 @@ PWBUserObjectParser >> chooseCase [
 
 { #category : #accessing }
 PWBUserObjectParser >> customCallStatement [
-	^ 'call' parser / 'CALL' parser , blank , 'super' parser , '::' parser , identifier
+	^ 'call' token , blank , 'super' token , '::' parser , identifier
 ]
 
 { #category : #accessing }
@@ -168,7 +168,7 @@ PWBUserObjectParser >> forLoop [
 
 { #category : #accessing }
 PWBUserObjectParser >> fromClause [
-	^ 'from' parser , blank , customType , blank
+	^ 'from' token , blank , customType , blank
 ]
 
 { #category : #accessing }
@@ -266,15 +266,15 @@ PWBUserObjectParser >> transactionObject [
 
 { #category : #accessing }
 PWBUserObjectParser >> triggerDefinition [
-	^ 'on' parser , blank , identifier , $. parser , eventType , blank , statements , blank
-		, 'end on' parser
+	^ 'on' token , blank , identifier , $. parser , eventType , blank , statements , blank
+		, (self endOf: 'on')
 ]
 
 { #category : #accessing }
 PWBUserObjectParser >> typeDeclaration [
 	^ ('global' parser , blank) parser optional , 'type' parser , blank , customType , blank
 		, ('enumerated' parser , blank) optional , fromClause , ($` parser , customType, blank) optional
-		, withinClause optional , attributes optional , 'end type' parser
+		, withinClause optional , attributes optional , (self endOf: 'type')
 ]
 
 { #category : #accessing }

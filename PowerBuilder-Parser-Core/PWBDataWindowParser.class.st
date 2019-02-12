@@ -57,8 +57,7 @@ PWBDataWindowParser >> file [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> formatType [
-	^ (#('xml' 'pdf' 'xhtml') collect: #parser)
-		reduce: [ :a :b | a / b ]
+	^ self parserFor: #('xml' 'pdf' 'xhtml')
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,7 +67,8 @@ PWBDataWindowParser >> generator [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> generatorToken [
-	^ (#('htmlgen' 'xhtmlgen' 'cssgen' 'xmlgen' 'xsltgen' 'jsgen') collect: #parser) reduce: [ :a :b | a / b ]
+	^ self
+		parserFor: #('htmlgen' 'xhtmlgen' 'cssgen' 'xmlgen' 'xsltgen' 'jsgen')
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,8 +78,9 @@ PWBDataWindowParser >> graphicComponent [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowParser >> graphicComponentToken [
-	^ (#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line') collect: #parser)
-		reduce: [ :a :b | a / b ]
+	^ self
+		parserFor:
+			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line')
 ]
 
 { #category : #'as yet unclassified' }
