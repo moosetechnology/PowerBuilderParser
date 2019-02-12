@@ -300,6 +300,17 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testEventDeclaration3 [
+	self parse: 'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
+	is_dct_ou_dct_int = "dct"
+else
+	is_dct_ou_dct_int = "dct_int"
+end if
+dw_liste.triggerEvent("edw_lecture", 0, "")
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
@@ -578,6 +589,12 @@ PWBUserObjectParserTest >> testIfStatement5 [
 			ls = ""
 		end if'
 		rule: #ifStatement
+]
+
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement6 [
+	self parse: 'if isnull(is_ctr_rej) then is_ctr_rej = "N" else is_ctr_rej = trim(is_ctr_rej)' rule: #ifStatement.
+
 ]
 
 { #category : #tests }
