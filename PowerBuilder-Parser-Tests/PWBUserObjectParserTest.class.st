@@ -798,3 +798,11 @@ string is_sql_ave
 datastore lds_ave
 end variables' rule: #typeVariable.
 ]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testVariableDeclarations [
+	self
+		parse:
+			'date id_date_eff_rdg , id_dat_adh_init, id_date_eff, id_date_effet_tarif, id_dat_ff130, id_prm_app_deb'
+		rule: #variableDeclarations
+]
