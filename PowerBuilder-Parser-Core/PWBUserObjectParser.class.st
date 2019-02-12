@@ -75,6 +75,11 @@ PWBUserObjectParser >> attributes [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> callStatement [
+	^ super callStatement
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> case [
 	^ 'case' token, blank, expressionList, blank, statements optional
 ]

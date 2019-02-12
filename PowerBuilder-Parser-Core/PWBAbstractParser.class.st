@@ -49,7 +49,9 @@ Class {
 		'access',
 		'attributeAccess',
 		'arrayPosition',
-		'accessOrType'
+		'accessOrType',
+		'spaces',
+		'defaultEventType'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -69,9 +71,9 @@ PWBAbstractParser class >> parse: aString fileName: aString2 [
 PWBAbstractParser class >> scripts [
 	"just to store it"
 
-	| outputFile keep stream commentParser fileCleaner |
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/export' asFileReference
-		files
+	| outputFile keep stream |
+	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/export'
+		asFileReference files
 		do: [ :aFile | 
 			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport/'
 				, aFile basename) asFileReference.
@@ -88,16 +90,6 @@ PWBAbstractParser class >> scripts [
 								ifFalse: [ keep := (aLine beginsWith: '$') not ]
 								ifTrue: [ s nextPutAll: aLine.
 									s cr ] ] ] ].
-	commentParser := ('/*' parser , '*/' parser negate plus , '*/' parser)
-		/
-			($& parser , ' ' parser star
-				,
-					'
-' parser).
-	fileCleaner := ((commentParser negate plus flatten , commentParser optional)
-		==> [ :s | s first ]) plus
-		==> [ :s | String streamContents: [ :str | s do: [ :string | str nextPutAll: string ] ] ].
-	fileCleaner parse: 'testt /* comment */ of /* comment */ cleaning'.
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport'
 		asFileReference files
 		do: [ :aFile | 
@@ -107,23 +99,16 @@ PWBAbstractParser class >> scripts [
 			outputFile
 				writeStreamDo: [ :s | 
 					stream := aFile readStream.
-					s
-						nextPutAll:
-							(fileCleaner
-								parse:
-									(String
-										streamContents: [ :str | 
-											stream contents
-												linesDo: [ :aLine | 
-													str nextPutAll: ('//.*' asRegex copy: aLine replacingMatchesWith: '').
-													str cr ] ])) ] ].
+					s nextPutAll: (PWBPreprocessor parse: stream contents) ] ].
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments'
 		asFileReference files
 		collect: [ :aFile | 
 			| result |
 			stream := aFile readStream.
 			stream encoder: ZnUTF8Encoder new.
-			result := PWBAbstractParser parse: stream contents fileExtension: aFile extension.
+			result := PWBAbstractParser
+				parse: stream contents
+				fileExtension: aFile extension.
 			result isPetit2Failure
 				ifTrue: [ result debugObject file: aFile ]
 				ifFalse: [ result ] ]
@@ -253,7 +238,7 @@ PWBAbstractParser >> exitStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> expression [
-	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation optional
+	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation star
 ]
 
 { #category : #accessing }
