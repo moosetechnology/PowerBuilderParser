@@ -136,9 +136,15 @@ PWBUserObjectParser >> eventAttribute [
 
 { #category : #accessing }
 PWBUserObjectParser >> eventDeclaration [
-	^ 'event' token , blank , identifier , arguments optional , $; parser
-		, (customCallStatement , $; parser) optional , blank , statements optional , blank
-		, (self endOf: 'event')
+	^ 'event' token , blank , eventReferenceName , $; parser
+		, (customCallStatement , $; parser) optional , blank
+		, statements optional , blank , (self endOf: 'event')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> eventReferenceName [
+	^ (identifier , '::' parser) optional , identifier
+		, arguments optional
 ]
 
 { #category : #accessing }
