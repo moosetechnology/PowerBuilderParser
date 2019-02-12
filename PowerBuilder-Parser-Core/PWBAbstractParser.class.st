@@ -230,7 +230,7 @@ PWBAbstractParser >> customType [
 
 { #category : #accessing }
 PWBAbstractParser >> defaultVariable [
-	^ self parserFor: #('this' 'super')
+	^ self parserIgnoringCaseFor: #('this' 'super')
 ]
 
 { #category : #accessing }
