@@ -290,9 +290,13 @@ PWBAbstractParser >> identifier [
 
 { #category : #accessing }
 PWBAbstractParser >> ifMultiLine [
-	^ 'if' token , blank , condition , blank , 'then' token , newlines , statements
-		, (blank , 'elseif' token , blank , expression , blank , 'then' token , blank , statements) star , (blank , 'else' token , blank , statements) optional , newlines
-		, (self endOf: 'if')
+	^ 'if' token , blank , condition , blank , 'then' token , newlines
+		, statements optional
+		,
+			(blank optional, 'elseif' token , blank , expression , blank , 'then' token
+				, blank , statements optional) star
+		, (blank optional, 'else' token , blank , statements optional) optional
+		, newlines optional , (self endOf: 'if')
 ]
 
 { #category : #accessing }
@@ -356,7 +360,9 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 
 { #category : #accessing }
 PWBAbstractParser >> reservedKeyword [
-	^ self parserIgnoringCaseFor: #('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case')
+	^ self
+		parserIgnoringCaseFor:
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch')
 ]
 
 { #category : #accessing }

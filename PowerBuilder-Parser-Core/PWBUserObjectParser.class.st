@@ -43,7 +43,8 @@ Class {
 		'subroutineDefinition',
 		'doUntilLoop',
 		'doLoopUntil',
-		'eventReferenceName'
+		'eventReferenceName',
+		'tryCatch'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -239,9 +240,9 @@ PWBUserObjectParser >> sqlRollbackStatement [
 { #category : #accessing }
 PWBUserObjectParser >> statement [
 	^ programStep / gotoStatement / sqlRollbackStatement
-		/ sqlCommitStatement / sqlQuery / forLoop / chooseCase / doWhileLoop
-		/ doUntilLoop / doLoopWhile / doLoopUntil / variableDeclarations
-		/ super statement
+		/ sqlCommitStatement / sqlQuery / tryCatch / forLoop / chooseCase
+		/ doWhileLoop / doUntilLoop / doLoopWhile / doLoopUntil
+		/ variableDeclarations / super statement
 ]
 
 { #category : #accessing }
@@ -268,6 +269,15 @@ PWBUserObjectParser >> transactionObject [
 PWBUserObjectParser >> triggerDefinition [
 	^ 'on' token , blank , identifier , $. parser , eventType , blank , statements , blank
 		, (self endOf: 'on')
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> tryCatch [
+	^ 'try' token , (newlines , statements) optional
+		,
+			(blank , 'catch' token , blank , arguments
+				, (newlines , statements) optional) star , blank
+		, (self endOf: 'try')
 ]
 
 { #category : #accessing }
