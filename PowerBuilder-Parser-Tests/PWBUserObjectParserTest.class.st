@@ -67,7 +67,8 @@ PWBUserObjectParserTest >> testAttribute [
 { #category : #tests }
 PWBUserObjectParserTest >> testCallStatement [
 	self parse: 'call uo_traitement::create' rule: #callStatement.
-	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement
+	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
+	self parse: 'call super::edw_histo_suppression' rule: #callStatement
 ]
 
 { #category : #tests }
