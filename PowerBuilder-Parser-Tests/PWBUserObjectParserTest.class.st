@@ -44,7 +44,12 @@ PWBUserObjectParserTest >> testAssignationStatement [
 		rule: #assignationStatement.
 	self
 		parse: 'this.Control[iCurrent+1]=this.dw_grp'
+		rule: #assignationStatement.
+	self
+		parse: 'lpo_fenetre = parent.getParent().getParent().getParent().getParent()'
 		rule: #assignationStatement
+		
+		
 		
 	
 ]
