@@ -42,7 +42,8 @@ Class {
 		'subroutineSignature',
 		'subroutineDefinition',
 		'doUntilLoop',
-		'doLoopUntil'
+		'doLoopUntil',
+		'eventReferenceName'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -282,7 +283,8 @@ PWBUserObjectParser >> usingClause [
 
 { #category : #accessing }
 PWBUserObjectParser >> variableDeclarations [
-	^ type , (blank , identifier , assignation optional separatedBy: $, parser)
+	^ type , blank
+		, (identifier , assignation optional separatedBy: $, parser trim)
 ]
 
 { #category : #accessing }
