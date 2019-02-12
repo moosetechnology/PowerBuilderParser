@@ -584,7 +584,8 @@ PWBUserObjectParserTest >> testIfStatement4 [
 		If gs_uti_mdp = ''tdebug'' THEN
 		   MessageBox("Montant calculé # : correction   caisse:" + ls_num_cai_pre, 			           "Ld_MT_Solde=" + string(Ld_MT_Solde) + " ~r~n" + 						  "ld_mt_report_pre=" + string(ld_mt_report_pre) + " ~r~n" + 						  "ld_ent_pre = " + string(ld_ent_pre) + " ~r~n" + 						  "ld_sor_pre = " + string(ld_sor_pre))
 		
-	   END IF'
+	   END IF
+END IF'
 		rule: #ifStatement
 ]
 
@@ -869,5 +870,12 @@ PWBUserObjectParserTest >> testVariableDeclarations [
 	self
 		parse:
 			'date id_date_eff_rdg , id_dat_adh_init, id_date_eff, id_date_effet_tarif, id_dat_ff130, id_prm_app_deb'
+		rule: #variableDeclarations.
+	self
+		parse:
+			'string picturename[] = {"Custom039!","Custom050!","Custom088!","Custom066!","Custom006!","Custom061!","Custom035!","NotFound!","Custom044!","Custom038!","Start!"}'
+		rule: #variableDeclarations.
+	self
+		parse: 'string is_liste_det_ave[50,2],ls_col_name, ls_sql'
 		rule: #variableDeclarations
 ]
