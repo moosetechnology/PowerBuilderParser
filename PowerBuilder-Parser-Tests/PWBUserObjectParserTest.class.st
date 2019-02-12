@@ -47,11 +47,8 @@ PWBUserObjectParserTest >> testAssignationStatement [
 		rule: #assignationStatement.
 	self
 		parse: 'lpo_fenetre = parent.getParent().getParent().getParent().getParent()'
-		rule: #assignationStatement
-		
-		
-		
-	
+		rule: #assignationStatement.
+	self parse: 'll_mois -= 12' rule: #assignationStatement
 ]
 
 { #category : #tests }
