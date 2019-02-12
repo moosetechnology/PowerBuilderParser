@@ -597,6 +597,31 @@ PWBUserObjectParserTest >> testIfStatement6 [
 
 ]
 
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement7 [
+	self parse: 'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
+	
+		end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement8 [
+	self parse: 'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
+	else
+		end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement9 [
+	self parse: 'if true then
+	if false then a = 2
+	else 
+end if' rule: #ifStatement.
+
+]
+
 { #category : #tests }
 PWBUserObjectParserTest >> testMethodInvocation [
 	self parse: '.setitem(1,"mt_tra", -ld_mt_mvt)' rule: #methodInvocation
