@@ -297,7 +297,8 @@ PWBAbstractParser >> ifMultiLine [
 
 { #category : #accessing }
 PWBAbstractParser >> ifSingleLine [
-	^ 'if' token , blank , condition , blank , 'then' token , blank , statement
+	^ 'if' token , blank , condition , blank , 'then' token , blank
+		, statement , (blank, 'else' token , blank , statement) optional
 ]
 
 { #category : #accessing }
