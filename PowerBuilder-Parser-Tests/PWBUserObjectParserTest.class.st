@@ -68,7 +68,8 @@ PWBUserObjectParserTest >> testAttribute [
 PWBUserObjectParserTest >> testCallStatement [
 	self parse: 'call uo_traitement::create' rule: #callStatement.
 	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
-	self parse: 'call super::edw_histo_suppression' rule: #callStatement
+	self parse: 'call super::edw_histo_suppression' rule: #callStatement.
+	self parse: 'call super :: ue_dwnmousemove' rule: #callStatement
 ]
 
 { #category : #tests }
@@ -172,6 +173,10 @@ PWBUserObjectParserTest >> testCondition [
 	self parse: 'dw_detail.getRow() <> this.getRow()' rule: #condition.
 	self
 		parse: 'dw_detail.visible = TRUE and dw_detail.getRow() <> this.getRow()'
+		rule: #condition.
+	self
+		parse:
+			'(not isnull(ldwc_wz.getitemdate(	ll_compt,"ddw_fin"))) and 						ldwc_wz.getitemdate(	ll_compt,"ddw_fin") < today()'
 		rule: #condition
 ]
 
