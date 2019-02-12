@@ -232,7 +232,7 @@ PWBUserObjectParser >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> sqlQuery [
-	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete')) , blank
+	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete' 'insert')) , blank
 		, (string / $; parser negate) plus , $; parser
 ]
 

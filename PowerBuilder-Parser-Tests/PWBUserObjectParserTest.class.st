@@ -710,6 +710,15 @@ PWBUserObjectParserTest >> testSqlQuery3 [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testSqlQuery4 [
+	self
+		parse:
+			'insert into paa (paa_aoc, paa_dac, paa_uti, sou_no, par_no, gpp_no, rdg_cod, paa_deb, paa_val, paa_fin, adh_ctr, paa_ddw, paa_no) values
+			(''N'', current timestamp, :gs_cre_uti, :ll_sou_no, :il_par_no, :il_gpp_no, :ls_rdg_cod, :ld_paa_deb, :ls_paa_val, :ld_paa_fin, :is_adh_ctr, :ls_paa_ddw, :ll_paa_no) ;'
+		rule: #sqlQuery
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
