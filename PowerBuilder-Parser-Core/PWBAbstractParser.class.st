@@ -51,7 +51,8 @@ Class {
 		'accessOrType',
 		'spaces',
 		'defaultEventType',
-		'postFixOperator'
+		'postFixOperator',
+		'arrayWithSize'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -154,6 +155,11 @@ PWBAbstractParser >> array [
 { #category : #accessing }
 PWBAbstractParser >> arrayPosition [
 	^ '[' parser , expression, ']' parser
+]
+
+{ #category : #accessing }
+PWBAbstractParser >> arrayWithSize [
+	^ $[ parser , (number separatedBy: $, parser) optional , $] parser
 ]
 
 { #category : #accessing }
@@ -409,7 +415,8 @@ PWBAbstractParser >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractParser >> variable [
-	^ 'this.' token optional , identifier , $( parser not, '[]' parser optional
+	^ 'this.' token optional , identifier , $( parser not
+		, arrayWithSize optional
 ]
 
 { #category : #accessing }

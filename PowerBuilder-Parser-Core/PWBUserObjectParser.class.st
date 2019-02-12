@@ -305,7 +305,7 @@ PWBUserObjectParser >> usingClause [
 { #category : #accessing }
 PWBUserObjectParser >> variableDeclarations [
 	^ type , blank
-		, (identifier , assignation optional separatedBy: $, parser trim)
+		, (variable , assignation optional separatedBy: $, parser trim)
 ]
 
 { #category : #accessing }
