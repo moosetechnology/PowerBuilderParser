@@ -44,14 +44,14 @@ Class {
 		'exitStatement',
 		'uncheckedIdentifier',
 		'notExpression',
-		'variableIncrement',
 		'expressionWithSign',
 		'access',
 		'attributeAccess',
 		'arrayPosition',
 		'accessOrType',
 		'spaces',
-		'defaultEventType'
+		'defaultEventType',
+		'postFixOperator'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -190,7 +190,7 @@ PWBAbstractParser >> booleanValue [
 { #category : #accessing }
 PWBAbstractParser >> callStatement [
 	^ 'call' token , blank , (variable / defaultVariable)
-		, ($` parser , identifier) optional , '::' parser , eventType
+		, ($` parser , identifier) optional , '::' parser trim , eventType
 ]
 
 { #category : #accessing }
@@ -268,7 +268,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	^ uncheckedIdentifier, blank, functionArguments
+	^ identifier, blank, functionArguments
 ]
 
 { #category : #accessing }
@@ -291,8 +291,8 @@ PWBAbstractParser >> ifMultiLine [
 
 { #category : #accessing }
 PWBAbstractParser >> ifSingleLine [
-	^ 'if' token , blank , condition , blank , 'then' token , blank
-		, statement , (blank, 'else' token , blank , statement) optional
+	^ 'if' token , spaces , condition , spaces , 'then' token , spaces
+		, statement , (spaces, 'else' token , spaces , statement) optional
 ]
 
 { #category : #accessing }
@@ -349,6 +349,11 @@ PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
 ]
 
 { #category : #accessing }
+PWBAbstractParser >> postFixOperator [
+	^ access , blank , ('--' parser / '++' parser)
+]
+
+{ #category : #accessing }
 PWBAbstractParser >> reservedKeyword [
 	^ self
 		parserIgnoringCaseFor:
@@ -378,7 +383,7 @@ PWBAbstractParser >> start [
 { #category : #accessing }
 PWBAbstractParser >> statement [
 	^ specialStatement / assignationStatement / callStatement / ifStatement
-		/ functionInvocation / variableIncrement / expression
+		/ functionInvocation / postFixOperator / expression
 ]
 
 { #category : #accessing }
@@ -404,11 +409,6 @@ PWBAbstractParser >> uncheckedIdentifier [
 { #category : #accessing }
 PWBAbstractParser >> variable [
 	^ 'this.' token optional , identifier , $( parser not, '[]' parser optional
-]
-
-{ #category : #accessing }
-PWBAbstractParser >> variableIncrement [
-	^ access , blank , '++' parser
 ]
 
 { #category : #accessing }
