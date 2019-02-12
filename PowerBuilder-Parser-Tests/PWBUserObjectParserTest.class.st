@@ -665,6 +665,8 @@ PWBUserObjectParserTest >> testReturnStatement [
 	self parse: 'return 0' rule: #returnStatement.
 	self parse: 'return' rule: #returnStatement. 
 	self parse: 'RETURN FALSE' rule: #returnStatement.
+	self fail: 'RETURN
+delete' rule: #returnStatement.
 ]
 
 { #category : #tests }
