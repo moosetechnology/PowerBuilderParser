@@ -10,6 +10,23 @@ PWBPreprocessorTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testCommentInComment [
+	self
+		assert:
+			(self
+				parse:
+					'code
+/* comment1
+/* comment2 */
+*/
+code')
+		equals:
+			'code
+
+code'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testCommentSyntaxInString [
 	self
 		assert:
