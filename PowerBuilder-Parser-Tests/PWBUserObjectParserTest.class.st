@@ -50,8 +50,10 @@ PWBUserObjectParserTest >> testAssignationStatement [
 		rule: #assignationStatement.
 	self parse: 'll_mois -= 12' rule: #assignationStatement.
 	self parse: 'ld_resultat = - ld_resultat' rule: #assignationStatement.
-	self parse: 'is_liste_det_ave[li_cpt,1] = ls_col_name' rule: #assignationStatement.
-
+	self
+		parse: 'is_liste_det_ave[li_cpt,1] = ls_col_name'
+		rule: #assignationStatement.
+	self parse: 'll_wz /= 2' rule: #assignationStatement
 ]
 
 { #category : #tests }
