@@ -72,10 +72,11 @@ PWBAbstractParser class >> parse: aString fileName: aString2 [
 PWBAbstractParser class >> scripts [
 	"just to store it"
 
-	| outputFile keep stream |
+	| keep |
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/export'
 		asFileReference files
 		do: [ :aFile | 
+			| outputFile stream |
 			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport/'
 				, aFile basename) asFileReference.
 			outputFile ensureDelete.
@@ -94,17 +95,17 @@ PWBAbstractParser class >> scripts [
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport'
 		asFileReference files
 		do: [ :aFile | 
+			| outputFile |
 			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments/'
 				, aFile basename) asFileReference.
 			outputFile ensureDelete.
 			outputFile
-				writeStreamDo: [ :s | 
-					stream := aFile readStream.
-					s nextPutAll: (PWBPreprocessor parse: stream contents) ] ].
+				writeStreamDo:
+					[ :s | s nextPutAll: (PWBPreprocessor parse: aFile readStream contents) ] ].
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments'
 		asFileReference files
 		collect: [ :aFile | 
-			| result |
+			| result stream |
 			stream := aFile readStream.
 			stream encoder: ZnUTF8Encoder new.
 			result := PWBAbstractParser

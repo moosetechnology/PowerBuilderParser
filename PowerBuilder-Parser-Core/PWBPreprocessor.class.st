@@ -4,14 +4,15 @@ Class {
 	#instVars : [
 		'comment',
 		'code',
-		'espeletteNewline'
+		'espeletteNewline',
+		'string'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
 
 { #category : #accessing }
 PWBPreprocessor >> code [
-	^ (comment / espeletteNewline) negate plus flatten
+	^ (string / comment / espeletteNewline) negate plus flatten
 ]
 
 { #category : #accessing }
@@ -28,8 +29,13 @@ PWBPreprocessor >> espeletteNewline [
 
 { #category : #accessing }
 PWBPreprocessor >> start [
-	^ (comment / espeletteNewline / code) plus end
+	^ (string / comment / espeletteNewline / code) plus end
 		==> [ :production | 
 			String
 				streamContents: [ :stream | production do: [ :text | stream nextPutAll: text ] ] ]
+]
+
+{ #category : #accessing }
+PWBPreprocessor >> string [
+	^ PWBAbstractParser basicNew string flatten
 ]
