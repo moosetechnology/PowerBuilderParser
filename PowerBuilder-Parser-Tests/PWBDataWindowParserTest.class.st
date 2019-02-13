@@ -140,6 +140,20 @@ PWBDataWindowParserTest >> testRectangle [
 ]
 
 { #category : #accessing }
+PWBDataWindowParserTest >> testString [
+	self parse: '''Simple string''' rule: #string.
+	self parse: '"Simple string"' rule: #string.
+	self parse: '"String with protected ~""' rule: #string.
+	self parse: '''String with protected ~''''' rule: #string.
+	self parse: '''''' rule: #string.
+	self parse: '""' rule: #string.
+	self
+		parse:
+			'''Erreur de paramétrage de cre_dcs. Le chemin de création des fichiers dcs n~''est pas paramétré'''
+		rule: #string
+]
+
+{ #category : #accessing }
 PWBDataWindowParserTest >> testSummary [
 	self parse: 'summary(height=84 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )' rule: #graphicComponent
 ]
