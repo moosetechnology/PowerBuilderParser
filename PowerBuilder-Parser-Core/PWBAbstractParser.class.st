@@ -260,7 +260,7 @@ PWBAbstractParser >> expressionTerm [
 
 { #category : #accessing }
 PWBAbstractParser >> expressionWithSign [
-	^ $+ parser / $- parser , expression
+	^ $+ parser / $- parser , spaces optional, expression
 ]
 
 { #category : #accessing }
