@@ -11,7 +11,6 @@ Class {
 		'attributes',
 		'attribute',
 		'triggerDefinition',
-		'endForward',
 		'globalVariableDeclaration',
 		'eventAttribute',
 		'typeVariable',
@@ -48,7 +47,8 @@ Class {
 		'declareCursor',
 		'openSqlCursor',
 		'closeSqlCursor',
-		'descriptor'
+		'descriptor',
+		'endForward'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -151,8 +151,8 @@ PWBUserObjectParser >> doWhileLoop [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> endForward [ 
-	^ 'end forward' parser
+PWBUserObjectParser >> endForward [
+	^ self endOf: 'forward'
 ]
 
 { #category : #accessing }
