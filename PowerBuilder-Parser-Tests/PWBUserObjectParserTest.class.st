@@ -181,6 +181,15 @@ PWBUserObjectParserTest >> testCondition [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testDeclareCursor [
+	self
+		parse:
+			'DECLARE C_column_ave CURSOR FOR
+SELECT name  FROM sysibm.syscolumns WHERE tbname = ''AVE'' order by colno using sqlca;'
+		rule: #declareCursor
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testDoLoopUntil [
 	self parse: 'do
 	ll_lig ++
@@ -648,6 +657,12 @@ PWBUserObjectParserTest >> testMethodInvocation [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testOpenCloseSqlCursor [
+	self parse: 'Open C_column_ave ;' rule: #openSqlCursor.
+	self parse: 'close C_column_ave ;' rule: #closeSqlCursor
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testPrototypesDeclaration [
 	self
 		parse:
@@ -725,6 +740,11 @@ PWBUserObjectParserTest >> testSqlQuery4 [
 			'insert into paa (paa_aoc, paa_dac, paa_uti, sou_no, par_no, gpp_no, rdg_cod, paa_deb, paa_val, paa_fin, adh_ctr, paa_ddw, paa_no) values
 			(''N'', current timestamp, :gs_cre_uti, :ll_sou_no, :il_par_no, :il_gpp_no, :ls_rdg_cod, :ld_paa_deb, :ls_paa_val, :ld_paa_fin, :is_adh_ctr, :ls_paa_ddw, :ll_paa_no) ;'
 		rule: #sqlQuery
+]
+
+{ #category : #tests }
+PWBUserObjectParserTest >> testSqlQuery5 [
+	self parse: 'fetch C_column_ave into :ls_col_name;' rule: #sqlQuery
 ]
 
 { #category : #tests }
