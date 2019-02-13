@@ -160,7 +160,9 @@ PWBAbstractParser >> arrayPosition [
 
 { #category : #accessing }
 PWBAbstractParser >> arrayWithSize [
-	^ $[ parser , (number separatedBy: $, parser) optional , $] parser
+	^ $[ parser , spaces optional
+		, (expression separatedBy: $, parser) optional , spaces optional
+		, $] parser
 ]
 
 { #category : #accessing }
@@ -176,7 +178,7 @@ PWBAbstractParser >> assignationStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> attributeAccess [
-	^ $. parser , uncheckedIdentifier , $( parser not
+	^ $. parser trim , uncheckedIdentifier , $( parser not
 		, arrayPosition optional
 ]
 
@@ -276,6 +278,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
+	<astAttributeAt: 2 use: #functionName>
 	^ (defaultVariable , '::' parser trim) optional , identifier , blank
 		, functionArguments
 ]
@@ -311,8 +314,8 @@ PWBAbstractParser >> ifStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> methodInvocation [
-	^ $. parser , spaces optional , uncheckedIdentifier , blank
-		, functionArguments
+	^ spaces optional , $. parser , spaces optional , uncheckedIdentifier
+		, blank , functionArguments
 ]
 
 { #category : #accessing }
