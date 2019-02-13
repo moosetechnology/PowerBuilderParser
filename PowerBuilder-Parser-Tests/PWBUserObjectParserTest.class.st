@@ -531,6 +531,14 @@ PWBUserObjectParserTest >> testFunctionInvocation2 [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testFunctionInvocation3 [
+	self
+		parse:
+			'super::uf_jrn_trt(as_evn, as_tlg, as_cod, as_lib)'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]

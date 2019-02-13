@@ -44,7 +44,11 @@ Class {
 		'doUntilLoop',
 		'doLoopUntil',
 		'eventReferenceName',
-		'tryCatch'
+		'tryCatch',
+		'declareCursor',
+		'openSqlCursor',
+		'closeSqlCursor',
+		'descriptor'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -56,7 +60,7 @@ PWBUserObjectParser class >> supportedExtensions [
 
 { #category : #accessing }
 PWBUserObjectParser >> accessModifier [
-	^ self parserFor: #('public' 'private')
+	^ self parserFor: #('public' 'private' 'protected')
 ]
 
 { #category : #accessing }
@@ -97,8 +101,24 @@ PWBUserObjectParser >> chooseCase [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> closeSqlCursor [
+	^ 'close' token , spaces , identifier , spaces optional , $; parser
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> customCallStatement [
 	^ 'call' token , blank , 'super' token , '::' parser , identifier
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> declareCursor [
+	^ 'declare' token , spaces , identifier , spaces , 'cursor' token
+		, spaces , 'for' token , blank, sqlQuery
+]
+
+{ #category : #accessing }
+PWBUserObjectParser >> descriptor [
+	^ 'descriptor' token , spaces , expression
 ]
 
 { #category : #accessing }
@@ -174,7 +194,7 @@ PWBUserObjectParser >> forLoop [
 
 { #category : #accessing }
 PWBUserObjectParser >> fromClause [
-	^ 'from' token , blank , customType , blank
+	^ 'from' token , blank , customType 
 ]
 
 { #category : #accessing }
@@ -214,6 +234,11 @@ PWBUserObjectParser >> ifStatement [
 ]
 
 { #category : #accessing }
+PWBUserObjectParser >> openSqlCursor [
+	^ 'open' token , spaces , identifier , spaces optional , $; parser
+]
+
+{ #category : #accessing }
 PWBUserObjectParser >> programStep [
 	"It is a program step that can be the target of a goto"
 	^ identifier , $: parser
@@ -232,7 +257,7 @@ PWBUserObjectParser >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> sqlQuery [
-	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete' 'insert')) , blank
+	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blank
 		, (string / $; parser negate) plus , $; parser
 ]
 
@@ -244,10 +269,10 @@ PWBUserObjectParser >> sqlRollbackStatement [
 
 { #category : #accessing }
 PWBUserObjectParser >> statement [
-	^ programStep / gotoStatement / sqlRollbackStatement
-		/ sqlCommitStatement / sqlQuery / tryCatch / forLoop / chooseCase
-		/ doWhileLoop / doUntilLoop / doLoopWhile / doLoopUntil
-		/ variableDeclarations / super statement
+	^ programStep / gotoStatement / sqlRollbackStatement / openSqlCursor
+		/ closeSqlCursor / sqlCommitStatement / declareCursor / sqlQuery
+		/ tryCatch / forLoop / chooseCase / doWhileLoop / doUntilLoop
+		/ doLoopWhile / doLoopUntil / variableDeclarations / super statement
 ]
 
 { #category : #accessing }
@@ -287,9 +312,12 @@ PWBUserObjectParser >> tryCatch [
 
 { #category : #accessing }
 PWBUserObjectParser >> typeDeclaration [
-	^ ('global' parser , blank) parser optional , 'type' parser , blank , customType , blank
-		, ('enumerated' parser , blank) optional , fromClause , ($` parser , customType, blank) optional
-		, withinClause optional , attributes optional , (self endOf: 'type')
+	^ ('global' token , blank) optional , 'type' parser , blank
+		, customType , (blank , 'enumerated' token) optional
+		, (blank , fromClause) , ($` parser , customType) optional
+		, (blank , withinClause) optional , (spaces , descriptor) optional
+		, (blank , attributes) optional , blank optional
+		, (self endOf: 'type')
 ]
 
 { #category : #accessing }
@@ -310,5 +338,5 @@ PWBUserObjectParser >> variableDeclarations [
 
 { #category : #accessing }
 PWBUserObjectParser >> withinClause [
-	^ 'within' token , blank , customType , blank
+	^ 'within' token , blank , customType 
 ]
