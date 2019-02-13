@@ -63,7 +63,11 @@ PWBDataWindowParserTest >> testExpression [
 	self parse: '1 = 1' rule: #expression.
 	self parse: 'not isValid(gw_utile)' rule: #expression.
 	self parse: '0.00' rule: #expression.
-	self parse: 'This' rule: #expression
+	self parse: 'This' rule: #expression.
+	self
+		parse:
+			'gw_utile. wf_cre_rdg(ls_null, il_org_no, "CLO_LET", today(), string(id_date_ref,"YYYY-MM-DD"), string(id_date_ref,"YYYY-MM-DD"), 1)'
+		rule: #expression
 ]
 
 { #category : #accessing }
