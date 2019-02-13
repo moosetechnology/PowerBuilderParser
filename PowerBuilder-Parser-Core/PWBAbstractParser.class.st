@@ -401,7 +401,7 @@ PWBAbstractParser >> statement [
 
 { #category : #accessing }
 PWBAbstractParser >> statements [
-	^ statement separatedBy: blank
+	^ statement separatedBy: $; parser trim / blank
 ]
 
 { #category : #accessing }
