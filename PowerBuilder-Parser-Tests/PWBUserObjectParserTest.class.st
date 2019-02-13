@@ -763,7 +763,14 @@ PWBUserObjectParserTest >> testStatement [
 
 { #category : #tests }
 PWBUserObjectParserTest >> testSubroutineDeclaration [
-	self parse: 'public subroutine uf_histo_echeancier (long al_par_no, string as_ech_exe, string as_adh_ctr)' rule: #subroutineDeclaration.
+	self
+		parse:
+			'public subroutine uf_histo_echeancier (long al_par_no, string as_ech_exe, string as_adh_ctr)'
+		rule: #subroutineDeclaration.
+	self
+		parse:
+			'protected subroutine uf_flx_nom (string as_rep, date ad_dat_fic, ref string as_fic, string as_ent_traite, string as_zy)'
+		rule: #subroutineDeclaration
 ]
 
 { #category : #tests }
