@@ -275,7 +275,8 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	^ identifier, blank, functionArguments
+	^ (defaultVariable , '::' parser trim) optional , identifier , blank
+		, functionArguments
 ]
 
 { #category : #accessing }
@@ -374,7 +375,7 @@ PWBAbstractParser >> returnStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> spaces [
-	^ (Character space parser / Character tab parser) star
+	^ (Character space parser / Character tab parser) plus
 ]
 
 { #category : #accessing }
