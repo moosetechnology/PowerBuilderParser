@@ -772,6 +772,13 @@ PWBUserObjectParserTest >> testStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testStatements [
+	self
+		parse: 'ls_donnee=''''; ls_donnee_2= ''''; ls_donnee_3= ''''; ls_donnee_4 = '''''
+		rule: #statements
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testSubroutineDeclaration [
 	self
 		parse:
