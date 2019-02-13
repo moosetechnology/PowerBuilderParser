@@ -101,3 +101,18 @@ PWBPreprocessorTest >> testSimpleComment3 [
 		equals:
 			''
 ]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testSimpleComment4 [
+	self
+		assert:
+			(self
+				parse:
+					'code
+//Fiche 84412 $ThomasD$ 07/02/2017
+code')
+		equals:
+			'code
+
+code'
+]
