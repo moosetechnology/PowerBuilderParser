@@ -868,6 +868,13 @@ end type' rule: #typeDeclaration.
 ]
 
 { #category : #tests }
+PWBUserObjectParserTest >> testTypeDeclaration3 [
+	self parse: 'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
+string dataobject = "dw_zonier"
+end type' rule: #typeDeclaration.
+]
+
+{ #category : #tests }
 PWBUserObjectParserTest >> testTypeDeclarationAddedAttributes [
 	self
 		parse:
