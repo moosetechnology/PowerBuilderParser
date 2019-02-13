@@ -370,16 +370,22 @@ PWBUserObjectParserTest >> testFunctionDeclaration [
 	self
 		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
 		rule: #functionDeclaration.
-	self parse: 'public function boolean uf_ouvre_caisse ()' rule: #functionDeclaration.
+	self
+		parse: 'public function boolean uf_ouvre_caisse ()'
+		rule: #functionDeclaration.
 	self
 		parse: 'public function integer uf_desaff_imput (long al_dss)'
 		rule: #functionDeclaration.
-	self parse: 'public function integer uf_verif_cot_ech ()' rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_verif_cot_ech ()'
+		rule: #functionDeclaration.
 	self
 		parse:
 			'public function integer f_annul_appel (string as_adh, long al_par_no, long al_dss, long al_lig)'
 		rule: #functionDeclaration.
-	self parse: 'public function long uf_dct_lig (long al_dss)' rule: #functionDeclaration.
+	self
+		parse: 'public function long uf_dct_lig (long al_dss)'
+		rule: #functionDeclaration.
 	self
 		parse: 'public function integer uf_rdg_cot_mbs (long al_dct_dss)'
 		rule: #functionDeclaration.
@@ -387,20 +393,24 @@ PWBUserObjectParserTest >> testFunctionDeclaration [
 		parse: 'public function string uf_init_col (integer al_month)'
 		rule: #functionDeclaration.
 	self
-		parse: 'public function string uf_lettrage (string as_dct_adn, long al_par_no)'
+		parse:
+			'public function string uf_lettrage (string as_dct_adn, long al_par_no)'
 		rule: #functionDeclaration.
 	self
-		parse: 'public function integer uf_annul_od (long al_dss, long al_lig, string as_cod_od)'
+		parse:
+			'public function integer uf_annul_od (long al_dss, long al_lig, string as_cod_od)'
 		rule: #functionDeclaration.
 	self
-		parse: 'public function string uf_traduit_ech (string as_nom_col, string as_exe)'
+		parse:
+			'public function string uf_traduit_ech (string as_nom_col, string as_exe)'
 		rule: #functionDeclaration.
 	self
 		parse:
 			'public function integer uf_desactiver_menu_contextuel_adherent (ref mc_dossier_participation am_menu)'
 		rule: #functionDeclaration.
 	self
-		parse: 'public function integer uf_desactiver_menu_contextuel (ref ma_contextuel am_menu)'
+		parse:
+			'public function integer uf_desactiver_menu_contextuel (ref ma_contextuel am_menu)'
 		rule: #functionDeclaration.
 	self
 		parse:
@@ -412,6 +422,9 @@ PWBUserObjectParserTest >> testFunctionDeclaration [
 	self
 		parse:
 			'public function integer uf_saisie_effectif_montant (string as_adh_ctr, long al_prt_no, long al_dct_dss, long al_org_no)'
+		rule: #functionDeclaration.
+	self
+		parse: 'public function integer uf_cre_evn (long al_par_no, string as_tip[])'
 		rule: #functionDeclaration
 ]
 
