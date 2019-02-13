@@ -239,7 +239,7 @@ PWBAbstractParser >> defaultVariable [
 { #category : #accessing }
 PWBAbstractParser >> endOf: aReservedWord [
 	"It seems that a / can finish anything"
-	^ ('end ' token, aReservedWord token) 
+	^ ('end' token, spaces, aReservedWord token) 
 ]
 
 { #category : #accessing }
