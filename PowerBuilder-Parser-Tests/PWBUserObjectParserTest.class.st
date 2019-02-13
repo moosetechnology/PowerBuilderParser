@@ -571,6 +571,16 @@ end if' rule: #ifStatement.
 ]
 
 { #category : #accessing }
+PWBUserObjectParserTest >> testIfStatement10 [
+	self parse: 'if ll_per_no = iuo_res_ent .il_gpp_par then  
+										if gw_utile.wf_cre_rdg(as_cal.s_prt_adn, ll_per_no, upper(is_rdg_exp_mca), as_cal.d_cal_deb, is_val_exp_mca , "",  1) = 1 then
+											ib_cre_rdg_fid = TRUE
+										end if
+									end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
 PWBUserObjectParserTest >> testIfStatement2 [
 	self
 		parse:
@@ -922,5 +932,9 @@ PWBUserObjectParserTest >> testVariableDeclarations [
 		rule: #variableDeclarations.
 	self
 		parse: 'string is_liste_det_ave[50,2],ls_col_name, ls_sql'
+		rule: #variableDeclarations.
+	self
+		parse:
+			'string ls_tab_mois[ ] = {''jan'',''fev'',''mar'',''avr'',''mai'',''jun'',''jul'',''aou'',''sep'',''oct'',''nov'',''dec''}'
 		rule: #variableDeclarations
 ]
