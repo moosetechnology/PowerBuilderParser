@@ -311,7 +311,8 @@ PWBAbstractParser >> ifStatement [
 
 { #category : #accessing }
 PWBAbstractParser >> methodInvocation [
-	^ $. parser , uncheckedIdentifier , blank , functionArguments
+	^ $. parser , spaces optional , uncheckedIdentifier , blank
+		, functionArguments
 ]
 
 { #category : #accessing }
