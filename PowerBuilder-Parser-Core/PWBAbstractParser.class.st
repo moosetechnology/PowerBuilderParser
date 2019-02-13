@@ -406,7 +406,8 @@ PWBAbstractParser >> statements [
 
 { #category : #accessing }
 PWBAbstractParser >> string [
-	^ ($" parser , #any parser starLazy , $" parser) / ($' parser , #any parser starLazy , $' parser)
+	^ ($" parser , ('~"' parser / $" parser negate) star , $" parser)
+		/ ($' parser , ('~''' parser / $' parser negate) star , $' parser)
 ]
 
 { #category : #accessing }
