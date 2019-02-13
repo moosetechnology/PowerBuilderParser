@@ -141,6 +141,7 @@ PWBAbstractParser >> accessOrType [
 { #category : #accessing }
 PWBAbstractParser >> argument [
 	^ ('ref' token , blank) optional , type , blank , identifier
+		, arrayWithSize optional
 ]
 
 { #category : #accessing }
