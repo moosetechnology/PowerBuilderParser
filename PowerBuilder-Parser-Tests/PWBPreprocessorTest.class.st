@@ -10,6 +10,17 @@ PWBPreprocessorTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testCommentSyntaxInString [
+	self
+		assert:
+			(self
+				parse:
+					'if is_sys_deb = "O" then f_trace("regime trouve="+is_rgm+"///"+ls_reg_cod,"uf_calcul_cf")')
+		equals:
+			'if is_sys_deb = "O" then f_trace("regime trouve="+is_rgm+"///"+ls_reg_cod,"uf_calcul_cf")'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testEmptyComment [
 	self
 		assert:
