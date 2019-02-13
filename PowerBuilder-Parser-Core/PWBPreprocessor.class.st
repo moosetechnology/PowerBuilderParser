@@ -5,7 +5,9 @@ Class {
 		'comment',
 		'code',
 		'espeletteNewline',
-		'string'
+		'string',
+		'multiLineComment',
+		'singleLineComment'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -17,14 +19,25 @@ PWBPreprocessor >> code [
 
 { #category : #accessing }
 PWBPreprocessor >> comment [
-	^ ('/*' parser , '*/' parser negate plus , '*/' parser)
-		/ ('//' parser , #newline parser negate star) ==> [ :p | '' ]
+	^ multiLineComment
+		/ singleLineComment ==> [ :p | '' ]
 ]
 
 { #category : #accessing }
 PWBPreprocessor >> espeletteNewline [
 	^ ($& parser , (Character space parser / Character tab parser) star
 		, #newline parser) ==> [ :p | '' ]
+]
+
+{ #category : #accessing }
+PWBPreprocessor >> multiLineComment [
+	^ '/*' parser , (multiLineComment / '*/' parser negate) plus
+		, '*/' parser
+]
+
+{ #category : #accessing }
+PWBPreprocessor >> singleLineComment [
+	^ '//' parser , #newline parser negate star
 ]
 
 { #category : #accessing }
