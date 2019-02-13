@@ -278,7 +278,7 @@ PWBAbstractParser >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractParser >> functionInvocation [
-	<astAttributeAt: 2 use: #functionName>
+	<astAttributeRename: #identifier into: #functionName>
 	^ (defaultVariable , '::' parser trim) optional , identifier , blank
 		, functionArguments
 ]
