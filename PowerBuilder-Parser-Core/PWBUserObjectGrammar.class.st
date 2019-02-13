@@ -2,8 +2,8 @@
 I am a parser to parse .sru powerbuilder files (User object files) and .srw powerbuilder files (Window files)
 "
 Class {
-	#name : #PWBUserObjectParser,
-	#superclass : #PWBAbstractParser,
+	#name : #PWBUserObjectGrammar,
+	#superclass : #PWBAbstractGrammar,
 	#instVars : [
 		'typeDeclaration',
 		'withinClause',
@@ -54,132 +54,132 @@ Class {
 }
 
 { #category : #parsing }
-PWBUserObjectParser class >> supportedExtensions [
+PWBUserObjectGrammar class >> supportedExtensions [
 	^ {'sru' . 'srw'}
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> accessModifier [
+PWBUserObjectGrammar >> accessModifier [
 	^ self parserFor: #('public' 'private' 'protected')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> assignationStatement [ 
+PWBUserObjectGrammar >> assignationStatement [ 
 	^ super assignationStatement 
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> attribute [
+PWBUserObjectGrammar >> attribute [
 	^ variableDeclarations
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> attributes [
+PWBUserObjectGrammar >> attributes [
 	^ (eventAttribute / attribute separatedBy: blank) , blank
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> callStatement [
+PWBUserObjectGrammar >> callStatement [
 	^ super callStatement
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> case [
+PWBUserObjectGrammar >> case [
 	^ 'case' token, blank, expressionList, blank, statements optional
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> caseElse [
+PWBUserObjectGrammar >> caseElse [
 	^ 'case' token , blank , 'else' token , blank , statements optional
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> chooseCase [
+PWBUserObjectGrammar >> chooseCase [
 	^ 'choose' token , blank , 'case' token , blank , expression , blank
 		, (case separatedBy: blank) , blank , (caseElse , blank) optional
 		, 'end choose' token
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> closeSqlCursor [
+PWBUserObjectGrammar >> closeSqlCursor [
 	^ 'close' token , spaces , identifier , spaces optional , $; parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> customCallStatement [
+PWBUserObjectGrammar >> customCallStatement [
 	^ 'call' token , blank , 'super' token , '::' parser , identifier
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> declareCursor [
+PWBUserObjectGrammar >> declareCursor [
 	^ 'declare' token , spaces , identifier , spaces , 'cursor' token
 		, spaces , 'for' token , blank, sqlQuery
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> descriptor [
+PWBUserObjectGrammar >> descriptor [
 	^ 'descriptor' token , spaces , expression
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> dirtyStatement [
+PWBUserObjectGrammar >> dirtyStatement [
 	^ #newline parser negate plus
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> doLoopUntil [
+PWBUserObjectGrammar >> doLoopUntil [
 	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'until' token , blank
 		, expression
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> doLoopWhile [
+PWBUserObjectGrammar >> doLoopWhile [
 	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
 		, expression
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> doUntilLoop [
+PWBUserObjectGrammar >> doUntilLoop [
 	^ 'do' token , blank , 'until' token , blank , expression , blank , statements , blank
 		, 'loop' token
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> doWhileLoop [
+PWBUserObjectGrammar >> doWhileLoop [
 	^ 'do' token , blank , 'while' token , blank , expression , blank , statements , blank
 		, 'loop' token
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> endForward [
+PWBUserObjectGrammar >> endForward [
 	^ self endOf: 'forward'
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> eventAttribute [
+PWBUserObjectGrammar >> eventAttribute [
 	^ 'event' token , blank , type , blank , (arguments / variable)
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> eventDeclaration [
+PWBUserObjectGrammar >> eventDeclaration [
 	^ 'event' token , blank , eventReferenceName , $; parser
 		, (customCallStatement , $; parser) optional , blank
 		, statements optional , blank , (self endOf: 'event')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> eventReferenceName [
+PWBUserObjectGrammar >> eventReferenceName [
 	^ (identifier , '::' parser) optional , identifier
 		, arguments optional
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> expressionList [
+PWBUserObjectGrammar >> expressionList [
 	^ expression separatedBy: $, parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> file [
+PWBUserObjectGrammar >> file [
 	^ typeVariable / typeDeclaration / functionDefinition
 		/ subroutineDefinition / endForward / globalVariableDeclaration
 		/ triggerDefinition / eventDeclaration / prototypesDeclaration
@@ -187,88 +187,88 @@ PWBUserObjectParser >> file [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> forLoop [
+PWBUserObjectGrammar >> forLoop [
 	^ 'for' token , blank , assignationStatement , blank , 'to' token , blank , expression , (blank , 'step' token , blank , expression) optional , newlines , statements
 		, newlines , 'next' token
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> fromClause [
+PWBUserObjectGrammar >> fromClause [
 	^ 'from' token , blank , customType 
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> functionDeclaration [
+PWBUserObjectGrammar >> functionDeclaration [
 	^ functionSignature
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> functionDefinition [
+PWBUserObjectGrammar >> functionDefinition [
 	^ functionSignature , $; parser , blank , statements , blank , (self endOf: 'function')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> functionInvocation [ 
+PWBUserObjectGrammar >> functionInvocation [ 
 	^ super functionInvocation 
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> functionSignature [
+PWBUserObjectGrammar >> functionSignature [
 	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
 		, arguments
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> globalVariableDeclaration [
+PWBUserObjectGrammar >> globalVariableDeclaration [
 	^ 'global' parser , blank , type , blank , variable
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> gotoStatement [
+PWBUserObjectGrammar >> gotoStatement [
 	^ 'goto' token , blank , identifier
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> ifStatement [
+PWBUserObjectGrammar >> ifStatement [
 	^ super ifStatement
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> openSqlCursor [
+PWBUserObjectGrammar >> openSqlCursor [
 	^ 'open' token , spaces , identifier , spaces optional , $; parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> programStep [
+PWBUserObjectGrammar >> programStep [
 	"It is a program step that can be the target of a goto"
 	^ identifier , $: parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> prototypesDeclaration [
+PWBUserObjectGrammar >> prototypesDeclaration [
 	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
 		, blank , (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> sqlCommitStatement [
+PWBUserObjectGrammar >> sqlCommitStatement [
 	^ 'commit' token , blank , (usingClause , blank) optional , $; parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> sqlQuery [
+PWBUserObjectGrammar >> sqlQuery [
 	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blank
 		, (string / $; parser negate) plus , $; parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> sqlRollbackStatement [
+PWBUserObjectGrammar >> sqlRollbackStatement [
 	^ 'rollback' token , blank , (usingClause , blank) optional
 		, $; parser
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> statement [
+PWBUserObjectGrammar >> statement [
 	^ programStep / gotoStatement / sqlRollbackStatement / openSqlCursor
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / sqlQuery
 		/ tryCatch / forLoop / chooseCase / doWhileLoop / doUntilLoop
@@ -276,33 +276,33 @@ PWBUserObjectParser >> statement [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> subroutineDeclaration [
+PWBUserObjectGrammar >> subroutineDeclaration [
 	^ subroutineSignature
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> subroutineDefinition [
+PWBUserObjectGrammar >> subroutineDefinition [
 	^ subroutineSignature , $; parser , blank , statements , blank , (self endOf: 'subroutine')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> subroutineSignature [
+PWBUserObjectGrammar >> subroutineSignature [
 	^ accessModifier , blank , 'subroutine' parser , blank , identifier , blank , arguments
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> transactionObject [
+PWBUserObjectGrammar >> transactionObject [
 	^ identifier
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> triggerDefinition [
+PWBUserObjectGrammar >> triggerDefinition [
 	^ 'on' token , blank , identifier , $. parser , eventType , blank , statements , blank
 		, (self endOf: 'on')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> tryCatch [
+PWBUserObjectGrammar >> tryCatch [
 	^ 'try' token , (newlines , statements) optional
 		,
 			(blank , 'catch' token , blank , arguments
@@ -311,7 +311,7 @@ PWBUserObjectParser >> tryCatch [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> typeDeclaration [
+PWBUserObjectGrammar >> typeDeclaration [
 	^ ('global' token , blank) optional , 'type' parser , blank
 		, customType , (blank , 'enumerated' token) optional
 		, (blank , fromClause) , ($` parser , customType) optional
@@ -321,22 +321,22 @@ PWBUserObjectParser >> typeDeclaration [
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> typeVariable [
+PWBUserObjectGrammar >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> usingClause [
+PWBUserObjectGrammar >> usingClause [
 	^ 'using' token , blank , transactionObject
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> variableDeclarations [
+PWBUserObjectGrammar >> variableDeclarations [
 	^ type , blank
 		, (variable , assignation optional separatedBy: $, parser trim)
 ]
 
 { #category : #accessing }
-PWBUserObjectParser >> withinClause [
+PWBUserObjectGrammar >> withinClause [
 	^ 'within' token , blank , customType 
 ]

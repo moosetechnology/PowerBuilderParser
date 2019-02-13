@@ -2,8 +2,8 @@
 I am a parser to parse .srd powerbuilder files (Data Window files) 
 "
 Class {
-	#name : #PWBDataWindowParser,
-	#superclass : #PWBAbstractParser,
+	#name : #PWBDataWindowGrammar,
+	#superclass : #PWBAbstractGrammar,
 	#instVars : [
 		'dataWindow',
 		'parameters',
@@ -26,95 +26,95 @@ Class {
 }
 
 { #category : #parsing }
-PWBDataWindowParser class >> supportedExtensions [
+PWBDataWindowGrammar class >> supportedExtensions [
 	^ {'srd'}
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> column [
+PWBDataWindowGrammar >> column [
 	^ 'column' parser , $= parser , columnDefinition
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> columnDefinition [
+PWBDataWindowGrammar >> columnDefinition [
 	^ $( parser , options trim , $) parser
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> dataWindow [
+PWBDataWindowGrammar >> dataWindow [
 	^ 'datawindow' parser, parameters
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> export [
+PWBDataWindowGrammar >> export [
 	^ 'export.' parser, formatType, parameters
 ]
 
 { #category : #accessing }
-PWBDataWindowParser >> file [
+PWBDataWindowGrammar >> file [
 	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> formatType [
+PWBDataWindowGrammar >> formatType [
 	^ self parserFor: #('xml' 'pdf' 'xhtml')
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> generator [
+PWBDataWindowGrammar >> generator [
 	^ generatorToken, parameters
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> generatorToken [
+PWBDataWindowGrammar >> generatorToken [
 	^ self
 		parserFor: #('htmlgen' 'xhtmlgen' 'cssgen' 'xmlgen' 'xsltgen' 'jsgen')
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> graphicComponent [
+PWBDataWindowGrammar >> graphicComponent [
 	^ graphicComponentToken, parameters
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> graphicComponentToken [
+PWBDataWindowGrammar >> graphicComponentToken [
 	^ self
 		parserFor:
 			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line')
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> import [
+PWBDataWindowGrammar >> import [
 	^ 'import.' parser, formatType, parameters
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> option [
+PWBDataWindowGrammar >> option [
 	^ access, $= parser trim, optionValue
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> optionBad [
+PWBDataWindowGrammar >> optionBad [
 	^ #blank parser negate plus
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> optionValue [
+PWBDataWindowGrammar >> optionValue [
 	^ expression
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> options [
+PWBDataWindowGrammar >> options [
 	^ option separatedBy: blank optional
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> parameters [
+PWBDataWindowGrammar >> parameters [
 	^ $( parser, options trim optional, $) parser
 ]
 
 { #category : #'as yet unclassified' }
-PWBDataWindowParser >> table [
+PWBDataWindowGrammar >> table [
 	^ 'table' parser , $( parser , (column separatedBy: blank) , blank , options optional
 		, blank , $) parser
 ]

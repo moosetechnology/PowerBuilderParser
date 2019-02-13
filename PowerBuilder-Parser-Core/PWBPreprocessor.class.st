@@ -50,5 +50,5 @@ PWBPreprocessor >> start [
 
 { #category : #accessing }
 PWBPreprocessor >> string [
-	^ PWBAbstractParser basicNew string flatten
+	^ PWBAbstractGrammar basicNew string flatten
 ]

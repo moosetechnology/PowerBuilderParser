@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 PWBDataWindowParserTest >> parserClass [
-	^ PWBDataWindowParser 
+	^ PWBDataWindowGrammar 
 ]
 
 { #category : #accessing }

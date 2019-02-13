@@ -1,5 +1,5 @@
 Class {
-	#name : #PWBAbstractParser,
+	#name : #PWBAbstractGrammar,
 	#superclass : #PP2CompositeNode,
 	#instVars : [
 		'basicType',
@@ -58,18 +58,18 @@ Class {
 }
 
 { #category : #parsing }
-PWBAbstractParser class >> parse: content fileExtension: fileExtension [
+PWBAbstractGrammar class >> parse: content fileExtension: fileExtension [
 	^ (self allSubclasses detect: [ :class | class supportExtension: fileExtension ]) new
 		parse: content
 ]
 
 { #category : #parsing }
-PWBAbstractParser class >> parse: aString fileName: aString2 [ 
+PWBAbstractGrammar class >> parse: aString fileName: aString2 [ 
 	self shouldBeImplemented.
 ]
 
 { #category : #parsing }
-PWBAbstractParser class >> scripts [
+PWBAbstractGrammar class >> scripts [
 	"just to store it"
 
 	| keep |
@@ -108,7 +108,7 @@ PWBAbstractParser class >> scripts [
 			| result stream |
 			stream := aFile readStream.
 			stream encoder: ZnUTF8Encoder new.
-			result := PWBAbstractParser
+			result := PWBAbstractGrammar
 				parse: stream contents
 				fileExtension: aFile extension.
 			result isPetit2Failure
@@ -117,182 +117,182 @@ PWBAbstractParser class >> scripts [
 ]
 
 { #category : #parsing }
-PWBAbstractParser class >> supportExtension: extension [
+PWBAbstractGrammar class >> supportExtension: extension [
 	^ self supportedExtensions includes: extension
 ]
 
 { #category : #parsing }
-PWBAbstractParser class >> supportedExtensions [
+PWBAbstractGrammar class >> supportedExtensions [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> access [
+PWBAbstractGrammar >> access [
 	^ variable , arrayPosition optional , attributeAccess star
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> accessOrType [
+PWBAbstractGrammar >> accessOrType [
 	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it so a custom type will be considered as a variable"
 
 	^ parametrizedType / basicType / access	
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> argument [
+PWBAbstractGrammar >> argument [
 	^ ('ref' token , blank) optional , type , blank , identifier
 		, arrayWithSize optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> arguments [
+PWBAbstractGrammar >> arguments [
 	^ $( parser , blank , (argument separatedBy: $, parser trim) optional , blank , $) parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> array [
+PWBAbstractGrammar >> array [
 	^ ${ parser , (expression separatedBy: $, parser) , $} parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> arrayPosition [
+PWBAbstractGrammar >> arrayPosition [
 	^ '[' parser , expression, ']' parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> arrayWithSize [
+PWBAbstractGrammar >> arrayWithSize [
 	^ $[ parser , spaces optional
 		, (expression separatedBy: $, parser) optional , spaces optional
 		, $] parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> assignation [
+PWBAbstractGrammar >> assignation [
 	^ blank , ($= parser / '+=' parser / '-=' parser / '/=' parser / '*=' parser) , blank
 		, expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> assignationStatement [
+PWBAbstractGrammar >> assignationStatement [
 	^ access , assignation 
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> attributeAccess [
+PWBAbstractGrammar >> attributeAccess [
 	^ $. parser trim , uncheckedIdentifier , $( parser not
 		, arrayPosition optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> basicType [
+PWBAbstractGrammar >> basicType [
 	^ self parserFor: #('long' 'datetime' 'date' 'integer' 'string')
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> blank [
+PWBAbstractGrammar >> blank [
 	^ (#blank parser / #newline parser) star
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> booleanValue [
+PWBAbstractGrammar >> booleanValue [
 	^ 'yes' token / 'no' token
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> callStatement [
+PWBAbstractGrammar >> callStatement [
 	^ 'call' token , blank , (variable / defaultVariable)
 		, ($` parser , identifier) optional , '::' parser trim , eventType
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> condition [
+PWBAbstractGrammar >> condition [
 	^ expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> constant [
+PWBAbstractGrammar >> constant [
 	^ (#letter parser plus , $! parser) flatten
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> createInstruction [
+PWBAbstractGrammar >> createInstruction [
 	^ 'create' token, blank, variable
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> customType [
+PWBAbstractGrammar >> customType [
 	^ identifier
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> defaultEventType [
+PWBAbstractGrammar >> defaultEventType [
 	^ self
 		parserIgnoringCaseFor:
 			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create' 'destroy')
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> defaultVariable [
+PWBAbstractGrammar >> defaultVariable [
 	^ self parserIgnoringCaseFor: #('this' 'super')
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> endOf: aReservedWord [
+PWBAbstractGrammar >> endOf: aReservedWord [
 	"It seems that a / can finish anything"
 	^ ('end' token, spaces, aReservedWord token) 
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> eventType [
+PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> exitStatement [
+PWBAbstractGrammar >> exitStatement [
 	^ 'exit' token
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> expression [
+PWBAbstractGrammar >> expression [
 	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation star
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> expressionTerm [
+PWBAbstractGrammar >> expressionTerm [
 	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> expressionWithSign [
+PWBAbstractGrammar >> expressionWithSign [
 	^ $+ parser / $- parser , spaces optional, expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> functionArgument [
+PWBAbstractGrammar >> functionArgument [
 	^ expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> functionArguments [
+PWBAbstractGrammar >> functionArguments [
 	^ $( parser , blank , (functionArgument separatedBy: $, parser) optional , blank , $) parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> functionInvocation [
+PWBAbstractGrammar >> functionInvocation [
 	<astAttributeRename: #identifier into: #functionName>
 	^ (defaultVariable , '::' parser trim) optional , identifier , blank
 		, functionArguments
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> identifier [
+PWBAbstractGrammar >> identifier [
 	self flag: #TODO.	"improve identifier to accept thisCustomer for example"
 	^ ((reservedKeyword not , (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star)
 		/ (reservedKeyword , (#letter parser / $_ parser / #digit parser) plus)) flatten
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> ifMultiLine [
+PWBAbstractGrammar >> ifMultiLine [
 	^ 'if' token , blank , condition , blank , 'then' token , newlines
 		, statements optional
 		,
@@ -303,132 +303,132 @@ PWBAbstractParser >> ifMultiLine [
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> ifSingleLine [
+PWBAbstractGrammar >> ifSingleLine [
 	^ 'if' token , spaces , condition , spaces , 'then' token , spaces
 		, statement , (spaces, 'else' token , spaces , statement) optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> ifStatement [
+PWBAbstractGrammar >> ifStatement [
 	^ ifMultiLine / ifSingleLine
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> methodInvocation [
+PWBAbstractGrammar >> methodInvocation [
 	^ spaces optional , $. parser , spaces optional , uncheckedIdentifier
 		, blank , functionArguments
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> newlines [
+PWBAbstractGrammar >> newlines [
 	^ (#blank parser star , #newline parser) plus, blank
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> notExpression [
+PWBAbstractGrammar >> notExpression [
 	^ 'not' token , blank , expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> number [
+PWBAbstractGrammar >> number [
 	^ ($+ parser / $- parser , blank) optional , #digit parser plus
 		, ($. parser , #digit parser plus) optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> operatorExpression [
+PWBAbstractGrammar >> operatorExpression [
 	^ parenthesedExpression / expressionTerm , methodInvocation optional , blank
 		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or')) , blank , expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> parametrizedType [
+PWBAbstractGrammar >> parametrizedType [
 	^ ((#('char' 'decimal') collect: #parser) reduce: [ :a :b | a / b ]) , $( parser , number
 		, $) parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> parenthesedExpression [
+PWBAbstractGrammar >> parenthesedExpression [
 	^ $( parser , blank , expression , blank , $) parser
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> parserFor: aCollectionOfString [
+PWBAbstractGrammar >> parserFor: aCollectionOfString [
 	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> parserIgnoringCaseFor: aCollectionOfString [
+PWBAbstractGrammar >> parserIgnoringCaseFor: aCollectionOfString [
 	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> postFixOperator [
+PWBAbstractGrammar >> postFixOperator [
 	^ access , blank , ('--' parser / '++' parser)
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> reservedKeyword [
+PWBAbstractGrammar >> reservedKeyword [
 	^ self
 		parserIgnoringCaseFor:
 			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super')
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> returnStatement [
+PWBAbstractGrammar >> returnStatement [
 	^ 'return' token , (spaces , expression) optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> spaces [
+PWBAbstractGrammar >> spaces [
 	^ (Character space parser / Character tab parser) plus
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> specialStatement [
+PWBAbstractGrammar >> specialStatement [
 	^ returnStatement / exitStatement
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> start [
+PWBAbstractGrammar >> start [
 	^ (file , blank) end optimize
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> statement [
+PWBAbstractGrammar >> statement [
 	^ specialStatement / assignationStatement / callStatement / ifStatement
 		/ functionInvocation / postFixOperator / expression
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> statements [
+PWBAbstractGrammar >> statements [
 	^ statement separatedBy: $; parser trim / blank
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> string [
+PWBAbstractGrammar >> string [
 	^ ($" parser , ('~"' parser / $" parser negate) star , $" parser)
 		/ ($' parser , ('~''' parser / $' parser negate) star , $' parser)
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> type [
+PWBAbstractGrammar >> type [
 	^ parametrizedType / basicType / customType 
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> uncheckedIdentifier [
+PWBAbstractGrammar >> uncheckedIdentifier [
 	^ (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> variable [
+PWBAbstractGrammar >> variable [
 	^ 'this.' token optional , identifier , $( parser not
 		, arrayWithSize optional
 ]
 
 { #category : #accessing }
-PWBAbstractParser >> variableOrType [
+PWBAbstractGrammar >> variableOrType [
 	"This rule is for case where we are not sure if it is a variable or a type, only the resolution will solve it so a custom type will be considered as a variable"
 
 	^ parametrizedType / basicType / access	
