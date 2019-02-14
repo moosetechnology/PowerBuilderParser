@@ -227,13 +227,13 @@ PWBAbstractGrammar >> customType [
 { #category : #accessing }
 PWBAbstractGrammar >> defaultEventType [
 	^ self
-		parserIgnoringCaseFor:
+		parserCaseInsensitiveFor:
 			#('ButtonClicked' 'ButtonClicking' 'Clicked' 'DoubleClicked' 'ItemChanged' 'ItemError' 'ItemFocusChanged' 'RButtonDown' 'RowFocusChanged' 'RowFocusChanging' 'create' 'destroy')
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> defaultVariable [
-	^ self parserIgnoringCaseFor: #('this' 'super')
+	^ self parserCaseInsensitiveFor: #('this' 'super')
 ]
 
 { #category : #accessing }
@@ -353,13 +353,13 @@ PWBAbstractGrammar >> parenthesedExpression [
 ]
 
 { #category : #accessing }
-PWBAbstractGrammar >> parserFor: aCollectionOfString [
-	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
+PWBAbstractGrammar >> parserCaseInsensitiveFor: aCollectionOfString [
+	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #accessing }
-PWBAbstractGrammar >> parserIgnoringCaseFor: aCollectionOfString [
-	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
+PWBAbstractGrammar >> parserFor: aCollectionOfString [
+	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
 { #category : #accessing }
@@ -370,7 +370,7 @@ PWBAbstractGrammar >> postFixOperator [
 { #category : #accessing }
 PWBAbstractGrammar >> reservedKeyword [
 	^ self
-		parserIgnoringCaseFor:
+		parserCaseInsensitiveFor:
 			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super')
 ]
 

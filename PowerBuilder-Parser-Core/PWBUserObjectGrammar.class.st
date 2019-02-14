@@ -257,7 +257,7 @@ PWBUserObjectGrammar >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> sqlQuery [
-	^ (self parserIgnoringCaseFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blank
+	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blank
 		, (string / $; parser negate) plus , $; parser
 ]
 
