@@ -1,28 +1,28 @@
 Class {
-	#name : #PWBUserObjectParserTest,
+	#name : #PWBUserObjectGrammarTest,
 	#superclass : #PP2CompositeNodeTest,
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
 { #category : #accessing }
-PWBUserObjectParserTest >> parserClass [
+PWBUserObjectGrammarTest >> parserClass [
 	^ PWBUserObjectGrammar 
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testAccessOrType [
+PWBUserObjectGrammarTest >> testAccessOrType [
 	self parse: 'this.dw_liste' rule: #accessOrType.
 	self fail: 'if' rule: #accessOrType.
 	self parse: 'thisMatch' rule: #accessOrType.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testArgument [
+PWBUserObjectGrammarTest >> testArgument [
 	self parse: 'string as_param' rule: #argument
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testAssignationStatement [
+PWBUserObjectGrammarTest >> testAssignationStatement [
 	self
 		parse: 'this.Control[]={this.dw_liste,this.dw_detail}'
 		rule: #assignationStatement.
@@ -57,7 +57,7 @@ PWBUserObjectParserTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testAttribute [
+PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
 	self parse: 'string is_cre_uti = ''?''' rule: #attribute.
@@ -67,7 +67,7 @@ PWBUserObjectParserTest >> testAttribute [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testCallStatement [
+PWBUserObjectGrammarTest >> testCallStatement [
 	self parse: 'call uo_traitement::create' rule: #callStatement.
 	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
 	self parse: 'call super::edw_histo_suppression' rule: #callStatement.
@@ -75,7 +75,7 @@ PWBUserObjectParserTest >> testCallStatement [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testChooseCase [
+PWBUserObjectGrammarTest >> testChooseCase [
 	self parse: 'choose case message.wordParm
 	case SYNCHRO_OPEN, SYNCHRO_SELECTION_DOSSIER
 		this.ib_actif = TRUE
@@ -122,7 +122,7 @@ end choose' rule: #chooseCase
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testChooseCase2 [
+PWBUserObjectGrammarTest >> testChooseCase2 [
 	self parse: 'choose case ls_evn
 		case "AC","EN"
 			dw_det_app.setItem(ll_xz, "dct_evn", "AA")
@@ -155,7 +155,7 @@ PWBUserObjectParserTest >> testChooseCase2 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testChooseCase3 [
+PWBUserObjectGrammarTest >> testChooseCase3 [
 	self parse: 'choose case ls_evn
 		case "AC","EN"
 			ll_old_nbe = ll_nbe
@@ -168,7 +168,7 @@ PWBUserObjectParserTest >> testChooseCase3 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testCondition [
+PWBUserObjectGrammarTest >> testCondition [
 	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
 	self parse: 'this.validate()' rule: #condition.
 	self parse: 'true <> false' rule: #condition.
@@ -183,7 +183,7 @@ PWBUserObjectParserTest >> testCondition [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testDeclareCursor [
+PWBUserObjectGrammarTest >> testDeclareCursor [
 	self
 		parse:
 			'DECLARE C_column_ave CURSOR FOR
@@ -192,7 +192,7 @@ SELECT name  FROM sysibm.syscolumns WHERE tbname = ''AVE'' order by colno using 
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testDoLoopUntil [
+PWBUserObjectGrammarTest >> testDoLoopUntil [
 	self parse: 'do
 	ll_lig ++
 	ls_exp_val = gw_utile.dw_sys_ddex.getitemString(ll_lig, "exp_val") + ";"
@@ -206,7 +206,7 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testDoLoopWhile [
+PWBUserObjectGrammarTest >> testDoLoopWhile [
 	self parse: 'do 
 	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
 	if ll_wz = -1 then exit
@@ -216,7 +216,7 @@ loop while 1 = 1' rule: #doLoopWhile
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testDoUntilLoop [
+PWBUserObjectGrammarTest >> testDoUntilLoop [
 	self parse: 'do until ll_lig >= ll_nbs_lig or lb_trouve
 	ll_lig ++
 	ls_exp_val = gw_utile.dw_sys_ddex.getitemString(ll_lig, "exp_val") + ";"
@@ -230,7 +230,7 @@ loop' rule: #doUntilLoop
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testDoWhileLoop [
+PWBUserObjectGrammarTest >> testDoWhileLoop [
 	self parse: 'do while ll_lig_gpp <= ll_nbs_lig_gpp and not  iw_trt.wf_annuler()
 		
 		ll_gpp_no = dw_gpp_a_reval.getitemNumber(ll_lig_gpp, "gpp_no")
@@ -293,14 +293,14 @@ PWBUserObjectParserTest >> testDoWhileLoop [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testEventAttribute [
+PWBUserObjectGrammarTest >> testEventAttribute [
 	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
 	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
 	self parse: 'event ue_change_titre_onglet ( string as_mod )' rule: #eventAttribute
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testEventDeclaration [
+PWBUserObjectGrammarTest >> testEventDeclaration [
 	self parse: 'event constructor;call super::constructor;
 this.ii_dw_type = DW_TYPE_LISTE
 this.x = 0
@@ -311,7 +311,7 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testEventDeclaration2 [
+PWBUserObjectGrammarTest >> testEventDeclaration2 [
 	self parse: 'event ue_rdc();
 if il_cot = 1 then
 	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
@@ -322,7 +322,7 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testEventDeclaration3 [
+PWBUserObjectGrammarTest >> testEventDeclaration3 [
 	self parse: 'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
 	is_dct_ou_dct_int = "dct"
 else
@@ -333,13 +333,13 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testEventDeclarationEmpty [
+PWBUserObjectGrammarTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testForLoop1 [
+PWBUserObjectGrammarTest >> testForLoop1 [
 	self
 		parse: 'for ll_wz = 1 to ll_nz
 	astr_tv_param.ligne = ll_wz
@@ -368,7 +368,7 @@ next'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionDeclaration [
+PWBUserObjectGrammarTest >> testFunctionDeclaration [
 	self
 		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
 		rule: #functionDeclaration.
@@ -431,7 +431,7 @@ PWBUserObjectParserTest >> testFunctionDeclaration [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionDefinition [
+PWBUserObjectGrammarTest >> testFunctionDefinition [
 	self
 		parse: 'public function integer uf_charge_tv (ref datawindow adw_liste, ref treeview atv_cible, string as_col_phd, string as_col_hdl, long al_niveaux, ref str_tv_param astr_tv_param);
 
@@ -528,7 +528,7 @@ end function'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionDefinition1 [
+PWBUserObjectGrammarTest >> testFunctionDefinition1 [
 	self
 		parse: 'private function integer uf_traitement_dossier (long al_lig);
 
@@ -539,7 +539,7 @@ end function'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionInvocation1 [
+PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 	self
 		parse:
 			'destroy(this.dw_liste)'
@@ -547,7 +547,7 @@ PWBUserObjectParserTest >> testFunctionInvocation1 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionInvocation2 [
+PWBUserObjectGrammarTest >> testFunctionInvocation2 [
 	self
 		parse:
 			'MessageBox("Montant calculé # : correction   caisse:" + ls_num_cai_pre, 			           "Ld_MT_Solde=" + string(Ld_MT_Solde) + " ~r~n" + 						  "ld_mt_report_pre=" + string(ld_mt_report_pre) + " ~r~n" + 						  "ld_ent_pre = " + string(ld_ent_pre) + " ~r~n" + 						  "ld_sor_pre = " + string(ld_sor_pre))'
@@ -555,7 +555,7 @@ PWBUserObjectParserTest >> testFunctionInvocation2 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testFunctionInvocation3 [
+PWBUserObjectGrammarTest >> testFunctionInvocation3 [
 	self
 		parse:
 			'super::uf_jrn_trt(as_evn, as_tlg, as_cod, as_lib)'
@@ -563,18 +563,18 @@ PWBUserObjectParserTest >> testFunctionInvocation3 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testGlobalVariableDeclaration [
+PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testGotoStatement [
+PWBUserObjectGrammarTest >> testGotoStatement [
 	self parse: 'Goto NextStep' rule: #gotoStatement.
 	self parse: 'GOTO OK' rule: #gotoStatement
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement [
+PWBUserObjectGrammarTest >> testIfStatement [
 	self parse: 'if this.ib_exe_cascade = TRUE then
 	this.postEvent(rowFocusChanged!)
 	return
@@ -586,7 +586,7 @@ end if' rule: #ifStatement.
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement10 [
+PWBUserObjectGrammarTest >> testIfStatement10 [
 	self parse: 'if ll_per_no = iuo_res_ent .il_gpp_par then  
 										if gw_utile.wf_cre_rdg(as_cal.s_prt_adn, ll_per_no, upper(is_rdg_exp_mca), as_cal.d_cal_deb, is_val_exp_mca , "",  1) = 1 then
 											ib_cre_rdg_fid = TRUE
@@ -596,7 +596,7 @@ PWBUserObjectParserTest >> testIfStatement10 [
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement2 [
+PWBUserObjectGrammarTest >> testIfStatement2 [
 	self
 		parse:
 			'if il_cot = 1 then
@@ -608,7 +608,7 @@ end if'
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement3 [
+PWBUserObjectGrammarTest >> testIfStatement3 [
 	self
 		parse:
 			'if ii_dossier_type = DOSSIER_ADHERENT then
@@ -622,7 +622,7 @@ PWBUserObjectParserTest >> testIfStatement3 [
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement4 [
+PWBUserObjectGrammarTest >> testIfStatement4 [
 	self
 		parse:
 			'IF Ld_MT_Solde <> (ld_mt_report_pre + ld_ent_pre - ld_sor_pre) THEN
@@ -635,7 +635,7 @@ END IF'
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement5 [
+PWBUserObjectGrammarTest >> testIfStatement5 [
 	self
 		parse:
 			'if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
@@ -646,13 +646,13 @@ PWBUserObjectParserTest >> testIfStatement5 [
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement6 [
+PWBUserObjectGrammarTest >> testIfStatement6 [
 	self parse: 'if isnull(is_ctr_rej) then is_ctr_rej = "N" else is_ctr_rej = trim(is_ctr_rej)' rule: #ifStatement.
 
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement7 [
+PWBUserObjectGrammarTest >> testIfStatement7 [
 	self parse: 'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
 	
 		end if' rule: #ifStatement.
@@ -660,7 +660,7 @@ PWBUserObjectParserTest >> testIfStatement7 [
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement8 [
+PWBUserObjectGrammarTest >> testIfStatement8 [
 	self parse: 'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
 	else
 		end if' rule: #ifStatement.
@@ -668,7 +668,7 @@ PWBUserObjectParserTest >> testIfStatement8 [
 ]
 
 { #category : #accessing }
-PWBUserObjectParserTest >> testIfStatement9 [
+PWBUserObjectGrammarTest >> testIfStatement9 [
 	self parse: 'if true then
 	if false then a = 2
 	else 
@@ -677,18 +677,18 @@ end if' rule: #ifStatement.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testMethodInvocation [
+PWBUserObjectGrammarTest >> testMethodInvocation [
 	self parse: '.setitem(1,"mt_tra", -ld_mt_mvt)' rule: #methodInvocation
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testOpenCloseSqlCursor [
+PWBUserObjectGrammarTest >> testOpenCloseSqlCursor [
 	self parse: 'Open C_column_ave ;' rule: #openSqlCursor.
 	self parse: 'close C_column_ave ;' rule: #closeSqlCursor
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testPrototypesDeclaration [
+PWBUserObjectGrammarTest >> testPrototypesDeclaration [
 	self
 		parse:
 			'forward prototypes
@@ -715,7 +715,7 @@ end prototypes'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testReturnStatement [
+PWBUserObjectGrammarTest >> testReturnStatement [
 	self parse: 'return 0' rule: #returnStatement.
 	self parse: 'return' rule: #returnStatement. 
 	self parse: 'RETURN FALSE' rule: #returnStatement.
@@ -724,13 +724,13 @@ delete' rule: #returnStatement.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlCommitStatement [
+PWBUserObjectGrammarTest >> testSqlCommitStatement [
 	self parse: 'commit;' rule: #sqlCommitStatement.
 	self parse: 'COMMIT USING Emp_tran ;' rule: #sqlCommitStatement.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlQuery [
+PWBUserObjectGrammarTest >> testSqlQuery [
 	self
 		parse:
 			'SELECT max(caisse.num_cai)  
@@ -741,7 +741,7 @@ PWBUserObjectParserTest >> testSqlQuery [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlQuery2 [
+PWBUserObjectGrammarTest >> testSqlQuery2 [
 	self
 		parse:
 			'update dct
@@ -751,7 +751,7 @@ PWBUserObjectParserTest >> testSqlQuery2 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlQuery3 [
+PWBUserObjectGrammarTest >> testSqlQuery3 [
 	self
 		parse:
 			'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;'
@@ -759,7 +759,7 @@ PWBUserObjectParserTest >> testSqlQuery3 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlQuery4 [
+PWBUserObjectGrammarTest >> testSqlQuery4 [
 	self
 		parse:
 			'insert into paa (paa_aoc, paa_dac, paa_uti, sou_no, par_no, gpp_no, rdg_cod, paa_deb, paa_val, paa_fin, adh_ctr, paa_ddw, paa_no) values
@@ -768,18 +768,18 @@ PWBUserObjectParserTest >> testSqlQuery4 [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlQuery5 [
+PWBUserObjectGrammarTest >> testSqlQuery5 [
 	self parse: 'fetch C_column_ave into :ls_col_name;' rule: #sqlQuery
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSqlRollbackStatement [
+PWBUserObjectGrammarTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testStatement [
+PWBUserObjectGrammarTest >> testStatement [
 	self parse: 'dw_detail.setFocus()' rule: #statement.
 	self parse: 'return' rule: #statement.
 	self parse: 'long ll_par_no' rule: #statement.
@@ -787,14 +787,14 @@ PWBUserObjectParserTest >> testStatement [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testStatements [
+PWBUserObjectGrammarTest >> testStatements [
 	self
 		parse: 'ls_donnee=''''; ls_donnee_2= ''''; ls_donnee_3= ''''; ls_donnee_4 = '''''
 		rule: #statements
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testSubroutineDeclaration [
+PWBUserObjectGrammarTest >> testSubroutineDeclaration [
 	self
 		parse:
 			'public subroutine uf_histo_echeancier (long al_par_no, string as_ech_exe, string as_adh_ctr)'
@@ -806,7 +806,7 @@ PWBUserObjectParserTest >> testSubroutineDeclaration [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTriggerDefinition [
+PWBUserObjectGrammarTest >> testTriggerDefinition [
 	self
 		parse:
 			'on uo_consultation_histo_suppression_ech.create
@@ -818,7 +818,7 @@ end on'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTriggerDefinition2 [
+PWBUserObjectGrammarTest >> testTriggerDefinition2 [
 	self
 		parse:
 			'on uo_consultation_histo_suppression_ech.destroy
@@ -829,7 +829,7 @@ end on'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTryCatch [
+PWBUserObjectGrammarTest >> testTryCatch [
 	self parse: 'try
 	string ll_test
 	if ll_wz = 0 then
@@ -850,7 +850,7 @@ PWBUserObjectParserTest >> testTryCatch [
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeDeclaration [
+PWBUserObjectGrammarTest >> testTypeDeclaration [
 	self parse: 'global type uo_consultation_histo_suppression_ech from userobject
 end type' rule: #typeDeclaration.
 	self parse: 'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
@@ -858,7 +858,7 @@ end type' rule: #typeDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeDeclaration1 [
+PWBUserObjectGrammarTest >> testTypeDeclaration1 [
 	self parse: 'global type uo_cotisations_adherent from uo_deux_listes_en_synchro
 integer width = 1792
 integer height = 1304
@@ -892,7 +892,7 @@ end type' rule: #typeDeclaration.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeDeclaration2 [
+PWBUserObjectGrammarTest >> testTypeDeclaration2 [
 	self parse: 'type st_titre from uo_traitement`st_titre within uo_traitement_cot_prb
 int Width=819
 string Text="COT_PRB"
@@ -900,14 +900,14 @@ end type' rule: #typeDeclaration.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeDeclaration3 [
+PWBUserObjectGrammarTest >> testTypeDeclaration3 [
 	self parse: 'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
 string dataobject = "dw_zonier"
 end type' rule: #typeDeclaration.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeDeclarationAddedAttributes [
+PWBUserObjectGrammarTest >> testTypeDeclarationAddedAttributes [
 	self
 		parse:
 			'global type uo_consultation_histo_suppression_ech from userobject
@@ -925,7 +925,7 @@ end type'
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testTypeVariable [
+PWBUserObjectGrammarTest >> testTypeVariable [
 	self parse: 'type variables
 date id_aujourd_hui
 string is_lst_rdg_capital = ""
@@ -943,7 +943,7 @@ end variables' rule: #typeVariable.
 ]
 
 { #category : #tests }
-PWBUserObjectParserTest >> testVariableDeclarations [
+PWBUserObjectGrammarTest >> testVariableDeclarations [
 	self
 		parse:
 			'date id_date_eff_rdg , id_dat_adh_init, id_date_eff, id_date_effet_tarif, id_dat_ff130, id_prm_app_deb'

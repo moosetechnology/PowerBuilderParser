@@ -1,16 +1,16 @@
 Class {
-	#name : #PWBDataWindowParserTest,
+	#name : #PWBDataWindowGrammarTest,
 	#superclass : #PP2CompositeNodeTest,
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
 { #category : #accessing }
-PWBDataWindowParserTest >> parserClass [
+PWBDataWindowGrammarTest >> parserClass [
 	^ PWBDataWindowGrammar 
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testColumn [
+PWBDataWindowGrammarTest >> testColumn [
 	self
 		parse: 'column=(type=char(24) updatewhereclause=no name=dct_aoc dbname="dct_aoc" )'
 		rule: #column.
@@ -24,7 +24,7 @@ PWBDataWindowParserTest >> testColumn [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testColumnGraphicComponent [
+PWBDataWindowGrammarTest >> testColumnGraphicComponent [
 	self
 		parse:
 			'column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="33554432" x="9129" y="0" height="76" width="219" format="[general]" html.valueishtml="0"  name=dct_dss visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )'
@@ -32,7 +32,7 @@ PWBDataWindowParserTest >> testColumnGraphicComponent [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testComputeGraphicComponent [
+PWBDataWindowGrammarTest >> testComputeGraphicComponent [
 	self
 		parse:
 			'compute(band=summary alignment="1" expression="sum( anu_ht  for all)"border="0" color="20718592" x="713" y="4" height="76" width="402" format="0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="1" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )'
@@ -40,24 +40,24 @@ PWBDataWindowParserTest >> testComputeGraphicComponent [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testDataWindow [
+PWBDataWindowGrammarTest >> testDataWindow [
 	self parse: 'datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )' rule: #dataWindow
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testDetail [
+PWBDataWindowGrammarTest >> testDetail [
 	self parse: 'detail(height=92 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )' rule: #graphicComponent
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testExport [
+PWBDataWindowGrammarTest >> testExport [
 	self parse: 'export.xhtml()' rule: #export.
 	self parse: 'export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )' rule: #export.
 	self parse: 'export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )' rule: #export
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testExpression [
+PWBDataWindowGrammarTest >> testExpression [
 	self parse: '(("al_chq_no", number))' rule: #expression.
 	self parse: 'parent.width - 100' rule: #expression.
 	self parse: '1 = 1' rule: #expression.
@@ -71,7 +71,7 @@ PWBDataWindowParserTest >> testExpression [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testFooter [
+PWBDataWindowGrammarTest >> testFooter [
 	self
 		parse:
 			'footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
@@ -79,7 +79,7 @@ PWBDataWindowParserTest >> testFooter [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testGenerators [
+PWBDataWindowGrammarTest >> testGenerators [
 	self
 		parse:
 			'htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )'
@@ -92,7 +92,7 @@ PWBDataWindowParserTest >> testGenerators [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testHeader [
+PWBDataWindowGrammarTest >> testHeader [
 	self
 		parse:
 			'header(height=160 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
@@ -100,17 +100,17 @@ PWBDataWindowParserTest >> testHeader [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testHtmlTable [
+PWBDataWindowGrammarTest >> testHtmlTable [
 	self parse: 'htmltable(border="1" )' rule: #graphicComponent
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testImport [
+PWBDataWindowGrammarTest >> testImport [
 	self parse: 'import.xml()' rule: #import
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testOption [
+PWBDataWindowGrammarTest >> testOption [
 	self parse: 'name=dct_aoc' rule: #option.
 	self parse: 'type=char(24)' rule: #option.
 	self parse: 'color="536870912"' rule: #option.
@@ -124,23 +124,23 @@ PWBDataWindowParserTest >> testOption [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testOptions [
+PWBDataWindowGrammarTest >> testOptions [
 	self parse: 'band=detail id=4' rule: #options
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testParametrizedType [
+PWBDataWindowGrammarTest >> testParametrizedType [
 	self parse: 'char(24)' rule: #parametrizedType.
 	self parse: 'decimal(2)' rule: #parametrizedType
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testRectangle [
+PWBDataWindowGrammarTest >> testRectangle [
 	self parse: 'rectangle(band=header x="0" y="0" height="176" width="2871"  name=r_1 visible="1" brush.hatch="6" brush.color="28617770" pen.style="0" pen.width="5" pen.color="28617770"  background.mode="2" background.color="12639424" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )' rule: #graphicComponent
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testString [
+PWBDataWindowGrammarTest >> testString [
 	self parse: '''Simple string''' rule: #string.
 	self parse: '"Simple string"' rule: #string.
 	self parse: '"String with protected ~""' rule: #string.
@@ -154,12 +154,12 @@ PWBDataWindowParserTest >> testString [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testSummary [
+PWBDataWindowGrammarTest >> testSummary [
 	self parse: 'summary(height=84 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )' rule: #graphicComponent
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testTable [
+PWBDataWindowGrammarTest >> testTable [
 	self parse: 'table(column=(type=char(24) updatewhereclause=no name=dct_aoc dbname="dct_aoc" )
  column=(type=datetime updatewhereclause=no name=dct_dac dbname="dct_dac" )
  column=(type=char(5) updatewhereclause=no name=dct_uti dbname="dct_uti" )
@@ -226,7 +226,7 @@ PWBDataWindowParserTest >> testTable [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testTable2 [
+PWBDataWindowGrammarTest >> testTable2 [
 	self parse: 'table(column=(type=char(24) updatewhereclause=no name=dct_aoc dbname="dct_aoc" )
  column=(type=datetime updatewhereclause=no name=dct_dac dbname="dct_dac" )
  column=(type=char(5) updatewhereclause=no name=dct_uti dbname="dct_uti" )
@@ -293,7 +293,7 @@ PWBDataWindowParserTest >> testTable2 [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testTable3 [
+PWBDataWindowGrammarTest >> testTable3 [
 	self parse: 'table(column=(type=char(12) updatewhereclause=yes name=dct_adn dbname="dct.dct_adn" )
  column=(type=long updatewhereclause=yes name=par_cal dbname="dct.par_cal" )
  column=(type=decimal(2) updatewhereclause=yes name=dct_dbt dbname="dct.dct_dbt" )
@@ -334,17 +334,17 @@ PWBDataWindowParserTest >> testTable3 [
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testText [
+PWBDataWindowGrammarTest >> testText [
 	self parse: 'text(band=header alignment="2" text="Dct Dac" border="0" color="33554432" x="8722" y="0" height="64" width="219" html.valueishtml="0"  name=dct_dac_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )' rule: #graphicComponent
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testType [
+PWBDataWindowGrammarTest >> testType [
 	self fail: 'this.dw_liste' rule: #type.
 	self fail: 'this' rule: #type
 ]
 
 { #category : #accessing }
-PWBDataWindowParserTest >> testVariable [
+PWBDataWindowGrammarTest >> testVariable [
 	self parse: 'this.dw_liste' rule: #variable
 ]
