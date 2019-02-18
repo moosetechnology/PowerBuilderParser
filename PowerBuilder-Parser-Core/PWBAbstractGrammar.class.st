@@ -254,6 +254,7 @@ PWBAbstractGrammar >> exitStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expression [
+	<reify: #(expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm) into: #expression>
 	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation star
 ]
 
@@ -413,6 +414,7 @@ PWBAbstractGrammar >> string [
 
 { #category : #accessing }
 PWBAbstractGrammar >> type [
+	<reify: #( parametrizedType / basicType / customType ) into: #type>
 	^ parametrizedType / basicType / customType 
 ]
 
