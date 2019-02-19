@@ -15,7 +15,6 @@ Class {
 		'column',
 		'columnDefinition',
 		'table',
-		'optionBad',
 		'generatorToken',
 		'generator',
 		'import',
@@ -52,6 +51,7 @@ PWBDataWindowGrammar >> export [
 
 { #category : #accessing }
 PWBDataWindowGrammar >> file [
+	<reify: #(graphicComponent / dataWindow / table / generator / import / export) into: #fileStatement>
 	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
 ]
 
@@ -91,11 +91,6 @@ PWBDataWindowGrammar >> import [
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> option [
 	^ access, $= parser trim, optionValue
-]
-
-{ #category : #'as yet unclassified' }
-PWBDataWindowGrammar >> optionBad [
-	^ #blank parser negate plus
 ]
 
 { #category : #'as yet unclassified' }

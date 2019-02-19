@@ -52,7 +52,10 @@ Class {
 		'spaces',
 		'defaultEventType',
 		'postFixOperator',
-		'arrayWithSize'
+		'arrayWithSize',
+		'elseIf',
+		'else',
+		'elseOnLine'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -200,6 +203,7 @@ PWBAbstractGrammar >> booleanValue [
 
 { #category : #accessing }
 PWBAbstractGrammar >> callStatement [
+	<reify: #(variable / defaultVariable) into: #variable>
 	^ 'call' token , blank , (variable / defaultVariable)
 		, ($` parser , identifier) optional , '::' parser trim , eventType
 ]
@@ -234,6 +238,22 @@ PWBAbstractGrammar >> defaultEventType [
 { #category : #accessing }
 PWBAbstractGrammar >> defaultVariable [
 	^ self parserCaseInsensitiveFor: #('this' 'super')
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> else [
+	^ 'else' token , blank , statements optional
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> elseIf [
+	^ 'elseif' token , blank , expression , blank , 'then' token , blank
+		, statements optional
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> elseOnLine [
+	^ spaces , 'else' token , spaces , statement
 ]
 
 { #category : #accessing }
@@ -280,7 +300,7 @@ PWBAbstractGrammar >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionInvocation [
-	<astAttributeRename: #identifier into: #functionName>
+	<rename: #identifier into: #functionName>
 	^ (defaultVariable , '::' parser trim) optional , identifier , blank
 		, functionArguments
 ]
@@ -297,16 +317,15 @@ PWBAbstractGrammar >> ifMultiLine [
 	^ 'if' token , blank , condition , blank , 'then' token , newlines
 		, statements optional
 		,
-			(blank optional, 'elseif' token , blank , expression , blank , 'then' token
-				, blank , statements optional) star
-		, (blank optional, 'else' token , blank , statements optional) optional
+			(blank optional, elseIf) star
+		, (blank optional, else) optional
 		, newlines optional , (self endOf: 'if')
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> ifSingleLine [
 	^ 'if' token , spaces , condition , spaces , 'then' token , spaces
-		, statement , (spaces, 'else' token , spaces , statement) optional
+		, statement , elseOnLine optional
 ]
 
 { #category : #accessing }
@@ -338,6 +357,8 @@ PWBAbstractGrammar >> number [
 
 { #category : #accessing }
 PWBAbstractGrammar >> operatorExpression [
+	<reify: #(parenthesedExpression / expressionTerm) into: #left>
+	<rename: #expression into: #right>
 	^ parenthesedExpression / expressionTerm , methodInvocation optional , blank
 		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or')) , blank , expression
 ]
