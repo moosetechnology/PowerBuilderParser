@@ -15,8 +15,8 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 			spec
 				package: 'PowerBuilder-Parser-Tests';
 				package: 'PowerBuilder-Parser-Core'
-					with: [ spec requires: #('PetitParser2' 'PowerBuilder-Parser-Tests') ] ].
-				"Groups"
+					with: [ spec requires: #('PetitParser2Core' 'PowerBuilder-Parser-Tests') ] ]
+	"Groups"
 ]
 
 { #category : #baselines }
