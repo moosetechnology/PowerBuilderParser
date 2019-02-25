@@ -435,7 +435,6 @@ PWBAbstractGrammar >> string [
 
 { #category : #accessing }
 PWBAbstractGrammar >> type [
-	<reify: #( parametrizedType / basicType / customType ) into: #type>
 	^ parametrizedType / basicType / customType 
 ]
 

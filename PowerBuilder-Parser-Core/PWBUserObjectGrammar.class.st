@@ -75,12 +75,8 @@ PWBUserObjectGrammar >> attribute [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> attributes [
+	<reify: #(eventAttribute / attribute) into: #attributes>
 	^ (eventAttribute / attribute separatedBy: blank) , blank
-]
-
-{ #category : #accessing }
-PWBUserObjectGrammar >> callStatement [
-	^ super callStatement
 ]
 
 { #category : #accessing }
@@ -157,6 +153,7 @@ PWBUserObjectGrammar >> endForward [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> eventAttribute [
+	<reify: #(arguments / variable) into: #attribute>
 	^ 'event' token , blank , type , blank , (arguments / variable)
 ]
 
@@ -180,6 +177,9 @@ PWBUserObjectGrammar >> expressionList [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> file [
+	<reify:
+		#(typeVariable / typeDeclaration / functionDefinition / subroutineDefinition / endForward / globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration)
+	into: #fileStatement>
 	^ typeVariable / typeDeclaration / functionDefinition
 		/ subroutineDefinition / endForward / globalVariableDeclaration
 		/ triggerDefinition / eventDeclaration / prototypesDeclaration
@@ -246,6 +246,7 @@ PWBUserObjectGrammar >> programStep [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> prototypesDeclaration [
+	<reify: #(functionDeclaration / subroutineDeclaration) into: #declaration>
 	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
 		, blank , (self endOf: 'prototypes')
 ]
@@ -269,6 +270,7 @@ PWBUserObjectGrammar >> sqlRollbackStatement [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> statement [
+	<reifyAllInto: #statement>
 	^ programStep / gotoStatement / sqlRollbackStatement / openSqlCursor
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / sqlQuery
 		/ tryCatch / forLoop / chooseCase / doWhileLoop / doUntilLoop
@@ -312,6 +314,7 @@ PWBUserObjectGrammar >> tryCatch [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> typeDeclaration [
+	<rename: #customType into: #(type eventType)>
 	^ ('global' token , blank) optional , 'type' parser , blank
 		, customType , (blank , 'enumerated' token) optional
 		, (blank , fromClause) , ($` parser , customType) optional
