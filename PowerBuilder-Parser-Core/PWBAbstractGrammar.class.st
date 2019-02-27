@@ -61,14 +61,18 @@ Class {
 }
 
 { #category : #parsing }
-PWBAbstractGrammar class >> parse: content fileExtension: fileExtension [
-	^ (self allSubclasses detect: [ :class | class supportExtension: fileExtension ]) new
+PWBAbstractGrammar class >> obtainASTFrom: content fileExtension: fileExtension [
+	^ (self allSubclasses
+		detect: [ :class | 
+			(class name endsWith: 'Parser')
+				and: [ class supportExtension: fileExtension ] ]) new
 		parse: content
 ]
 
 { #category : #parsing }
-PWBAbstractGrammar class >> parse: aString fileName: aString2 [ 
-	self shouldBeImplemented.
+PWBAbstractGrammar class >> parse: content fileExtension: fileExtension [
+	^ (self allSubclasses detect: [ :class | class supportExtension: fileExtension ]) new
+		parse: content
 ]
 
 { #category : #parsing }
