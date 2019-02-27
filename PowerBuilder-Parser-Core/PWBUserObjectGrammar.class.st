@@ -32,7 +32,6 @@ Class {
 		'transactionObject',
 		'sqlCommitStatement',
 		'doWhileLoop',
-		'dirtyStatement',
 		'programStep',
 		'gotoStatement',
 		'caseElse',
@@ -48,7 +47,8 @@ Class {
 		'openSqlCursor',
 		'closeSqlCursor',
 		'descriptor',
-		'endForward'
+		'endForward',
+		'variableAssignation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -118,11 +118,6 @@ PWBUserObjectGrammar >> descriptor [
 ]
 
 { #category : #accessing }
-PWBUserObjectGrammar >> dirtyStatement [
-	^ #newline parser negate plus
-]
-
-{ #category : #accessing }
 PWBUserObjectGrammar >> doLoopUntil [
 	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'until' token , blank
 		, expression
@@ -166,6 +161,7 @@ PWBUserObjectGrammar >> eventDeclaration [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> eventReferenceName [
+	<rename: #identifier into: #(objectClass eventName)>
 	^ (identifier , '::' parser) optional , identifier
 		, arguments optional
 ]
@@ -188,6 +184,7 @@ PWBUserObjectGrammar >> file [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> forLoop [
+	<rename: #expression into: #(endExpression stepExpression)>
 	^ 'for' token , blank , assignationStatement , blank , 'to' token , blank , expression , (blank , 'step' token , blank , expression) optional , newlines , statements
 		, newlines , 'next' token
 ]
@@ -334,9 +331,14 @@ PWBUserObjectGrammar >> usingClause [
 ]
 
 { #category : #accessing }
+PWBUserObjectGrammar >> variableAssignation [
+	^ variable , assignation optional
+]
+
+{ #category : #accessing }
 PWBUserObjectGrammar >> variableDeclarations [
 	^ type , blank
-		, (variable , assignation optional separatedBy: $, parser trim)
+		, (variableAssignation separatedBy: $, parser trim)
 ]
 
 { #category : #accessing }
