@@ -48,7 +48,8 @@ Class {
 		'closeSqlCursor',
 		'descriptor',
 		'endForward',
-		'variableAssignation'
+		'variableAssignation',
+		'catchBlock'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -87,6 +88,12 @@ PWBUserObjectGrammar >> case [
 { #category : #accessing }
 PWBUserObjectGrammar >> caseElse [
 	^ 'case' token , blank , 'else' token , blank , statements optional
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammar >> catchBlock [
+	^ 'catch' token , blank , arguments
+		, (newlines , statements) optional
 ]
 
 { #category : #accessing }
@@ -205,11 +212,6 @@ PWBUserObjectGrammar >> functionDefinition [
 ]
 
 { #category : #accessing }
-PWBUserObjectGrammar >> functionInvocation [ 
-	^ super functionInvocation 
-]
-
-{ #category : #accessing }
 PWBUserObjectGrammar >> functionSignature [
 	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
 		, arguments
@@ -304,8 +306,7 @@ PWBUserObjectGrammar >> triggerDefinition [
 PWBUserObjectGrammar >> tryCatch [
 	^ 'try' token , (newlines , statements) optional
 		,
-			(blank , 'catch' token , blank , arguments
-				, (newlines , statements) optional) star , blank
+			(blank , catchBlock) star , blank
 		, (self endOf: 'try')
 ]
 

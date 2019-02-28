@@ -417,7 +417,7 @@ PWBAbstractGrammar >> specialStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> start [
-	^ (file , blank) end optimize
+	^ (file , blank) end optimize ==> [ :production | production first ]
 ]
 
 { #category : #accessing }
