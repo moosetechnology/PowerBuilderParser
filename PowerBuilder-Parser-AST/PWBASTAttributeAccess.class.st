@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'uncheckedIdentifier',
-		'arrayPosition'
+		'arrayPosition',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -22,6 +24,26 @@ PWBASTAttributeAccess >> arrayPosition [
 { #category : #accessing }
 PWBASTAttributeAccess >> arrayPosition: anObject [
 	arrayPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

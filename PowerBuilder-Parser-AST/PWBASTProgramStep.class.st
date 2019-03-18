@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTProgramStep,
 	#superclass : #Object,
 	#instVars : [
-		'identifier'
+		'identifier',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTProgramStep >> identifier [
 { #category : #accessing }
 PWBASTProgramStep >> identifier: anObject [
 	identifier := anObject
+]
+
+{ #category : #accessing }
+PWBASTProgramStep >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTProgramStep >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTProgramStep >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTProgramStep >> stopPosition: anObject [
+	stopPosition := anObject
 ]

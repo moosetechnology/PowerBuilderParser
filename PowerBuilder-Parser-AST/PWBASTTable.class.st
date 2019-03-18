@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'columns',
-		'options'
+		'options',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -32,4 +34,24 @@ PWBASTTable >> options [
 { #category : #accessing }
 PWBASTTable >> options: anObject [
 	options := anObject
+]
+
+{ #category : #accessing }
+PWBASTTable >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTTable >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTTable >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTTable >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTAssignation,
 	#superclass : #Object,
 	#instVars : [
-		'expression'
+		'expression',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTAssignation >> expression [
 { #category : #accessing }
 PWBASTAssignation >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #accessing }
+PWBASTAssignation >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTAssignation >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTAssignation >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTAssignation >> stopPosition: anObject [
+	stopPosition := anObject
 ]

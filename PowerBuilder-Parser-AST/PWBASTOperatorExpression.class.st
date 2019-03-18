@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'left',
 		'methodInvocation',
-		'right'
+		'right',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -43,4 +45,24 @@ PWBASTOperatorExpression >> right [
 { #category : #accessing }
 PWBASTOperatorExpression >> right: anObject [
 	right := anObject
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> stopPosition: anObject [
+	stopPosition := anObject
 ]

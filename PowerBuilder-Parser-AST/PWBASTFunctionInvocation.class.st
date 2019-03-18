@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'defaultVariable',
 		'functionName',
-		'functionArguments'
+		'functionArguments',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -43,4 +45,24 @@ PWBASTFunctionInvocation >> functionName [
 { #category : #accessing }
 PWBASTFunctionInvocation >> functionName: anObject [
 	functionName := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionInvocation >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionInvocation >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionInvocation >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionInvocation >> stopPosition: anObject [
+	stopPosition := anObject
 ]

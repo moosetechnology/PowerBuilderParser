@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTReturnStatement,
 	#superclass : #Object,
 	#instVars : [
-		'expression'
+		'expression',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTReturnStatement >> expression [
 { #category : #accessing }
 PWBASTReturnStatement >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #accessing }
+PWBASTReturnStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTReturnStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTReturnStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTReturnStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]

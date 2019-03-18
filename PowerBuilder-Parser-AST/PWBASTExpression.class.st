@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'expression',
-		'methodInvocations'
+		'methodInvocations',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -32,4 +34,24 @@ PWBASTExpression >> methodInvocations [
 { #category : #accessing }
 PWBASTExpression >> methodInvocations: anObject [
 	methodInvocations := anObject
+]
+
+{ #category : #accessing }
+PWBASTExpression >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTExpression >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTExpression >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTExpression >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTFunctionDeclaration,
 	#superclass : #Object,
 	#instVars : [
-		'functionSignature'
+		'functionSignature',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTFunctionDeclaration >> functionSignature [
 { #category : #accessing }
 PWBASTFunctionDeclaration >> functionSignature: anObject [
 	functionSignature := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> stopPosition: anObject [
+	stopPosition := anObject
 ]

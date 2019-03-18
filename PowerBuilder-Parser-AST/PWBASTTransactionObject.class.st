@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTTransactionObject,
 	#superclass : #Object,
 	#instVars : [
-		'identifier'
+		'identifier',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTTransactionObject >> identifier [
 { #category : #accessing }
 PWBASTTransactionObject >> identifier: anObject [
 	identifier := anObject
+]
+
+{ #category : #accessing }
+PWBASTTransactionObject >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTTransactionObject >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTTransactionObject >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTTransactionObject >> stopPosition: anObject [
+	stopPosition := anObject
 ]

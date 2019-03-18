@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'statements',
-		'expression'
+		'expression',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -25,6 +27,16 @@ PWBASTDoLoopUntil >> expression: anObject [
 ]
 
 { #category : #accessing }
+PWBASTDoLoopUntil >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTDoLoopUntil >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTDoLoopUntil >> statements [
 	^ statements
 ]
@@ -32,4 +44,14 @@ PWBASTDoLoopUntil >> statements [
 { #category : #accessing }
 PWBASTDoLoopUntil >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTDoLoopUntil >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTDoLoopUntil >> stopPosition: anObject [
+	stopPosition := anObject
 ]

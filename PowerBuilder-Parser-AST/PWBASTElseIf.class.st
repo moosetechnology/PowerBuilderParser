@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'expression',
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -25,6 +27,16 @@ PWBASTElseIf >> expression: anObject [
 ]
 
 { #category : #accessing }
+PWBASTElseIf >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTElseIf >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTElseIf >> statements [
 	^ statements
 ]
@@ -32,4 +44,14 @@ PWBASTElseIf >> statements [
 { #category : #accessing }
 PWBASTElseIf >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTElseIf >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTElseIf >> stopPosition: anObject [
+	stopPosition := anObject
 ]

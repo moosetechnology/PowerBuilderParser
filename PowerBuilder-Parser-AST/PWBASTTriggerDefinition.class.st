@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'identifier',
 		'eventType',
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -36,6 +38,16 @@ PWBASTTriggerDefinition >> identifier: anObject [
 ]
 
 { #category : #accessing }
+PWBASTTriggerDefinition >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTTriggerDefinition >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTTriggerDefinition >> statements [
 	^ statements
 ]
@@ -43,4 +55,14 @@ PWBASTTriggerDefinition >> statements [
 { #category : #accessing }
 PWBASTTriggerDefinition >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTTriggerDefinition >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTTriggerDefinition >> stopPosition: anObject [
+	stopPosition := anObject
 ]

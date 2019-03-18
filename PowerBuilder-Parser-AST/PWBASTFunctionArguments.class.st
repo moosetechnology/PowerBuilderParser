@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTFunctionArguments,
 	#superclass : #Object,
 	#instVars : [
-		'functionArguments'
+		'functionArguments',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTFunctionArguments >> functionArguments [
 { #category : #accessing }
 PWBASTFunctionArguments >> functionArguments: anObject [
 	functionArguments := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionArguments >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionArguments >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTFunctionArguments >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTFunctionArguments >> stopPosition: anObject [
+	stopPosition := anObject
 ]

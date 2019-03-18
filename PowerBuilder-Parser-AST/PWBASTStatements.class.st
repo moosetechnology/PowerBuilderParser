@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTStatements,
 	#superclass : #Object,
 	#instVars : [
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -14,6 +16,16 @@ PWBASTStatements >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
+PWBASTStatements >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTStatements >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTStatements >> statements [
 	^ statements
 ]
@@ -21,4 +33,14 @@ PWBASTStatements >> statements [
 { #category : #accessing }
 PWBASTStatements >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTStatements >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTStatements >> stopPosition: anObject [
+	stopPosition := anObject
 ]

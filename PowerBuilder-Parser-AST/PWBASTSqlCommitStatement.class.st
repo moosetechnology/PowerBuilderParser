@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTSqlCommitStatement,
 	#superclass : #Object,
 	#instVars : [
-		'usingClause'
+		'usingClause',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -11,6 +13,26 @@ Class {
 PWBASTSqlCommitStatement >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTSqlCommitStatement: self
+]
+
+{ #category : #accessing }
+PWBASTSqlCommitStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTSqlCommitStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTSqlCommitStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTSqlCommitStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTElseOnLine,
 	#superclass : #Object,
 	#instVars : [
-		'statement'
+		'statement',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -14,6 +16,16 @@ PWBASTElseOnLine >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
+PWBASTElseOnLine >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTElseOnLine >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTElseOnLine >> statement [
 	^ statement
 ]
@@ -21,4 +33,14 @@ PWBASTElseOnLine >> statement [
 { #category : #accessing }
 PWBASTElseOnLine >> statement: anObject [
 	statement := anObject
+]
+
+{ #category : #accessing }
+PWBASTElseOnLine >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTElseOnLine >> stopPosition: anObject [
+	stopPosition := anObject
 ]

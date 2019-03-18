@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'statements',
-		'catchBlocks'
+		'catchBlocks',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -25,6 +27,16 @@ PWBASTTryCatch >> catchBlocks: anObject [
 ]
 
 { #category : #accessing }
+PWBASTTryCatch >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTTryCatch >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTTryCatch >> statements [
 	^ statements
 ]
@@ -32,4 +44,14 @@ PWBASTTryCatch >> statements [
 { #category : #accessing }
 PWBASTTryCatch >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTTryCatch >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTTryCatch >> stopPosition: anObject [
+	stopPosition := anObject
 ]

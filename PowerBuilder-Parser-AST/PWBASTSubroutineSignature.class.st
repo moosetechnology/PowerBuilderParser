@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'accessModifier',
 		'identifier',
-		'arguments'
+		'arguments',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -43,4 +45,24 @@ PWBASTSubroutineSignature >> identifier [
 { #category : #accessing }
 PWBASTSubroutineSignature >> identifier: anObject [
 	identifier := anObject
+]
+
+{ #category : #accessing }
+PWBASTSubroutineSignature >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTSubroutineSignature >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTSubroutineSignature >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTSubroutineSignature >> stopPosition: anObject [
+	stopPosition := anObject
 ]

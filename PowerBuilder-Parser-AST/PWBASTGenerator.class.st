@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'generatorToken',
-		'parameters'
+		'parameters',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -32,4 +34,24 @@ PWBASTGenerator >> parameters [
 { #category : #accessing }
 PWBASTGenerator >> parameters: anObject [
 	parameters := anObject
+]
+
+{ #category : #accessing }
+PWBASTGenerator >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTGenerator >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTGenerator >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTGenerator >> stopPosition: anObject [
+	stopPosition := anObject
 ]

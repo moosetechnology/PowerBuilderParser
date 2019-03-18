@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'subroutineSignature',
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -15,6 +17,16 @@ PWBASTSubroutineDefinition >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
+PWBASTSubroutineDefinition >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTSubroutineDefinition >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTSubroutineDefinition >> statements [
 	^ statements
 ]
@@ -22,6 +34,16 @@ PWBASTSubroutineDefinition >> statements [
 { #category : #accessing }
 PWBASTSubroutineDefinition >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTSubroutineDefinition >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTSubroutineDefinition >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

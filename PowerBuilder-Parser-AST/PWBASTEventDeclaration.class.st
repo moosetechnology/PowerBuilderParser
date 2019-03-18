@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'eventReferenceName',
 		'customCallStatement',
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -36,6 +38,16 @@ PWBASTEventDeclaration >> eventReferenceName: anObject [
 ]
 
 { #category : #accessing }
+PWBASTEventDeclaration >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTEventDeclaration >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTEventDeclaration >> statements [
 	^ statements
 ]
@@ -43,4 +55,14 @@ PWBASTEventDeclaration >> statements [
 { #category : #accessing }
 PWBASTEventDeclaration >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventDeclaration >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTEventDeclaration >> stopPosition: anObject [
+	stopPosition := anObject
 ]

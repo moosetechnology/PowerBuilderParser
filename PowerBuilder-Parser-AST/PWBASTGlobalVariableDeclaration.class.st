@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'type',
-		'variable'
+		'variable',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -12,6 +14,26 @@ Class {
 PWBASTGlobalVariableDeclaration >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTGlobalVariableDeclaration: self
+]
+
+{ #category : #accessing }
+PWBASTGlobalVariableDeclaration >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTGlobalVariableDeclaration >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTGlobalVariableDeclaration >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTGlobalVariableDeclaration >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

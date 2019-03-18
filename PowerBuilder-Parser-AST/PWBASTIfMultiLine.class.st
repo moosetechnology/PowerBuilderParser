@@ -5,7 +5,9 @@ Class {
 		'condition',
 		'statements',
 		'elseIfs',
-		'else'
+		'else',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -47,6 +49,16 @@ PWBASTIfMultiLine >> elseIfs: anObject [
 ]
 
 { #category : #accessing }
+PWBASTIfMultiLine >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTIfMultiLine >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTIfMultiLine >> statements [
 	^ statements
 ]
@@ -54,4 +66,14 @@ PWBASTIfMultiLine >> statements [
 { #category : #accessing }
 PWBASTIfMultiLine >> statements: anObject [
 	statements := anObject
+]
+
+{ #category : #accessing }
+PWBASTIfMultiLine >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTIfMultiLine >> stopPosition: anObject [
+	stopPosition := anObject
 ]

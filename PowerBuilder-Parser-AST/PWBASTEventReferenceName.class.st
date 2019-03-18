@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'objectClass',
 		'eventName',
-		'arguments'
+		'arguments',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -43,4 +45,24 @@ PWBASTEventReferenceName >> objectClass [
 { #category : #accessing }
 PWBASTEventReferenceName >> objectClass: anObject [
 	objectClass := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventReferenceName >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTEventReferenceName >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventReferenceName >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTEventReferenceName >> stopPosition: anObject [
+	stopPosition := anObject
 ]

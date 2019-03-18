@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'variable',
-		'assignation'
+		'assignation',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -22,6 +24,26 @@ PWBASTVariableAssignation >> assignation [
 { #category : #accessing }
 PWBASTVariableAssignation >> assignation: anObject [
 	assignation := anObject
+]
+
+{ #category : #accessing }
+PWBASTVariableAssignation >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTVariableAssignation >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTVariableAssignation >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTVariableAssignation >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

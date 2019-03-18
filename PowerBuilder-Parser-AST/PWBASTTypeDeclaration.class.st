@@ -7,7 +7,9 @@ Class {
 		'eventType',
 		'withinClause',
 		'descriptor',
-		'attributes'
+		'attributes',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -56,6 +58,26 @@ PWBASTTypeDeclaration >> fromClause [
 { #category : #accessing }
 PWBASTTypeDeclaration >> fromClause: anObject [
 	fromClause := anObject
+]
+
+{ #category : #accessing }
+PWBASTTypeDeclaration >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTTypeDeclaration >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTTypeDeclaration >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTTypeDeclaration >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

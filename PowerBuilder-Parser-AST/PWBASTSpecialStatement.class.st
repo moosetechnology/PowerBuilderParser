@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTSpecialStatement,
 	#superclass : #Object,
 	#instVars : [
-		'specialStatement'
+		'specialStatement',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTSpecialStatement >> specialStatement [
 { #category : #accessing }
 PWBASTSpecialStatement >> specialStatement: anObject [
 	specialStatement := anObject
+]
+
+{ #category : #accessing }
+PWBASTSpecialStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTSpecialStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTSpecialStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTSpecialStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]

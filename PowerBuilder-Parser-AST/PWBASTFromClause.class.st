@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTFromClause,
 	#superclass : #Object,
 	#instVars : [
-		'customType'
+		'customType',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTFromClause >> customType [
 { #category : #accessing }
 PWBASTFromClause >> customType: anObject [
 	customType := anObject
+]
+
+{ #category : #accessing }
+PWBASTFromClause >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTFromClause >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTFromClause >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTFromClause >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'formatType',
-		'parameters'
+		'parameters',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -32,4 +34,24 @@ PWBASTExport >> parameters [
 { #category : #accessing }
 PWBASTExport >> parameters: anObject [
 	parameters := anObject
+]
+
+{ #category : #accessing }
+PWBASTExport >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTExport >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTExport >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTExport >> stopPosition: anObject [
+	stopPosition := anObject
 ]

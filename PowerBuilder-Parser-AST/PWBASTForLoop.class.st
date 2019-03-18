@@ -5,7 +5,9 @@ Class {
 		'assignationStatement',
 		'endExpression',
 		'stepExpression',
-		'statements'
+		'statements',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -37,6 +39,16 @@ PWBASTForLoop >> endExpression: anObject [
 ]
 
 { #category : #accessing }
+PWBASTForLoop >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTForLoop >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTForLoop >> statements [
 	^ statements
 ]
@@ -54,4 +66,14 @@ PWBASTForLoop >> stepExpression [
 { #category : #accessing }
 PWBASTForLoop >> stepExpression: anObject [
 	stepExpression := anObject
+]
+
+{ #category : #accessing }
+PWBASTForLoop >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTForLoop >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'condition',
 		'statement',
-		'elseOnLine'
+		'elseOnLine',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -36,6 +38,16 @@ PWBASTIfSingleLine >> elseOnLine: anObject [
 ]
 
 { #category : #accessing }
+PWBASTIfSingleLine >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTIfSingleLine >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
 PWBASTIfSingleLine >> statement [
 	^ statement
 ]
@@ -43,4 +55,14 @@ PWBASTIfSingleLine >> statement [
 { #category : #accessing }
 PWBASTIfSingleLine >> statement: anObject [
 	statement := anObject
+]
+
+{ #category : #accessing }
+PWBASTIfSingleLine >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTIfSingleLine >> stopPosition: anObject [
+	stopPosition := anObject
 ]

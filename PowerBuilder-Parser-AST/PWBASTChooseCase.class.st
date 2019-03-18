@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'expression',
 		'cases',
-		'caseElse'
+		'caseElse',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -43,4 +45,24 @@ PWBASTChooseCase >> expression [
 { #category : #accessing }
 PWBASTChooseCase >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #accessing }
+PWBASTChooseCase >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTChooseCase >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTChooseCase >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTChooseCase >> stopPosition: anObject [
+	stopPosition := anObject
 ]

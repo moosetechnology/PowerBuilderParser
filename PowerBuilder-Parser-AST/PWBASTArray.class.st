@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTArray,
 	#superclass : #Object,
 	#instVars : [
-		'expressions'
+		'expressions',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTArray >> expressions [
 { #category : #accessing }
 PWBASTArray >> expressions: anObject [
 	expressions := anObject
+]
+
+{ #category : #accessing }
+PWBASTArray >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTArray >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTArray >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTArray >> stopPosition: anObject [
+	stopPosition := anObject
 ]

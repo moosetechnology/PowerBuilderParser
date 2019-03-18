@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTCustomCallStatement,
 	#superclass : #Object,
 	#instVars : [
-		'identifier'
+		'identifier',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTCustomCallStatement >> identifier [
 { #category : #accessing }
 PWBASTCustomCallStatement >> identifier: anObject [
 	identifier := anObject
+]
+
+{ #category : #accessing }
+PWBASTCustomCallStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTCustomCallStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTCustomCallStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTCustomCallStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]

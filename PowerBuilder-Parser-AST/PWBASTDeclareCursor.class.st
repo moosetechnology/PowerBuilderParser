@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifier',
-		'sqlQuery'
+		'sqlQuery',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -32,4 +34,24 @@ PWBASTDeclareCursor >> sqlQuery [
 { #category : #accessing }
 PWBASTDeclareCursor >> sqlQuery: anObject [
 	sqlQuery := anObject
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> stopPosition: anObject [
+	stopPosition := anObject
 ]

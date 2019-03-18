@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'type',
-		'attribute'
+		'attribute',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -22,6 +24,26 @@ PWBASTEventAttribute >> attribute [
 { #category : #accessing }
 PWBASTEventAttribute >> attribute: anObject [
 	attribute := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

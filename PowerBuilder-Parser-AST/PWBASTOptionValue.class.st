@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTOptionValue,
 	#superclass : #Object,
 	#instVars : [
-		'expression'
+		'expression',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTOptionValue >> expression [
 { #category : #accessing }
 PWBASTOptionValue >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> stopPosition: anObject [
+	stopPosition := anObject
 ]
