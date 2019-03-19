@@ -1,5 +1,5 @@
 Class {
-	#name : #PWBModelImporter,
+	#name : #PWBVisitorEntityCreator,
 	#superclass : #PWBASTAbstractVisitor,
 	#traits : 'SRSolverUserVisitor',
 	#classTraits : 'SRSolverUserVisitor classTrait',
@@ -10,37 +10,37 @@ Class {
 }
 
 { #category : #accessing }
-PWBModelImporter >> initialize [
+PWBVisitorEntityCreator >> initialize [
 	super initialize.
 	self initialiseSolver
 ]
 
 { #category : #accessing }
-PWBModelImporter >> model [
+PWBVisitorEntityCreator >> model [
 	^ model
 ]
 
 { #category : #accessing }
-PWBModelImporter >> model: anObject [
+PWBVisitorEntityCreator >> model: anObject [
 	model := anObject
 ]
 
 { #category : #visiting }
-PWBModelImporter >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
+PWBVisitorEntityCreator >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
 	self
 		useCurrentEntity: PWBNullEntityObject new
 		during: [ super visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration ]
 ]
 
 { #category : #visiting }
-PWBModelImporter >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+PWBVisitorEntityCreator >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	self
 		useCurrentEntity: (self create: FamixPWBFunction from: aPWBASTFunctionDefinition)
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ]
 ]
 
 { #category : #visiting }
-PWBModelImporter >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
+PWBVisitorEntityCreator >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	self visit: aPWBASTFunctionSignature accessModifier.
 	self visit: aPWBASTFunctionSignature type.
 	self currentEntity
@@ -49,7 +49,7 @@ PWBModelImporter >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 ]
 
 { #category : #visiting }
-PWBModelImporter >> visitPWBASTGraphicComponent: aPWBASTGraphicComponent [
+PWBVisitorEntityCreator >> visitPWBASTGraphicComponent: aPWBASTGraphicComponent [
 	self
 		useCurrentEntity: (self create: FamixPWBGraphicComponent from: aPWBASTGraphicComponent)
 		during: [ super visitPWBASTGraphicComponent: aPWBASTGraphicComponent ]

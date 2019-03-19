@@ -202,6 +202,12 @@ PWBASTAbstractVisitor >> visitPWBASTDataWindow: aPWBASTDataWindow [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
+	<generated>
+	self visitAll: aPWBASTDataWindowFile fileStatements.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDeclareCursor: aPWBASTDeclareCursor [
 	<generated>
 	self visit: aPWBASTDeclareCursor identifier.
@@ -349,7 +355,7 @@ PWBASTAbstractVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSig
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFile: aPWBASTFile [
 	<generated>
-	self visitAll: aPWBASTFile fileStatements.
+	self visit: aPWBASTFile content.
 ]
 
 { #category : #visiting }
@@ -702,6 +708,12 @@ PWBASTAbstractVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
 PWBASTAbstractVisitor >> visitPWBASTUncheckedIdentifier: anPWBASTUncheckedIdentifier [
 	<generated>
 	^ anPWBASTUncheckedIdentifier uncheckedIdentifier
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTUserObjectFile: aPWBASTUserObjectFile [
+	<generated>
+	self visitAll: aPWBASTUserObjectFile fileStatements.
 ]
 
 { #category : #visiting }

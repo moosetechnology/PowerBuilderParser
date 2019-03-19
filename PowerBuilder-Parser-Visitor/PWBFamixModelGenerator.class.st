@@ -10,7 +10,10 @@ Class {
 		'type',
 		'variable',
 		'dataWindow',
-		'attribute'
+		'attribute',
+		'method',
+		'invocation',
+		'userObject'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -38,7 +41,10 @@ PWBFamixModelGenerator >> defineClasses [
 	type := builder newClassNamed: #Type.
 	variable := builder newClassNamed: #Variable.
 	dataWindow := builder newClassNamed: #DataWindow.
+	userObject := builder newClassNamed: #UserObject.
 	attribute := builder newClassNamed: #Attribute.
+	method := builder newClassNamed: #Method.
+	invocation := builder newClassNamed: #Invocation
 ]
 
 { #category : #definition }
@@ -69,6 +75,21 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> sourcedEntity;
 		--|> #TNamed.
 	attribute
+		--|> sourcedEntity;
+		--|> #TNamed.
+	method
+		--|> #TMethod;
+		--|> #TNamed;
+		--|> #TWithParameters;
+		--|> #TInvocable;
+		--|> #TWithSignature.
+	invocation --|> association.
+	invocation --|> #TInvocation.
+	invocation --|> #TWithSignature.
+	userObject
+		--|> sourcedEntity;
+		--|> #TNamed.
+	dataWindow
 		--|> sourcedEntity;
 		--|> #TNamed
 ]
