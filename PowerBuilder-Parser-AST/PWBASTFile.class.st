@@ -2,9 +2,10 @@ Class {
 	#name : #PWBASTFile,
 	#superclass : #Object,
 	#instVars : [
-		'fileStatements',
+		'content',
 		'startPosition',
-		'stopPosition'
+		'stopPosition',
+		'fileName'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -16,13 +17,23 @@ PWBASTFile >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTFile >> fileStatements [
-	^ fileStatements
+PWBASTFile >> content [
+	^ content
 ]
 
 { #category : #accessing }
-PWBASTFile >> fileStatements: anObject [
-	fileStatements := anObject
+PWBASTFile >> content: anObject [
+	content := anObject
+]
+
+{ #category : #accessing }
+PWBASTFile >> fileName [
+	^ fileName
+]
+
+{ #category : #accessing }
+PWBASTFile >> fileName: anObject [
+	fileName := anObject
 ]
 
 { #category : #accessing }
