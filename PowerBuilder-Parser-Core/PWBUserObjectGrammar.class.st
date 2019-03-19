@@ -49,7 +49,8 @@ Class {
 		'descriptor',
 		'endForward',
 		'variableAssignation',
-		'catchBlock'
+		'catchBlock',
+		'userObjectFile'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -180,13 +181,8 @@ PWBUserObjectGrammar >> expressionList [
 
 { #category : #accessing }
 PWBUserObjectGrammar >> file [
-	<reify:
-		#(typeVariable / typeDeclaration / functionDefinition / subroutineDefinition / endForward / globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration)
-	into: #fileStatement>
-	^ typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / endForward / globalVariableDeclaration
-		/ triggerDefinition / eventDeclaration / prototypesDeclaration
-		separatedBy: blank
+	<rename: #userObjectFile into: #content>
+	^ userObjectFile
 ]
 
 { #category : #accessing }
@@ -324,6 +320,17 @@ PWBUserObjectGrammar >> typeDeclaration [
 { #category : #accessing }
 PWBUserObjectGrammar >> typeVariable [
 	^ 'type variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammar >> userObjectFile [
+	<reify:
+		#(typeVariable / typeDeclaration / functionDefinition / subroutineDefinition / endForward / globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration)
+	into: #fileStatement>
+	^ typeVariable / typeDeclaration / functionDefinition
+		/ subroutineDefinition / endForward / globalVariableDeclaration
+		/ triggerDefinition / eventDeclaration / prototypesDeclaration
+		separatedBy: blank
 ]
 
 { #category : #accessing }

@@ -19,7 +19,8 @@ Class {
 		'generator',
 		'import',
 		'export',
-		'formatType'
+		'formatType',
+		'dataWindowFile'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -44,6 +45,12 @@ PWBDataWindowGrammar >> dataWindow [
 	^ 'datawindow' parser, parameters
 ]
 
+{ #category : #accessing }
+PWBDataWindowGrammar >> dataWindowFile [
+	<reify: #(graphicComponent / dataWindow / table / generator / import / export) into: #fileStatement>
+	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
+]
+
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> export [
 	^ 'export.' parser, formatType, parameters
@@ -51,8 +58,8 @@ PWBDataWindowGrammar >> export [
 
 { #category : #accessing }
 PWBDataWindowGrammar >> file [
-	<reify: #(graphicComponent / dataWindow / table / generator / import / export) into: #fileStatement>
-	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
+	<rename: #dataWindowFile into: #content>
+	^ dataWindowFile
 ]
 
 { #category : #'as yet unclassified' }

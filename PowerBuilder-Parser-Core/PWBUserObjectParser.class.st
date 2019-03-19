@@ -289,7 +289,7 @@ PWBUserObjectParser >> expressionWithSign [
 { #category : #rules }
 PWBUserObjectParser >> file [
 	<generated>
-	^ super file ==> [ :production | PWBASTFile new fileStatements: (self rejectSeparators: production); yourself ]
+	^ super file ==> [ :production | PWBASTFile new content: production; yourself ]
 ]
 
 { #category : #rules }
@@ -554,6 +554,12 @@ PWBUserObjectParser >> typeVariable [
 PWBUserObjectParser >> uncheckedIdentifier [
 	<generated>
 	^ super uncheckedIdentifier flatten ==> [ :production | PWBASTUncheckedIdentifier new uncheckedIdentifier: production; yourself ]
+]
+
+{ #category : #rules }
+PWBUserObjectParser >> userObjectFile [
+	<generated>
+	^ super userObjectFile ==> [ :production | PWBASTUserObjectFile new fileStatements: (self rejectSeparators: production); yourself ]
 ]
 
 { #category : #rules }

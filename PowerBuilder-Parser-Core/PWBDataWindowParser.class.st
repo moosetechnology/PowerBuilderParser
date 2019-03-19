@@ -125,6 +125,12 @@ PWBDataWindowParser >> dataWindow [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> dataWindowFile [
+	<generated>
+	^ super dataWindowFile ==> [ :production | PWBASTDataWindowFile new fileStatements: (self rejectSeparators: (production at: 1)); yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> defaultEventType [
 	<generated>
 	^ super defaultEventType flatten ==> [ :production | PWBASTDefaultEventType new defaultEventType: production; yourself ]
@@ -193,7 +199,7 @@ PWBDataWindowParser >> expressionWithSign [
 { #category : #rules }
 PWBDataWindowParser >> file [
 	<generated>
-	^ super file ==> [ :production | PWBASTFile new fileStatements: (self rejectSeparators: (production at: 1)); yourself ]
+	^ super file ==> [ :production | PWBASTFile new content: production; yourself ]
 ]
 
 { #category : #rules }
