@@ -29,7 +29,7 @@ PWBVisitorReferenceCreator >> model: anObject [
 PWBVisitorReferenceCreator >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	| methodName |
 	methodName := self visit: aPWBASTMethodInvocation uncheckedIdentifier.
-	"Halt now."
+	
 	model allMethods
 		entityNamed: methodName
 		ifAbsent: [ FamixPWBMethod new
