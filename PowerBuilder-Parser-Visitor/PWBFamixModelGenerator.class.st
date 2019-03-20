@@ -13,7 +13,8 @@ Class {
 		'attribute',
 		'method',
 		'invocation',
-		'userObject'
+		'userObject',
+		'trigger'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -44,7 +45,8 @@ PWBFamixModelGenerator >> defineClasses [
 	userObject := builder newClassNamed: #UserObject.
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Method.
-	invocation := builder newClassNamed: #Invocation
+	invocation := builder newClassNamed: #Invocation.
+	trigger := builder newClassNamed: #Trigger
 ]
 
 { #category : #definition }
@@ -59,7 +61,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 	function
 		--|> sourcedEntity;
 		--|> #TNamed.
-	sqlQuery
+	function
+		--|> sourcedEntity;
+		--|> #TNamed.
+	trigger
 		--|> sourcedEntity;
 		--|> #TNamed.
 	subRoutine
