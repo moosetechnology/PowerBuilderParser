@@ -7,14 +7,16 @@ Class {
 		'function',
 		'sqlQuery',
 		'subRoutine',
-		'type',
 		'variable',
 		'dataWindow',
 		'attribute',
 		'method',
 		'invocation',
 		'userObject',
-		'trigger'
+		'trigger',
+		'abstractType',
+		'customType',
+		'basicType'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -39,14 +41,16 @@ PWBFamixModelGenerator >> defineClasses [
 	function := builder newClassNamed: #Function.
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
-	type := builder newClassNamed: #Type.
 	variable := builder newClassNamed: #Variable.
 	dataWindow := builder newClassNamed: #DataWindow.
 	userObject := builder newClassNamed: #UserObject.
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Method.
 	invocation := builder newClassNamed: #Invocation.
-	trigger := builder newClassNamed: #Trigger
+	trigger := builder newClassNamed: #Trigger.
+	abstractType := builder newClassNamed: #AbstractType.
+	customType := builder newClassNamed: #CustomType.
+	basicType := builder newClassNamed: #BasicType.
 ]
 
 { #category : #definition }
@@ -68,9 +72,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> sourcedEntity;
 		--|> #TNamed.
 	subRoutine
-		--|> sourcedEntity;
-		--|> #TNamed.
-	type
 		--|> sourcedEntity;
 		--|> #TNamed.
 	variable
@@ -96,5 +97,12 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamed.
 	dataWindow
 		--|> sourcedEntity;
-		--|> #TNamed
+		--|> #TNamed.
+	abstractType --|> namedEntity.
+	abstractType --|> #TType.
+	abstractType --|> #TReferenceable.
+	abstractType --|> #TWithSuperInheritances.
+	abstractType --|> #TWithSubInheritances.
+	customType --|> abstractType.
+	basicType --|> abstractType
 ]
