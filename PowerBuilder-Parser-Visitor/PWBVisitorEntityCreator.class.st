@@ -9,6 +9,16 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #'entities creation' }
+PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
+	^ (model allWithType: aType)
+		entityNamed: aName
+		ifAbsent: [ aType new
+				name: aName;
+				mooseModel: model;
+				yourself ]
+]
+
 { #category : #accessing }
 PWBVisitorEntityCreator >> initialize [
 	super initialize.
@@ -23,6 +33,20 @@ PWBVisitorEntityCreator >> model [
 { #category : #accessing }
 PWBVisitorEntityCreator >> model: anObject [
 	model := anObject
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTBasicType: anPWBASTBasicType [
+	^ self
+		ensureEntityWithType: FamixPWBBasicType
+		named: anPWBASTBasicType basicType
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTCustomType: aPWBASTCustomType [
+	^ self
+		ensureEntityWithType: FamixPWBCustomType
+		named: (self visit: aPWBASTCustomType identifier)
 ]
 
 { #category : #visiting }
@@ -93,6 +117,5 @@ PWBVisitorEntityCreator >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinitio
 
 { #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTType: aPWBASTType [
-	Halt now.
-	super visitPWBASTType: aPWBASTType
+	^ self visit: aPWBASTType type
 ]
