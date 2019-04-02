@@ -32,7 +32,7 @@ FamixPWBAbstractType class >> generatedTraitNames [
 FamixPWBAbstractType class >> requirements [
 
 	<generated>
-	^ {  }
+	^ { FamixPWBAttribute. FamixPWBVariable }
 ]
 
 { #category : #accessing }

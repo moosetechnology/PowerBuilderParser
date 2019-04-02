@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#traits : 'FamixTNamed + FamixTWithTypes',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBVariable class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBVariable class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTNamed FamixTWithTypes)
 ]
 
 { #category : #meta }

@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAttribute,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#traits : 'FamixTAccessible + FamixTAttribute + FamixTNamed + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTNamed classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,12 +25,28 @@ FamixPWBAttribute class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBAttribute class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTAccessible FamixTAttribute FamixTNamed FamixTWithTypes)
 ]
 
 { #category : #meta }
 FamixPWBAttribute class >> requirements [
 
 	<generated>
-	^ {  }
+	^ { FamixPWBDataWindow. FamixPWBUserObject }
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> belongsTo [
+
+	<generated>
+	^ self parentType
+
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> belongsTo: anObject [
+
+	<generated>
+	self parentType: anObject
+
 ]

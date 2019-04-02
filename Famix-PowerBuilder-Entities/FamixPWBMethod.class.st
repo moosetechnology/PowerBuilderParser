@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBMethod,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTInvocable + FamixTMethod + FamixTNamed + FamixTWithParameters + FamixTWithSignature',
-	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait + FamixTNamed classTrait + FamixTWithParameters classTrait + FamixTWithSignature classTrait',
+	#traits : 'FamixTInvocable + FamixTMethod + FamixTNamed + FamixTWithAccesses + FamixTWithParameters + FamixTWithSignature',
+	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithParameters classTrait + FamixTWithSignature classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBMethod class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBMethod class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTInvocable FamixTMethod FamixTNamed FamixTWithParameters FamixTWithSignature)
+	^ #(FamixTInvocable FamixTMethod FamixTNamed FamixTWithAccesses FamixTWithParameters FamixTWithSignature)
 ]
 
 { #category : #meta }
