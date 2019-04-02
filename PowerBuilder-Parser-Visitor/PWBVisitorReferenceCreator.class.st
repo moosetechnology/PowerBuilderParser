@@ -26,6 +26,22 @@ PWBVisitorReferenceCreator >> model: anObject [
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
+	| identifiers |
+	self visit: aPWBASTAccess arrayPosition.
+	self visitAll: aPWBASTAccess attributeAccesses.
+	identifiers := (self visit: aPWBASTAccess variable).
+	self currentEntity
+		createAccessTo:
+			([ self resolve: identifiers. identifiers entity]
+				on: SRReferenciesNotFound
+				do: [ :notFound | 
+					self currentEntity
+						createStubValueHolderNamed: notFound identifiers representationString ])
+		writing: false
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 	self
 		useCurrentEntity:
@@ -47,4 +63,10 @@ PWBVisitorReferenceCreator >> visitPWBASTMethodInvocation: aPWBASTMethodInvocati
 				mooseModel: model;
 				yourself ].
 	self visit: aPWBASTMethodInvocation functionArguments
+]
+
+{ #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTVariable: aPWBASTVariable [
+	self visit: aPWBASTVariable arrayWithSize.
+	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
 ]
