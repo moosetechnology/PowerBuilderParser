@@ -16,7 +16,8 @@ Class {
 		'trigger',
 		'abstractType',
 		'customType',
-		'basicType'
+		'basicType',
+		'access'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -51,6 +52,7 @@ PWBFamixModelGenerator >> defineClasses [
 	abstractType := builder newClassNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
+	access := builder newClassNamed: #Access
 ]
 
 { #category : #definition }
@@ -76,33 +78,56 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamed.
 	variable
 		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TWithTypes.
 	dataWindow
 		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TWithAttributes.
 	attribute
 		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TAttribute.
 	method
 		--|> #TMethod;
 		--|> #TNamed;
 		--|> #TWithParameters;
 		--|> #TInvocable;
-		--|> #TWithSignature.
+		--|> #TWithSignature;
+		--|> #TWithAccesses.
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
 	userObject
 		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TWithAttributes;
+		--|> #TWithAccesses.
 	dataWindow
 		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TWithAttributes;
+		--|> #TWithAccesses.
 	abstractType --|> namedEntity.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
 	abstractType --|> #TWithSuperInheritances.
 	abstractType --|> #TWithSubInheritances.
 	customType --|> abstractType.
-	basicType --|> abstractType
+	basicType --|> abstractType.
+	access
+		--|> association;
+		--|> #TAccess.
+	attribute
+		--|> sourcedEntity;
+		--|> #TNamed;
+		--|> #TAttribute;
+		--|> #TWithTypes;
+		--|> #TAccessible
+]
+
+{ #category : #definition }
+PWBFamixModelGenerator >> defineRelations [
+	"variable *-<> variableAccess."
+	
 ]
