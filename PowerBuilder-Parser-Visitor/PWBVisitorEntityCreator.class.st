@@ -50,6 +50,18 @@ PWBVisitorEntityCreator >> visitPWBASTCustomType: aPWBASTCustomType [
 ]
 
 { #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
+	^ self
+		useCurrentEntity: (self create: FamixPWBDataWindow from: aPWBASTDataWindowFile)
+		during: [ super visitPWBASTDataWindowFile: aPWBASTDataWindowFile ]
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTFile: aPWBASTFile [
+	(self visit: aPWBASTFile content) name: aPWBASTFile fileName 
+]
+
+{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
 	self
 		useCurrentEntity: PWBNullEntityObject new
@@ -118,4 +130,17 @@ PWBVisitorEntityCreator >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinitio
 { #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTType: aPWBASTType [
 	^ self visit: aPWBASTType type
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTUserObjectFile: aPWBASTUserObjectFile [
+	^ self
+		useCurrentEntity: (self create: FamixPWBUserObject from: aPWBASTUserObjectFile)
+		during: [ super visitPWBASTUserObjectFile: aPWBASTUserObjectFile ]
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTVariable: aPWBASTVariable [
+	self visit: aPWBASTVariable arrayWithSize.
+	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
 ]
