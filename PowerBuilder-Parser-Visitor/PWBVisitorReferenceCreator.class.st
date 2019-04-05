@@ -97,6 +97,17 @@ PWBVisitorReferenceCreator >> visitPWBASTSubroutineSignature: aPWBASTSubroutineS
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
+	| trigger |
+	trigger := (self model allWithType: FamixPWBTrigger)
+		entityNamed: (self visit: aPWBASTTriggerDefinition identifier).
+	self
+		useCurrentEntity: trigger
+		during: [ self visit: aPWBASTTriggerDefinition eventType.
+			self visit: aPWBASTTriggerDefinition statements ]
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayWithSize.
 	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
