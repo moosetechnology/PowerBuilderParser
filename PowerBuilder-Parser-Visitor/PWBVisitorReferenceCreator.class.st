@@ -52,6 +52,22 @@ PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+	self
+		useCurrentEntity: (self visit: aPWBASTFunctionDefinition functionSignature)
+		during: [ self visit: aPWBASTFunctionDefinition statements ]
+]
+
+{ #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
+	self visit: aPWBASTFunctionSignature accessModifier.
+	self visit: aPWBASTFunctionSignature type.
+	self visit: aPWBASTFunctionSignature arguments.
+	^ (self model allWithType: FamixPWBFunction)
+		entityNamed: (self visit: aPWBASTFunctionSignature identifier)
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	| methodName |
 	methodName := self visit: aPWBASTMethodInvocation uncheckedIdentifier.
