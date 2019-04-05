@@ -1,15 +1,15 @@
 Class {
 	#name : #FamixPWBTrigger,
-	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#superclass : #FamixPWBBehavioral,
+	#traits : 'FamixTNamed + FamixTWithAttributes',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBTrigger class >> annotation [
 
-	<MSEClass: #Trigger super: #FamixPWBSourcedEntity>
+	<MSEClass: #Trigger super: #FamixPWBBehavioral>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -25,7 +25,7 @@ FamixPWBTrigger class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBTrigger class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTNamed FamixTWithAttributes)
 ]
 
 { #category : #meta }

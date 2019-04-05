@@ -1,15 +1,15 @@
 Class {
 	#name : #FamixPWBSubRoutine,
-	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#superclass : #FamixPWBBehavioral,
+	#traits : 'FamixTNamed + FamixTWithAttributes',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBSubRoutine class >> annotation [
 
-	<MSEClass: #SubRoutine super: #FamixPWBSourcedEntity>
+	<MSEClass: #SubRoutine super: #FamixPWBBehavioral>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -25,7 +25,7 @@ FamixPWBSubRoutine class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBSubRoutine class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTNamed FamixTWithAttributes)
 ]
 
 { #category : #meta }
@@ -33,4 +33,9 @@ FamixPWBSubRoutine class >> requirements [
 
 	<generated>
 	^ {  }
+]
+
+{ #category : #helpers }
+FamixPWBSubRoutine >> reachableEntities [
+	^ self attributes
 ]
