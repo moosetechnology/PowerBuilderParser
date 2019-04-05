@@ -35,6 +35,11 @@ FamixPWBAttribute class >> requirements [
 	^ { FamixPWBDataWindow. FamixPWBSubRoutine. FamixPWBTrigger. FamixPWBUserObject }
 ]
 
+{ #category : #helpers }
+FamixPWBAttribute >> accessAssociation [
+	^ FamixPWBAccess
+]
+
 { #category : #accessing }
 FamixPWBAttribute >> belongsTo [
 
