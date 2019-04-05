@@ -82,6 +82,21 @@ PWBVisitorReferenceCreator >> visitPWBASTMethodInvocation: aPWBASTMethodInvocati
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
+	self
+		useCurrentEntity: (self visit: aPWBASTSubroutineDefinition subroutineSignature)
+		during: [ self visit: aPWBASTSubroutineDefinition statements ]
+]
+
+{ #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
+	self visit: aPWBASTSubroutineSignature accessModifier.
+	self visit: aPWBASTSubroutineSignature arguments.
+	^ (self model allWithType: FamixPWBSubRoutine)
+		entityNamed: (self visit: aPWBASTSubroutineSignature identifier)
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayWithSize.
 	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
