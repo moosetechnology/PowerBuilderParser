@@ -34,3 +34,8 @@ FamixPWBTrigger class >> requirements [
 	<generated>
 	^ {  }
 ]
+
+{ #category : #resolving }
+FamixPWBTrigger >> reachableEntities [
+	^ self attributes
+]
