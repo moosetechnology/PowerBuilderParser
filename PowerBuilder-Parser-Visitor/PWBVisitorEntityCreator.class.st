@@ -144,3 +144,19 @@ PWBVisitorEntityCreator >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayWithSize.
 	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
 ]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
+	self currentEntity
+		createValueHolderNamed:
+			(self visit: aPWBASTVariableAssignation variable) representationString.
+	self visit: aPWBASTVariableAssignation assignation
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
+	<generated>
+	self flag: #TODO. "set type for declared variables"
+	self visit: aPWBASTVariableDeclarations type.
+	self visitAll: aPWBASTVariableDeclarations variableAssignations.
+]
