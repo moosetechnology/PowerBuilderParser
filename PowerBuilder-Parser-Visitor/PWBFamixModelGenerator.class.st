@@ -17,7 +17,9 @@ Class {
 		'abstractType',
 		'customType',
 		'basicType',
-		'access'
+		'access',
+		'behavioral',
+		'variableAccess'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -38,6 +40,7 @@ PWBFamixModelGenerator class >> prefix [
 PWBFamixModelGenerator >> defineClasses [
 	super defineClasses.
 	graphicComponent := builder newClassNamed: #GraphicComponent.
+	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
 	function := builder newClassNamed: #Function.
 	sqlQuery := builder newClassNamed: #SqlQuery.
@@ -52,7 +55,8 @@ PWBFamixModelGenerator >> defineClasses [
 	abstractType := builder newClassNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
-	access := builder newClassNamed: #Access
+	access := builder newClassNamed: #Access.
+	variableAccess := builder newClassNamed: #VariableAccess
 ]
 
 { #category : #definition }
@@ -62,24 +66,28 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> sourcedEntity;
 		--|> #TNamed.
 	event
+		--|> behavioral;
 		--|> sourcedEntity;
 		--|> #TNamed.
 	function
 		--|> sourcedEntity;
-		--|> #TNamed.
-	function
-		--|> sourcedEntity;
+		--|> behavioral;
 		--|> #TNamed.
 	trigger
 		--|> sourcedEntity;
+		--|> #TWithAttributes;
+		--|> behavioral;
 		--|> #TNamed.
 	subRoutine
 		--|> sourcedEntity;
+		--|> #TWithAttributes;
+		--|> behavioral;
 		--|> #TNamed.
 	variable
 		--|> sourcedEntity;
 		--|> #TNamed;
-		--|> #TWithTypes.
+		--|> #TWithTypes;
+		--|> #TAccessible.
 	dataWindow
 		--|> sourcedEntity;
 		--|> #TNamed;
@@ -89,12 +97,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamed;
 		--|> #TAttribute.
 	method
+		--|> behavioral;
 		--|> #TMethod;
 		--|> #TNamed;
 		--|> #TWithParameters;
 		--|> #TInvocable;
-		--|> #TWithSignature;
-		--|> #TWithAccesses.
+		--|> #TWithSignature.
+	behavioral --|> #TWithAccesses.
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
@@ -118,6 +127,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 	access
 		--|> association;
 		--|> #TAccess.
+	variableAccess
+		--|> association;
+		--|> #TAccess.
 	attribute
 		--|> sourcedEntity;
 		--|> #TNamed;
@@ -128,6 +140,5 @@ PWBFamixModelGenerator >> defineHierarchy [
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineRelations [
-	"variable *-<> variableAccess."
-	
+	(variable property: #function) *-<> (function property: #variables)
 ]
