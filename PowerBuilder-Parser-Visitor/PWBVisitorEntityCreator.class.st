@@ -1,11 +1,6 @@
 Class {
 	#name : #PWBVisitorEntityCreator,
-	#superclass : #PWBASTAbstractVisitor,
-	#traits : 'SRSolverUserVisitor',
-	#classTraits : 'SRSolverUserVisitor classTrait',
-	#instVars : [
-		'model'
-	],
+	#superclass : #PWBImporterAbstractVisitor,
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
@@ -17,22 +12,6 @@ PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
 				name: aName;
 				mooseModel: model;
 				yourself ]
-]
-
-{ #category : #accessing }
-PWBVisitorEntityCreator >> initialize [
-	super initialize.
-	self initialiseSolver
-]
-
-{ #category : #accessing }
-PWBVisitorEntityCreator >> model [
-	^ model
-]
-
-{ #category : #accessing }
-PWBVisitorEntityCreator >> model: anObject [
-	model := anObject
 ]
 
 { #category : #visiting }
