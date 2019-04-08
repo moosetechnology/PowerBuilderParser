@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTVariable,
 	#superclass : #Object,
 	#instVars : [
+		'this',
 		'identifier',
 		'arrayWithSize',
 		'startPosition',
@@ -54,4 +55,14 @@ PWBASTVariable >> stopPosition [
 { #category : #accessing }
 PWBASTVariable >> stopPosition: anObject [
 	stopPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTVariable >> this [
+	^ this
+]
+
+{ #category : #accessing }
+PWBASTVariable >> this: anObject [
+	this := anObject
 ]
