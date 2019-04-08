@@ -661,6 +661,12 @@ PWBASTAbstractVisitor >> visitPWBASTTable: aPWBASTTable [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
+	<generated>
+	^ anPWBASTThis this
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTTransactionObject: aPWBASTTransactionObject [
 	<generated>
 	self visit: aPWBASTTransactionObject identifier.
@@ -725,6 +731,7 @@ PWBASTAbstractVisitor >> visitPWBASTUsingClause: aPWBASTUsingClause [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	<generated>
+	self visit: aPWBASTVariable this.
 	self visit: aPWBASTVariable identifier.
 	self visit: aPWBASTVariable arrayWithSize.
 ]
