@@ -395,6 +395,12 @@ PWBDataWindowParser >> table [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> this [
+	<generated>
+	^ super this flatten ==> [ :production | PWBASTThis new this: production; yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> type [
 	<generated>
 	^ super type ==> [ :production | PWBASTType new type: production; yourself ]
@@ -409,5 +415,5 @@ PWBDataWindowParser >> uncheckedIdentifier [
 { #category : #rules }
 PWBDataWindowParser >> variable [
 	<generated>
-	^ super variable ==> [ :production | PWBASTVariable new identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super variable ==> [ :production | PWBASTVariable new this: (production ifNotNil: [(production at: 1)]); identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
 ]

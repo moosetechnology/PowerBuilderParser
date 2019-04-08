@@ -55,7 +55,8 @@ Class {
 		'arrayWithSize',
 		'elseIf',
 		'else',
-		'elseOnLine'
+		'elseOnLine',
+		'this'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -448,6 +449,11 @@ PWBAbstractGrammar >> string [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> this [
+	^ 'this.' token
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> type [
 	^ parametrizedType / basicType / customType 
 ]
@@ -459,7 +465,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
-	^ 'this.' token optional , identifier , $( parser not
+	^ this optional , identifier , $( parser not
 		, arrayWithSize optional
 ]
 

@@ -515,6 +515,12 @@ PWBUserObjectParser >> subroutineSignature [
 ]
 
 { #category : #rules }
+PWBUserObjectParser >> this [
+	<generated>
+	^ super this flatten ==> [ :production | PWBASTThis new this: production; yourself ]
+]
+
+{ #category : #rules }
 PWBUserObjectParser >> transactionObject [
 	<generated>
 	^ super transactionObject ==> [ :production | PWBASTTransactionObject new identifier: production; yourself ]
@@ -571,7 +577,7 @@ PWBUserObjectParser >> usingClause [
 { #category : #rules }
 PWBUserObjectParser >> variable [
 	<generated>
-	^ super variable ==> [ :production | PWBASTVariable new identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super variable ==> [ :production | PWBASTVariable new this: (production ifNotNil: [(production at: 1)]); identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
 ]
 
 { #category : #rules }
