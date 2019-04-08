@@ -24,3 +24,9 @@ PWBImporterAbstractVisitor >> model [
 PWBImporterAbstractVisitor >> model: anObject [
 	model := anObject
 ]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
+	self visit: aPWBASTVariable arrayWithSize.
+	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
+]

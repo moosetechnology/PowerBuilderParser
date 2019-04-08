@@ -119,12 +119,6 @@ PWBVisitorEntityCreator >> visitPWBASTUserObjectFile: aPWBASTUserObjectFile [
 ]
 
 { #category : #visiting }
-PWBVisitorEntityCreator >> visitPWBASTVariable: aPWBASTVariable [
-	self visit: aPWBASTVariable arrayWithSize.
-	^ SRIdentifierWithNode identifier: (self visit: aPWBASTVariable identifier) node: aPWBASTVariable identifier
-]
-
-{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	self currentEntity
 		createValueHolderNamed:
