@@ -13,7 +13,7 @@ PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
 	self currentEntity
 		createAccessTo:
 			([ self resolve: identifiers. identifiers entity]
-				on: SRReferenciesNotFound
+				on: SRReferencesNotFound 
 				do: [ :notFound | 
 					self currentEntity
 						createStubValueHolderNamed: notFound identifiers representationString ])
