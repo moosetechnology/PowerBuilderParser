@@ -70,8 +70,7 @@ PWBFamixModelGenerator >> defineClasses [
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
 	graphicComponent
-		--|> sourcedEntity;
-		--|> #TNamed.
+		--|> sourcedEntity.
 	event
 		--|> behavioral;
 		--|> sourcedEntity;
@@ -141,6 +140,12 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible
+]
+
+{ #category : #definition }
+PWBFamixModelGenerator >> defineProperties [
+	"majorObject property: #cyclomaticComplexity type: #Number."
+	"behavioral property: #cyclomaticComplexity type: #Number."
 ]
 
 { #category : #definition }
