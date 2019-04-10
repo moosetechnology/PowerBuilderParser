@@ -14,7 +14,7 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 			outputFile ensureDelete.
 			keep := false.
 			stream := aFile readStream.
-			stream encoder: ZnUTF16Encoder new.
+			"stream encoder: ZnUTF16Encoder new."
 			[ keep ]
 				whileFalse: [ keep := (stream nextLine beginsWith: '$') not ].
 			outputFile

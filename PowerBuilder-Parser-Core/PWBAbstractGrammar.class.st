@@ -74,7 +74,7 @@ PWBAbstractGrammar class >> obtainASTFrom: content fileExtension: fileExtension 
 PWBAbstractGrammar class >> obtainASTFromFile: aFile [
 	| stream |
 	stream := aFile readStream.
-	stream encoder: ZnUTF8Encoder new.
+	"stream encoder: ZnUTF8Encoder new."
 	^ (self obtainASTFrom: stream contents fileExtension: aFile extension)
 		fileName: aFile base;
 		yourself

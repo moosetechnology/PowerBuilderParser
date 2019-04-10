@@ -599,6 +599,12 @@ PWBUserObjectParser >> variableDeclarations [
 ]
 
 { #category : #rules }
+PWBUserObjectParser >> windowFile [
+	<generated>
+	^ super windowFile ==> [ :production | PWBASTWindowFile new commonFile: production; yourself ]
+]
+
+{ #category : #rules }
 PWBUserObjectParser >> withinClause [
 	<generated>
 	^ super withinClause ==> [ :production | PWBASTWithinClause new customType: (production at: 3); yourself ]
