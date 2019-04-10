@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #'entities creation' }
+PWBVisitorEntityCreator >> create: aClass from: anASTNode [
+	| entity |
+	entity := aClass new
+		mooseModel: self model;
+		yourself.
+	[ entity cyclomaticComplexity: 1 ]
+		on: MessageNotUnderstood
+		do:
+			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
+	^ entity
+]
+
+{ #category : #'entities creation' }
 PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
 	^ (model allWithType: aType)
 		entityNamed: aName
@@ -22,6 +35,12 @@ PWBVisitorEntityCreator >> visitPWBASTBasicType: anPWBASTBasicType [
 ]
 
 { #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTCase: aPWBASTCase [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTCase: aPWBASTCase
+]
+
+{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTCustomType: aPWBASTCustomType [
 	^ self
 		ensureEntityWithType: FamixPWBCustomType
@@ -33,6 +52,36 @@ PWBVisitorEntityCreator >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
 	^ self
 		useCurrentEntity: (self create: FamixPWBDataWindow from: aPWBASTDataWindowFile)
 		during: [ super visitPWBASTDataWindowFile: aPWBASTDataWindowFile ]
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTDoLoopWhile: aPWBASTDoLoopWhile [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTDoLoopWhile: aPWBASTDoLoopWhile
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTDoUntilLoop: aPWBASTDoUntilLoop [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTDoUntilLoop: aPWBASTDoUntilLoop
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTElseIf: aPWBASTElseIf [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTElseIf: aPWBASTElseIf
 ]
 
 { #category : #visiting }
@@ -68,6 +117,18 @@ PWBVisitorEntityCreator >> visitPWBASTGraphicComponent: aPWBASTGraphicComponent 
 	self
 		useCurrentEntity: (self create: FamixPWBGraphicComponent from: aPWBASTGraphicComponent)
 		during: [ super visitPWBASTGraphicComponent: aPWBASTGraphicComponent ]
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTIfMultiLine: aPWBASTIfMultiLine [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTIfMultiLine: aPWBASTIfMultiLine
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
+	self currentEntity increaseCyclomaticComplexity.
+	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
 { #category : #visiting }

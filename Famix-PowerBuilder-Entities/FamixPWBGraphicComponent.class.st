@@ -1,8 +1,6 @@
 Class {
 	#name : #FamixPWBGraphicComponent,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +23,7 @@ FamixPWBGraphicComponent class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBGraphicComponent class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #()
 ]
 
 { #category : #meta }
