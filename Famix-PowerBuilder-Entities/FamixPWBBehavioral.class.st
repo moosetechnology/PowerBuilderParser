@@ -3,6 +3,9 @@ Class {
 	#superclass : #MooseEntity,
 	#traits : 'FamixTWithAccesses',
 	#classTraits : 'FamixTWithAccesses classTrait',
+	#instVars : [
+		'#cyclomaticComplexity'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -19,7 +22,7 @@ FamixPWBBehavioral class >> annotation [
 FamixPWBBehavioral class >> generatedSlotNames [
 	<generated>
 	'FamixPWBBehavioral class>>#generatedSlotNames'.
-	^ #()
+	^ #(cyclomaticComplexity)
 ]
 
 { #category : #generator }
@@ -50,6 +53,27 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
 		yourself
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> cyclomaticComplexity [
+
+	<MSEProperty: #cyclomaticComplexity type: #Number>
+	<generated>
+	^ cyclomaticComplexity
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> cyclomaticComplexity: anObject [
+
+	<generated>
+	cyclomaticComplexity := anObject
+
+]
+
+{ #category : #helpers }
+FamixPWBBehavioral >> increaseCyclomaticComplexity [
+	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
 { #category : #testing }

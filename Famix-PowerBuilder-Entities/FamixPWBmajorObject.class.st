@@ -3,6 +3,9 @@ Class {
 	#superclass : #FamixPWBSourcedEntity,
 	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes',
 	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait',
+	#instVars : [
+		'#cyclomaticComplexity'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -19,7 +22,7 @@ FamixPWBmajorObject class >> annotation [
 FamixPWBmajorObject class >> generatedSlotNames [
 	<generated>
 	'FamixPWBmajorObject class>>#generatedSlotNames'.
-	^ #()
+	^ #(cyclomaticComplexity)
 ]
 
 { #category : #generator }
@@ -33,4 +36,20 @@ FamixPWBmajorObject class >> requirements [
 
 	<generated>
 	^ {  }
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> cyclomaticComplexity [
+
+	<MSEProperty: #cyclomaticComplexity type: #Number>
+	<generated>
+	^ cyclomaticComplexity
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> cyclomaticComplexity: anObject [
+
+	<generated>
+	cyclomaticComplexity := anObject
+
 ]
