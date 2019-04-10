@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTUserObjectFile,
 	#superclass : #Object,
 	#instVars : [
-		'fileStatements',
+		'commonFile',
 		'startPosition',
 		'stopPosition'
 	],
@@ -13,6 +13,16 @@ Class {
 PWBASTUserObjectFile >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTUserObjectFile: self
+]
+
+{ #category : #accessing }
+PWBASTUserObjectFile >> commonFile [
+	^ commonFile
+]
+
+{ #category : #accessing }
+PWBASTUserObjectFile >> commonFile: anObject [
+	commonFile := anObject
 ]
 
 { #category : #accessing }
