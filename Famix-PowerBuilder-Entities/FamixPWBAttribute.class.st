@@ -32,7 +32,7 @@ FamixPWBAttribute class >> generatedTraitNames [
 FamixPWBAttribute class >> requirements [
 
 	<generated>
-	^ { FamixPWBDataWindow. FamixPWBSubRoutine. FamixPWBTrigger. FamixPWBUserObject }
+	^ { FamixPWBDataWindow. FamixPWBSubRoutine. FamixPWBTrigger. FamixPWBmajorObject }
 ]
 
 { #category : #helpers }

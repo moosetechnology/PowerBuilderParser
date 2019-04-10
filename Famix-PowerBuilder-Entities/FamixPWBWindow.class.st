@@ -1,33 +1,33 @@
 Class {
-	#name : #FamixPWBUserObject,
+	#name : #FamixPWBWindow,
 	#superclass : #FamixPWBmajorObject,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBUserObject class >> annotation [
+FamixPWBWindow class >> annotation [
 
-	<MSEClass: #UserObject super: #FamixPWBmajorObject>
+	<MSEClass: #Window super: #FamixPWBmajorObject>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
 { #category : #generator }
-FamixPWBUserObject class >> generatedSlotNames [
+FamixPWBWindow class >> generatedSlotNames [
 	<generated>
-	'FamixPWBUserObject class>>#generatedSlotNames'.
+	'FamixPWBWindow class>>#generatedSlotNames'.
 	^ #()
 ]
 
 { #category : #generator }
-FamixPWBUserObject class >> generatedTraitNames [
+FamixPWBWindow class >> generatedTraitNames [
 	<generated>
 	^ #()
 ]
 
 { #category : #meta }
-FamixPWBUserObject class >> requirements [
+FamixPWBWindow class >> requirements [
 
 	<generated>
 	^ {  }
