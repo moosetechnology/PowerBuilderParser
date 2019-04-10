@@ -43,9 +43,10 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
-	| mooseModel |
-	self createCleanFilesFrom: aFolder into: aFolder / 'cleaned'.
+	| mooseModel fileReferenceFolder |
+	fileReferenceFolder := aFolder asFileReference.
+	self createCleanFilesFrom: fileReferenceFolder into: fileReferenceFolder / 'cleaned'.
 	mooseModel := MooseModel new.
-	self fillModel: mooseModel fromFolder: aFolder / 'cleaned'.
+	self fillModel: mooseModel fromFolder: fileReferenceFolder / 'cleaned'.
 	^ mooseModel
 ]
