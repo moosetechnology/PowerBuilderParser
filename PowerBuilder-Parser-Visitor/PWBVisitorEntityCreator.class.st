@@ -133,3 +133,10 @@ PWBVisitorEntityCreator >> visitPWBASTVariableDeclarations: aPWBASTVariableDecla
 	self visit: aPWBASTVariableDeclarations type.
 	self visitAll: aPWBASTVariableDeclarations variableAssignations.
 ]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTWindowFile: aPWBASTWindowFile [
+	^ self
+		useCurrentEntity: (self create: FamixPWBWindow from: aPWBASTWindowFile)
+		during: [ super visitPWBASTWindowFile: aPWBASTWindowFile ]
+]

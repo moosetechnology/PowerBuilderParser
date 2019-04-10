@@ -19,7 +19,9 @@ Class {
 		'basicType',
 		'access',
 		'behavioral',
-		'variableAccess'
+		'variableAccess',
+		'window',
+		'majorObject'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -46,8 +48,13 @@ PWBFamixModelGenerator >> defineClasses [
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
+	
+	"Major objects"
+	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
 	userObject := builder newClassNamed: #UserObject.
+	window := builder newClassNamed: #Window.
+		
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Method.
 	invocation := builder newClassNamed: #Invocation.
@@ -107,16 +114,14 @@ PWBFamixModelGenerator >> defineHierarchy [
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
-	userObject
+	majorObject
 		--|> sourcedEntity;
 		--|> #TNamed;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses.
-	dataWindow
-		--|> sourcedEntity;
-		--|> #TNamed;
-		--|> #TWithAttributes;
-		--|> #TWithAccesses.
+	userObject --|> majorObject.
+	window --|> majorObject.
+	dataWindow --|> majorObject.
 	abstractType --|> namedEntity.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.

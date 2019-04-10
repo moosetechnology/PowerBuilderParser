@@ -24,9 +24,10 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 	| debugObjects |
+	self flag: #START.
 	debugObjects := OrderedCollection new.
 	aFolder files
-		collect: [ :aFile | 
+		do: [ :aFile | 
 			| result |
 			result := PWBAbstractGrammar obtainASTFromFile: aFile.
 			result isPetit2Failure
@@ -44,9 +45,14 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
 	| mooseModel fileReferenceFolder |
+	self flag: #START.
 	fileReferenceFolder := aFolder asFileReference.
-	self createCleanFilesFrom: fileReferenceFolder into: fileReferenceFolder / 'cleaned'.
+	self
+		createCleanFilesFrom: fileReferenceFolder
+		into: fileReferenceFolder / 'cleaned'.
 	mooseModel := MooseModel new.
-	self fillModel: mooseModel fromFolder: fileReferenceFolder / 'cleaned'.
+	self
+		fillModel: mooseModel
+		fromFolder: fileReferenceFolder / 'cleaned'.
 	^ mooseModel
 ]

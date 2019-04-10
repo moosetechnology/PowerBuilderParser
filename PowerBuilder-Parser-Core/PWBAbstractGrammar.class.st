@@ -304,6 +304,11 @@ PWBAbstractGrammar >> expressionWithSign [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> file [
+	^ self subclassResponsibility 
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> functionArgument [
 	^ expression
 ]

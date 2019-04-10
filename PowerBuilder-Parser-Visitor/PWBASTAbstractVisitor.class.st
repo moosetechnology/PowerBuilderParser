@@ -166,6 +166,12 @@ PWBASTAbstractVisitor >> visitPWBASTColumnDefinition: aPWBASTColumnDefinition [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTCommonFile: aPWBASTCommonFile [
+	<generated>
+	self visitAll: aPWBASTCommonFile fileStatements.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTCondition: aPWBASTCondition [
 	<generated>
 	self visit: aPWBASTCondition expression.
@@ -719,7 +725,7 @@ PWBASTAbstractVisitor >> visitPWBASTUncheckedIdentifier: anPWBASTUncheckedIdenti
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTUserObjectFile: aPWBASTUserObjectFile [
 	<generated>
-	self visitAll: aPWBASTUserObjectFile fileStatements.
+	self visit: aPWBASTUserObjectFile commonFile.
 ]
 
 { #category : #visiting }
@@ -748,6 +754,12 @@ PWBASTAbstractVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclara
 	<generated>
 	self visit: aPWBASTVariableDeclarations type.
 	self visitAll: aPWBASTVariableDeclarations variableAssignations.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTWindowFile: aPWBASTWindowFile [
+	<generated>
+	self visit: aPWBASTWindowFile commonFile.
 ]
 
 { #category : #visiting }
