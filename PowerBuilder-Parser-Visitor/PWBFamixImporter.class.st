@@ -29,16 +29,17 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 	aFolder files
 		do: [ :aFile | 
 			| result |
-			result := PWBAbstractGrammar obtainASTFromFile: aFile.
-			result isPetit2Failure
-				ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
-				ifFalse: [ | visitor |
-					visitor := PWBVisitorEntityCreator new.
-					visitor model: mooseModel.
-					result acceptVisitor: visitor.
-					visitor := PWBVisitorReferenceCreator new.
-					visitor model: mooseModel.
-					result acceptVisitor: visitor ] ].
+			aFile extension ~= 'pbg'
+				ifTrue: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
+					result isPetit2Failure
+						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
+						ifFalse: [ | visitor |
+							visitor := PWBVisitorEntityCreator new.
+							visitor model: mooseModel.
+							result acceptVisitor: visitor.
+							visitor := PWBVisitorReferenceCreator new.
+							visitor model: mooseModel.
+							result acceptVisitor: visitor ] ] ].
 	^ debugObjects
 ]
 
