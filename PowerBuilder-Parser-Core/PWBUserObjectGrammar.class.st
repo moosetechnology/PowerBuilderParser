@@ -9,7 +9,7 @@ Class {
 
 { #category : #parsing }
 PWBUserObjectGrammar class >> supportedExtensions [
-	^ {'sru'}
+	^ {'sru' . 'srf'}
 ]
 
 { #category : #accessing }
