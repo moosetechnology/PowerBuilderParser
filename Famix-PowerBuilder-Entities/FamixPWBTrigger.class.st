@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBTrigger,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTNamed + FamixTWithAttributes',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait',
+	#traits : 'FamixTMethod + FamixTNamed + FamixTWithAttributes',
+	#classTraits : 'FamixTMethod classTrait + FamixTNamed classTrait + FamixTWithAttributes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,14 +25,30 @@ FamixPWBTrigger class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBTrigger class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed FamixTWithAttributes)
+	^ #(FamixTMethod FamixTNamed FamixTWithAttributes)
 ]
 
 { #category : #meta }
 FamixPWBTrigger class >> requirements [
 
 	<generated>
-	^ {  }
+	^ { FamixPWBmajorObject }
+]
+
+{ #category : #accessing }
+FamixPWBTrigger >> belongsTo [
+
+	<generated>
+	^ self parentType
+
+]
+
+{ #category : #accessing }
+FamixPWBTrigger >> belongsTo: anObject [
+
+	<generated>
+	self parentType: anObject
+
 ]
 
 { #category : #resolving }

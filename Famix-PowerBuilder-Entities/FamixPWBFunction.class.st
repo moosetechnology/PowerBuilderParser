@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBFunction,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#traits : 'FamixTFunction + FamixTNamed',
+	#classTraits : 'FamixTFunction classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#variables => FMMany type: #FamixPWBVariable opposite: #function'
 	],
@@ -28,14 +28,30 @@ FamixPWBFunction class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBFunction class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTFunction FamixTNamed)
 ]
 
 { #category : #meta }
 FamixPWBFunction class >> requirements [
 
 	<generated>
-	^ {  }
+	^ { FamixPWBmajorObject }
+]
+
+{ #category : #accessing }
+FamixPWBFunction >> belongsTo [
+
+	<generated>
+	^ self functionOwner
+
+]
+
+{ #category : #accessing }
+FamixPWBFunction >> belongsTo: anObject [
+
+	<generated>
+	self functionOwner: anObject
+
 ]
 
 { #category : #helpers }

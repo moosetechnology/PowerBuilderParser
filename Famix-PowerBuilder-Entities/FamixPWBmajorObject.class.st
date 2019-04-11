@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait',
+	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait',
 	#instVars : [
 		'#cyclomaticComplexity'
 	],
@@ -28,7 +28,7 @@ FamixPWBmajorObject class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBmajorObject class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed FamixTWithAccesses FamixTWithAttributes)
+	^ #(FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue)
 ]
 
 { #category : #meta }
