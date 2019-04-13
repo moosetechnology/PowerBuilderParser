@@ -78,16 +78,19 @@ PWBFamixModelGenerator >> defineHierarchy [
 	function
 		--|> sourcedEntity;
 		--|> behavioral;
-		--|> #TNamed.
+		--|> #TNamed;
+		--|> #TFunction.
 	trigger
 		--|> sourcedEntity;
 		--|> #TWithAttributes;
 		--|> behavioral;
+		--|> #TMethod;
 		--|> #TNamed.
 	subRoutine
 		--|> sourcedEntity;
 		--|> #TWithAttributes;
 		--|> behavioral;
+		--|> #TMethod;
 		--|> #TNamed.
 	variable
 		--|> sourcedEntity;
@@ -117,7 +120,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> sourcedEntity;
 		--|> #TNamed;
 		--|> #TWithAttributes;
-		--|> #TWithAccesses.
+		--|> #TWithAccesses;
+		--|> #TWithMethods;
+		--|> #TWithFunctions.
 	userObject --|> majorObject.
 	window --|> majorObject.
 	dataWindow --|> majorObject.
@@ -150,5 +155,7 @@ PWBFamixModelGenerator >> defineProperties [
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineRelations [
-	(variable property: #function) *-<> (function property: #variables)
+	(variable property: #function) *-<> (function property: #variables).
+	(dataWindow property: #graphicComponents)
+		<>-* (graphicComponent property: #dataWindow)
 ]

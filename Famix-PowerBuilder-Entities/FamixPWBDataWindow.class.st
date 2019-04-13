@@ -3,6 +3,9 @@ Class {
 	#superclass : #FamixPWBmajorObject,
 	#traits : 'FamixTNamed + FamixTWithAttributes',
 	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait',
+	#instVars : [
+		'#graphicComponents => FMMany type: #FamixPWBGraphicComponent opposite: #dataWindow'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -19,7 +22,7 @@ FamixPWBDataWindow class >> annotation [
 FamixPWBDataWindow class >> generatedSlotNames [
 	<generated>
 	'FamixPWBDataWindow class>>#generatedSlotNames'.
-	^ #()
+	^ #(graphicComponents)
 ]
 
 { #category : #generator }
@@ -33,4 +36,28 @@ FamixPWBDataWindow class >> requirements [
 
 	<generated>
 	^ {  }
+]
+
+{ #category : #accessing }
+FamixPWBDataWindow >> graphicComponents [
+
+	<generated>
+	^ graphicComponents
+]
+
+{ #category : #accessing }
+FamixPWBDataWindow >> graphicComponents: anObject [
+
+	<generated>
+	graphicComponents value: anObject
+
+]
+
+{ #category : #navigation }
+FamixPWBDataWindow >> graphicComponentsGroup [
+
+	<generated>
+	<navigation: 'GraphicComponents'>
+	^ MooseGroup
+			withAll: (self graphicComponents asSet)
 ]

@@ -32,7 +32,7 @@ FamixPWBMethod class >> generatedTraitNames [
 FamixPWBMethod class >> requirements [
 
 	<generated>
-	^ {  }
+	^ { FamixPWBmajorObject }
 ]
 
 { #category : #accessing }

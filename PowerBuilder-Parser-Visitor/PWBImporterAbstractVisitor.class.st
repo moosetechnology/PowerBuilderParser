@@ -10,6 +10,22 @@ Class {
 }
 
 { #category : #'entities creation' }
+PWBImporterAbstractVisitor >> create: aClass [
+	| entity |
+	entity := aClass new
+		mooseModel: self model;
+		yourself.
+	[ entity belongsTo: self currentEntity ]
+		on: SRNoCurrentEntityAvailable 
+		do: [ "Here we handle the first level of created entities" ].
+	[ entity cyclomaticComplexity: 1 ]
+		on: MessageNotUnderstood
+		do:
+			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
+	^ entity
+]
+
+{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver

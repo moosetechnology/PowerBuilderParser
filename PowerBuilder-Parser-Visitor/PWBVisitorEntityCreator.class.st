@@ -5,19 +5,6 @@ Class {
 }
 
 { #category : #'entities creation' }
-PWBVisitorEntityCreator >> create: aClass from: anASTNode [
-	| entity |
-	entity := aClass new
-		mooseModel: self model;
-		yourself.
-	[ entity cyclomaticComplexity: 1 ]
-		on: MessageNotUnderstood
-		do:
-			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
-	^ entity
-]
-
-{ #category : #'entities creation' }
 PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
 	^ (model allWithType: aType)
 		entityNamed: aName
