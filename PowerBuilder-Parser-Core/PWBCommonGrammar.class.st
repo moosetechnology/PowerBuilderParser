@@ -57,7 +57,7 @@ Class {
 
 { #category : #accessing }
 PWBCommonGrammar >> accessModifier [
-	^ self parserFor: #('public' 'private' 'protected')
+	^ self parserFor: #('public' 'private' 'protected' 'global')
 ]
 
 { #category : #accessing }
