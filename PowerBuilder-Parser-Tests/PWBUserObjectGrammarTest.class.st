@@ -427,6 +427,9 @@ PWBUserObjectGrammarTest >> testFunctionDeclaration [
 		rule: #functionDeclaration.
 	self
 		parse: 'public function integer uf_cre_evn (long al_par_no, string as_tip[])'
+		rule: #functionDeclaration.
+	self
+		parse: 'global function integer uf_complement_forfait (double ad_num_fic)'
 		rule: #functionDeclaration
 ]
 
@@ -564,7 +567,10 @@ PWBUserObjectGrammarTest >> testFunctionInvocation3 [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
-	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
+	self
+		parse:
+			'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech'
+		rule: #globalVariableDeclaration
 ]
 
 { #category : #tests }
@@ -861,10 +867,17 @@ PWBUserObjectGrammarTest >> testTryCatch [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTypeDeclaration [
-	self parse: 'global type uo_consultation_histo_suppression_ech from userobject
-end type' rule: #typeDeclaration.
-	self parse: 'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
-end type' rule: #typeDeclaration
+	self
+		parse:
+			'global type uo_consultation_histo_suppression_ech from userobject
+end type'
+		rule: #typeDeclaration.
+	self
+		parse:
+			'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
+end type'
+		rule: #typeDeclaration.
+		
 ]
 
 { #category : #tests }

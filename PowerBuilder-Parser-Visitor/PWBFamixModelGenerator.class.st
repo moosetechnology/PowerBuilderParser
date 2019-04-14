@@ -151,6 +151,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 PWBFamixModelGenerator >> defineProperties [
 	majorObject property: #cyclomaticComplexity type: #Number.
 	behavioral property: #cyclomaticComplexity type: #Number.
+	behavioral property: #numberOfLinesOfCode type: #Number.
+	
 ]
 
 { #category : #definition }

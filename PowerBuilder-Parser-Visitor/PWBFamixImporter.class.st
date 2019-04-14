@@ -46,7 +46,6 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 			| result |
 			(#('pbg' 'srs') includes: aFile extension)
 				ifFalse: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
-					1 halt.
 					result isPetit2Failure
 						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
 						ifFalse: [ | visitor |
