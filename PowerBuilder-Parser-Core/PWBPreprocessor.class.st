@@ -42,7 +42,7 @@ PWBPreprocessor >> singleLineComment [
 
 { #category : #accessing }
 PWBPreprocessor >> start [
-	^ (string / comment / espeletteNewline / code) plus end
+	^ (string / comment / espeletteNewline / code) star end
 		==> [ :production | 
 			String
 				streamContents: [ :stream | production do: [ :text | stream nextPutAll: text ] ] ]
