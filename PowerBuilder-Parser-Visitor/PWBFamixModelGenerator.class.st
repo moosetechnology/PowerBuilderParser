@@ -21,7 +21,11 @@ Class {
 		'behavioral',
 		'variableAccess',
 		'window',
-		'majorObject'
+		'majorObject',
+		'structureFile',
+		'functionFile',
+		'menuObject',
+		'application'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -54,6 +58,10 @@ PWBFamixModelGenerator >> defineClasses [
 	dataWindow := builder newClassNamed: #DataWindow.
 	userObject := builder newClassNamed: #UserObject.
 	window := builder newClassNamed: #Window.
+	structureFile := builder newClassNamed: #StructureFile.
+	functionFile := builder newClassNamed: #FunctionFile.
+	menuObject := builder newClassNamed: #MenuObject.
+	application := builder newClassNamed: #Application.
 		
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Method.
@@ -69,8 +77,7 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
-	graphicComponent
-		--|> sourcedEntity.
+	graphicComponent --|> sourcedEntity.
 	event
 		--|> behavioral;
 		--|> sourcedEntity;
@@ -126,6 +133,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 	userObject --|> majorObject.
 	window --|> majorObject.
 	dataWindow --|> majorObject.
+	structureFile --|> majorObject.
+	functionFile --|> majorObject.
+	menuObject --|> majorObject.
+	application --|> majorObject.
 	abstractType --|> namedEntity.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
