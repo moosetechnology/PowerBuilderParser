@@ -55,6 +55,11 @@ Class {
 	#category : #'PowerBuilder-Parser-Core'
 }
 
+{ #category : #parsing }
+PWBCommonGrammar class >> supportedExtensions [
+	^ #(srs sru srw srf srm sra)
+]
+
 { #category : #accessing }
 PWBCommonGrammar >> accessModifier [
 	^ self parserFor: #('public' 'private' 'protected' 'global')
@@ -183,6 +188,12 @@ PWBCommonGrammar >> eventReferenceName [
 { #category : #accessing }
 PWBCommonGrammar >> expressionList [
 	^ expression separatedBy: $, parser
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> file [
+	<rename: #commonFile into: #content>
+	^ commonFile
 ]
 
 { #category : #accessing }

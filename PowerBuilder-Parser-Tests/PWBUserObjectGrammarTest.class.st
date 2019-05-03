@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 PWBUserObjectGrammarTest >> parserClass [
-	^ PWBUserObjectGrammar 
+	^ PWBCommonGrammar 
 ]
 
 { #category : #tests }
