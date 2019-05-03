@@ -25,7 +25,8 @@ Class {
 		'structureFile',
 		'functionFile',
 		'menuObject',
-		'application'
+		'application',
+		'queryFile'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -62,6 +63,7 @@ PWBFamixModelGenerator >> defineClasses [
 	functionFile := builder newClassNamed: #FunctionFile.
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
+	queryFile := builder newClassNamed: #QueryFile.
 		
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Method.
@@ -123,6 +125,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
+	
+	"Defining all major objects (files)"
 	majorObject
 		--|> sourcedEntity;
 		--|> #TNamed;
@@ -137,6 +141,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 	functionFile --|> majorObject.
 	menuObject --|> majorObject.
 	application --|> majorObject.
+	queryFile --|> majorObject.
+	
 	abstractType --|> namedEntity.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
