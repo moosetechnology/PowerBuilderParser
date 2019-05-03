@@ -50,14 +50,15 @@ Class {
 		'endForward',
 		'variableAssignation',
 		'catchBlock',
-		'commonFile'
+		'commonFile',
+		'forwardDeclaration'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
 
 { #category : #parsing }
 PWBCommonGrammar class >> supportedExtensions [
-	^ #(srs sru srw srf srm sra)
+	^ #(srs sru srw srf srm sra )
 ]
 
 { #category : #accessing }
@@ -112,10 +113,12 @@ PWBCommonGrammar >> closeSqlCursor [
 { #category : #accessing }
 PWBCommonGrammar >> commonFile [
 	<reify:
-		#(typeVariable / typeDeclaration / functionDefinition / subroutineDefinition / endForward / globalVariableDeclaration / triggerDefinition / eventDeclaration / prototypesDeclaration)
+		#(typeVariable / typeDeclaration / functionDefinition
+		/ subroutineDefinition / forwardDeclaration / globalVariableDeclaration
+		/ triggerDefinition / eventDeclaration / prototypesDeclaration)
 	into: #fileStatement>
 	^ typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / endForward / globalVariableDeclaration
+		/ subroutineDefinition / forwardDeclaration / globalVariableDeclaration
 		/ triggerDefinition / eventDeclaration / prototypesDeclaration
 		separatedBy: blank
 ]
@@ -201,6 +204,12 @@ PWBCommonGrammar >> forLoop [
 	<rename: #expression into: #(endExpression stepExpression)>
 	^ 'for' token , blank , assignationStatement , blank , 'to' token , blank , expression , (blank , 'step' token , blank , expression) optional , newlines , statements
 		, newlines , 'next' token
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> forwardDeclaration [
+	^ 'forward' parser , blank , (typeDeclaration separatedBy: blank)
+		, blank , endForward
 ]
 
 { #category : #accessing }

@@ -305,6 +305,12 @@ PWBCommonParser >> forLoop [
 ]
 
 { #category : #rules }
+PWBCommonParser >> forwardDeclaration [
+	<generated>
+	^ super forwardDeclaration ==> [ :production | PWBASTForwardDeclaration new typeDeclarations: (self rejectSeparators: (production at: 3)); endForward: (production at: 5); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> fromClause [
 	<generated>
 	^ super fromClause ==> [ :production | PWBASTFromClause new customType: (production at: 3); yourself ]
