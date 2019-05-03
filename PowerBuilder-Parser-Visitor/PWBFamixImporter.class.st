@@ -14,9 +14,11 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 			outputFile ensureDelete.
 			keep := false.
 			stream := aFile readStream.
-			stream encoder: ZnUTF16Encoder new.
+			"stream encoder: ZnUTF16Encoder new."
 			[ keep ]
-				whileFalse: [ keep := (stream nextLine beginsWith: '$') not ].
+				whileFalse: [ keep := stream nextLine
+						ifNotNil: [ :line | (line beginsWith: '$') not ]
+						ifNil: [ true ] ].
 			outputFile
 				writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ] ]
 ]
@@ -27,7 +29,8 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 	self flag: #START.
 	debugObjects := OrderedCollection new.
 	aFolder files
-		do: [ :aFile | 
+		reject: [ :aFile | #(pbg srj) includes: aFile extension ]
+		thenDo: [ :aFile | 
 			| result |
 			result := PWBAbstractGrammar obtainASTFromFile: aFile.
 			result isPetit2Failure
