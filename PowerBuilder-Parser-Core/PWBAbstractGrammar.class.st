@@ -79,7 +79,9 @@ PWBAbstractGrammar class >> obtainASTFromFile: aFile [
 		obtainASTFrom: stream contents
 		fileExtension: aFile extension.
 	result isPetit2Failure
-		ifFalse: [ result fileName: aFile base ].
+		ifFalse: [ result
+				fileName: aFile base;
+				fileExtension: aFile extension ].
 	^ result
 ]
 
