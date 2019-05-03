@@ -368,6 +368,21 @@ next'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testForwardDeclarations [
+	self
+		parse:
+			'forward
+global type uo_consultation_histo_suppression_ech from userobject
+end type
+type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
+end type
+type dw_detail from uo_datawindow within uo_consultation_histo_suppression_ech
+end type
+end forward'
+		rule: #forwardDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionDeclaration [
 	self
 		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
