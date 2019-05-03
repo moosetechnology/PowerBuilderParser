@@ -9,16 +9,11 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
 	aFolder visibleFiles
 		do: [ :aFile | 
-			| outputFile stream keep |
+			| outputFile stream |
 			outputFile := (anotherFolder / aFile basename) asFileReference.
 			outputFile ensureDelete.
-			keep := false.
 			stream := aFile readStream.
-			"stream encoder: ZnUTF16Encoder new."
-			[ keep ]
-				whileFalse: [ keep := stream nextLine
-						ifNotNil: [ :line | (line beginsWith: '$') not ]
-						ifNil: [ true ] ].
+			stream encoder: ZnUTF16Encoder new.
 			outputFile
 				writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ] ]
 ]
