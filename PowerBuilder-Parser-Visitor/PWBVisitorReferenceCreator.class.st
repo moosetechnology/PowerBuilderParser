@@ -24,7 +24,8 @@ PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
 PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 	self
 		useCurrentEntity:
-			((self model allWithSubTypesOf: FamixPWBmajorObject)
+			((self model
+				allWithType: (self majorEntityClassForExtension: aPWBASTFile fileExtension))
 				entityNamed: aPWBASTFile fileName)
 		during: [ super visitPWBASTFile: aPWBASTFile ]
 ]

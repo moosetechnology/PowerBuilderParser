@@ -35,13 +35,6 @@ PWBVisitorEntityCreator >> visitPWBASTCustomType: aPWBASTCustomType [
 ]
 
 { #category : #visiting }
-PWBVisitorEntityCreator >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
-	^ self
-		useCurrentEntity: (self create: FamixPWBDataWindow from: aPWBASTDataWindowFile)
-		during: [ super visitPWBASTDataWindowFile: aPWBASTDataWindowFile ]
-]
-
-{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil [
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil
@@ -73,7 +66,14 @@ PWBVisitorEntityCreator >> visitPWBASTElseIf: aPWBASTElseIf [
 
 { #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTFile: aPWBASTFile [
-	(self visit: aPWBASTFile content) name: aPWBASTFile fileName 
+	| majorEntity |
+	majorEntity := self
+		create: (self majorEntityClassForExtension: aPWBASTFile fileExtension)
+		from: aPWBASTFile.
+	majorEntity name: aPWBASTFile fileName.
+	self
+		useCurrentEntity: majorEntity
+		during: [ super visitPWBASTFile: aPWBASTFile ]
 ]
 
 { #category : #visiting }
@@ -160,13 +160,6 @@ PWBVisitorEntityCreator >> visitPWBASTType: aPWBASTType [
 ]
 
 { #category : #visiting }
-PWBVisitorEntityCreator >> visitPWBASTUserObjectFile: aPWBASTUserObjectFile [
-	^ self
-		useCurrentEntity: (self create: FamixPWBUserObject from: aPWBASTUserObjectFile)
-		during: [ super visitPWBASTUserObjectFile: aPWBASTUserObjectFile ]
-]
-
-{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	self currentEntity
 		createValueHolderNamed:
@@ -180,11 +173,4 @@ PWBVisitorEntityCreator >> visitPWBASTVariableDeclarations: aPWBASTVariableDecla
 	self flag: #TODO. "set type for declared variables"
 	self visit: aPWBASTVariableDeclarations type.
 	self visitAll: aPWBASTVariableDeclarations variableAssignations.
-]
-
-{ #category : #visiting }
-PWBVisitorEntityCreator >> visitPWBASTWindowFile: aPWBASTWindowFile [
-	^ self
-		useCurrentEntity: (self create: FamixPWBWindow from: aPWBASTWindowFile)
-		during: [ super visitPWBASTWindowFile: aPWBASTWindowFile ]
 ]

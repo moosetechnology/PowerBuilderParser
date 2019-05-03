@@ -31,6 +31,17 @@ PWBImporterAbstractVisitor >> initialize [
 	self initialiseSolver
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> majorEntityClassForExtension: anExtension [
+	^ {('srd' -> FamixPWBDataWindow).
+	('sru' -> FamixPWBUserObject).
+	('srw' -> FamixPWBWindow).
+	('srs' -> FamixPWBStructureFile).
+	('srf' -> FamixPWBFunctionFile).
+	('srm' -> FamixPWBMenuObject).
+	('sra' -> FamixPWBApplication)} asDictionary at: anExtension
+]
+
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model [
 	^ model
