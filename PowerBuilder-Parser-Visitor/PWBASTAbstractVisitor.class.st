@@ -380,6 +380,13 @@ PWBASTAbstractVisitor >> visitPWBASTFormatType: anPWBASTFormatType [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTForwardDeclaration: aPWBASTForwardDeclaration [
+	<generated>
+	self visitAll: aPWBASTForwardDeclaration typeDeclarations.
+	self visit: aPWBASTForwardDeclaration endForward.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 	<generated>
 	self visit: aPWBASTFromClause customType.
