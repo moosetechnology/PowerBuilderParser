@@ -53,6 +53,11 @@ code'
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testEmptyFile [
+	self assert: (self parse: '') equals: ''
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testEspelette [
 	self
 		assert:
