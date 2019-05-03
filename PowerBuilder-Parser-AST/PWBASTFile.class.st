@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'content',
 		'startPosition',
-		'stopPosition'
+		'stopPosition',
+		'fileExtension',
+		'fileName'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -23,6 +25,16 @@ PWBASTFile >> content [
 { #category : #accessing }
 PWBASTFile >> content: anObject [
 	content := anObject
+]
+
+{ #category : #accessing }
+PWBASTFile >> fileExtension [
+	^ fileExtension
+]
+
+{ #category : #accessing }
+PWBASTFile >> fileExtension: anObject [
+	fileExtension := anObject
 ]
 
 { #category : #accessing }
