@@ -70,6 +70,46 @@ this.dw_detail}')
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testRemoveExportInformations1 [
+	self
+		assert:
+			(self
+				parse:
+					'$PBExportHeader$dw_particiaption_adh.srq
+select
+	prt.prt_no,
+	prt.prt_deb,
+	prt.prt_rad,
+	grp.grp_cod,
+	grp_lib
+from prt , gpp , grp')
+		equals:
+			'select
+	prt.prt_no,
+	prt.prt_deb,
+	prt.prt_rad,
+	grp.grp_cod,
+	grp_lib
+from prt , gpp , grp'
+]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testRemoveExportInformations2 [
+	self
+		assert:
+			(self
+				parse:
+					'$PBExportHeader$dw_adh_prm.srd
+$PBExportComments$/0004/ $Franck$ 27/02/2008~r~n/0003/ $Franck$ 08/10/2007~r~n/0002/ $Damien$ 02/07/2007~r~n/0001/ $Damien$ le 24/05/2007
+release 8;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )')
+		equals:
+			'datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testSimpleComment [
 	self
 		assert:
