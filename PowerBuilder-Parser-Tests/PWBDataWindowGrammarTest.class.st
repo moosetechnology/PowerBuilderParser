@@ -50,6 +50,11 @@ PWBDataWindowGrammarTest >> testDetail [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testEllipse [
+	self parse: 'ellipse(band=detail x="2350" y="32" height="36" width="41"  name=tem_dtc visible="1~tif(isNull(liq_dtc),0,1)" brush.hatch="6" brush.color="255" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="0" )' rule: #graphicComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testExport [
 	self parse: 'export.xhtml()' rule: #export.
 	self parse: 'export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )' rule: #export.
@@ -154,6 +159,13 @@ PWBDataWindowGrammarTest >> testString [
 	self
 		parse:
 			'''Erreur de paramétrage de cre_dcs. Le chemin de création des fichiers dcs n~''est pas paramétré'''
+		rule: #string
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testString2 [
+	self
+		parse: '"~"Notification pour le centre ~" +  as_seq_num "'
 		rule: #string
 ]
 
