@@ -13,12 +13,27 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 			"Groups"
 			self baselineOfPetitParser2: spec.
 			self baselineOfSymbolResolver: spec.
+			self baselineOfFamix: spec.
 			"Packages"
 			spec
-				package: 'PowerBuilder-Parser-Tests';
+				package: 'PowerBuilder-Parser-Tests'
+					with: [ spec requires: #('PowerBuilder-Parser-Core') ];
 				package: 'PowerBuilder-Parser-Core'
+					with: [ spec requires: #('PetitParser2') ];
+				package: 'PowerBuilder-Parser-AST';
+				package: 'Famix-PowerBuilder-Entities'
+					with: [ spec requires: #('Famix') ];
+				package: 'PowerBuilder-Parser-Visitor'
 					with: [ spec
-						requires: #('PetitParser2' 'PowerBuilder-Parser-Tests' 'SymbolResolver') ] ]
+						requires:
+							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ]
+]
+
+{ #category : #baselines }
+BaselineOfPowerBuilderParser >> baselineOfFamix: spec [
+	spec
+    	baseline: 'Famix'
+    	with: [ spec repository: 'github://jecisc/Famix:v2.x.x/src' ]
 ]
 
 { #category : #baselines }
