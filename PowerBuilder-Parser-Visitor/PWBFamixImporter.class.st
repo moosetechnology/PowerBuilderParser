@@ -61,6 +61,7 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> script [
 	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/ws_objects'
+		asFileReference directories
 		do: [ :dir | PWBFamixImporter importFromFolder: dir ]
 		displayingProgress: [ :dir | dir asString ]
 ]
