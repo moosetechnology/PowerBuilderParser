@@ -314,7 +314,8 @@ PWBCommonGrammar >> transactionObject [
 
 { #category : #accessing }
 PWBCommonGrammar >> triggerDefinition [
-	^ 'on' token , blank , identifier , $. parser , eventType , blank , statements , blank
+	^ 'on' token , blank , (identifier , $. parser) optional , eventType
+		, $; token optional , blank , statements , blank
 		, (self endOf: 'on')
 ]
 

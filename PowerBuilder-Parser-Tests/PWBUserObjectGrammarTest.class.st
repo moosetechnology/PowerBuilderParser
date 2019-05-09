@@ -342,6 +342,11 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testEventType [
+	self parse: 'clicked' rule: #eventType.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForLoop1 [
 	self
 		parse: 'for ll_wz = 1 to ll_nz
@@ -581,6 +586,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation3 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation4 [
+	self
+		parse:
+			'printSetup()'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -811,13 +824,19 @@ PWBUserObjectGrammarTest >> testStatement [
 	self parse: 'dw_detail.setFocus()' rule: #statement.
 	self parse: 'return' rule: #statement.
 	self parse: 'long ll_par_no' rule: #statement.
-	self parse: 'il_nbs_gpp_trt ++' rule: #statement
+	self parse: 'il_nbs_gpp_trt ++' rule: #statement.
+	self parse: 'printSetup()' rule: #statement.
+	
+
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testStatements [
 	self
 		parse: 'ls_donnee=''''; ls_donnee_2= ''''; ls_donnee_3= ''''; ls_donnee_4 = '''''
+		rule: #statements.
+	self
+		parse: 'printSetup()'
 		rule: #statements
 ]
 
