@@ -333,8 +333,12 @@ PWBAbstractGrammar >> functionInvocation [
 { #category : #accessing }
 PWBAbstractGrammar >> identifier [
 	self flag: #TODO.	"improve identifier to accept thisCustomer for example"
-	^ ((reservedKeyword not , (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star)
-		/ (reservedKeyword , (#letter parser / $_ parser / #digit parser) plus)) flatten
+	^ ((reservedKeyword not , (#letter parser / $_ parser)
+		, (#letter parser / $_ parser / $- parser / #digit parser) star)
+		/
+			(reservedKeyword
+				, (#letter parser / $_ parser / $- parser / #digit parser) plus))
+		flatten
 ]
 
 { #category : #accessing }
