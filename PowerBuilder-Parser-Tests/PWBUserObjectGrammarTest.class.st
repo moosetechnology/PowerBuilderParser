@@ -861,6 +861,16 @@ end on'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerDefinition3 [
+	self
+		parse:
+			'on clicked;
+printSetup()
+end on'
+		rule: #triggerDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTryCatch [
 	self parse: 'try
 	string ll_test
