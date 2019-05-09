@@ -163,8 +163,8 @@ PWBAbstractGrammar >> accessOrType [
 
 { #category : #accessing }
 PWBAbstractGrammar >> argument [
-	^ ('ref' token , blank) optional , type , blank , identifier
-		, arrayWithSize optional
+	^ ('ref' token / 'readonly' token , blank) optional , type , blank
+		, identifier , arrayWithSize optional
 ]
 
 { #category : #accessing }

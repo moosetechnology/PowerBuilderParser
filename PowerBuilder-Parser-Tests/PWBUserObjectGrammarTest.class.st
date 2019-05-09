@@ -830,6 +830,10 @@ PWBUserObjectGrammarTest >> testSubroutineDeclaration [
 	self
 		parse:
 			'protected subroutine uf_flx_nom (string as_rep, date ad_dat_fic, ref string as_fic, string as_ent_traite, string as_zy)'
+		rule: #subroutineDeclaration.
+	self
+		parse:
+			'global subroutine f_restaure_barre_icones (readonly window a_wwindow)'
 		rule: #subroutineDeclaration
 ]
 
