@@ -179,6 +179,9 @@ PWBUserObjectGrammarTest >> testCondition [
 	self
 		parse:
 			'(not isnull(ldwc_wz.getitemdate(	ll_compt,"ddw_fin"))) and 						ldwc_wz.getitemdate(	ll_compt,"ddw_fin") < today()'
+		rule: #condition.
+	self
+		parse: 'IsNull(ad_date) Or Year(ad_date) < Year(Today()) - 50'
 		rule: #condition
 ]
 
