@@ -78,8 +78,8 @@ PWBVisitorReferenceCreator >> visitPWBASTSubroutineSignature: aPWBASTSubroutineS
 { #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
 	self
-		useEntityNamed: (self visit: aPWBASTTriggerDefinition identifier)
+		useEntityNamed: (self visit: aPWBASTTriggerDefinition eventType)
 		ofType: FamixPWBTrigger
-		during: [ self visit: aPWBASTTriggerDefinition eventType.
+		during: [ self visit: aPWBASTTriggerDefinition identifier.
 			self visit: aPWBASTTriggerDefinition statements ]
 ]

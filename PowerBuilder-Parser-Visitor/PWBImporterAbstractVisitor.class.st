@@ -53,6 +53,11 @@ PWBImporterAbstractVisitor >> model: anObject [
 	model := anObject
 ]
 
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
+	^ self visit: aPWBASTEventType eventType
+]
+
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayWithSize.

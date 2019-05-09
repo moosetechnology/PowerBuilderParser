@@ -147,8 +147,8 @@ PWBVisitorEntityCreator >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinitio
 	trigger := self
 		create: FamixPWBTrigger
 		from: aPWBASTTriggerDefinition.
-	trigger name: (self visit: aPWBASTTriggerDefinition identifier).
-	self visit: aPWBASTTriggerDefinition eventType.
+	trigger name: (self visit: aPWBASTTriggerDefinition eventType).
+	self visit: aPWBASTTriggerDefinition identifier.
 	self
 		useCurrentEntity: trigger
 		during: [ self visit: aPWBASTTriggerDefinition statements ]
