@@ -384,8 +384,13 @@ PWBAbstractGrammar >> number [
 PWBAbstractGrammar >> operatorExpression [
 	<reify: #(parenthesedExpression / expressionTerm) into: #left>
 	<rename: #expression into: #right>
-	^ parenthesedExpression / expressionTerm , methodInvocation optional , blank
-		, (self parserFor: #('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or')) , blank , expression
+	^ parenthesedExpression / expressionTerm , methodInvocation optional
+		, blank
+		,
+			(self
+				parserCaseInsensitiveFor:
+					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or'))
+		, blank , expression
 ]
 
 { #category : #accessing }
