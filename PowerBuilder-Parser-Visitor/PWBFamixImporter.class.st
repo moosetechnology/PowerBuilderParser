@@ -41,6 +41,21 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 ]
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter class >> generationScripts [
+	PPTASTGenerator
+		generateEverythingFrom: PWBDataWindowGrammar
+		generationStrategy: PPASTGeneratorStrategy pwbDataWindowStrategy.
+	PPTASTGenerator
+		generateEverythingFrom: PWBQueryFileGrammar 
+		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
+	PPTASTGenerator
+		generateEverythingFrom: PWBCommonGrammar 
+		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
+		
+	PWBFamixModelGenerator generate
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
 	| mooseModel fileReferenceFolder |
 	self flag: #START.
