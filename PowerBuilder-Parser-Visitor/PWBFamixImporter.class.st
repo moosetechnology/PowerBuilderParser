@@ -44,14 +44,18 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 PWBFamixImporter class >> generationScripts [
 	PPTASTGenerator
 		generateEverythingFrom: PWBDataWindowGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbDataWindowStrategy.
+		generationStrategy: PPASTGeneratorStrategy pwbStrategy.
 	PPTASTGenerator
-		generateEverythingFrom: PWBQueryFileGrammar 
+		generateEverythingFrom: PWBQueryFileGrammar
 		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
 	PPTASTGenerator
-		generateEverythingFrom: PWBCommonGrammar 
+		generateEverythingFrom: PWBCommonGrammar
 		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
-		
+	#(fileExtension fileName)
+		do: [ :aSelector | 
+			PPASTGeneratorStrategy new
+				createAttributeAndAccessorsFor: aSelector
+				inClass: #PWBASTFile asClass ].
 	PWBFamixModelGenerator generate
 ]
 
