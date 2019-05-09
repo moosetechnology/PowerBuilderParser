@@ -13,7 +13,7 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 			outputFile := (anotherFolder / aFile basename) asFileReference.
 			outputFile ensureDelete.
 			stream := aFile readStream.
-			stream encoder: ZnUTF16Encoder new.
+			"stream encoder: ZnUTF16Encoder new."
 			outputFile
 				writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ] ]
 ]
