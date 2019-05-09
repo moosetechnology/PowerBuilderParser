@@ -49,8 +49,18 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 		createCleanFilesFrom: fileReferenceFolder
 		into: fileReferenceFolder / 'cleaned'.
 	mooseModel := MooseModel new.
-	self
+	(self
 		fillModel: mooseModel
-		fromFolder: fileReferenceFolder / 'cleaned'.
+		fromFolder: fileReferenceFolder / 'cleaned')
+		ifNotEmpty: [ :failures | 
+			failures inspect.
+			Halt now ].
 	^ mooseModel
+]
+
+{ #category : #'as yet unclassified' }
+PWBFamixImporter class >> script [
+	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/ws_objects'
+		do: [ :dir | PWBFamixImporter importFromFolder: dir ]
+		displayingProgress: [ :dir | dir asString ]
 ]
