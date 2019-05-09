@@ -541,7 +541,7 @@ PWBCommonParser >> transactionObject [
 { #category : #rules }
 PWBCommonParser >> triggerDefinition [
 	<generated>
-	^ super triggerDefinition ==> [ :production | PWBASTTriggerDefinition new identifier: (production at: 3); eventType: (production at: 5); statements: (production at: 7); yourself ]
+	^ super triggerDefinition ==> [ :production | PWBASTTriggerDefinition new identifier: ((production at: 3) ifNotNil: [((production at: 3) at: 1)]); eventType: (production at: 4); statements: (production at: 7); yourself ]
 ]
 
 { #category : #rules }
