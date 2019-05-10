@@ -53,7 +53,10 @@ PWBUserObjectGrammarTest >> testAssignationStatement [
 	self
 		parse: 'is_liste_det_ave[li_cpt,1] = ls_col_name'
 		rule: #assignationStatement.
-	self parse: 'll_wz /= 2' rule: #assignationStatement
+	self parse: 'll_wz /= 2' rule: #assignationStatement.
+	self
+		parse: 'list_objet_fen = w_app_mdi.Control[]'
+		rule: #assignationStatement
 ]
 
 { #category : #tests }
