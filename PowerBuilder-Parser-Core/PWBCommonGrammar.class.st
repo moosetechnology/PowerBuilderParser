@@ -79,7 +79,8 @@ PWBCommonGrammar >> attribute [
 { #category : #accessing }
 PWBCommonGrammar >> attributes [
 	<reify: #(eventAttribute / attribute) into: #attributes>
-	^ (eventAttribute / attribute separatedBy: blank) , blank
+	^ (eventAttribute / attribute , (blank , descriptor) optional
+		separatedBy: blank) , blank
 ]
 
 { #category : #accessing }
