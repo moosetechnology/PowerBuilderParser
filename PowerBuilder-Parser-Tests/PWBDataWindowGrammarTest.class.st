@@ -131,6 +131,7 @@ PWBDataWindowGrammarTest >> testOption [
 	self parse: 'name=compute_1' rule: #option.
 	self parse: 'print.orientation = 0' rule: #option.
 	self parse: 'height.autosize=yes' rule: #option.
+	self parse: 'header.1' rule: #option.
 	self
 		parse:
 			'arguments=(("al_par_no", number),("as_prt_adn", string),("al_sou_no", number),("al_annee", number),("al_gpp_no", number))'
