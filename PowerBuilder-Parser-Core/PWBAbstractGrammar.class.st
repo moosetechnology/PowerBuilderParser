@@ -399,8 +399,9 @@ PWBAbstractGrammar >> operatorExpression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> parametrizedType [
-	^ ((#('char' 'decimal') collect: #parser) reduce: [ :a :b | a / b ]) , $( parser , number
-		, $) parser
+	^ ((#('char' 'decimal') collect: #parser) reduce: [ :a :b | a / b ])
+		,
+			(($( parser , number , $) parser) / (spaces, ${ parser , number trim , $} parser))
 ]
 
 { #category : #accessing }
