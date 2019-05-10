@@ -300,9 +300,16 @@ PWBUserObjectGrammarTest >> testDoWhileLoop [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testEventAttribute [
-	self parse: 'event ue_post_constructor pbm_custom02' rule: #eventAttribute.
+	self
+		parse: 'event ue_post_constructor pbm_custom02'
+		rule: #eventAttribute.
 	self parse: 'event ue_rdc ( )' rule: #eventAttribute.
-	self parse: 'event ue_change_titre_onglet ( string as_mod )' rule: #eventAttribute
+	self
+		parse: 'event ue_change_titre_onglet ( string as_mod )'
+		rule: #eventAttribute.
+	self
+		parse: 'event type integer ue_show_progress ( integer ai_progress )'
+		rule: #eventAttribute
 ]
 
 { #category : #tests }
@@ -971,6 +978,25 @@ end type' rule: #typeDeclaration.
 PWBUserObjectGrammarTest >> testTypeDeclaration3 [
 	self parse: 'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
 string dataobject = "dw_zonier"
+end type' rule: #typeDeclaration.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTypeDeclaration4 [
+	self parse: 'global type w_n_dwr_service_progress from window
+integer x = 1056
+integer y = 484
+integer width = 1883
+integer height = 440
+boolean titlebar = true
+string title = "Ñîõðàíåíèå â Excel"
+windowtype windowtype = response!
+long backcolor = 79741120
+event type integer ue_show_progress ( integer ai_progress )
+st_title st_title
+st_remain st_remain
+cb_cancel cb_cancel
+uo_prog uo_prog
 end type' rule: #typeDeclaration.
 ]
 
