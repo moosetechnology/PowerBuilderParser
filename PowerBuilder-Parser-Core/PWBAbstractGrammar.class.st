@@ -56,7 +56,8 @@ Class {
 		'elseIf',
 		'else',
 		'elseOnLine',
-		'this'
+		'this',
+		'arrayDesignation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -178,6 +179,11 @@ PWBAbstractGrammar >> array [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> arrayDesignation [
+	^ '[' parser , ']' parser
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> arrayPosition [
 	^ '[' parser , expression, ']' parser
 ]
@@ -202,8 +208,9 @@ PWBAbstractGrammar >> assignationStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> attributeAccess [
+	<reify: #(arrayPosition / arrayDesignation) into: #arrayInformation>
 	^ $. parser trim , uncheckedIdentifier , $( parser not
-		, arrayPosition optional
+		, (arrayPosition / arrayDesignation) optional
 ]
 
 { #category : #accessing }
