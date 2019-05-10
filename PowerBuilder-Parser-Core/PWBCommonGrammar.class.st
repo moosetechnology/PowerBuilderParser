@@ -52,7 +52,8 @@ Class {
 		'catchBlock',
 		'commonFile',
 		'forwardDeclaration',
-		'finallyBlock'
+		'finallyBlock',
+		'sharedVariables'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -116,13 +117,14 @@ PWBCommonGrammar >> closeSqlCursor [
 PWBCommonGrammar >> commonFile [
 	<reify:
 		#(typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / forwardDeclaration / globalVariableDeclaration
-		/ triggerDefinition / eventDeclaration / prototypesDeclaration)
+		/ subroutineDefinition / forwardDeclaration
+		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
+		/ sharedVariables / prototypesDeclaration)
 	into: #fileStatement>
 	^ typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / forwardDeclaration / globalVariableDeclaration
-		/ triggerDefinition / eventDeclaration / prototypesDeclaration
-		separatedBy: blank
+		/ subroutineDefinition / forwardDeclaration
+		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
+		/ sharedVariables / prototypesDeclaration separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -279,6 +281,11 @@ PWBCommonGrammar >> prototypesDeclaration [
 	<reify: #(functionDeclaration / subroutineDeclaration) into: #declaration>
 	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
 		, blank , (self endOf: 'prototypes')
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> sharedVariables [
+	^ 'shared variables' token , blank , attributes optional , blank , (self endOf: 'variables')
 ]
 
 { #category : #accessing }

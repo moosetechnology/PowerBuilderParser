@@ -783,6 +783,16 @@ delete' rule: #returnStatement.
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testSharedVariables [
+	self
+		parse:
+			'shared variables
+
+end variables'
+		rule: #sharedVariables
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSqlCommitStatement [
 	self parse: 'commit;' rule: #sqlCommitStatement.
 	self parse: 'COMMIT USING Emp_tran ;' rule: #sqlCommitStatement.
