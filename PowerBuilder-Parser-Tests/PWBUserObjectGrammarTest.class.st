@@ -64,12 +64,13 @@ PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
 	self parse: 'string is_cre_uti = ''?''' rule: #attribute.
-	self parse: 'borderstyle borderstyle = stylelowered!' rule: #attribute.
+	self
+		parse: 'borderstyle borderstyle = stylelowered!'
+		rule: #attribute.
 	self parse: 'decimal { 2 }		montant' rule: #attribute.
-	
-	
-	
-
+	self
+		parse: 'private st_extsst_item i_extsst_items[]'
+		rule: #attribute
 ]
 
 { #category : #tests }
@@ -1087,6 +1088,25 @@ string is_uti_trt = "IDXAD"
 string is_sql_ave
 datastore lds_ave
 end variables' rule: #typeVariable.
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testTypeVariable2 [
+	self parse: 'type variables
+n_cst_unicode_hash_long invo_hash
+n_cst_unicode invo_unicode
+n_xls_subroutines_v97 invo_sub
+ulong il_total_in_doc = 0
+ulong il_total_unique = 0
+ulong il_limit = 8224
+blob ib_st[]
+blob ib_extsst
+integer ii_string_per_extsst = 8
+private st_extsst_item i_extsst_items[]
+integer ii_extsst_count = 0
+
+
+end variables' rule: #typeVariable
 ]
 
 { #category : #tests }
