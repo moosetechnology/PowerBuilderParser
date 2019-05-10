@@ -618,6 +618,12 @@ PWBASTAbstractVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
+	<generated>
+	self visit: aPWBASTSharedVariables attributes.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTSpecialStatement: aPWBASTSpecialStatement [
 	<generated>
 	self visit: aPWBASTSpecialStatement specialStatement.

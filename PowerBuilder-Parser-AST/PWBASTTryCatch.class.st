@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'statements',
 		'catchBlocks',
+		'finallyBlock',
 		'startPosition',
 		'stopPosition'
 	],
@@ -24,6 +25,16 @@ PWBASTTryCatch >> catchBlocks [
 { #category : #accessing }
 PWBASTTryCatch >> catchBlocks: anObject [
 	catchBlocks := anObject
+]
+
+{ #category : #accessing }
+PWBASTTryCatch >> finallyBlock [
+	^ finallyBlock
+]
+
+{ #category : #accessing }
+PWBASTTryCatch >> finallyBlock: anObject [
+	finallyBlock := anObject
 ]
 
 { #category : #accessing }

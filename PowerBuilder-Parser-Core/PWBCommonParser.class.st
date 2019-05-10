@@ -479,6 +479,12 @@ PWBCommonParser >> selectSeparators: anArray [
 ]
 
 { #category : #rules }
+PWBCommonParser >> sharedVariables [
+	<generated>
+	^ super sharedVariables ==> [ :production | PWBASTSharedVariables new attributes: (production ifNotNil: [(production at: 3)]); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> specialStatement [
 	<generated>
 	^ super specialStatement ==> [ :production | PWBASTSpecialStatement new specialStatement: production; yourself ]
