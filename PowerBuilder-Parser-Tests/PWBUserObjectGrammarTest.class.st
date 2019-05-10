@@ -62,6 +62,9 @@ PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
 	self parse: 'string is_cre_uti = ''?''' rule: #attribute.
 	self parse: 'borderstyle borderstyle = stylelowered!' rule: #attribute.
+	self parse: 'decimal { 2 }		montant' rule: #attribute.
+	
+	
 	
 
 ]
@@ -968,6 +971,52 @@ end type' rule: #typeDeclaration.
 PWBUserObjectGrammarTest >> testTypeDeclaration3 [
 	self parse: 'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
 string dataobject = "dw_zonier"
+end type' rule: #typeDeclaration.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTypeDeclaration5 [
+	self parse: 'global type str_fonction from structure
+	string		frequence_paiement
+	long		par_no_payeur
+	date		date_debut_periode
+	date		date_fin_periode
+	long		gpp_no
+	long		num_dss
+	long		par_no_payeur2
+	long		sou_no
+	decimal { 2 }		montant
+	long		num_dss2
+	string		adh_ctr
+	long		evn_no
+	string		cod_pub
+	string		cod_evn
+	string		cmp_cod
+	string		texte_1
+	string		texte_2
+	boolean		b_maj_dat
+	string		cod_ref
+	string		pre_cod
+	long		cev_no
+	boolean		date_future
+	string		s_groupe_acte
+	string		s_no_finess
+	string		s_no_de_facture
+	string		s_libelle_du_tiers
+	string		s_libelle_beneficiaire
+	date		d_date_de_soin
+	decimal { 2 }		d_montant_depense
+	string		s_facture
+	long		trs_no
+	string		s_code_entreprise
+	string		s_code_population
+	string		s_dom
+	long		l_org_no
+	string		s_par_typ
+	long		l_nb_rel
+	date		d_gui_dfd
+	long		l_dom_no
+	long		l_cpt_cct		descriptor "comment" = "//Fiche 70292 $Damien$ 09/10/2014"
 end type' rule: #typeDeclaration.
 ]
 
