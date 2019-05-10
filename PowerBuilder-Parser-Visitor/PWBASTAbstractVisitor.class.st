@@ -546,7 +546,7 @@ PWBASTAbstractVisitor >> visitPWBASTOpenSqlCursor: aPWBASTOpenSqlCursor [
 PWBASTAbstractVisitor >> visitPWBASTOperatorExpression: aPWBASTOperatorExpression [
 	<generated>
 	self visit: aPWBASTOperatorExpression left.
-	self visit: aPWBASTOperatorExpression methodInvocation.
+	self visitAll: aPWBASTOperatorExpression methodInvocations.
 	self visit: aPWBASTOperatorExpression right.
 ]
 

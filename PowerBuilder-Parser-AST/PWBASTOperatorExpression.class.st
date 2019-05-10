@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'left',
-		'methodInvocation',
+		'methodInvocations',
 		'right',
 		'startPosition',
 		'stopPosition'
@@ -28,13 +28,13 @@ PWBASTOperatorExpression >> left: anObject [
 ]
 
 { #category : #accessing }
-PWBASTOperatorExpression >> methodInvocation [
-	^ methodInvocation
+PWBASTOperatorExpression >> methodInvocations [
+	^ methodInvocations
 ]
 
 { #category : #accessing }
-PWBASTOperatorExpression >> methodInvocation: anObject [
-	methodInvocation := anObject
+PWBASTOperatorExpression >> methodInvocations: anObject [
+	methodInvocations := anObject
 ]
 
 { #category : #accessing }

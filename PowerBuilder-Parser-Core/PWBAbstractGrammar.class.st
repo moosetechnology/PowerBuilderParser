@@ -395,7 +395,7 @@ PWBAbstractGrammar >> number [
 PWBAbstractGrammar >> operatorExpression [
 	<reify: #(parenthesedExpression / expressionTerm) into: #left>
 	<rename: #expression into: #right>
-	^ parenthesedExpression / expressionTerm , methodInvocation optional
+	^ parenthesedExpression / expressionTerm , methodInvocation star
 		, blank
 		,
 			(self

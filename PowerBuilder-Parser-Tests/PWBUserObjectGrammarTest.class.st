@@ -188,6 +188,10 @@ PWBUserObjectGrammarTest >> testCondition [
 		rule: #condition.
 	self
 		parse: 'IsNull(ad_date) Or Year(ad_date) < Year(Today()) - 50'
+		rule: #condition.
+	self
+		parse:
+			'this.getparent().classname() = ''w_dossier_participation'' and ii_tp_courante = 4'
 		rule: #condition
 ]
 

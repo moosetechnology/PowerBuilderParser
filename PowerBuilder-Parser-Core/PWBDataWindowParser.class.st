@@ -307,7 +307,7 @@ PWBDataWindowParser >> number [
 { #category : #rules }
 PWBDataWindowParser >> operatorExpression [
 	<generated>
-	^ super operatorExpression ==> [ :production | PWBASTOperatorExpression new left: (production at: 1); methodInvocation: (production ifNotNil: [(production at: 2)]); right: (production at: 6); yourself ]
+	^ super operatorExpression ==> [ :production | PWBASTOperatorExpression new left: (production at: 1); methodInvocations: (production at: 2); right: (production at: 6); yourself ]
 ]
 
 { #category : #rules }
