@@ -97,6 +97,14 @@ PWBDataWindowGrammarTest >> testGenerators [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testGroup [
+	self
+		parse:
+			'group(level=1 header.height=189 trailer.height=73 by=("dst_cod" ) header.color="553648127" trailer.color="536870912" )'
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testHeader [
 	self
 		parse:
