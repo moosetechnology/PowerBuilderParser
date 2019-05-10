@@ -51,7 +51,8 @@ Class {
 		'variableAssignation',
 		'catchBlock',
 		'commonFile',
-		'forwardDeclaration'
+		'forwardDeclaration',
+		'finallyBlock'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -164,6 +165,11 @@ PWBCommonGrammar >> doWhileLoop [
 ]
 
 { #category : #accessing }
+PWBCommonGrammar >> elseIf [ 
+	^ super elseIf 
+]
+
+{ #category : #accessing }
 PWBCommonGrammar >> endForward [
 	^ self endOf: 'forward'
 ]
@@ -200,6 +206,11 @@ PWBCommonGrammar >> expressionList [
 PWBCommonGrammar >> file [
 	<rename: #commonFile into: #content>
 	^ commonFile
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> finallyBlock [
+	^ 'finally' token , (blank , statements) optional
 ]
 
 { #category : #accessing }
@@ -325,9 +336,8 @@ PWBCommonGrammar >> triggerDefinition [
 { #category : #accessing }
 PWBCommonGrammar >> tryCatch [
 	^ 'try' token , (newlines , statements) optional
-		,
-			(blank , catchBlock) star , blank
-		, (self endOf: 'try')
+		, (blank , catchBlock) star , (blank , finallyBlock) optional
+		, blank , (self endOf: 'try')
 ]
 
 { #category : #accessing }

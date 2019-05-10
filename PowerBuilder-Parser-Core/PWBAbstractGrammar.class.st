@@ -435,7 +435,7 @@ PWBAbstractGrammar >> postFixOperator [
 PWBAbstractGrammar >> reservedKeyword [
 	^ self
 		parserCaseInsensitiveFor:
-			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super')
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally')
 ]
 
 { #category : #accessing }
