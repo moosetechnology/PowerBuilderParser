@@ -41,6 +41,12 @@ PWBCommonParser >> array [
 ]
 
 { #category : #rules }
+PWBCommonParser >> arrayDesignation [
+	<generated>
+	^ super arrayDesignation flatten ==> [ :production | PWBASTArrayDesignation new arrayDesignation: production; yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> arrayPosition [
 	<generated>
 	^ super arrayPosition ==> [ :production | PWBASTArrayPosition new expression: (production at: 2); yourself ]
@@ -73,7 +79,7 @@ PWBCommonParser >> attribute [
 { #category : #rules }
 PWBCommonParser >> attributeAccess [
 	<generated>
-	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayPosition: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayInformation: (production ifNotNil: [(production at: 4)]); yourself ]
 ]
 
 { #category : #rules }

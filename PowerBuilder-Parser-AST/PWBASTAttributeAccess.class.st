@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'uncheckedIdentifier',
-		'arrayPosition',
+		'arrayInformation',
 		'startPosition',
 		'stopPosition'
 	],
@@ -14,6 +14,16 @@ Class {
 PWBASTAttributeAccess >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTAttributeAccess: self
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> arrayInformation [
+	^ arrayInformation
+]
+
+{ #category : #accessing }
+PWBASTAttributeAccess >> arrayInformation: anObject [
+	arrayInformation := anObject
 ]
 
 { #category : #accessing }

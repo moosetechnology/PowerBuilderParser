@@ -35,6 +35,12 @@ PWBDataWindowParser >> array [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> arrayDesignation [
+	<generated>
+	^ super arrayDesignation flatten ==> [ :production | PWBASTArrayDesignation new arrayDesignation: production; yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> arrayPosition [
 	<generated>
 	^ super arrayPosition ==> [ :production | PWBASTArrayPosition new expression: (production at: 2); yourself ]
@@ -61,7 +67,7 @@ PWBDataWindowParser >> assignationStatement [
 { #category : #rules }
 PWBDataWindowParser >> attributeAccess [
 	<generated>
-	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayPosition: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayInformation: (production ifNotNil: [(production at: 4)]); yourself ]
 ]
 
 { #category : #rules }

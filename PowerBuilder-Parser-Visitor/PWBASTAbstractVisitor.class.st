@@ -56,6 +56,12 @@ PWBASTAbstractVisitor >> visitPWBASTArray: aPWBASTArray [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTArrayDesignation: anPWBASTArrayDesignation [
+	<generated>
+	^ anPWBASTArrayDesignation arrayDesignation
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTArrayPosition: aPWBASTArrayPosition [
 	<generated>
 	self visit: aPWBASTArrayPosition expression.
@@ -91,7 +97,7 @@ PWBASTAbstractVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
 PWBASTAbstractVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 	<generated>
 	self visit: aPWBASTAttributeAccess uncheckedIdentifier.
-	self visit: aPWBASTAttributeAccess arrayPosition.
+	self visit: aPWBASTAttributeAccess arrayInformation.
 ]
 
 { #category : #visiting }
