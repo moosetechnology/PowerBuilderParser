@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTAttribute,
 	#superclass : #Object,
 	#instVars : [
+		'accessModifier',
 		'variableDeclarations',
 		'descriptor',
 		'startPosition',
@@ -14,6 +15,16 @@ Class {
 PWBASTAttribute >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTAttribute: self
+]
+
+{ #category : #accessing }
+PWBASTAttribute >> accessModifier [
+	^ accessModifier
+]
+
+{ #category : #accessing }
+PWBASTAttribute >> accessModifier: anObject [
+	accessModifier := anObject
 ]
 
 { #category : #accessing }

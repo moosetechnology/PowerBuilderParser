@@ -89,6 +89,7 @@ PWBASTAbstractVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStat
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
 	<generated>
+	self visit: aPWBASTAttribute accessModifier.
 	self visit: aPWBASTAttribute variableDeclarations.
 	self visit: aPWBASTAttribute descriptor.
 ]

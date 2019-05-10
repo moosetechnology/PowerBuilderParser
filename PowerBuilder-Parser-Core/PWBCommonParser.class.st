@@ -73,7 +73,7 @@ PWBCommonParser >> assignationStatement [
 { #category : #rules }
 PWBCommonParser >> attribute [
 	<generated>
-	^ super attribute ==> [ :production | PWBASTAttribute new variableDeclarations: (production at: 1); descriptor: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
+	^ super attribute ==> [ :production | PWBASTAttribute new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); variableDeclarations: (production at: 2); descriptor: ((production at: 3) ifNotNil: [((production at: 3) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
@@ -577,7 +577,7 @@ PWBCommonParser >> type [
 { #category : #rules }
 PWBCommonParser >> typeDeclaration [
 	<generated>
-	^ super typeDeclaration ==> [ :production | PWBASTTypeDeclaration new type: (production at: 4); fromClause: ((production at: 6) at: 2); eventType: ((production at: 7) ifNotNil: [((production at: 7) at: 2)]); withinClause: ((production at: 8) ifNotNil: [((production at: 8) at: 2)]); descriptor: ((production at: 9) ifNotNil: [((production at: 9) at: 2)]); attributes: ((production at: 10) ifNotNil: [((production at: 10) at: 2)]); yourself ]
+	^ super typeDeclaration ==> [ :production | PWBASTTypeDeclaration new type: (production at: 4); fromClause: ((production at: 6) at: 2); eventType: ((production at: 7) ifNotNil: [((production at: 7) at: 2)]); withinClause: ((production at: 9) ifNotNil: [((production at: 9) at: 2)]); descriptor: ((production at: 10) ifNotNil: [((production at: 10) at: 2)]); attributes: ((production at: 11) ifNotNil: [((production at: 11) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
