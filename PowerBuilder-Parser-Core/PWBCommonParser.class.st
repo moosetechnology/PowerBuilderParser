@@ -67,7 +67,7 @@ PWBCommonParser >> assignationStatement [
 { #category : #rules }
 PWBCommonParser >> attribute [
 	<generated>
-	^ super attribute ==> [ :production | PWBASTAttribute new variableDeclarations: production; yourself ]
+	^ super attribute ==> [ :production | PWBASTAttribute new variableDeclarations: (production at: 1); descriptor: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
@@ -241,7 +241,7 @@ PWBCommonParser >> endForward [
 { #category : #rules }
 PWBCommonParser >> eventAttribute [
 	<generated>
-	^ super eventAttribute ==> [ :production | PWBASTEventAttribute new type: (production at: 3); attribute: (production at: 5); yourself ]
+	^ super eventAttribute ==> [ :production | PWBASTEventAttribute new returnType: ((production at: 3) ifNotNil: [((production at: 3) at: 3)]); eventName: (production at: 4); attribute: (production at: 6); yourself ]
 ]
 
 { #category : #rules }

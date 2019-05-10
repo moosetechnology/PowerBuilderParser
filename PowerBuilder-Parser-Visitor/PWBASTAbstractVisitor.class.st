@@ -84,6 +84,7 @@ PWBASTAbstractVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStat
 PWBASTAbstractVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
 	<generated>
 	self visit: aPWBASTAttribute variableDeclarations.
+	self visit: aPWBASTAttribute descriptor.
 ]
 
 { #category : #visiting }
@@ -294,7 +295,8 @@ PWBASTAbstractVisitor >> visitPWBASTEndForward: anPWBASTEndForward [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventAttribute: aPWBASTEventAttribute [
 	<generated>
-	self visit: aPWBASTEventAttribute type.
+	self visit: aPWBASTEventAttribute returnType.
+	self visit: aPWBASTEventAttribute eventName.
 	self visit: aPWBASTEventAttribute attribute.
 ]
 

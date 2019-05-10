@@ -2,7 +2,8 @@ Class {
 	#name : #PWBASTEventAttribute,
 	#superclass : #Object,
 	#instVars : [
-		'type',
+		'returnType',
+		'eventName',
 		'attribute',
 		'startPosition',
 		'stopPosition'
@@ -24,6 +25,26 @@ PWBASTEventAttribute >> attribute [
 { #category : #accessing }
 PWBASTEventAttribute >> attribute: anObject [
 	attribute := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> eventName [
+	^ eventName
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> eventName: anObject [
+	eventName := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> returnType [
+	^ returnType
+]
+
+{ #category : #accessing }
+PWBASTEventAttribute >> returnType: anObject [
+	returnType := anObject
 ]
 
 { #category : #accessing }

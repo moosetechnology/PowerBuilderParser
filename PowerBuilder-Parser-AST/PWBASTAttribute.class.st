@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'variableDeclarations',
+		'descriptor',
 		'startPosition',
 		'stopPosition'
 	],
@@ -13,6 +14,16 @@ Class {
 PWBASTAttribute >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTAttribute: self
+]
+
+{ #category : #accessing }
+PWBASTAttribute >> descriptor [
+	^ descriptor
+]
+
+{ #category : #accessing }
+PWBASTAttribute >> descriptor: anObject [
+	descriptor := anObject
 ]
 
 { #category : #accessing }
