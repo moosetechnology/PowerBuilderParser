@@ -172,7 +172,10 @@ PWBCommonGrammar >> endForward [
 { #category : #accessing }
 PWBCommonGrammar >> eventAttribute [
 	<reify: #(arguments / variable) into: #attribute>
-	^ 'event' token , blank , type , blank , (arguments / variable)
+	<rename: #type into: #(returnType eventName)>
+	^ 'event' token , blank
+		, ('type' token , blank , type , blank) optional , type , blank
+		, (arguments / variable)
 ]
 
 { #category : #accessing }
