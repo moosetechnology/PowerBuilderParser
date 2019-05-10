@@ -774,6 +774,31 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPrototypesDeclaration3 [
+	self
+		parse:
+			'type prototypes
+Function ulong GetTempPath (ulong nBufferLength, ref string lpBuffer) Library "KERNEL32.DLL"  Alias for "GetTempPathA;Ansi"
+Function uint GetDC(uint hw) Library "User32"
+Function uint ReleaseDC(uint hw, uint hDC) Library "User32"
+Function long GetDeviceCaps(long hDC, long iCapability) Library "Gdi32"
+
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testPrototypesDeclaration4 [
+	self
+		parse:
+			'type prototypes
+Subroutine setNumFormat(ulong f, readonly string as_format) 	Alias For "fmt_setNumFormat;Ansi" Library "pb2xls.dll"
+Subroutine setFontName(ulong f, readonly string as_font) 	Alias For "fmt_setFontName;Ansi" Library "pb2xls.dll"
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testReturnStatement [
 	self parse: 'return 0' rule: #returnStatement.
 	self parse: 'return' rule: #returnStatement. 
