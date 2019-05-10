@@ -373,6 +373,12 @@ PWBASTAbstractVisitor >> visitPWBASTFile: aPWBASTFile [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTFinallyBlock: aPWBASTFinallyBlock [
+	<generated>
+	self visit: aPWBASTFinallyBlock statements.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTForLoop: aPWBASTForLoop [
 	<generated>
 	self visit: aPWBASTForLoop assignationStatement.
@@ -706,6 +712,7 @@ PWBASTAbstractVisitor >> visitPWBASTTryCatch: aPWBASTTryCatch [
 	<generated>
 	self visit: aPWBASTTryCatch statements.
 	self visitAll: aPWBASTTryCatch catchBlocks.
+	self visit: aPWBASTTryCatch finallyBlock.
 ]
 
 { #category : #visiting }

@@ -305,6 +305,12 @@ PWBCommonParser >> file [
 ]
 
 { #category : #rules }
+PWBCommonParser >> finallyBlock [
+	<generated>
+	^ super finallyBlock ==> [ :production | PWBASTFinallyBlock new statements: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> forLoop [
 	<generated>
 	^ super forLoop ==> [ :production | PWBASTForLoop new assignationStatement: (production at: 3); endExpression: (production at: 7); stepExpression: ((production at: 8) ifNotNil: [((production at: 8) at: 4)]); statements: (production at: 10); yourself ]
@@ -553,7 +559,7 @@ PWBCommonParser >> triggerDefinition [
 { #category : #rules }
 PWBCommonParser >> tryCatch [
 	<generated>
-	^ super tryCatch ==> [ :production | PWBASTTryCatch new statements: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); catchBlocks: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
+	^ super tryCatch ==> [ :production | PWBASTTryCatch new statements: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); catchBlocks: ((production at: 3) collect: [:subProduction | subProduction at: 2]); finallyBlock: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
