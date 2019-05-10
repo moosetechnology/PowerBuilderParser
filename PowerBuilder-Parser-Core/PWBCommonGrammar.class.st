@@ -347,6 +347,7 @@ PWBCommonGrammar >> typeDeclaration [
 	^ ('global' token , blank) optional , 'type' parser , blank
 		, customType , (blank , 'enumerated' token) optional
 		, (blank , fromClause) , ($` parser , customType) optional
+		, (blank , 'autoinstantiate' token) optional
 		, (blank , withinClause) optional , (spaces , descriptor) optional
 		, (blank , attributes) optional , blank optional
 		, (self endOf: 'type')

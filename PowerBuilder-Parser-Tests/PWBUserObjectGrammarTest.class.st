@@ -930,14 +930,26 @@ PWBUserObjectGrammarTest >> testTryCatch [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTypeDeclaration [
-	self parse: 'global type uo_consultation_histo_suppression_ech from userobject
-end type' rule: #typeDeclaration.
-	self parse: 'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
-end type' rule: #typeDeclaration.
-	self parse: 'type m_-1 from menu within m_fichier
-end type' rule: #typeDeclaration.
-
-
+	self
+		parse:
+			'global type uo_consultation_histo_suppression_ech from userobject
+end type'
+		rule: #typeDeclaration.
+	self
+		parse:
+			'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
+end type'
+		rule: #typeDeclaration.
+	self
+		parse:
+			'type m_-1 from menu within m_fichier
+end type'
+		rule: #typeDeclaration.
+	self
+		parse:
+			'global type n_cst_unicode from nonvisualobject autoinstantiate
+end type'
+		rule: #typeDeclaration
 ]
 
 { #category : #tests }
