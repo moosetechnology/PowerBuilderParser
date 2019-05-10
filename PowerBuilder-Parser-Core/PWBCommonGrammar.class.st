@@ -73,14 +73,13 @@ PWBCommonGrammar >> assignationStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> attribute [
-	^ variableDeclarations
+	^ variableDeclarations , (blank , descriptor) optional
 ]
 
 { #category : #accessing }
 PWBCommonGrammar >> attributes [
 	<reify: #(eventAttribute / attribute) into: #attributes>
-	^ (eventAttribute / attribute , (blank , descriptor) optional
-		separatedBy: blank) , blank
+	^ (eventAttribute / attribute separatedBy: blank) , blank
 ]
 
 { #category : #accessing }
