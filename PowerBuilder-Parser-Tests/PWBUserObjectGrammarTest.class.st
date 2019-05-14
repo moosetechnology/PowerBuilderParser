@@ -375,6 +375,67 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testEventDeclaration4 [
+	self parse: 'event ue_sys_cds;call super::ue_sys_cds;
+string ls_ong
+ls_ong = string(message.longParm, "address")
+if not this.ib_sys_cds then return
+if not isValid(gw_utile) then return
+dateTime ldt_dac
+string ls_dss, ls_cls
+ldt_dac = dateTime(today(), now())
+ls_dss = this.title
+ls_cls = this.className()
+string ls_prm_sys_cds
+ls_prm_sys_cds = gw_utile.wf_prm_sys_cds(ls_cls)
+if isNull(ls_prm_sys_cds) then return
+integer li_end_key
+li_end_key = pos(ls_prm_sys_cds, " ")
+if li_end_key < 1 then return
+string ls_prm_key, ls_prm_val
+ls_prm_key = left(ls_prm_sys_cds, li_end_key - 1)
+ls_prm_val = mid(ls_prm_sys_cds, li_end_key + 1)
+ls_prm_val = lower(ls_prm_val)
+ls_prm_val = trim(ls_prm_val)
+choose case ls_prm_key
+	case "cds_dss_like"
+		string ls_dss_wrd
+		li_end_key = pos(ls_dss, " ")
+		ls_dss_wrd = left(ls_dss, li_end_key - 1)
+		ls_dss_wrd = lower(ls_dss_wrd)
+		if ls_dss_wrd <> ls_prm_val then return
+	case "cds_ong_like"
+		string ls_ong_wrd
+		ls_ong = lower(ls_ong)
+		ls_ong = trim(ls_ong)
+		li_end_key = pos(ls_ong, " ")
+		ls_ong_wrd = left(ls_ong, li_end_key - 1)
+		ls_ong_wrd = lower(ls_ong_wrd)
+		if ls_ong_wrd <> ls_prm_val then return
+	case "cds_ong_into"
+		ls_ong = lower(ls_ong)
+		ls_ong = trim(ls_ong)
+		if pos(ls_prm_val, ls_ong) < 1 then return
+	case else
+			return
+end choose
+if len(ls_dss) > 128 then ls_dss = left(ls_dss, 128)
+if len(ls_ong) > 128 then ls_ong = left(ls_ong, 128)
+if len(ls_cls) > 64 then ls_cls = left(ls_cls, 64)
+il_cds_lig ++
+insert into sys_cds(cds_dac, cds_uti, cds_lig, cds_dss, cds_ong, cds_cls)
+values(:ldt_dac, :gs_cre_uti, :il_cds_lig, :ls_dss, :ls_ong, :ls_cls)
+using SQLCA;
+if SQLCA.SQLCode <> 0 then
+	return -1
+end if
+
+commit using SQLCA;
+
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
@@ -677,6 +738,12 @@ PWBUserObjectGrammarTest >> testIfStatement10 [
 											ib_cre_rdg_fid = TRUE
 										end if
 									end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement11 [
+	self parse: 'if not isValid(gw_utile) then return' rule: #ifStatement.
 
 ]
 
@@ -1248,5 +1315,6 @@ PWBUserObjectGrammarTest >> testVariableDeclarations [
 		rule: #variableDeclarations.
 	self
 		parse: 'int li_DaysInMonth [ 12 ]  = {31,28,31,30,31,30,31,31,30,31,30,31}'
-		rule: #variableDeclarations
+		rule: #variableDeclarations.
+	self parse: 'string ls_dss, ls_cls' rule: #variableDeclarations
 ]

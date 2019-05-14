@@ -221,7 +221,8 @@ PWBAbstractGrammar >> attributeAccess [
 
 { #category : #accessing }
 PWBAbstractGrammar >> basicType [
-	^ self parserFor: #('long' 'datetime' 'date' 'integer' 'string')
+	^ self
+		parserCaseInsensitiveFor: #('long' 'datetime' 'date' 'integer' 'string')
 ]
 
 { #category : #accessing }
