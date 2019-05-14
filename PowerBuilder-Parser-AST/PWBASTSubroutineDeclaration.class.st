@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'subroutineSignature',
+		'behaviouralOptions',
 		'startPosition',
 		'stopPosition'
 	],
@@ -13,6 +14,16 @@ Class {
 PWBASTSubroutineDeclaration >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTSubroutineDeclaration: self
+]
+
+{ #category : #accessing }
+PWBASTSubroutineDeclaration >> behaviouralOptions [
+	^ behaviouralOptions
+]
+
+{ #category : #accessing }
+PWBASTSubroutineDeclaration >> behaviouralOptions: anObject [
+	behaviouralOptions := anObject
 ]
 
 { #category : #accessing }

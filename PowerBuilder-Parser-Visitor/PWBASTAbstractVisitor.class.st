@@ -114,6 +114,24 @@ PWBASTAbstractVisitor >> visitPWBASTBasicType: anPWBASTBasicType [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTBehaviouralAlias: aPWBASTBehaviouralAlias [
+	<generated>
+	self visit: aPWBASTBehaviouralAlias alias.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTBehaviouralLibrary: aPWBASTBehaviouralLibrary [
+	<generated>
+	self visit: aPWBASTBehaviouralLibrary libraryFile.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTBehaviouralOption: aPWBASTBehaviouralOption [
+	<generated>
+	self visit: aPWBASTBehaviouralOption behaviouralOption.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTBooleanValue: anPWBASTBooleanValue [
 	<generated>
 	^ anPWBASTBooleanValue booleanValue
@@ -423,6 +441,7 @@ PWBASTAbstractVisitor >> visitPWBASTFunctionArguments: aPWBASTFunctionArguments 
 PWBASTAbstractVisitor >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
 	<generated>
 	self visit: aPWBASTFunctionDeclaration functionSignature.
+	self visitAll: aPWBASTFunctionDeclaration behaviouralOptions.
 ]
 
 { #category : #visiting }
@@ -568,6 +587,7 @@ PWBASTAbstractVisitor >> visitPWBASTOption: aPWBASTOption [
 PWBASTAbstractVisitor >> visitPWBASTOptionValue: aPWBASTOptionValue [
 	<generated>
 	self visit: aPWBASTOptionValue expression.
+	self visit: aPWBASTOptionValue graphicIndex.
 ]
 
 { #category : #visiting }
@@ -670,6 +690,7 @@ PWBASTAbstractVisitor >> visitPWBASTString: anPWBASTString [
 PWBASTAbstractVisitor >> visitPWBASTSubroutineDeclaration: aPWBASTSubroutineDeclaration [
 	<generated>
 	self visit: aPWBASTSubroutineDeclaration subroutineSignature.
+	self visitAll: aPWBASTSubroutineDeclaration behaviouralOptions.
 ]
 
 { #category : #visiting }

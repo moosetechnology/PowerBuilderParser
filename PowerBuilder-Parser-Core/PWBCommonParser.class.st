@@ -95,6 +95,24 @@ PWBCommonParser >> basicType [
 ]
 
 { #category : #rules }
+PWBCommonParser >> behaviouralAlias [
+	<generated>
+	^ super behaviouralAlias ==> [ :production | PWBASTBehaviouralAlias new alias: (production at: 3); yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> behaviouralLibrary [
+	<generated>
+	^ super behaviouralLibrary ==> [ :production | PWBASTBehaviouralLibrary new libraryFile: (production at: 3); yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> behaviouralOption [
+	<generated>
+	^ super behaviouralOption ==> [ :production | PWBASTBehaviouralOption new behaviouralOption: production; yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> booleanValue [
 	<generated>
 	^ super booleanValue flatten ==> [ :production | PWBASTBooleanValue new booleanValue: production; yourself ]
@@ -343,7 +361,7 @@ PWBCommonParser >> functionArguments [
 { #category : #rules }
 PWBCommonParser >> functionDeclaration [
 	<generated>
-	^ super functionDeclaration ==> [ :production | PWBASTFunctionDeclaration new functionSignature: production; yourself ]
+	^ super functionDeclaration ==> [ :production | PWBASTFunctionDeclaration new functionSignature: (production at: 1); behaviouralOptions: ((production at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -361,7 +379,7 @@ PWBCommonParser >> functionInvocation [
 { #category : #rules }
 PWBCommonParser >> functionSignature [
 	<generated>
-	^ super functionSignature ==> [ :production | PWBASTFunctionSignature new accessModifier: (production at: 1); type: (production at: 5); identifier: (production at: 7); arguments: (production at: 9); yourself ]
+	^ super functionSignature ==> [ :production | PWBASTFunctionSignature new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); type: (production at: 4); identifier: (production at: 6); arguments: (production at: 8); yourself ]
 ]
 
 { #category : #rules }
@@ -529,7 +547,7 @@ PWBCommonParser >> string [
 { #category : #rules }
 PWBCommonParser >> subroutineDeclaration [
 	<generated>
-	^ super subroutineDeclaration ==> [ :production | PWBASTSubroutineDeclaration new subroutineSignature: production; yourself ]
+	^ super subroutineDeclaration ==> [ :production | PWBASTSubroutineDeclaration new subroutineSignature: (production at: 1); behaviouralOptions: ((production at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -541,7 +559,7 @@ PWBCommonParser >> subroutineDefinition [
 { #category : #rules }
 PWBCommonParser >> subroutineSignature [
 	<generated>
-	^ super subroutineSignature ==> [ :production | PWBASTSubroutineSignature new accessModifier: (production at: 1); identifier: (production at: 5); arguments: (production at: 7); yourself ]
+	^ super subroutineSignature ==> [ :production | PWBASTSubroutineSignature new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); identifier: (production at: 4); arguments: (production at: 6); yourself ]
 ]
 
 { #category : #rules }

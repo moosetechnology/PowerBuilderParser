@@ -319,7 +319,7 @@ PWBDataWindowParser >> option [
 { #category : #rules }
 PWBDataWindowParser >> optionValue [
 	<generated>
-	^ super optionValue ==> [ :production | PWBASTOptionValue new expression: production; yourself ]
+	^ super optionValue ==> [ :production | PWBASTOptionValue new expression: (production at: 1); graphicIndex: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
 ]
 
 { #category : #rules }

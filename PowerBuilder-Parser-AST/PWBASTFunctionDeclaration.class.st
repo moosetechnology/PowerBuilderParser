@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'functionSignature',
+		'behaviouralOptions',
 		'startPosition',
 		'stopPosition'
 	],
@@ -13,6 +14,16 @@ Class {
 PWBASTFunctionDeclaration >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTFunctionDeclaration: self
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> behaviouralOptions [
+	^ behaviouralOptions
+]
+
+{ #category : #accessing }
+PWBASTFunctionDeclaration >> behaviouralOptions: anObject [
+	behaviouralOptions := anObject
 ]
 
 { #category : #accessing }

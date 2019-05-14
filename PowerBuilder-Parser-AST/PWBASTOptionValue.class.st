@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'expression',
+		'graphicIndex',
 		'startPosition',
 		'stopPosition'
 	],
@@ -23,6 +24,16 @@ PWBASTOptionValue >> expression [
 { #category : #accessing }
 PWBASTOptionValue >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> graphicIndex [
+	^ graphicIndex
+]
+
+{ #category : #accessing }
+PWBASTOptionValue >> graphicIndex: anObject [
+	graphicIndex := anObject
 ]
 
 { #category : #accessing }
