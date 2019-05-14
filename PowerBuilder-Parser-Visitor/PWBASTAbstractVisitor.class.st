@@ -761,6 +761,12 @@ PWBASTAbstractVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTTypePrototypes: aPWBASTTypePrototypes [
+	<generated>
+	self visitAll: aPWBASTTypePrototypes declarations.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
 	<generated>
 	self visit: aPWBASTTypeVariable attributes.

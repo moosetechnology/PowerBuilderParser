@@ -599,6 +599,12 @@ PWBCommonParser >> typeDeclaration [
 ]
 
 { #category : #rules }
+PWBCommonParser >> typePrototypes [
+	<generated>
+	^ super typePrototypes ==> [ :production | PWBASTTypePrototypes new declarations: (self rejectSeparators: (production at: 3)); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> typeVariable [
 	<generated>
 	^ super typeVariable ==> [ :production | PWBASTTypeVariable new attributes: (production ifNotNil: [(production at: 3)]); yourself ]
