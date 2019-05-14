@@ -56,7 +56,12 @@ PWBUserObjectGrammarTest >> testAssignationStatement [
 	self parse: 'll_wz /= 2' rule: #assignationStatement.
 	self
 		parse: 'list_objet_fen = w_app_mdi.Control[]'
-		rule: #assignationStatement
+		rule: #assignationStatement.
+	self
+		parse: 'll_status = addOverlappedObject(iul_oostorage, ref coord)'
+		rule: #assignationStatement.
+		
+	
 ]
 
 { #category : #tests }
@@ -422,6 +427,13 @@ type dw_detail from uo_datawindow within uo_consultation_histo_suppression_ech
 end type
 end forward'
 		rule: #forwardDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionArgument1 [
+	self
+		parse: 'ref coord'
+		rule: #functionArgument
 ]
 
 { #category : #tests }

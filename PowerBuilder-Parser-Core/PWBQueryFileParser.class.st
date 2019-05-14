@@ -181,13 +181,13 @@ PWBQueryFileParser >> file [
 { #category : #rules }
 PWBQueryFileParser >> functionArgument [
 	<generated>
-	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new expression: production; yourself ]
+	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new expression: (production at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> functionArguments [
 	<generated>
-	^ super functionArguments ==> [ :production | PWBASTFunctionArguments new functionArguments: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+	^ super functionArguments ==> [ :production | PWBASTFunctionArguments new functionArguments: ((production at: 2) ifNotNil: [(self rejectSeparators: (production at: 2))]); yourself ]
 ]
 
 { #category : #rules }

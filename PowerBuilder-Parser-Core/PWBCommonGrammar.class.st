@@ -226,7 +226,7 @@ PWBCommonGrammar >> eventReferenceName [
 
 { #category : #accessing }
 PWBCommonGrammar >> expressionList [
-	^ expression separatedBy: $, parser
+	^ expression trim separatedBy: $, parser
 ]
 
 { #category : #accessing }

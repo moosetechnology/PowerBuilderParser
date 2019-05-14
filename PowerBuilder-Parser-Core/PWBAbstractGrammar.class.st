@@ -322,12 +322,13 @@ PWBAbstractGrammar >> file [
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionArgument [
-	^ expression
+	^ ('ref' token , spaces) optional , expression
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionArguments [
-	^ $( parser , blank , (functionArgument separatedBy: $, parser) optional , blank , $) parser
+	^ $( parser , (functionArgument trim separatedBy: $, parser) optional
+		, $) parser
 ]
 
 { #category : #accessing }
@@ -400,7 +401,7 @@ PWBAbstractGrammar >> operatorExpression [
 		,
 			(self
 				parserCaseInsensitiveFor:
-					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' ',' 'AND' 'OR' 'and' 'or'))
+					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' "','" 'AND' 'OR' 'and' 'or'))
 		, blank , expression
 ]
 
