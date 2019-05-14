@@ -57,7 +57,8 @@ Class {
 		'behaviouralOption',
 		'behaviouralAlias',
 		'behaviouralLibrary',
-		'typePrototypes'
+		'typePrototypes',
+		'accessModifierDefiner'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -73,6 +74,11 @@ PWBCommonGrammar >> accessModifier [
 ]
 
 { #category : #accessing }
+PWBCommonGrammar >> accessModifierDefiner [
+	^ accessModifier , $: token
+]
+
+{ #category : #accessing }
 PWBCommonGrammar >> assignationStatement [ 
 	^ super assignationStatement 
 ]
@@ -85,8 +91,8 @@ PWBCommonGrammar >> attribute [
 
 { #category : #accessing }
 PWBCommonGrammar >> attributes [
-	<reify: #(eventAttribute / attribute) into: #attributes>
-	^ (eventAttribute / attribute separatedBy: blank) , blank
+	<reify: #(accessModifierDefiner / eventAttribute / attribute) into: #attributes>
+	^ (accessModifierDefiner / eventAttribute / attribute  separatedBy: blank) , blank
 ]
 
 { #category : #accessing }
@@ -380,9 +386,12 @@ PWBCommonGrammar >> typeDeclaration [
 
 { #category : #accessing }
 PWBCommonGrammar >> typePrototypes [
-	<reify: #(functionDeclaration / subroutineDeclaration) into: #declaration>
-	^ 'type prototypes' token , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
-		, blank , (self endOf: 'prototypes')
+	<reify: #(accessModifierDefiner / functionDeclaration / subroutineDeclaration)
+	into: #declaration>
+	^ 'type prototypes' token , blank
+		,
+			(accessModifierDefiner / functionDeclaration / subroutineDeclaration
+				separatedBy: blank) , blank , (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }

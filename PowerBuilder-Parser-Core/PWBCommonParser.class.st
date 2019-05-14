@@ -17,6 +17,12 @@ PWBCommonParser >> accessModifier [
 ]
 
 { #category : #rules }
+PWBCommonParser >> accessModifierDefiner [
+	<generated>
+	^ super accessModifierDefiner ==> [ :production | PWBASTAccessModifierDefiner new accessModifier: (production at: 1); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> accessOrType [
 	<generated>
 	^ super accessOrType ==> [ :production | PWBASTAccessOrType new accessOrType: production; yourself ]
