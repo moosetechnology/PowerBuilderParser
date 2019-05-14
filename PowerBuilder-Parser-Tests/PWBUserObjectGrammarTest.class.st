@@ -1120,6 +1120,18 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTypePrototypes3 [
+	self
+		parse:
+			'type prototypes
+protected:
+Function Long addOverlappedObject(uLong inst, ref ST_RECT c) library "pb2xls"  Alias For "oo_addObject;Ansi"
+Function uLong createOverlappedStorage() library "pb2xls" Alias For "g_createOverlappedObjects"
+end prototypes'
+		rule: #typePrototypes
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTypeVariable [
 	self parse: 'type variables
 date id_aujourd_hui
@@ -1152,6 +1164,18 @@ integer ii_string_per_extsst = 8
 private st_extsst_item i_extsst_items[]
 integer ii_extsst_count = 0
 
+
+end variables' rule: #typeVariable
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testTypeVariable3 [
+	self parse: 'type variables
+private: 
+n_cst_hash_blob_entry invo_fields[]
+long  il_field_max_value = 7
+long  il_field_count = 0
+long  il_max_capacity = -1
 
 end variables' rule: #typeVariable
 ]
