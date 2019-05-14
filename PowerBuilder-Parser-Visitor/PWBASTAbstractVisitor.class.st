@@ -30,6 +30,12 @@ PWBASTAbstractVisitor >> visitPWBASTAccessModifier: anPWBASTAccessModifier [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTAccessModifierDefiner: aPWBASTAccessModifierDefiner [
+	<generated>
+	self visit: aPWBASTAccessModifierDefiner accessModifier.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
 	<generated>
 	self visit: aPWBASTAccessOrType accessOrType.
