@@ -782,6 +782,16 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPrototypesDeclaration3 [
+	self
+		parse:
+			'forward prototypes
+
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testReturnStatement [
 	self parse: 'return 0' rule: #returnStatement.
 	self parse: 'return' rule: #returnStatement. 

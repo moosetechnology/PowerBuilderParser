@@ -481,7 +481,7 @@ PWBCommonParser >> programStep [
 { #category : #rules }
 PWBCommonParser >> prototypesDeclaration [
 	<generated>
-	^ super prototypesDeclaration ==> [ :production | PWBASTPrototypesDeclaration new declarations: (self rejectSeparators: (production at: 3)); yourself ]
+	^ super prototypesDeclaration ==> [ :production | PWBASTPrototypesDeclaration new declarations: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
 ]
 
 { #category : #helpers }

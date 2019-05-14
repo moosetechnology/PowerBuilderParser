@@ -303,8 +303,10 @@ PWBCommonGrammar >> programStep [
 { #category : #accessing }
 PWBCommonGrammar >> prototypesDeclaration [
 	<reify: #(functionDeclaration / subroutineDeclaration) into: #declaration>
-	^ 'forward prototypes' parser , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
-		, blank , (self endOf: 'prototypes')
+	^ 'forward prototypes' parser , blank
+		,
+			(functionDeclaration / subroutineDeclaration separatedBy: blank)
+				optional , blank , (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }
