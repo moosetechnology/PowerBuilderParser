@@ -53,7 +53,11 @@ Class {
 		'commonFile',
 		'forwardDeclaration',
 		'finallyBlock',
-		'sharedVariables'
+		'sharedVariables',
+		'behaviouralOption',
+		'behaviouralAlias',
+		'behaviouralLibrary',
+		'typePrototypes'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -83,6 +87,23 @@ PWBCommonGrammar >> attribute [
 PWBCommonGrammar >> attributes [
 	<reify: #(eventAttribute / attribute) into: #attributes>
 	^ (eventAttribute / attribute separatedBy: blank) , blank
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> behaviouralAlias [
+	<rename: #string into: #alias>
+	^ 'Alias For' token, spaces, string 
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> behaviouralLibrary [
+	<rename: #string into: #libraryFile>
+	^ 'Library' token, spaces, string
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> behaviouralOption [
+	^ behaviouralAlias / behaviouralLibrary
 ]
 
 { #category : #accessing }
@@ -116,13 +137,10 @@ PWBCommonGrammar >> closeSqlCursor [
 { #category : #accessing }
 PWBCommonGrammar >> commonFile [
 	<reify:
-		#(typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / forwardDeclaration
-		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
-		/ sharedVariables / prototypesDeclaration)
+		#(typeVariable / typePrototypes / typeDeclaration / functionDefinition / subroutineDefinition / forwardDeclaration / globalVariableDeclaration / triggerDefinition / eventDeclaration / sharedVariables / prototypesDeclaration)
 	into: #fileStatement>
-	^ typeVariable / typeDeclaration / functionDefinition
-		/ subroutineDefinition / forwardDeclaration
+	^ typeVariable / typePrototypes / typeDeclaration
+		/ functionDefinition / subroutineDefinition / forwardDeclaration
 		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
 		/ sharedVariables / prototypesDeclaration separatedBy: blank
 ]
@@ -236,7 +254,7 @@ PWBCommonGrammar >> fromClause [
 
 { #category : #accessing }
 PWBCommonGrammar >> functionDeclaration [
-	^ functionSignature
+	^ functionSignature , (spaces , behaviouralOption) star
 ]
 
 { #category : #accessing }
@@ -246,8 +264,8 @@ PWBCommonGrammar >> functionDefinition [
 
 { #category : #accessing }
 PWBCommonGrammar >> functionSignature [
-	^ accessModifier , blank , 'function' parser , blank , type , blank , identifier , blank
-		, arguments
+	^ (accessModifier , blank) optional , 'function' token , blank , type
+		, blank , identifier , blank , arguments
 ]
 
 { #category : #accessing }
@@ -316,7 +334,7 @@ PWBCommonGrammar >> statement [
 
 { #category : #accessing }
 PWBCommonGrammar >> subroutineDeclaration [
-	^ subroutineSignature
+	^ subroutineSignature , (spaces , behaviouralOption) star
 ]
 
 { #category : #accessing }
@@ -326,7 +344,7 @@ PWBCommonGrammar >> subroutineDefinition [
 
 { #category : #accessing }
 PWBCommonGrammar >> subroutineSignature [
-	^ accessModifier , blank , 'subroutine' parser , blank , identifier , blank , arguments
+	^ (accessModifier , blank) optional , 'subroutine' token , blank , identifier , blank , arguments
 ]
 
 { #category : #accessing }
@@ -358,6 +376,12 @@ PWBCommonGrammar >> typeDeclaration [
 		, (blank , withinClause) optional , (spaces , descriptor) optional
 		, (blank , attributes) optional , blank optional
 		, (self endOf: 'type')
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> typePrototypes [
+	^ 'type prototypes' token , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
+		, blank , (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }
