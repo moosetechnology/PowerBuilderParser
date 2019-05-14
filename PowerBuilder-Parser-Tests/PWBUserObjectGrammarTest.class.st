@@ -82,6 +82,14 @@ PWBUserObjectGrammarTest >> testAttribute [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAttribute1 [
+	self parse: 'string E_MESSAGE[] = {	"Failed", 	"Workbook: creation failed", 	"Workbook: access denied", 	"Workbook: already exists", 	"Workbook: format not supported" }'
+		rule: #attribute.
+		
+	
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testCallStatement [
 	self parse: 'call uo_traitement::create' rule: #callStatement.
 	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.

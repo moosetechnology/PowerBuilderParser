@@ -175,7 +175,7 @@ PWBAbstractGrammar >> arguments [
 
 { #category : #accessing }
 PWBAbstractGrammar >> array [
-	^ ${ parser , (expression separatedBy: $, parser) , $} parser
+	^ ${ parser , (expression trim separatedBy: $, parser ) , $} parser
 ]
 
 { #category : #accessing }
