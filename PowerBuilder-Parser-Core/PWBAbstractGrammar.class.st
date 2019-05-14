@@ -58,7 +58,8 @@ Class {
 		'elseOnLine',
 		'this',
 		'arrayDesignation',
-		'argumentOption'
+		'argumentOption',
+		'continueStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -253,6 +254,11 @@ PWBAbstractGrammar >> constant [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> continueStatement [
+	^ 'continue' token
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> createInstruction [
 	^ 'create' token, blank, variable
 ]
@@ -443,7 +449,7 @@ PWBAbstractGrammar >> postFixOperator [
 PWBAbstractGrammar >> reservedKeyword [
 	^ self
 		parserCaseInsensitiveFor:
-			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally')
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally' 'continue')
 ]
 
 { #category : #accessing }
@@ -458,7 +464,7 @@ PWBAbstractGrammar >> spaces [
 
 { #category : #accessing }
 PWBAbstractGrammar >> specialStatement [
-	^ returnStatement / exitStatement
+	^ returnStatement / exitStatement / continueStatement
 ]
 
 { #category : #accessing }
