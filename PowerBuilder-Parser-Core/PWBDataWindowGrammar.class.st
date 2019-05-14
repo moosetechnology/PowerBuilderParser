@@ -102,7 +102,8 @@ PWBDataWindowGrammar >> option [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> optionValue [
-	^ expression
+	<rename: #number into: #graphicIndex >
+	^ expression , ($. token , number) optional
 ]
 
 { #category : #'as yet unclassified' }
