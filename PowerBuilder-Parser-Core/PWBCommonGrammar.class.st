@@ -85,8 +85,8 @@ PWBCommonGrammar >> assignationStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> attribute [
-	^ (accessModifier , spaces) optional , variableDeclarations
-		, (blank , descriptor) optional
+	^ (accessModifier , spaces) optional , ('constant' token , spaces) optional
+		, variableDeclarations , (blank , descriptor) optional
 ]
 
 { #category : #accessing }

@@ -70,7 +70,15 @@ PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'decimal { 2 }		montant' rule: #attribute.
 	self
 		parse: 'private st_extsst_item i_extsst_items[]'
-		rule: #attribute
+		rule: #attribute.
+	self
+		parse: 'public constant int DT_COLUMN = 1'
+		rule: #attribute.
+	self
+		parse: 'constant string BAND_HEADER = "2"'
+		rule: #attribute.
+		
+	
 ]
 
 { #category : #tests }

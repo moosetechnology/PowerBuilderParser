@@ -492,8 +492,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
-	^ this optional , identifier , $( parser not
-		, arrayWithSize optional
+	^ this optional , identifier , $( parser not , arrayWithSize optional
 ]
 
 { #category : #accessing }

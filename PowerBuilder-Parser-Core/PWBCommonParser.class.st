@@ -79,7 +79,7 @@ PWBCommonParser >> assignationStatement [
 { #category : #rules }
 PWBCommonParser >> attribute [
 	<generated>
-	^ super attribute ==> [ :production | PWBASTAttribute new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); variableDeclarations: (production at: 2); descriptor: ((production at: 3) ifNotNil: [((production at: 3) at: 2)]); yourself ]
+	^ super attribute ==> [ :production | PWBASTAttribute new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); variableDeclarations: (production at: 3); descriptor: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
