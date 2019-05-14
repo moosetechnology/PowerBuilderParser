@@ -57,7 +57,8 @@ Class {
 		'else',
 		'elseOnLine',
 		'this',
-		'arrayDesignation'
+		'arrayDesignation',
+		'argumentOption'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -164,8 +165,13 @@ PWBAbstractGrammar >> accessOrType [
 
 { #category : #accessing }
 PWBAbstractGrammar >> argument [
-	^ ('ref' token / 'readonly' token , blank) optional , type , blank
-		, identifier , arrayWithSize optional
+	^ (argumentOption , blank) optional , type , blank , identifier
+		, arrayWithSize optional
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> argumentOption [
+	^ 'ref' token / 'readonly' token
 ]
 
 { #category : #accessing }
@@ -322,13 +328,13 @@ PWBAbstractGrammar >> file [
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionArgument [
-	^ ('ref' token , spaces) optional , expression
+	^ (argumentOption , spaces) optional , expression
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionArguments [
 	^ $( parser , (functionArgument trim separatedBy: $, parser) optional
-		, $) parser
+		, spaces optional , $) parser
 ]
 
 { #category : #accessing }

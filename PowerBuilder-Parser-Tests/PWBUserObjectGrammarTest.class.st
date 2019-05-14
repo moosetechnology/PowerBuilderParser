@@ -640,6 +640,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation4 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation5 [
+	self
+		parse:
+			'openSheetWithParm(lw_win, "",lw_Sheet.classname( ) , gw_cadre_mdi, gstr_application.menu_feuilles_ouvertes, original!)'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -755,7 +763,10 @@ end if' rule: #ifStatement.
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testMethodInvocation [
-	self parse: '.setitem(1,"mt_tra", -ld_mt_mvt)' rule: #methodInvocation
+	self
+		parse: '.setitem(1,"mt_tra", -ld_mt_mvt)'
+		rule: #methodInvocation.
+	self parse: '.classname( )' rule: #methodInvocation
 ]
 
 { #category : #tests }
