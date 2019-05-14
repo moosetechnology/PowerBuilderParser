@@ -380,6 +380,7 @@ PWBCommonGrammar >> typeDeclaration [
 
 { #category : #accessing }
 PWBCommonGrammar >> typePrototypes [
+	<reify: #(functionDeclaration / subroutineDeclaration) into: #declaration>
 	^ 'type prototypes' token , blank , (functionDeclaration / subroutineDeclaration separatedBy: blank)
 		, blank , (self endOf: 'prototypes')
 ]
