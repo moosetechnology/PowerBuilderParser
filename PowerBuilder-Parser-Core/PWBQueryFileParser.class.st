@@ -49,7 +49,7 @@ PWBQueryFileParser >> arrayPosition [
 { #category : #rules }
 PWBQueryFileParser >> arrayWithSize [
 	<generated>
-	^ super arrayWithSize ==> [ :production | PWBASTArrayWithSize new expressions: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+	^ super arrayWithSize ==> [ :production | PWBASTArrayWithSize new expressions: ((production at: 4) ifNotNil: [(self rejectSeparators: (production at: 4))]); yourself ]
 ]
 
 { #category : #rules }

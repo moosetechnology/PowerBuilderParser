@@ -190,7 +190,7 @@ PWBAbstractGrammar >> arrayPosition [
 
 { #category : #accessing }
 PWBAbstractGrammar >> arrayWithSize [
-	^ $[ parser , spaces optional
+	^ spaces optional , $[ parser , spaces optional
 		, (expression separatedBy: $, parser) optional , spaces optional
 		, $] parser
 ]

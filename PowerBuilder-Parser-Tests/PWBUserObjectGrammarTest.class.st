@@ -1196,5 +1196,8 @@ PWBUserObjectGrammarTest >> testVariableDeclarations [
 	self
 		parse:
 			'string ls_tab_mois[ ] = {''jan'',''fev'',''mar'',''avr'',''mai'',''jun'',''jul'',''aou'',''sep'',''oct'',''nov'',''dec''}'
+		rule: #variableDeclarations.
+	self
+		parse: 'int li_DaysInMonth [ 12 ]  = {31,28,31,30,31,30,31,31,30,31,30,31}'
 		rule: #variableDeclarations
 ]
