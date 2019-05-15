@@ -1,8 +1,9 @@
 Class {
-	#name : #PWBASTCase,
+	#name : #PWBASTMultiLineCase,
 	#superclass : #Object,
 	#instVars : [
-		'case',
+		'expressionList',
+		'statements',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,57 +11,47 @@ Class {
 }
 
 { #category : #visiting }
-PWBASTCase >> acceptVisitor: aVisitor [
+PWBASTMultiLineCase >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTCase: self
+	^ aVisitor visitPWBASTMultiLineCase: self
 ]
 
 { #category : #accessing }
-PWBASTCase >> case [
-	^ case
-]
-
-{ #category : #accessing }
-PWBASTCase >> case: anObject [
-	case := anObject
-]
-
-{ #category : #accessing }
-PWBASTCase >> expressionList [
+PWBASTMultiLineCase >> expressionList [
 	^ expressionList
 ]
 
 { #category : #accessing }
-PWBASTCase >> expressionList: anObject [
+PWBASTMultiLineCase >> expressionList: anObject [
 	expressionList := anObject
 ]
 
 { #category : #accessing }
-PWBASTCase >> startPosition [
+PWBASTMultiLineCase >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTCase >> startPosition: anObject [
+PWBASTMultiLineCase >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTCase >> statements [
+PWBASTMultiLineCase >> statements [
 	^ statements
 ]
 
 { #category : #accessing }
-PWBASTCase >> statements: anObject [
+PWBASTMultiLineCase >> statements: anObject [
 	statements := anObject
 ]
 
 { #category : #accessing }
-PWBASTCase >> stopPosition [
+PWBASTMultiLineCase >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTCase >> stopPosition: anObject [
+PWBASTMultiLineCase >> stopPosition: anObject [
 	stopPosition := anObject
 ]

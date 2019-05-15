@@ -263,6 +263,12 @@ PWBQueryFileParser >> parametrizedType [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> parenthesedArray [
+	<generated>
+	^ super parenthesedArray ==> [ :production | PWBASTParenthesedArray new expression: (production at: 2); expressions: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> parenthesedExpression [
 	<generated>
 	^ super parenthesedExpression ==> [ :production | PWBASTParenthesedExpression new expression: (production at: 3); yourself ]

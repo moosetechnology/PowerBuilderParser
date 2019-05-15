@@ -161,8 +161,7 @@ PWBASTAbstractVisitor >> visitPWBASTCallStatement: aPWBASTCallStatement [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTCase: aPWBASTCase [
 	<generated>
-	self visit: aPWBASTCase expressionList.
-	self visit: aPWBASTCase statements.
+	self visit: aPWBASTCase case.
 ]
 
 { #category : #visiting }
@@ -571,6 +570,13 @@ PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTMultiLineCase: aPWBASTMultiLineCase [
+	<generated>
+	self visit: aPWBASTMultiLineCase expressionList.
+	self visit: aPWBASTMultiLineCase statements.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTNotExpression: aPWBASTNotExpression [
 	<generated>
 	self visit: aPWBASTNotExpression expression.
@@ -629,6 +635,13 @@ PWBASTAbstractVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTParenthesedArray: aPWBASTParenthesedArray [
+	<generated>
+	self visit: aPWBASTParenthesedArray expression.
+	self visitAll: aPWBASTParenthesedArray expressions.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTParenthesedExpression: aPWBASTParenthesedExpression [
 	<generated>
 	self visit: aPWBASTParenthesedExpression expression.
@@ -662,6 +675,13 @@ PWBASTAbstractVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 PWBASTAbstractVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
 	<generated>
 	self visit: aPWBASTSharedVariables attributes.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTSingleLineCase: aPWBASTSingleLineCase [
+	<generated>
+	self visit: aPWBASTSingleLineCase expressionList.
+	self visit: aPWBASTSingleLineCase statement.
 ]
 
 { #category : #visiting }
