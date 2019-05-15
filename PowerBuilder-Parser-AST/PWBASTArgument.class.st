@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTArgument,
 	#superclass : #Object,
 	#instVars : [
+		'argumentOption',
 		'type',
 		'identifier',
 		'arrayWithSize',
@@ -15,6 +16,16 @@ Class {
 PWBASTArgument >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTArgument: self
+]
+
+{ #category : #accessing }
+PWBASTArgument >> argumentOption [
+	^ argumentOption
+]
+
+{ #category : #accessing }
+PWBASTArgument >> argumentOption: anObject [
+	argumentOption := anObject
 ]
 
 { #category : #accessing }

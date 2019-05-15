@@ -44,9 +44,16 @@ PWBASTAbstractVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTArgument: aPWBASTArgument [
 	<generated>
+	self visit: aPWBASTArgument argumentOption.
 	self visit: aPWBASTArgument type.
 	self visit: aPWBASTArgument identifier.
 	self visit: aPWBASTArgument arrayWithSize.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTArgumentOption: anPWBASTArgumentOption [
+	<generated>
+	^ anPWBASTArgumentOption argumentOption
 ]
 
 { #category : #visiting }
@@ -213,6 +220,12 @@ PWBASTAbstractVisitor >> visitPWBASTCondition: aPWBASTCondition [
 PWBASTAbstractVisitor >> visitPWBASTConstant: anPWBASTConstant [
 	<generated>
 	^ anPWBASTConstant constant
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTContinueStatement: anPWBASTContinueStatement [
+	<generated>
+	^ anPWBASTContinueStatement continueStatement
 ]
 
 { #category : #visiting }
@@ -434,6 +447,7 @@ PWBASTAbstractVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFunctionArgument: aPWBASTFunctionArgument [
 	<generated>
+	self visit: aPWBASTFunctionArgument argumentOption.
 	self visit: aPWBASTFunctionArgument expression.
 ]
 

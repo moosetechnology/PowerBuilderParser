@@ -31,7 +31,13 @@ PWBCommonParser >> accessOrType [
 { #category : #rules }
 PWBCommonParser >> argument [
 	<generated>
-	^ super argument ==> [ :production | PWBASTArgument new type: (production at: 2); identifier: (production at: 4); arrayWithSize: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super argument ==> [ :production | PWBASTArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); type: (production at: 2); identifier: (production at: 4); arrayWithSize: (production ifNotNil: [(production at: 5)]); yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> argumentOption [
+	<generated>
+	^ super argumentOption flatten ==> [ :production | PWBASTArgumentOption new argumentOption: production; yourself ]
 ]
 
 { #category : #rules }
@@ -176,6 +182,12 @@ PWBCommonParser >> condition [
 PWBCommonParser >> constant [
 	<generated>
 	^ super constant flatten ==> [ :production | PWBASTConstant new constant: production; yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> continueStatement [
+	<generated>
+	^ super continueStatement flatten ==> [ :production | PWBASTContinueStatement new continueStatement: production; yourself ]
 ]
 
 { #category : #rules }
@@ -355,7 +367,7 @@ PWBCommonParser >> fromClause [
 { #category : #rules }
 PWBCommonParser >> functionArgument [
 	<generated>
-	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new expression: (production at: 2); yourself ]
+	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); expression: (production at: 2); yourself ]
 ]
 
 { #category : #rules }

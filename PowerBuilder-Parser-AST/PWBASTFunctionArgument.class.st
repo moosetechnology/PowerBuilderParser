@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTFunctionArgument,
 	#superclass : #Object,
 	#instVars : [
+		'argumentOption',
 		'expression',
 		'startPosition',
 		'stopPosition'
@@ -13,6 +14,16 @@ Class {
 PWBASTFunctionArgument >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTFunctionArgument: self
+]
+
+{ #category : #accessing }
+PWBASTFunctionArgument >> argumentOption [
+	^ argumentOption
+]
+
+{ #category : #accessing }
+PWBASTFunctionArgument >> argumentOption: anObject [
+	argumentOption := anObject
 ]
 
 { #category : #accessing }
