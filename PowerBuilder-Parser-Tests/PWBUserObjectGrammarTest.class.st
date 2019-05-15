@@ -196,6 +196,18 @@ PWBUserObjectGrammarTest >> testChooseCase3 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testChooseCase4 [
+	self parse: 'Choose Case ai_band_type
+	Case 1; is_band_id = BAND_HEADER
+	Case 2; is_band_id = BAND_GROUPHEADER
+	Case 3; is_band_id = BAND_DETAIL
+	Case 4; is_band_id = BAND_GROUPTRAILER
+	Case 5; is_band_id = BAND_SUMMARY
+	Case 6; is_band_id = BAND_FOOTER
+End Choose' rule: #chooseCase
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testCondition [
 	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
 	self parse: 'this.validate()' rule: #condition.
