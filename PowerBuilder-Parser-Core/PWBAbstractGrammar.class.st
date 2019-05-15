@@ -59,7 +59,8 @@ Class {
 		'this',
 		'arrayDesignation',
 		'argumentOption',
-		'continueStatement'
+		'continueStatement',
+		'parenthesedArray'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
