@@ -60,7 +60,9 @@ Class {
 		'arrayDesignation',
 		'argumentOption',
 		'continueStatement',
-		'parenthesedArray'
+		'parenthesedArray',
+		'dynamicMethodInvocation',
+		'regularMethodInvocation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -495,8 +497,11 @@ PWBAbstractGrammar >> statements [
 
 { #category : #accessing }
 PWBAbstractGrammar >> string [
-	^ ($" parser , ('~"' parser / $" parser negate) star , $" parser)
-		/ ($' parser , ('~''' parser / $' parser negate) star , $' parser)
+	| protectedCharacter |
+	protectedCharacter := $~ parser , #any parser.
+	^ ($" parser , (protectedCharacter / $" parser negate) star
+		, $" parser)
+		/ ($' parser , (protectedCharacter / $' parser negate) star , $' parser)
 ]
 
 { #category : #accessing }

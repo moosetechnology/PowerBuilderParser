@@ -168,7 +168,8 @@ PWBDataWindowGrammarTest >> testString [
 	self
 		parse:
 			'''Erreur de paramétrage de cre_dcs. Le chemin de création des fichiers dcs n~''est pas paramétré'''
-		rule: #string
+		rule: #string.
+	self parse: '"~~~~~~~~"' rule: #string
 ]
 
 { #category : #accessing }
