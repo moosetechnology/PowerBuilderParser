@@ -41,25 +41,6 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> generationScripts [
-	PPTASTGenerator
-		generateEverythingFrom: PWBDataWindowGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbStrategy.
-	PPTASTGenerator
-		generateEverythingFrom: PWBQueryFileGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
-	PPTASTGenerator
-		generateEverythingFrom: PWBCommonGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
-	#(fileExtension fileName)
-		do: [ :aSelector | 
-			PPASTGeneratorStrategy new
-				createAttributeAndAccessorsFor: aSelector
-				inClass: #PWBASTFile asClass ].
-	PWBFamixModelGenerator generate
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
 	| mooseModel fileReferenceFolder |
 	self flag: #START.
@@ -78,9 +59,31 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 ]
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter class >> importFromFolder: aFolder mooseModel: aMooseModel [
+	| fileReferenceFolder |
+	self flag: #START.
+	fileReferenceFolder := aFolder asFileReference.
+	self
+		createCleanFilesFrom: fileReferenceFolder
+		into: fileReferenceFolder / 'cleaned'.
+	self
+		fillModel: aMooseModel
+		fromFolder: fileReferenceFolder / 'cleaned'.
+	"ifNotEmpty: [ :failures | 
+			failures inspect.
+			Halt now ]"
+	^ aMooseModel
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> script [
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/ws_objects'
+	| mooseModel |
+	mooseModel := MooseModel new.
+	'/Users/honore/Documents/Pharo/images/Homework20032019/IzyProectObjectCIM'
 		asFileReference directories
-		do: [ :dir | PWBFamixImporter importFromFolder: dir ]
+		do: [ :dir | 
+			mooseModel := PWBFamixImporter
+				importFromFolder: dir
+				mooseModel: mooseModel ]
 		displayingProgress: [ :dir | dir asString ]
 ]
