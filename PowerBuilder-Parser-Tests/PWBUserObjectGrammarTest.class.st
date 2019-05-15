@@ -557,6 +557,9 @@ PWBUserObjectGrammarTest >> testFunctionDeclaration [
 		rule: #functionDeclaration.
 	self
 		parse: 'public function integer uf_cre_evn (long al_par_no, string as_tip[])'
+		rule: #functionDeclaration.
+	self
+		parse: 'global function integer uf_complement_forfait (double ad_num_fic)'
 		rule: #functionDeclaration
 ]
 
@@ -710,7 +713,10 @@ PWBUserObjectGrammarTest >> testFunctionInvocation5 [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
-	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
+	self
+		parse:
+			'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech'
+		rule: #globalVariableDeclaration
 ]
 
 { #category : #tests }

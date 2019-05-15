@@ -276,7 +276,7 @@ PWBCommonGrammar >> functionSignature [
 
 { #category : #accessing }
 PWBCommonGrammar >> globalVariableDeclaration [
-	^ 'global' parser , blank , type , blank , variable
+	^ ('global' parser  , type  , variable) separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -338,6 +338,11 @@ PWBCommonGrammar >> statement [
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / sqlQuery
 		/ tryCatch / forLoop / chooseCase / doWhileLoop / doUntilLoop
 		/ doLoopWhile / doLoopUntil / variableDeclarations / super statement
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> statements [
+	^ statement separatedBy: $; parser trim / blank
 ]
 
 { #category : #accessing }

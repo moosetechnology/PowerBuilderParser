@@ -66,6 +66,7 @@ Class {
 
 { #category : #parsing }
 PWBAbstractGrammar class >> obtainASTFrom: content fileExtension: fileExtension [
+"1halt."
 	^ (self allSubclasses
 		detect: [ :class | 
 			(class name endsWith: 'Parser')

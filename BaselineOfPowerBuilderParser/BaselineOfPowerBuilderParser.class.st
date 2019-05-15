@@ -52,10 +52,10 @@ BaselineOfPowerBuilderParser >> baselineOfPetitParser2: spec [
 ]
 
 { #category : #baselines }
-BaselineOfPowerBuilderParser >> baselineOfSymbolResolver: spec [
-	spec
-		baseline: 'SymbolResolver'
-		with: [ spec repository: 'github://Larcheveque/SymbolResolver:master/src' ]
+BaselineOfPowerBuilderParser >> baselineOfSymbolResolver:spec [
+spec
+	baseline: 'SymbolResolver'
+	with: [ spec repository: 'github://Larcheveque/SymbolResolver:master/src']
 ]
 
 { #category : #accessing }

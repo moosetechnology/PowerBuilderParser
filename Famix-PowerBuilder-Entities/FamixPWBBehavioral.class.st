@@ -74,6 +74,8 @@ FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 { #category : #helpers }
 FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
+
+	
 ]
 
 { #category : #testing }
