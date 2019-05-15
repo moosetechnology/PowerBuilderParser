@@ -315,8 +315,11 @@ PWBAbstractGrammar >> exitStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expression [
-	<reify: #(expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm) into: #expression>
-	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation star
+	<reify:
+		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / expressionTerm)
+	into: #expression>
+	^ expressionWithSign / operatorExpression / parenthesedExpression
+		/ parenthesedArray / expressionTerm , methodInvocation star
 ]
 
 { #category : #accessing }
@@ -424,6 +427,12 @@ PWBAbstractGrammar >> parametrizedType [
 	^ ((#('char' 'decimal') collect: #parser) reduce: [ :a :b | a / b ])
 		,
 			(($( parser , number , $) parser) / (spaces, ${ parser , number trim , $} parser))
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> parenthesedArray [
+	^ $( parser , expression trim , ($, parser , expression trim) plus
+		, $) parser
 ]
 
 { #category : #accessing }
