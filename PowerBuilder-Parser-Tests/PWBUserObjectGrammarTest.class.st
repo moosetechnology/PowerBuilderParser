@@ -721,6 +721,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation5 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation6 [
+	self
+		parse:
+			'of_globalreplace ( a_str, "~~","~~~~~~~~" )'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -756,6 +764,14 @@ PWBUserObjectGrammarTest >> testIfStatement10 [
 { #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement11 [
 	self parse: 'if not isValid(gw_utile) then return' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement12 [
+	self parse: 'If ipo_requestor.Dynamic SaveAs(ls_tmpfile, PSReport!, True) <> 1 Then
+			Return -1
+		End If' rule: #ifStatement.
 
 ]
 
@@ -845,7 +861,10 @@ PWBUserObjectGrammarTest >> testMethodInvocation [
 	self
 		parse: '.setitem(1,"mt_tra", -ld_mt_mvt)'
 		rule: #methodInvocation.
-	self parse: '.classname( )' rule: #methodInvocation
+	self parse: '.classname( )' rule: #methodInvocation.
+	self
+		parse: '.Dynamic SaveAs(ls_tmpfile, PSReport!, True)'
+		rule: #methodInvocation
 ]
 
 { #category : #tests }
