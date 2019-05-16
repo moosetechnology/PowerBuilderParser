@@ -21,6 +21,20 @@ PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
+	| methodName |
+	methodName := self visit: aPWBASTMethodInvocation uncheckedIdentifier.
+	
+	model allMethods
+		entityNamed: methodName
+		ifAbsent: [ FamixPWBMethod new
+				name: methodName;
+				mooseModel: model;
+				yourself ].
+	self visit: aPWBASTMethodInvocation functionArguments
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 	self
 		useCurrentEntity:
@@ -47,7 +61,7 @@ PWBVisitorReferenceCreator >> visitPWBASTFunctionSignature: aPWBASTFunctionSigna
 ]
 
 { #category : #scope }
-PWBVisitorReferenceCreator >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
+PWBVisitorReferenceCreator >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
 	| methodName |
 	methodName := self visit: aPWBASTMethodInvocation uncheckedIdentifier.
 	

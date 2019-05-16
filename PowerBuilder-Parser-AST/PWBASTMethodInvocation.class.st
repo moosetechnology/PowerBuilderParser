@@ -16,16 +16,6 @@ PWBASTMethodInvocation >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTMethodInvocation >> functionArguments [
-	^ functionArguments
-]
-
-{ #category : #accessing }
-PWBASTMethodInvocation >> functionArguments: anObject [
-	functionArguments := anObject
-]
-
-{ #category : #accessing }
 PWBASTMethodInvocation >> methodInvocation [
 	^ methodInvocation
 ]
@@ -53,14 +43,4 @@ PWBASTMethodInvocation >> stopPosition [
 { #category : #accessing }
 PWBASTMethodInvocation >> stopPosition: anObject [
 	stopPosition := anObject
-]
-
-{ #category : #accessing }
-PWBASTMethodInvocation >> uncheckedIdentifier [
-	^ uncheckedIdentifier
-]
-
-{ #category : #accessing }
-PWBASTMethodInvocation >> uncheckedIdentifier: anObject [
-	uncheckedIdentifier := anObject
 ]
