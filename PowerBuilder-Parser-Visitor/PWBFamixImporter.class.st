@@ -40,6 +40,8 @@ PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
 		reject: [ :aFile | #(pbg srj) includes: aFile extension ]
 		thenDo: [ :aFile | 
 			| result |
+			aFile contents isEmpty
+				ifTrue: [ ^ self ].
 			result := PWBAbstractGrammar obtainASTFromFile: aFile.
 			result isPetit2Failure
 				ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
@@ -92,11 +94,11 @@ PWBFamixImporter class >> importFromFolder: aFolder mooseModel: aMooseModel [
 PWBFamixImporter class >> script [
 	| mooseModel |
 	mooseModel := MooseModel new.
-	'/Users/honore/Documents/Pharo/images/Homework20032019/IzyProectObjectCIM'
-		asFileReference directories
+	'ws_objects' asFileReference directories
 		do: [ :dir | 
 			mooseModel := PWBFamixImporter
 				importFromFolder: dir
 				mooseModel: mooseModel ]
-		displayingProgress: [ :dir | dir asString ]
+		displayingProgress: [ :dir | dir asString ].
+	^ mooseModel
 ]
