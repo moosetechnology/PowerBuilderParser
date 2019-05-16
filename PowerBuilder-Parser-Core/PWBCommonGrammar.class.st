@@ -72,7 +72,8 @@ PWBCommonGrammar class >> supportedExtensions [
 
 { #category : #accessing }
 PWBCommonGrammar >> accessModifier [
-	^ self parserFor: #('public' 'private' 'protected' 'global')
+	^ self
+		parserCaseInsensitiveFor: #('public' 'private' 'protected' 'global')
 ]
 
 { #category : #accessing }

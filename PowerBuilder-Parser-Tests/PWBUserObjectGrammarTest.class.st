@@ -1347,6 +1347,19 @@ long  il_max_capacity = -1
 end variables' rule: #typeVariable
 ]
 
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testTypeVariable4 [
+	self
+		parse:
+			'type variables
+Private:
+
+
+Constant string TOOLTIPS_CLASS		= ''tooltips_class32''
+end variables'
+		rule: #typeVariable
+]
+
 { #category : #tests }
 PWBUserObjectGrammarTest >> testVariableDeclarations [
 	self
