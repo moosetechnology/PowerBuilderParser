@@ -311,6 +311,13 @@ PWBASTAbstractVisitor >> visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTDynamicMethodInvocation [
+	<generated>
+	self visit: aPWBASTDynamicMethodInvocation uncheckedIdentifier.
+	self visit: aPWBASTDynamicMethodInvocation functionArguments.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTElse: aPWBASTElse [
 	<generated>
 	self visit: aPWBASTElse statements.
@@ -474,7 +481,7 @@ PWBASTAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinitio
 PWBASTAbstractVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
 	<generated>
 	self visit: aPWBASTFunctionInvocation defaultVariable.
-	self visit: aPWBASTFunctionInvocation functionName.
+	self visit: aPWBASTFunctionInvocation identifier.
 	self visit: aPWBASTFunctionInvocation functionArguments.
 ]
 
@@ -565,8 +572,7 @@ PWBASTAbstractVisitor >> visitPWBASTImport: aPWBASTImport [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	<generated>
-	self visit: aPWBASTMethodInvocation uncheckedIdentifier.
-	self visit: aPWBASTMethodInvocation functionArguments.
+	self visit: aPWBASTMethodInvocation methodInvocation.
 ]
 
 { #category : #visiting }
@@ -663,6 +669,13 @@ PWBASTAbstractVisitor >> visitPWBASTProgramStep: aPWBASTProgramStep [
 PWBASTAbstractVisitor >> visitPWBASTPrototypesDeclaration: aPWBASTPrototypesDeclaration [
 	<generated>
 	self visitAll: aPWBASTPrototypesDeclaration declarations.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	<generated>
+	self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier.
+	self visit: aPWBASTRegularMethodInvocation functionArguments.
 ]
 
 { #category : #visiting }

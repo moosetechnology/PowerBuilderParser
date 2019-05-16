@@ -257,6 +257,12 @@ PWBCommonParser >> doWhileLoop [
 ]
 
 { #category : #rules }
+PWBCommonParser >> dynamicMethodInvocation [
+	<generated>
+	^ super dynamicMethodInvocation ==> [ :production | PWBASTDynamicMethodInvocation new uncheckedIdentifier: (production at: 5); functionArguments: (production at: 7); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> else [
 	<generated>
 	^ super else ==> [ :production | PWBASTElse new statements: (production ifNotNil: [(production at: 3)]); yourself ]
@@ -391,7 +397,7 @@ PWBCommonParser >> functionDefinition [
 { #category : #rules }
 PWBCommonParser >> functionInvocation [
 	<generated>
-	^ super functionInvocation ==> [ :production | PWBASTFunctionInvocation new defaultVariable: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); functionName: (production at: 2); functionArguments: (production at: 4); yourself ]
+	^ super functionInvocation ==> [ :production | PWBASTFunctionInvocation new defaultVariable: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); identifier: (production at: 2); functionArguments: (production at: 4); yourself ]
 ]
 
 { #category : #rules }
@@ -439,7 +445,7 @@ PWBCommonParser >> ifStatement [
 { #category : #rules }
 PWBCommonParser >> methodInvocation [
 	<generated>
-	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
+	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new methodInvocation: production; yourself ]
 ]
 
 { #category : #rules }
@@ -506,6 +512,12 @@ PWBCommonParser >> programStep [
 PWBCommonParser >> prototypesDeclaration [
 	<generated>
 	^ super prototypesDeclaration ==> [ :production | PWBASTPrototypesDeclaration new declarations: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> regularMethodInvocation [
+	<generated>
+	^ super regularMethodInvocation ==> [ :production | PWBASTRegularMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
 ]
 
 { #category : #helpers }

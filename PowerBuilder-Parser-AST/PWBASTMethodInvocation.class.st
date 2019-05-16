@@ -2,8 +2,7 @@ Class {
 	#name : #PWBASTMethodInvocation,
 	#superclass : #Object,
 	#instVars : [
-		'uncheckedIdentifier',
-		'functionArguments',
+		'methodInvocation',
 		'startPosition',
 		'stopPosition'
 	],
@@ -24,6 +23,16 @@ PWBASTMethodInvocation >> functionArguments [
 { #category : #accessing }
 PWBASTMethodInvocation >> functionArguments: anObject [
 	functionArguments := anObject
+]
+
+{ #category : #accessing }
+PWBASTMethodInvocation >> methodInvocation [
+	^ methodInvocation
+]
+
+{ #category : #accessing }
+PWBASTMethodInvocation >> methodInvocation: anObject [
+	methodInvocation := anObject
 ]
 
 { #category : #accessing }

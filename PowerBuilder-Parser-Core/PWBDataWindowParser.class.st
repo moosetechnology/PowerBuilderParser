@@ -161,6 +161,12 @@ PWBDataWindowParser >> defaultVariable [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> dynamicMethodInvocation [
+	<generated>
+	^ super dynamicMethodInvocation ==> [ :production | PWBASTDynamicMethodInvocation new uncheckedIdentifier: (production at: 5); functionArguments: (production at: 7); yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> else [
 	<generated>
 	^ super else ==> [ :production | PWBASTElse new statements: (production ifNotNil: [(production at: 3)]); yourself ]
@@ -301,7 +307,7 @@ PWBDataWindowParser >> import [
 { #category : #rules }
 PWBDataWindowParser >> methodInvocation [
 	<generated>
-	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
+	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new methodInvocation: production; yourself ]
 ]
 
 { #category : #rules }
@@ -368,6 +374,12 @@ PWBDataWindowParser >> parenthesedExpression [
 PWBDataWindowParser >> postFixOperator [
 	<generated>
 	^ super postFixOperator ==> [ :production | PWBASTPostFixOperator new access: (production at: 1); yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> regularMethodInvocation [
+	<generated>
+	^ super regularMethodInvocation ==> [ :production | PWBASTRegularMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
 ]
 
 { #category : #helpers }

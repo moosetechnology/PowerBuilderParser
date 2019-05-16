@@ -137,6 +137,12 @@ PWBQueryFileParser >> defaultVariable [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> dynamicMethodInvocation [
+	<generated>
+	^ super dynamicMethodInvocation ==> [ :production | PWBASTDynamicMethodInvocation new uncheckedIdentifier: (production at: 5); functionArguments: (production at: 7); yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> else [
 	<generated>
 	^ super else ==> [ :production | PWBASTElse new statements: (production ifNotNil: [(production at: 3)]); yourself ]
@@ -235,7 +241,7 @@ PWBQueryFileParser >> ifStatement [
 { #category : #rules }
 PWBQueryFileParser >> methodInvocation [
 	<generated>
-	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
+	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new methodInvocation: production; yourself ]
 ]
 
 { #category : #rules }
@@ -278,6 +284,12 @@ PWBQueryFileParser >> parenthesedExpression [
 PWBQueryFileParser >> postFixOperator [
 	<generated>
 	^ super postFixOperator ==> [ :production | PWBASTPostFixOperator new access: (production at: 1); yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> regularMethodInvocation [
+	<generated>
+	^ super regularMethodInvocation ==> [ :production | PWBASTRegularMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
 ]
 
 { #category : #helpers }
