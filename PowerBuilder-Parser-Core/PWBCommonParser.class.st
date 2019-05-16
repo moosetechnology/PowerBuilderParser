@@ -139,7 +139,7 @@ PWBCommonParser >> callStatement [
 { #category : #rules }
 PWBCommonParser >> case [
 	<generated>
-	^ super case ==> [ :production | PWBASTCase new expressionList: (production at: 3); statements: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super case ==> [ :production | PWBASTCase new case: production; yourself ]
 ]
 
 { #category : #rules }
@@ -443,6 +443,12 @@ PWBCommonParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBCommonParser >> multiLineCase [
+	<generated>
+	^ super multiLineCase ==> [ :production | PWBASTMultiLineCase new expressionList: (production at: 3); statements: (production ifNotNil: [(production at: 5)]); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> notExpression [
 	<generated>
 	^ super notExpression ==> [ :production | PWBASTNotExpression new expression: (production at: 3); yourself ]
@@ -470,6 +476,12 @@ PWBCommonParser >> operatorExpression [
 PWBCommonParser >> parametrizedType [
 	<generated>
 	^ super parametrizedType flatten ==> [ :production | PWBASTParametrizedType new parametrizedType: production; yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> parenthesedArray [
+	<generated>
+	^ super parenthesedArray ==> [ :production | PWBASTParenthesedArray new expression: (production at: 2); expressions: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -518,6 +530,12 @@ PWBCommonParser >> selectSeparators: anArray [
 PWBCommonParser >> sharedVariables [
 	<generated>
 	^ super sharedVariables ==> [ :production | PWBASTSharedVariables new attributes: (production ifNotNil: [(production at: 3)]); yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> singleLineCase [
+	<generated>
+	^ super singleLineCase ==> [ :production | PWBASTSingleLineCase new expressionList: (production at: 3); statement: (production at: 5); yourself ]
 ]
 
 { #category : #rules }

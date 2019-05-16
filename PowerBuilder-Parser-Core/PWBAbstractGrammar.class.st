@@ -59,7 +59,10 @@ Class {
 		'this',
 		'arrayDesignation',
 		'argumentOption',
-		'continueStatement'
+		'continueStatement',
+		'parenthesedArray',
+		'dynamicMethodInvocation',
+		'regularMethodInvocation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -315,8 +318,11 @@ PWBAbstractGrammar >> exitStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expression [
-	<reify: #(expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm) into: #expression>
-	^ (expressionWithSign / operatorExpression / parenthesedExpression / expressionTerm), methodInvocation star
+	<reify:
+		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / expressionTerm)
+	into: #expression>
+	^ expressionWithSign / operatorExpression / parenthesedExpression
+		/ parenthesedArray / expressionTerm , methodInvocation star
 ]
 
 { #category : #accessing }
@@ -427,6 +433,12 @@ PWBAbstractGrammar >> parametrizedType [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> parenthesedArray [
+	^ $( parser , expression trim , ($, parser , expression trim) plus
+		, $) parser
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> parenthesedExpression [
 	^ $( parser , blank , expression , blank , $) parser
 ]
@@ -486,8 +498,11 @@ PWBAbstractGrammar >> statements [
 
 { #category : #accessing }
 PWBAbstractGrammar >> string [
-	^ ($" parser , ('~"' parser / $" parser negate) star , $" parser)
-		/ ($' parser , ('~''' parser / $' parser negate) star , $' parser)
+	| protectedCharacter |
+	protectedCharacter := $~ parser , #any parser.
+	^ ($" parser , (protectedCharacter / $" parser negate) star
+		, $" parser)
+		/ ($' parser , (protectedCharacter / $' parser negate) star , $' parser)
 ]
 
 { #category : #accessing }

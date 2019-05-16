@@ -353,6 +353,12 @@ PWBDataWindowParser >> parametrizedType [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> parenthesedArray [
+	<generated>
+	^ super parenthesedArray ==> [ :production | PWBASTParenthesedArray new expression: (production at: 2); expressions: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> parenthesedExpression [
 	<generated>
 	^ super parenthesedExpression ==> [ :production | PWBASTParenthesedExpression new expression: (production at: 3); yourself ]

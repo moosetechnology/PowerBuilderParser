@@ -58,7 +58,9 @@ Class {
 		'behaviouralAlias',
 		'behaviouralLibrary',
 		'typePrototypes',
-		'accessModifierDefiner'
+		'accessModifierDefiner',
+		'multiLineCase',
+		'singleLineCase'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -114,7 +116,7 @@ PWBCommonGrammar >> behaviouralOption [
 
 { #category : #accessing }
 PWBCommonGrammar >> case [
-	^ 'case' token, blank, expressionList, blank, statements optional
+	^ singleLineCase / multiLineCase
 ]
 
 { #category : #accessing }
@@ -290,6 +292,11 @@ PWBCommonGrammar >> ifStatement [
 ]
 
 { #category : #accessing }
+PWBCommonGrammar >> multiLineCase [
+	^ 'case' token, blank, expressionList, blank, statements optional
+]
+
+{ #category : #accessing }
 PWBCommonGrammar >> openSqlCursor [
 	^ 'open' token , spaces , identifier , spaces optional , $; parser
 ]
@@ -312,6 +319,11 @@ PWBCommonGrammar >> prototypesDeclaration [
 { #category : #accessing }
 PWBCommonGrammar >> sharedVariables [
 	^ 'shared variables' token , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> singleLineCase [
+	^ 'case' token , blank , expressionList , $; token trim , statement
 ]
 
 { #category : #accessing }
