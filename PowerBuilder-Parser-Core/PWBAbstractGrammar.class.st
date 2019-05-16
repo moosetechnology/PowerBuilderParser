@@ -284,6 +284,12 @@ PWBAbstractGrammar >> defaultVariable [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> dynamicMethodInvocation [
+	^ spaces optional , $. parser , 'dynamic' token, spaces , uncheckedIdentifier
+		, blank , functionArguments
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> else [
 	^ 'else' token , blank , statements optional
 ]
@@ -391,8 +397,7 @@ PWBAbstractGrammar >> ifStatement [
 
 { #category : #accessing }
 PWBAbstractGrammar >> methodInvocation [
-	^ spaces optional , $. parser , spaces optional , uncheckedIdentifier
-		, blank , functionArguments
+	^ dynamicMethodInvocation / regularMethodInvocation
 ]
 
 { #category : #accessing }
@@ -458,10 +463,17 @@ PWBAbstractGrammar >> postFixOperator [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> regularMethodInvocation [
+	"in opposition to dynamicMethodInvocation"
+	^ spaces optional , $. parser , spaces optional , uncheckedIdentifier
+		, blank , functionArguments
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> reservedKeyword [
 	^ self
 		parserCaseInsensitiveFor:
-			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally' 'continue')
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally' 'continue' 'dynamic')
 ]
 
 { #category : #accessing }
@@ -516,7 +528,8 @@ PWBAbstractGrammar >> type [
 
 { #category : #accessing }
 PWBAbstractGrammar >> uncheckedIdentifier [
-	^ (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star
+	"have to manage the dynamic token because its a special case"
+	^ ('dynamic' token, spaces) not, (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star
 ]
 
 { #category : #accessing }
