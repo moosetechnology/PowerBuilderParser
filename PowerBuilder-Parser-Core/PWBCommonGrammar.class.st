@@ -267,7 +267,12 @@ PWBCommonGrammar >> functionDeclaration [
 
 { #category : #accessing }
 PWBCommonGrammar >> functionDefinition [
-	^ functionSignature , $; parser , blank , statements , blank , (self endOf: 'function')
+	^ functionSignature , $; parser optional , blank , statements , blank , (self endOf: 'function')
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> functionInvocation [
+	^ super functionInvocation
 ]
 
 { #category : #accessing }
@@ -359,7 +364,7 @@ PWBCommonGrammar >> subroutineDeclaration [
 
 { #category : #accessing }
 PWBCommonGrammar >> subroutineDefinition [
-	^ subroutineSignature , $; parser , blank , statements , blank , (self endOf: 'subroutine')
+	^ subroutineSignature , $; parser , blank , statements optional , blank , (self endOf: 'subroutine')
 ]
 
 { #category : #accessing }

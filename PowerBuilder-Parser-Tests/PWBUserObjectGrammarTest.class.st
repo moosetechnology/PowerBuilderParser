@@ -681,6 +681,17 @@ end function'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionDefinition2 [
+	self
+		parse: 'public function integer of_create_cell (long ai_x1, long ai_x2, long ai_y1, long ai_y2, double aa_value, long al_format, integer ai_units)
+long lul_cell
+lul_cell = addCellDouble(handle, aa_value, ai_x1, ai_x2, ai_y1, ai_y2, al_format, ai_units)
+Return 1
+end function'
+		rule: #functionDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 	self
 		parse:
@@ -1029,6 +1040,15 @@ PWBUserObjectGrammarTest >> testSubroutineDeclaration [
 		parse:
 			'global subroutine f_restaure_barre_icones (readonly window a_wwindow)'
 		rule: #subroutineDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testSubroutineDefinition [
+	self
+		parse:
+			'public subroutine of_getbgrect (ref st_rect ast_rect, long al_row);
+end subroutine'
+		rule: #subroutineDefinition
 ]
 
 { #category : #tests }
