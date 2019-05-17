@@ -5,19 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> cleanAndParseSrfFile: aFile into: outputFile [
-	| keep stream |
-	keep := 1.
-	stream := aFile readStream.
-	"stream encoder: ZnUTF16Encoder new."
-	[ keep = 3 ]
-		whileFalse: [ stream nextLine.
-			keep := keep + 1 ].
-	^ outputFile
-		writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ]
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
 	aFolder visibleFiles

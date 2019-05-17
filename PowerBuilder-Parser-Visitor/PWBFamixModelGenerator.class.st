@@ -26,7 +26,8 @@ Class {
 		'functionFile',
 		'menuObject',
 		'application',
-		'queryFile'
+		'queryFile',
+		'library'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -46,6 +47,7 @@ PWBFamixModelGenerator class >> prefix [
 { #category : #definition }
 PWBFamixModelGenerator >> defineClasses [
 	super defineClasses.
+	library := builder newClassNamed: #Library.
 	graphicComponent := builder newClassNamed: #GraphicComponent.
 	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
@@ -79,6 +81,7 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
+	library --|> #TNamed.
 	graphicComponent --|> sourcedEntity.
 	event
 		--|> behavioral;
@@ -125,7 +128,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
-	
+
 	"Defining all major objects (files)"
 	majorObject
 		--|> sourcedEntity;
@@ -142,7 +145,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
-	
 	abstractType --|> namedEntity.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
@@ -176,5 +178,7 @@ PWBFamixModelGenerator >> defineProperties [
 PWBFamixModelGenerator >> defineRelations [
 	(variable property: #function) *-<> (function property: #variables).
 	(dataWindow property: #graphicComponents)
-		<>-* (graphicComponent property: #dataWindow)
+		<>-* (graphicComponent property: #dataWindow).
+	(majorObject property: #library)
+		*-<> (library property: #userObjects)
 ]
