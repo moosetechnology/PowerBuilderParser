@@ -1,8 +1,16 @@
 Class {
 	#name : #PWBVisitorEntityCreator,
 	#superclass : #PWBImporterAbstractVisitor,
+	#instVars : [
+		'currentLibrary'
+	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
+
+{ #category : #accessing }
+PWBVisitorEntityCreator >> currentLibrary: aFamixPWBLibrary [
+	currentLibrary := aFamixPWBLibrary
+]
 
 { #category : #'entities creation' }
 PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
@@ -71,6 +79,7 @@ PWBVisitorEntityCreator >> visitPWBASTFile: aPWBASTFile [
 		create: (self majorEntityClassForExtension: aPWBASTFile fileExtension)
 		from: aPWBASTFile.
 	majorEntity name: aPWBASTFile fileName.
+	majorEntity library: currentLibrary.
 	self
 		useCurrentEntity: majorEntity
 		during: [ super visitPWBASTFile: aPWBASTFile ]

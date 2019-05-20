@@ -19,68 +19,45 @@ PWBFamixImporter class >> createCleanFilesFrom: aFolder into: anotherFolder [
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> fillModel: mooseModel fromFolder: aFolder [
+PWBFamixImporter class >> fillModelUsing: aLibrary fromFolder: aFolder [
 	| debugObjects |
-	self flag: #START.
 	debugObjects := OrderedCollection new.
 	aFolder files
 		reject: [ :aFile | #(pbg srj) includes: aFile extension ]
 		thenDo: [ :aFile | 
 			| result |
+			aFile contents isEmpty
+				ifTrue: [ ^ self ].
 			result := PWBAbstractGrammar obtainASTFromFile: aFile.
 			result isPetit2Failure
 				ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
 				ifFalse: [ | visitor |
 					visitor := PWBVisitorEntityCreator new.
-					visitor model: mooseModel.
+					visitor
+						model: aLibrary mooseModel;
+						currentLibrary: aLibrary.
 					result acceptVisitor: visitor.
 					visitor := PWBVisitorReferenceCreator new.
-					visitor model: mooseModel.
+					visitor model: aLibrary mooseModel.
 					result acceptVisitor: visitor ] ].
 	^ debugObjects
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> generationScripts [
-	PPTASTGenerator
-		generateEverythingFrom: PWBDataWindowGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbStrategy.
-	PPTASTGenerator
-		generateEverythingFrom: PWBQueryFileGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
-	PPTASTGenerator
-		generateEverythingFrom: PWBCommonGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
-	#(fileExtension fileName)
-		do: [ :aSelector | 
-			PPASTGeneratorStrategy new
-				createAttributeAndAccessorsFor: aSelector
-				inClass: #PWBASTFile asClass ].
-	PWBFamixModelGenerator generate
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
-	| mooseModel fileReferenceFolder |
-	self flag: #START.
-	fileReferenceFolder := aFolder asFileReference.
-	self
-		createCleanFilesFrom: fileReferenceFolder
-		into: fileReferenceFolder / 'cleaned'.
+	| mooseModel library |
 	mooseModel := MooseModel new.
-	(self
-		fillModel: mooseModel
-		fromFolder: fileReferenceFolder / 'cleaned')
-		ifNotEmpty: [ :failures | 
-			failures inspect.
-			Halt now ].
+	mooseModel name: 'IzyProtectMooseModel'.
+	aFolder asFileReference directories
+		do: [ :dir | 
+			library := FamixPWBLibrary new.
+			library
+				name: dir basename;
+				mooseModel: mooseModel.
+			self createCleanFilesFrom: dir into: dir / 'cleaned'.
+			(self fillModelUsing: library fromFolder: dir / 'cleaned')
+				ifNotEmpty: [ :failures | "failures inspect.
+			Halt now " ] ]
+		displayingProgress: [ :dir | dir asString ].
 	^ mooseModel
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter class >> script [
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/ws_objects'
-		asFileReference directories
-		do: [ :dir | PWBFamixImporter importFromFolder: dir ]
-		displayingProgress: [ :dir | dir asString ]
 ]
