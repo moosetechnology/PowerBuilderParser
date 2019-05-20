@@ -1,6 +1,8 @@
 Class {
 	#name : #FamixPWBUserObject,
 	#superclass : #FamixPWBmajorObject,
+	#traits : 'FamixTWithSubInheritances + FamixTWithSuperInheritances',
+	#classTraits : 'FamixTWithSubInheritances classTrait + FamixTWithSuperInheritances classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -23,7 +25,7 @@ FamixPWBUserObject class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBUserObject class >> generatedTraitNames [
 	<generated>
-	^ #()
+	^ #(FamixTWithSubInheritances FamixTWithSuperInheritances)
 ]
 
 { #category : #meta }
