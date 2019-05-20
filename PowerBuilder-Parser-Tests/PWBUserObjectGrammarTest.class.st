@@ -692,6 +692,16 @@ end function'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionDefinition3 [
+	self
+		parse: 'public function int of_set_font(string AS_FONTNAME);   
+   int retVar;
+   return retVar;
+end function'
+		rule: #functionDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 	self
 		parse:
