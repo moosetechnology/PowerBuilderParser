@@ -137,6 +137,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithMethods;
 		--|> #TWithFunctions.
 	userObject --|> majorObject.
+	userObject
+		--|> #TWithSuperInheritances;
+		--|> #TWithSubInheritances.
 	window --|> majorObject.
 	dataWindow --|> majorObject.
 	structureFile --|> majorObject.
