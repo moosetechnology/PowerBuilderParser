@@ -1390,5 +1390,6 @@ PWBUserObjectGrammarTest >> testVariableDeclarations [
 	self
 		parse: 'int li_DaysInMonth [ 12 ]  = {31,28,31,30,31,30,31,31,30,31,30,31}'
 		rule: #variableDeclarations.
-	self parse: 'string ls_dss, ls_cls' rule: #variableDeclarations
+	self parse: 'string ls_dss, ls_cls' rule: #variableDeclarations.
+	self parse: 'blob{7} lblb_val' rule: #variableDeclarations
 ]
