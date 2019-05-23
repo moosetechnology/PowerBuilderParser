@@ -7,517 +7,517 @@ Class {
 { #category : #rules }
 PWBCommonParser >> access [
 	<generated>
-	^ super access ==> [ :production | PWBASTAccess new variable: (production at: 1); arrayPosition: (production ifNotNil: [(production at: 2)]); attributeAccesses: (production at: 3); yourself ]
+	^ super access withPositions ==> [ :production | PWBASTAccess new startPosition: production start; stopPosition: production stop; variable: (production content at: 1); arrayPosition: (production content ifNotNil: [(production content at: 2)]); attributeAccesses: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> accessModifier [
 	<generated>
-	^ super accessModifier flatten ==> [ :production | PWBASTAccessModifier new accessModifier: production; yourself ]
+	^ super accessModifier flatten withPositions  ==> [ :production | PWBASTAccessModifier new startPosition: production start; stopPosition: production stop; accessModifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> accessModifierDefiner [
 	<generated>
-	^ super accessModifierDefiner ==> [ :production | PWBASTAccessModifierDefiner new accessModifier: (production at: 1); yourself ]
+	^ super accessModifierDefiner withPositions ==> [ :production | PWBASTAccessModifierDefiner new startPosition: production start; stopPosition: production stop; accessModifier: (production content at: 1); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> accessOrType [
 	<generated>
-	^ super accessOrType ==> [ :production | PWBASTAccessOrType new accessOrType: production; yourself ]
+	^ super accessOrType withPositions ==> [ :production | PWBASTAccessOrType new startPosition: production start; stopPosition: production stop; accessOrType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> argument [
 	<generated>
-	^ super argument ==> [ :production | PWBASTArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); type: (production at: 2); identifier: (production at: 4); arrayWithSize: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super argument withPositions ==> [ :production | PWBASTArgument new startPosition: production start; stopPosition: production stop; argumentOption: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); type: (production content at: 2); identifier: (production content at: 4); arrayWithSize: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> argumentOption [
 	<generated>
-	^ super argumentOption flatten ==> [ :production | PWBASTArgumentOption new argumentOption: production; yourself ]
+	^ super argumentOption flatten withPositions  ==> [ :production | PWBASTArgumentOption new startPosition: production start; stopPosition: production stop; argumentOption: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> arguments [
 	<generated>
-	^ super arguments ==> [ :production | PWBASTArguments new arguments: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+	^ super arguments withPositions ==> [ :production | PWBASTArguments new startPosition: production start; stopPosition: production stop; arguments: ((production content at: 3) ifNotNil: [(self rejectSeparators: (production content at: 3))]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> array [
 	<generated>
-	^ super array ==> [ :production | PWBASTArray new expressions: (self rejectSeparators: (production at: 2)); yourself ]
+	^ super array withPositions ==> [ :production | PWBASTArray new startPosition: production start; stopPosition: production stop; expressions: (self rejectSeparators: (production content at: 2)); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> arrayDesignation [
 	<generated>
-	^ super arrayDesignation flatten ==> [ :production | PWBASTArrayDesignation new arrayDesignation: production; yourself ]
+	^ super arrayDesignation flatten withPositions  ==> [ :production | PWBASTArrayDesignation new startPosition: production start; stopPosition: production stop; arrayDesignation: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> arrayPosition [
 	<generated>
-	^ super arrayPosition ==> [ :production | PWBASTArrayPosition new expression: (production at: 2); yourself ]
+	^ super arrayPosition withPositions ==> [ :production | PWBASTArrayPosition new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> arrayWithSize [
 	<generated>
-	^ super arrayWithSize ==> [ :production | PWBASTArrayWithSize new expressions: ((production at: 4) ifNotNil: [(self rejectSeparators: (production at: 4))]); yourself ]
+	^ super arrayWithSize withPositions ==> [ :production | PWBASTArrayWithSize new startPosition: production start; stopPosition: production stop; expressions: ((production content at: 4) ifNotNil: [(self rejectSeparators: (production content at: 4))]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> assignation [
 	<generated>
-	^ super assignation ==> [ :production | PWBASTAssignation new expression: (production at: 4); yourself ]
+	^ super assignation withPositions ==> [ :production | PWBASTAssignation new startPosition: production start; stopPosition: production stop; expression: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> assignationStatement [
 	<generated>
-	^ super assignationStatement ==> [ :production | PWBASTAssignationStatement new access: (production at: 1); assignation: (production at: 2); yourself ]
+	^ super assignationStatement withPositions ==> [ :production | PWBASTAssignationStatement new startPosition: production start; stopPosition: production stop; access: (production content at: 1); assignation: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> attribute [
 	<generated>
-	^ super attribute ==> [ :production | PWBASTAttribute new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); variableDeclarations: (production at: 3); descriptor: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); yourself ]
+	^ super attribute withPositions ==> [ :production | PWBASTAttribute new startPosition: production start; stopPosition: production stop; accessModifier: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); variableDeclarations: (production content at: 3); descriptor: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> attributeAccess [
 	<generated>
-	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayInformation: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super attributeAccess withPositions ==> [ :production | PWBASTAttributeAccess new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 2); arrayInformation: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> attributes [
 	<generated>
-	^ super attributes ==> [ :production | PWBASTAttributes new attributeses: (self rejectSeparators: (production at: 1)); yourself ]
+	^ super attributes withPositions ==> [ :production | PWBASTAttributes new startPosition: production start; stopPosition: production stop; attributeses: (self rejectSeparators: (production content at: 1)); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> basicType [
 	<generated>
-	^ super basicType flatten ==> [ :production | PWBASTBasicType new basicType: production; yourself ]
+	^ super basicType flatten withPositions  ==> [ :production | PWBASTBasicType new startPosition: production start; stopPosition: production stop; basicType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> behaviouralAlias [
 	<generated>
-	^ super behaviouralAlias ==> [ :production | PWBASTBehaviouralAlias new alias: (production at: 3); yourself ]
+	^ super behaviouralAlias withPositions ==> [ :production | PWBASTBehaviouralAlias new startPosition: production start; stopPosition: production stop; alias: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> behaviouralLibrary [
 	<generated>
-	^ super behaviouralLibrary ==> [ :production | PWBASTBehaviouralLibrary new libraryFile: (production at: 3); yourself ]
+	^ super behaviouralLibrary withPositions ==> [ :production | PWBASTBehaviouralLibrary new startPosition: production start; stopPosition: production stop; libraryFile: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> behaviouralOption [
 	<generated>
-	^ super behaviouralOption ==> [ :production | PWBASTBehaviouralOption new behaviouralOption: production; yourself ]
+	^ super behaviouralOption withPositions ==> [ :production | PWBASTBehaviouralOption new startPosition: production start; stopPosition: production stop; behaviouralOption: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> booleanValue [
 	<generated>
-	^ super booleanValue flatten ==> [ :production | PWBASTBooleanValue new booleanValue: production; yourself ]
+	^ super booleanValue flatten withPositions  ==> [ :production | PWBASTBooleanValue new startPosition: production start; stopPosition: production stop; booleanValue: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> callStatement [
 	<generated>
-	^ super callStatement ==> [ :production | PWBASTCallStatement new variable: (production at: 3); identifier: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); eventType: (production at: 6); yourself ]
+	^ super callStatement withPositions ==> [ :production | PWBASTCallStatement new startPosition: production start; stopPosition: production stop; variable: (production content at: 3); identifier: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); eventType: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> case [
 	<generated>
-	^ super case ==> [ :production | PWBASTCase new case: production; yourself ]
+	^ super case withPositions ==> [ :production | PWBASTCase new startPosition: production start; stopPosition: production stop; case: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> caseElse [
 	<generated>
-	^ super caseElse ==> [ :production | PWBASTCaseElse new statements: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super caseElse withPositions ==> [ :production | PWBASTCaseElse new startPosition: production start; stopPosition: production stop; statements: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> catchBlock [
 	<generated>
-	^ super catchBlock ==> [ :production | PWBASTCatchBlock new arguments: (production at: 3); statements: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); yourself ]
+	^ super catchBlock withPositions ==> [ :production | PWBASTCatchBlock new startPosition: production start; stopPosition: production stop; arguments: (production content at: 3); statements: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> chooseCase [
 	<generated>
-	^ super chooseCase ==> [ :production | PWBASTChooseCase new expression: (production at: 5); cases: (self rejectSeparators: (production at: 7)); caseElse: ((production at: 9) ifNotNil: [((production at: 9) at: 1)]); yourself ]
+	^ super chooseCase withPositions ==> [ :production | PWBASTChooseCase new startPosition: production start; stopPosition: production stop; expression: (production content at: 5); cases: (self rejectSeparators: (production content at: 7)); caseElse: ((production content at: 9) ifNotNil: [((production content at: 9) at: 1)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> closeSqlCursor [
 	<generated>
-	^ super closeSqlCursor ==> [ :production | PWBASTCloseSqlCursor new identifier: (production at: 3); yourself ]
+	^ super closeSqlCursor withPositions ==> [ :production | PWBASTCloseSqlCursor new startPosition: production start; stopPosition: production stop; identifier: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> commonFile [
 	<generated>
-	^ super commonFile ==> [ :production | PWBASTCommonFile new fileStatements: (self rejectSeparators: production); yourself ]
+	^ super commonFile withPositions ==> [ :production | PWBASTCommonFile new startPosition: production start; stopPosition: production stop; fileStatements: (self rejectSeparators: production content); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> condition [
 	<generated>
-	^ super condition ==> [ :production | PWBASTCondition new expression: production; yourself ]
+	^ super condition withPositions ==> [ :production | PWBASTCondition new startPosition: production start; stopPosition: production stop; expression: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> constant [
 	<generated>
-	^ super constant flatten ==> [ :production | PWBASTConstant new constant: production; yourself ]
+	^ super constant flatten withPositions  ==> [ :production | PWBASTConstant new startPosition: production start; stopPosition: production stop; constant: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> continueStatement [
 	<generated>
-	^ super continueStatement flatten ==> [ :production | PWBASTContinueStatement new continueStatement: production; yourself ]
+	^ super continueStatement flatten withPositions  ==> [ :production | PWBASTContinueStatement new startPosition: production start; stopPosition: production stop; continueStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> createInstruction [
 	<generated>
-	^ super createInstruction ==> [ :production | PWBASTCreateInstruction new variable: (production at: 3); yourself ]
+	^ super createInstruction withPositions ==> [ :production | PWBASTCreateInstruction new startPosition: production start; stopPosition: production stop; variable: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> customCallStatement [
 	<generated>
-	^ super customCallStatement ==> [ :production | PWBASTCustomCallStatement new identifier: (production at: 5); yourself ]
+	^ super customCallStatement withPositions ==> [ :production | PWBASTCustomCallStatement new startPosition: production start; stopPosition: production stop; identifier: (production content at: 5); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> customType [
 	<generated>
-	^ super customType ==> [ :production | PWBASTCustomType new identifier: production; yourself ]
+	^ super customType withPositions ==> [ :production | PWBASTCustomType new startPosition: production start; stopPosition: production stop; identifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> declareCursor [
 	<generated>
-	^ super declareCursor ==> [ :production | PWBASTDeclareCursor new identifier: (production at: 3); sqlQuery: (production at: 9); yourself ]
+	^ super declareCursor withPositions ==> [ :production | PWBASTDeclareCursor new startPosition: production start; stopPosition: production stop; identifier: (production content at: 3); sqlQuery: (production content at: 9); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> defaultEventType [
 	<generated>
-	^ super defaultEventType flatten ==> [ :production | PWBASTDefaultEventType new defaultEventType: production; yourself ]
+	^ super defaultEventType flatten withPositions  ==> [ :production | PWBASTDefaultEventType new startPosition: production start; stopPosition: production stop; defaultEventType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> defaultVariable [
 	<generated>
-	^ super defaultVariable flatten ==> [ :production | PWBASTDefaultVariable new defaultVariable: production; yourself ]
+	^ super defaultVariable flatten withPositions  ==> [ :production | PWBASTDefaultVariable new startPosition: production start; stopPosition: production stop; defaultVariable: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> descriptor [
 	<generated>
-	^ super descriptor ==> [ :production | PWBASTDescriptor new expression: (production at: 3); yourself ]
+	^ super descriptor withPositions ==> [ :production | PWBASTDescriptor new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> doLoopUntil [
 	<generated>
-	^ super doLoopUntil ==> [ :production | PWBASTDoLoopUntil new statements: (production at: 3); expression: (production at: 9); yourself ]
+	^ super doLoopUntil withPositions ==> [ :production | PWBASTDoLoopUntil new startPosition: production start; stopPosition: production stop; statements: (production content at: 3); expression: (production content at: 9); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> doLoopWhile [
 	<generated>
-	^ super doLoopWhile ==> [ :production | PWBASTDoLoopWhile new statements: (production at: 3); expression: (production at: 9); yourself ]
+	^ super doLoopWhile withPositions ==> [ :production | PWBASTDoLoopWhile new startPosition: production start; stopPosition: production stop; statements: (production content at: 3); expression: (production content at: 9); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> doUntilLoop [
 	<generated>
-	^ super doUntilLoop ==> [ :production | PWBASTDoUntilLoop new expression: (production at: 5); statements: (production at: 7); yourself ]
+	^ super doUntilLoop withPositions ==> [ :production | PWBASTDoUntilLoop new startPosition: production start; stopPosition: production stop; expression: (production content at: 5); statements: (production content at: 7); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> doWhileLoop [
 	<generated>
-	^ super doWhileLoop ==> [ :production | PWBASTDoWhileLoop new expression: (production at: 5); statements: (production at: 7); yourself ]
+	^ super doWhileLoop withPositions ==> [ :production | PWBASTDoWhileLoop new startPosition: production start; stopPosition: production stop; expression: (production content at: 5); statements: (production content at: 7); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> dynamicMethodInvocation [
 	<generated>
-	^ super dynamicMethodInvocation ==> [ :production | PWBASTDynamicMethodInvocation new uncheckedIdentifier: (production at: 5); functionArguments: (production at: 7); yourself ]
+	^ super dynamicMethodInvocation withPositions ==> [ :production | PWBASTDynamicMethodInvocation new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 5); functionArguments: (production content at: 7); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> else [
 	<generated>
-	^ super else ==> [ :production | PWBASTElse new statements: (production ifNotNil: [(production at: 3)]); yourself ]
+	^ super else withPositions ==> [ :production | PWBASTElse new startPosition: production start; stopPosition: production stop; statements: (production content ifNotNil: [(production content at: 3)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> elseIf [
 	<generated>
-	^ super elseIf ==> [ :production | PWBASTElseIf new expression: (production at: 3); statements: (production ifNotNil: [(production at: 7)]); yourself ]
+	^ super elseIf withPositions ==> [ :production | PWBASTElseIf new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> elseOnLine [
 	<generated>
-	^ super elseOnLine ==> [ :production | PWBASTElseOnLine new statement: (production at: 4); yourself ]
+	^ super elseOnLine withPositions ==> [ :production | PWBASTElseOnLine new startPosition: production start; stopPosition: production stop; statement: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> endForward [
 	<generated>
-	^ super endForward flatten ==> [ :production | PWBASTEndForward new endForward: production; yourself ]
+	^ super endForward flatten withPositions  ==> [ :production | PWBASTEndForward new startPosition: production start; stopPosition: production stop; endForward: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> eventAttribute [
 	<generated>
-	^ super eventAttribute ==> [ :production | PWBASTEventAttribute new returnType: ((production at: 3) ifNotNil: [((production at: 3) at: 3)]); eventName: (production at: 4); attribute: (production at: 6); yourself ]
+	^ super eventAttribute withPositions ==> [ :production | PWBASTEventAttribute new startPosition: production start; stopPosition: production stop; returnType: ((production content at: 3) ifNotNil: [((production content at: 3) at: 3)]); eventName: (production content at: 4); attribute: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> eventDeclaration [
 	<generated>
-	^ super eventDeclaration ==> [ :production | PWBASTEventDeclaration new eventReferenceName: (production at: 3); customCallStatement: ((production at: 5) ifNotNil: [((production at: 5) at: 1)]); statements: (production ifNotNil: [(production at: 7)]); yourself ]
+	^ super eventDeclaration withPositions ==> [ :production | PWBASTEventDeclaration new startPosition: production start; stopPosition: production stop; eventReferenceName: (production content at: 3); customCallStatement: ((production content at: 5) ifNotNil: [((production content at: 5) at: 1)]); statements: (production content ifNotNil: [(production content at: 7)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> eventReferenceName [
 	<generated>
-	^ super eventReferenceName ==> [ :production | PWBASTEventReferenceName new objectClass: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); eventName: (production at: 2); arguments: (production ifNotNil: [(production at: 3)]); yourself ]
+	^ super eventReferenceName withPositions ==> [ :production | PWBASTEventReferenceName new startPosition: production start; stopPosition: production stop; objectClass: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); eventName: (production content at: 2); arguments: (production content ifNotNil: [(production content at: 3)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> eventType [
 	<generated>
-	^ super eventType ==> [ :production | PWBASTEventType new eventType: production; yourself ]
+	^ super eventType withPositions ==> [ :production | PWBASTEventType new startPosition: production start; stopPosition: production stop; eventType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> exitStatement [
 	<generated>
-	^ super exitStatement flatten ==> [ :production | PWBASTExitStatement new exitStatement: production; yourself ]
+	^ super exitStatement flatten withPositions  ==> [ :production | PWBASTExitStatement new startPosition: production start; stopPosition: production stop; exitStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> expression [
 	<generated>
-	^ super expression ==> [ :production | PWBASTExpression new expression: (production at: 1); methodInvocations: (production at: 2); yourself ]
+	^ super expression withPositions ==> [ :production | PWBASTExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 1); methodInvocations: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> expressionList [
 	<generated>
-	^ super expressionList ==> [ :production | PWBASTExpressionList new expressions: (self rejectSeparators: production); yourself ]
+	^ super expressionList withPositions ==> [ :production | PWBASTExpressionList new startPosition: production start; stopPosition: production stop; expressions: (self rejectSeparators: production content); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> expressionTerm [
 	<generated>
-	^ super expressionTerm ==> [ :production | PWBASTExpressionTerm new expressionTerm: production; yourself ]
+	^ super expressionTerm withPositions ==> [ :production | PWBASTExpressionTerm new startPosition: production start; stopPosition: production stop; expressionTerm: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> expressionWithSign [
 	<generated>
-	^ super expressionWithSign ==> [ :production | PWBASTExpressionWithSign new expression: (production at: 3); yourself ]
+	^ super expressionWithSign withPositions ==> [ :production | PWBASTExpressionWithSign new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> file [
 	<generated>
-	^ super file ==> [ :production | PWBASTFile new content: production; yourself ]
+	^ super file withPositions ==> [ :production | PWBASTFile new startPosition: production start; stopPosition: production stop; content: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> finallyBlock [
 	<generated>
-	^ super finallyBlock ==> [ :production | PWBASTFinallyBlock new statements: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
+	^ super finallyBlock withPositions ==> [ :production | PWBASTFinallyBlock new startPosition: production start; stopPosition: production stop; statements: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> forLoop [
 	<generated>
-	^ super forLoop ==> [ :production | PWBASTForLoop new assignationStatement: (production at: 3); endExpression: (production at: 7); stepExpression: ((production at: 8) ifNotNil: [((production at: 8) at: 4)]); statements: (production at: 10); yourself ]
+	^ super forLoop withPositions ==> [ :production | PWBASTForLoop new startPosition: production start; stopPosition: production stop; assignationStatement: (production content at: 3); endExpression: (production content at: 7); stepExpression: ((production content at: 8) ifNotNil: [((production content at: 8) at: 4)]); statements: (production content at: 10); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> forwardDeclaration [
 	<generated>
-	^ super forwardDeclaration ==> [ :production | PWBASTForwardDeclaration new typeDeclarations: (self rejectSeparators: (production at: 3)); endForward: (production at: 5); yourself ]
+	^ super forwardDeclaration withPositions ==> [ :production | PWBASTForwardDeclaration new startPosition: production start; stopPosition: production stop; typeDeclarations: (self rejectSeparators: (production content at: 3)); endForward: (production content at: 5); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> fromClause [
 	<generated>
-	^ super fromClause ==> [ :production | PWBASTFromClause new customType: (production at: 3); yourself ]
+	^ super fromClause withPositions ==> [ :production | PWBASTFromClause new startPosition: production start; stopPosition: production stop; customType: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionArgument [
 	<generated>
-	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); expression: (production at: 2); yourself ]
+	^ super functionArgument withPositions ==> [ :production | PWBASTFunctionArgument new startPosition: production start; stopPosition: production stop; argumentOption: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); expression: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionArguments [
 	<generated>
-	^ super functionArguments ==> [ :production | PWBASTFunctionArguments new functionArguments: ((production at: 2) ifNotNil: [(self rejectSeparators: (production at: 2))]); yourself ]
+	^ super functionArguments withPositions ==> [ :production | PWBASTFunctionArguments new startPosition: production start; stopPosition: production stop; functionArguments: ((production content at: 2) ifNotNil: [(self rejectSeparators: (production content at: 2))]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionDeclaration [
 	<generated>
-	^ super functionDeclaration ==> [ :production | PWBASTFunctionDeclaration new functionSignature: (production at: 1); behaviouralOptions: ((production at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
+	^ super functionDeclaration withPositions ==> [ :production | PWBASTFunctionDeclaration new startPosition: production start; stopPosition: production stop; functionSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction content at: 2]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionDefinition [
 	<generated>
-	^ super functionDefinition ==> [ :production | PWBASTFunctionDefinition new functionSignature: (production at: 1); statements: (production at: 4); yourself ]
+	^ super functionDefinition withPositions ==> [ :production | PWBASTFunctionDefinition new startPosition: production start; stopPosition: production stop; functionSignature: (production content at: 1); statements: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionInvocation [
 	<generated>
-	^ super functionInvocation ==> [ :production | PWBASTFunctionInvocation new defaultVariable: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); identifier: (production at: 2); functionArguments: (production at: 4); yourself ]
+	^ super functionInvocation withPositions ==> [ :production | PWBASTFunctionInvocation new startPosition: production start; stopPosition: production stop; defaultVariable: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); identifier: (production content at: 2); functionArguments: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> functionSignature [
 	<generated>
-	^ super functionSignature ==> [ :production | PWBASTFunctionSignature new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); type: (production at: 4); identifier: (production at: 6); arguments: (production at: 8); yourself ]
+	^ super functionSignature withPositions ==> [ :production | PWBASTFunctionSignature new startPosition: production start; stopPosition: production stop; accessModifier: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); type: (production content at: 4); identifier: (production content at: 6); arguments: (production content at: 8); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> globalVariableDeclaration [
 	<generated>
-	^ super globalVariableDeclaration ==> [ :production | PWBASTGlobalVariableDeclaration new type: (production at: 3); variable: (production at: 5); yourself ]
+	^ super globalVariableDeclaration withPositions ==> [ :production | PWBASTGlobalVariableDeclaration new startPosition: production start; stopPosition: production stop; type: (production content at: 3); variable: (production content at: 5); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> gotoStatement [
 	<generated>
-	^ super gotoStatement ==> [ :production | PWBASTGotoStatement new identifier: (production at: 3); yourself ]
+	^ super gotoStatement withPositions ==> [ :production | PWBASTGotoStatement new startPosition: production start; stopPosition: production stop; identifier: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> identifier [
 	<generated>
-	^ super identifier flatten ==> [ :production | PWBASTIdentifier new identifier: production; yourself ]
+	^ super identifier flatten withPositions  ==> [ :production | PWBASTIdentifier new startPosition: production start; stopPosition: production stop; identifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> ifMultiLine [
 	<generated>
-	^ super ifMultiLine ==> [ :production | PWBASTIfMultiLine new condition: (production at: 3); statements: (production ifNotNil: [(production at: 7)]); elseIfs: ((production at: 8) collect: [:subProduction | subProduction at: 2]); else: ((production at: 9) ifNotNil: [((production at: 9) at: 2)]); yourself ]
+	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction content at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> ifSingleLine [
 	<generated>
-	^ super ifSingleLine ==> [ :production | PWBASTIfSingleLine new condition: (production at: 3); statement: (production at: 7); elseOnLine: (production ifNotNil: [(production at: 8)]); yourself ]
+	^ super ifSingleLine withPositions ==> [ :production | PWBASTIfSingleLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statement: (production content at: 7); elseOnLine: (production content ifNotNil: [(production content at: 8)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> ifStatement [
 	<generated>
-	^ super ifStatement ==> [ :production | PWBASTIfStatement new ifStatement: production; yourself ]
+	^ super ifStatement withPositions ==> [ :production | PWBASTIfStatement new startPosition: production start; stopPosition: production stop; ifStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> methodInvocation [
 	<generated>
-	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new methodInvocation: production; yourself ]
+	^ super methodInvocation withPositions ==> [ :production | PWBASTMethodInvocation new startPosition: production start; stopPosition: production stop; methodInvocation: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> multiLineCase [
 	<generated>
-	^ super multiLineCase ==> [ :production | PWBASTMultiLineCase new expressionList: (production at: 3); statements: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super multiLineCase withPositions ==> [ :production | PWBASTMultiLineCase new startPosition: production start; stopPosition: production stop; expressionList: (production content at: 3); statements: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> notExpression [
 	<generated>
-	^ super notExpression ==> [ :production | PWBASTNotExpression new expression: (production at: 3); yourself ]
+	^ super notExpression withPositions ==> [ :production | PWBASTNotExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> number [
 	<generated>
-	^ super number flatten ==> [ :production | PWBASTNumber new number: production; yourself ]
+	^ super number flatten withPositions  ==> [ :production | PWBASTNumber new startPosition: production start; stopPosition: production stop; number: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> openSqlCursor [
 	<generated>
-	^ super openSqlCursor ==> [ :production | PWBASTOpenSqlCursor new identifier: (production at: 3); yourself ]
+	^ super openSqlCursor withPositions ==> [ :production | PWBASTOpenSqlCursor new startPosition: production start; stopPosition: production stop; identifier: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> operatorExpression [
 	<generated>
-	^ super operatorExpression ==> [ :production | PWBASTOperatorExpression new left: (production at: 1); methodInvocations: (production at: 2); right: (production at: 6); yourself ]
+	^ super operatorExpression withPositions ==> [ :production | PWBASTOperatorExpression new startPosition: production start; stopPosition: production stop; left: (production content at: 1); methodInvocations: (production content at: 2); right: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> parametrizedType [
 	<generated>
-	^ super parametrizedType flatten ==> [ :production | PWBASTParametrizedType new parametrizedType: production; yourself ]
+	^ super parametrizedType flatten withPositions  ==> [ :production | PWBASTParametrizedType new startPosition: production start; stopPosition: production stop; parametrizedType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> parenthesedArray [
 	<generated>
-	^ super parenthesedArray ==> [ :production | PWBASTParenthesedArray new expression: (production at: 2); expressions: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
+	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> parenthesedExpression [
 	<generated>
-	^ super parenthesedExpression ==> [ :production | PWBASTParenthesedExpression new expression: (production at: 3); yourself ]
+	^ super parenthesedExpression withPositions ==> [ :production | PWBASTParenthesedExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> postFixOperator [
 	<generated>
-	^ super postFixOperator ==> [ :production | PWBASTPostFixOperator new access: (production at: 1); yourself ]
+	^ super postFixOperator withPositions ==> [ :production | PWBASTPostFixOperator new startPosition: production start; stopPosition: production stop; access: (production content at: 1); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> programStep [
 	<generated>
-	^ super programStep ==> [ :production | PWBASTProgramStep new identifier: (production at: 1); yourself ]
+	^ super programStep withPositions ==> [ :production | PWBASTProgramStep new startPosition: production start; stopPosition: production stop; identifier: (production content at: 1); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> prototypesDeclaration [
 	<generated>
-	^ super prototypesDeclaration ==> [ :production | PWBASTPrototypesDeclaration new declarations: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+	^ super prototypesDeclaration withPositions ==> [ :production | PWBASTPrototypesDeclaration new startPosition: production start; stopPosition: production stop; declarations: ((production content at: 3) ifNotNil: [(self rejectSeparators: (production content at: 3))]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> regularMethodInvocation [
 	<generated>
-	^ super regularMethodInvocation ==> [ :production | PWBASTRegularMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
+	^ super regularMethodInvocation withPositions ==> [ :production | PWBASTRegularMethodInvocation new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 4); functionArguments: (production content at: 6); yourself ]
 ]
 
 { #category : #helpers }
@@ -529,7 +529,7 @@ PWBCommonParser >> rejectSeparators: anArray [
 { #category : #rules }
 PWBCommonParser >> returnStatement [
 	<generated>
-	^ super returnStatement ==> [ :production | PWBASTReturnStatement new expression: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
+	^ super returnStatement withPositions ==> [ :production | PWBASTReturnStatement new startPosition: production start; stopPosition: production stop; expression: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); yourself ]
 ]
 
 { #category : #helpers }
@@ -541,155 +541,155 @@ PWBCommonParser >> selectSeparators: anArray [
 { #category : #rules }
 PWBCommonParser >> sharedVariables [
 	<generated>
-	^ super sharedVariables ==> [ :production | PWBASTSharedVariables new attributes: (production ifNotNil: [(production at: 3)]); yourself ]
+	^ super sharedVariables withPositions ==> [ :production | PWBASTSharedVariables new startPosition: production start; stopPosition: production stop; attributes: (production content ifNotNil: [(production content at: 3)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> singleLineCase [
 	<generated>
-	^ super singleLineCase ==> [ :production | PWBASTSingleLineCase new expressionList: (production at: 3); statement: (production at: 5); yourself ]
+	^ super singleLineCase withPositions ==> [ :production | PWBASTSingleLineCase new startPosition: production start; stopPosition: production stop; expressionList: (production content at: 3); statement: (production content at: 5); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> specialStatement [
 	<generated>
-	^ super specialStatement ==> [ :production | PWBASTSpecialStatement new specialStatement: production; yourself ]
+	^ super specialStatement withPositions ==> [ :production | PWBASTSpecialStatement new startPosition: production start; stopPosition: production stop; specialStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> sqlCommitStatement [
 	<generated>
-	^ super sqlCommitStatement ==> [ :production | PWBASTSqlCommitStatement new usingClause: ((production at: 3) ifNotNil: [((production at: 3) at: 1)]); yourself ]
+	^ super sqlCommitStatement withPositions ==> [ :production | PWBASTSqlCommitStatement new startPosition: production start; stopPosition: production stop; usingClause: ((production content at: 3) ifNotNil: [((production content at: 3) at: 1)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> sqlQuery [
 	<generated>
-	^ super sqlQuery flatten ==> [ :production | PWBASTSqlQuery new sqlQuery: production; yourself ]
+	^ super sqlQuery flatten withPositions  ==> [ :production | PWBASTSqlQuery new startPosition: production start; stopPosition: production stop; sqlQuery: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> sqlRollbackStatement [
 	<generated>
-	^ super sqlRollbackStatement ==> [ :production | PWBASTSqlRollbackStatement new usingClause: ((production at: 3) ifNotNil: [((production at: 3) at: 1)]); yourself ]
+	^ super sqlRollbackStatement withPositions ==> [ :production | PWBASTSqlRollbackStatement new startPosition: production start; stopPosition: production stop; usingClause: ((production content at: 3) ifNotNil: [((production content at: 3) at: 1)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> statement [
 	<generated>
-	^ super statement ==> [ :production | PWBASTStatement new statement: production; yourself ]
+	^ super statement withPositions ==> [ :production | PWBASTStatement new startPosition: production start; stopPosition: production stop; statement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> statements [
 	<generated>
-	^ super statements ==> [ :production | PWBASTStatements new statements: (self rejectSeparators: production); yourself ]
+	^ super statements withPositions ==> [ :production | PWBASTStatements new startPosition: production start; stopPosition: production stop; statements: (self rejectSeparators: (production content at: 1)); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> string [
 	<generated>
-	^ super string flatten ==> [ :production | PWBASTString new string: production; yourself ]
+	^ super string flatten withPositions  ==> [ :production | PWBASTString new startPosition: production start; stopPosition: production stop; string: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> subroutineDeclaration [
 	<generated>
-	^ super subroutineDeclaration ==> [ :production | PWBASTSubroutineDeclaration new subroutineSignature: (production at: 1); behaviouralOptions: ((production at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
+	^ super subroutineDeclaration withPositions ==> [ :production | PWBASTSubroutineDeclaration new startPosition: production start; stopPosition: production stop; subroutineSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction content at: 2]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> subroutineDefinition [
 	<generated>
-	^ super subroutineDefinition ==> [ :production | PWBASTSubroutineDefinition new subroutineSignature: (production at: 1); statements: (production at: 4); yourself ]
+	^ super subroutineDefinition withPositions ==> [ :production | PWBASTSubroutineDefinition new startPosition: production start; stopPosition: production stop; subroutineSignature: (production content at: 1); statements: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> subroutineSignature [
 	<generated>
-	^ super subroutineSignature ==> [ :production | PWBASTSubroutineSignature new accessModifier: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); identifier: (production at: 4); arguments: (production at: 6); yourself ]
+	^ super subroutineSignature withPositions ==> [ :production | PWBASTSubroutineSignature new startPosition: production start; stopPosition: production stop; accessModifier: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); identifier: (production content at: 4); arguments: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> this [
 	<generated>
-	^ super this flatten ==> [ :production | PWBASTThis new this: production; yourself ]
+	^ super this flatten withPositions  ==> [ :production | PWBASTThis new startPosition: production start; stopPosition: production stop; this: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> transactionObject [
 	<generated>
-	^ super transactionObject ==> [ :production | PWBASTTransactionObject new identifier: production; yourself ]
+	^ super transactionObject withPositions ==> [ :production | PWBASTTransactionObject new startPosition: production start; stopPosition: production stop; identifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> triggerDefinition [
 	<generated>
-	^ super triggerDefinition ==> [ :production | PWBASTTriggerDefinition new identifier: ((production at: 3) ifNotNil: [((production at: 3) at: 1)]); eventType: (production at: 4); statements: (production at: 7); yourself ]
+	^ super triggerDefinition withPositions ==> [ :production | PWBASTTriggerDefinition new startPosition: production start; stopPosition: production stop; identifier: ((production content at: 3) ifNotNil: [((production content at: 3) at: 1)]); eventType: (production content at: 4); statements: (production content at: 7); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> tryCatch [
 	<generated>
-	^ super tryCatch ==> [ :production | PWBASTTryCatch new statements: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); catchBlocks: ((production at: 3) collect: [:subProduction | subProduction at: 2]); finallyBlock: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); yourself ]
+	^ super tryCatch withPositions ==> [ :production | PWBASTTryCatch new startPosition: production start; stopPosition: production stop; statements: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); catchBlocks: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); finallyBlock: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> type [
 	<generated>
-	^ super type ==> [ :production | PWBASTType new type: production; yourself ]
+	^ super type withPositions ==> [ :production | PWBASTType new startPosition: production start; stopPosition: production stop; type: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> typeDeclaration [
 	<generated>
-	^ super typeDeclaration ==> [ :production | PWBASTTypeDeclaration new type: (production at: 4); fromClause: ((production at: 6) at: 2); eventType: ((production at: 7) ifNotNil: [((production at: 7) at: 2)]); withinClause: ((production at: 9) ifNotNil: [((production at: 9) at: 2)]); descriptor: ((production at: 10) ifNotNil: [((production at: 10) at: 2)]); attributes: ((production at: 11) ifNotNil: [((production at: 11) at: 2)]); yourself ]
+	^ super typeDeclaration withPositions ==> [ :production | PWBASTTypeDeclaration new startPosition: production start; stopPosition: production stop; type: (production content at: 4); fromClause: ((production content at: 6) at: 2); eventType: ((production content at: 7) ifNotNil: [((production content at: 7) at: 2)]); withinClause: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); descriptor: ((production content at: 10) ifNotNil: [((production content at: 10) at: 2)]); attributes: ((production content at: 11) ifNotNil: [((production content at: 11) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> typePrototypes [
 	<generated>
-	^ super typePrototypes ==> [ :production | PWBASTTypePrototypes new declarations: (self rejectSeparators: (production at: 3)); yourself ]
+	^ super typePrototypes withPositions ==> [ :production | PWBASTTypePrototypes new startPosition: production start; stopPosition: production stop; declarations: (self rejectSeparators: (production content at: 3)); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> typeVariable [
 	<generated>
-	^ super typeVariable ==> [ :production | PWBASTTypeVariable new attributes: (production ifNotNil: [(production at: 3)]); yourself ]
+	^ super typeVariable withPositions ==> [ :production | PWBASTTypeVariable new startPosition: production start; stopPosition: production stop; attributes: (production content ifNotNil: [(production content at: 3)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> uncheckedIdentifier [
 	<generated>
-	^ super uncheckedIdentifier flatten ==> [ :production | PWBASTUncheckedIdentifier new uncheckedIdentifier: production; yourself ]
+	^ super uncheckedIdentifier flatten withPositions  ==> [ :production | PWBASTUncheckedIdentifier new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> usingClause [
 	<generated>
-	^ super usingClause ==> [ :production | PWBASTUsingClause new transactionObject: (production at: 3); yourself ]
+	^ super usingClause withPositions ==> [ :production | PWBASTUsingClause new startPosition: production start; stopPosition: production stop; transactionObject: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> variable [
 	<generated>
-	^ super variable ==> [ :production | PWBASTVariable new this: (production ifNotNil: [(production at: 1)]); identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayWithSize: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> variableAssignation [
 	<generated>
-	^ super variableAssignation ==> [ :production | PWBASTVariableAssignation new variable: (production at: 1); assignation: (production ifNotNil: [(production at: 2)]); yourself ]
+	^ super variableAssignation withPositions ==> [ :production | PWBASTVariableAssignation new startPosition: production start; stopPosition: production stop; variable: (production content at: 1); assignation: (production content ifNotNil: [(production content at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> variableDeclarations [
 	<generated>
-	^ super variableDeclarations ==> [ :production | PWBASTVariableDeclarations new type: (production at: 1); variableAssignations: (self rejectSeparators: (production at: 3)); yourself ]
+	^ super variableDeclarations withPositions ==> [ :production | PWBASTVariableDeclarations new startPosition: production start; stopPosition: production stop; type: (production content at: 1); variableAssignations: (self rejectSeparators: (production content at: 3)); yourself ]
 ]
 
 { #category : #rules }
 PWBCommonParser >> withinClause [
 	<generated>
-	^ super withinClause ==> [ :production | PWBASTWithinClause new customType: (production at: 3); yourself ]
+	^ super withinClause withPositions ==> [ :production | PWBASTWithinClause new startPosition: production start; stopPosition: production stop; customType: (production content at: 3); yourself ]
 ]

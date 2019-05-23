@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTDefaultVariable,
 	#superclass : #Object,
 	#instVars : [
-		'defaultVariable'
+		'defaultVariable',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTDefaultVariable >> defaultVariable [
 { #category : #accessing }
 PWBASTDefaultVariable >> defaultVariable: anObject [
 	defaultVariable := anObject
+]
+
+{ #category : #accessing }
+PWBASTDefaultVariable >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTDefaultVariable >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTDefaultVariable >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTDefaultVariable >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTGraphicComponentToken,
 	#superclass : #Object,
 	#instVars : [
-		'graphicComponentToken'
+		'graphicComponentToken',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTGraphicComponentToken >> graphicComponentToken [
 { #category : #accessing }
 PWBASTGraphicComponentToken >> graphicComponentToken: anObject [
 	graphicComponentToken := anObject
+]
+
+{ #category : #accessing }
+PWBASTGraphicComponentToken >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTGraphicComponentToken >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTGraphicComponentToken >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTGraphicComponentToken >> stopPosition: anObject [
+	stopPosition := anObject
 ]

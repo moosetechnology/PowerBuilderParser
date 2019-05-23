@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTArrayDesignation,
 	#superclass : #Object,
 	#instVars : [
-		'arrayDesignation'
+		'arrayDesignation',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTArrayDesignation >> arrayDesignation [
 { #category : #accessing }
 PWBASTArrayDesignation >> arrayDesignation: anObject [
 	arrayDesignation := anObject
+]
+
+{ #category : #accessing }
+PWBASTArrayDesignation >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTArrayDesignation >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTArrayDesignation >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTArrayDesignation >> stopPosition: anObject [
+	stopPosition := anObject
 ]

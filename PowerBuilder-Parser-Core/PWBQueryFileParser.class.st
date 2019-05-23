@@ -7,289 +7,289 @@ Class {
 { #category : #rules }
 PWBQueryFileParser >> access [
 	<generated>
-	^ super access ==> [ :production | PWBASTAccess new variable: (production at: 1); arrayPosition: (production ifNotNil: [(production at: 2)]); attributeAccesses: (production at: 3); yourself ]
+	^ super access withPositions ==> [ :production | PWBASTAccess new startPosition: production start; stopPosition: production stop; variable: (production content at: 1); arrayPosition: (production content ifNotNil: [(production content at: 2)]); attributeAccesses: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> accessOrType [
 	<generated>
-	^ super accessOrType ==> [ :production | PWBASTAccessOrType new accessOrType: production; yourself ]
+	^ super accessOrType withPositions ==> [ :production | PWBASTAccessOrType new startPosition: production start; stopPosition: production stop; accessOrType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> argument [
 	<generated>
-	^ super argument ==> [ :production | PWBASTArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); type: (production at: 2); identifier: (production at: 4); arrayWithSize: (production ifNotNil: [(production at: 5)]); yourself ]
+	^ super argument withPositions ==> [ :production | PWBASTArgument new startPosition: production start; stopPosition: production stop; argumentOption: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); type: (production content at: 2); identifier: (production content at: 4); arrayWithSize: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> argumentOption [
 	<generated>
-	^ super argumentOption flatten ==> [ :production | PWBASTArgumentOption new argumentOption: production; yourself ]
+	^ super argumentOption flatten withPositions  ==> [ :production | PWBASTArgumentOption new startPosition: production start; stopPosition: production stop; argumentOption: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> arguments [
 	<generated>
-	^ super arguments ==> [ :production | PWBASTArguments new arguments: ((production at: 3) ifNotNil: [(self rejectSeparators: (production at: 3))]); yourself ]
+	^ super arguments withPositions ==> [ :production | PWBASTArguments new startPosition: production start; stopPosition: production stop; arguments: ((production content at: 3) ifNotNil: [(self rejectSeparators: (production content at: 3))]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> array [
 	<generated>
-	^ super array ==> [ :production | PWBASTArray new expressions: (self rejectSeparators: (production at: 2)); yourself ]
+	^ super array withPositions ==> [ :production | PWBASTArray new startPosition: production start; stopPosition: production stop; expressions: (self rejectSeparators: (production content at: 2)); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> arrayDesignation [
 	<generated>
-	^ super arrayDesignation flatten ==> [ :production | PWBASTArrayDesignation new arrayDesignation: production; yourself ]
+	^ super arrayDesignation flatten withPositions  ==> [ :production | PWBASTArrayDesignation new startPosition: production start; stopPosition: production stop; arrayDesignation: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> arrayPosition [
 	<generated>
-	^ super arrayPosition ==> [ :production | PWBASTArrayPosition new expression: (production at: 2); yourself ]
+	^ super arrayPosition withPositions ==> [ :production | PWBASTArrayPosition new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> arrayWithSize [
 	<generated>
-	^ super arrayWithSize ==> [ :production | PWBASTArrayWithSize new expressions: ((production at: 4) ifNotNil: [(self rejectSeparators: (production at: 4))]); yourself ]
+	^ super arrayWithSize withPositions ==> [ :production | PWBASTArrayWithSize new startPosition: production start; stopPosition: production stop; expressions: ((production content at: 4) ifNotNil: [(self rejectSeparators: (production content at: 4))]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> assignation [
 	<generated>
-	^ super assignation ==> [ :production | PWBASTAssignation new expression: (production at: 4); yourself ]
+	^ super assignation withPositions ==> [ :production | PWBASTAssignation new startPosition: production start; stopPosition: production stop; expression: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> assignationStatement [
 	<generated>
-	^ super assignationStatement ==> [ :production | PWBASTAssignationStatement new access: (production at: 1); assignation: (production at: 2); yourself ]
+	^ super assignationStatement withPositions ==> [ :production | PWBASTAssignationStatement new startPosition: production start; stopPosition: production stop; access: (production content at: 1); assignation: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> attributeAccess [
 	<generated>
-	^ super attributeAccess ==> [ :production | PWBASTAttributeAccess new uncheckedIdentifier: (production at: 2); arrayInformation: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super attributeAccess withPositions ==> [ :production | PWBASTAttributeAccess new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 2); arrayInformation: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> basicType [
 	<generated>
-	^ super basicType flatten ==> [ :production | PWBASTBasicType new basicType: production; yourself ]
+	^ super basicType flatten withPositions  ==> [ :production | PWBASTBasicType new startPosition: production start; stopPosition: production stop; basicType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> booleanValue [
 	<generated>
-	^ super booleanValue flatten ==> [ :production | PWBASTBooleanValue new booleanValue: production; yourself ]
+	^ super booleanValue flatten withPositions  ==> [ :production | PWBASTBooleanValue new startPosition: production start; stopPosition: production stop; booleanValue: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> callStatement [
 	<generated>
-	^ super callStatement ==> [ :production | PWBASTCallStatement new variable: (production at: 3); identifier: ((production at: 4) ifNotNil: [((production at: 4) at: 2)]); eventType: (production at: 6); yourself ]
+	^ super callStatement withPositions ==> [ :production | PWBASTCallStatement new startPosition: production start; stopPosition: production stop; variable: (production content at: 3); identifier: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); eventType: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> condition [
 	<generated>
-	^ super condition ==> [ :production | PWBASTCondition new expression: production; yourself ]
+	^ super condition withPositions ==> [ :production | PWBASTCondition new startPosition: production start; stopPosition: production stop; expression: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> constant [
 	<generated>
-	^ super constant flatten ==> [ :production | PWBASTConstant new constant: production; yourself ]
+	^ super constant flatten withPositions  ==> [ :production | PWBASTConstant new startPosition: production start; stopPosition: production stop; constant: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> continueStatement [
 	<generated>
-	^ super continueStatement flatten ==> [ :production | PWBASTContinueStatement new continueStatement: production; yourself ]
+	^ super continueStatement flatten withPositions  ==> [ :production | PWBASTContinueStatement new startPosition: production start; stopPosition: production stop; continueStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> createInstruction [
 	<generated>
-	^ super createInstruction ==> [ :production | PWBASTCreateInstruction new variable: (production at: 3); yourself ]
+	^ super createInstruction withPositions ==> [ :production | PWBASTCreateInstruction new startPosition: production start; stopPosition: production stop; variable: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> customType [
 	<generated>
-	^ super customType ==> [ :production | PWBASTCustomType new identifier: production; yourself ]
+	^ super customType withPositions ==> [ :production | PWBASTCustomType new startPosition: production start; stopPosition: production stop; identifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> defaultEventType [
 	<generated>
-	^ super defaultEventType flatten ==> [ :production | PWBASTDefaultEventType new defaultEventType: production; yourself ]
+	^ super defaultEventType flatten withPositions  ==> [ :production | PWBASTDefaultEventType new startPosition: production start; stopPosition: production stop; defaultEventType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> defaultVariable [
 	<generated>
-	^ super defaultVariable flatten ==> [ :production | PWBASTDefaultVariable new defaultVariable: production; yourself ]
+	^ super defaultVariable flatten withPositions  ==> [ :production | PWBASTDefaultVariable new startPosition: production start; stopPosition: production stop; defaultVariable: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> dynamicMethodInvocation [
 	<generated>
-	^ super dynamicMethodInvocation ==> [ :production | PWBASTDynamicMethodInvocation new uncheckedIdentifier: (production at: 5); functionArguments: (production at: 7); yourself ]
+	^ super dynamicMethodInvocation withPositions ==> [ :production | PWBASTDynamicMethodInvocation new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 5); functionArguments: (production content at: 7); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> else [
 	<generated>
-	^ super else ==> [ :production | PWBASTElse new statements: (production ifNotNil: [(production at: 3)]); yourself ]
+	^ super else withPositions ==> [ :production | PWBASTElse new startPosition: production start; stopPosition: production stop; statements: (production content ifNotNil: [(production content at: 3)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> elseIf [
 	<generated>
-	^ super elseIf ==> [ :production | PWBASTElseIf new expression: (production at: 3); statements: (production ifNotNil: [(production at: 7)]); yourself ]
+	^ super elseIf withPositions ==> [ :production | PWBASTElseIf new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> elseOnLine [
 	<generated>
-	^ super elseOnLine ==> [ :production | PWBASTElseOnLine new statement: (production at: 4); yourself ]
+	^ super elseOnLine withPositions ==> [ :production | PWBASTElseOnLine new startPosition: production start; stopPosition: production stop; statement: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> eventType [
 	<generated>
-	^ super eventType ==> [ :production | PWBASTEventType new eventType: production; yourself ]
+	^ super eventType withPositions ==> [ :production | PWBASTEventType new startPosition: production start; stopPosition: production stop; eventType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> exitStatement [
 	<generated>
-	^ super exitStatement flatten ==> [ :production | PWBASTExitStatement new exitStatement: production; yourself ]
+	^ super exitStatement flatten withPositions  ==> [ :production | PWBASTExitStatement new startPosition: production start; stopPosition: production stop; exitStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> expression [
 	<generated>
-	^ super expression ==> [ :production | PWBASTExpression new expression: (production at: 1); methodInvocations: (production at: 2); yourself ]
+	^ super expression withPositions ==> [ :production | PWBASTExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 1); methodInvocations: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> expressionTerm [
 	<generated>
-	^ super expressionTerm ==> [ :production | PWBASTExpressionTerm new expressionTerm: production; yourself ]
+	^ super expressionTerm withPositions ==> [ :production | PWBASTExpressionTerm new startPosition: production start; stopPosition: production stop; expressionTerm: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> expressionWithSign [
 	<generated>
-	^ super expressionWithSign ==> [ :production | PWBASTExpressionWithSign new expression: (production at: 3); yourself ]
+	^ super expressionWithSign withPositions ==> [ :production | PWBASTExpressionWithSign new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> file [
 	<generated>
-	^ super file ==> [ :production | PWBASTFile new content: production; yourself ]
+	^ super file withPositions ==> [ :production | PWBASTFile new startPosition: production start; stopPosition: production stop; content: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> functionArgument [
 	<generated>
-	^ super functionArgument ==> [ :production | PWBASTFunctionArgument new argumentOption: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); expression: (production at: 2); yourself ]
+	^ super functionArgument withPositions ==> [ :production | PWBASTFunctionArgument new startPosition: production start; stopPosition: production stop; argumentOption: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); expression: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> functionArguments [
 	<generated>
-	^ super functionArguments ==> [ :production | PWBASTFunctionArguments new functionArguments: ((production at: 2) ifNotNil: [(self rejectSeparators: (production at: 2))]); yourself ]
+	^ super functionArguments withPositions ==> [ :production | PWBASTFunctionArguments new startPosition: production start; stopPosition: production stop; functionArguments: ((production content at: 2) ifNotNil: [(self rejectSeparators: (production content at: 2))]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> functionInvocation [
 	<generated>
-	^ super functionInvocation ==> [ :production | PWBASTFunctionInvocation new defaultVariable: ((production at: 1) ifNotNil: [((production at: 1) at: 1)]); functionName: (production at: 2); functionArguments: (production at: 4); yourself ]
+	^ super functionInvocation withPositions ==> [ :production | PWBASTFunctionInvocation new startPosition: production start; stopPosition: production stop; defaultVariable: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); functionName: (production content at: 2); functionArguments: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> identifier [
 	<generated>
-	^ super identifier flatten ==> [ :production | PWBASTIdentifier new identifier: production; yourself ]
+	^ super identifier flatten withPositions  ==> [ :production | PWBASTIdentifier new startPosition: production start; stopPosition: production stop; identifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> ifMultiLine [
 	<generated>
-	^ super ifMultiLine ==> [ :production | PWBASTIfMultiLine new condition: (production at: 3); statements: (production ifNotNil: [(production at: 7)]); elseIfs: ((production at: 8) collect: [:subProduction | subProduction at: 2]); else: ((production at: 9) ifNotNil: [((production at: 9) at: 2)]); yourself ]
+	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction content at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> ifSingleLine [
 	<generated>
-	^ super ifSingleLine ==> [ :production | PWBASTIfSingleLine new condition: (production at: 3); statement: (production at: 7); elseOnLine: (production ifNotNil: [(production at: 8)]); yourself ]
+	^ super ifSingleLine withPositions ==> [ :production | PWBASTIfSingleLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statement: (production content at: 7); elseOnLine: (production content ifNotNil: [(production content at: 8)]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> ifStatement [
 	<generated>
-	^ super ifStatement ==> [ :production | PWBASTIfStatement new ifStatement: production; yourself ]
+	^ super ifStatement withPositions ==> [ :production | PWBASTIfStatement new startPosition: production start; stopPosition: production stop; ifStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> methodInvocation [
 	<generated>
-	^ super methodInvocation ==> [ :production | PWBASTMethodInvocation new methodInvocation: production; yourself ]
+	^ super methodInvocation withPositions ==> [ :production | PWBASTMethodInvocation new startPosition: production start; stopPosition: production stop; methodInvocation: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> notExpression [
 	<generated>
-	^ super notExpression ==> [ :production | PWBASTNotExpression new expression: (production at: 3); yourself ]
+	^ super notExpression withPositions ==> [ :production | PWBASTNotExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> number [
 	<generated>
-	^ super number flatten ==> [ :production | PWBASTNumber new number: production; yourself ]
+	^ super number flatten withPositions  ==> [ :production | PWBASTNumber new startPosition: production start; stopPosition: production stop; number: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> operatorExpression [
 	<generated>
-	^ super operatorExpression ==> [ :production | PWBASTOperatorExpression new left: (production at: 1); methodInvocations: (production at: 2); right: (production at: 6); yourself ]
+	^ super operatorExpression withPositions ==> [ :production | PWBASTOperatorExpression new startPosition: production start; stopPosition: production stop; left: (production content at: 1); methodInvocations: (production content at: 2); right: (production content at: 6); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> parametrizedType [
 	<generated>
-	^ super parametrizedType flatten ==> [ :production | PWBASTParametrizedType new parametrizedType: production; yourself ]
+	^ super parametrizedType flatten withPositions  ==> [ :production | PWBASTParametrizedType new startPosition: production start; stopPosition: production stop; parametrizedType: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> parenthesedArray [
 	<generated>
-	^ super parenthesedArray ==> [ :production | PWBASTParenthesedArray new expression: (production at: 2); expressions: ((production at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
+	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> parenthesedExpression [
 	<generated>
-	^ super parenthesedExpression ==> [ :production | PWBASTParenthesedExpression new expression: (production at: 3); yourself ]
+	^ super parenthesedExpression withPositions ==> [ :production | PWBASTParenthesedExpression new startPosition: production start; stopPosition: production stop; expression: (production content at: 3); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> postFixOperator [
 	<generated>
-	^ super postFixOperator ==> [ :production | PWBASTPostFixOperator new access: (production at: 1); yourself ]
+	^ super postFixOperator withPositions ==> [ :production | PWBASTPostFixOperator new startPosition: production start; stopPosition: production stop; access: (production content at: 1); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> regularMethodInvocation [
 	<generated>
-	^ super regularMethodInvocation ==> [ :production | PWBASTRegularMethodInvocation new uncheckedIdentifier: (production at: 4); functionArguments: (production at: 6); yourself ]
+	^ super regularMethodInvocation withPositions ==> [ :production | PWBASTRegularMethodInvocation new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: (production content at: 4); functionArguments: (production content at: 6); yourself ]
 ]
 
 { #category : #helpers }
@@ -301,7 +301,7 @@ PWBQueryFileParser >> rejectSeparators: anArray [
 { #category : #rules }
 PWBQueryFileParser >> returnStatement [
 	<generated>
-	^ super returnStatement ==> [ :production | PWBASTReturnStatement new expression: ((production at: 2) ifNotNil: [((production at: 2) at: 2)]); yourself ]
+	^ super returnStatement withPositions ==> [ :production | PWBASTReturnStatement new startPosition: production start; stopPosition: production stop; expression: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); yourself ]
 ]
 
 { #category : #helpers }
@@ -313,53 +313,53 @@ PWBQueryFileParser >> selectSeparators: anArray [
 { #category : #rules }
 PWBQueryFileParser >> specialStatement [
 	<generated>
-	^ super specialStatement ==> [ :production | PWBASTSpecialStatement new specialStatement: production; yourself ]
+	^ super specialStatement withPositions ==> [ :production | PWBASTSpecialStatement new startPosition: production start; stopPosition: production stop; specialStatement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> sqlQuery [
 	<generated>
-	^ super sqlQuery flatten ==> [ :production | PWBASTSqlQuery new sqlQuery: production; yourself ]
+	^ super sqlQuery flatten withPositions  ==> [ :production | PWBASTSqlQuery new startPosition: production start; stopPosition: production stop; sqlQuery: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> statement [
 	<generated>
-	^ super statement ==> [ :production | PWBASTStatement new statement: production; yourself ]
+	^ super statement withPositions ==> [ :production | PWBASTStatement new startPosition: production start; stopPosition: production stop; statement: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> statements [
 	<generated>
-	^ super statements ==> [ :production | PWBASTStatements new statements: (self rejectSeparators: production); yourself ]
+	^ super statements withPositions ==> [ :production | PWBASTStatements new startPosition: production start; stopPosition: production stop; statements: (self rejectSeparators: (production content at: 1)); yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> string [
 	<generated>
-	^ super string flatten ==> [ :production | PWBASTString new string: production; yourself ]
+	^ super string flatten withPositions  ==> [ :production | PWBASTString new startPosition: production start; stopPosition: production stop; string: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> this [
 	<generated>
-	^ super this flatten ==> [ :production | PWBASTThis new this: production; yourself ]
+	^ super this flatten withPositions  ==> [ :production | PWBASTThis new startPosition: production start; stopPosition: production stop; this: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> type [
 	<generated>
-	^ super type ==> [ :production | PWBASTType new type: production; yourself ]
+	^ super type withPositions ==> [ :production | PWBASTType new startPosition: production start; stopPosition: production stop; type: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> uncheckedIdentifier [
 	<generated>
-	^ super uncheckedIdentifier flatten ==> [ :production | PWBASTUncheckedIdentifier new uncheckedIdentifier: production; yourself ]
+	^ super uncheckedIdentifier flatten withPositions  ==> [ :production | PWBASTUncheckedIdentifier new startPosition: production start; stopPosition: production stop; uncheckedIdentifier: production content; yourself ]
 ]
 
 { #category : #rules }
 PWBQueryFileParser >> variable [
 	<generated>
-	^ super variable ==> [ :production | PWBASTVariable new this: (production ifNotNil: [(production at: 1)]); identifier: (production at: 2); arrayWithSize: (production ifNotNil: [(production at: 4)]); yourself ]
+	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayWithSize: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]

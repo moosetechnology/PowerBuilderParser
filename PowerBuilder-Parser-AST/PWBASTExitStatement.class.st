@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTExitStatement,
 	#superclass : #Object,
 	#instVars : [
-		'exitStatement'
+		'exitStatement',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTExitStatement >> exitStatement [
 { #category : #accessing }
 PWBASTExitStatement >> exitStatement: anObject [
 	exitStatement := anObject
+]
+
+{ #category : #accessing }
+PWBASTExitStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTExitStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTExitStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTExitStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]

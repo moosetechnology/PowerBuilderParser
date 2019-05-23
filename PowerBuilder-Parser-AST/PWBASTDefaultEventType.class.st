@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTDefaultEventType,
 	#superclass : #Object,
 	#instVars : [
-		'defaultEventType'
+		'defaultEventType',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTDefaultEventType >> defaultEventType [
 { #category : #accessing }
 PWBASTDefaultEventType >> defaultEventType: anObject [
 	defaultEventType := anObject
+]
+
+{ #category : #accessing }
+PWBASTDefaultEventType >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTDefaultEventType >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTDefaultEventType >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTDefaultEventType >> stopPosition: anObject [
+	stopPosition := anObject
 ]

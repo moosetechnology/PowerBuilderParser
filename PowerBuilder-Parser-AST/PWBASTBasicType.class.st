@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTBasicType,
 	#superclass : #Object,
 	#instVars : [
-		'basicType'
+		'basicType',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTBasicType >> basicType [
 { #category : #accessing }
 PWBASTBasicType >> basicType: anObject [
 	basicType := anObject
+]
+
+{ #category : #accessing }
+PWBASTBasicType >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTBasicType >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTBasicType >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTBasicType >> stopPosition: anObject [
+	stopPosition := anObject
 ]

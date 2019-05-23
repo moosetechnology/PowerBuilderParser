@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTThis,
 	#superclass : #Object,
 	#instVars : [
-		'this'
+		'this',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -11,6 +13,26 @@ Class {
 PWBASTThis >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTThis: self
+]
+
+{ #category : #accessing }
+PWBASTThis >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTThis >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTThis >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTThis >> stopPosition: anObject [
+	stopPosition := anObject
 ]
 
 { #category : #accessing }

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTEndForward,
 	#superclass : #Object,
 	#instVars : [
-		'endForward'
+		'endForward',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTEndForward >> endForward [
 { #category : #accessing }
 PWBASTEndForward >> endForward: anObject [
 	endForward := anObject
+]
+
+{ #category : #accessing }
+PWBASTEndForward >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTEndForward >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTEndForward >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTEndForward >> stopPosition: anObject [
+	stopPosition := anObject
 ]

@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTParametrizedType,
 	#superclass : #Object,
 	#instVars : [
-		'parametrizedType'
+		'parametrizedType',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTParametrizedType >> parametrizedType [
 { #category : #accessing }
 PWBASTParametrizedType >> parametrizedType: anObject [
 	parametrizedType := anObject
+]
+
+{ #category : #accessing }
+PWBASTParametrizedType >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTParametrizedType >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTParametrizedType >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTParametrizedType >> stopPosition: anObject [
+	stopPosition := anObject
 ]

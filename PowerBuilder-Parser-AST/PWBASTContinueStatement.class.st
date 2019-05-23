@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTContinueStatement,
 	#superclass : #Object,
 	#instVars : [
-		'continueStatement'
+		'continueStatement',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTContinueStatement >> continueStatement [
 { #category : #accessing }
 PWBASTContinueStatement >> continueStatement: anObject [
 	continueStatement := anObject
+]
+
+{ #category : #accessing }
+PWBASTContinueStatement >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTContinueStatement >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTContinueStatement >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTContinueStatement >> stopPosition: anObject [
+	stopPosition := anObject
 ]

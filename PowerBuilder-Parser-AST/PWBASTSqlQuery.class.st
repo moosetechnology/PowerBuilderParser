@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTSqlQuery,
 	#superclass : #Object,
 	#instVars : [
-		'sqlQuery'
+		'sqlQuery',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTSqlQuery >> sqlQuery [
 { #category : #accessing }
 PWBASTSqlQuery >> sqlQuery: anObject [
 	sqlQuery := anObject
+]
+
+{ #category : #accessing }
+PWBASTSqlQuery >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTSqlQuery >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTSqlQuery >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTSqlQuery >> stopPosition: anObject [
+	stopPosition := anObject
 ]

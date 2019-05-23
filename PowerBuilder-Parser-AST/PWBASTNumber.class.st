@@ -2,7 +2,9 @@ Class {
 	#name : #PWBASTNumber,
 	#superclass : #Object,
 	#instVars : [
-		'number'
+		'number',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -21,4 +23,24 @@ PWBASTNumber >> number [
 { #category : #accessing }
 PWBASTNumber >> number: anObject [
 	number := anObject
+]
+
+{ #category : #accessing }
+PWBASTNumber >> startPosition [
+	^ startPosition
+]
+
+{ #category : #accessing }
+PWBASTNumber >> startPosition: anObject [
+	startPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTNumber >> stopPosition [
+	^ stopPosition
+]
+
+{ #category : #accessing }
+PWBASTNumber >> stopPosition: anObject [
+	stopPosition := anObject
 ]
