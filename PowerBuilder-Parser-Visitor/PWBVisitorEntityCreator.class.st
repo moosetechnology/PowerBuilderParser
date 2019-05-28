@@ -73,6 +73,24 @@ PWBVisitorEntityCreator >> visitPWBASTElseIf: aPWBASTElseIf [
 ]
 
 { #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
+	self
+		useCurrentEntity: (self create: FamixPWBEvent from: aPWBASTEventDeclaration)
+		during: [ self visit: aPWBASTEventDeclaration eventReferenceName.
+			self visit: aPWBASTEventDeclaration customCallStatement.
+			self visit: aPWBASTEventDeclaration statements ]
+]
+
+{ #category : #visiting }
+PWBVisitorEntityCreator >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
+	self flag: #TODO.	"Manage object class correctly"
+	self visit: aPWBASTEventReferenceName objectClass.
+	self currentEntity
+		name: (self visit: aPWBASTEventReferenceName eventName).
+	self visit: aPWBASTEventReferenceName arguments
+]
+
+{ #category : #visiting }
 PWBVisitorEntityCreator >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
 	majorEntity := self

@@ -35,6 +35,23 @@ PWBVisitorReferenceCreator >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodI
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
+	self
+		useCurrentEntity: (self visit: aPWBASTEventDeclaration eventReferenceName)
+		during: [ self visit: aPWBASTEventDeclaration customCallStatement.
+			self visit: aPWBASTEventDeclaration statements ]
+]
+
+{ #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
+	^ self
+		useEntityNamed: (self visit: aPWBASTEventReferenceName eventName)
+		ofType: FamixPWBEvent
+		during: [ self visit: aPWBASTEventReferenceName objectClass.
+			self visit: aPWBASTEventReferenceName arguments ]
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 	self
 		useCurrentEntity:
