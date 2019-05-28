@@ -66,6 +66,7 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 	| mooseModel library |
 	mooseModel := MooseModel new.
 	mooseModel name: 'IzyProtectMooseModel'.
+	mooseModel rootFolder: aFolder.
 	aFolder asFileReference directories
 		do: [ :dir | 
 			library := FamixPWBLibrary new.
