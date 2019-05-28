@@ -34,10 +34,13 @@ PWBFamixImporter class >> fillModelUsing: aLibrary fromFolder: aFolder [
 							visitor := PWBVisitorEntityCreator new.
 							visitor
 								model: aLibrary mooseModel;
+								file: aFile;
 								currentLibrary: aLibrary.
 							result acceptVisitor: visitor.
 							visitor := PWBVisitorReferenceCreator new.
-							visitor model: aLibrary mooseModel.
+							visitor
+								model: aLibrary mooseModel;
+								file: aFile.
 							result acceptVisitor: visitor ] ] ].
 	^ debugObjects
 ]

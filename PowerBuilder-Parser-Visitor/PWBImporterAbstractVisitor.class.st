@@ -4,7 +4,8 @@ Class {
 	#traits : 'SRSolverUserVisitor',
 	#classTraits : 'SRSolverUserVisitor classTrait',
 	#instVars : [
-		'model'
+		'model',
+		'file'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -23,6 +24,16 @@ PWBImporterAbstractVisitor >> create: aClass [
 		do:
 			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
 	^ entity
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> file [
+	^ file
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> file: anObject [
+	file := anObject
 ]
 
 { #category : #'entities creation' }
