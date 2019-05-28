@@ -223,7 +223,7 @@ PWBQueryFileParser >> identifier [
 { #category : #rules }
 PWBQueryFileParser >> ifMultiLine [
 	<generated>
-	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction content at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
+	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
@@ -271,7 +271,7 @@ PWBQueryFileParser >> parametrizedType [
 { #category : #rules }
 PWBQueryFileParser >> parenthesedArray [
 	<generated>
-	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); yourself ]
+	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }

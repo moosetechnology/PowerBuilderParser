@@ -97,7 +97,7 @@ PWBCommonParser >> attributeAccess [
 { #category : #rules }
 PWBCommonParser >> attributes [
 	<generated>
-	^ super attributes withPositions ==> [ :production | PWBASTAttributes new startPosition: production start; stopPosition: production stop; attributeses: (self rejectSeparators: (production content at: 1)); yourself ]
+	^ super attributes withPositions ==> [ :production | PWBASTAttributes new startPosition: production start; stopPosition: production stop; attributes: (self rejectSeparators: (production content at: 1)); yourself ]
 ]
 
 { #category : #rules }
@@ -385,7 +385,7 @@ PWBCommonParser >> functionArguments [
 { #category : #rules }
 PWBCommonParser >> functionDeclaration [
 	<generated>
-	^ super functionDeclaration withPositions ==> [ :production | PWBASTFunctionDeclaration new startPosition: production start; stopPosition: production stop; functionSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction content at: 2]); yourself ]
+	^ super functionDeclaration withPositions ==> [ :production | PWBASTFunctionDeclaration new startPosition: production start; stopPosition: production stop; functionSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -427,7 +427,7 @@ PWBCommonParser >> identifier [
 { #category : #rules }
 PWBCommonParser >> ifMultiLine [
 	<generated>
-	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction content at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
+	^ super ifMultiLine withPositions ==> [ :production | PWBASTIfMultiLine new startPosition: production start; stopPosition: production stop; condition: (production content at: 3); statements: (production content ifNotNil: [(production content at: 7)]); elseIfs: ((production content at: 8) collect: [:subProduction | subProduction at: 2]); else: ((production content at: 9) ifNotNil: [((production content at: 9) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
@@ -487,7 +487,7 @@ PWBCommonParser >> parametrizedType [
 { #category : #rules }
 PWBCommonParser >> parenthesedArray [
 	<generated>
-	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); yourself ]
+	^ super parenthesedArray withPositions ==> [ :production | PWBASTParenthesedArray new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); expressions: ((production content at: 3) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -595,7 +595,7 @@ PWBCommonParser >> string [
 { #category : #rules }
 PWBCommonParser >> subroutineDeclaration [
 	<generated>
-	^ super subroutineDeclaration withPositions ==> [ :production | PWBASTSubroutineDeclaration new startPosition: production start; stopPosition: production stop; subroutineSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction content at: 2]); yourself ]
+	^ super subroutineDeclaration withPositions ==> [ :production | PWBASTSubroutineDeclaration new startPosition: production start; stopPosition: production stop; subroutineSignature: (production content at: 1); behaviouralOptions: ((production content at: 2) collect: [:subProduction | subProduction at: 2]); yourself ]
 ]
 
 { #category : #rules }
@@ -631,7 +631,7 @@ PWBCommonParser >> triggerDefinition [
 { #category : #rules }
 PWBCommonParser >> tryCatch [
 	<generated>
-	^ super tryCatch withPositions ==> [ :production | PWBASTTryCatch new startPosition: production start; stopPosition: production stop; statements: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); catchBlocks: ((production content at: 3) collect: [:subProduction | subProduction content at: 2]); finallyBlock: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
+	^ super tryCatch withPositions ==> [ :production | PWBASTTryCatch new startPosition: production start; stopPosition: production stop; statements: ((production content at: 2) ifNotNil: [((production content at: 2) at: 2)]); catchBlocks: ((production content at: 3) collect: [:subProduction | subProduction at: 2]); finallyBlock: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
