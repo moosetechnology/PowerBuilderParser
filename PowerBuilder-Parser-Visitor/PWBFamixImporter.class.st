@@ -27,19 +27,18 @@ PWBFamixImporter class >> fillModelUsing: aLibrary fromFolder: aFolder [
 		thenDo: [ :aFile | 
 			| result |
 			aFile contents isEmpty
-				ifTrue: [ ^ self ].
-			result := PWBAbstractGrammar obtainASTFromFile: aFile.
-			result isPetit2Failure
-				ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
-				ifFalse: [ | visitor |
-					visitor := PWBVisitorEntityCreator new.
-					visitor
-						model: aLibrary mooseModel;
-						currentLibrary: aLibrary.
-					result acceptVisitor: visitor.
-					visitor := PWBVisitorReferenceCreator new.
-					visitor model: aLibrary mooseModel.
-					result acceptVisitor: visitor ] ].
+				ifFalse: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
+					result isPetit2Failure
+						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
+						ifFalse: [ | visitor |
+							visitor := PWBVisitorEntityCreator new.
+							visitor
+								model: aLibrary mooseModel;
+								currentLibrary: aLibrary.
+							result acceptVisitor: visitor.
+							visitor := PWBVisitorReferenceCreator new.
+							visitor model: aLibrary mooseModel.
+							result acceptVisitor: visitor ] ] ].
 	^ debugObjects
 ]
 
