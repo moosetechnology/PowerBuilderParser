@@ -80,40 +80,38 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
-	library --|> #TNamed.
+	library
+		--|> #TNamed;
+		--|> #TWithSourceAnchor.
 	graphicComponent --|> sourcedEntity.
 	event
 		--|> behavioral;
-		--|> sourcedEntity;
+		--|> #TMethod;
 		--|> #TNamed.
 	function
-		--|> sourcedEntity;
 		--|> behavioral;
 		--|> #TNamed;
 		--|> #TFunction.
 	trigger
-		--|> sourcedEntity;
 		--|> #TWithAttributes;
 		--|> behavioral;
 		--|> #TMethod;
 		--|> #TNamed.
 	subRoutine
-		--|> sourcedEntity;
-		--|> #TWithAttributes;
 		--|> behavioral;
 		--|> #TMethod;
 		--|> #TNamed.
 	variable
-		--|> sourcedEntity;
+		--|> #TWithSourceAnchor;
 		--|> #TNamed;
 		--|> #TWithTypes;
 		--|> #TAccessible.
 	dataWindow
-		--|> sourcedEntity;
+		--|> #TWithSourceAnchor;
 		--|> #TNamed;
 		--|> #TWithAttributes.
 	attribute
-		--|> sourcedEntity;
+		--|> #TWithSourceAnchor;
 		--|> #TNamed;
 		--|> #TAttribute.
 	method
@@ -123,14 +121,18 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithParameters;
 		--|> #TInvocable;
 		--|> #TWithSignature.
-	behavioral --|> #TWithAccesses.
+	behavioral
+		--|> #TWithSourceAnchor;
+		--|> #TWithAccesses.
 	invocation --|> association.
 	invocation --|> #TInvocation.
-	invocation --|> #TWithSignature.
+	invocation
+		--|> #TWithSignature;
+		--|> #TWithSourceAnchor.
 
 	"Defining all major objects (files)"
 	majorObject
-		--|> sourcedEntity;
+		--|> #TWithSourceAnchor;
 		--|> #TNamed;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
@@ -156,12 +158,14 @@ PWBFamixModelGenerator >> defineHierarchy [
 	basicType --|> abstractType.
 	access
 		--|> association;
+		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	variableAccess
 		--|> association;
+		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	attribute
-		--|> sourcedEntity;
+		--|> #TWithSourceAnchor;
 		--|> #TNamed;
 		--|> #TAttribute;
 		--|> #TWithTypes;
@@ -177,7 +181,7 @@ PWBFamixModelGenerator >> defineProperties [
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineRelations [
-	(variable property: #function) *-<> (function property: #variables).
+	(variable property: #behavioral) *-<> (behavioral property: #variables).
 	(dataWindow property: #graphicComponents)
 		<>-* (graphicComponent property: #dataWindow).
 	(majorObject property: #library)
