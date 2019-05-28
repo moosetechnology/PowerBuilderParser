@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
-	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait',
+	#superclass : #MooseEntity,
+	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#cyclomaticComplexity',
 		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects'
@@ -13,7 +13,7 @@ Class {
 { #category : #meta }
 FamixPWBmajorObject class >> annotation [
 
-	<MSEClass: #majorObject super: #FamixPWBSourcedEntity>
+	<MSEClass: #majorObject super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -29,7 +29,14 @@ FamixPWBmajorObject class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBmajorObject class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue)
+	^ #(FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue FamixTWithSourceAnchor)
+]
+
+{ #category : #meta }
+FamixPWBmajorObject class >> metamodel [
+
+	<generated>
+	^ (self class environment at: #PWBFamixModelGenerator) metamodel
 ]
 
 { #category : #meta }
@@ -69,6 +76,90 @@ FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 	<generated>
 	cyclomaticComplexity := anObject
 
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isAccess [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isAssociation [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isAttribute [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isClass [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isFunction [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isInheritance [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isInvocation [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isMethod [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isNamespace [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isPackage [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isType [
+
+	<generated>
+	^ false
 ]
 
 { #category : #accessing }

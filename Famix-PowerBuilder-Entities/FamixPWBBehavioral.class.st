@@ -1,10 +1,11 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTWithAccesses',
-	#classTraits : 'FamixTWithAccesses classTrait',
+	#traits : 'FamixTWithAccesses + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
-		'#cyclomaticComplexity'
+		'#cyclomaticComplexity',
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -22,13 +23,13 @@ FamixPWBBehavioral class >> annotation [
 FamixPWBBehavioral class >> generatedSlotNames [
 	<generated>
 	'FamixPWBBehavioral class>>#generatedSlotNames'.
-	^ #(cyclomaticComplexity)
+	^ #(cyclomaticComplexity variables)
 ]
 
 { #category : #generator }
 FamixPWBBehavioral class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTWithAccesses)
+	^ #(FamixTWithAccesses FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
@@ -52,6 +53,20 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		to: aFamixPWBAccessible;
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
+		yourself
+]
+
+{ #category : #helpers }
+FamixPWBBehavioral >> createStubValueHolderNamed: aString [ 
+	^ self createValueHolderNamed: aString
+]
+
+{ #category : #helpers }
+FamixPWBBehavioral >> createValueHolderNamed: aString [ 
+	^ FamixPWBVariable new
+		belongsTo: self;
+		mooseModel: self mooseModel;
+		name: aString;
 		yourself
 ]
 
@@ -158,4 +173,33 @@ FamixPWBBehavioral >> isType [
 
 	<generated>
 	^ false
+]
+
+{ #category : #helpers }
+FamixPWBBehavioral >> reachableEntities [
+	^ self variables
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> variables [
+
+	<generated>
+	^ variables
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> variables: anObject [
+
+	<generated>
+	variables value: anObject
+
+]
+
+{ #category : #navigation }
+FamixPWBBehavioral >> variablesGroup [
+
+	<generated>
+	<navigation: 'Variables'>
+	^ MooseGroup
+			withAll: (self variables asSet)
 ]

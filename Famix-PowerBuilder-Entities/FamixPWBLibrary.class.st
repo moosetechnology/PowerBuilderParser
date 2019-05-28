@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBLibrary,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTNamed',
-	#classTraits : 'FamixTNamed classTrait',
+	#traits : 'FamixTNamed + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#userObjects => FMMany type: #FamixPWBmajorObject opposite: #library'
 	],
@@ -28,7 +28,7 @@ FamixPWBLibrary class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBLibrary class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed)
+	^ #(FamixTNamed FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }

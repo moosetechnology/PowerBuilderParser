@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBSubRoutine,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTMethod + FamixTNamed + FamixTWithAttributes',
-	#classTraits : 'FamixTMethod classTrait + FamixTNamed classTrait + FamixTWithAttributes classTrait',
+	#traits : 'FamixTMethod + FamixTNamed',
+	#classTraits : 'FamixTMethod classTrait + FamixTNamed classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBSubRoutine class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBSubRoutine class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTMethod FamixTNamed FamixTWithAttributes)
+	^ #(FamixTMethod FamixTNamed)
 ]
 
 { #category : #meta }
@@ -49,9 +49,4 @@ FamixPWBSubRoutine >> belongsTo: anObject [
 	<generated>
 	self parentType: anObject
 
-]
-
-{ #category : #helpers }
-FamixPWBSubRoutine >> reachableEntities [
-	^ self attributes
 ]

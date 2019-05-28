@@ -1,10 +1,10 @@
 Class {
 	#name : #FamixPWBVariable,
-	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTAccessible + FamixTNamed + FamixTWithTypes',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamed classTrait + FamixTWithTypes classTrait',
+	#superclass : #MooseEntity,
+	#traits : 'FamixTAccessible + FamixTNamed + FamixTWithSourceAnchor + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTNamed classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait',
 	#instVars : [
-		'#function => FMOne type: #FamixPWBFunction opposite: #variables'
+		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -12,7 +12,7 @@ Class {
 { #category : #meta }
 FamixPWBVariable class >> annotation [
 
-	<MSEClass: #Variable super: #FamixPWBSourcedEntity>
+	<MSEClass: #Variable super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -22,20 +22,27 @@ FamixPWBVariable class >> annotation [
 FamixPWBVariable class >> generatedSlotNames [
 	<generated>
 	'FamixPWBVariable class>>#generatedSlotNames'.
-	^ #(function)
+	^ #(behavioral)
 ]
 
 { #category : #generator }
 FamixPWBVariable class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTAccessible FamixTNamed FamixTWithTypes)
+	^ #(FamixTAccessible FamixTNamed FamixTWithSourceAnchor FamixTWithTypes)
+]
+
+{ #category : #meta }
+FamixPWBVariable class >> metamodel [
+
+	<generated>
+	^ (self class environment at: #PWBFamixModelGenerator) metamodel
 ]
 
 { #category : #meta }
 FamixPWBVariable class >> requirements [
 
 	<generated>
-	^ { FamixPWBFunction }
+	^ { FamixPWBBehavioral }
 ]
 
 { #category : #helpers }
@@ -44,10 +51,36 @@ FamixPWBVariable >> accessAssociation [
 ]
 
 { #category : #accessing }
+FamixPWBVariable >> behavioral [
+
+	<generated>
+	<container>
+
+	^ behavioral
+]
+
+{ #category : #accessing }
+FamixPWBVariable >> behavioral: anObject [
+
+	<generated>
+	behavioral := anObject
+
+]
+
+{ #category : #navigation }
+FamixPWBVariable >> behavioralGroup [
+
+	<generated>
+	<navigation: 'Behavioral'>
+	^ MooseGroup
+			with: (self behavioral)
+]
+
+{ #category : #accessing }
 FamixPWBVariable >> belongsTo [
 
 	<generated>
-	^ self function
+	^ self behavioral
 
 ]
 
@@ -55,32 +88,90 @@ FamixPWBVariable >> belongsTo [
 FamixPWBVariable >> belongsTo: anObject [
 
 	<generated>
-	self function: anObject
+	self behavioral: anObject
 
 ]
 
-{ #category : #accessing }
-FamixPWBVariable >> function [
+{ #category : #testing }
+FamixPWBVariable >> isAccess [
 
 	<generated>
-	<container>
-
-	^ function
+	^ false
 ]
 
-{ #category : #accessing }
-FamixPWBVariable >> function: anObject [
+{ #category : #testing }
+FamixPWBVariable >> isAssociation [
 
 	<generated>
-	function := anObject
-
+	^ false
 ]
 
-{ #category : #navigation }
-FamixPWBVariable >> functionGroup [
+{ #category : #testing }
+FamixPWBVariable >> isAttribute [
 
 	<generated>
-	<navigation: 'Function'>
-	^ MooseGroup
-			with: (self function)
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isClass [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isFunction [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isInheritance [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isInvocation [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isMethod [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isNamespace [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isPackage [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isType [
+
+	<generated>
+	^ false
 ]

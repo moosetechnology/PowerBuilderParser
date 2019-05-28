@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBInvocation,
 	#superclass : #FamixPWBAssociation,
-	#traits : 'FamixTInvocation + FamixTWithSignature',
-	#classTraits : 'FamixTInvocation classTrait + FamixTWithSignature classTrait',
+	#traits : 'FamixTInvocation + FamixTWithSignature + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTInvocation classTrait + FamixTWithSignature classTrait + FamixTWithSourceAnchor classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBInvocation class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBInvocation class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTInvocation FamixTWithSignature)
+	^ #(FamixTInvocation FamixTWithSignature FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }

@@ -1,15 +1,15 @@
 Class {
 	#name : #FamixPWBAttribute,
-	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTAccessible + FamixTAttribute + FamixTNamed + FamixTWithTypes',
-	#classTraits : 'FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTNamed classTrait + FamixTWithTypes classTrait',
+	#superclass : #MooseEntity,
+	#traits : 'FamixTAccessible + FamixTAttribute + FamixTNamed + FamixTWithSourceAnchor + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTNamed classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBAttribute class >> annotation [
 
-	<MSEClass: #Attribute super: #FamixPWBSourcedEntity>
+	<MSEClass: #Attribute super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -25,14 +25,21 @@ FamixPWBAttribute class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBAttribute class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTAccessible FamixTAttribute FamixTNamed FamixTWithTypes)
+	^ #(FamixTAccessible FamixTAttribute FamixTNamed FamixTWithSourceAnchor FamixTWithTypes)
+]
+
+{ #category : #meta }
+FamixPWBAttribute class >> metamodel [
+
+	<generated>
+	^ (self class environment at: #PWBFamixModelGenerator) metamodel
 ]
 
 { #category : #meta }
 FamixPWBAttribute class >> requirements [
 
 	<generated>
-	^ { FamixPWBDataWindow. FamixPWBSubRoutine. FamixPWBTrigger. FamixPWBmajorObject }
+	^ { FamixPWBDataWindow. FamixPWBTrigger. FamixPWBmajorObject }
 ]
 
 { #category : #helpers }
@@ -54,4 +61,81 @@ FamixPWBAttribute >> belongsTo: anObject [
 	<generated>
 	self parentType: anObject
 
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isAccess [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isAssociation [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isClass [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isFunction [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isInheritance [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isInvocation [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isMethod [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isNamespace [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isPackage [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBAttribute >> isType [
+
+	<generated>
+	^ false
 ]

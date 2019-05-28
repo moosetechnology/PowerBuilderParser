@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAccess,
 	#superclass : #FamixPWBAssociation,
-	#traits : 'FamixTAccess',
-	#classTraits : 'FamixTAccess classTrait',
+	#traits : 'FamixTAccess + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTAccess classTrait + FamixTWithSourceAnchor classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBAccess class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBAccess class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTAccess)
+	^ #(FamixTAccess FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
