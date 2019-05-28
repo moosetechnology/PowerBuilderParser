@@ -27,16 +27,6 @@ PWBASTAttributeAccess >> arrayInformation: anObject [
 ]
 
 { #category : #accessing }
-PWBASTAttributeAccess >> arrayPosition [
-	^ arrayPosition
-]
-
-{ #category : #accessing }
-PWBASTAttributeAccess >> arrayPosition: anObject [
-	arrayPosition := anObject
-]
-
-{ #category : #accessing }
 PWBASTAttributeAccess >> startPosition [
 	^ startPosition
 ]

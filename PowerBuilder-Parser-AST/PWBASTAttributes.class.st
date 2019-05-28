@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTAttributes,
 	#superclass : #Object,
 	#instVars : [
-		'attributeses',
+		'attributes',
 		'startPosition',
 		'stopPosition'
 	],
@@ -16,13 +16,13 @@ PWBASTAttributes >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTAttributes >> attributeses [
-	^ attributeses
+PWBASTAttributes >> attributes [
+	^ attributes
 ]
 
 { #category : #accessing }
-PWBASTAttributes >> attributeses: anObject [
-	attributeses := anObject
+PWBASTAttributes >> attributes: anObject [
+	attributes := anObject
 ]
 
 { #category : #accessing }

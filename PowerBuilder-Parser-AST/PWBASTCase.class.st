@@ -26,16 +26,6 @@ PWBASTCase >> case: anObject [
 ]
 
 { #category : #accessing }
-PWBASTCase >> expressionList [
-	^ expressionList
-]
-
-{ #category : #accessing }
-PWBASTCase >> expressionList: anObject [
-	expressionList := anObject
-]
-
-{ #category : #accessing }
 PWBASTCase >> startPosition [
 	^ startPosition
 ]
@@ -43,16 +33,6 @@ PWBASTCase >> startPosition [
 { #category : #accessing }
 PWBASTCase >> startPosition: anObject [
 	startPosition := anObject
-]
-
-{ #category : #accessing }
-PWBASTCase >> statements [
-	^ statements
-]
-
-{ #category : #accessing }
-PWBASTCase >> statements: anObject [
-	statements := anObject
 ]
 
 { #category : #accessing }

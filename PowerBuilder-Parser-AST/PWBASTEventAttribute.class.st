@@ -66,13 +66,3 @@ PWBASTEventAttribute >> stopPosition [
 PWBASTEventAttribute >> stopPosition: anObject [
 	stopPosition := anObject
 ]
-
-{ #category : #accessing }
-PWBASTEventAttribute >> type [
-	^ type
-]
-
-{ #category : #accessing }
-PWBASTEventAttribute >> type: anObject [
-	type := anObject
-]
