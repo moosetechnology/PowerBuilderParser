@@ -117,7 +117,7 @@ PWBASTAbstractVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
 	<generated>
-	self visitAll: aPWBASTAttributes attributeses.
+	self visitAll: aPWBASTAttributes attributes.
 ]
 
 { #category : #visiting }
