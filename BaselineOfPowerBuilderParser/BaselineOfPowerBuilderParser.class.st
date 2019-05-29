@@ -19,7 +19,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 				package: 'PowerBuilder-Parser-Tests'
 					with: [ spec requires: #('PowerBuilder-Parser-Core') ];
 				package: 'PowerBuilder-Parser-Core'
-					with: [ spec requires: #('PetitParser2') ];
+					with: [ spec requires: #('PetitParser2' 'PetitParserTooling') ];
 				package: 'PowerBuilder-Parser-AST';
 				package: 'Famix-PowerBuilder-Entities';
 				package: 'PowerBuilder-Parser-Visitor'
@@ -48,7 +48,12 @@ BaselineOfPowerBuilderParser >> baselineOfPetitParser2: spec [
 		baseline: 'PetitParser2'
 		with: [ spec
 				repository:
-					'github://kursjan/petitparser2:731216a76e0ab7957fc45fa1099ced7f2627e3ab' ]
+					'github://kursjan/petitparser2:731216a76e0ab7957fc45fa1099ced7f2627e3ab' ].
+	spec
+		baseline: 'PetitParserTooling'
+		with: [ spec
+				repository: 'github://Larcheveque/PetitParserTooling';
+				loads: #(PetitParser2Boost) ]
 ]
 
 { #category : #baselines }
