@@ -66,11 +66,12 @@ PWBFamixImporter class >> generationScripts [
 
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
-	| mooseModel library |
+	| mooseModel library aFolderReference |
 	mooseModel := MooseModel new.
+	aFolderReference := aFolder asFileReference.
 	mooseModel name: 'IzyProtectMooseModel'.
-	mooseModel rootFolder: aFolder.
-	aFolder asFileReference directories
+	mooseModel rootFolder: aFolderReference.
+	aFolderReference directories
 		do: [ :dir | 
 			library := FamixPWBLibrary new.
 			library
