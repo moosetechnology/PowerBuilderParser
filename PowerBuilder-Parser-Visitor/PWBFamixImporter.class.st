@@ -23,10 +23,10 @@ PWBFamixImporter class >> fillModelUsing: aLibrary fromFolder: aFolder [
 	| debugObjects |
 	debugObjects := OrderedCollection new.
 	aFolder files
-		reject: [ :aFile | #(pbg srj) includes: aFile extension ]
+		reject: [ :aFile | #(pbg srj DS_Store) includes: aFile extension ]
 		thenDo: [ :aFile | 
 			| result |
-			aFile contents isEmpty
+			aFile size = 0
 				ifFalse: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
 					result isPetit2Failure
 						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
