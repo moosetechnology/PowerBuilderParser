@@ -27,7 +27,7 @@ PWBVisitorReferenceCreator >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodI
 	
 	model allMethods
 		entityNamed: methodName
-		ifAbsent: [ FamixPWBMethod new
+		ifAbsent: [ FamixPWBFunction new
 				name: methodName;
 				mooseModel: model;
 				yourself ].
@@ -84,7 +84,7 @@ PWBVisitorReferenceCreator >> visitPWBASTRegularMethodInvocation: aPWBASTMethodI
 	
 	model allMethods
 		entityNamed: methodName
-		ifAbsent: [ FamixPWBMethod new
+		ifAbsent: [ FamixPWBFunction new
 				name: methodName;
 				mooseModel: model;
 				yourself ].
