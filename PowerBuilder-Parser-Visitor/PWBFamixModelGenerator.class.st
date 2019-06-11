@@ -51,11 +51,14 @@ PWBFamixModelGenerator >> defineClasses [
 	graphicComponent := builder newClassNamed: #GraphicComponent.
 	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
-	function := builder newClassNamed: #Function.
+	function := builder newClassNamed: #Routine.
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
-
+	attribute := builder newClassNamed: #Attribute.
+	method := builder newClassNamed: #Function.
+	trigger := builder newClassNamed: #Trigger.
+	
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
@@ -66,14 +69,15 @@ PWBFamixModelGenerator >> defineClasses [
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
 	queryFile := builder newClassNamed: #QueryFile.
-	attribute := builder newClassNamed: #Attribute.
-	method := builder newClassNamed: #Method.
-	invocation := builder newClassNamed: #Invocation.
-	trigger := builder newClassNamed: #Trigger.
+	
+	"Type"
 	abstractType := builder newClassNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
+	
+	"Association"
 	access := builder newClassNamed: #Access.
+	invocation := builder newClassNamed: #Invocation.
 	variableAccess := builder newClassNamed: #VariableAccess
 ]
 
