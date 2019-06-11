@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBFunction,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTFunction + FamixTNamed',
-	#classTraits : 'FamixTFunction classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTInvocable + FamixTMethod + FamixTNamed + FamixTWithParameters + FamixTWithSignature',
+	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait + FamixTNamed classTrait + FamixTWithParameters classTrait + FamixTWithSignature classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBFunction class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBFunction class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTFunction FamixTNamed)
+	^ #(FamixTInvocable FamixTMethod FamixTNamed FamixTWithParameters FamixTWithSignature)
 ]
 
 { #category : #meta }
@@ -39,7 +39,7 @@ FamixPWBFunction class >> requirements [
 FamixPWBFunction >> belongsTo [
 
 	<generated>
-	^ self functionOwner
+	^ self parentType
 
 ]
 
@@ -47,11 +47,6 @@ FamixPWBFunction >> belongsTo [
 FamixPWBFunction >> belongsTo: anObject [
 
 	<generated>
-	self functionOwner: anObject
+	self parentType: anObject
 
-]
-
-{ #category : #accessors }
-FamixPWBFunction >> reachableEntities [
-	^ self variables
 ]

@@ -50,8 +50,3 @@ FamixPWBTrigger >> belongsTo: anObject [
 	self parentType: anObject
 
 ]
-
-{ #category : #resolving }
-FamixPWBTrigger >> reachableEntities [
-	^ self attributes
-]
