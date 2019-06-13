@@ -71,7 +71,9 @@ PWBImporterAbstractVisitor >> model [
 
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model: anObject [
-	model := anObject
+	model := anObject.
+	self pushEntitiesAsScope: (model allWithType: FamixPWBFunction).
+	self pushEntitiesAsScope: (model allWithType: FamixPWBRoutine)
 ]
 
 { #category : #'entities creation' }
