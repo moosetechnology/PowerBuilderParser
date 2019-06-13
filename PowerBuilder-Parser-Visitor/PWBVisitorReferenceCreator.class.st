@@ -62,6 +62,16 @@ PWBVisitorReferenceCreator >> visitPWBASTFile: aPWBASTFile [
 ]
 
 { #category : #scope }
+PWBVisitorReferenceCreator >> visitPWBASTFunctionArguments: aPWBASTFunctionArguments [
+	super visitPWBASTFunctionArguments: aPWBASTFunctionArguments.
+	^ SRArgumentsOnlyNumber
+		numberOfArguments:
+			(aPWBASTFunctionArguments functionArguments
+				ifNil: [ 0 ]
+				ifNotNil: [ :args | args size ])
+]
+
+{ #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	self
 		useCurrentEntity: (self visit: aPWBASTFunctionDefinition functionSignature)
@@ -79,16 +89,23 @@ PWBVisitorReferenceCreator >> visitPWBASTFunctionSignature: aPWBASTFunctionSigna
 
 { #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
-	| methodName |
-	methodName := self visit: aPWBASTMethodInvocation uncheckedIdentifier.
-	
-	model allMethods
-		entityNamed: methodName
-		ifAbsent: [ FamixPWBFunction new
-				name: methodName;
-				mooseModel: model;
-				yourself ].
-	self visit: aPWBASTMethodInvocation functionArguments
+	(self createAssociation: FamixPWBInvocation from: aPWBASTMethodInvocation)
+		sender: self currentEntity;
+		candidates:
+			(self
+				resolve:
+					(SRInvocationWithNode
+						identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
+						node: aPWBASTMethodInvocation
+						expectedKind: FamixPWBFunction
+						arguments: (self visit: aPWBASTMethodInvocation functionArguments))
+				onNotFoundDo: [ :aResolvable | 
+					aResolvable
+						candidates:
+							{((self createStub: FamixPWBFunction)
+								name: aResolvable identifier;
+								yourself)};
+						yourself ]) candidates
 ]
 
 { #category : #scope }
