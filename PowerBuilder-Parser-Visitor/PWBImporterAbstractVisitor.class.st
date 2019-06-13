@@ -26,6 +26,16 @@ PWBImporterAbstractVisitor >> create: aClass [
 	^ entity
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> createStub: aClass [
+	| entity |
+	self flag: #TODO.	"Put the created entity in a stub module"
+	entity := aClass new
+		mooseModel: self model;
+		yourself.
+	^ entity
+]
+
 { #category : #accessing }
 PWBImporterAbstractVisitor >> file [
 	^ file
