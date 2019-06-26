@@ -9,15 +9,14 @@ PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
 	| identifiers |
 	self visit: aPWBASTAccess arrayPosition.
 	self visitAll: aPWBASTAccess attributeAccesses.
-	identifiers := (self visit: aPWBASTAccess variable).
-	self currentEntity
-		createAccessTo:
-			([ self resolve: identifiers. identifiers entity]
-				on: SRReferencesNotFound 
-				do: [ :notFound | 
-					self currentEntity
-						createStubValueHolderNamed: notFound identifiers representationString ])
-		writing: false
+	identifiers := self visit: aPWBASTAccess variable.
+	identifiers
+		foundAction:
+				[ :identifier :currentEntity | Halt now. currentEntity createAccessTo: identifiers entity writing: false ];
+		notFoundReplacementEntity: [ :identifier :currentEntity | 
+			currentEntity
+				createStubValueHolderNamed: identifier representationString ].
+	self resolve: identifiers
 ]
 
 { #category : #scope }
@@ -89,23 +88,21 @@ PWBVisitorReferenceCreator >> visitPWBASTFunctionSignature: aPWBASTFunctionSigna
 
 { #category : #scope }
 PWBVisitorReferenceCreator >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
-	(self createAssociation: FamixPWBInvocation from: aPWBASTMethodInvocation)
-		sender: self currentEntity;
-		candidates:
-			(self
-				resolve:
-					(SRInvocationWithNode
-						identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-						node: aPWBASTMethodInvocation
-						expectedKind: FamixPWBFunction
-						arguments: (self visit: aPWBASTMethodInvocation functionArguments))
-				onNotFoundDo: [ :aResolvable | 
-					aResolvable
-						candidates:
-							{((self createStub: FamixPWBFunction)
-								name: aResolvable identifier;
-								yourself)};
-						yourself ]) candidates
+	self
+		resolve:
+			((SRInvocationWithNode
+				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
+				node: aPWBASTMethodInvocation
+				expectedKind: FamixPWBFunction
+				arguments: (self visit: aPWBASTMethodInvocation functionArguments))
+				notFoundReplacementEntity: [ :aResolvable | 
+					(self createStub: FamixPWBFunction)
+						name: aResolvable identifier;
+						yourself ];
+				foundAction: [ :identifier :currentEntity | Halt now.
+					(self createAssociation: FamixPWBInvocation from: identifier node)
+						sender: currentEntity;
+						candidates: identifier candidates ])
 ]
 
 { #category : #scope }
