@@ -12,7 +12,7 @@ PWBVisitorReferenceCreator >> visitPWBASTAccess: aPWBASTAccess [
 	identifiers := self visit: aPWBASTAccess variable.
 	identifiers
 		foundAction:
-				[ :identifier :currentEntity | Halt now. currentEntity createAccessTo: identifiers entity writing: false ];
+				[ :identifier :currentEntity | currentEntity createAccessTo: identifiers entity writing: false ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
 			currentEntity
 				createStubValueHolderNamed: identifier representationString ].
@@ -96,10 +96,10 @@ PWBVisitorReferenceCreator >> visitPWBASTRegularMethodInvocation: aPWBASTMethodI
 				expectedKind: FamixPWBFunction
 				arguments: (self visit: aPWBASTMethodInvocation functionArguments))
 				notFoundReplacementEntity: [ :aResolvable | 
-					(self createStub: FamixPWBFunction)
+					{((self createStub: FamixPWBFunction)
 						name: aResolvable identifier;
-						yourself ];
-				foundAction: [ :identifier :currentEntity | Halt now.
+						yourself)} ];
+				foundAction: [ :identifier :currentEntity | 
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ])
