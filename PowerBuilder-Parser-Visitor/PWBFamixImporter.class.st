@@ -42,6 +42,27 @@ PWBFamixImporter class >> fillModelUsing: aLibrary fromFolder: aFolder [
 								model: aLibrary mooseModel;
 								file: aFile.
 							result acceptVisitor: visitor ] ] ].
+				Halt now.
+	^ debugObjects
+]
+
+{ #category : #'as yet unclassified' }
+PWBFamixImporter class >> fillModelUsing: aLibrary visitor: visitor fromFolder: aFolder [
+	| debugObjects |
+	debugObjects := OrderedCollection new.
+	(aFolder files
+		reject: [ :aFile | #(pbg srj DS_Store) includes: aFile extension ])
+		do: [ :aFile | 
+			| result |
+			aFile size = 0
+				ifFalse: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
+					result isPetit2Failure
+						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
+						ifFalse: [ visitor
+								file: aFile;
+								currentLibrary: aLibrary.
+							result acceptVisitor: visitor ] ] ]
+		displayingProgress: [ :aFile | aFile asString ].
 	^ debugObjects
 ]
 
@@ -82,5 +103,33 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 				ifNotEmpty: [ :failures | "failures inspect.
 			Halt now " ] ]
 		displayingProgress: [ :dir | dir asString ].
+	Halt now.
+	^ mooseModel
+]
+
+{ #category : #'as yet unclassified' }
+PWBFamixImporter class >> importInOnePassFromFolder: aFolder [
+	| mooseModel library aFolderReference visitor |
+	mooseModel := MooseModel new.
+	aFolderReference := aFolder asFileReference.
+	mooseModel name: 'IzyProtectMooseModel'.
+	mooseModel rootFolder: aFolderReference.
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
+	visitor model: mooseModel.
+	aFolderReference directories
+		do: [ :dir | 
+			library := FamixPWBLibrary new.
+			library
+				name: dir basename;
+				mooseModel: mooseModel.
+			self createCleanFilesFrom: dir into: dir / 'cleaned'.
+			(self
+				fillModelUsing: library
+				visitor: visitor
+				fromFolder: dir / 'cleaned')
+				ifNotEmpty: [ :failures | "failures inspect.
+			Halt now " ] ]
+		displayingProgress: [ :dir | dir asString ].
+	visitor resolveUnresolvedReference.
 	^ mooseModel
 ]
