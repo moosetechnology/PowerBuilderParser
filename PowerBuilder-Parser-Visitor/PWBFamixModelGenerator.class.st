@@ -87,7 +87,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 	library
 		--|> #TNamed;
 		--|> #TWithSourceAnchor.
-	graphicComponent --|> sourcedEntity.
+	graphicComponent
+		--|> sourcedEntity;
+		--|> #TWithAttributes;
+		--|> behavioral.
 	event
 		--|> behavioral;
 		--|> #TMethod;
