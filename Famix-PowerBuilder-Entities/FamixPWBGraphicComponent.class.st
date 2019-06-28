@@ -1,6 +1,8 @@
 Class {
 	#name : #FamixPWBGraphicComponent,
-	#superclass : #FamixPWBSourcedEntity,
+	#superclass : #FamixPWBBehavioral,
+	#traits : 'FamixTWithAttributes',
+	#classTraits : 'FamixTWithAttributes classTrait',
 	#instVars : [
 		'#dataWindow => FMOne type: #FamixPWBDataWindow opposite: #graphicComponents'
 	],
@@ -10,7 +12,7 @@ Class {
 { #category : #meta }
 FamixPWBGraphicComponent class >> annotation [
 
-	<MSEClass: #GraphicComponent super: #FamixPWBSourcedEntity>
+	<MSEClass: #GraphicComponent super: #FamixPWBBehavioral>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -26,7 +28,7 @@ FamixPWBGraphicComponent class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBGraphicComponent class >> generatedTraitNames [
 	<generated>
-	^ #()
+	^ #(FamixTWithAttributes)
 ]
 
 { #category : #meta }

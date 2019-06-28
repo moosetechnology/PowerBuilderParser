@@ -39,7 +39,7 @@ FamixPWBAttribute class >> metamodel [
 FamixPWBAttribute class >> requirements [
 
 	<generated>
-	^ { FamixPWBDataWindow. FamixPWBTrigger. FamixPWBmajorObject }
+	^ { FamixPWBDataWindow. FamixPWBGraphicComponent. FamixPWBTrigger. FamixPWBmajorObject }
 ]
 
 { #category : #helpers }

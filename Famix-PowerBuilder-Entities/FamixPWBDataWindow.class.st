@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBDataWindow,
 	#superclass : #FamixPWBmajorObject,
-	#traits : 'FamixTNamed + FamixTWithAttributes + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTContainingWithInvocationsGlue + FamixTNamed + FamixTWithAttributes + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAttributes classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#graphicComponents => FMMany type: #FamixPWBGraphicComponent opposite: #dataWindow'
 	],
@@ -28,7 +28,7 @@ FamixPWBDataWindow class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBDataWindow class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTNamed FamixTWithAttributes FamixTWithSourceAnchor)
+	^ #(FamixTContainingWithInvocationsGlue FamixTNamed FamixTWithAttributes FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
