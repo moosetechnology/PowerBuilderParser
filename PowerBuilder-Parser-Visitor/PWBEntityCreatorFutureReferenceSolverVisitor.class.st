@@ -17,9 +17,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> currentLibrary: aFamixPWBLibrary
 
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType named: aName [
-	^ (model allWithType: aType)
-		entityNamed: aName
-		ifAbsent: [ aType new
+	^ (model entityStorage selectAllWithType: aType)
+		detect: [ :entity | entity name = aName ]
+		ifNone: [ aType new
 				name: aName;
 				mooseModel: model;
 				yourself ]
@@ -28,6 +28,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType name
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	self initialiseFutureSolver
+]
+
+{ #category : #resolution }
+PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
+	self solver resolveUnresolvedReferences
 ]
 
 { #category : #visiting }

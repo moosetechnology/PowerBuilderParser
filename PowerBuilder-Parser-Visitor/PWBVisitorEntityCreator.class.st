@@ -14,7 +14,7 @@ PWBVisitorEntityCreator >> currentLibrary: aFamixPWBLibrary [
 
 { #category : #'entities creation' }
 PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
-	^ (model allWithType: aType)
+	^ (model entityStorage selectAllWithType: aType)
 		entityNamed: aName
 		ifAbsent: [ aType new
 				name: aName;

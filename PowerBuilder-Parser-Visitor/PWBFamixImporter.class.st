@@ -130,6 +130,6 @@ PWBFamixImporter class >> importInOnePassFromFolder: aFolder [
 				ifNotEmpty: [ :failures | "failures inspect.
 			Halt now " ] ]
 		displayingProgress: [ :dir | dir asString ].
-	visitor resolveUnresolvedReference.
+	visitor resolveUnresolvedReferences.
 	^ mooseModel
 ]
