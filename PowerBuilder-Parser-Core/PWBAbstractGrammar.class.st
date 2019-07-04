@@ -78,16 +78,17 @@ PWBAbstractGrammar class >> obtainASTFrom: content fileExtension: fileExtension 
 
 { #category : #parsing }
 PWBAbstractGrammar class >> obtainASTFromFile: aFile [
-	| stream result |
-	stream := aFile readStream.
-	stream encoder: ZnUTF8Encoder new.
-	result := self
-		obtainASTFrom: stream contents
-		fileExtension: aFile extension.
-	result isPetit2Failure
-		ifFalse: [ result
-				fileName: aFile base;
-				fileExtension: aFile extension ].
+	| result |
+	aFile
+		readStreamDo: [ :stream | 
+			stream encoder: ZnUTF8Encoder new.
+			result := self
+				obtainASTFrom: stream contents
+				fileExtension: aFile extension.
+			result isPetit2Failure
+				ifFalse: [ result
+						fileName: aFile base;
+						fileExtension: aFile extension ] ].
 	^ result
 ]
 
