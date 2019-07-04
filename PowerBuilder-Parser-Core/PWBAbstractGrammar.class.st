@@ -226,8 +226,12 @@ PWBAbstractGrammar >> attributeAccess [
 
 { #category : #accessing }
 PWBAbstractGrammar >> basicType [
-	^ self
-		parserCaseInsensitiveFor: #('long' 'datetime' 'date' 'integer' 'string')
+	^ self parserCaseInsensitiveFor: self basicTypeArray
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> basicTypeArray [
+	^ #('long' 'datetime' 'date' 'integer' 'string' 'char')
 ]
 
 { #category : #accessing }
@@ -359,14 +363,13 @@ PWBAbstractGrammar >> functionArguments [
 
 { #category : #accessing }
 PWBAbstractGrammar >> functionInvocation [
-	<rename: #identifier into: #functionName>
-	^ (defaultVariable , '::' parser trim) optional , identifier , blank
+	<rename: #uncheckedIdentifier into: #functionName>
+	^ (defaultVariable , '::' parser trim) optional , uncheckedIdentifier , blank
 		, functionArguments
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> identifier [
-	self flag: #TODO.	"improve identifier to accept thisCustomer for example"
 	^ ((reservedKeyword not , (#letter parser / $_ parser)
 		, (#letter parser / $_ parser / $- parser / #digit parser) star)
 		/
@@ -474,7 +477,7 @@ PWBAbstractGrammar >> regularMethodInvocation [
 PWBAbstractGrammar >> reservedKeyword [
 	^ self
 		parserCaseInsensitiveFor:
-			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally' 'continue' 'dynamic')
+			#('this' 'end' 'if' 'return' 'loop' 'while' 'elseif' 'else' 'do' 'exit' 'next' 'for' 'call' 'not' 'case' 'try' 'catch' 'super' 'finally' 'continue' 'dynamic'), self basicTypeArray
 ]
 
 { #category : #accessing }

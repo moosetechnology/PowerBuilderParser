@@ -272,11 +272,6 @@ PWBCommonGrammar >> functionDefinition [
 ]
 
 { #category : #accessing }
-PWBCommonGrammar >> functionInvocation [
-	^ super functionInvocation
-]
-
-{ #category : #accessing }
 PWBCommonGrammar >> functionSignature [
 	^ (accessModifier , blank) optional , 'function' token , blank , type
 		, blank , identifier , blank , arguments

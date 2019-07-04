@@ -397,7 +397,7 @@ PWBCommonParser >> functionDefinition [
 { #category : #rules }
 PWBCommonParser >> functionInvocation [
 	<generated>
-	^ super functionInvocation withPositions ==> [ :production | PWBASTFunctionInvocation new startPosition: production start; stopPosition: production stop; defaultVariable: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); identifier: (production content at: 2); functionArguments: (production content at: 4); yourself ]
+	^ super functionInvocation withPositions ==> [ :production | PWBASTFunctionInvocation new startPosition: production start; stopPosition: production stop; defaultVariable: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); functionName: (production content at: 2); functionArguments: (production content at: 4); yourself ]
 ]
 
 { #category : #rules }
