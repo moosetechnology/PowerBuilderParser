@@ -481,7 +481,7 @@ PWBASTAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinitio
 PWBASTAbstractVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
 	<generated>
 	self visit: aPWBASTFunctionInvocation defaultVariable.
-	self visit: aPWBASTFunctionInvocation identifier.
+	self visit: aPWBASTFunctionInvocation functionName.
 	self visit: aPWBASTFunctionInvocation functionArguments.
 ]
 

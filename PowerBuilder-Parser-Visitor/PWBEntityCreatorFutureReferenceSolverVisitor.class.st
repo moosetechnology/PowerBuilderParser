@@ -175,6 +175,26 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
+	self
+		resolve:
+			((SRInvocationWithNode
+				identifier: (self visit: aPWBASTFunctionInvocation functionName)
+				node: aPWBASTFunctionInvocation
+				expectedKind: FamixPWBSubRoutine
+				arguments: (self visit: aPWBASTFunctionInvocation functionArguments))
+				notFoundReplacementEntity: [ :aResolvable | 
+					{((self createStub: FamixPWBSubRoutine)
+						name: aResolvable identifier;
+						yourself)} ];
+				foundAction: [ :identifier :currentEntity | 
+					(self createAssociation: FamixPWBInvocation from: identifier node)
+						sender: currentEntity;
+						candidates: identifier candidates ]).
+	self visit: aPWBASTFunctionInvocation defaultVariable
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	self visit: aPWBASTFunctionSignature accessModifier.
 	self visit: aPWBASTFunctionSignature type.
