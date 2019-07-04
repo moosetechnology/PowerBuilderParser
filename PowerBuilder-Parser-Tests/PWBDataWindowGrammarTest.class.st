@@ -367,7 +367,8 @@ PWBDataWindowGrammarTest >> testText [
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType [
 	self fail: 'this.dw_liste' rule: #type.
-	self fail: 'this' rule: #type
+	self fail: 'this' rule: #type.
+	self parse: 'char(16)' rule: #type
 ]
 
 { #category : #accessing }

@@ -760,6 +760,11 @@ PWBUserObjectGrammarTest >> testGotoStatement [
 	self parse: 'GOTO OK' rule: #gotoStatement
 ]
 
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testIdentifier [
+	self fail: 'char' rule: #identifier
+]
+
 { #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement [
 	self parse: 'if this.ib_exe_cascade = TRUE then
@@ -939,6 +944,11 @@ PWBUserObjectGrammarTest >> testPrototypesDeclaration3 [
 
 end prototypes'
 		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testReservedKeyword [
+	self parse: 'char' rule: #reservedKeyword.
 ]
 
 { #category : #tests }
