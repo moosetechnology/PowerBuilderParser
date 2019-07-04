@@ -107,6 +107,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	subRoutine
 		--|> behavioral;
 		--|> #TMethod;
+		--|> #TInvocable;
 		--|> #TNamed.
 	variable
 		--|> #TWithSourceAnchor;
@@ -152,6 +153,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithSubInheritances.
 	window --|> majorObject.
 	dataWindow --|> majorObject.
+	
+	dataWindow --|> #TWithInvocations.
 	structureFile --|> majorObject.
 	functionFile --|> majorObject.
 	menuObject --|> majorObject.
