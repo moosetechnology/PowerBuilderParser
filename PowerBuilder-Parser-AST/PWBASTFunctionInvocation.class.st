@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'defaultVariable',
-		'identifier',
+		'functionName',
 		'functionArguments',
 		'startPosition',
 		'stopPosition'
@@ -45,16 +45,6 @@ PWBASTFunctionInvocation >> functionName [
 { #category : #accessing }
 PWBASTFunctionInvocation >> functionName: anObject [
 	functionName := anObject
-]
-
-{ #category : #accessing }
-PWBASTFunctionInvocation >> identifier [
-	^ identifier
-]
-
-{ #category : #accessing }
-PWBASTFunctionInvocation >> identifier: anObject [
-	identifier := anObject
 ]
 
 { #category : #accessing }
