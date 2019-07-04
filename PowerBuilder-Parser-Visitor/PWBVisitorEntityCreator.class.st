@@ -15,8 +15,8 @@ PWBVisitorEntityCreator >> currentLibrary: aFamixPWBLibrary [
 { #category : #'entities creation' }
 PWBVisitorEntityCreator >> ensureEntityWithType: aType named: aName [
 	^ (model entityStorage selectAllWithType: aType)
-		entityNamed: aName
-		ifAbsent: [ aType new
+		detect: [ :e | e name = aName ]
+		ifNone: [ aType new
 				name: aName;
 				mooseModel: model;
 				yourself ]
