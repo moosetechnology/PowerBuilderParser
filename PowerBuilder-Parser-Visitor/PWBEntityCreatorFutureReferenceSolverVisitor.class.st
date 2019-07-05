@@ -40,14 +40,16 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 	| identifiers |
 	self visit: aPWBASTAccess arrayPosition.
 	self visitAll: aPWBASTAccess attributeAccesses.
-	identifiers := self visit: aPWBASTAccess variable.
-	identifiers
-		foundAction:
-				[ :identifier :currentEntity | currentEntity createAccessTo: identifiers entity writing: false ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			currentEntity
-				createStubValueHolderNamed: identifier representationString ].
-	self resolve: identifiers
+	self currentEntity class = FamixPWBDataWindow
+		ifFalse: [ identifiers := self visit: aPWBASTAccess variable.
+			identifiers
+				foundAction:
+						[ :identifier :currentEntity | currentEntity createAccessTo: identifiers entity writing: false ];
+				notFoundReplacementEntity: [ :identifier :currentEntity | 
+					currentEntity
+						createStubValueHolderNamed: identifier representationString ].
+			self resolve: identifiers ]
+		ifTrue: [ self visit: aPWBASTAccess variable ]
 ]
 
 { #category : #visiting }
