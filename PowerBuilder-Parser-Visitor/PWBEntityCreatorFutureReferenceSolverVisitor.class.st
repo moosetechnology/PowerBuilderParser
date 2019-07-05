@@ -40,7 +40,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 	| identifiers |
 	self visit: aPWBASTAccess arrayPosition.
 	self visitAll: aPWBASTAccess attributeAccesses.
-	self currentEntity class = FamixPWBDataWindow
+	(self currentEntity class = FamixPWBDataWindow
+		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ identifiers := self visit: aPWBASTAccess variable.
 			identifiers
 				foundAction:
