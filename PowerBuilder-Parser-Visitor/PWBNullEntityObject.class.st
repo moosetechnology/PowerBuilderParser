@@ -8,3 +8,8 @@ Class {
 PWBNullEntityObject >> name: aString [ 
 	"null pattern"
 ]
+
+{ #category : #solver }
+PWBNullEntityObject >> reachableEntities [
+	^ #()
+]
