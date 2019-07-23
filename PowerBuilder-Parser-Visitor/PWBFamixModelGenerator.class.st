@@ -140,7 +140,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 	behavioral
 		--|> #TWithSourceAnchor;
 		--|> #TWithAccesses;
-		--|> #TWithInvocations.
+		--|> #TWithInvocations;
+		--|> #TWithReferences.
 	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation
