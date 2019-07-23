@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#cyclomaticComplexity',
 		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
@@ -29,7 +29,7 @@ FamixPWBBehavioral class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBBehavioral class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTWithAccesses FamixTWithInvocations FamixTWithSourceAnchor)
+	^ #(FamixTWithAccesses FamixTWithInvocations FamixTWithReferences FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
