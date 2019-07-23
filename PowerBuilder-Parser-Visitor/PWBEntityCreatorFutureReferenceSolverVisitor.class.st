@@ -281,11 +281,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
-	^ self visit: aPWBASTType type
-]
-
-{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	self currentEntity
 		createValueHolderNamed:
