@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTContainingWithInvocationsGlue + FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTContainingWithInvocationsGlue + FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#cyclomaticComplexity',
 		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects'
@@ -29,7 +29,7 @@ FamixPWBmajorObject class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBmajorObject class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTContainingWithInvocationsGlue FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue FamixTWithSourceAnchor)
+	^ #(FamixTContainingWithInvocationsGlue FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue FamixTWithReferences FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }

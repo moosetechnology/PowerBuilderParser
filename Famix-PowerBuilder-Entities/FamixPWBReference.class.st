@@ -1,126 +1,124 @@
 Class {
-	#name : #FamixPWBCustomType,
+	#name : #FamixPWBReference,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBAbstractType',
-	#classTraits : 'FamixPWBAbstractType classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBCustomType class >> annotation [
+FamixPWBReference class >> annotation [
 
-	<MSEClass: #CustomType super: #MooseEntity>
+	<MSEClass: #Reference super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
 { #category : #generator }
-FamixPWBCustomType class >> generatedSlotNames [
+FamixPWBReference class >> generatedSlotNames [
 	<generated>
-	'FamixPWBCustomType class>>#generatedSlotNames'.
+	'FamixPWBReference class>>#generatedSlotNames'.
 	^ #()
 ]
 
 { #category : #generator }
-FamixPWBCustomType class >> generatedTraitNames [
+FamixPWBReference class >> generatedTraitNames [
 	<generated>
-	^ #(FamixPWBAbstractType)
+	^ #()
 ]
 
 { #category : #meta }
-FamixPWBCustomType class >> metamodel [
+FamixPWBReference class >> metamodel [
 
 	<generated>
 	^ (self class environment at: #PWBFamixModelGenerator) metamodel
 ]
 
 { #category : #meta }
-FamixPWBCustomType class >> requirements [
+FamixPWBReference class >> requirements [
 
 	<generated>
 	^ {  }
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isAccess [
+FamixPWBReference >> isAccess [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isAssociation [
+FamixPWBReference >> isAssociation [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isAttribute [
+FamixPWBReference >> isAttribute [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isClass [
+FamixPWBReference >> isClass [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isFunction [
+FamixPWBReference >> isFunction [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isInheritance [
+FamixPWBReference >> isInheritance [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isInvocation [
+FamixPWBReference >> isInvocation [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isMethod [
+FamixPWBReference >> isMethod [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isNamespace [
+FamixPWBReference >> isNamespace [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isPackage [
+FamixPWBReference >> isPackage [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isReference [
+FamixPWBReference >> isReference [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBCustomType >> isType [
+FamixPWBReference >> isType [
 
 	<generated>
 	^ false
