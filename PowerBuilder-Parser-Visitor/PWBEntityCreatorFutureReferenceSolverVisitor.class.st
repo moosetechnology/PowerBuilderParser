@@ -68,9 +68,23 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
-	^ self
-		ensureEntityWithType: FamixPWBCustomType
-		named: (self visit: aPWBASTCustomType identifier)
+	self
+		resolve:
+			((SRIdentifierWithNode
+				identifier: (self visit: aPWBASTCustomType identifier)
+				expectedKind:
+				{FamixPWBCustomType.
+			FamixPWBUserObject}
+				node: aPWBASTCustomType identifier)
+				foundAction: [ :identifier :currentEntity | 
+					currentEntity class = PWBNullEntityObject
+						ifFalse: [ (self create: FamixPWBReference from: identifier node)
+								source: currentEntity;
+								target: identifier entity ] ];
+				notFoundReplacementEntity: [ :identifier :currentEntity | 
+					self
+						ensureEntityWithType: FamixPWBCustomType
+						named: (self visit: aPWBASTCustomType identifier) ])
 ]
 
 { #category : #visiting }
