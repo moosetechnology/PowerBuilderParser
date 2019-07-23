@@ -27,10 +27,17 @@ Class {
 		'menuObject',
 		'application',
 		'queryFile',
-		'library'
+		'library',
+		'reference'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
+
+{ #category : #accessing }
+PWBFamixModelGenerator class >> generateMe [
+	<script>
+	self generate
+]
 
 { #category : #accessing }
 PWBFamixModelGenerator class >> packageName [
@@ -71,14 +78,15 @@ PWBFamixModelGenerator >> defineClasses [
 	queryFile := builder newClassNamed: #QueryFile.
 	
 	"Type"
-	abstractType := builder newClassNamed: #AbstractType.
+	abstractType := builder newTraitNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
 	
 	"Association"
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
-	variableAccess := builder newClassNamed: #VariableAccess
+	variableAccess := builder newClassNamed: #VariableAccess.
+	reference := builder newClassNamed: #Reference
 ]
 
 { #category : #definition }
@@ -146,7 +154,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
 		--|> #TWithMethods;
-		--|> #TWithFunctions.
+		--|> #TWithFunctions;
+		--|> #TWithReferences.
 	userObject --|> majorObject.
 	userObject
 		--|> #TWithSuperInheritances;
@@ -160,7 +169,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
-	abstractType --|> namedEntity.
+	abstractType --|> #TNamed.
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
 	abstractType --|> #TWithSuperInheritances.
