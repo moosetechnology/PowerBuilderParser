@@ -82,6 +82,11 @@ PWBUserObjectGrammarTest >> testAttribute [
 	self
 		parse: 'constant string BAND_HEADER = "2"'
 		rule: #attribute.
+	self
+		parse: 'character ac_default_char'
+		rule: #attribute.
+		
+		
 		
 	
 ]
@@ -573,6 +578,13 @@ PWBUserObjectGrammarTest >> testFunctionDeclaration [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionDeclaration2 [
+	self
+		parse: 'public function date of_gregorian(long AL_JULIAN)'
+		rule: #functionDeclaration.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionDefinition [
 	self
 		parse: 'public function integer uf_charge_tv (ref datawindow adw_liste, ref treeview atv_cible, string as_col_phd, string as_col_hdl, long al_niveaux, ref str_tv_param astr_tv_param);
@@ -802,6 +814,21 @@ PWBUserObjectGrammarTest >> testIfStatement12 [
 ]
 
 { #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement13 [
+	self parse: 'If al_julian >= 366 Then
+      al_julian -=366
+      li_year ++
+   elseif  ( al_julian = 59 )  Then
+      li_month = 2
+      li_day = 29
+      Return Date ( li_year,li_month,li_day )
+   elseif  ( al_julian > 59 )  Then
+      al_julian --
+   end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement2 [
 	self
 		parse:
@@ -947,6 +974,20 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPrototypesDeclaration4 [
+	self
+		parse:
+			'forward prototypes
+public function blob of_ansi2unicode (string as_value)
+public function blob of_ansi2unicode (string as_value, unsignedinteger ai_codepage)
+public function string of_unicode2ansi (blob a_value)
+public function string of_unicode2ansi (blob a_value, unsignedinteger ai_codepage)
+public function string of_unicode2ansi (blob a_value, unsignedinteger ai_codepage, character ac_default_char)
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testReservedKeyword [
 	self parse: 'char' rule: #reservedKeyword.
 ]
@@ -1032,8 +1073,7 @@ PWBUserObjectGrammarTest >> testStatement [
 	self parse: 'long ll_par_no' rule: #statement.
 	self parse: 'il_nbs_gpp_trt ++' rule: #statement.
 	self parse: 'printSetup()' rule: #statement.
-	
-
+	self parse: 'al_julian --' rule: #statement
 ]
 
 { #category : #tests }

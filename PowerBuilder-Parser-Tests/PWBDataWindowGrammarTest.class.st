@@ -368,7 +368,17 @@ PWBDataWindowGrammarTest >> testText [
 PWBDataWindowGrammarTest >> testType [
 	self fail: 'this.dw_liste' rule: #type.
 	self fail: 'this' rule: #type.
-	self parse: 'char(16)' rule: #type
+	self parse: 'char(16)' rule: #type.
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testType2 [
+	self parse: 'blob' rule: #type.
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testType3 [
+	self parse: 'character' rule: #type
 ]
 
 { #category : #accessing }
