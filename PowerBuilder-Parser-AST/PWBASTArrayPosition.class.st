@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTArrayPosition,
 	#superclass : #Object,
 	#instVars : [
-		'expression',
+		'expressions',
 		'startPosition',
 		'stopPosition'
 	],
@@ -16,13 +16,13 @@ PWBASTArrayPosition >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTArrayPosition >> expression [
-	^ expression
+PWBASTArrayPosition >> expressions [
+	^ expressions
 ]
 
 { #category : #accessing }
-PWBASTArrayPosition >> expression: anObject [
-	expression := anObject
+PWBASTArrayPosition >> expressions: anObject [
+	expressions := anObject
 ]
 
 { #category : #accessing }
