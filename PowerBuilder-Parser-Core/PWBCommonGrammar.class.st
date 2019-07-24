@@ -95,7 +95,9 @@ PWBCommonGrammar >> attribute [
 { #category : #accessing }
 PWBCommonGrammar >> attributes [
 	<reify: #(accessModifierDefiner / eventAttribute / attribute) into: #attribute>
-	^ (accessModifierDefiner / eventAttribute / attribute  separatedBy: blank) , blank
+	^ (self
+		multiLinesRepeated: accessModifierDefiner / eventAttribute / attribute)
+		, blank
 ]
 
 { #category : #accessing }

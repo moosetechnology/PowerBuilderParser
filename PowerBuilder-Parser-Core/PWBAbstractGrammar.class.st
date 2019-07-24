@@ -404,6 +404,12 @@ PWBAbstractGrammar >> methodInvocation [
 	^ dynamicMethodInvocation / regularMethodInvocation
 ]
 
+{ #category : #helpers }
+PWBAbstractGrammar >> multiLinesRepeated: aParser [
+	^ (aParser separatedBy: $; parser trim / blank)
+		, (blank optional , $; parser) optional
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> newlines [
 	^ (#blank parser star , #newline parser) plus, blank
