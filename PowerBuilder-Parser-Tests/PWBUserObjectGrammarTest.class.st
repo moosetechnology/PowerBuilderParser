@@ -775,6 +775,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation6 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation7 [
+	self
+		parse:
+			'string(this.Describe ("datawindow.visualobjects"))'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -931,6 +939,11 @@ PWBUserObjectGrammarTest >> testMethodInvocation [
 	self
 		parse: '.Dynamic SaveAs(ls_tmpfile, PSReport!, True)'
 		rule: #methodInvocation
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testNonSqlQuery1 [
+	self fail: 'SelectObject(lul_Hdc, lul_hFont);' rule: #sqlQuery
 ]
 
 { #category : #tests }
