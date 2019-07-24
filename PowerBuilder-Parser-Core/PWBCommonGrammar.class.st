@@ -336,7 +336,7 @@ PWBCommonGrammar >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> sqlQuery [
-	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blank
+	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , spaces
 		, (string / $; parser negate) plus , $; parser
 ]
 

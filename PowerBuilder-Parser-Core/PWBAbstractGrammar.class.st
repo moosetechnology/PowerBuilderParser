@@ -460,7 +460,8 @@ PWBAbstractGrammar >> parenthesedExpression [
 
 { #category : #helpers }
 PWBAbstractGrammar >> parserCaseInsensitiveFor: aCollectionOfString [
-	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
+	^ (aCollectionOfString collect: [ :s | s parser caseInsensitive ])
+		reduce: [ :a :b | a / b ]
 ]
 
 { #category : #helpers }
