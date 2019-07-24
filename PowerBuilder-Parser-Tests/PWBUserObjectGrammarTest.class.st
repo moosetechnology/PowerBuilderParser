@@ -244,7 +244,9 @@ PWBUserObjectGrammarTest >> testCondition [
 { #category : #tests }
 PWBUserObjectGrammarTest >> testCondition2 [
 	self parse: '(ai_index < 8) or (ai_index > 64)'
-		rule: #condition
+		rule: #condition.
+		
+	self parse: 'is_test <> ''''' rule: #condition
 ]
 
 { #category : #tests }
@@ -1502,5 +1504,8 @@ PWBUserObjectGrammarTest >> testVariableDeclarations [
 		parse: 'int li_DaysInMonth [ 12 ]  = {31,28,31,30,31,30,31,31,30,31,30,31}'
 		rule: #variableDeclarations.
 	self parse: 'string ls_dss, ls_cls' rule: #variableDeclarations.
-	self parse: 'blob{7} lblb_val' rule: #variableDeclarations
+	self parse: 'blob{7} lblb_val' rule: #variableDeclarations.
+	self
+		parse: 'long il_qte_cons_total[1 to 4]'
+		rule: #variableDeclarations
 ]
