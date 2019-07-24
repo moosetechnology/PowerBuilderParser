@@ -458,12 +458,12 @@ PWBAbstractGrammar >> parenthesedExpression [
 	^ $( parser , blank , expression , blank , $) parser
 ]
 
-{ #category : #accessing }
+{ #category : #helpers }
 PWBAbstractGrammar >> parserCaseInsensitiveFor: aCollectionOfString [
 	^ (aCollectionOfString collect: [:s | s parser caseInsensitive ]) reduce: [ :a :b | a / b ]
 ]
 
-{ #category : #accessing }
+{ #category : #helpers }
 PWBAbstractGrammar >> parserFor: aCollectionOfString [
 	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
@@ -541,7 +541,10 @@ PWBAbstractGrammar >> type [
 { #category : #accessing }
 PWBAbstractGrammar >> uncheckedIdentifier [
 	"have to manage the dynamic token because its a special case"
-	^ ('dynamic' token, spaces) not, (#letter parser / $_ parser) , (#letter parser / $_ parser / #digit parser) star
+
+	^ ('dynamic' token , spaces) not , 'elseif' token not
+		, (#letter parser / $_ parser)
+		, (#letter parser / $_ parser / #digit parser) star
 ]
 
 { #category : #accessing }
