@@ -231,7 +231,7 @@ PWBAbstractGrammar >> basicType [
 
 { #category : #accessing }
 PWBAbstractGrammar >> basicTypeArray [
-	^ #('long' 'datetime' 'date' 'integer' 'string' 'char')
+	^ #('long' 'datetime' 'date' 'integer' 'string' 'character' 'char')
 ]
 
 { #category : #accessing }
