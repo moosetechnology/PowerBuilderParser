@@ -65,6 +65,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement2 [
+	self
+		parse: 'ii_palette[1, ai_index] = ai_red'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
@@ -231,6 +238,12 @@ PWBUserObjectGrammarTest >> testCondition [
 	self
 		parse:
 			'this.getparent().classname() = ''w_dossier_participation'' and ii_tp_courante = 4'
+		rule: #condition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testCondition2 [
+	self parse: '(ai_index < 8) or (ai_index > 64)'
 		rule: #condition
 ]
 
