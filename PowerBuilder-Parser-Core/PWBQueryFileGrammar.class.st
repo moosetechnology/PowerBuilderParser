@@ -22,5 +22,5 @@ PWBQueryFileGrammar >> file [
 PWBQueryFileGrammar >> sqlQuery [
 	^ (self
 		parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch'))
-		, blank , (string / $; parser negate) plus
+		, spaces , (string / $; parser negate) plus
 ]

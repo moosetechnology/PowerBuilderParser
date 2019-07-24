@@ -625,7 +625,7 @@ PWBCommonParser >> transactionObject [
 { #category : #rules }
 PWBCommonParser >> triggerDefinition [
 	<generated>
-	^ super triggerDefinition withPositions ==> [ :production | PWBASTTriggerDefinition new startPosition: production start; stopPosition: production stop; identifier: ((production content at: 3) ifNotNil: [((production content at: 3) at: 1)]); eventType: (production content at: 4); statements: (production content at: 7); yourself ]
+	^ super triggerDefinition withPositions ==> [ :production | PWBASTTriggerDefinition new startPosition: production start; stopPosition: production stop; identifier: ((production content at: 3) ifNotNil: [((production content at: 3) at: 1)]); eventType: (production content at: 4); statements: ((production content at: 6) ifNotNil: [((production content at: 6) at: 2)]); yourself ]
 ]
 
 { #category : #rules }
