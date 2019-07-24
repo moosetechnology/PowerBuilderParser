@@ -61,7 +61,7 @@ PWBCommonParser >> arrayDesignation [
 { #category : #rules }
 PWBCommonParser >> arrayPosition [
 	<generated>
-	^ super arrayPosition withPositions ==> [ :production | PWBASTArrayPosition new startPosition: production start; stopPosition: production stop; expression: (production content at: 2); yourself ]
+	^ super arrayPosition withPositions ==> [ :production | PWBASTArrayPosition new startPosition: production start; stopPosition: production stop; expressions: (self rejectSeparators: (production content at: 2)); yourself ]
 ]
 
 { #category : #rules }
