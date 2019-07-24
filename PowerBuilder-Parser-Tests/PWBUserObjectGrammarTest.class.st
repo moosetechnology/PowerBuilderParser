@@ -1433,6 +1433,32 @@ end variables'
 		rule: #typeVariable
 ]
 
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testTypeVariable5 [
+	self
+		parse:
+			'type variables
+public string is_filename
+public long il_formatindex = 0
+public long il_worksheetindex = 0
+public int ii_activesheet = 0
+public int ii_firstsheet = 0
+public UInt ii_biff_version = 1280
+
+public uint ii_xf_index = 14;
+
+ public n_xls_worksheet invo_worksheets[];
+
+ public n_xls_format invo_formats[];
+ public n_cst_hash_long invo_xfs;
+
+ public n_xls_subroutines_v97 invo_sub;
+
+
+end variables'
+		rule: #typeVariable
+]
+
 { #category : #tests }
 PWBUserObjectGrammarTest >> testVariableDeclarations [
 	self
