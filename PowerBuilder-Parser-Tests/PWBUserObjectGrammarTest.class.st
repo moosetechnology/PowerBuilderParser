@@ -1158,6 +1158,15 @@ end on'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerDefinition4 [
+	self
+		parse:
+			'on uo_ancetre_pb.create
+end on'
+		rule: #triggerDefinition
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTryCatch [
 	self parse: 'try
 	string ll_test
