@@ -77,7 +77,7 @@ PWBASTAbstractVisitor >> visitPWBASTArrayDesignation: anPWBASTArrayDesignation [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTArrayPosition: aPWBASTArrayPosition [
 	<generated>
-	self visit: aPWBASTArrayPosition expression.
+	self visitAll: aPWBASTArrayPosition expressions.
 ]
 
 { #category : #visiting }
