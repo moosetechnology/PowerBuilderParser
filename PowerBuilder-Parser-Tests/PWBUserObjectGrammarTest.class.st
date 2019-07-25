@@ -107,6 +107,14 @@ PWBUserObjectGrammarTest >> testAttribute1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAttribute2 [
+	self parse: 'Constant Private Long WM_USER		= 1024'
+		rule: #attribute.
+		
+	
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testCallStatement [
 	self parse: 'call uo_traitement::create' rule: #callStatement.
 	self parse: 'CALL w_emp`cb_close::Clicked' rule: #callStatement.
@@ -1478,6 +1486,25 @@ public uint ii_xf_index = 14;
 
  public n_xls_subroutines_v97 invo_sub;
 
+
+end variables'
+		rule: #typeVariable
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testTypeVariable6 [
+	self
+		parse:
+			'type variables
+
+Constant Private Long WM_USER		= 1024
+Constant Private Long PBM_SETRANGE	= (WM_USER+1)
+Constant Private Long PBM_SETPOS		= (WM_USER+2)
+Constant Private Long PBM_DELTAPOS	= (WM_USER+3)
+Constant Private Long PBM_SETSTEP		= (WM_USER+4)
+Constant Private Long PBM_STEPIT		= (WM_USER+5)
+Constant Private Long PBM_GETRANGE	= (WM_USER+7)
+Constant Private Long PBM_GETPOS		= (WM_USER+8)
 
 end variables'
 		rule: #typeVariable
