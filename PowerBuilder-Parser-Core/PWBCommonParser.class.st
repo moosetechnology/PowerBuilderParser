@@ -85,7 +85,7 @@ PWBCommonParser >> assignationStatement [
 { #category : #rules }
 PWBCommonParser >> attribute [
 	<generated>
-	^ super attribute withPositions ==> [ :production | PWBASTAttribute new startPosition: production start; stopPosition: production stop; accessModifier: ((production content at: 1) ifNotNil: [((production content at: 1) at: 1)]); variableDeclarations: (production content at: 3); descriptor: ((production content at: 4) ifNotNil: [((production content at: 4) at: 2)]); yourself ]
+	^ super attribute withPositions ==> [ :production | PWBASTAttribute new startPosition: production start; stopPosition: production stop; accessModifier: ((production content at: 2) ifNotNil: [((production content at: 2) at: 1)]); variableDeclarations: (production content at: 4); descriptor: ((production content at: 5) ifNotNil: [((production content at: 5) at: 2)]); yourself ]
 ]
 
 { #category : #rules }

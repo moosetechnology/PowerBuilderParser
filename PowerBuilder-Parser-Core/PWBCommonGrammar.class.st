@@ -88,8 +88,11 @@ PWBCommonGrammar >> assignationStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> attribute [
-	^ (accessModifier , spaces) optional , ('constant' token , spaces) optional
-		, variableDeclarations , (blank , descriptor) optional
+	self flag: #TODO. "put constant and access modifier in another rule"
+	^ ('constant' token , spaces) optional
+		, (accessModifier , spaces) optional
+		, ('constant' token , spaces) optional , variableDeclarations
+		, (blank , descriptor) optional
 ]
 
 { #category : #accessing }
