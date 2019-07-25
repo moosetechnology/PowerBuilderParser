@@ -39,7 +39,8 @@ PWBFamixImporter class >> fillModelUsing: aLibrary visitor: visitor fromFolder: 
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> generationScripts [
+PWBFamixImporter class >> grammarGenerationScripts [
+	<script>
 	PPTASTGenerator
 		generateEverythingFrom: PWBDataWindowGrammar
 		generationStrategy: PPASTGeneratorStrategy pwbStrategy.
@@ -54,7 +55,6 @@ PWBFamixImporter class >> generationScripts [
 			PPASTGeneratorStrategy new
 				createAttributeAndAccessorsFor: aSelector
 				inClass: #PWBASTFile asClass ].
-	PWBFamixModelGenerator generate
 ]
 
 { #category : #'as yet unclassified' }
