@@ -35,6 +35,12 @@ PWBTicketASTAbstractVisitor >> visitPWBTicketASTDate: anPWBTicketASTDate [
 ]
 
 { #category : #visiting }
+PWBTicketASTAbstractVisitor >> visitPWBTicketASTFile: aPWBTicketASTFile [
+	<generated>
+	self visitAll: aPWBTicketASTFile commitComments.
+]
+
+{ #category : #visiting }
 PWBTicketASTAbstractVisitor >> visitPWBTicketASTTicketNumber: anPWBTicketASTTicketNumber [
 	<generated>
 	^ anPWBTicketASTTicketNumber ticketNumber

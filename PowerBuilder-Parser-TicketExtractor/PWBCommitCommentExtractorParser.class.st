@@ -22,6 +22,16 @@ PWBCommitCommentExtractorParser >> date [
 	^ super date flatten  ==> [ :production | PWBTicketASTDate new date: production; yourself ]
 ]
 
+{ #category : #rules }
+PWBCommitCommentExtractorParser >> file [
+	<generated>
+	^ super file
+		==> [ :production | 
+			PWBTicketASTFile new
+				commitComments: (production reject: #isCharacter);
+				yourself ]
+]
+
 { #category : #helpers }
 PWBCommitCommentExtractorParser >> rejectSeparators: anArray [
 	<generated>

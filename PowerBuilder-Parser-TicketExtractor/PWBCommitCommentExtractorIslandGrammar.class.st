@@ -6,7 +6,8 @@ Class {
 		'ticketNumber',
 		'author',
 		'date',
-		'water'
+		'water',
+		'file'
 	],
 	#category : #'PowerBuilder-Parser-TicketExtractor'
 }
@@ -24,7 +25,7 @@ PWBCommitCommentExtractorIslandGrammar class >> generationStrategy [
 	^ PPTASTGeneratorStrategy new
 		rulesToFlatten:
 			#(author date ticketNumber water);
-		rulesToIgnore: #();
+		rulesToIgnore: #(file);
 		parserPackage: #'PowerBuilder-Parser-TicketExtractor';
 		parserClass: #PWBCommitCommentExtractorParser;
 		astPackage: #'PowerBuilder-Parser-TicketExtractor';
@@ -60,8 +61,13 @@ PWBCommitCommentExtractorIslandGrammar >> date [
 ]
 
 { #category : #accessing }
-PWBCommitCommentExtractorIslandGrammar >> start [
+PWBCommitCommentExtractorIslandGrammar >> file [
 	^ (commitComment / #any parser) plus
+]
+
+{ #category : #accessing }
+PWBCommitCommentExtractorIslandGrammar >> start [
+	^ file
 ]
 
 { #category : #accessing }
