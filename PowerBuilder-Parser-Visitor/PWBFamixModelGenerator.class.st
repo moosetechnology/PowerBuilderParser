@@ -28,7 +28,9 @@ Class {
 		'application',
 		'queryFile',
 		'library',
-		'reference'
+		'reference',
+		'ticket',
+		'ticketAssociation'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -86,7 +88,11 @@ PWBFamixModelGenerator >> defineClasses [
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
 	variableAccess := builder newClassNamed: #VariableAccess.
-	reference := builder newClassNamed: #Reference
+	reference := builder newClassNamed: #Reference.
+	
+	"CIM specific"
+	ticket := builder newClassNamed: #Ticket.
+	ticketAssociation := builder newClassNamed: #TicketAssociation
 ]
 
 { #category : #definition }
@@ -191,21 +197,28 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamed;
 		--|> #TAttribute;
 		--|> #TWithTypes;
-		--|> #TAccessible
+		--|> #TAccessible.
 ]
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineProperties [
 	majorObject property: #cyclomaticComplexity type: #Number.
 	behavioral property: #cyclomaticComplexity type: #Number.
+	ticket property: #number type: #Number.
+	ticketAssociation property: #date type: #String.
+	ticketAssociation property: #author type: #String.
 	
 ]
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineRelations [
-	(variable property: #behavioral) *-<> (behavioral property: #variables).
+	(variable property: #behavioral)
+		*-<> (behavioral property: #variables).
 	(dataWindow property: #graphicComponents)
 		<>-* (graphicComponent property: #dataWindow).
 	(majorObject property: #library)
-		*-<> (library property: #userObjects)
+		*-<> (library property: #userObjects).
+	(ticketAssociation property: #majorObject) *- (majorObject property: #ticketAssociations).
+	(ticketAssociation property: #ticket) *- (ticket property: #ticketAssociations).
+	
 ]
