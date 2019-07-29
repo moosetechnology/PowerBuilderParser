@@ -44,7 +44,7 @@ PWBCommitCommentExtractorIslandGrammar >> author [
 { #category : #accessing }
 PWBCommitCommentExtractorIslandGrammar >> commitComment [
 	<reify: #(author / date / water) into: #other>
-	^ '//' parser , '*' parser star trim , 'Fiche' parser optional
+	^ '//' parser , '*' parser star trim , 'Fin' parser trim not, 'Fiche' parser optional
 		, #digit parser negate star , ticketNumber
 		, (author / date / water) star
 ]

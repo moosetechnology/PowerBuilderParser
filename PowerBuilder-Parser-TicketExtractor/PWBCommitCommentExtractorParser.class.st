@@ -13,7 +13,7 @@ PWBCommitCommentExtractorParser >> author [
 { #category : #rules }
 PWBCommitCommentExtractorParser >> commitComment [
 	<generated>
-	^ super commitComment ==> [ :production | PWBTicketASTCommitComment new ticketNumber: (production at: 5); others: (production at: 6); yourself ]
+	^ super commitComment ==> [ :production | PWBTicketASTCommitComment new ticketNumber: (production at: 6); others: (production at: 7); yourself ]
 ]
 
 { #category : #rules }

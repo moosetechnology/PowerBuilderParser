@@ -28,3 +28,8 @@ PWBCommitCommentExtractorParserTest >> testCommitComment3 [
 PWBCommitCommentExtractorParserTest >> testCommitComment4 [
 	self parse: '// 41696 - $Adrien$ le 22/09/2010 ' rule: #commitComment
 ]
+
+{ #category : #accessing }
+PWBCommitCommentExtractorParserTest >> testCommitCommentFail1 [
+	self fail: '//*** Fin Fiche 49879' rule: #commitComment
+]
