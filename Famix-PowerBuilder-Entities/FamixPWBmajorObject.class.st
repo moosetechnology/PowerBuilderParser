@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#cyclomaticComplexity',
-		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects'
+		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects',
+		'#ticketAssociations => FMMany type: #FamixPWBTicketAssociation opposite: #majorObject'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -23,7 +24,7 @@ FamixPWBmajorObject class >> annotation [
 FamixPWBmajorObject class >> generatedSlotNames [
 	<generated>
 	'FamixPWBmajorObject class>>#generatedSlotNames'.
-	^ #(cyclomaticComplexity library)
+	^ #(cyclomaticComplexity library ticketAssociations)
 ]
 
 { #category : #generator }
@@ -186,4 +187,19 @@ FamixPWBmajorObject >> libraryGroup [
 	<navigation: 'Library'>
 	^ MooseGroup
 			with: (self library)
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> ticketAssociations [
+
+	<generated>
+	^ ticketAssociations
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> ticketAssociations: anObject [
+
+	<generated>
+	ticketAssociations value: anObject
+
 ]
