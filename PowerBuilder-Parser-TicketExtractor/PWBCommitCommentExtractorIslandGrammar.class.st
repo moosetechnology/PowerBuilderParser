@@ -11,6 +11,14 @@ Class {
 	#category : #'PowerBuilder-Parser-TicketExtractor'
 }
 
+{ #category : #generating }
+PWBCommitCommentExtractorIslandGrammar class >> generate [
+	<script>
+	PPTASTGenerator
+		generateEverythingFrom: PWBCommitCommentExtractorIslandGrammar
+		generationStrategy: self generationStrategy
+]
+
 { #category : #'as yet unclassified' }
 PWBCommitCommentExtractorIslandGrammar class >> generationStrategy [
 	^ PPTASTGeneratorStrategy new

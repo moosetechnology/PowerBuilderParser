@@ -22,6 +22,18 @@ PWBCommitCommentExtractorParser >> date [
 	^ super date flatten  ==> [ :production | PWBTicketASTDate new date: production; yourself ]
 ]
 
+{ #category : #helpers }
+PWBCommitCommentExtractorParser >> rejectSeparators: anArray [
+	<generated>
+	^ anArray withIndexSelect: [:anElement :anIndex | anIndex odd]
+]
+
+{ #category : #helpers }
+PWBCommitCommentExtractorParser >> selectSeparators: anArray [
+	<generated>
+	^ anArray withIndexSelect: [:anElement :anIndex | anIndex even]
+]
+
 { #category : #rules }
 PWBCommitCommentExtractorParser >> ticketNumber [
 	<generated>
