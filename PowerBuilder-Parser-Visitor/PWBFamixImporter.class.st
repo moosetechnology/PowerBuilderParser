@@ -43,16 +43,16 @@ PWBFamixImporter class >> grammarGenerationScripts [
 	<script>
 	PPTASTGenerator
 		generateEverythingFrom: PWBDataWindowGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbStrategy.
+		generationStrategy: PPTASTGeneratorStrategy pwbStrategy.
 	PPTASTGenerator
 		generateEverythingFrom: PWBQueryFileGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
+		generationStrategy: PPTASTGeneratorStrategy pwbUserObjectStrategy.
 	PPTASTGenerator
 		generateEverythingFrom: PWBCommonGrammar
-		generationStrategy: PPASTGeneratorStrategy pwbUserObjectStrategy.
+		generationStrategy: PPTASTGeneratorStrategy pwbUserObjectStrategy.
 	#(fileExtension fileName)
 		do: [ :aSelector | 
-			PPASTGeneratorStrategy new
+			PPTASTGeneratorStrategy new
 				createAttributeAndAccessorsFor: aSelector
 				inClass: #PWBASTFile asClass ].
 ]
