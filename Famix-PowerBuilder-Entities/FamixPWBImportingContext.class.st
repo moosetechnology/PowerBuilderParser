@@ -172,6 +172,14 @@ FamixPWBImportingContext >> importLibrary [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importMaximum [
+	(self class methods
+		select: [ :m | m selector beginsWith: #import ]
+		thenCollect: #selector) \ #(importMaximum)
+		do: [ :aSelector | self perform: aSelector ]
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importMenuObject [
 
 	<generated>
