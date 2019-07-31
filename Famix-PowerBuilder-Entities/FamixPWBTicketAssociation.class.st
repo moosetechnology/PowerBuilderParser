@@ -2,8 +2,8 @@ Class {
 	#name : #FamixPWBTicketAssociation,
 	#superclass : #MooseEntity,
 	#instVars : [
-		'#date',
 		'#author',
+		'#date',
 		'#majorObject => FMOne type: #FamixPWBmajorObject opposite: #ticketAssociations',
 		'#ticket => FMOne type: #FamixPWBTicket opposite: #ticketAssociations'
 	],
