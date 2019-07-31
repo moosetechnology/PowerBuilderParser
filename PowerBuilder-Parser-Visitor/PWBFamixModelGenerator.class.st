@@ -222,3 +222,10 @@ PWBFamixModelGenerator >> defineRelations [
 	(ticketAssociation property: #ticket) *- (ticket property: #ticketAssociations).
 	
 ]
+
+{ #category : #definition }
+PWBFamixModelGenerator >> newBuilder [
+	^ super newBuilder
+		withImportingContext;
+		yourself
+]
