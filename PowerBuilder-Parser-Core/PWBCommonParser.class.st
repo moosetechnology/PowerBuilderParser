@@ -295,7 +295,7 @@ PWBCommonParser >> eventAttribute [
 { #category : #rules }
 PWBCommonParser >> eventDeclaration [
 	<generated>
-	^ super eventDeclaration withPositions ==> [ :production | PWBASTEventDeclaration new startPosition: production start; stopPosition: production stop; eventReferenceName: (production content at: 3); customCallStatement: ((production content at: 5) ifNotNil: [((production content at: 5) at: 1)]); statements: (production content ifNotNil: [(production content at: 7)]); yourself ]
+	^ super eventDeclaration withPositions ==> [ :production | PWBASTEventDeclaration new startPosition: production start; stopPosition: production stop; returnType: ((production content at: 3) ifNotNil: [((production content at: 3) at: 3)]); eventReferenceName: (production content at: 4); customCallStatement: ((production content at: 6) ifNotNil: [((production content at: 6) at: 1)]); statements: (production content ifNotNil: [(production content at: 8)]); yourself ]
 ]
 
 { #category : #rules }

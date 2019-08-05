@@ -220,7 +220,10 @@ PWBCommonGrammar >> eventAttribute [
 
 { #category : #accessing }
 PWBCommonGrammar >> eventDeclaration [
-	^ 'event' token , blank , eventReferenceName , $; parser
+	<rename: #type into: #returnType>
+	^ 'event' token , blank
+		, ('type' token , spaces , type , spaces) optional
+		, eventReferenceName , $; parser
 		, (customCallStatement , $; parser) optional , blank
 		, statements optional , blank , (self endOf: 'event')
 ]
