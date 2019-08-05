@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'SRSolverUserVisitor classTrait',
 	#instVars : [
 		'model',
-		'file'
+		'file',
+		'importingContext'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -13,17 +14,35 @@ Class {
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> create: aClass [
 	| entity |
+	(self importingContext shouldImport: aClass)
+		ifFalse: [ ^ PWBAbsentFromImportingContextNullPatternObject new ].
 	entity := aClass new
 		mooseModel: self model;
 		yourself.
 	[ entity belongsTo: self currentEntity ]
-		on: SRNoCurrentEntityAvailable 
+		on: SRNoCurrentEntityAvailable
 		do: [ "Here we handle the first level of created entities" ].
 	[ entity cyclomaticComplexity: 1 ]
 		on: MessageNotUnderstood
 		do:
 			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
 	^ entity
+]
+
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
+	| created |
+	created := self create: aClass.
+	(self importingContext shouldImport: FamixPWBIndexedFileAnchor)
+		ifTrue: [ created
+				sourceAnchor:
+					(FamixPWBIndexedFileAnchor new
+						mooseModel: self model;
+						startPos: anASTNode startPosition;
+						fileName: (self file relativeTo: self model rootFolder) pathString;
+						endPos: anASTNode stopPosition;
+						yourself) ].
+	^ created
 ]
 
 { #category : #helpers }
@@ -44,6 +63,16 @@ PWBImporterAbstractVisitor >> file [
 { #category : #accessing }
 PWBImporterAbstractVisitor >> file: anObject [
 	file := anObject
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> importingContext [
+	^ importingContext
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> importingContext: anObject [
+	importingContext := anObject
 ]
 
 { #category : #'entities creation' }
