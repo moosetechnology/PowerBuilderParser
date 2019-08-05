@@ -353,6 +353,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventAttribute: aPWBASTEventAttribute [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
 	<generated>
+	self visit: aPWBASTEventDeclaration returnType.
 	self visit: aPWBASTEventDeclaration eventReferenceName.
 	self visit: aPWBASTEventDeclaration customCallStatement.
 	self visit: aPWBASTEventDeclaration statements.
