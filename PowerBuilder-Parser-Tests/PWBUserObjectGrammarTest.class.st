@@ -476,6 +476,23 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testEventDeclaration5 [
+	self parse: 'event type string uf_date(long al_lig, string as_colonne);
+string ls_resultat
+try
+	ls_resultat = string(dw_exp_rma.getitemdate(al_lig, as_colonne), "YYYYMMDD")
+	
+	if IsNull(ls_resultat) or ls_resultat = "19000101" then ls_resultat = ''''
+	
+	return trim(ls_resultat)
+CATCH ( runtimeerror e)
+	uf_jrn_trt("EXP_RMA", "E","ERR_TRT", e.getMessage())
+end try
+
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
