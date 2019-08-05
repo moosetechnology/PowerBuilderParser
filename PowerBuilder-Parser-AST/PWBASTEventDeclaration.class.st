@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTEventDeclaration,
 	#superclass : #Object,
 	#instVars : [
+		'returnType',
 		'eventReferenceName',
 		'customCallStatement',
 		'statements',
@@ -35,6 +36,16 @@ PWBASTEventDeclaration >> eventReferenceName [
 { #category : #accessing }
 PWBASTEventDeclaration >> eventReferenceName: anObject [
 	eventReferenceName := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventDeclaration >> returnType [
+	^ returnType
+]
+
+{ #category : #accessing }
+PWBASTEventDeclaration >> returnType: anObject [
+	returnType := anObject
 ]
 
 { #category : #accessing }
