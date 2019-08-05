@@ -165,6 +165,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithReferences.
 	userObject --|> majorObject.
 	userObject --|> abstractType.
+	userObject --|> #TWithInvocations.
 	window --|> majorObject.
 	dataWindow --|> majorObject.
 	dataWindow --|> #TWithInvocations.
