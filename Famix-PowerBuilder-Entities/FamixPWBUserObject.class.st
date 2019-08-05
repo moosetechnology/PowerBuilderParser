@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBUserObject,
 	#superclass : #FamixPWBmajorObject,
-	#traits : 'FamixPWBAbstractType',
-	#classTraits : 'FamixPWBAbstractType classTrait',
+	#traits : 'FamixPWBAbstractType + FamixTWithInvocations',
+	#classTraits : 'FamixPWBAbstractType classTrait + FamixTWithInvocations classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBUserObject class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBUserObject class >> generatedTraitNames [
 	<generated>
-	^ #(FamixPWBAbstractType)
+	^ #(FamixPWBAbstractType FamixTWithInvocations)
 ]
 
 { #category : #meta }
