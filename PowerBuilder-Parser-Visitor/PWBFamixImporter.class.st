@@ -86,6 +86,7 @@ PWBFamixImporter >> importInOnePass [
 	| library visitor |
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor model: self targetModel.
+	visitor importingContext: self importingContext.
 	folder directories
 		do: [ :dir | 
 			library := FamixPWBLibrary new.
