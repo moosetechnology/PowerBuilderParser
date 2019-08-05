@@ -77,10 +77,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 			FamixPWBUserObject}
 				node: aPWBASTCustomType identifier)
 				foundAction: [ :identifier :currentEntity | 
-					currentEntity class = PWBNullEntityObject
-						ifFalse: [ (self create: FamixPWBReference from: identifier node)
-								source: currentEntity;
-								target: identifier entity ] ];
+					(self create: FamixPWBReference from: identifier node)
+						source: currentEntity;
+						target: identifier entity ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					self
 						ensureEntityWithType: FamixPWBCustomType
