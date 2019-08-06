@@ -258,6 +258,11 @@ PWBUserObjectGrammarTest >> testCondition2 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testConstant1 [
+	self parse: 'KeyNumpad0!' rule: #constant
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDeclareCursor [
 	self
 		parse:
@@ -531,8 +536,17 @@ PWBUserObjectGrammarTest >> testExecuteProcedure [
 PWBUserObjectGrammarTest >> testExpression1 [
 	self
 		parse: 'dw_evn_sit.getitemstring (ll_row, "anc_pa_cim")'
-		rule: #expression.
-	
+		rule: #expression
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testExpression2 [
+	self parse: 'KeyNumpad0!' rule: #expression
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testExpression3 [
+	self parse: 'uf_fichier_ent-c()' rule: #expression
 ]
 
 { #category : #tests }

@@ -360,6 +360,26 @@ PWBDataWindowGrammarTest >> testTable3 [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testTable4 [
+	self parse: 'table(column=(type=long updatewhereclause=yes name=par_no dbname="evn.PAR_NO" )
+ column=(type=long updatewhereclause=yes key=yes name=evn_no dbname="evn.EVN_NO" )
+ column=(type=char(7) updatewhereclause=yes name=cmp_cod dbname="evn.CMP_COD" )
+ column=(type=date updatewhereclause=yes name=evn_dat dbname="evn.EVN_DAT" )
+ column=(type=date update=yes updatewhereclause=yes name=evn_exe dbname="evn.EVN_EXE" )
+ column=(type=char(8) updatewhereclause=yes name=titre dbname="TITRE" )
+ column=(type=char(10) updatewhereclause=yes name=dateins dbname="DATEINS" )
+ column=(type=char(3) updatewhereclause=yes name=oui_non dbname="OUI_NON" )
+ column=(type=char(11) updatewhereclause=yes name=montant dbname="MONTANT" )
+ retrieve="select evn.par_no, evn.evn_no, evn.cmp_cod, evn.evn_dat, evn.evn_exe, 
+''        '' as titre, 
+''          '' as dateins, 
+''   '' as oui_non, 
+''           '' as montant
+from evn
+where evn.evn_cod = ''EVN_WEB''" update="evn" updatewhere=0 updatekeyinplace=yes )' rule: #table
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testText [
 	self parse: 'text(band=header alignment="2" text="Dct Dac" border="0" color="33554432" x="8722" y="0" height="64" width="219" html.valueishtml="0"  name=dct_dac_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )' rule: #graphicComponent
 ]
