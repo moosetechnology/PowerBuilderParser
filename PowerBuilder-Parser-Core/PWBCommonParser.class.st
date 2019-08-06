@@ -215,6 +215,12 @@ PWBCommonParser >> declareCursor [
 ]
 
 { #category : #rules }
+PWBCommonParser >> declareProcedure [
+	<generated>
+	^ super declareProcedure withPositions ==> [ :production | PWBASTDeclareProcedure new startPosition: production start; stopPosition: production stop; procedureName: (production content at: 3); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> defaultEventType [
 	<generated>
 	^ super defaultEventType flatten withPositions  ==> [ :production | PWBASTDefaultEventType new startPosition: production start; stopPosition: production stop; defaultEventType: production content; yourself ]
@@ -308,6 +314,12 @@ PWBCommonParser >> eventReferenceName [
 PWBCommonParser >> eventType [
 	<generated>
 	^ super eventType withPositions ==> [ :production | PWBASTEventType new startPosition: production start; stopPosition: production stop; eventType: production content; yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> executeProcedure [
+	<generated>
+	^ super executeProcedure withPositions ==> [ :production | PWBASTExecuteProcedure new startPosition: production start; stopPosition: production stop; procedureName: (production content at: 2); yourself ]
 ]
 
 { #category : #rules }

@@ -265,6 +265,12 @@ PWBASTAbstractVisitor >> visitPWBASTDeclareCursor: aPWBASTDeclareCursor [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDeclareProcedure: aPWBASTDeclareProcedure [
+	<generated>
+	self visit: aPWBASTDeclareProcedure procedureName.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDefaultEventType: anPWBASTDefaultEventType [
 	<generated>
 	^ anPWBASTDefaultEventType defaultEventType
@@ -371,6 +377,12 @@ PWBASTAbstractVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceNam
 PWBASTAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	<generated>
 	self visit: aPWBASTEventType eventType.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTExecuteProcedure: aPWBASTExecuteProcedure [
+	<generated>
+	self visit: aPWBASTExecuteProcedure procedureName.
 ]
 
 { #category : #visiting }
