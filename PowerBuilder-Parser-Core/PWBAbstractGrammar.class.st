@@ -258,7 +258,7 @@ PWBAbstractGrammar >> condition [
 
 { #category : #accessing }
 PWBAbstractGrammar >> constant [
-	^ (#letter parser plus , $! parser) flatten
+	^ (#letter parser plus , #digit parser star, $! parser) flatten
 ]
 
 { #category : #accessing }
