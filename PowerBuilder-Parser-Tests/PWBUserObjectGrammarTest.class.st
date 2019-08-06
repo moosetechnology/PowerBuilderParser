@@ -528,6 +528,14 @@ PWBUserObjectGrammarTest >> testExecuteProcedure [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testExpression1 [
+	self
+		parse: 'dw_evn_sit.getitemstring (ll_row, "anc_pa_cim")'
+		rule: #expression.
+	
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForLoop1 [
 	self
 		parse: 'for ll_wz = 1 to ll_nz
@@ -834,6 +842,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation7 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation8 [
+	self
+		parse:
+			'matrace(''ls_anc_pa forcé à anc_pa_cim ''+dw_evn_sit.getitemstring (ll_row, "anc_pa_cim") )'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]
@@ -990,6 +1006,14 @@ PWBUserObjectGrammarTest >> testMethodInvocation [
 	self
 		parse: '.Dynamic SaveAs(ls_tmpfile, PSReport!, True)'
 		rule: #methodInvocation
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testMethodInvocation2 [
+	self
+		parse: '.getitemstring (ll_row, "anc_pa_cim")'
+		rule: #methodInvocation.
+	
 ]
 
 { #category : #tests }
