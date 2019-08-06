@@ -1,6 +1,8 @@
 Class {
 	#name : #FamixPWBWindow,
 	#superclass : #FamixPWBmajorObject,
+	#traits : 'FamixTWithInvocations',
+	#classTraits : 'FamixTWithInvocations classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -23,7 +25,7 @@ FamixPWBWindow class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBWindow class >> generatedTraitNames [
 	<generated>
-	^ #()
+	^ #(FamixTWithInvocations)
 ]
 
 { #category : #meta }
