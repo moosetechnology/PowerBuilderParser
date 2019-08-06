@@ -60,7 +60,9 @@ Class {
 		'typePrototypes',
 		'accessModifierDefiner',
 		'multiLineCase',
-		'singleLineCase'
+		'singleLineCase',
+		'declareProcedure',
+		'executeProcedure'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -171,6 +173,15 @@ PWBCommonGrammar >> declareCursor [
 ]
 
 { #category : #accessing }
+PWBCommonGrammar >> declareProcedure [
+	<rename: #identifier into: #procedureName>
+	<ignore: #string>
+	^ 'declare' token , spaces , identifier , spaces , 'procedure' token
+		, spaces , 'for' token , blank , (string / $; parser negate) plus
+		, $; parser
+]
+
+{ #category : #accessing }
 PWBCommonGrammar >> descriptor [
 	^ 'descriptor' token , spaces , expression
 ]
@@ -233,6 +244,12 @@ PWBCommonGrammar >> eventReferenceName [
 	<rename: #identifier into: #(objectClass eventName)>
 	^ (identifier , '::' parser) optional , identifier
 		, arguments optional
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> executeProcedure [
+	<rename: #identifier into: #procedureName>
+	^ 'execute' token , identifier trim , $; parser
 ]
 
 { #category : #accessing }
@@ -356,9 +373,10 @@ PWBCommonGrammar >> sqlRollbackStatement [
 PWBCommonGrammar >> statement [
 	<reifyAllInto: #statement>
 	^ programStep / gotoStatement / sqlRollbackStatement / openSqlCursor
-		/ closeSqlCursor / sqlCommitStatement / declareCursor / sqlQuery
-		/ tryCatch / forLoop / chooseCase / doWhileLoop / doUntilLoop
-		/ doLoopWhile / doLoopUntil / variableDeclarations / super statement
+		/ closeSqlCursor / sqlCommitStatement / declareCursor
+		/ declareProcedure / executeProcedure / sqlQuery / tryCatch
+		/ forLoop / chooseCase / doWhileLoop / doUntilLoop / doLoopWhile
+		/ doLoopUntil / variableDeclarations / super statement
 ]
 
 { #category : #accessing }
