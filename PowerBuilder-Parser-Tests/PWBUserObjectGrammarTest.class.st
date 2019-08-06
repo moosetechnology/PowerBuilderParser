@@ -267,6 +267,22 @@ SELECT name  FROM sysibm.syscolumns WHERE tbname = ''AVE'' order by colno using 
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDeclareProcedure [
+	self
+		parse:
+			'DECLARE CTRL_SOUSCRIPTION PROCEDURE FOR DBA.PROC_SPEC_CTRL_SOUSCRIPTION
+	ID_OGC=:as_id_ogc, 
+	CONTRAT=:as_adh_ctr, 
+	CAPITAL=:al_mtt_capital, 
+	DATESOUSCR=:ad_date_effet, 
+	CODEMOUVEMENT	=:as_cod_mvt,
+	NUMEROCONTRAT=:as_nmr_ctr,
+	SOUSCRIPTIONPOSSIBLE=:ai_souscription_possible OUTPUT
+ USING SQLCA;'
+		rule: #declareProcedure
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDoLoopUntil [
 	self parse: 'do
 	ll_lig ++
@@ -501,6 +517,14 @@ end event' rule: #eventDeclaration
 { #category : #tests }
 PWBUserObjectGrammarTest >> testEventType [
 	self parse: 'clicked' rule: #eventType.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testExecuteProcedure [
+	self
+		parse:
+			'execute CTRL_SOUSCRIPTION;'
+		rule: #executeProcedure
 ]
 
 { #category : #tests }
