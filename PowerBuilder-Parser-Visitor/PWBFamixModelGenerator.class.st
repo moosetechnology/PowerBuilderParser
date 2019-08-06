@@ -167,6 +167,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	userObject --|> abstractType.
 	userObject --|> #TWithInvocations.
 	window --|> majorObject.
+	window --|> #TWithInvocations.
 	dataWindow --|> majorObject.
 	dataWindow --|> #TWithInvocations.
 	structureFile --|> majorObject.
@@ -198,7 +199,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamed;
 		--|> #TAttribute;
 		--|> #TWithTypes;
-		--|> #TAccessible.
+		--|> #TAccessible
 ]
 
 { #category : #definition }
