@@ -373,9 +373,8 @@ PWBAbstractGrammar >> identifier [
 	^ ((reservedKeyword not , uncheckedIdentifier)
 		/
 			(reservedKeyword
-				,
-					($- parser optional , (#letter parser / $_ parser / #digit parser))
-						plus)) flatten
+				, ($- parser / #letter parser / $_ parser / #digit parser) plus))
+		flatten
 ]
 
 { #category : #accessing }
@@ -545,7 +544,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 	^ ('dynamic' token , spaces) not , 'elseif' token not
 		, (#letter parser / $_ parser)
-		, ($- parser optional, (#letter parser / $_ parser / #digit parser)) star
+		, ($- parser / #letter parser / $_ parser / #digit parser) star
 ]
 
 { #category : #accessing }
