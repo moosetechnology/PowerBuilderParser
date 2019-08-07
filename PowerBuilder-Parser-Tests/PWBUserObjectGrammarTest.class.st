@@ -876,7 +876,8 @@ PWBUserObjectGrammarTest >> testGotoStatement [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testIdentifier [
-	self fail: 'char' rule: #identifier
+	self fail: 'char' rule: #identifier.
+	self parse: 'for1' rule: #identifier.
 ]
 
 { #category : #accessing }
