@@ -370,12 +370,12 @@ PWBAbstractGrammar >> functionInvocation [
 
 { #category : #accessing }
 PWBAbstractGrammar >> identifier [
-	^ ((reservedKeyword not , (#letter parser / $_ parser)
-		, (#letter parser / $_ parser / $- parser / #digit parser) star)
+	^ ((reservedKeyword not , uncheckedIdentifier)
 		/
 			(reservedKeyword
-				, (#letter parser / $_ parser / $- parser / #digit parser) plus))
-		flatten
+				,
+					($- parser optional , (#letter parser / $_ parser / #digit parser))
+						plus)) flatten
 ]
 
 { #category : #accessing }
@@ -545,7 +545,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 	^ ('dynamic' token , spaces) not , 'elseif' token not
 		, (#letter parser / $_ parser)
-		, (#letter parser / $_ parser / #digit parser) star
+		, ($- parser optional, (#letter parser / $_ parser / #digit parser)) star
 ]
 
 { #category : #accessing }
