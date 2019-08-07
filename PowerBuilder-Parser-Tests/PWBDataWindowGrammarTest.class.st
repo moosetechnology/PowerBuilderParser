@@ -380,6 +380,39 @@ where evn.evn_cod = ''EVN_WEB''" update="evn" updatewhere=0 updatekeyinplace=yes
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testTable5 [
+	self parse: 'table(column=(type=char(10) updatewhereclause=yes name=rea_deb dbname="rea_deb" )
+ column=(type=char(10) updatewhereclause=yes name=rea_fin dbname="rea_fin" )
+ column=(type=char(12) updatewhereclause=yes name=opt_cod dbname="opt_cod" )
+ column=(type=char(12) updatewhereclause=yes name=adh_ctr dbname="adh_ctr" )
+ column=(type=char(12) updatewhereclause=yes name=cod1 dbname="cod1" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau1 dbname="tau1" )
+ column=(type=char(5) updatewhereclause=yes name=for1 dbname="for1" )
+ column=(type=char(12) updatewhereclause=yes name=cod2 dbname="cod2" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau2 dbname="tau2" )
+ column=(type=char(5) updatewhereclause=yes name=for2 dbname="for2" )
+ column=(type=char(12) updatewhereclause=yes name=cod3 dbname="cod3" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau3 dbname="tau3" )
+ column=(type=char(5) updatewhereclause=yes name=for3 dbname="for3" )
+ column=(type=char(12) updatewhereclause=yes name=cod4 dbname="cod4" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau4 dbname="tau4" )
+ column=(type=char(5) updatewhereclause=yes name=for4 dbname="for4" )
+ column=(type=char(12) updatewhereclause=yes name=cod5 dbname="cod5" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau5 dbname="tau5" )
+ column=(type=char(5) updatewhereclause=yes name=for5 dbname="for5" )
+ column=(type=char(12) updatewhereclause=yes name=cod6 dbname="cod6" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau6 dbname="tau6" )
+ column=(type=char(5) updatewhereclause=yes name=for6 dbname="for6" )
+ column=(type=char(12) updatewhereclause=yes name=cod7 dbname="cod7" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau7 dbname="tau7" )
+ column=(type=char(5) updatewhereclause=yes name=for7 dbname="for7" )
+ column=(type=char(12) updatewhereclause=yes name=cod8 dbname="cod8" )
+ column=(type=decimal(2) updatewhereclause=yes name=tau8 dbname="tau8" )
+ column=(type=char(5) updatewhereclause=yes name=for8 dbname="for8" )
+ )' rule: #table
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testText [
 	self parse: 'text(band=header alignment="2" text="Dct Dac" border="0" color="33554432" x="8722" y="0" height="64" width="219" html.valueishtml="0"  name=dct_dac_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )' rule: #graphicComponent
 ]
