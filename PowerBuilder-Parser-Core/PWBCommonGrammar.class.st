@@ -62,7 +62,8 @@ Class {
 		'multiLineCase',
 		'singleLineCase',
 		'declareProcedure',
-		'executeProcedure'
+		'executeProcedure',
+		'arrayWithToAndSize'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -443,6 +444,12 @@ PWBCommonGrammar >> typeVariable [
 { #category : #accessing }
 PWBCommonGrammar >> usingClause [
 	^ 'using' token , blank , transactionObject
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> variable [
+	^ this optional , identifier , $( parser not
+		, arrayWithToAndSize optional , arrayWithSize optional
 ]
 
 { #category : #accessing }

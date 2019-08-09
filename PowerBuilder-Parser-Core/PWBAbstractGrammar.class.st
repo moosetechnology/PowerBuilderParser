@@ -207,6 +207,13 @@ PWBAbstractGrammar >> arrayWithSize [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> arrayWithToAndSize [
+	^ spaces optional , $[ parser , spaces optional , expression
+		, spaces optional , 'to' token , spaces optional , expression
+		, spaces optional , $] parser
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> assignation [
 	^ blank , ($= parser / '+=' parser / '-=' parser / '/=' parser / '*=' parser) , blank
 		, expression
