@@ -220,7 +220,7 @@ PWBAbstractGrammar >> assignationStatement [
 { #category : #accessing }
 PWBAbstractGrammar >> attributeAccess [
 	<reify: #(arrayPosition / arrayDesignation) into: #arrayInformation>
-	^ $. parser trim , uncheckedIdentifier , $( parser not
+	^ $. parser trim , uncheckedIdentifier , (blank, $( parser) not
 		, (arrayPosition / arrayDesignation) optional
 ]
 
