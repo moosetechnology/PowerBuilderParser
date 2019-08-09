@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'this',
 		'identifier',
-		'arrayWithSize',
+		'arrayDefinition',
 		'startPosition',
 		'stopPosition'
 	],
@@ -18,13 +18,13 @@ PWBASTVariable >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTVariable >> arrayWithSize [
-	^ arrayWithSize
+PWBASTVariable >> arrayDefinition [
+	^ arrayDefinition
 ]
 
 { #category : #accessing }
-PWBASTVariable >> arrayWithSize: anObject [
-	arrayWithSize := anObject
+PWBASTVariable >> arrayDefinition: anObject [
+	arrayDefinition := anObject
 ]
 
 { #category : #accessing }

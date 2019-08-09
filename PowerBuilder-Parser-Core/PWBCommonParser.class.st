@@ -65,6 +65,12 @@ PWBCommonParser >> arrayPosition [
 ]
 
 { #category : #rules }
+PWBCommonParser >> arrayWithInterval [
+	<generated>
+	^ super arrayWithInterval withPositions ==> [ :production | PWBASTArrayWithInterval new startPosition: production start; stopPosition: production stop; startIndex: (production content at: 3); endIndex: (production content at: 5); yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> arrayWithSize [
 	<generated>
 	^ super arrayWithSize withPositions ==> [ :production | PWBASTArrayWithSize new startPosition: production start; stopPosition: production stop; expressions: ((production content at: 4) ifNotNil: [(self rejectSeparators: (production content at: 4))]); yourself ]
@@ -685,7 +691,7 @@ PWBCommonParser >> usingClause [
 { #category : #rules }
 PWBCommonParser >> variable [
 	<generated>
-	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayWithSize: (production content ifNotNil: [(production content at: 4)]); yourself ]
+	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayDefinition: (production content ifNotNil: [(production content at: 4)]); yourself ]
 ]
 
 { #category : #rules }

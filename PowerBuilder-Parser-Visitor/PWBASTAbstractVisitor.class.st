@@ -81,6 +81,13 @@ PWBASTAbstractVisitor >> visitPWBASTArrayPosition: aPWBASTArrayPosition [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTArrayWithInterval: aPWBASTArrayWithInterval [
+	<generated>
+	self visit: aPWBASTArrayWithInterval startIndex.
+	self visit: aPWBASTArrayWithInterval endIndex.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 	<generated>
 	self visitAll: aPWBASTArrayWithSize expressions.
@@ -861,7 +868,7 @@ PWBASTAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	<generated>
 	self visit: aPWBASTVariable this.
 	self visit: aPWBASTVariable identifier.
-	self visit: aPWBASTVariable arrayWithSize.
+	self visit: aPWBASTVariable arrayDefinition.
 ]
 
 { #category : #visiting }
