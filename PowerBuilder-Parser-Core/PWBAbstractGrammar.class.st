@@ -62,7 +62,8 @@ Class {
 		'continueStatement',
 		'parenthesedArray',
 		'dynamicMethodInvocation',
-		'regularMethodInvocation'
+		'regularMethodInvocation',
+		'arrayWithToAndSize'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -204,6 +205,13 @@ PWBAbstractGrammar >> arrayWithSize [
 	^ spaces optional , $[ parser , spaces optional
 		, (expression separatedBy: $, parser) optional , spaces optional
 		, $] parser
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> arrayWithToAndSize [
+	^ spaces optional , $[ parser , spaces optional
+		, (expression separatedBy: 'to' token trim) optional
+		, spaces optional , $] parser
 ]
 
 { #category : #accessing }
@@ -549,7 +557,8 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
-	^ this optional , identifier , $( parser not , arrayWithSize optional
+	^ this optional , identifier , $( parser not
+		, arrayWithToAndSize optional , arrayWithSize optional
 ]
 
 { #category : #accessing }

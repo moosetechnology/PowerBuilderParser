@@ -59,6 +59,12 @@ PWBDataWindowParser >> arrayWithSize [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> arrayWithToAndSize [
+	<generated>
+	^ super arrayWithToAndSize withPositions ==> [ :production | PWBASTArrayWithToAndSize new startPosition: production start; stopPosition: production stop; expressions: ((production content at: 4) ifNotNil: [(self rejectSeparators: (production content at: 4))]); yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> assignation [
 	<generated>
 	^ super assignation withPositions ==> [ :production | PWBASTAssignation new startPosition: production start; stopPosition: production stop; expression: (production content at: 4); yourself ]
@@ -451,5 +457,5 @@ PWBDataWindowParser >> uncheckedIdentifier [
 { #category : #rules }
 PWBDataWindowParser >> variable [
 	<generated>
-	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayWithSize: (production content ifNotNil: [(production content at: 4)]); yourself ]
+	^ super variable withPositions ==> [ :production | PWBASTVariable new startPosition: production start; stopPosition: production stop; this: (production content ifNotNil: [(production content at: 1)]); identifier: (production content at: 2); arrayWithToAndSize: (production content ifNotNil: [(production content at: 4)]); arrayWithSize: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]

@@ -87,6 +87,12 @@ PWBASTAbstractVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTArrayWithToAndSize: aPWBASTArrayWithToAndSize [
+	<generated>
+	self visitAll: aPWBASTArrayWithToAndSize expressions.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAssignation: aPWBASTAssignation [
 	<generated>
 	self visit: aPWBASTAssignation expression.
@@ -861,6 +867,7 @@ PWBASTAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	<generated>
 	self visit: aPWBASTVariable this.
 	self visit: aPWBASTVariable identifier.
+	self visit: aPWBASTVariable arrayWithToAndSize.
 	self visit: aPWBASTVariable arrayWithSize.
 ]
 

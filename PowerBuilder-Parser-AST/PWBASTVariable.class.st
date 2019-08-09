@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'this',
 		'identifier',
+		'arrayWithToAndSize',
 		'arrayWithSize',
 		'startPosition',
 		'stopPosition'
@@ -25,6 +26,16 @@ PWBASTVariable >> arrayWithSize [
 { #category : #accessing }
 PWBASTVariable >> arrayWithSize: anObject [
 	arrayWithSize := anObject
+]
+
+{ #category : #accessing }
+PWBASTVariable >> arrayWithToAndSize [
+	^ arrayWithToAndSize
+]
+
+{ #category : #accessing }
+PWBASTVariable >> arrayWithToAndSize: anObject [
+	arrayWithToAndSize := anObject
 ]
 
 { #category : #accessing }
