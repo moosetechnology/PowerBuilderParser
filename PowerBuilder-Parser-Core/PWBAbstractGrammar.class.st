@@ -62,7 +62,8 @@ Class {
 		'continueStatement',
 		'parenthesedArray',
 		'dynamicMethodInvocation',
-		'regularMethodInvocation'
+		'regularMethodInvocation',
+		'arrayWithInterval'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -197,6 +198,13 @@ PWBAbstractGrammar >> arrayDesignation [
 { #category : #accessing }
 PWBAbstractGrammar >> arrayPosition [
 	^ '[' parser , (expression separatedBy: $, parser trim) , ']' parser
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> arrayWithInterval [
+	<rename: #expression into: #(startIndex endIndex)>
+	^ spaces optional , $[ parser , expression trim , 'to' token
+		, expression trim , $] parser
 ]
 
 { #category : #accessing }
@@ -549,7 +557,9 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
-	^ this optional , identifier , $( parser not , arrayWithSize optional
+	<reify: #(arrayWithInterval / arrayWithSize) into: #arrayDefinition>
+	^ this optional , identifier , $( parser not
+		, (arrayWithInterval / arrayWithSize) optional
 ]
 
 { #category : #accessing }
