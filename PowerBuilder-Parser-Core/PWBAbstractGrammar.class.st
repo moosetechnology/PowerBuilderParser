@@ -209,8 +209,8 @@ PWBAbstractGrammar >> arrayWithSize [
 
 { #category : #accessing }
 PWBAbstractGrammar >> arrayWithToAndSize [
-	^ spaces optional , $[ parser , spaces optional
-		, (expression separatedBy: 'to' token trim) optional
+	^ spaces optional , $[ parser , spaces optional , expression
+		, spaces optional , 'to' token , spaces optional , expression
 		, spaces optional , $] parser
 ]
 
