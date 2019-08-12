@@ -113,7 +113,7 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
-	self visit: aPWBASTVariable arrayWithSize.
+	self visit: aPWBASTVariable arrayDefinition.
 	^ SRIdentifierWithNode
 		identifier: (self visit: aPWBASTVariable identifier)
 		expectedKind: FamixPWBVariable
