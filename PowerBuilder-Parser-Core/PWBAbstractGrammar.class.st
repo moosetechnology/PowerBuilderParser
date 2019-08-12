@@ -63,7 +63,8 @@ Class {
 		'parenthesedArray',
 		'dynamicMethodInvocation',
 		'regularMethodInvocation',
-		'arrayWithInterval'
+		'arrayWithInterval',
+		'identifierCharacter'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -234,7 +235,8 @@ PWBAbstractGrammar >> attributeAccess [
 
 { #category : #accessing }
 PWBAbstractGrammar >> basicType [
-	^ self parserCaseInsensitiveFor: self basicTypeArray
+	^ (self parserCaseInsensitiveFor: self basicTypeArray)
+		, identifierCharacter not
 ]
 
 { #category : #accessing }
@@ -379,10 +381,12 @@ PWBAbstractGrammar >> functionInvocation [
 { #category : #accessing }
 PWBAbstractGrammar >> identifier [
 	^ ((reservedKeyword not , uncheckedIdentifier)
-		/
-			(reservedKeyword
-				, ($- parser / #letter parser / $_ parser / #digit parser) plus))
-		flatten
+		/ (reservedKeyword , identifierCharacter plus)) flatten
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> identifierCharacter [
+	^ (#word parser / $_ parser / $- parser)
 ]
 
 { #category : #accessing }
@@ -551,8 +555,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 	"have to manage the dynamic token because its a special case"
 
 	^ ('dynamic' token , spaces) not , 'elseif' token not
-		, (#letter parser / $_ parser)
-		, ($- parser / #letter parser / $_ parser / #digit parser) star
+		, (#letter parser / $_ parser) , identifierCharacter star
 ]
 
 { #category : #accessing }
