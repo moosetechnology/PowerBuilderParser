@@ -163,6 +163,13 @@ PWBDataWindowGrammarTest >> testRectangle [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testSparse [
+	self
+		parse: 'sparse(names="dossier_interne	no_ligne_dans_dossier")'
+		rule: #graphicComponent.
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testString [
 	self parse: '''Simple string''' rule: #string.
 	self parse: '"Simple string"' rule: #string.
