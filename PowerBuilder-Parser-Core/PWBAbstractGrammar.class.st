@@ -528,7 +528,7 @@ PWBAbstractGrammar >> statement [
 { #category : #accessing }
 PWBAbstractGrammar >> statements [
 	^ (statement separatedBy: $; parser trim / blank)
-		, $; parser optional
+		, (blank, $; parser) optional
 ]
 
 { #category : #accessing }
