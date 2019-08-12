@@ -142,6 +142,11 @@ PWBDataWindowGrammarTest >> testOption [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testOption1 [
+	self parse: 'name=date_naissance_t' rule: #option.
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testOptions [
 	self parse: 'band=detail id=4' rule: #options
 ]
