@@ -437,6 +437,12 @@ PWBDataWindowParser >> table [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> template [
+	<generated>
+	^ super template withPositions ==> [ :production | PWBASTTemplate new startPosition: production start; stopPosition: production stop; options: (self rejectSeparators: (production content at: 4)); yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> this [
 	<generated>
 	^ super this flatten withPositions  ==> [ :production | PWBASTThis new startPosition: production start; stopPosition: production stop; this: production content; yourself ]
