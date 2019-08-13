@@ -20,7 +20,8 @@ Class {
 		'import',
 		'export',
 		'formatType',
-		'dataWindowFile'
+		'dataWindowFile',
+		'template'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -108,7 +109,8 @@ PWBDataWindowGrammar >> optionValue [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> options [
-	^ option separatedBy: blank optional
+	<reify: #(option / template) into: #option>
+	^ option / template separatedBy: blank optional
 ]
 
 { #category : #'as yet unclassified' }
@@ -120,4 +122,10 @@ PWBDataWindowGrammar >> parameters [
 PWBDataWindowGrammar >> table [
 	^ 'table' parser , $( parser , (column separatedBy: blank) , blank , options optional
 		, blank , $) parser
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowGrammar >> template [
+	^ 'template' token , $= parser trim , $( parser
+		, (option separatedBy: blank optional) trim , $) parser
 ]
