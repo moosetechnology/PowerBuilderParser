@@ -22,6 +22,11 @@ PWBUserObjectGrammarTest >> testArgument [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testArgument2 [
+	self parse: 'string as_ctr_ass[10, 20]' rule: #argument
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAssignationStatement [
 	self
 		parse: 'this.Control[]={this.dw_liste,this.dw_detail}'
@@ -667,6 +672,13 @@ PWBUserObjectGrammarTest >> testFunctionDeclaration [
 PWBUserObjectGrammarTest >> testFunctionDeclaration2 [
 	self
 		parse: 'public function date of_gregorian(long AL_JULIAN)'
+		rule: #functionDeclaration.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionDeclaration3 [
+	self
+		parse: 'public function boolean uf_vivens_contrat (string as_ctr_ass[10, 20], string as_ctr_ben[10, 20], long al_nb_ass, long al_nb_ben)'
 		rule: #functionDeclaration.
 ]
 
