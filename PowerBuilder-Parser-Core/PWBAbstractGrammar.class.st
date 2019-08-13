@@ -211,7 +211,7 @@ PWBAbstractGrammar >> arrayWithInterval [
 { #category : #accessing }
 PWBAbstractGrammar >> arrayWithSize [
 	^ spaces optional , $[ parser , spaces optional
-		, (expression separatedBy: $, parser) optional , spaces optional
+		, (expression separatedBy: $, parser trim) optional , spaces optional
 		, $] parser
 ]
 
