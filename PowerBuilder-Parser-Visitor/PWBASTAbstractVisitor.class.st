@@ -789,6 +789,12 @@ PWBASTAbstractVisitor >> visitPWBASTTable: aPWBASTTable [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTTemplate: aPWBASTTemplate [
+	<generated>
+	self visitAll: aPWBASTTemplate options.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
 	<generated>
 	^ anPWBASTThis this
