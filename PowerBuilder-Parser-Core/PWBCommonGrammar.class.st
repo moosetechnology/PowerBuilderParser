@@ -249,7 +249,9 @@ PWBCommonGrammar >> eventReferenceName [
 { #category : #accessing }
 PWBCommonGrammar >> executeProcedure [
 	<rename: #identifier into: #procedureName>
-	^ 'execute' token , identifier trim , $; parser
+	<aknowledgePresence: #immediate>
+	^ 'execute' token , 'immediate' token trim optional, $: parser optional , identifier trim
+		, usingClause trim optional , $; parser
 ]
 
 { #category : #accessing }
