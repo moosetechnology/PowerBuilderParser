@@ -390,6 +390,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 PWBASTAbstractVisitor >> visitPWBASTExecuteProcedure: aPWBASTExecuteProcedure [
 	<generated>
 	self visit: aPWBASTExecuteProcedure procedureName.
+	self visit: aPWBASTExecuteProcedure usingClause.
 ]
 
 { #category : #visiting }

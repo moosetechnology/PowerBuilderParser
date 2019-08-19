@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'procedureName',
+		'usingClause',
 		'startPosition',
 		'stopPosition'
 	],
@@ -43,4 +44,14 @@ PWBASTExecuteProcedure >> stopPosition [
 { #category : #accessing }
 PWBASTExecuteProcedure >> stopPosition: anObject [
 	stopPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTExecuteProcedure >> usingClause [
+	^ usingClause
+]
+
+{ #category : #accessing }
+PWBASTExecuteProcedure >> usingClause: anObject [
+	usingClause := anObject
 ]

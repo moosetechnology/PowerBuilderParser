@@ -325,7 +325,7 @@ PWBCommonParser >> eventType [
 { #category : #rules }
 PWBCommonParser >> executeProcedure [
 	<generated>
-	^ super executeProcedure withPositions ==> [ :production | PWBASTExecuteProcedure new startPosition: production start; stopPosition: production stop; procedureName: (production content at: 2); yourself ]
+	^ super executeProcedure withPositions ==> [ :production | PWBASTExecuteProcedure new startPosition: production start; stopPosition: production stop; procedureName: (production content at: 4); usingClause: (production content ifNotNil: [(production content at: 5)]); yourself ]
 ]
 
 { #category : #rules }
