@@ -530,10 +530,18 @@ PWBUserObjectGrammarTest >> testEventType [
 ]
 
 { #category : #tests }
-PWBUserObjectGrammarTest >> testExecuteProcedure [
+PWBUserObjectGrammarTest >> testExecuteProcedure1 [
 	self
 		parse:
 			'execute CTRL_SOUSCRIPTION;'
+		rule: #executeProcedure
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testExecuteProcedure2 [
+	self
+		parse:
+			'execute immediate :ls_sql using sqlca;'
 		rule: #executeProcedure
 ]
 
