@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTExecuteProcedure,
 	#superclass : #Object,
 	#instVars : [
+		'immediate',
 		'procedureName',
 		'usingClause',
 		'startPosition',
@@ -14,6 +15,16 @@ Class {
 PWBASTExecuteProcedure >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTExecuteProcedure: self
+]
+
+{ #category : #accessing }
+PWBASTExecuteProcedure >> immediate [
+	^ immediate
+]
+
+{ #category : #accessing }
+PWBASTExecuteProcedure >> immediate: anObject [
+	immediate := anObject
 ]
 
 { #category : #accessing }

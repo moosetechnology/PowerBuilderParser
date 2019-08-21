@@ -701,6 +701,7 @@ PWBCommonParser >> executeProcedure [
 			PWBASTExecuteProcedure new
 				startPosition: production start;
 				stopPosition: production stop;
+				immediate: (production content at: 2) notNil;
 				procedureName: (production content at: 4);
 				usingClause: (production content at: 5);
 				yourself ]
