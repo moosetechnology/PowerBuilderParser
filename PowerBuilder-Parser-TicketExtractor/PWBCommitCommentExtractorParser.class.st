@@ -13,7 +13,11 @@ PWBCommitCommentExtractorParser >> author [
 { #category : #rules }
 PWBCommitCommentExtractorParser >> commitComment [
 	<generated>
-	^ super commitComment ==> [ :production | PWBTicketASTCommitComment new ticketNumber: (production at: 6); others: (production at: 7); yourself ]
+	^ super commitComment
+		==> [ :production | 
+			PWBTicketASTCommitComment new
+				interestingCommitCommentDatas: ((production at: 5) collect: [ :subProduction | subProduction at: 1 ]);
+				yourself ]
 ]
 
 { #category : #rules }
@@ -29,6 +33,16 @@ PWBCommitCommentExtractorParser >> file [
 		==> [ :production | 
 			PWBTicketASTFile new
 				commitComments: (production reject: #isCharacter);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommitCommentExtractorParser >> interestingCommitCommentData [
+	<generated>
+	^ super interestingCommitCommentData
+		==> [ :production | 
+			PWBTicketASTInterestingCommitCommentData new
+				interestingCommitCommentData: production;
 				yourself ]
 ]
 
@@ -48,10 +62,4 @@ PWBCommitCommentExtractorParser >> selectSeparators: anArray [
 PWBCommitCommentExtractorParser >> ticketNumber [
 	<generated>
 	^ super ticketNumber flatten  ==> [ :production | PWBTicketASTTicketNumber new ticketNumber: production; yourself ]
-]
-
-{ #category : #rules }
-PWBCommitCommentExtractorParser >> water [
-	<generated>
-	^ super water flatten  ==> [ :production | PWBTicketASTWater new water: production; yourself ]
 ]

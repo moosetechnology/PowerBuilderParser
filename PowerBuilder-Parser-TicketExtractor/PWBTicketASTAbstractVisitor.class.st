@@ -24,8 +24,7 @@ PWBTicketASTAbstractVisitor >> visitPWBTicketASTAuthor: anPWBTicketASTAuthor [
 { #category : #visiting }
 PWBTicketASTAbstractVisitor >> visitPWBTicketASTCommitComment: aPWBTicketASTCommitComment [
 	<generated>
-	self visit: aPWBTicketASTCommitComment ticketNumber.
-	self visitAll: aPWBTicketASTCommitComment others.
+	self visitAll: aPWBTicketASTCommitComment interestingCommitCommentDatas.
 ]
 
 { #category : #visiting }
@@ -41,13 +40,13 @@ PWBTicketASTAbstractVisitor >> visitPWBTicketASTFile: aPWBTicketASTFile [
 ]
 
 { #category : #visiting }
-PWBTicketASTAbstractVisitor >> visitPWBTicketASTTicketNumber: anPWBTicketASTTicketNumber [
+PWBTicketASTAbstractVisitor >> visitPWBTicketASTInterestingCommitCommentData: aPWBTicketASTInterestingCommitCommentData [
 	<generated>
-	^ anPWBTicketASTTicketNumber ticketNumber
+	self visit: aPWBTicketASTInterestingCommitCommentData interestingCommitCommentData.
 ]
 
 { #category : #visiting }
-PWBTicketASTAbstractVisitor >> visitPWBTicketASTWater: anPWBTicketASTWater [
+PWBTicketASTAbstractVisitor >> visitPWBTicketASTTicketNumber: anPWBTicketASTTicketNumber [
 	<generated>
-	^ anPWBTicketASTWater water
+	^ anPWBTicketASTTicketNumber ticketNumber
 ]

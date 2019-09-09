@@ -2,8 +2,7 @@ Class {
 	#name : #PWBTicketASTCommitComment,
 	#superclass : #Object,
 	#instVars : [
-		'ticketNumber',
-		'others'
+		'interestingCommitCommentDatas'
 	],
 	#category : #'PowerBuilder-Parser-TicketExtractor'
 }
@@ -12,6 +11,16 @@ Class {
 PWBTicketASTCommitComment >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBTicketASTCommitComment: self
+]
+
+{ #category : #accessing }
+PWBTicketASTCommitComment >> interestingCommitCommentDatas [
+	^ interestingCommitCommentDatas
+]
+
+{ #category : #accessing }
+PWBTicketASTCommitComment >> interestingCommitCommentDatas: anObject [
+	interestingCommitCommentDatas := anObject
 ]
 
 { #category : #accessing }
@@ -32,4 +41,14 @@ PWBTicketASTCommitComment >> ticketNumber [
 { #category : #accessing }
 PWBTicketASTCommitComment >> ticketNumber: anObject [
 	ticketNumber := anObject
+]
+
+{ #category : #accessing }
+PWBTicketASTCommitComment >> waters [
+	^ waters
+]
+
+{ #category : #accessing }
+PWBTicketASTCommitComment >> waters: anObject [
+	waters := anObject
 ]

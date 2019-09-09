@@ -7,7 +7,8 @@ Class {
 		'author',
 		'date',
 		'water',
-		'file'
+		'file',
+		'interestingCommitCommentData'
 	],
 	#category : #'PowerBuilder-Parser-TicketExtractor'
 }
@@ -24,8 +25,8 @@ PWBCommitCommentExtractorIslandGrammar class >> generate [
 PWBCommitCommentExtractorIslandGrammar class >> generationStrategy [
 	^ PPTASTGeneratorStrategy new
 		rulesToFlatten:
-			#(author date ticketNumber water);
-		rulesToIgnore: #(file);
+			#(author date ticketNumber);
+		rulesToIgnore: #(file water);
 		parserPackage: #'PowerBuilder-Parser-TicketExtractor';
 		parserClass: #PWBCommitCommentExtractorParser;
 		astPackage: #'PowerBuilder-Parser-TicketExtractor';
@@ -44,15 +45,18 @@ PWBCommitCommentExtractorIslandGrammar >> author [
 { #category : #accessing }
 PWBCommitCommentExtractorIslandGrammar >> commitComment [
 	<reify: #(author / date / water) into: #other>
-	^ '//' parser , '*' parser star trim , 'Fin' parser trim not, 'Fiche' parser optional
-		, #digit parser negate star , ticketNumber
-		, (author / date / water) star
+	^ '//' parser , '*' parser star trim , 'Fin' parser trim not
+		, interestingCommitCommentData negate star
+		,
+			((PP2PossesiveRepeatingNode on: interestingCommitCommentData , interestingCommitCommentData negate star)
+				min: 2;
+				yourself) , water star
 ]
 
 { #category : #accessing }
 PWBCommitCommentExtractorIslandGrammar >> date [
-	^ (#digit parser times: 2) , $/ parser , (#digit parser times: 2)
-		, $/ parser
+	^ (#digit parser times: 2) , $/ parser
+		, ((#digit parser times: 2) , $/ parser) optional
 		,
 			((PP2PossesiveRepeatingNode on: #digit parser)
 				min: 2;
@@ -63,6 +67,11 @@ PWBCommitCommentExtractorIslandGrammar >> date [
 { #category : #accessing }
 PWBCommitCommentExtractorIslandGrammar >> file [
 	^ (commitComment / #any parser) plus
+]
+
+{ #category : #accessing }
+PWBCommitCommentExtractorIslandGrammar >> interestingCommitCommentData [
+	^ author / date / ticketNumber
 ]
 
 { #category : #accessing }

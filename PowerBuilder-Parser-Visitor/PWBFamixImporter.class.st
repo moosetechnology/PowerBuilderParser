@@ -23,7 +23,7 @@ PWBFamixImporter class >> grammarGenerationScripts [
 		do: [ :aSelector | 
 			PPTASTGeneratorStrategy new
 				createAttributeAndAccessorsFor: aSelector
-				inClass: #PWBASTFile asClass ].
+				inClass: #PWBASTFile asClass ]
 ]
 
 { #category : #'as yet unclassified' }
