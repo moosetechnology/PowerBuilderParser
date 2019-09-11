@@ -970,6 +970,6 @@ PWBDataWindowParser >> variable [
 				stopPosition: production stop;
 				this: (production content at: 1);
 				identifier: (production content at: 2);
-				arrayDefinition: (production content at: 4);
+				arrayDefinition: (production content at: 5);
 				yourself ]
 ]
