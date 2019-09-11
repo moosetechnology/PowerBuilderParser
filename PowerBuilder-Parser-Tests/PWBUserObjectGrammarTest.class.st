@@ -1637,3 +1637,11 @@ PWBUserObjectGrammarTest >> testVariableDeclarations [
 		parse: 'long il_qte_cons_total[1 to 4]'
 		rule: #variableDeclarations
 ]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testVariableDeclarations2 [
+	self
+		parse:
+			'string Ls_dlp_liq_cod, Ls_dlp_liq_cod% , Ls_prt_adn, Ls_adh, Ls_Etat_Sinistre'
+		rule: #variableDeclarations
+]
