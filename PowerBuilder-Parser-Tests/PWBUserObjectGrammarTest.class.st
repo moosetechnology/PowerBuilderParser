@@ -284,6 +284,14 @@ SELECT name  FROM sysibm.syscolumns WHERE tbname = ''AVE'' order by colno using 
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDeclareDynamicCursor [
+	self
+		parse:
+			'declare c_sin dynamic cursor for sqlsa ;'
+		rule: #declareCursor
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDeclareProcedure [
 	self
 		parse:
