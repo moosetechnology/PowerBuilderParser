@@ -968,6 +968,12 @@ PWBUserObjectGrammarTest >> testIfStatement13 [
 ]
 
 { #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement14 [
+	self parse: 'if is_dossier > ''PP'' and is_dossier < ''PQ''then ls_prn_cod = "CPP"' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement2 [
 	self
 		parse:
