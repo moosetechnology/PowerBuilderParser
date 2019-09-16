@@ -63,7 +63,8 @@ Class {
 		'singleLineCase',
 		'declareProcedure',
 		'executeProcedure',
-		'intervalExpression'
+		'intervalExpression',
+		'sqlVariable'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -169,8 +170,10 @@ PWBCommonGrammar >> customCallStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> declareCursor [
-	^ 'declare' token , spaces , identifier , spaces , 'cursor' token
-		, spaces , 'for' token , blank, sqlQuery
+	<reify: #(sqlQuery / sqlVariable) into: #target>
+	^ 'declare' token , spaces , identifier , spaces
+		, 'dynamic' token trim optional , 'cursor' token , spaces
+		, 'for' token , blank , (sqlQuery / sqlVariable)
 ]
 
 { #category : #accessing }
@@ -377,6 +380,11 @@ PWBCommonGrammar >> sqlQuery [
 PWBCommonGrammar >> sqlRollbackStatement [
 	^ 'rollback' token , blank , (usingClause , blank) optional
 		, $; parser
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> sqlVariable [
+	^ identifier trim, ';' token
 ]
 
 { #category : #accessing }
