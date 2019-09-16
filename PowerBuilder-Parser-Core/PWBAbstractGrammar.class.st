@@ -391,18 +391,16 @@ PWBAbstractGrammar >> identifierCharacter [
 
 { #category : #accessing }
 PWBAbstractGrammar >> ifMultiLine [
-	^ 'if' token , blank , condition , blank , 'then' token , newlines
-		, statements optional
-		,
-			(blank optional, elseIf) star
-		, (blank optional, else) optional
-		, newlines optional , (self endOf: 'if')
+	^ 'if' token , blank , condition , 'then' token trim
+		, statements optional , (blank optional , elseIf) star
+		, (blank optional , else) optional , newlines optional
+		, (self endOf: 'if')
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> ifSingleLine [
-	^ 'if' token , spaces , condition , spaces , 'then' token , spaces
-		, statement , elseOnLine optional
+	^ 'if' token , spaces , condition , 'then' token trim , statement
+		, elseOnLine optional
 ]
 
 { #category : #accessing }
