@@ -323,6 +323,7 @@ PWBCommonGrammar >> ifStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> intervalExpression [
+	<rename: #expression into: #(from to)>
 	^ expression , 'to' token trim , expression
 ]
 

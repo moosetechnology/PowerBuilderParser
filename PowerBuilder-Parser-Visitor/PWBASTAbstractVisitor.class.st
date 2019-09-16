@@ -591,6 +591,13 @@ PWBASTAbstractVisitor >> visitPWBASTImport: aPWBASTImport [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTIntervalExpression: aPWBASTIntervalExpression [
+	<generated>
+	self visit: aPWBASTIntervalExpression from.
+	self visit: aPWBASTIntervalExpression to.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	<generated>
 	self visit: aPWBASTMethodInvocation methodInvocation.

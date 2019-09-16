@@ -1009,6 +1009,19 @@ PWBCommonParser >> ifStatement [
 ]
 
 { #category : #rules }
+PWBCommonParser >> intervalExpression [
+	<generated>
+	^ super intervalExpression withPositions
+		==> [ :production | 
+			PWBASTIntervalExpression new
+				startPosition: production start;
+				stopPosition: production stop;
+				from: (production content at: 1);
+				to: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> methodInvocation [
 	<generated>
 	^ super methodInvocation withPositions
