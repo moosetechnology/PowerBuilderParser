@@ -610,13 +610,13 @@ PWBDataWindowParser >> ifMultiLine [
 				startPosition: production start;
 				stopPosition: production stop;
 				condition: (production content at: 3);
-				statements: (production content at: 7);
+				statements: (production content at: 5);
 				elseIfs:
-					((production content at: 8)
+					((production content at: 6)
 						collect: [ :subProduction | subProduction at: 2 ]);
 				else:
-					((production content at: 9)
-						ifNotNil: [ (production content at: 9) at: 2 ]);
+					((production content at: 7)
+						ifNotNil: [ (production content at: 7) at: 2 ]);
 				yourself ]
 ]
 
@@ -629,8 +629,8 @@ PWBDataWindowParser >> ifSingleLine [
 				startPosition: production start;
 				stopPosition: production stop;
 				condition: (production content at: 3);
-				statement: (production content at: 7);
-				elseOnLine: (production content at: 8);
+				statement: (production content at: 5);
+				elseOnLine: (production content at: 6);
 				yourself ]
 ]
 
