@@ -62,7 +62,8 @@ Class {
 		'multiLineCase',
 		'singleLineCase',
 		'declareProcedure',
-		'executeProcedure'
+		'executeProcedure',
+		'intervalExpression'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -256,7 +257,8 @@ PWBCommonGrammar >> executeProcedure [
 
 { #category : #accessing }
 PWBCommonGrammar >> expressionList [
-	^ expression trim separatedBy: $, parser
+	<reify: #(intervalExpression / expression) into: #expression>
+	^ (intervalExpression / expression) trim separatedBy: $, parser
 ]
 
 { #category : #accessing }
@@ -317,6 +319,11 @@ PWBCommonGrammar >> gotoStatement [
 { #category : #accessing }
 PWBCommonGrammar >> ifStatement [
 	^ super ifStatement
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> intervalExpression [
+	^ expression , 'to' token trim , expression
 ]
 
 { #category : #accessing }
