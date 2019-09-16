@@ -128,6 +128,13 @@ PWBUserObjectGrammarTest >> testCallStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testCase1 [
+	self parse: 'case ''A'' to ''R'', ''T'', ''Z''
+
+		goto ls_import_tiers' rule: #case
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testChooseCase [
 	self parse: 'choose case message.wordParm
 	case SYNCHRO_OPEN, SYNCHRO_SELECTION_DOSSIER
