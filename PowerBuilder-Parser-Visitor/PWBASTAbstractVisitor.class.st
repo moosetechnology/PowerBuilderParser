@@ -268,7 +268,7 @@ PWBASTAbstractVisitor >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
 PWBASTAbstractVisitor >> visitPWBASTDeclareCursor: aPWBASTDeclareCursor [
 	<generated>
 	self visit: aPWBASTDeclareCursor identifier.
-	self visit: aPWBASTDeclareCursor sqlQuery.
+	self visit: aPWBASTDeclareCursor target.
 ]
 
 { #category : #visiting }
@@ -747,6 +747,12 @@ PWBASTAbstractVisitor >> visitPWBASTSqlQuery: anPWBASTSqlQuery [
 PWBASTAbstractVisitor >> visitPWBASTSqlRollbackStatement: aPWBASTSqlRollbackStatement [
 	<generated>
 	self visit: aPWBASTSqlRollbackStatement usingClause.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTSqlVariable: aPWBASTSqlVariable [
+	<generated>
+	self visit: aPWBASTSqlVariable identifier.
 ]
 
 { #category : #visiting }

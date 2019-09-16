@@ -464,7 +464,7 @@ PWBCommonParser >> declareCursor [
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 3);
-				sqlQuery: (production content at: 9);
+				target: (production content at: 10);
 				yourself ]
 ]
 
@@ -1286,6 +1286,18 @@ PWBCommonParser >> sqlRollbackStatement [
 				usingClause:
 					((production content at: 3)
 						ifNotNil: [ (production content at: 3) at: 1 ]);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> sqlVariable [
+	<generated>
+	^ super sqlVariable withPositions
+		==> [ :production | 
+			PWBASTSqlVariable new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 1);
 				yourself ]
 ]
 

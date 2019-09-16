@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifier',
-		'sqlQuery',
+		'target',
 		'startPosition',
 		'stopPosition'
 	],
@@ -54,4 +54,14 @@ PWBASTDeclareCursor >> stopPosition [
 { #category : #accessing }
 PWBASTDeclareCursor >> stopPosition: anObject [
 	stopPosition := anObject
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> target [
+	^ target
+]
+
+{ #category : #accessing }
+PWBASTDeclareCursor >> target: anObject [
+	target := anObject
 ]
