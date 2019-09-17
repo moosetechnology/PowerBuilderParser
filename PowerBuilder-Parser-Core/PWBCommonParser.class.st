@@ -1065,7 +1065,7 @@ PWBCommonParser >> openSqlCursor [
 			PWBASTOpenSqlCursor new
 				startPosition: production start;
 				stopPosition: production stop;
-				identifier: ((production content at: 4) at: 1);
+				identifier: (production content at: 4);
 				yourself ]
 ]
 
