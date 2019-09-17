@@ -609,7 +609,7 @@ PWBDataWindowParser >> ifMultiLine [
 			PWBASTIfMultiLine new
 				startPosition: production start;
 				stopPosition: production stop;
-				condition: (production content at: 3);
+				condition: (production content at: 2);
 				statements: (production content at: 5);
 				elseIfs:
 					((production content at: 6)
@@ -628,7 +628,7 @@ PWBDataWindowParser >> ifSingleLine [
 			PWBASTIfSingleLine new
 				startPosition: production start;
 				stopPosition: production stop;
-				condition: (production content at: 3);
+				condition: (production content at: 2);
 				statement: (production content at: 5);
 				elseOnLine: (production content at: 6);
 				yourself ]
