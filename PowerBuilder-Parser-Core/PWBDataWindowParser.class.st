@@ -110,19 +110,6 @@ PWBDataWindowParser >> arrayPosition [
 ]
 
 { #category : #rules }
-PWBDataWindowParser >> arrayWithInterval [
-	<generated>
-	^ super arrayWithInterval withPositions
-		==> [ :production | 
-			PWBASTArrayWithInterval new
-				startPosition: production start;
-				stopPosition: production stop;
-				startIndex: (production content at: 3);
-				endIndex: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBDataWindowParser >> arrayWithSize [
 	<generated>
 	^ super arrayWithSize withPositions
@@ -656,6 +643,19 @@ PWBDataWindowParser >> import [
 				stopPosition: production stop;
 				formatType: (production content at: 2);
 				parameters: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> intervalExpression [
+	<generated>
+	^ super intervalExpression withPositions
+		==> [ :production | 
+			PWBASTIntervalExpression new
+				startPosition: production start;
+				stopPosition: production stop;
+				from: (production content at: 1);
+				to: (production content at: 3);
 				yourself ]
 ]
 

@@ -110,19 +110,6 @@ PWBQueryFileParser >> arrayPosition [
 ]
 
 { #category : #rules }
-PWBQueryFileParser >> arrayWithInterval [
-	<generated>
-	^ super arrayWithInterval withPositions
-		==> [ :production | 
-			PWBASTArrayWithInterval new
-				startPosition: production start;
-				stopPosition: production stop;
-				startIndex: (production content at: 3);
-				endIndex: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBQueryFileParser >> arrayWithSize [
 	<generated>
 	^ super arrayWithSize withPositions
@@ -520,6 +507,19 @@ PWBQueryFileParser >> ifStatement [
 				startPosition: production start;
 				stopPosition: production stop;
 				ifStatement: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> intervalExpression [
+	<generated>
+	^ super intervalExpression withPositions
+		==> [ :production | 
+			PWBASTIntervalExpression new
+				startPosition: production start;
+				stopPosition: production stop;
+				from: (production content at: 1);
+				to: (production content at: 3);
 				yourself ]
 ]
 

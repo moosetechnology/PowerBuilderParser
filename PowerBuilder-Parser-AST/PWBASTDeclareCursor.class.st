@@ -27,16 +27,6 @@ PWBASTDeclareCursor >> identifier: anObject [
 ]
 
 { #category : #accessing }
-PWBASTDeclareCursor >> sqlQuery [
-	^ sqlQuery
-]
-
-{ #category : #accessing }
-PWBASTDeclareCursor >> sqlQuery: anObject [
-	sqlQuery := anObject
-]
-
-{ #category : #accessing }
 PWBASTDeclareCursor >> startPosition [
 	^ startPosition
 ]

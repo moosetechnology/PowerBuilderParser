@@ -688,6 +688,12 @@ PWBASTAbstractVisitor >> visitPWBASTPostFixOperator: aPWBASTPostFixOperator [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTPrepareSQL: aPWBASTPrepareSQL [
+	<generated>
+	self visit: aPWBASTPrepareSQL identifier.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTProgramStep: aPWBASTProgramStep [
 	<generated>
 	self visit: aPWBASTProgramStep identifier.

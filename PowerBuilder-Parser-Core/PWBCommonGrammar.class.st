@@ -63,8 +63,8 @@ Class {
 		'singleLineCase',
 		'declareProcedure',
 		'executeProcedure',
-		'intervalExpression',
-		'sqlVariable'
+		'sqlVariable',
+		'prepareSQL'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -325,19 +325,20 @@ PWBCommonGrammar >> ifStatement [
 ]
 
 { #category : #accessing }
-PWBCommonGrammar >> intervalExpression [
-	<rename: #expression into: #(from to)>
-	^ expression , 'to' token trim , expression
-]
-
-{ #category : #accessing }
 PWBCommonGrammar >> multiLineCase [
 	^ 'case' token, blank, expressionList, blank, statements optional
 ]
 
 { #category : #accessing }
 PWBCommonGrammar >> openSqlCursor [
-	^ 'open' token , spaces , identifier , spaces optional , $; parser
+	^ 'open' token , 'dynamic' token trimSpacesLeft optional , spaces
+		, identifier trimSpacesRight , $; parser
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> prepareSQL [
+	<ignore: #string>
+	^ 'prepare' token, identifier trimSpaces , 'from' token, (string / $; parser negate) plus , $; parser 
 ]
 
 { #category : #accessing }
@@ -391,7 +392,7 @@ PWBCommonGrammar >> sqlVariable [
 PWBCommonGrammar >> statement [
 	<reifyAllInto: #statement>
 	^ programStep / gotoStatement / sqlRollbackStatement / openSqlCursor
-		/ closeSqlCursor / sqlCommitStatement / declareCursor
+		/ closeSqlCursor / sqlCommitStatement / declareCursor / prepareSQL
 		/ declareProcedure / executeProcedure / sqlQuery / tryCatch
 		/ forLoop / chooseCase / doWhileLoop / doUntilLoop / doLoopWhile
 		/ doLoopUntil / variableDeclarations / super statement

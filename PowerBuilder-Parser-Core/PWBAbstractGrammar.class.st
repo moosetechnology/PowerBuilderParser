@@ -63,8 +63,8 @@ Class {
 		'parenthesedArray',
 		'dynamicMethodInvocation',
 		'regularMethodInvocation',
-		'arrayWithInterval',
-		'identifierCharacter'
+		'identifierCharacter',
+		'intervalExpression'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -202,17 +202,12 @@ PWBAbstractGrammar >> arrayPosition [
 ]
 
 { #category : #accessing }
-PWBAbstractGrammar >> arrayWithInterval [
-	<rename: #expression into: #(startIndex endIndex)>
-	^ spaces optional , $[ parser , expression trim , 'to' token
-		, expression trim , $] parser
-]
-
-{ #category : #accessing }
 PWBAbstractGrammar >> arrayWithSize [
+	<reify: #(intervalExpression / expression) into: #expression>
 	^ spaces optional , $[ parser , spaces optional
-		, (expression separatedBy: $, parser trim) optional , spaces optional
-		, $] parser
+		,
+			(intervalExpression / expression separatedBy: $, parser trim) optional
+		, spaces optional , $] parser
 ]
 
 { #category : #accessing }
@@ -409,6 +404,12 @@ PWBAbstractGrammar >> ifStatement [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> intervalExpression [
+	<rename: #expression into: #(from to)>
+	^ expression , 'to' token trim , expression
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> methodInvocation [
 	^ dynamicMethodInvocation / regularMethodInvocation
 ]
@@ -558,9 +559,9 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
-	<reify: #(arrayWithInterval / arrayWithSize) into: #arrayDefinition>
+	<rename: #arrayWithSize into: #arrayDefinition>
 	^ this optional , identifier , $% parser optional , $( parser not
-		, (arrayWithInterval / arrayWithSize) optional
+		, arrayWithSize optional
 ]
 
 { #category : #accessing }

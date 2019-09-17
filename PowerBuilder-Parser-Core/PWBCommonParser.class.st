@@ -134,19 +134,6 @@ PWBCommonParser >> arrayPosition [
 ]
 
 { #category : #rules }
-PWBCommonParser >> arrayWithInterval [
-	<generated>
-	^ super arrayWithInterval withPositions
-		==> [ :production | 
-			PWBASTArrayWithInterval new
-				startPosition: production start;
-				stopPosition: production stop;
-				startIndex: (production content at: 3);
-				endIndex: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBCommonParser >> arrayWithSize [
 	<generated>
 	^ super arrayWithSize withPositions
@@ -1078,7 +1065,7 @@ PWBCommonParser >> openSqlCursor [
 			PWBASTOpenSqlCursor new
 				startPosition: production start;
 				stopPosition: production stop;
-				identifier: (production content at: 3);
+				identifier: ((production content at: 4) at: 1);
 				yourself ]
 ]
 
@@ -1144,6 +1131,18 @@ PWBCommonParser >> postFixOperator [
 				startPosition: production start;
 				stopPosition: production stop;
 				access: (production content at: 1);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> prepareSQL [
+	<generated>
+	^ super prepareSQL withPositions
+		==> [ :production | 
+			PWBASTPrepareSQL new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 2);
 				yourself ]
 ]
 
