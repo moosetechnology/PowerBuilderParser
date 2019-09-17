@@ -1085,6 +1085,19 @@ PWBUserObjectGrammarTest >> testOpenCloseSqlCursor [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor [
+	self parse: 'open dynamic c_sin ;' rule: #openSqlCursor.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testPrepareSQL1 [
+	self
+		parse:
+			'PREPARE SQLSA FROM :ls_sin ;'
+		rule: #prepareSQL
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPrototypesDeclaration [
 	self
 		parse:
@@ -1664,5 +1677,13 @@ PWBUserObjectGrammarTest >> testVariableDeclarations2 [
 	self
 		parse:
 			'string Ls_dlp_liq_cod, Ls_dlp_liq_cod% , Ls_prt_adn, Ls_adh, Ls_Etat_Sinistre'
+		rule: #variableDeclarations
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testVariableDeclarations3 [
+	self
+		parse:
+			'string as_tab_err[1 to 50,2]'
 		rule: #variableDeclarations
 ]
