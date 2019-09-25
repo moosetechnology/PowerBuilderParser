@@ -10,6 +10,20 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTFunctionArgument >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ argumentOption = anObject argumentOption
+		and: [ expression = anObject expression
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
+]
+
 { #category : #visiting }
 PWBASTFunctionArgument >> acceptVisitor: aVisitor [
 	<generated>
@@ -34,6 +48,16 @@ PWBASTFunctionArgument >> expression [
 { #category : #accessing }
 PWBASTFunctionArgument >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #comparing }
+PWBASTFunctionArgument >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ argumentOption hash
+		bitXor:
+			(expression hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

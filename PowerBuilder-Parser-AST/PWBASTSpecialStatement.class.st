@@ -9,10 +9,31 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTSpecialStatement >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ specialStatement = anObject specialStatement
+		and: [ startPosition = anObject startPosition
+				and: [ stopPosition = anObject stopPosition ] ]
+]
+
 { #category : #visiting }
 PWBASTSpecialStatement >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTSpecialStatement: self
+]
+
+{ #category : #comparing }
+PWBASTSpecialStatement >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ specialStatement hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

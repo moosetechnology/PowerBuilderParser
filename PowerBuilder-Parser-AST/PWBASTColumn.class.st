@@ -9,6 +9,19 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTColumn >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ columnDefinition = anObject columnDefinition
+		and: [ startPosition = anObject startPosition
+				and: [ stopPosition = anObject stopPosition ] ]
+]
+
 { #category : #visiting }
 PWBASTColumn >> acceptVisitor: aVisitor [
 	<generated>
@@ -23,6 +36,14 @@ PWBASTColumn >> columnDefinition [
 { #category : #accessing }
 PWBASTColumn >> columnDefinition: anObject [
 	columnDefinition := anObject
+]
+
+{ #category : #comparing }
+PWBASTColumn >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ columnDefinition hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

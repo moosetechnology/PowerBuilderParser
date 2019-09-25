@@ -11,6 +11,21 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTChooseCase >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ expression = anObject expression
+		and: [ cases = anObject cases
+				and: [ caseElse = anObject caseElse
+						and: [ startPosition = anObject startPosition
+								and: [ stopPosition = anObject stopPosition ] ] ] ]
+]
+
 { #category : #visiting }
 PWBASTChooseCase >> acceptVisitor: aVisitor [
 	<generated>
@@ -45,6 +60,16 @@ PWBASTChooseCase >> expression [
 { #category : #accessing }
 PWBASTChooseCase >> expression: anObject [
 	expression := anObject
+]
+
+{ #category : #comparing }
+PWBASTChooseCase >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ expression hash
+		bitXor:
+			(cases hash
+				bitXor: (caseElse hash bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 
 { #category : #accessing }

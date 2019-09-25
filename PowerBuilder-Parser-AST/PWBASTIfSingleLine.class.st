@@ -11,6 +11,21 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTIfSingleLine >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ condition = anObject condition
+		and: [ statement = anObject statement
+				and: [ elseOnLine = anObject elseOnLine
+						and: [ startPosition = anObject startPosition
+								and: [ stopPosition = anObject stopPosition ] ] ] ]
+]
+
 { #category : #visiting }
 PWBASTIfSingleLine >> acceptVisitor: aVisitor [
 	<generated>
@@ -35,6 +50,18 @@ PWBASTIfSingleLine >> elseOnLine [
 { #category : #accessing }
 PWBASTIfSingleLine >> elseOnLine: anObject [
 	elseOnLine := anObject
+]
+
+{ #category : #comparing }
+PWBASTIfSingleLine >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ condition hash
+		bitXor:
+			(statement hash
+				bitXor:
+					(elseOnLine hash
+						bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 
 { #category : #accessing }

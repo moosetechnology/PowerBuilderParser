@@ -11,6 +11,19 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTFile >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ content = anObject content
+		and: [ startPosition = anObject startPosition
+				and: [ stopPosition = anObject stopPosition ] ]
+]
+
 { #category : #visiting }
 PWBASTFile >> acceptVisitor: aVisitor [
 	<generated>
@@ -45,6 +58,13 @@ PWBASTFile >> fileName [
 { #category : #accessing }
 PWBASTFile >> fileName: anObject [
 	fileName := anObject
+]
+
+{ #category : #comparing }
+PWBASTFile >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ content hash bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

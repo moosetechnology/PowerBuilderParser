@@ -10,6 +10,20 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTGraphicComponent >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ graphicComponentToken = anObject graphicComponentToken
+		and: [ parameters = anObject parameters
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
+]
+
 { #category : #visiting }
 PWBASTGraphicComponent >> acceptVisitor: aVisitor [
 	<generated>
@@ -24,6 +38,16 @@ PWBASTGraphicComponent >> graphicComponentToken [
 { #category : #accessing }
 PWBASTGraphicComponent >> graphicComponentToken: anObject [
 	graphicComponentToken := anObject
+]
+
+{ #category : #comparing }
+PWBASTGraphicComponent >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ graphicComponentToken hash
+		bitXor:
+			(parameters hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

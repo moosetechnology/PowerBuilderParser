@@ -10,10 +10,34 @@ Class {
 	#category : #'PowerBuilder-Parser-AST'
 }
 
+{ #category : #comparing }
+PWBASTSubroutineDefinition >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject
+		ifTrue: [ ^ true ].
+	self class = anObject class
+		ifFalse: [ ^ false ].
+	^ subroutineSignature = anObject subroutineSignature
+		and: [ statements = anObject statements
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
+]
+
 { #category : #visiting }
 PWBASTSubroutineDefinition >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTSubroutineDefinition: self
+]
+
+{ #category : #comparing }
+PWBASTSubroutineDefinition >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ subroutineSignature hash
+		bitXor:
+			(statements hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }
