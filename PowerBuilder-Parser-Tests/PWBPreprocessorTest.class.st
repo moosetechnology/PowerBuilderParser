@@ -45,7 +45,7 @@ PWBPreprocessorTest >> testCommentWithThen [
 				parse:
 					'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb /*fiche 41092 $Amaury$ 30/12/2009*/ and ld_cur_fin >= ld_cur_deb/*fin fiche 41092*/then ')
 		equals:
-			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb  and ld_cur_fin >= ld_cur_deb then '
+			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb   and ld_cur_fin >= ld_cur_deb then '
 ]
 
 { #category : #tests }
