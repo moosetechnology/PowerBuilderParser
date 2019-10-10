@@ -22,7 +22,7 @@ PWBPreprocessorTest >> testCommentInComment [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]
 
@@ -38,6 +38,17 @@ PWBPreprocessorTest >> testCommentSyntaxInString [
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testCommentWithThen [
+	self
+		assert:
+			(self
+				parse:
+					'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb /*fiche 41092 $Amaury$ 30/12/2009*/ and ld_cur_fin >= ld_cur_deb/*fin fiche 41092*/then ')
+		equals:
+			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb   and ld_cur_fin >= ld_cur_deb then '
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testEmptyComment [
 	self
 		assert:
@@ -48,7 +59,7 @@ PWBPreprocessorTest >> testEmptyComment [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]
 
@@ -118,7 +129,7 @@ PWBPreprocessorTest >> testSimpleComment [
 					'water // a comment
 water')
 		equals:
-			'water 
+			'water  
 water'
 ]
 
@@ -131,7 +142,7 @@ PWBPreprocessorTest >> testSimpleComment2 [
 					'water //*** a comment
 water 5*/3')
 		equals:
-			'water 
+			'water  
 water 5*/3'
 ]
 
@@ -144,7 +155,7 @@ PWBPreprocessorTest >> testSimpleComment3 [
 					'/* comment
 // comment */')
 		equals:
-			''
+			' '
 ]
 
 { #category : #tests }
@@ -158,6 +169,6 @@ PWBPreprocessorTest >> testSimpleComment4 [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]

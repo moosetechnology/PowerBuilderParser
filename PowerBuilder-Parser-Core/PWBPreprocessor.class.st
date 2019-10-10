@@ -24,7 +24,7 @@ PWBPreprocessor >> code [
 { #category : #accessing }
 PWBPreprocessor >> comment [
 	^ multiLineComment
-		/ singleLineComment ==> [ :p | '' ]
+		/ singleLineComment ==> [ :p | ' ' ]
 ]
 
 { #category : #accessing }

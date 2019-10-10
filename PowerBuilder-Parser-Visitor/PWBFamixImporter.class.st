@@ -51,11 +51,19 @@ PWBFamixImporter >> defaultImportingContext [
 ]
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter >> fileToSkipForNow [
+	self flag: 'To be remove'.
+	^ #('uo_traitement_lec_edi.sru')
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter >> fillModelUsing: aLibrary visitor: visitor fromFolder: aFolder [
 	| debugObjects |
 	debugObjects := OrderedCollection new.
 	(aFolder files
-		reject: [ :aFile | #(pbg srj DS_Store) includes: aFile extension ])
+		reject: [ :aFile | 
+			(#(pbg srj DS_Store) includes: aFile extension)
+				or: (self fileToSkipForNow includes: aFile basename) ])
 		do: [ :aFile | 
 			| result |
 			aFile size = 0
@@ -98,8 +106,9 @@ PWBFamixImporter >> importInOnePass [
 				fillModelUsing: library
 				visitor: visitor
 				fromFolder: dir / 'cleaned')
-				ifNotEmpty: [ :failures | "failures inspect.
-			Halt now " ] ]
+				ifNotEmpty: [ :failures | 
+					failures inspect.
+					Halt now ] ]
 		displayingProgress: [ :dir | dir asString ].
 	visitor resolveUnresolvedReferences.
 	^ self targetModel
