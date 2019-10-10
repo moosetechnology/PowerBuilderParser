@@ -22,7 +22,7 @@ PWBPreprocessorTest >> testCommentInComment [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]
 
@@ -59,7 +59,7 @@ PWBPreprocessorTest >> testEmptyComment [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]
 
@@ -129,7 +129,7 @@ PWBPreprocessorTest >> testSimpleComment [
 					'water // a comment
 water')
 		equals:
-			'water 
+			'water  
 water'
 ]
 
@@ -142,7 +142,7 @@ PWBPreprocessorTest >> testSimpleComment2 [
 					'water //*** a comment
 water 5*/3')
 		equals:
-			'water 
+			'water  
 water 5*/3'
 ]
 
@@ -155,7 +155,7 @@ PWBPreprocessorTest >> testSimpleComment3 [
 					'/* comment
 // comment */')
 		equals:
-			''
+			' '
 ]
 
 { #category : #tests }
@@ -169,6 +169,6 @@ PWBPreprocessorTest >> testSimpleComment4 [
 code')
 		equals:
 			'code
-
+ 
 code'
 ]
