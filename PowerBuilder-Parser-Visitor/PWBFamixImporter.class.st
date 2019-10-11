@@ -51,12 +51,6 @@ PWBFamixImporter >> defaultImportingContext [
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter >> fileToSkipForNow [
-	self flag: 'To be remove'.
-	^ #('uo_traitement_lec_edi.sru')
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter >> fillModelUsing: aLibrary visitor: visitor fromFolder: aFolder [
 	| debugObjects |
 	debugObjects := OrderedCollection new.
