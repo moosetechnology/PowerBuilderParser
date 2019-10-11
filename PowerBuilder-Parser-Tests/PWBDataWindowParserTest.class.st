@@ -5631,6 +5631,17 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testGraphicComponent13 [
+	self
+		assert:
+			(self
+				parse:
+					'report(band=detail dataobject="bdwl_iri_510" x="1" y="20" height="137" width="3530" border="0"  height.autosize=yes criteria="" nest_arguments=(("ad_seq_num"),("devise")) trail_footer = yes  name=dw_det_1  slideup=directlyabove )'
+				rule: #graphicComponent) class
+		equals: PWBASTGraphicComponent
+]
+
+{ #category : #'as yet unclassified' }
 PWBDataWindowParserTest >> testGraphicComponent3 [
 	<generated>
 	self
