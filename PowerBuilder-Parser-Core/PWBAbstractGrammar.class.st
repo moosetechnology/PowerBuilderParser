@@ -64,7 +64,8 @@ Class {
 		'dynamicMethodInvocation',
 		'regularMethodInvocation',
 		'identifierCharacter',
-		'intervalExpression'
+		'intervalExpression',
+		'time'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -342,7 +343,7 @@ PWBAbstractGrammar >> expression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
-	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / accessOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / constant / array / createInstruction / time / number / string / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -542,6 +543,12 @@ PWBAbstractGrammar >> string [
 { #category : #accessing }
 PWBAbstractGrammar >> this [
 	^ 'this.' token
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> time [
+	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
+		, $: parser , (#digit parser times: 2)
 ]
 
 { #category : #accessing }

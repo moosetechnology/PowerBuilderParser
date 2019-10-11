@@ -77,6 +77,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement2 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement3 [
+	self
+		parse: 'll_seconde1 = SecondsAfter(lt_heure_deb, 23:59:59)'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
