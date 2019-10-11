@@ -64,7 +64,8 @@ Class {
 		'dynamicMethodInvocation',
 		'regularMethodInvocation',
 		'identifierCharacter',
-		'intervalExpression'
+		'intervalExpression',
+		'dateString'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -282,6 +283,11 @@ PWBAbstractGrammar >> customType [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> dateString [
+	^ (#digit parser plus , blank , ':' parser trim optional) plus
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> defaultEventType [
 	^ self
 		parserCaseInsensitiveFor:
@@ -342,7 +348,7 @@ PWBAbstractGrammar >> expression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
-	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / accessOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / constant / array / createInstruction / number / string / accessOrType / booleanValue / defaultVariable/dateString 
 ]
 
 { #category : #accessing }

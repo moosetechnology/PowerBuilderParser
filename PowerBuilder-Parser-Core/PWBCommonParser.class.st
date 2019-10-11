@@ -443,6 +443,18 @@ PWBCommonParser >> customType [
 ]
 
 { #category : #rules }
+PWBCommonParser >> dateString [
+	<generated>
+	^ super dateString flatten withPositions
+		==> [ :production | 
+			PWBASTDateString new
+				startPosition: production start;
+				stopPosition: production stop;
+				dateString: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> declareCursor [
 	<generated>
 	^ super declareCursor withPositions

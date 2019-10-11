@@ -265,6 +265,12 @@ PWBASTAbstractVisitor >> visitPWBASTDataWindowFile: aPWBASTDataWindowFile [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDateString: anPWBASTDateString [
+	<generated>
+	^ anPWBASTDateString dateString
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDeclareCursor: aPWBASTDeclareCursor [
 	<generated>
 	self visit: aPWBASTDeclareCursor identifier.

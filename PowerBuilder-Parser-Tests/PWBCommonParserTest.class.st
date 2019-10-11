@@ -10745,6 +10745,13 @@ PWBCommonParserTest >> testExpression3 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExpression4 [
+	self
+		assert: (self parse: '23:59:59' rule: #dateString) class
+		equals: PWBASTDateString
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testForLoop1 [
 	<generated>
 	self

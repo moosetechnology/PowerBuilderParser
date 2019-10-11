@@ -310,6 +310,18 @@ PWBDataWindowParser >> dataWindowFile [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> dateString [
+	<generated>
+	^ super dateString flatten withPositions
+		==> [ :production | 
+			PWBASTDateString new
+				startPosition: production start;
+				stopPosition: production stop;
+				dateString: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> defaultEventType [
 	<generated>
 	^ super defaultEventType flatten withPositions

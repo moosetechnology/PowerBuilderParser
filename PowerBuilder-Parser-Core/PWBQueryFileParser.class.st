@@ -262,6 +262,18 @@ PWBQueryFileParser >> customType [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> dateString [
+	<generated>
+	^ super dateString flatten withPositions
+		==> [ :production | 
+			PWBASTDateString new
+				startPosition: production start;
+				stopPosition: production stop;
+				dateString: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> defaultEventType [
 	<generated>
 	^ super defaultEventType flatten withPositions
