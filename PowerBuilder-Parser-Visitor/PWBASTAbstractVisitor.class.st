@@ -821,6 +821,12 @@ PWBASTAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTTime: anPWBASTTime [
+	<generated>
+	^ anPWBASTTime time
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTTransactionObject: aPWBASTTransactionObject [
 	<generated>
 	self visit: aPWBASTTransactionObject identifier.

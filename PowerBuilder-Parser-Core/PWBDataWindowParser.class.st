@@ -937,6 +937,18 @@ PWBDataWindowParser >> this [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> time [
+	<generated>
+	^ super time flatten withPositions
+		==> [ :production | 
+			PWBASTTime new
+				startPosition: production start;
+				stopPosition: production stop;
+				time: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> type [
 	<generated>
 	^ super type withPositions

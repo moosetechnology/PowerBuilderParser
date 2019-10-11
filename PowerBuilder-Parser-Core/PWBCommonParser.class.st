@@ -1393,6 +1393,18 @@ PWBCommonParser >> this [
 ]
 
 { #category : #rules }
+PWBCommonParser >> time [
+	<generated>
+	^ super time flatten withPositions
+		==> [ :production | 
+			PWBASTTime new
+				startPosition: production start;
+				stopPosition: production stop;
+				time: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> transactionObject [
 	<generated>
 	^ super transactionObject withPositions

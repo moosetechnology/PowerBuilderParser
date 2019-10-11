@@ -736,6 +736,18 @@ PWBQueryFileParser >> this [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> time [
+	<generated>
+	^ super time flatten withPositions
+		==> [ :production | 
+			PWBASTTime new
+				startPosition: production start;
+				stopPosition: production stop;
+				time: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> type [
 	<generated>
 	^ super type withPositions
