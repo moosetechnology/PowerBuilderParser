@@ -84,6 +84,27 @@ PWBUserObjectGrammarTest >> testAssignationStatement3 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement4 [
+	self
+		parse: 'll_seconde1 = SecondsAfter(lt_heure_deb, 23:59:59)'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement5 [
+	self
+		parse: 'll_seconde2 = SecondsAfter(00:00:00, lt_heure_fin)'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement6 [
+	self
+		parse: 'll_seconde_ecoule = ll_seconde0 + ll_seconde1 + ll_seconde2'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
