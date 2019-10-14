@@ -15,6 +15,11 @@ PWBDataWindowGrammarTest >> testBitmap [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testButton [
+	self parse: 'button(band=detail text="-" enabled=yes action="0" border="0" color="0" x="3511" y="4" height="80" width="101" vtextalign="2" htextalign="0" name=b_supp visible="1" font.face="Arial" font.height="-10" font.weight="400" font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )' rule: #graphicComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testColumn [
 	self
 		parse: 'column=(type=char(24) updatewhereclause=no name=dct_aoc dbname="dct_aoc" )'
@@ -165,6 +170,11 @@ PWBDataWindowGrammarTest >> testParametrizedType [
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testRectangle [
 	self parse: 'rectangle(band=header x="0" y="0" height="176" width="2871"  name=r_1 visible="1" brush.hatch="6" brush.color="28617770" pen.style="0" pen.width="5" pen.color="28617770"  background.mode="2" background.color="12639424" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )' rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testReport [
+	self parse: 'report(band=detail dataobject="bdwl_iri_510" x="1" y="20" height="137" width="3530" border="0" height.autosize=yes criteria="" nest_arguments=(("ad_seq_num"),("devise")) trail_footer = yes name=dw_det_1 slideup=directlyabove )' rule: #graphicComponent
 ]
 
 { #category : #accessing }

@@ -14,6 +14,9 @@ PWBUserObjectGrammarTest >> testAccessOrType [
 	self parse: 'this.dw_liste' rule: #accessOrType.
 	self fail: 'if' rule: #accessOrType.
 	self parse: 'thisMatch' rule: #accessOrType.
+	self parse: 'this. post' rule: #accessOrType.
+	
+
 ]
 
 { #category : #tests }
@@ -941,7 +944,8 @@ PWBUserObjectGrammarTest >> testGotoStatement [
 PWBUserObjectGrammarTest >> testIdentifier [
 	self fail: 'char' rule: #identifier.
 	self parse: 'for1' rule: #identifier.
-	self parse: 'm_-' rule: #identifier
+	self parse: 'm_-' rule: #identifier.
+	self parse: 'post' rule: #identifier
 ]
 
 { #category : #accessing }

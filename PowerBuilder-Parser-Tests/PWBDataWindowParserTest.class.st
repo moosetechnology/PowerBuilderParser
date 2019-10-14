@@ -5642,6 +5642,17 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testGraphicComponent14 [
+	self
+		assert:
+			(self
+				parse:
+					'button(band=detail text="-" enabled=yes action="0" border="0" color="0" x="3511" y="4" height="80" width="101" vtextalign="2" htextalign="0"  name=b_supp visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )'
+				rule: #graphicComponent) class
+		equals: PWBASTGraphicComponent
+]
+
+{ #category : #'as yet unclassified' }
 PWBDataWindowParserTest >> testGraphicComponent3 [
 	<generated>
 	self
