@@ -344,7 +344,8 @@ PWBCommonGrammar >> prepareSQL [
 { #category : #accessing }
 PWBCommonGrammar >> programStep [
 	"It is a program step that can be the target of a goto"
-	^ identifier , $: parser
+
+	^ identifier , blank , $: parser
 ]
 
 { #category : #accessing }

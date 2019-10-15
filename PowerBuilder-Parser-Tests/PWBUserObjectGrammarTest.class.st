@@ -1130,6 +1130,22 @@ PWBUserObjectGrammarTest >> testPrepareSQL1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testProgramStep1 [
+	self
+		parse:
+			'blaa:'
+		rule: #programStep
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testProgramStep2 [
+	self
+		parse:
+			'Fin :'
+		rule: #programStep
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPrototypesDeclaration [
 	self
 		parse:
