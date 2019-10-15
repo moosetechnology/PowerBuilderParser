@@ -64,7 +64,8 @@ Class {
 		'declareProcedure',
 		'executeProcedure',
 		'sqlVariable',
-		'prepareSQL'
+		'prepareSQL',
+		'destroyStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -188,6 +189,11 @@ PWBCommonGrammar >> declareProcedure [
 { #category : #accessing }
 PWBCommonGrammar >> descriptor [
 	^ 'descriptor' token , spaces , expression
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> destroyStatement [
+	^ 'destroy' token , blank , accessOrType
 ]
 
 { #category : #accessing }
@@ -396,7 +402,8 @@ PWBCommonGrammar >> statement [
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / prepareSQL
 		/ declareProcedure / executeProcedure / sqlQuery / tryCatch
 		/ forLoop / chooseCase / doWhileLoop / doUntilLoop / doLoopWhile
-		/ doLoopUntil / variableDeclarations / super statement
+		/ doLoopUntil / destroyStatement / variableDeclarations
+		/ super statement
 ]
 
 { #category : #accessing }
