@@ -506,6 +506,18 @@ PWBCommonParser >> descriptor [
 ]
 
 { #category : #rules }
+PWBCommonParser >> destroyStatement [
+	<generated>
+	^ super destroyStatement withPositions
+		==> [ :production | 
+			PWBASTDestroyStatement new
+				startPosition: production start;
+				stopPosition: production stop;
+				accessOrType: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> doLoopUntil [
 	<generated>
 	^ super doLoopUntil withPositions

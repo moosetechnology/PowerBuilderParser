@@ -65,7 +65,8 @@ Class {
 		'regularMethodInvocation',
 		'identifierCharacter',
 		'intervalExpression',
-		'time'
+		'time',
+		'destroyStatement'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -295,6 +296,11 @@ PWBAbstractGrammar >> defaultVariable [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> destroyStatement [
+	^ 'destroy' token , blank , accessOrType
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> dynamicMethodInvocation [
 	^ spaces optional , $. parser , 'dynamic' token, spaces , uncheckedIdentifier
 		, blank , functionArguments
@@ -512,6 +518,7 @@ PWBAbstractGrammar >> spaces [
 { #category : #accessing }
 PWBAbstractGrammar >> specialStatement [
 	^ returnStatement / exitStatement / continueStatement
+		/ destroyStatement
 ]
 
 { #category : #accessing }

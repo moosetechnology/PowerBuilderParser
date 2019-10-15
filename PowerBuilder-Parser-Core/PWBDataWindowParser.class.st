@@ -336,6 +336,18 @@ PWBDataWindowParser >> defaultVariable [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> destroyStatement [
+	<generated>
+	^ super destroyStatement withPositions
+		==> [ :production | 
+			PWBASTDestroyStatement new
+				startPosition: production start;
+				stopPosition: production stop;
+				accessOrType: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions
