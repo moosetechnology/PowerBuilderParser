@@ -567,8 +567,8 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
 	<rename: #arrayWithSize into: #arrayDefinition>
-	^ this optional trim, identifier , $% parser optional , $( parser not
-		, arrayWithSize optional
+	^ this trim optional , identifier , $% parser optional
+		, $( parser not , arrayWithSize optional
 ]
 
 { #category : #accessing }
