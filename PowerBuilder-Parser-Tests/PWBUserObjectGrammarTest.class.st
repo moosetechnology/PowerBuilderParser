@@ -20,6 +20,13 @@ PWBUserObjectGrammarTest >> testAccessOrType [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAccessOrTypeWithFollowingSpace [
+	self fail: 'dw_detail.visible ' rule: #accessOrType.
+	
+
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testArgument [
 	self parse: 'string as_param' rule: #argument
 ]
@@ -104,6 +111,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement5 [
 PWBUserObjectGrammarTest >> testAssignationStatement6 [
 	self
 		parse: 'll_seconde_ecoule = ll_seconde0 + ll_seconde1 + ll_seconde2'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement7 [
+	self
+		parse: 'gw_utile.is_not [ll] = ""'
 		rule: #assignationStatement.
 ]
 

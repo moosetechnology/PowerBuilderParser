@@ -225,8 +225,8 @@ PWBAbstractGrammar >> assignationStatement [
 { #category : #accessing }
 PWBAbstractGrammar >> attributeAccess [
 	<reify: #(arrayPosition / arrayDesignation) into: #arrayInformation>
-	^ $. parser trim , uncheckedIdentifier , (blank, $( parser) not
-		, (arrayPosition / arrayDesignation) optional
+	^ $. parser trim , uncheckedIdentifier , (blank , $( parser) not
+		, (spaces optional , (arrayPosition / arrayDesignation)) optional
 ]
 
 { #category : #accessing }

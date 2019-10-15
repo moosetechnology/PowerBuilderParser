@@ -199,7 +199,9 @@ PWBCommonParser >> attributeAccess [
 				startPosition: production start;
 				stopPosition: production stop;
 				uncheckedIdentifier: (production content at: 2);
-				arrayInformation: (production content at: 4);
+				arrayInformation:
+					((production content at: 4)
+						ifNotNil: [ (production content at: 4) at: 2 ]);
 				yourself ]
 ]
 
