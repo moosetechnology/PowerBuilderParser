@@ -296,6 +296,12 @@ PWBASTAbstractVisitor >> visitPWBASTDescriptor: aPWBASTDescriptor [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDestroyStatement: aPWBASTDestroyStatement [
+	<generated>
+	self visit: aPWBASTDestroyStatement accessOrType.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil [
 	<generated>
 	self visit: aPWBASTDoLoopUntil statements.

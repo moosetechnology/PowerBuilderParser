@@ -288,6 +288,18 @@ PWBQueryFileParser >> defaultVariable [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> destroyStatement [
+	<generated>
+	^ super destroyStatement withPositions
+		==> [ :production | 
+			PWBASTDestroyStatement new
+				startPosition: production start;
+				stopPosition: production stop;
+				accessOrType: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions

@@ -353,6 +353,11 @@ PWBUserObjectGrammarTest >> testDeclareProcedure [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDestroyStatement [
+	self parse: 'destroy gw_utile.i_ds_contrats' rule: #destroyStatement
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDoLoopUntil [
 	self parse: 'do
 	ll_lig ++
