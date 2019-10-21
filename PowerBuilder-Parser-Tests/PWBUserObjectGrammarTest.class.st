@@ -657,6 +657,23 @@ next'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testForLoop2 [
+	self
+		parse: 'for li_ligne = 1 to dw_dlq.RowCount()
+									if isnull( dw_dlq.getItemNumber( li_ligne, "dlq_err" ) ) then
+										 
+									  
+									   
+									  iuo_liq_cal.is_dlp_spe = "N"
+									  li_ret = iuo_liq_cal.uf_calcul(dw_dlq,li_ligne,TRUE,TRUE,"PR"+ls_anc_cod_dossier,TRUE ) 
+									
+									   
+									end if
+								end for'
+		rule: #forLoop
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForwardDeclarations [
 	self
 		parse:
