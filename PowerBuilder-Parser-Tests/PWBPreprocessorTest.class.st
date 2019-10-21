@@ -64,6 +64,21 @@ code'
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testEmptyComment1 [
+	self
+		assert:
+			(self
+				parse:
+					'code
+/**/
+code')
+		equals:
+			'code
+ 
+code'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testEmptyFile [
 	self assert: (self parse: '') equals: ''
 ]
