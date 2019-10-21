@@ -657,6 +657,16 @@ next'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testForLoop3 [
+	self
+		parse:
+			'for ll_i = 1 to ll_row_dlq
+
+		next'
+		rule: #forLoop
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForwardDeclarations [
 	self
 		parse:

@@ -284,8 +284,11 @@ PWBCommonGrammar >> finallyBlock [
 { #category : #accessing }
 PWBCommonGrammar >> forLoop [
 	<rename: #expression into: #(endExpression stepExpression)>
-	^ 'for' token , blank , assignationStatement , blank , 'to' token , blank , expression , (blank , 'step' token , blank , expression) optional , newlines , statements
-		, newlines , 'next' token
+	^ 'for' token , blank , assignationStatement , blank , 'to' token
+		, blank , expression
+		, (blank , 'step' token , blank , expression) optional , newlines
+		, (statements , newlines) optional
+		, ('next' token / (self endOf: 'for'))
 ]
 
 { #category : #accessing }
