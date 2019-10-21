@@ -338,7 +338,8 @@ PWBCommonGrammar >> multiLineCase [
 { #category : #accessing }
 PWBCommonGrammar >> openSqlCursor [
 	^ 'open' token , 'dynamic' token trimSpacesLeft optional , spaces
-		, identifier trimSpaces , (blank , 'using' token , blank , descriptor) optional ,$; parser
+		, identifier trimSpaces
+		, ('using' token trimSpaces , descriptor) optional , $; parser
 ]
 
 { #category : #accessing }
