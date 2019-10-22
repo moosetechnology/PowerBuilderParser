@@ -12,7 +12,7 @@ PWBDataWindowParser >> access [
 			PWBASTAccess new
 				startPosition: production start;
 				stopPosition: production stop;
-				variable: (production content at: 1);
+				accessed: (production content at: 1);
 				arrayPosition: (production content at: 2);
 				attributeAccesses: (production content at: 3);
 				yourself ]
@@ -878,6 +878,18 @@ PWBDataWindowParser >> specialStatement [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> specialVariable [
+	<generated>
+	^ super specialVariable withPositions
+		==> [ :production | 
+			PWBASTSpecialVariable new
+				startPosition: production start;
+				stopPosition: production stop;
+				this: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> statement [
 	<generated>
 	^ super statement withPositions
@@ -994,8 +1006,7 @@ PWBDataWindowParser >> variable [
 			PWBASTVariable new
 				startPosition: production start;
 				stopPosition: production stop;
-				this: (production content at: 1);
-				identifier: (production content at: 2);
-				arrayDefinition: (production content at: 5);
+				identifier: (production content at: 1);
+				arrayDefinition: (production content at: 4);
 				yourself ]
 ]

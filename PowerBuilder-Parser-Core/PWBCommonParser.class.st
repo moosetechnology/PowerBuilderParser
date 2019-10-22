@@ -12,7 +12,7 @@ PWBCommonParser >> access [
 			PWBASTAccess new
 				startPosition: production start;
 				stopPosition: production stop;
-				variable: (production content at: 1);
+				accessed: (production content at: 1);
 				arrayPosition: (production content at: 2);
 				attributeAccesses: (production content at: 3);
 				yourself ]
@@ -1082,6 +1082,9 @@ PWBCommonParser >> openSqlCursor [
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 4);
+				descriptor:
+					((production content at: 5)
+						ifNotNil: [ (production content at: 5) at: 2 ]);
 				yourself ]
 ]
 
@@ -1261,6 +1264,18 @@ PWBCommonParser >> specialStatement [
 				startPosition: production start;
 				stopPosition: production stop;
 				specialStatement: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> specialVariable [
+	<generated>
+	^ super specialVariable withPositions
+		==> [ :production | 
+			PWBASTSpecialVariable new
+				startPosition: production start;
+				stopPosition: production stop;
+				this: production content;
 				yourself ]
 ]
 
@@ -1563,9 +1578,8 @@ PWBCommonParser >> variable [
 			PWBASTVariable new
 				startPosition: production start;
 				stopPosition: production stop;
-				this: (production content at: 1);
-				identifier: (production content at: 2);
-				arrayDefinition: (production content at: 5);
+				identifier: (production content at: 1);
+				arrayDefinition: (production content at: 4);
 				yourself ]
 ]
 

@@ -18,7 +18,7 @@ PWBASTAbstractVisitor >> visitAll: childrenNodes [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	<generated>
-	self visit: aPWBASTAccess variable.
+	self visit: aPWBASTAccess accessed.
 	self visit: aPWBASTAccess arrayPosition.
 	self visitAll: aPWBASTAccess attributeAccesses.
 ]
@@ -632,6 +632,7 @@ PWBASTAbstractVisitor >> visitPWBASTNumber: anPWBASTNumber [
 PWBASTAbstractVisitor >> visitPWBASTOpenSqlCursor: aPWBASTOpenSqlCursor [
 	<generated>
 	self visit: aPWBASTOpenSqlCursor identifier.
+	self visit: aPWBASTOpenSqlCursor descriptor.
 ]
 
 { #category : #visiting }
@@ -741,6 +742,12 @@ PWBASTAbstractVisitor >> visitPWBASTSingleLineCase: aPWBASTSingleLineCase [
 PWBASTAbstractVisitor >> visitPWBASTSpecialStatement: aPWBASTSpecialStatement [
 	<generated>
 	self visit: aPWBASTSpecialStatement specialStatement.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
+	<generated>
+	self visit: aPWBASTSpecialVariable this.
 ]
 
 { #category : #visiting }
@@ -904,7 +911,6 @@ PWBASTAbstractVisitor >> visitPWBASTUsingClause: aPWBASTUsingClause [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	<generated>
-	self visit: aPWBASTVariable this.
 	self visit: aPWBASTVariable identifier.
 	self visit: aPWBASTVariable arrayDefinition.
 ]

@@ -12,7 +12,7 @@ PWBQueryFileParser >> access [
 			PWBASTAccess new
 				startPosition: production start;
 				stopPosition: production stop;
-				variable: (production content at: 1);
+				accessed: (production content at: 1);
 				arrayPosition: (production content at: 2);
 				attributeAccesses: (production content at: 3);
 				yourself ]
@@ -690,6 +690,18 @@ PWBQueryFileParser >> specialStatement [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> specialVariable [
+	<generated>
+	^ super specialVariable withPositions
+		==> [ :production | 
+			PWBASTSpecialVariable new
+				startPosition: production start;
+				stopPosition: production stop;
+				this: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> sqlQuery [
 	<generated>
 	^ super sqlQuery flatten withPositions
@@ -793,8 +805,7 @@ PWBQueryFileParser >> variable [
 			PWBASTVariable new
 				startPosition: production start;
 				stopPosition: production stop;
-				this: (production content at: 1);
-				identifier: (production content at: 2);
-				arrayDefinition: (production content at: 5);
+				identifier: (production content at: 1);
+				arrayDefinition: (production content at: 4);
 				yourself ]
 ]

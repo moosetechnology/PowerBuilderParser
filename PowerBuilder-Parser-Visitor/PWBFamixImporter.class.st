@@ -8,6 +8,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter class >> astTestGenerationScript [
+	<script>
+	PPTASTCheckingTestGenerator new
+		generateAllTestsFor: PWBDataWindowParser
+		inPackage: 'PowerBuilder-Parser-Tests'
+		fromTestClass: PWBDataWindowGrammarTest.
+	PPTASTCheckingTestGenerator new
+		generateAllTestsFor: PWBCommonParser
+		inPackage: 'PowerBuilder-Parser-Tests'
+		fromTestClass: PWBUserObjectGrammarTest
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> grammarGenerationScripts [
 	<script>
 	PPTASTGenerator
