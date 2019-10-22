@@ -54,7 +54,7 @@ PWBPreprocessor >> header [
 
 { #category : #accessing }
 PWBPreprocessor >> multiLineComment [
-	^ '/*' parser , (multiLineComment / '*/' parser negate) plus
+	^ '/*' parser , (multiLineComment / '*/' parser negate) star
 		, '*/' parser
 ]
 

@@ -287,7 +287,8 @@ PWBCommonGrammar >> forLoop [
 	^ 'for' token , blank , assignationStatement , blank , 'to' token
 		, blank , expression
 		, (blank , 'step' token , blank , expression) optional , newlines
-		, statements , newlines , ('next' token / (self endOf: 'for'))
+		, (statements , newlines) optional
+		, ('next' token / (self endOf: 'for'))
 ]
 
 { #category : #accessing }
@@ -340,7 +341,8 @@ PWBCommonGrammar >> multiLineCase [
 { #category : #accessing }
 PWBCommonGrammar >> openSqlCursor [
 	^ 'open' token , 'dynamic' token trimSpacesLeft optional , spaces
-		, identifier trimSpaces , $; parser
+		, identifier trimSpaces
+		, ('using' token trimSpaces , descriptor) optional , $; parser
 ]
 
 { #category : #accessing }

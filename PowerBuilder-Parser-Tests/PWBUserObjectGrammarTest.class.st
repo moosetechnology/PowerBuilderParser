@@ -670,6 +670,12 @@ PWBUserObjectGrammarTest >> testForLoop2 [
 									   
 									end if
 								end for'
+PWBUserObjectGrammarTest >> testForLoop3 [
+	self
+		parse:
+			'for ll_i = 1 to ll_row_dlq
+
+		next'
 		rule: #forLoop
 ]
 
@@ -1155,6 +1161,13 @@ PWBUserObjectGrammarTest >> testOpenCloseSqlCursor [
 { #category : #tests }
 PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor [
 	self parse: 'open dynamic c_sin ;' rule: #openSqlCursor.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
+	self
+		parse: 'open dynamic c_req_tax_cas using descriptor sqldat;'
+		rule: #openSqlCursor
 ]
 
 { #category : #tests }
