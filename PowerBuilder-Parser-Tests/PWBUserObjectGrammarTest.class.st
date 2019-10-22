@@ -678,7 +678,7 @@ PWBUserObjectGrammarTest >> testForLoop2 [
 rule: #forLoop
 ]
 
-{ #category : #'' }
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForLoop3 [
 	self
 		parse:
