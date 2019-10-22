@@ -628,6 +628,11 @@ PWBUserObjectGrammarTest >> testExpression3 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testExpression4 [
+	self parse: 'f_videSiNull(this.getitemstring ( ll_row, ''dqe_vis'' ))' rule: #expression
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForLoop1 [
 	self
 		parse: 'for ll_wz = 1 to ll_nz
@@ -672,6 +677,8 @@ PWBUserObjectGrammarTest >> testForLoop2 [
 								end for'
 rule: #forLoop
 ]
+
+{ #category : #'' }
 PWBUserObjectGrammarTest >> testForLoop3 [
 	self
 		parse:

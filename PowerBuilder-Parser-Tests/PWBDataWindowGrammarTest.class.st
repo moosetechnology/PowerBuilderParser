@@ -10,6 +10,11 @@ PWBDataWindowGrammarTest >> parserClass [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testAccess [
+	self parse: 'this.dw_liste' rule: #access
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testBitmap [
 	self parse: 'bitmap(band=detail filename="" x="3077" y="124" height="76" width="87" border="2" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0"  name=p_recherche_adn visible="1" transparency="0" )' rule: #graphicComponent
 ]
@@ -471,9 +476,4 @@ PWBDataWindowGrammarTest >> testType2 [
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType3 [
 	self parse: 'character' rule: #type
-]
-
-{ #category : #accessing }
-PWBDataWindowGrammarTest >> testVariable [
-	self parse: 'this.dw_liste' rule: #variable
 ]
