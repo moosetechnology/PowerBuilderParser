@@ -12576,28 +12576,3 @@ PWBDataWindowParserTest >> testType1 [
 				stopPosition: 4;
 				yourself)
 ]
-
-{ #category : #'as yet unclassified' }
-PWBDataWindowParserTest >> testVariable1 [
-	<generated>
-	self
-		assert: (self parse: 'this.dw_liste' rule: #variable)
-		equals:
-			(PWBASTVariable new
-				this:
-					(PWBASTThis new
-						this: 'this.';
-						startPosition: 1;
-						stopPosition: 5;
-						yourself);
-				identifier:
-					(PWBASTIdentifier new
-						identifier: 'dw_liste';
-						startPosition: 6;
-						stopPosition: 13;
-						yourself);
-				arrayDefinition: nil;
-				startPosition: 1;
-				stopPosition: 13;
-				yourself)
-]
