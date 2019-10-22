@@ -65,7 +65,8 @@ Class {
 		'regularMethodInvocation',
 		'identifierCharacter',
 		'intervalExpression',
-		'time'
+		'time',
+		'specialVariable'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -161,7 +162,8 @@ PWBAbstractGrammar class >> supportedExtensions [
 
 { #category : #accessing }
 PWBAbstractGrammar >> access [
-	^ variable , arrayPosition optional , attributeAccess star
+	<reify: #(variable / specialVariable) into: #accessed> 
+	^ (variable / specialVariable), arrayPosition optional , attributeAccess star
 ]
 
 { #category : #accessing }
@@ -515,6 +517,11 @@ PWBAbstractGrammar >> specialStatement [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> specialVariable [
+	^ this
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> start [
 	^ (file , blank) end optimize ==> [ :production | production first ]
 ]
@@ -542,7 +549,7 @@ PWBAbstractGrammar >> string [
 
 { #category : #accessing }
 PWBAbstractGrammar >> this [
-	^ 'this.' token
+	^ 'this' token
 ]
 
 { #category : #accessing }
@@ -567,7 +574,7 @@ PWBAbstractGrammar >> uncheckedIdentifier [
 { #category : #accessing }
 PWBAbstractGrammar >> variable [
 	<rename: #arrayWithSize into: #arrayDefinition>
-	^ this trim optional , identifier , $% parser optional
+	^ identifier , $% parser optional
 		, $( parser not , arrayWithSize optional
 ]
 

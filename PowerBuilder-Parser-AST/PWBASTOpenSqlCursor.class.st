@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifier',
+		'descriptor',
 		'startPosition',
 		'stopPosition'
 	],
@@ -18,8 +19,9 @@ PWBASTOpenSqlCursor >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
 	^ identifier = anObject identifier
-		and: [ startPosition = anObject startPosition
-				and: [ stopPosition = anObject stopPosition ] ]
+		and: [ descriptor = anObject descriptor
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
@@ -28,12 +30,24 @@ PWBASTOpenSqlCursor >> acceptVisitor: aVisitor [
 	^ aVisitor visitPWBASTOpenSqlCursor: self
 ]
 
+{ #category : #accessing }
+PWBASTOpenSqlCursor >> descriptor [
+	^ descriptor
+]
+
+{ #category : #accessing }
+PWBASTOpenSqlCursor >> descriptor: anObject [
+	descriptor := anObject
+]
+
 { #category : #comparing }
 PWBASTOpenSqlCursor >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ identifier hash
-		bitXor: (startPosition hash bitXor: stopPosition hash)
+		bitXor:
+			(descriptor hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

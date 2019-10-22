@@ -2,7 +2,6 @@ Class {
 	#name : #PWBASTVariable,
 	#superclass : #Object,
 	#instVars : [
-		'this',
 		'identifier',
 		'arrayDefinition',
 		'startPosition',
@@ -19,11 +18,10 @@ PWBASTVariable >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ this = anObject this
-		and: [ identifier = anObject identifier
-				and: [ arrayDefinition = anObject arrayDefinition
-						and: [ startPosition = anObject startPosition
-								and: [ stopPosition = anObject stopPosition ] ] ] ]
+	^ identifier = anObject identifier
+		and: [ arrayDefinition = anObject arrayDefinition
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
@@ -46,12 +44,10 @@ PWBASTVariable >> arrayDefinition: anObject [
 PWBASTVariable >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ this hash
+	^ identifier hash
 		bitXor:
-			(identifier hash
-				bitXor:
-					(arrayDefinition hash
-						bitXor: (startPosition hash bitXor: stopPosition hash)))
+			(arrayDefinition hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

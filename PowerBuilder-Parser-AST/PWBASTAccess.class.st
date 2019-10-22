@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTAccess,
 	#superclass : #Object,
 	#instVars : [
-		'variable',
+		'accessed',
 		'arrayPosition',
 		'attributeAccesses',
 		'startPosition',
@@ -19,7 +19,7 @@ PWBASTAccess >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ variable = anObject variable
+	^ accessed = anObject accessed
 		and: [ arrayPosition = anObject arrayPosition
 				and: [ attributeAccesses = anObject attributeAccesses
 						and: [ startPosition = anObject startPosition
@@ -30,6 +30,16 @@ PWBASTAccess >> = anObject [
 PWBASTAccess >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTAccess: self
+]
+
+{ #category : #accessing }
+PWBASTAccess >> accessed [
+	^ accessed
+]
+
+{ #category : #accessing }
+PWBASTAccess >> accessed: anObject [
+	accessed := anObject
 ]
 
 { #category : #accessing }
@@ -56,7 +66,7 @@ PWBASTAccess >> attributeAccesses: anObject [
 PWBASTAccess >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ variable hash
+	^ accessed hash
 		bitXor:
 			(arrayPosition hash
 				bitXor:
