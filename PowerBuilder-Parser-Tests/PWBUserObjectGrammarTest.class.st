@@ -1151,6 +1151,13 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
+	self
+		parse: 'open dynamic c_req_tax_cas using descriptor sqldat;'
+		rule: #openSqlCursor
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPrepareSQL1 [
 	self
 		parse:
