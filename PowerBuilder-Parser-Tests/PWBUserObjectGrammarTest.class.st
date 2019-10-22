@@ -670,6 +670,8 @@ PWBUserObjectGrammarTest >> testForLoop2 [
 									   
 									end if
 								end for'
+rule: #forLoop
+]
 PWBUserObjectGrammarTest >> testForLoop3 [
 	self
 		parse:
