@@ -808,7 +808,9 @@ PWBCommonParser >> forLoop [
 				stepExpression:
 					((production content at: 8)
 						ifNotNil: [ (production content at: 8) at: 4 ]);
-				statements: (production content at: 10);
+				statements:
+					((production content at: 10)
+						ifNotNil: [ (production content at: 10) at: 1 ]);
 				yourself ]
 ]
 
