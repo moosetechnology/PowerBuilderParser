@@ -11,7 +11,7 @@ PWBDataWindowGrammarTest >> parserClass [
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testAccess [
-	self parse: 'this.dw_liste' rule: #access
+	self parse: 'this.dw_liste' rule: #expression
 ]
 
 { #category : #accessing }

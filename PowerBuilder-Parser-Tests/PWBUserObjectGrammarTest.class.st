@@ -11,10 +11,10 @@ PWBUserObjectGrammarTest >> parserClass [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testAccessOrType [
-	self parse: 'this.dw_liste' rule: #accessOrType.
+	self parse: 'this.dw_liste' rule: #expression.
 	self fail: 'if' rule: #accessOrType.
 	self parse: 'thisMatch' rule: #accessOrType.
-	self parse: 'this. post' rule: #accessOrType.
+	self parse: 'this. post' rule: #expression.
 	
 
 ]
@@ -630,6 +630,11 @@ PWBUserObjectGrammarTest >> testExpression3 [
 { #category : #tests }
 PWBUserObjectGrammarTest >> testExpression4 [
 	self parse: 'f_videSiNull(this.getitemstring ( ll_row, ''dqe_vis'' ))' rule: #expression
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testExpression5 [
+	self parse: 'ao_ole.range(as_champ).Select' rule: #expression
 ]
 
 { #category : #tests }
