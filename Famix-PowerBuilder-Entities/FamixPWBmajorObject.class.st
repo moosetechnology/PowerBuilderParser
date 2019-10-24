@@ -47,6 +47,12 @@ FamixPWBmajorObject class >> requirements [
 	^ { FamixPWBLibrary }
 ]
 
+{ #category : #thisReference }
+FamixPWBmajorObject >> accessAssociation [
+	"For now return a null object, maybe we should have a this reference object in the model"	
+	^ FamixThisAccessNullObject 
+]
+
 { #category : #accessing }
 FamixPWBmajorObject >> belongsTo [
 

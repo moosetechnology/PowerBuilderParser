@@ -112,6 +112,18 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 ]
 
 { #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
+	^ self visit: aPWBASTSpecialVariable this
+]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
+	^ SRThisWithNode
+		node: anPWBASTThis
+		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ]
+]
+
+{ #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayDefinition.
 	^ SRIdentifierWithNode

@@ -79,13 +79,3 @@ PWBASTVariable >> stopPosition [
 PWBASTVariable >> stopPosition: anObject [
 	stopPosition := anObject
 ]
-
-{ #category : #accessing }
-PWBASTVariable >> this [
-	^ this
-]
-
-{ #category : #accessing }
-PWBASTVariable >> this: anObject [
-	this := anObject
-]

@@ -1185,6 +1185,11 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPostFixOperator [
+	self parse: 'this.ii_tr_descendants ++' rule: #postFixOperator 
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPrepareSQL1 [
 	self
 		parse:

@@ -37,20 +37,20 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	| identifiers |
 	self visit: aPWBASTAccess arrayPosition.
-	self visitAll: aPWBASTAccess attributeAccesses.
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifFalse: [ identifiers := self visit: aPWBASTAccess variable.
+		ifFalse: [ | identifiers |
+			identifiers := self visit: aPWBASTAccess accessed.
 			identifiers
-				foundAction:
-						[ :identifier :currentEntity | currentEntity createAccessTo: identifiers entity writing: false ];
+				foundAction: [ :identifier :currentEntity | 
+					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
+						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: false ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
 			self resolve: identifiers ]
-		ifTrue: [ self visit: aPWBASTAccess variable ]
+		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
 
 { #category : #visiting }

@@ -491,7 +491,7 @@ PWBAbstractGrammar >> parserFor: aCollectionOfString [
 
 { #category : #accessing }
 PWBAbstractGrammar >> postFixOperator [
-	^ access , blank , ('--' parser / '++' parser)
+	^ expression , spaces optional , ('--' parser / '++' parser)
 ]
 
 { #category : #accessing }
