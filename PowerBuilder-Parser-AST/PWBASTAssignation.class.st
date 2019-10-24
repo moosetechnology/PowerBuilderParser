@@ -38,6 +38,16 @@ PWBASTAssignation >> expression: anObject [
 	expression := anObject
 ]
 
+{ #category : #accessing }
+PWBASTAssignation >> graphicIndex [
+	^ graphicIndex
+]
+
+{ #category : #accessing }
+PWBASTAssignation >> graphicIndex: anObject [
+	graphicIndex := anObject
+]
+
 { #category : #comparing }
 PWBASTAssignation >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

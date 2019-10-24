@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTDestroyStatement,
 	#superclass : #Object,
 	#instVars : [
-		'accessOrType',
+		'expression',
 		'startPosition',
 		'stopPosition'
 	],
@@ -17,7 +17,7 @@ PWBASTDestroyStatement >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ accessOrType = anObject accessOrType
+	^ expression = anObject expression
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
@@ -38,11 +38,21 @@ PWBASTDestroyStatement >> accessOrType: anObject [
 	accessOrType := anObject
 ]
 
+{ #category : #accessing }
+PWBASTDestroyStatement >> expression [
+	^ expression
+]
+
+{ #category : #accessing }
+PWBASTDestroyStatement >> expression: anObject [
+	expression := anObject
+]
+
 { #category : #comparing }
 PWBASTDestroyStatement >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ accessOrType hash
+	^ expression hash
 		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 

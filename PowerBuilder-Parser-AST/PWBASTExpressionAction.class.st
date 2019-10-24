@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTExpression,
+	#name : #PWBASTExpressionAction,
 	#superclass : #Object,
 	#instVars : [
-		'expression',
+		'action',
 		'expressionAction',
 		'startPosition',
 		'stopPosition'
@@ -11,81 +11,71 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTExpression >> = anObject [
+PWBASTExpressionAction >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ expression = anObject expression
+	^ action = anObject action
 		and: [ expressionAction = anObject expressionAction
 				and: [ startPosition = anObject startPosition
 						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
-PWBASTExpression >> acceptVisitor: aVisitor [
+PWBASTExpressionAction >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTExpression: self
+	^ aVisitor visitPWBASTExpressionAction: self
 ]
 
 { #category : #accessing }
-PWBASTExpression >> expression [
-	^ expression
+PWBASTExpressionAction >> action [
+	^ action
 ]
 
 { #category : #accessing }
-PWBASTExpression >> expression: anObject [
-	expression := anObject
+PWBASTExpressionAction >> action: anObject [
+	action := anObject
 ]
 
 { #category : #accessing }
-PWBASTExpression >> expressionAction [
+PWBASTExpressionAction >> expressionAction [
 	^ expressionAction
 ]
 
 { #category : #accessing }
-PWBASTExpression >> expressionAction: anObject [
+PWBASTExpressionAction >> expressionAction: anObject [
 	expressionAction := anObject
 ]
 
 { #category : #comparing }
-PWBASTExpression >> hash [
+PWBASTExpressionAction >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ expression hash
+	^ action hash
 		bitXor:
 			(expressionAction hash
 				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }
-PWBASTExpression >> methodInvocations [
-	^ methodInvocations
-]
-
-{ #category : #accessing }
-PWBASTExpression >> methodInvocations: anObject [
-	methodInvocations := anObject
-]
-
-{ #category : #accessing }
-PWBASTExpression >> startPosition [
+PWBASTExpressionAction >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTExpression >> startPosition: anObject [
+PWBASTExpressionAction >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTExpression >> stopPosition [
+PWBASTExpressionAction >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTExpression >> stopPosition: anObject [
+PWBASTExpressionAction >> stopPosition: anObject [
 	stopPosition := anObject
 ]

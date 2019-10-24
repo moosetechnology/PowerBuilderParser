@@ -20,7 +20,6 @@ PWBASTAbstractVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	<generated>
 	self visit: aPWBASTAccess accessed.
 	self visit: aPWBASTAccess arrayPosition.
-	self visitAll: aPWBASTAccess attributeAccesses.
 ]
 
 { #category : #visiting }
@@ -102,7 +101,8 @@ PWBASTAbstractVisitor >> visitPWBASTAssignation: aPWBASTAssignation [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	<generated>
-	self visit: aPWBASTAssignationStatement access.
+	self visit: aPWBASTAssignationStatement accessOrType.
+	self visit: aPWBASTAssignationStatement expressionAction.
 	self visit: aPWBASTAssignationStatement assignation.
 ]
 
@@ -298,7 +298,7 @@ PWBASTAbstractVisitor >> visitPWBASTDescriptor: aPWBASTDescriptor [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDestroyStatement: aPWBASTDestroyStatement [
 	<generated>
-	self visit: aPWBASTDestroyStatement accessOrType.
+	self visit: aPWBASTDestroyStatement expression.
 ]
 
 { #category : #visiting }
@@ -416,7 +416,14 @@ PWBASTAbstractVisitor >> visitPWBASTExport: aPWBASTExport [
 PWBASTAbstractVisitor >> visitPWBASTExpression: aPWBASTExpression [
 	<generated>
 	self visit: aPWBASTExpression expression.
-	self visitAll: aPWBASTExpression methodInvocations.
+	self visit: aPWBASTExpression expressionAction.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	<generated>
+	self visit: aPWBASTExpressionAction action.
+	self visit: aPWBASTExpressionAction expressionAction.
 ]
 
 { #category : #visiting }
@@ -639,15 +646,14 @@ PWBASTAbstractVisitor >> visitPWBASTOpenSqlCursor: aPWBASTOpenSqlCursor [
 PWBASTAbstractVisitor >> visitPWBASTOperatorExpression: aPWBASTOperatorExpression [
 	<generated>
 	self visit: aPWBASTOperatorExpression left.
-	self visitAll: aPWBASTOperatorExpression methodInvocations.
+	self visit: aPWBASTOperatorExpression expressionAction.
 	self visit: aPWBASTOperatorExpression right.
 ]
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTOption: aPWBASTOption [
 	<generated>
-	self visit: aPWBASTOption access.
-	self visit: aPWBASTOption optionValue.
+	self visit: aPWBASTOption assignationStatement.
 ]
 
 { #category : #visiting }

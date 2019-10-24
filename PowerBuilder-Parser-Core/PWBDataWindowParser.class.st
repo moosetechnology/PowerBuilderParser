@@ -14,7 +14,6 @@ PWBDataWindowParser >> access [
 				stopPosition: production stop;
 				accessed: (production content at: 1);
 				arrayPosition: (production content at: 2);
-				attributeAccesses: (production content at: 3);
 				yourself ]
 ]
 
@@ -131,7 +130,10 @@ PWBDataWindowParser >> assignation [
 			PWBASTAssignation new
 				startPosition: production start;
 				stopPosition: production stop;
-				expression: (production content at: 4);
+				expression: (production content at: 2);
+				graphicIndex:
+					((production content at: 3)
+						ifNotNil: [ (production content at: 3) at: 2 ]);
 				yourself ]
 ]
 
@@ -143,8 +145,9 @@ PWBDataWindowParser >> assignationStatement [
 			PWBASTAssignationStatement new
 				startPosition: production start;
 				stopPosition: production stop;
-				access: (production content at: 1);
-				assignation: (production content at: 2);
+				accessOrType: (production content at: 1);
+				expressionAction: (production content at: 2);
+				assignation: (production content at: 3);
 				yourself ]
 ]
 
@@ -443,7 +446,20 @@ PWBDataWindowParser >> expression [
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 1);
-				methodInvocations: (production content at: 2);
+				expressionAction: (production content at: 2);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> expressionAction [
+	<generated>
+	^ super expressionAction withPositions
+		==> [ :production | 
+			PWBASTExpressionAction new
+				startPosition: production start;
+				stopPosition: production stop;
+				action: (production content at: 1);
+				expressionAction: (production content at: 2);
 				yourself ]
 ]
 
@@ -718,7 +734,7 @@ PWBDataWindowParser >> operatorExpression [
 				startPosition: production start;
 				stopPosition: production stop;
 				left: (production content at: 1);
-				methodInvocations: (production content at: 2);
+				expressionAction: (production content at: 2);
 				right: (production content at: 6);
 				yourself ]
 ]
@@ -731,8 +747,7 @@ PWBDataWindowParser >> option [
 			PWBASTOption new
 				startPosition: production start;
 				stopPosition: production stop;
-				access: (production content at: 1);
-				optionValue: (production content at: 3);
+				assignationStatement: production content;
 				yourself ]
 ]
 

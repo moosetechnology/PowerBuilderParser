@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'left',
-		'methodInvocations',
+		'expressionAction',
 		'right',
 		'startPosition',
 		'stopPosition'
@@ -20,7 +20,7 @@ PWBASTOperatorExpression >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
 	^ left = anObject left
-		and: [ methodInvocations = anObject methodInvocations
+		and: [ expressionAction = anObject expressionAction
 				and: [ right = anObject right
 						and: [ startPosition = anObject startPosition
 								and: [ stopPosition = anObject stopPosition ] ] ] ]
@@ -32,13 +32,23 @@ PWBASTOperatorExpression >> acceptVisitor: aVisitor [
 	^ aVisitor visitPWBASTOperatorExpression: self
 ]
 
+{ #category : #accessing }
+PWBASTOperatorExpression >> expressionAction [
+	^ expressionAction
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> expressionAction: anObject [
+	expressionAction := anObject
+]
+
 { #category : #comparing }
 PWBASTOperatorExpression >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ left hash
 		bitXor:
-			(methodInvocations hash
+			(expressionAction hash
 				bitXor: (right hash bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 

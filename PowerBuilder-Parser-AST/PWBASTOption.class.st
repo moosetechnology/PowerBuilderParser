@@ -2,8 +2,7 @@ Class {
 	#name : #PWBASTOption,
 	#superclass : #Object,
 	#instVars : [
-		'access',
-		'optionValue',
+		'assignationStatement',
 		'startPosition',
 		'stopPosition'
 	],
@@ -18,10 +17,9 @@ PWBASTOption >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ access = anObject access
-		and: [ optionValue = anObject optionValue
-				and: [ startPosition = anObject startPosition
-						and: [ stopPosition = anObject stopPosition ] ] ]
+	^ assignationStatement = anObject assignationStatement
+		and: [ startPosition = anObject startPosition
+				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
@@ -40,14 +38,22 @@ PWBASTOption >> access: anObject [
 	access := anObject
 ]
 
+{ #category : #accessing }
+PWBASTOption >> assignationStatement [
+	^ assignationStatement
+]
+
+{ #category : #accessing }
+PWBASTOption >> assignationStatement: anObject [
+	assignationStatement := anObject
+]
+
 { #category : #comparing }
 PWBASTOption >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ access hash
-		bitXor:
-			(optionValue hash
-				bitXor: (startPosition hash bitXor: stopPosition hash))
+	^ assignationStatement hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

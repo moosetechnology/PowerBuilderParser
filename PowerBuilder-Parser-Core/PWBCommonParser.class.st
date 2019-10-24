@@ -14,7 +14,6 @@ PWBCommonParser >> access [
 				stopPosition: production stop;
 				accessed: (production content at: 1);
 				arrayPosition: (production content at: 2);
-				attributeAccesses: (production content at: 3);
 				yourself ]
 ]
 
@@ -155,7 +154,7 @@ PWBCommonParser >> assignation [
 			PWBASTAssignation new
 				startPosition: production start;
 				stopPosition: production stop;
-				expression: (production content at: 4);
+				expression: (production content at: 2);
 				yourself ]
 ]
 
@@ -167,8 +166,9 @@ PWBCommonParser >> assignationStatement [
 			PWBASTAssignationStatement new
 				startPosition: production start;
 				stopPosition: production stop;
-				access: (production content at: 1);
-				assignation: (production content at: 2);
+				accessOrType: (production content at: 1);
+				expressionAction: (production content at: 2);
+				assignation: (production content at: 3);
 				yourself ]
 ]
 
@@ -513,7 +513,7 @@ PWBCommonParser >> destroyStatement [
 			PWBASTDestroyStatement new
 				startPosition: production start;
 				stopPosition: production stop;
-				accessOrType: (production content at: 3);
+				expression: (production content at: 3);
 				yourself ]
 ]
 
@@ -729,7 +729,20 @@ PWBCommonParser >> expression [
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 1);
-				methodInvocations: (production content at: 2);
+				expressionAction: (production content at: 2);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> expressionAction [
+	<generated>
+	^ super expressionAction withPositions
+		==> [ :production | 
+			PWBASTExpressionAction new
+				startPosition: production start;
+				stopPosition: production stop;
+				action: (production content at: 1);
+				expressionAction: (production content at: 2);
 				yourself ]
 ]
 
@@ -1097,7 +1110,7 @@ PWBCommonParser >> operatorExpression [
 				startPosition: production start;
 				stopPosition: production stop;
 				left: (production content at: 1);
-				methodInvocations: (production content at: 2);
+				expressionAction: (production content at: 2);
 				right: (production content at: 6);
 				yourself ]
 ]

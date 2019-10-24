@@ -2,7 +2,8 @@ Class {
 	#name : #PWBASTAssignationStatement,
 	#superclass : #Object,
 	#instVars : [
-		'access',
+		'accessOrType',
+		'expressionAction',
 		'assignation',
 		'startPosition',
 		'stopPosition'
@@ -18,10 +19,11 @@ PWBASTAssignationStatement >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ access = anObject access
-		and: [ assignation = anObject assignation
-				and: [ startPosition = anObject startPosition
-						and: [ stopPosition = anObject stopPosition ] ] ]
+	^ accessOrType = anObject accessOrType
+		and: [ expressionAction = anObject expressionAction
+				and: [ assignation = anObject assignation
+						and: [ startPosition = anObject startPosition
+								and: [ stopPosition = anObject stopPosition ] ] ] ]
 ]
 
 { #category : #visiting }
@@ -31,13 +33,13 @@ PWBASTAssignationStatement >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTAssignationStatement >> access [
-	^ access
+PWBASTAssignationStatement >> accessOrType [
+	^ accessOrType
 ]
 
 { #category : #accessing }
-PWBASTAssignationStatement >> access: anObject [
-	access := anObject
+PWBASTAssignationStatement >> accessOrType: anObject [
+	accessOrType := anObject
 ]
 
 { #category : #accessing }
@@ -50,14 +52,26 @@ PWBASTAssignationStatement >> assignation: anObject [
 	assignation := anObject
 ]
 
+{ #category : #accessing }
+PWBASTAssignationStatement >> expressionAction [
+	^ expressionAction
+]
+
+{ #category : #accessing }
+PWBASTAssignationStatement >> expressionAction: anObject [
+	expressionAction := anObject
+]
+
 { #category : #comparing }
 PWBASTAssignationStatement >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ access hash
+	^ accessOrType hash
 		bitXor:
-			(assignation hash
-				bitXor: (startPosition hash bitXor: stopPosition hash))
+			(expressionAction hash
+				bitXor:
+					(assignation hash
+						bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 
 { #category : #accessing }

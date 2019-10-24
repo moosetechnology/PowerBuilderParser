@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'accessed',
 		'arrayPosition',
-		'attributeAccesses',
 		'startPosition',
 		'stopPosition'
 	],
@@ -21,9 +20,8 @@ PWBASTAccess >> = anObject [
 		ifFalse: [ ^ false ].
 	^ accessed = anObject accessed
 		and: [ arrayPosition = anObject arrayPosition
-				and: [ attributeAccesses = anObject attributeAccesses
-						and: [ startPosition = anObject startPosition
-								and: [ stopPosition = anObject stopPosition ] ] ] ]
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
@@ -52,16 +50,6 @@ PWBASTAccess >> arrayPosition: anObject [
 	arrayPosition := anObject
 ]
 
-{ #category : #accessing }
-PWBASTAccess >> attributeAccesses [
-	^ attributeAccesses
-]
-
-{ #category : #accessing }
-PWBASTAccess >> attributeAccesses: anObject [
-	attributeAccesses := anObject
-]
-
 { #category : #comparing }
 PWBASTAccess >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
@@ -69,9 +57,7 @@ PWBASTAccess >> hash [
 	^ accessed hash
 		bitXor:
 			(arrayPosition hash
-				bitXor:
-					(attributeAccesses hash
-						bitXor: (startPosition hash bitXor: stopPosition hash)))
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }
@@ -92,14 +78,4 @@ PWBASTAccess >> stopPosition [
 { #category : #accessing }
 PWBASTAccess >> stopPosition: anObject [
 	stopPosition := anObject
-]
-
-{ #category : #accessing }
-PWBASTAccess >> variable [
-	^ variable
-]
-
-{ #category : #accessing }
-PWBASTAccess >> variable: anObject [
-	variable := anObject
 ]
