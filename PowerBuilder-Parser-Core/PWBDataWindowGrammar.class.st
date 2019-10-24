@@ -11,7 +11,6 @@ Class {
 		'graphicComponentToken',
 		'options',
 		'option',
-		'optionValue',
 		'column',
 		'columnDefinition',
 		'table',
@@ -29,6 +28,13 @@ Class {
 { #category : #parsing }
 PWBDataWindowGrammar class >> supportedExtensions [
 	^ {'srd'}
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowGrammar >> assignation [
+	"In dataWindow there is special case with graphic index"
+	<rename: #number into: #graphicIndex>
+	^ super assignation , ($. token , number) optional
 ]
 
 { #category : #'as yet unclassified' }
@@ -98,13 +104,7 @@ PWBDataWindowGrammar >> import [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> option [
-	^ access, $= parser trim, optionValue
-]
-
-{ #category : #'as yet unclassified' }
-PWBDataWindowGrammar >> optionValue [
-	<rename: #number into: #graphicIndex >
-	^ expression , ($. token , number) optional
+	^ assignationStatement
 ]
 
 { #category : #'as yet unclassified' }

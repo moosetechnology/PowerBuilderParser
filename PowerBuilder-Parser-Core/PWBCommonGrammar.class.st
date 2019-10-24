@@ -193,7 +193,7 @@ PWBCommonGrammar >> descriptor [
 
 { #category : #accessing }
 PWBCommonGrammar >> destroyStatement [
-	^ 'destroy' token , blank , accessOrType
+	^ 'destroy' token , spaces , expression
 ]
 
 { #category : #accessing }

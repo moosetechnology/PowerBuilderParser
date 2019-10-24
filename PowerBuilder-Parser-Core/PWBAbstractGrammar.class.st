@@ -66,7 +66,8 @@ Class {
 		'identifierCharacter',
 		'intervalExpression',
 		'time',
-		'specialVariable'
+		'specialVariable',
+		'expressionAction'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -162,8 +163,8 @@ PWBAbstractGrammar class >> supportedExtensions [
 
 { #category : #accessing }
 PWBAbstractGrammar >> access [
-	<reify: #(variable / specialVariable) into: #accessed> 
-	^ (variable / specialVariable), arrayPosition optional , attributeAccess star
+	<reify: #(variable / specialVariable) into: #accessed>
+	^ variable / specialVariable , arrayPosition optional
 ]
 
 { #category : #accessing }
@@ -215,13 +216,13 @@ PWBAbstractGrammar >> arrayWithSize [
 
 { #category : #accessing }
 PWBAbstractGrammar >> assignation [
-	^ blank , ($= parser / '+=' parser / '-=' parser / '/=' parser / '*=' parser) , blank
-		, expression
+	^ ($= parser / '+=' parser / '-=' parser / '/=' parser / '*=' parser)
+		trim , expression
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> assignationStatement [
-	^ access , assignation 
+	^ accessOrType , expressionAction optional , assignation 
 ]
 
 { #category : #accessing }
@@ -340,7 +341,13 @@ PWBAbstractGrammar >> expression [
 		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / expressionTerm)
 	into: #expression>
 	^ expressionWithSign / operatorExpression / parenthesedExpression
-		/ parenthesedArray / expressionTerm , methodInvocation star
+		/ parenthesedArray / expressionTerm , expressionAction optional
+]
+
+{ #category : #accessing }
+PWBAbstractGrammar >> expressionAction [
+	<reify: #(methodInvocation / attributeAccess) into: #action>
+	^ methodInvocation / attributeAccess , expressionAction optional
 ]
 
 { #category : #accessing }
@@ -443,13 +450,13 @@ PWBAbstractGrammar >> number [
 PWBAbstractGrammar >> operatorExpression [
 	<reify: #(parenthesedExpression / expressionTerm) into: #left>
 	<rename: #expression into: #right>
-	^ parenthesedExpression / expressionTerm , methodInvocation star
+	^ parenthesedExpression / expressionTerm , expressionAction optional
 		, blank
 		,
 			(self
 				parserCaseInsensitiveFor:
-					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' "','" 'AND' 'OR' 'and' 'or'))
-		, blank , expression
+					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' 'AND' 'OR' 'and' 'or'))
+		, blank , expression	"','"
 ]
 
 { #category : #accessing }
