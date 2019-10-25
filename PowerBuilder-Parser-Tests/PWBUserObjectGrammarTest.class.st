@@ -1364,6 +1364,11 @@ PWBUserObjectGrammarTest >> testStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testStatement2 [
+	self parse: 'EVENT Edw_pre_insertion()' rule: #statement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testStatements [
 	self
 		parse: 'ls_donnee=''''; ls_donnee_2= ''''; ls_donnee_3= ''''; ls_donnee_4 = '''''

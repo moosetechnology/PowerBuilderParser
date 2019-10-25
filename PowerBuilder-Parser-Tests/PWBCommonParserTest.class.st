@@ -6651,20 +6651,36 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 								statement:
 									(PWBASTPostFixOperator new
 										access:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'll_lig';
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_lig';
+																						startPosition: 5;
+																						stopPosition: 10;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 5;
+																				stopPosition: 10;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 5;
+																		stopPosition: 10;
+																		yourself);
 																startPosition: 5;
 																stopPosition: 10;
 																yourself);
-														arrayDefinition: nil;
 														startPosition: 5;
 														stopPosition: 10;
 														yourself);
-												arrayPosition: nil;
+												expressionAction: nil;
 												startPosition: 5;
 												stopPosition: 10;
 												yourself);
@@ -8236,20 +8252,36 @@ loop'
 								statement:
 									(PWBASTPostFixOperator new
 										access:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'll_lig';
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_lig';
+																						startPosition: 45;
+																						stopPosition: 50;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 45;
+																				stopPosition: 50;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 45;
+																		stopPosition: 50;
+																		yourself);
 																startPosition: 45;
 																stopPosition: 50;
 																yourself);
-														arrayDefinition: nil;
 														startPosition: 45;
 														stopPosition: 50;
 														yourself);
-												arrayPosition: nil;
+												expressionAction: nil;
 												startPosition: 45;
 												stopPosition: 50;
 												yourself);
@@ -19583,20 +19615,36 @@ PWBCommonParserTest >> testIfStatement12 [
 										statement:
 											(PWBASTPostFixOperator new
 												access:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'li_year';
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'li_year';
+																								startPosition: 54;
+																								stopPosition: 60;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 54;
+																						stopPosition: 60;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 54;
+																				stopPosition: 60;
+																				yourself);
 																		startPosition: 54;
 																		stopPosition: 60;
 																		yourself);
-																arrayDefinition: nil;
 																startPosition: 54;
 																stopPosition: 60;
 																yourself);
-														arrayPosition: nil;
+														expressionAction: nil;
 														startPosition: 54;
 														stopPosition: 60;
 														yourself);
@@ -20036,20 +20084,36 @@ PWBCommonParserTest >> testIfStatement12 [
 														statement:
 															(PWBASTPostFixOperator new
 																access:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'al_julian';
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'al_julian';
+																												startPosition: 226;
+																												stopPosition: 234;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 226;
+																										stopPosition: 234;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 226;
+																								stopPosition: 234;
+																								yourself);
 																						startPosition: 226;
 																						stopPosition: 234;
 																						yourself);
-																				arrayDefinition: nil;
 																				startPosition: 226;
 																				stopPosition: 234;
 																				yourself);
-																		arrayPosition: nil;
+																		expressionAction: nil;
 																		startPosition: 226;
 																		stopPosition: 234;
 																		yourself);
@@ -23864,6 +23928,68 @@ PWBCommonParserTest >> testOpenSqlCursor3 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testPostFixOperator1 [
+	<generated>
+	self
+		assert: (self parse: 'this.ii_tr_descendants ++' rule: #postFixOperator)
+		equals:
+			(PWBASTPostFixOperator new
+				access:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTAccess new
+												accessed:
+													(PWBASTSpecialVariable new
+														this:
+															(PWBASTThis new
+																this: 'this';
+																startPosition: 1;
+																stopPosition: 4;
+																yourself);
+														startPosition: 1;
+														stopPosition: 4;
+														yourself);
+												arrayPosition: nil;
+												startPosition: 1;
+												stopPosition: 4;
+												yourself);
+										startPosition: 1;
+										stopPosition: 4;
+										yourself);
+								startPosition: 1;
+								stopPosition: 4;
+								yourself);
+						expressionAction:
+							(PWBASTExpressionAction new
+								action:
+									(PWBASTAttributeAccess new
+										uncheckedIdentifier:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'ii_tr_descendants';
+												startPosition: 6;
+												stopPosition: 22;
+												yourself);
+										arrayInformation: nil;
+										startPosition: 5;
+										stopPosition: 22;
+										yourself);
+								expressionAction: nil;
+								startPosition: 5;
+								stopPosition: 22;
+								yourself);
+						startPosition: 1;
+						stopPosition: 22;
+						yourself);
+				startPosition: 1;
+				stopPosition: 25;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testPrepareSQL1 [
 	<generated>
 	self
@@ -24856,6 +24982,79 @@ PWBCommonParserTest >> testStatement1 [
 PWBCommonParserTest >> testStatement2 [
 	<generated>
 	self
+		assert: (self parse: 'dw_detail.setFocus()' rule: #statement)
+		equals:
+			(PWBASTStatement new
+				statement:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTAccess new
+												accessed:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_detail';
+																startPosition: 1;
+																stopPosition: 9;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 1;
+														stopPosition: 9;
+														yourself);
+												arrayPosition: nil;
+												startPosition: 1;
+												stopPosition: 9;
+												yourself);
+										startPosition: 1;
+										stopPosition: 9;
+										yourself);
+								startPosition: 1;
+								stopPosition: 9;
+								yourself);
+						expressionAction:
+							(PWBASTExpressionAction new
+								action:
+									(PWBASTMethodInvocation new
+										methodInvocation:
+											(PWBASTRegularMethodInvocation new
+												uncheckedIdentifier:
+													(PWBASTUncheckedIdentifier new
+														uncheckedIdentifier: 'setFocus';
+														startPosition: 11;
+														stopPosition: 18;
+														yourself);
+												functionArguments:
+													(PWBASTFunctionArguments new
+														functionArguments: nil;
+														startPosition: 19;
+														stopPosition: 20;
+														yourself);
+												startPosition: 10;
+												stopPosition: 20;
+												yourself);
+										startPosition: 10;
+										stopPosition: 20;
+										yourself);
+								expressionAction: nil;
+								startPosition: 10;
+								stopPosition: 20;
+								yourself);
+						startPosition: 1;
+						stopPosition: 20;
+						yourself);
+				startPosition: 1;
+				stopPosition: 20;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testStatement3 [
+	<generated>
+	self
 		assert: (self parse: 'return' rule: #statement)
 		equals:
 			(PWBASTStatement new
@@ -24876,7 +25075,7 @@ PWBCommonParserTest >> testStatement2 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement3 [
+PWBCommonParserTest >> testStatement4 [
 	<generated>
 	self
 		assert: (self parse: 'long ll_par_no' rule: #statement)
@@ -24922,7 +25121,7 @@ PWBCommonParserTest >> testStatement3 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement4 [
+PWBCommonParserTest >> testStatement5 [
 	<generated>
 	self
 		assert: (self parse: 'il_nbs_gpp_trt ++' rule: #statement)
@@ -24931,20 +25130,36 @@ PWBCommonParserTest >> testStatement4 [
 				statement:
 					(PWBASTPostFixOperator new
 						access:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'il_nbs_gpp_trt';
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'il_nbs_gpp_trt';
+																		startPosition: 1;
+																		stopPosition: 14;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 1;
+																stopPosition: 14;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 1;
+														stopPosition: 14;
+														yourself);
 												startPosition: 1;
 												stopPosition: 14;
 												yourself);
-										arrayDefinition: nil;
 										startPosition: 1;
 										stopPosition: 14;
 										yourself);
-								arrayPosition: nil;
+								expressionAction: nil;
 								startPosition: 1;
 								stopPosition: 14;
 								yourself);
@@ -24957,7 +25172,7 @@ PWBCommonParserTest >> testStatement4 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement5 [
+PWBCommonParserTest >> testStatement6 [
 	<generated>
 	self
 		assert: (self parse: 'printSetup()' rule: #statement)
@@ -24987,7 +25202,7 @@ PWBCommonParserTest >> testStatement5 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement6 [
+PWBCommonParserTest >> testStatement7 [
 	<generated>
 	self
 		assert: (self parse: 'al_julian --' rule: #statement)
@@ -24996,20 +25211,36 @@ PWBCommonParserTest >> testStatement6 [
 				statement:
 					(PWBASTPostFixOperator new
 						access:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'al_julian';
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'al_julian';
+																		startPosition: 1;
+																		stopPosition: 9;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 1;
+																stopPosition: 9;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 1;
+														stopPosition: 9;
+														yourself);
 												startPosition: 1;
 												stopPosition: 9;
 												yourself);
-										arrayDefinition: nil;
 										startPosition: 1;
 										stopPosition: 9;
 										yourself);
-								arrayPosition: nil;
+								expressionAction: nil;
 								startPosition: 1;
 								stopPosition: 9;
 								yourself);
