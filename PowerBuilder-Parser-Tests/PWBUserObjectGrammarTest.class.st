@@ -1167,6 +1167,13 @@ PWBUserObjectGrammarTest >> testNonSqlQuery1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testNumber [
+	self parse: '42' rule: #number.
+	self parse: '.90' rule: #number.
+	
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testOpenCloseSqlCursor [
 	self parse: 'Open C_column_ave ;' rule: #openSqlCursor.
 	self parse: 'close C_column_ave ;' rule: #closeSqlCursor

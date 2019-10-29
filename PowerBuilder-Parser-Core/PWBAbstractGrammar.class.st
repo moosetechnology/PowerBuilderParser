@@ -442,8 +442,10 @@ PWBAbstractGrammar >> notExpression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> number [
-	^ ($+ parser / $- parser , blank) optional , #digit parser plus
-		, ($. parser , #digit parser plus) optional
+	^ ($+ parser / $- parser , blank) optional
+		,
+			((#digit parser plus , ($. parser , #digit parser plus) optional)
+				/ ($. parser , #digit parser plus))
 ]
 
 { #category : #accessing }
