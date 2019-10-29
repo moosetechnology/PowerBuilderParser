@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTPostFixOperator,
 	#superclass : #Object,
 	#instVars : [
-		'access',
+		'expression',
 		'startPosition',
 		'stopPosition'
 	],
@@ -17,7 +17,7 @@ PWBASTPostFixOperator >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ access = anObject access
+	^ expression = anObject expression
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
@@ -38,11 +38,22 @@ PWBASTPostFixOperator >> access: anObject [
 	access := anObject
 ]
 
+{ #category : #accessing }
+PWBASTPostFixOperator >> expression [
+	^ expression
+]
+
+{ #category : #accessing }
+PWBASTPostFixOperator >> expression: anObject [
+	expression := anObject
+]
+
 { #category : #comparing }
 PWBASTPostFixOperator >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ access hash bitXor: (startPosition hash bitXor: stopPosition hash)
+	^ expression hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

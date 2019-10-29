@@ -379,6 +379,13 @@ PWBASTAbstractVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
+	<generated>
+	self visit: aPWBASTEventInvocation identifier.
+	self visit: aPWBASTEventInvocation arguments.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
 	<generated>
 	self visit: aPWBASTEventReferenceName objectClass.
@@ -697,7 +704,7 @@ PWBASTAbstractVisitor >> visitPWBASTParenthesedExpression: aPWBASTParenthesedExp
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTPostFixOperator: aPWBASTPostFixOperator [
 	<generated>
-	self visit: aPWBASTPostFixOperator access.
+	self visit: aPWBASTPostFixOperator expression.
 ]
 
 { #category : #visiting }

@@ -647,7 +647,7 @@ PWBQueryFileParser >> postFixOperator [
 			PWBASTPostFixOperator new
 				startPosition: production start;
 				stopPosition: production stop;
-				access: (production content at: 1);
+				expression: (production content at: 1);
 				yourself ]
 ]
 

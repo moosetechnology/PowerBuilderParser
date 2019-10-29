@@ -145,6 +145,24 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
+	self
+		resolve:
+			((SRIdentifierWithNode
+				identifier: (self visit: aPWBASTEventInvocation identifier)
+				expectedKind: FamixPWBEvent
+				node: aPWBASTEventInvocation)
+				notFoundReplacementEntity: [ :aResolvable | 
+					{((self createStub: FamixPWBEvent)
+						name: aResolvable identifier;
+						yourself)} ];
+				foundAction: [ :identifier :currentEntity | 
+					(self createAssociation: FamixPWBInvocation from: identifier node)
+						sender: currentEntity;
+						candidates: identifier candidates ])
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
 	self flag: #TODO.	"Manage object class correctly"
 	self visit: aPWBASTEventReferenceName objectClass.

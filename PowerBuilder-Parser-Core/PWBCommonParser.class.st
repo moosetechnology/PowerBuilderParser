@@ -667,6 +667,19 @@ PWBCommonParser >> eventDeclaration [
 ]
 
 { #category : #rules }
+PWBCommonParser >> eventInvocation [
+	<generated>
+	^ super eventInvocation withPositions
+		==> [ :production | 
+			PWBASTEventInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 2);
+				arguments: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> eventReferenceName [
 	<generated>
 	^ super eventReferenceName withPositions
@@ -1162,7 +1175,7 @@ PWBCommonParser >> postFixOperator [
 			PWBASTPostFixOperator new
 				startPosition: production start;
 				stopPosition: production stop;
-				access: (production content at: 1);
+				expression: (production content at: 1);
 				yourself ]
 ]
 
