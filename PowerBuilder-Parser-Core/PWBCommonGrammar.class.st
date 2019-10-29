@@ -65,7 +65,8 @@ Class {
 		'executeProcedure',
 		'sqlVariable',
 		'prepareSQL',
-		'destroyStatement'
+		'destroyStatement',
+		'eventInvocation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -250,6 +251,11 @@ PWBCommonGrammar >> eventDeclaration [
 ]
 
 { #category : #accessing }
+PWBCommonGrammar >> eventInvocation [
+	^ 'event' token, identifier trim, arguments 
+]
+
+{ #category : #accessing }
 PWBCommonGrammar >> eventReferenceName [
 	<rename: #identifier into: #(objectClass eventName)>
 	^ (identifier , '::' parser) optional , identifier
@@ -406,7 +412,7 @@ PWBCommonGrammar >> statement [
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / prepareSQL
 		/ declareProcedure / executeProcedure / sqlQuery / tryCatch
 		/ forLoop / chooseCase / doWhileLoop / doUntilLoop / doLoopWhile
-		/ doLoopUntil / destroyStatement / variableDeclarations
+		/ doLoopUntil / destroyStatement / variableDeclarations / eventInvocation
 		/ super statement
 ]
 
