@@ -148,7 +148,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 	self
 		resolve:
-			((SRIdentifierWithNode
+			((SRInvocationWithNode
 				identifier: (self visit: aPWBASTEventInvocation identifier)
 				expectedKind: FamixPWBEvent
 				node: aPWBASTEventInvocation)
