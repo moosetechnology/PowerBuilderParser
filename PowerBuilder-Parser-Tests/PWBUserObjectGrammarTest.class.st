@@ -122,6 +122,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement7 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement8 [
+	self
+		parse: 'iuo_nv_evn = create using ls_uo_gestion'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
