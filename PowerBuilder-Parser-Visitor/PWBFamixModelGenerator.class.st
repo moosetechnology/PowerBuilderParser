@@ -108,6 +108,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	event
 		--|> behavioral;
 		--|> #TMethod;
+		--|> #TInvocable;
 		--|> #TNamed.
 	function
 		--|> behavioral;

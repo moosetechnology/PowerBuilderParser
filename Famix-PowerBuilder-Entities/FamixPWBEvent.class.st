@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBEvent,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTMethod + FamixTNamed',
-	#classTraits : 'FamixTMethod classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTInvocable + FamixTMethod + FamixTNamed',
+	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait + FamixTNamed classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -25,7 +25,7 @@ FamixPWBEvent class >> generatedSlotNames [
 { #category : #generator }
 FamixPWBEvent class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTMethod FamixTNamed)
+	^ #(FamixTInvocable FamixTMethod FamixTNamed)
 ]
 
 { #category : #meta }
