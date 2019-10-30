@@ -94,7 +94,7 @@ PWBDataWindowGrammar >> graphicComponent [
 PWBDataWindowGrammar >> graphicComponentToken [
 	^ self
 		parserFor:
-			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button')
+			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button' 'graph')
 ]
 
 { #category : #'as yet unclassified' }
