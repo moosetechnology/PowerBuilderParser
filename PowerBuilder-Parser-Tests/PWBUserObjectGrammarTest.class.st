@@ -1715,6 +1715,22 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTypePrototypes4 [
+	self
+		parse:
+			'type prototypes
+
+private subroutine OutputDebugString (String lpszOutputString) library ''kernel32.dll'' alias for ''OutputDebugStringA;Ansi'' ;
+
+private function long FindWindow(ref string lpClassName, ref string lpWindowName) library ''user32.dll'' alias for ''FindWindowA;Ansi'' ; 
+
+
+
+end prototypes'
+		rule: #typePrototypes
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTypeVariable [
 	self parse: 'type variables
 date id_aujourd_hui

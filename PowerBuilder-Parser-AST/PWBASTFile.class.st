@@ -4,9 +4,7 @@ Class {
 	#instVars : [
 		'content',
 		'startPosition',
-		'stopPosition',
-		'fileExtension',
-		'fileName'
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
