@@ -117,7 +117,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 			((SRInvocationWithNode
 				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
 				node: aPWBASTMethodInvocation
-				expectedKind: FamixPWBFunction
+				expectedKind:
+				{FamixPWBFunction.
+					FamixPWBEvent}
 				arguments: (self visit: aPWBASTMethodInvocation functionArguments))
 				notFoundReplacementEntity: [ :aResolvable | 
 					{((self createStub: FamixPWBFunction)
@@ -263,7 +265,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 			((SRInvocationWithNode
 				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
 				node: aPWBASTMethodInvocation
-				expectedKind: FamixPWBFunction
+				expectedKind:
+				{FamixPWBFunction.
+					FamixPWBEvent}
 				arguments: (self visit: aPWBASTMethodInvocation functionArguments))
 				notFoundReplacementEntity: [ :aResolvable | 
 					{((self createStub: FamixPWBFunction)

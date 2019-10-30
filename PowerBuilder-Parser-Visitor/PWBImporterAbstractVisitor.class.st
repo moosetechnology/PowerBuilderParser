@@ -102,6 +102,7 @@ PWBImporterAbstractVisitor >> model [
 PWBImporterAbstractVisitor >> model: anObject [
 	model := anObject.
 	self pushAsScopeAll: FamixPWBFunction ofModel: model.
+	self pushAsScopeAll: FamixPWBEvent ofModel: model.
 	self pushAsScopeAll: FamixPWBSubRoutine ofModel: model.
 	self pushAsScopeAll: FamixPWBUserObject ofModel: model
 ]
