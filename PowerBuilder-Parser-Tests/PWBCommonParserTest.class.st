@@ -1721,6 +1721,100 @@ PWBCommonParserTest >> testAssignationStatement20 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAssignationStatement21 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'iuo_nv_evn = create using ls_uo_gestion'
+				rule: #assignationStatement)
+		equals:
+			(PWBASTAssignationStatement new
+				accessOrType:
+					(PWBASTAccessOrType new
+						accessOrType:
+							(PWBASTAccess new
+								accessed:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'iuo_nv_evn';
+												startPosition: 1;
+												stopPosition: 10;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 1;
+										stopPosition: 10;
+										yourself);
+								arrayPosition: nil;
+								startPosition: 1;
+								stopPosition: 10;
+								yourself);
+						startPosition: 1;
+						stopPosition: 10;
+						yourself);
+				expressionAction: nil;
+				assignation:
+					(PWBASTAssignation new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTCreateUsingInstruction new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'ls_uo_gestion';
+																								startPosition: 27;
+																								stopPosition: 39;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 27;
+																						stopPosition: 39;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 27;
+																				stopPosition: 39;
+																				yourself);
+																		startPosition: 27;
+																		stopPosition: 39;
+																		yourself);
+																startPosition: 27;
+																stopPosition: 39;
+																yourself);
+														expressionAction: nil;
+														startPosition: 27;
+														stopPosition: 39;
+														yourself);
+												startPosition: 14;
+												stopPosition: 39;
+												yourself);
+										startPosition: 14;
+										stopPosition: 39;
+										yourself);
+								expressionAction: nil;
+								startPosition: 14;
+								stopPosition: 39;
+								yourself);
+						startPosition: 11;
+						stopPosition: 39;
+						yourself);
+				startPosition: 1;
+				stopPosition: 39;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testAssignationStatement3 [
 	<generated>
 	self
@@ -6650,7 +6744,7 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 							{(PWBASTStatement new
 								statement:
 									(PWBASTPostFixOperator new
-										access:
+										expression:
 											(PWBASTExpression new
 												expression:
 													(PWBASTExpressionTerm new
@@ -8251,7 +8345,7 @@ loop'
 							{(PWBASTStatement new
 								statement:
 									(PWBASTPostFixOperator new
-										access:
+										expression:
 											(PWBASTExpression new
 												expression:
 													(PWBASTExpressionTerm new
@@ -19614,7 +19708,7 @@ PWBCommonParserTest >> testIfStatement12 [
 									(PWBASTStatement new
 										statement:
 											(PWBASTPostFixOperator new
-												access:
+												expression:
 													(PWBASTExpression new
 														expression:
 															(PWBASTExpressionTerm new
@@ -20083,7 +20177,7 @@ PWBCommonParserTest >> testIfStatement12 [
 													{(PWBASTStatement new
 														statement:
 															(PWBASTPostFixOperator new
-																access:
+																expression:
 																	(PWBASTExpression new
 																		expression:
 																			(PWBASTExpressionTerm new
@@ -23830,6 +23924,32 @@ PWBCommonParserTest >> testMethodInvocation4 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testNumber1 [
+	<generated>
+	self
+		assert: (self parse: '42' rule: #number)
+		equals:
+			(PWBASTNumber new
+				number: '42';
+				startPosition: 1;
+				stopPosition: 2;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testNumber2 [
+	<generated>
+	self
+		assert: (self parse: '.90' rule: #number)
+		equals:
+			(PWBASTNumber new
+				number: '.90';
+				startPosition: 1;
+				stopPosition: 3;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testOpenSqlCursor1 [
 	<generated>
 	self
@@ -23934,7 +24054,7 @@ PWBCommonParserTest >> testPostFixOperator1 [
 		assert: (self parse: 'this.ii_tr_descendants ++' rule: #postFixOperator)
 		equals:
 			(PWBASTPostFixOperator new
-				access:
+				expression:
 					(PWBASTExpression new
 						expression:
 							(PWBASTExpressionTerm new
@@ -24855,6 +24975,96 @@ PWBCommonParserTest >> testSqlQuery4 [
 PWBCommonParserTest >> testSqlQuery5 [
 	<generated>
 	self
+		assert:
+			(self
+				parse:
+					'SELECT
+
+				CASE WHEN (prt_rad.prt_no IS NOT NULL) THEN
+
+					''O''
+
+				ELSE
+
+					''N''
+
+				END
+
+			INTO :ls_prt_exclu
+
+			FROM prt as prt_rad
+
+				LEFT OUTER JOIN prt ON prt.par_no = prt_rad.par_no 
+
+					AND prt.prt_deb <= CURRENT DATE
+
+					AND (prt.prt_rad IS NULL OR prt.prt_rad >= CURRENT DATE)
+
+					AND prt.prt_adn <> :as_prt_adn
+
+			WHERE prt_rad.par_no = :al_par_no
+
+			AND prt_rad.prt_deb <= CURRENT DATE
+
+			AND prt_rad.prt_rad <= CURRENT DATE
+
+			AND prt_rad.prt_adn = :as_prt_adn
+
+			FETCH FIRST 1 ROW ONLY 
+
+			WITH UR
+
+			USING sqlca;'
+				rule: #sqlQuery)
+		equals:
+			(PWBASTSqlQuery new
+				sqlQuery:
+					'SELECT
+
+				CASE WHEN (prt_rad.prt_no IS NOT NULL) THEN
+
+					''O''
+
+				ELSE
+
+					''N''
+
+				END
+
+			INTO :ls_prt_exclu
+
+			FROM prt as prt_rad
+
+				LEFT OUTER JOIN prt ON prt.par_no = prt_rad.par_no 
+
+					AND prt.prt_deb <= CURRENT DATE
+
+					AND (prt.prt_rad IS NULL OR prt.prt_rad >= CURRENT DATE)
+
+					AND prt.prt_adn <> :as_prt_adn
+
+			WHERE prt_rad.par_no = :al_par_no
+
+			AND prt_rad.prt_deb <= CURRENT DATE
+
+			AND prt_rad.prt_rad <= CURRENT DATE
+
+			AND prt_rad.prt_adn = :as_prt_adn
+
+			FETCH FIRST 1 ROW ONLY 
+
+			WITH UR
+
+			USING sqlca;';
+				startPosition: 1;
+				stopPosition: 549;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testSqlQuery6 [
+	<generated>
+	self
 		assert: (self parse: 'fetch C_column_ave into :ls_col_name;' rule: #sqlQuery)
 		equals:
 			(PWBASTSqlQuery new
@@ -24909,72 +25119,28 @@ PWBCommonParserTest >> testSqlRollbackStatement2 [
 PWBCommonParserTest >> testStatement1 [
 	<generated>
 	self
-		assert: (self parse: 'dw_detail.setFocus()' rule: #statement)
+		assert: (self parse: 'EVENT Edw_pre_insertion()' rule: #statement)
 		equals:
 			(PWBASTStatement new
 				statement:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTAccessOrType new
-										accessOrType:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_detail';
-																startPosition: 1;
-																stopPosition: 9;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 1;
-														stopPosition: 9;
-														yourself);
-												arrayPosition: nil;
-												startPosition: 1;
-												stopPosition: 9;
-												yourself);
-										startPosition: 1;
-										stopPosition: 9;
-										yourself);
-								startPosition: 1;
-								stopPosition: 9;
+					(PWBASTEventInvocation new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'Edw_pre_insertion';
+								startPosition: 7;
+								stopPosition: 23;
 								yourself);
-						expressionAction:
-							(PWBASTExpressionAction new
-								action:
-									(PWBASTMethodInvocation new
-										methodInvocation:
-											(PWBASTRegularMethodInvocation new
-												uncheckedIdentifier:
-													(PWBASTUncheckedIdentifier new
-														uncheckedIdentifier: 'setFocus';
-														startPosition: 11;
-														stopPosition: 18;
-														yourself);
-												functionArguments:
-													(PWBASTFunctionArguments new
-														functionArguments: nil;
-														startPosition: 19;
-														stopPosition: 20;
-														yourself);
-												startPosition: 10;
-												stopPosition: 20;
-												yourself);
-										startPosition: 10;
-										stopPosition: 20;
-										yourself);
-								expressionAction: nil;
-								startPosition: 10;
-								stopPosition: 20;
+						arguments:
+							(PWBASTArguments new
+								arguments: nil;
+								startPosition: 24;
+								stopPosition: 25;
 								yourself);
 						startPosition: 1;
-						stopPosition: 20;
+						stopPosition: 25;
 						yourself);
 				startPosition: 1;
-				stopPosition: 20;
+				stopPosition: 25;
 				yourself)
 ]
 
@@ -25129,7 +25295,7 @@ PWBCommonParserTest >> testStatement5 [
 			(PWBASTStatement new
 				statement:
 					(PWBASTPostFixOperator new
-						access:
+						expression:
 							(PWBASTExpression new
 								expression:
 									(PWBASTExpressionTerm new
@@ -25210,7 +25376,7 @@ PWBCommonParserTest >> testStatement7 [
 			(PWBASTStatement new
 				statement:
 					(PWBASTPostFixOperator new
-						access:
+						expression:
 							(PWBASTExpression new
 								expression:
 									(PWBASTExpressionTerm new

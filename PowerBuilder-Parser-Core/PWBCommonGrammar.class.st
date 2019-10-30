@@ -66,7 +66,8 @@ Class {
 		'sqlVariable',
 		'prepareSQL',
 		'destroyStatement',
-		'eventInvocation'
+		'eventInvocation',
+		'blanks'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -124,6 +125,11 @@ PWBCommonGrammar >> behaviouralLibrary [
 { #category : #accessing }
 PWBCommonGrammar >> behaviouralOption [
 	^ behaviouralAlias / behaviouralLibrary
+]
+
+{ #category : #accessing }
+PWBCommonGrammar >> blanks [
+	^ (#blank parser / #newline parser) plus
 ]
 
 { #category : #accessing }
@@ -390,7 +396,7 @@ PWBCommonGrammar >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> sqlQuery [
-	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , spaces
+	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blanks
 		, (string / $; parser negate) plus , $; parser
 ]
 

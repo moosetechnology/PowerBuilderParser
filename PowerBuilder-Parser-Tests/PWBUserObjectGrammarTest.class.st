@@ -1362,6 +1362,47 @@ PWBUserObjectGrammarTest >> testSqlQuery5 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testSqlQuery6 [
+	self parse: 'SELECT
+
+				CASE WHEN (prt_rad.prt_no IS NOT NULL) THEN
+
+					''O''
+
+				ELSE
+
+					''N''
+
+				END
+
+			INTO :ls_prt_exclu
+
+			FROM prt as prt_rad
+
+				LEFT OUTER JOIN prt ON prt.par_no = prt_rad.par_no 
+
+					AND prt.prt_deb <= CURRENT DATE
+
+					AND (prt.prt_rad IS NULL OR prt.prt_rad >= CURRENT DATE)
+
+					AND prt.prt_adn <> :as_prt_adn
+
+			WHERE prt_rad.par_no = :al_par_no
+
+			AND prt_rad.prt_deb <= CURRENT DATE
+
+			AND prt_rad.prt_rad <= CURRENT DATE
+
+			AND prt_rad.prt_adn = :as_prt_adn
+
+			FETCH FIRST 1 ROW ONLY 
+
+			WITH UR
+
+			USING sqlca;' rule: #sqlQuery
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
