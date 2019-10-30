@@ -279,6 +279,18 @@ PWBDataWindowParser >> createInstruction [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> createUsingInstruction [
+	<generated>
+	^ super createUsingInstruction withPositions
+		==> [ :production | 
+			PWBASTCreateUsingInstruction new
+				startPosition: production start;
+				stopPosition: production stop;
+				expression: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> customType [
 	<generated>
 	^ super customType withPositions

@@ -241,6 +241,12 @@ PWBASTAbstractVisitor >> visitPWBASTCreateInstruction: aPWBASTCreateInstruction 
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTCreateUsingInstruction: aPWBASTCreateUsingInstruction [
+	<generated>
+	self visit: aPWBASTCreateUsingInstruction expression.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTCustomCallStatement: aPWBASTCustomCallStatement [
 	<generated>
 	self visit: aPWBASTCustomCallStatement identifier.

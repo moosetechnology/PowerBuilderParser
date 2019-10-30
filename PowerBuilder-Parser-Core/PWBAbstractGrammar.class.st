@@ -67,7 +67,8 @@ Class {
 		'intervalExpression',
 		'time',
 		'specialVariable',
-		'expressionAction'
+		'expressionAction',
+		'createUsingInstruction'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -281,6 +282,11 @@ PWBAbstractGrammar >> createInstruction [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> createUsingInstruction [
+	^ 'create' token , 'using' token trimSpaces , expression
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> customType [
 	^ identifier
 ]
@@ -352,7 +358,7 @@ PWBAbstractGrammar >> expressionAction [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
-	^ notExpression / functionInvocation / constant / array / createInstruction / time / number / string / accessOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / createUsingInstruction / constant / array / createInstruction / time / number / string / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }

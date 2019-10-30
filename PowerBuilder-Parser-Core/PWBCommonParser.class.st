@@ -421,6 +421,18 @@ PWBCommonParser >> createInstruction [
 ]
 
 { #category : #rules }
+PWBCommonParser >> createUsingInstruction [
+	<generated>
+	^ super createUsingInstruction withPositions
+		==> [ :production | 
+			PWBASTCreateUsingInstruction new
+				startPosition: production start;
+				stopPosition: production stop;
+				expression: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> customCallStatement [
 	<generated>
 	^ super customCallStatement withPositions

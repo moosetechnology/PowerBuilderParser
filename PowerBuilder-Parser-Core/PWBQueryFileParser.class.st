@@ -252,6 +252,18 @@ PWBQueryFileParser >> createInstruction [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> createUsingInstruction [
+	<generated>
+	^ super createUsingInstruction withPositions
+		==> [ :production | 
+			PWBASTCreateUsingInstruction new
+				startPosition: production start;
+				stopPosition: production stop;
+				expression: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> customType [
 	<generated>
 	^ super customType withPositions
