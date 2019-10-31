@@ -1069,6 +1069,16 @@ PWBUserObjectGrammarTest >> testIfStatement14 [
 ]
 
 { #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement15 [
+	self parse: 'if lt_h1= 00:00:00.0000 and lt_h2= 00:00:00.0000 and lt_h3= 00:00:00.0000 and lt_h4= 00:00:00.0000 then
+
+	return 1
+
+end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement2 [
 	self
 		parse:

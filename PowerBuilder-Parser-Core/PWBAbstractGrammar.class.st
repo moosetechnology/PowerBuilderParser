@@ -571,6 +571,7 @@ PWBAbstractGrammar >> this [
 PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
+		, ($. parser , (#digit parser times: 4)) optional
 ]
 
 { #category : #accessing }
