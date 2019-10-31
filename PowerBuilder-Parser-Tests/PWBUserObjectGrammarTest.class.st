@@ -1433,6 +1433,11 @@ PWBUserObjectGrammarTest >> testSqlQuery6 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testSqlQuery7 [
+	self parse: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;' rule: #sqlQuery
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
