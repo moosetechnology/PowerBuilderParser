@@ -292,6 +292,20 @@ End Choose' rule: #chooseCase
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testChooseCase5 [
+	self parse: 'choose case ls_Char
+		case "0" to "9"; 	li_Val = integer(ls_Char)
+		case "a", "A"; 	li_Val = 10
+		case "b", "B"; 	li_Val = 11
+		case "c", "C"; 	li_Val = 12
+		case "d", "D"; 	li_Val = 13
+		case "e", "E"; 	li_Val = 14
+		case "f", "F"; 	li_Val = 15
+		case else	 ;		return 0
+	end choose' rule: #chooseCase
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testCondition [
 	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
 	self parse: 'this.validate()' rule: #condition.
