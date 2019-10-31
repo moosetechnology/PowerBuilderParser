@@ -527,7 +527,7 @@ PWBAbstractGrammar >> reservedKeyword [
 
 { #category : #accessing }
 PWBAbstractGrammar >> returnStatement [
-	^ 'return' token , (spaces , expression) optional
+	^ 'return' token , (spaces , expression) optional , $! token optional
 ]
 
 { #category : #accessing }

@@ -95,7 +95,7 @@ PWBDataWindowGrammar >> graphicComponentToken [
 	^ self
 		parserFor:
 
-			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button' 'roundrectangle')
+			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button' 'roundrectangle' 'graph')
 
 ]
 

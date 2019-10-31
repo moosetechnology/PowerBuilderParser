@@ -1333,6 +1333,12 @@ delete' rule: #returnStatement.
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testReturnStatement1 [
+	self parse: 'Return EncodingUTF16LE!' rule: #returnStatement.
+
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSharedVariables [
 	self
 		parse:
