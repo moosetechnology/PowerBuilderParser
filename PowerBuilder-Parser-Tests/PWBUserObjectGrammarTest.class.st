@@ -1444,6 +1444,11 @@ PWBUserObjectGrammarTest >> testSqlQuery7 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testSqlQuery8 [
+	self parse: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;' rule: #sqlQuery
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
