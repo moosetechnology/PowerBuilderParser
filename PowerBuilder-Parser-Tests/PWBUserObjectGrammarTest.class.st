@@ -322,6 +322,12 @@ PWBUserObjectGrammarTest >> testCondition2 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testCondition3 [
+	self parse: 'this.event edw_sauver( 0,0) <> 0'
+		rule: #condition.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testConstant1 [
 	self parse: 'KeyNumpad0!' rule: #constant
 ]

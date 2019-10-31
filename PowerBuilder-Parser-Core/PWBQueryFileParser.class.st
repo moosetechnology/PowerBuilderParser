@@ -362,6 +362,19 @@ PWBQueryFileParser >> elseOnLine [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> eventInvocation [
+	<generated>
+	^ super eventInvocation withPositions
+		==> [ :production | 
+			PWBASTEventInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 3);
+				functionArguments: (production content at: 4);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> eventType [
 	<generated>
 	^ super eventType withPositions

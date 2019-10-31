@@ -5211,6 +5211,113 @@ PWBCommonParserTest >> testCondition10 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testCondition11 [
+	<generated>
+	self
+		assert: (self parse: 'this.event edw_sauver( 0,0) <> 0' rule: #condition)
+		equals:
+			(PWBASTCondition new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTEventInvocation new
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'edw_sauver';
+														startPosition: 12;
+														stopPosition: 21;
+														yourself);
+												functionArguments:
+													(PWBASTFunctionArguments new
+														functionArguments:
+															{(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '0';
+																						startPosition: 24;
+																						stopPosition: 24;
+																						yourself);
+																				startPosition: 24;
+																				stopPosition: 24;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 24;
+																		stopPosition: 24;
+																		yourself);
+																startPosition: 24;
+																stopPosition: 24;
+																yourself).
+															(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '0';
+																						startPosition: 26;
+																						stopPosition: 26;
+																						yourself);
+																				startPosition: 26;
+																				stopPosition: 26;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 26;
+																		stopPosition: 26;
+																		yourself);
+																startPosition: 26;
+																stopPosition: 26;
+																yourself)};
+														startPosition: 22;
+														stopPosition: 27;
+														yourself);
+												startPosition: 1;
+												stopPosition: 27;
+												yourself);
+										startPosition: 1;
+										stopPosition: 27;
+										yourself);
+								expressionAction: nil;
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNumber new
+														number: '0';
+														startPosition: 32;
+														stopPosition: 32;
+														yourself);
+												startPosition: 32;
+												stopPosition: 32;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 32;
+										yourself);
+								startPosition: 1;
+								stopPosition: 32;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 32;
+						yourself);
+				startPosition: 1;
+				stopPosition: 32;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testCondition2 [
 	<generated>
 	self
@@ -25123,19 +25230,30 @@ PWBCommonParserTest >> testStatement1 [
 		equals:
 			(PWBASTStatement new
 				statement:
-					(PWBASTEventInvocation new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'Edw_pre_insertion';
-								startPosition: 7;
-								stopPosition: 23;
-								yourself);
-						arguments:
-							(PWBASTArguments new
-								arguments: nil;
-								startPosition: 24;
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTEventInvocation new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'Edw_pre_insertion';
+												startPosition: 7;
+												stopPosition: 23;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments: nil;
+												startPosition: 24;
+												stopPosition: 25;
+												yourself);
+										startPosition: 1;
+										stopPosition: 25;
+										yourself);
+								startPosition: 1;
 								stopPosition: 25;
 								yourself);
+						expressionAction: nil;
 						startPosition: 1;
 						stopPosition: 25;
 						yourself);

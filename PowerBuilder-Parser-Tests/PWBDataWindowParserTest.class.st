@@ -6441,6 +6441,1376 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 	self
 		assert:
 			(self
+				parse: 'bitmap(band=detail filename="" x="3077" y="124" height="76" width="87" border="2" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0"  name=p_recherche_adn visible="1" transparency="0" )'
+				rule: #graphicComponent)
+		equals:
+			(PWBASTGraphicComponent new
+				graphicComponentToken:
+					(PWBASTGraphicComponentToken new
+						graphicComponentToken: 'bitmap';
+						startPosition: 1;
+						stopPosition: 6;
+						yourself);
+				parameters:
+					(PWBASTParameters new
+						options:
+							(PWBASTOptions new
+								options:
+									{(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'band';
+																				startPosition: 8;
+																				stopPosition: 11;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 8;
+																		stopPosition: 11;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 8;
+																stopPosition: 11;
+																yourself);
+														startPosition: 8;
+														stopPosition: 11;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'detail';
+																										startPosition: 13;
+																										stopPosition: 18;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 13;
+																								stopPosition: 18;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 13;
+																						stopPosition: 18;
+																						yourself);
+																				startPosition: 13;
+																				stopPosition: 18;
+																				yourself);
+																		startPosition: 13;
+																		stopPosition: 18;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 13;
+																stopPosition: 18;
+																yourself);
+														startPosition: 12;
+														stopPosition: 18;
+														yourself);
+												startPosition: 8;
+												stopPosition: 18;
+												yourself);
+										startPosition: 8;
+										stopPosition: 18;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'filename';
+																				startPosition: 20;
+																				stopPosition: 27;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 20;
+																		stopPosition: 27;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 20;
+																stopPosition: 27;
+																yourself);
+														startPosition: 20;
+														stopPosition: 27;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '""';
+																				startPosition: 29;
+																				stopPosition: 30;
+																				yourself);
+																		startPosition: 29;
+																		stopPosition: 30;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 29;
+																stopPosition: 30;
+																yourself);
+														startPosition: 28;
+														stopPosition: 30;
+														yourself);
+												startPosition: 20;
+												stopPosition: 30;
+												yourself);
+										startPosition: 20;
+										stopPosition: 30;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'x';
+																				startPosition: 32;
+																				stopPosition: 32;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 32;
+																		stopPosition: 32;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 32;
+																stopPosition: 32;
+																yourself);
+														startPosition: 32;
+														stopPosition: 32;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"3077"';
+																				startPosition: 34;
+																				stopPosition: 39;
+																				yourself);
+																		startPosition: 34;
+																		stopPosition: 39;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 34;
+																stopPosition: 39;
+																yourself);
+														startPosition: 33;
+														stopPosition: 39;
+														yourself);
+												startPosition: 32;
+												stopPosition: 39;
+												yourself);
+										startPosition: 32;
+										stopPosition: 39;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'y';
+																				startPosition: 41;
+																				stopPosition: 41;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 41;
+																		stopPosition: 41;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 41;
+																stopPosition: 41;
+																yourself);
+														startPosition: 41;
+														stopPosition: 41;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"124"';
+																				startPosition: 43;
+																				stopPosition: 47;
+																				yourself);
+																		startPosition: 43;
+																		stopPosition: 47;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 43;
+																stopPosition: 47;
+																yourself);
+														startPosition: 42;
+														stopPosition: 47;
+														yourself);
+												startPosition: 41;
+												stopPosition: 47;
+												yourself);
+										startPosition: 41;
+										stopPosition: 47;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'height';
+																				startPosition: 49;
+																				stopPosition: 54;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 49;
+																		stopPosition: 54;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 49;
+																stopPosition: 54;
+																yourself);
+														startPosition: 49;
+														stopPosition: 54;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"76"';
+																				startPosition: 56;
+																				stopPosition: 59;
+																				yourself);
+																		startPosition: 56;
+																		stopPosition: 59;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 56;
+																stopPosition: 59;
+																yourself);
+														startPosition: 55;
+														stopPosition: 59;
+														yourself);
+												startPosition: 49;
+												stopPosition: 59;
+												yourself);
+										startPosition: 49;
+										stopPosition: 59;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'width';
+																				startPosition: 61;
+																				stopPosition: 65;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 61;
+																		stopPosition: 65;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 61;
+																stopPosition: 65;
+																yourself);
+														startPosition: 61;
+														stopPosition: 65;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"87"';
+																				startPosition: 67;
+																				stopPosition: 70;
+																				yourself);
+																		startPosition: 67;
+																		stopPosition: 70;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 67;
+																stopPosition: 70;
+																yourself);
+														startPosition: 66;
+														stopPosition: 70;
+														yourself);
+												startPosition: 61;
+												stopPosition: 70;
+												yourself);
+										startPosition: 61;
+										stopPosition: 70;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'border';
+																				startPosition: 72;
+																				stopPosition: 77;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 72;
+																		stopPosition: 77;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 72;
+																stopPosition: 77;
+																yourself);
+														startPosition: 72;
+														stopPosition: 77;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"2"';
+																				startPosition: 79;
+																				stopPosition: 81;
+																				yourself);
+																		startPosition: 79;
+																		stopPosition: 81;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 79;
+																stopPosition: 81;
+																yourself);
+														startPosition: 78;
+														stopPosition: 81;
+														yourself);
+												startPosition: 72;
+												stopPosition: 81;
+												yourself);
+										startPosition: 72;
+										stopPosition: 81;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 83;
+																				stopPosition: 89;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 83;
+																		stopPosition: 89;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 83;
+																stopPosition: 89;
+																yourself);
+														startPosition: 83;
+														stopPosition: 89;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'backcolor';
+																		startPosition: 91;
+																		stopPosition: 99;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 90;
+																stopPosition: 99;
+																yourself);
+														expressionAction: nil;
+														startPosition: 90;
+														stopPosition: 99;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"134217752"';
+																				startPosition: 101;
+																				stopPosition: 111;
+																				yourself);
+																		startPosition: 101;
+																		stopPosition: 111;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 101;
+																stopPosition: 111;
+																yourself);
+														startPosition: 100;
+														stopPosition: 111;
+														yourself);
+												startPosition: 83;
+												stopPosition: 111;
+												yourself);
+										startPosition: 83;
+										stopPosition: 111;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 113;
+																				stopPosition: 119;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 113;
+																		stopPosition: 119;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 113;
+																stopPosition: 119;
+																yourself);
+														startPosition: 113;
+														stopPosition: 119;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'delay';
+																		startPosition: 121;
+																		stopPosition: 125;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 120;
+																stopPosition: 125;
+																yourself);
+														expressionAction:
+															(PWBASTExpressionAction new
+																action:
+																	(PWBASTAttributeAccess new
+																		uncheckedIdentifier:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'initial';
+																				startPosition: 127;
+																				stopPosition: 133;
+																				yourself);
+																		arrayInformation: nil;
+																		startPosition: 126;
+																		stopPosition: 133;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 126;
+																stopPosition: 133;
+																yourself);
+														startPosition: 120;
+														stopPosition: 133;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 135;
+																				stopPosition: 137;
+																				yourself);
+																		startPosition: 135;
+																		stopPosition: 137;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 135;
+																stopPosition: 137;
+																yourself);
+														startPosition: 134;
+														stopPosition: 137;
+														yourself);
+												startPosition: 113;
+												stopPosition: 137;
+												yourself);
+										startPosition: 113;
+										stopPosition: 137;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 139;
+																				stopPosition: 145;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 139;
+																		stopPosition: 145;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 139;
+																stopPosition: 145;
+																yourself);
+														startPosition: 139;
+														stopPosition: 145;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'delay';
+																		startPosition: 147;
+																		stopPosition: 151;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 146;
+																stopPosition: 151;
+																yourself);
+														expressionAction:
+															(PWBASTExpressionAction new
+																action:
+																	(PWBASTAttributeAccess new
+																		uncheckedIdentifier:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'visible';
+																				startPosition: 153;
+																				stopPosition: 159;
+																				yourself);
+																		arrayInformation: nil;
+																		startPosition: 152;
+																		stopPosition: 159;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 152;
+																stopPosition: 159;
+																yourself);
+														startPosition: 146;
+														stopPosition: 159;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"32000"';
+																				startPosition: 161;
+																				stopPosition: 167;
+																				yourself);
+																		startPosition: 161;
+																		stopPosition: 167;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 161;
+																stopPosition: 167;
+																yourself);
+														startPosition: 160;
+														stopPosition: 167;
+														yourself);
+												startPosition: 139;
+												stopPosition: 167;
+												yourself);
+										startPosition: 139;
+										stopPosition: 167;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 169;
+																				stopPosition: 175;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 169;
+																		stopPosition: 175;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 169;
+																stopPosition: 175;
+																yourself);
+														startPosition: 169;
+														stopPosition: 175;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'enabled';
+																		startPosition: 177;
+																		stopPosition: 183;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 176;
+																stopPosition: 183;
+																yourself);
+														expressionAction: nil;
+														startPosition: 176;
+														stopPosition: 183;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 185;
+																				stopPosition: 187;
+																				yourself);
+																		startPosition: 185;
+																		stopPosition: 187;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 185;
+																stopPosition: 187;
+																yourself);
+														startPosition: 184;
+														stopPosition: 187;
+														yourself);
+												startPosition: 169;
+												stopPosition: 187;
+												yourself);
+										startPosition: 169;
+										stopPosition: 187;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 189;
+																				stopPosition: 195;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 189;
+																		stopPosition: 195;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 189;
+																stopPosition: 195;
+																yourself);
+														startPosition: 189;
+														stopPosition: 195;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'hasclosebutton';
+																		startPosition: 197;
+																		stopPosition: 210;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 196;
+																stopPosition: 210;
+																yourself);
+														expressionAction: nil;
+														startPosition: 196;
+														stopPosition: 210;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 212;
+																				stopPosition: 214;
+																				yourself);
+																		startPosition: 212;
+																		stopPosition: 214;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 212;
+																stopPosition: 214;
+																yourself);
+														startPosition: 211;
+														stopPosition: 214;
+														yourself);
+												startPosition: 189;
+												stopPosition: 214;
+												yourself);
+										startPosition: 189;
+										stopPosition: 214;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 216;
+																				stopPosition: 222;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 216;
+																		stopPosition: 222;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 216;
+																stopPosition: 222;
+																yourself);
+														startPosition: 216;
+														stopPosition: 222;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'icon';
+																		startPosition: 224;
+																		stopPosition: 227;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 223;
+																stopPosition: 227;
+																yourself);
+														expressionAction: nil;
+														startPosition: 223;
+														stopPosition: 227;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 229;
+																				stopPosition: 231;
+																				yourself);
+																		startPosition: 229;
+																		stopPosition: 231;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 229;
+																stopPosition: 231;
+																yourself);
+														startPosition: 228;
+														stopPosition: 231;
+														yourself);
+												startPosition: 216;
+												stopPosition: 231;
+												yourself);
+										startPosition: 216;
+										stopPosition: 231;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 233;
+																				stopPosition: 239;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 233;
+																		stopPosition: 239;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 233;
+																stopPosition: 239;
+																yourself);
+														startPosition: 233;
+														stopPosition: 239;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'isbubble';
+																		startPosition: 241;
+																		stopPosition: 248;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 240;
+																stopPosition: 248;
+																yourself);
+														expressionAction: nil;
+														startPosition: 240;
+														stopPosition: 248;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 250;
+																				stopPosition: 252;
+																				yourself);
+																		startPosition: 250;
+																		stopPosition: 252;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 250;
+																stopPosition: 252;
+																yourself);
+														startPosition: 249;
+														stopPosition: 252;
+														yourself);
+												startPosition: 233;
+												stopPosition: 252;
+												yourself);
+										startPosition: 233;
+										stopPosition: 252;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 254;
+																				stopPosition: 260;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 254;
+																		stopPosition: 260;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 254;
+																stopPosition: 260;
+																yourself);
+														startPosition: 254;
+														stopPosition: 260;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'maxwidth';
+																		startPosition: 262;
+																		stopPosition: 269;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 261;
+																stopPosition: 269;
+																yourself);
+														expressionAction: nil;
+														startPosition: 261;
+														stopPosition: 269;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 271;
+																				stopPosition: 273;
+																				yourself);
+																		startPosition: 271;
+																		stopPosition: 273;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 271;
+																stopPosition: 273;
+																yourself);
+														startPosition: 270;
+														stopPosition: 273;
+														yourself);
+												startPosition: 254;
+												stopPosition: 273;
+												yourself);
+										startPosition: 254;
+										stopPosition: 273;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 275;
+																				stopPosition: 281;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 275;
+																		stopPosition: 281;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 275;
+																stopPosition: 281;
+																yourself);
+														startPosition: 275;
+														stopPosition: 281;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'textcolor';
+																		startPosition: 283;
+																		stopPosition: 291;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 282;
+																stopPosition: 291;
+																yourself);
+														expressionAction: nil;
+														startPosition: 282;
+														stopPosition: 291;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"134217751"';
+																				startPosition: 293;
+																				stopPosition: 303;
+																				yourself);
+																		startPosition: 293;
+																		stopPosition: 303;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 293;
+																stopPosition: 303;
+																yourself);
+														startPosition: 292;
+														stopPosition: 303;
+														yourself);
+												startPosition: 275;
+												stopPosition: 303;
+												yourself);
+										startPosition: 275;
+										stopPosition: 303;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'tooltip';
+																				startPosition: 305;
+																				stopPosition: 311;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 305;
+																		stopPosition: 311;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 305;
+																stopPosition: 311;
+																yourself);
+														startPosition: 305;
+														stopPosition: 311;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'transparency';
+																		startPosition: 313;
+																		stopPosition: 324;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 312;
+																stopPosition: 324;
+																yourself);
+														expressionAction: nil;
+														startPosition: 312;
+														stopPosition: 324;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 326;
+																				stopPosition: 328;
+																				yourself);
+																		startPosition: 326;
+																		stopPosition: 328;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 326;
+																stopPosition: 328;
+																yourself);
+														startPosition: 325;
+														stopPosition: 328;
+														yourself);
+												startPosition: 305;
+												stopPosition: 328;
+												yourself);
+										startPosition: 305;
+										stopPosition: 328;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'name';
+																				startPosition: 331;
+																				stopPosition: 334;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 331;
+																		stopPosition: 334;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 331;
+																stopPosition: 334;
+																yourself);
+														startPosition: 331;
+														stopPosition: 334;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'p_recherche_adn';
+																										startPosition: 336;
+																										stopPosition: 350;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 336;
+																								stopPosition: 350;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 336;
+																						stopPosition: 350;
+																						yourself);
+																				startPosition: 336;
+																				stopPosition: 350;
+																				yourself);
+																		startPosition: 336;
+																		stopPosition: 350;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 336;
+																stopPosition: 350;
+																yourself);
+														startPosition: 335;
+														stopPosition: 350;
+														yourself);
+												startPosition: 331;
+												stopPosition: 350;
+												yourself);
+										startPosition: 331;
+										stopPosition: 350;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'visible';
+																				startPosition: 352;
+																				stopPosition: 358;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 352;
+																		stopPosition: 358;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 352;
+																stopPosition: 358;
+																yourself);
+														startPosition: 352;
+														stopPosition: 358;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"1"';
+																				startPosition: 360;
+																				stopPosition: 362;
+																				yourself);
+																		startPosition: 360;
+																		stopPosition: 362;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 360;
+																stopPosition: 362;
+																yourself);
+														startPosition: 359;
+														stopPosition: 362;
+														yourself);
+												startPosition: 352;
+												stopPosition: 362;
+												yourself);
+										startPosition: 352;
+										stopPosition: 362;
+										yourself).
+									(PWBASTOption new
+										assignationStatement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'transparency';
+																				startPosition: 364;
+																				stopPosition: 375;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 364;
+																		stopPosition: 375;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 364;
+																stopPosition: 375;
+																yourself);
+														startPosition: 364;
+														stopPosition: 375;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"0"';
+																				startPosition: 377;
+																				stopPosition: 379;
+																				yourself);
+																		startPosition: 377;
+																		stopPosition: 379;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 377;
+																stopPosition: 379;
+																yourself);
+														startPosition: 376;
+														stopPosition: 379;
+														yourself);
+												startPosition: 364;
+												stopPosition: 379;
+												yourself);
+										startPosition: 364;
+										stopPosition: 379;
+										yourself)};
+								startPosition: 8;
+								stopPosition: 379;
+								yourself);
+						startPosition: 7;
+						stopPosition: 381;
+						yourself);
+				startPosition: 1;
+				stopPosition: 381;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testGraphicComponent16 [
+	<generated>
+	self
+		assert:
+			(self
 				parse: 'sparse(names="dossier_interne	no_ligne_dans_dossier")'
 				rule: #graphicComponent)
 		equals:
