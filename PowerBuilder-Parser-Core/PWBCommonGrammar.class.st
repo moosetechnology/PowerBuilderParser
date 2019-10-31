@@ -469,7 +469,8 @@ PWBCommonGrammar >> typePrototypes [
 	^ 'type prototypes' token , blank
 		,
 			(accessModifierDefiner / functionDeclaration / subroutineDeclaration
-				separatedBy: blank) , blank , (self endOf: 'prototypes')
+				separatedBy: $; parser trim / blank) , ($; parser trim / blank)
+		, (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }
