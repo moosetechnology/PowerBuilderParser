@@ -68,7 +68,8 @@ Class {
 		'time',
 		'specialVariable',
 		'expressionAction',
-		'createUsingInstruction'
+		'createUsingInstruction',
+		'eventInvocation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -332,6 +333,12 @@ PWBAbstractGrammar >> endOf: aReservedWord [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> eventInvocation [
+	^ ('this.' token , spaces optional) optional , 'event' token , identifier trim
+		, functionArguments
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
 ]
@@ -358,7 +365,9 @@ PWBAbstractGrammar >> expressionAction [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
-	^ notExpression / functionInvocation / createUsingInstruction / constant / array / createInstruction / time / number / string / accessOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / createUsingInstruction
+		/ constant / array / createInstruction / time / number / string
+		/ eventInvocation / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }

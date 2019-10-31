@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifier',
-		'arguments',
+		'functionArguments',
 		'startPosition',
 		'stopPosition'
 	],
@@ -19,7 +19,7 @@ PWBASTEventInvocation >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
 	^ identifier = anObject identifier
-		and: [ arguments = anObject arguments
+		and: [ functionArguments = anObject functionArguments
 				and: [ startPosition = anObject startPosition
 						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
@@ -40,12 +40,24 @@ PWBASTEventInvocation >> arguments: anObject [
 	arguments := anObject
 ]
 
+{ #category : #accessing }
+PWBASTEventInvocation >> functionArguments [
+	^ functionArguments
+]
+
+{ #category : #accessing }
+PWBASTEventInvocation >> functionArguments: anObject [
+	functionArguments := anObject
+]
+
 { #category : #comparing }
 PWBASTEventInvocation >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ identifier hash
-		bitXor: (arguments hash bitXor: (startPosition hash bitXor: stopPosition hash))
+		bitXor:
+			(functionArguments hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

@@ -203,6 +203,14 @@ PWBDataWindowGrammarTest >> testReport [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testRoundrectangleGraphicComponent [
+	self
+		parse:
+			'roundrectangle(band=detail ellipseheight="36" ellipsewidth="41"x="329" y="4" height="208" width="2633"  name=rr_1 visible="1" brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="20718592"  background.mode="2" background.color="15793151" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )'
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testSparse [
 	self
 		parse: 'sparse(names="dossier_interne	no_ligne_dans_dossier")'

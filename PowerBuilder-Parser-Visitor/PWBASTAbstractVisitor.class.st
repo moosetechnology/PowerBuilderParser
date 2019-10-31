@@ -388,7 +388,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
 PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 	<generated>
 	self visit: aPWBASTEventInvocation identifier.
-	self visit: aPWBASTEventInvocation arguments.
+	self visit: aPWBASTEventInvocation functionArguments.
 ]
 
 { #category : #visiting }
