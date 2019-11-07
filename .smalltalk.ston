@@ -1,0 +1,13 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'MooseVisuOnSpec',
+      #directory : 'src'
+    }
+  ],
+  #testing : {
+    #coverage : {
+      #packages : [ 'PowerBuilder-Parser-Tests' ]
+    }
+  }
+}
