@@ -9,3 +9,4 @@ Metacello new
   onWarningLog;
   load.
 ```
+https://travis-ci.org/moosetechnology/Moose.svg?branch=development
