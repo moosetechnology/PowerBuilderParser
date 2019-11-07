@@ -1,12 +1,7 @@
 SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
-      #baseline : 'MooseVisuOnSpec'
+      #baseline : 'PowerBuilderParser'
     }
-  ],
-  #testing : {
-    #coverage : {
-      #packages : [ 'PowerBuilder-Parser-Tests' ]
-    }
-  }
+  ]
 }
