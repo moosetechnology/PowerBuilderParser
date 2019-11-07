@@ -1,8 +1,7 @@
 SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
-      #baseline : 'MooseVisuOnSpec',
-      #directory : 'src'
+      #baseline : 'MooseVisuOnSpec'
     }
   ],
   #testing : {
