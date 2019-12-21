@@ -9,28 +9,8 @@ Class {
 { #category : #meta }
 FamixPWBNamedEntity class >> annotation [
 
-	<MSEClass: #NamedEntity super: #FamixPWBSourcedEntity>
+	<FMClass: #NamedEntity super: #FamixPWBSourcedEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBNamedEntity class >> generatedSlotNames [
-	<generated>
-	'FamixPWBNamedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBNamedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTNamed TDependencyQueries TEntityMetaLevelDependency)
-]
-
-{ #category : #meta }
-FamixPWBNamedEntity class >> requirements [
-
-	<generated>
-	^ {  }
 ]

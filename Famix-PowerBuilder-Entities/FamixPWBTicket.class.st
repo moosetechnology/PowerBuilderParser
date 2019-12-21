@@ -11,37 +11,23 @@ Class {
 { #category : #meta }
 FamixPWBTicket class >> annotation [
 
-	<MSEClass: #Ticket super: #MooseEntity>
+	<FMClass: #Ticket super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBTicket class >> generatedSlotNames [
-	<generated>
-	'FamixPWBTicket class>>#generatedSlotNames'.
-	^ #(number ticketAssociations)
-]
-
-{ #category : #generator }
-FamixPWBTicket class >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #meta }
 FamixPWBTicket class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
+	^ FamixPWBModel metamodel
 ]
 
-{ #category : #meta }
-FamixPWBTicket class >> requirements [
-
+{ #category : #adding }
+FamixPWBTicket >> addTicketAssociation: anObject [
 	<generated>
-	^ {  }
+	^ self ticketAssociations add: anObject
 ]
 
 { #category : #testing }
@@ -66,21 +52,7 @@ FamixPWBTicket >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBTicket >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBTicket >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicket >> isInheritance [
 
 	<generated>
 	^ false
@@ -101,21 +73,14 @@ FamixPWBTicket >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBTicket >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicket >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBTicket >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBTicket >> isStructuralEntity [
 
 	<generated>
 	^ false
@@ -131,23 +96,23 @@ FamixPWBTicket >> isType [
 { #category : #accessing }
 FamixPWBTicket >> number [
 
-	<MSEProperty: #number type: #Number>
+	<FMProperty: #number type: #Number>
 	<generated>
 	^ number
 ]
 
 { #category : #accessing }
 FamixPWBTicket >> number: anObject [
-
 	<generated>
 	number := anObject
-
 ]
 
 { #category : #accessing }
 FamixPWBTicket >> ticketAssociations [
+	"Relation named: #ticketAssociations type: #FamixPWBTicketAssociation opposite: #ticket"
 
 	<generated>
+	<derived>
 	^ ticketAssociations
 ]
 
@@ -156,5 +121,4 @@ FamixPWBTicket >> ticketAssociations: anObject [
 
 	<generated>
 	ticketAssociations value: anObject
-
 ]

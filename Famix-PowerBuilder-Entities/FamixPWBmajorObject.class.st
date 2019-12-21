@@ -1,10 +1,10 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTContainingWithInvocationsGlue + FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithMethodsWithAccessesGlue + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithMethodsWithAccessesGlue classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
-		'#cyclomaticComplexity',
+		'#cyclomaticComplexity => FMProperty',
 		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects',
 		'#ticketAssociations => FMMany type: #FamixPWBTicketAssociation opposite: #majorObject'
 	],
@@ -14,75 +14,37 @@ Class {
 { #category : #meta }
 FamixPWBmajorObject class >> annotation [
 
-	<MSEClass: #majorObject super: #MooseEntity>
+	<FMClass: #majorObject super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBmajorObject class >> generatedSlotNames [
-	<generated>
-	'FamixPWBmajorObject class>>#generatedSlotNames'.
-	^ #(cyclomaticComplexity library ticketAssociations)
-]
-
-{ #category : #generator }
-FamixPWBmajorObject class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTContainingWithInvocationsGlue FamixTNamed FamixTWithAccesses FamixTWithAttributes FamixTWithFunctions FamixTWithMethods FamixTWithMethodsWithAccessesGlue FamixTWithReferences FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
 FamixPWBmajorObject class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
+	^ FamixPWBModel metamodel
 ]
 
-{ #category : #meta }
-FamixPWBmajorObject class >> requirements [
-
+{ #category : #adding }
+FamixPWBmajorObject >> addTicketAssociation: anObject [
 	<generated>
-	^ { FamixPWBLibrary }
-]
-
-{ #category : #thisReference }
-FamixPWBmajorObject >> accessAssociation [
-	"For now return a null object, maybe we should have a this reference object in the model"	
-	^ FamixThisAccessNullObject 
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> belongsTo [
-
-	<generated>
-	^ self library
-
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> belongsTo: anObject [
-
-	<generated>
-	self library: anObject
-
+	^ self ticketAssociations add: anObject
 ]
 
 { #category : #accessing }
 FamixPWBmajorObject >> cyclomaticComplexity [
 
-	<MSEProperty: #cyclomaticComplexity type: #Number>
+	<FMProperty: #cyclomaticComplexity type: #Number>
 	<generated>
 	^ cyclomaticComplexity
 ]
 
 { #category : #accessing }
 FamixPWBmajorObject >> cyclomaticComplexity: anObject [
-
 	<generated>
 	cyclomaticComplexity := anObject
-
 ]
 
 { #category : #testing }
@@ -107,21 +69,7 @@ FamixPWBmajorObject >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBmajorObject >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBmajorObject >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isInheritance [
 
 	<generated>
 	^ false
@@ -142,21 +90,14 @@ FamixPWBmajorObject >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBmajorObject >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBmajorObject >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBmajorObject >> isStructuralEntity [
 
 	<generated>
 	^ false
@@ -171,10 +112,10 @@ FamixPWBmajorObject >> isType [
 
 { #category : #accessing }
 FamixPWBmajorObject >> library [
+	"Relation named: #library type: #FamixPWBLibrary opposite: #userObjects"
 
 	<generated>
 	<container>
-
 	^ library
 ]
 
@@ -183,22 +124,21 @@ FamixPWBmajorObject >> library: anObject [
 
 	<generated>
 	library := anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBmajorObject >> libraryGroup [
-
 	<generated>
 	<navigation: 'Library'>
-	^ MooseGroup
-			with: (self library)
+	^ MooseGroup with: self library
 ]
 
 { #category : #accessing }
 FamixPWBmajorObject >> ticketAssociations [
+	"Relation named: #ticketAssociations type: #FamixPWBTicketAssociation opposite: #majorObject"
 
 	<generated>
+	<derived>
 	^ ticketAssociations
 ]
 
@@ -207,5 +147,4 @@ FamixPWBmajorObject >> ticketAssociations: anObject [
 
 	<generated>
 	ticketAssociations value: anObject
-
 ]

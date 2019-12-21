@@ -12,50 +12,30 @@ Class {
 { #category : #meta }
 FamixPWBVariable class >> annotation [
 
-	<MSEClass: #Variable super: #MooseEntity>
+	<FMClass: #Variable super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBVariable class >> generatedSlotNames [
-	<generated>
-	'FamixPWBVariable class>>#generatedSlotNames'.
-	^ #(behavioral)
-]
-
-{ #category : #generator }
-FamixPWBVariable class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAccessible FamixTNamed FamixTWithSourceAnchor FamixTWithTypes)
 ]
 
 { #category : #meta }
 FamixPWBVariable class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
+	^ FamixPWBModel metamodel
 ]
 
-{ #category : #meta }
-FamixPWBVariable class >> requirements [
-
-	<generated>
-	^ { FamixPWBBehavioral }
-]
-
-{ #category : #helpers }
+{ #category : #'as yet unclassified' }
 FamixPWBVariable >> accessAssociation [
 	^ FamixPWBVariableAccess
 ]
 
 { #category : #accessing }
 FamixPWBVariable >> behavioral [
+	"Relation named: #behavioral type: #FamixPWBBehavioral opposite: #variables"
 
 	<generated>
 	<container>
-
 	^ behavioral
 ]
 
@@ -64,32 +44,13 @@ FamixPWBVariable >> behavioral: anObject [
 
 	<generated>
 	behavioral := anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBVariable >> behavioralGroup [
-
 	<generated>
 	<navigation: 'Behavioral'>
-	^ MooseGroup
-			with: (self behavioral)
-]
-
-{ #category : #accessing }
-FamixPWBVariable >> belongsTo [
-
-	<generated>
-	^ self behavioral
-
-]
-
-{ #category : #accessing }
-FamixPWBVariable >> belongsTo: anObject [
-
-	<generated>
-	self behavioral: anObject
-
+	^ MooseGroup with: self behavioral
 ]
 
 { #category : #testing }
@@ -114,21 +75,7 @@ FamixPWBVariable >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBVariable >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBVariable >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isInheritance [
 
 	<generated>
 	^ false
@@ -149,21 +96,14 @@ FamixPWBVariable >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBVariable >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBVariable >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isStructuralEntity [
 
 	<generated>
 	^ false

@@ -19,7 +19,7 @@ PWBImporterAbstractVisitor >> create: aClass [
 	entity := aClass new
 		mooseModel: self model;
 		yourself.
-	[ entity belongsTo: self currentEntity ]
+	[ entity parentType: self currentEntity ]
 		on: SRNoCurrentEntityAvailable
 		do: [ "Here we handle the first level of created entities" ].
 	[ entity cyclomaticComplexity: 1 ]

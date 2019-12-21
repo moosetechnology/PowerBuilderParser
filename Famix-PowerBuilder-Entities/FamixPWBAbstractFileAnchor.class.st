@@ -9,28 +9,8 @@ Class {
 { #category : #meta }
 FamixPWBAbstractFileAnchor class >> annotation [
 
-	<MSEClass: #AbstractFileAnchor super: #FamixPWBSourceAnchor>
+	<FMClass: #AbstractFileAnchor super: #FamixPWBSourceAnchor>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBAbstractFileAnchor class >> generatedSlotNames [
-	<generated>
-	'FamixPWBAbstractFileAnchor class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBAbstractFileAnchor class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTFileAnchor)
-]
-
-{ #category : #meta }
-FamixPWBAbstractFileAnchor class >> requirements [
-
-	<generated>
-	^ {  }
 ]

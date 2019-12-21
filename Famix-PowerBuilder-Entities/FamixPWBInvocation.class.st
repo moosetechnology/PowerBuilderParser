@@ -9,28 +9,8 @@ Class {
 { #category : #meta }
 FamixPWBInvocation class >> annotation [
 
-	<MSEClass: #Invocation super: #FamixPWBAssociation>
+	<FMClass: #Invocation super: #FamixPWBAssociation>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBInvocation class >> generatedSlotNames [
-	<generated>
-	'FamixPWBInvocation class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBInvocation class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTInvocation FamixTWithSignature FamixTWithSourceAnchor)
-]
-
-{ #category : #meta }
-FamixPWBInvocation class >> requirements [
-
-	<generated>
-	^ {  }
 ]

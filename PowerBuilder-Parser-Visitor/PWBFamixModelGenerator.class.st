@@ -30,7 +30,8 @@ Class {
 		'library',
 		'reference',
 		'ticket',
-		'ticketAssociation'
+		'ticketAssociation',
+		'tNamed'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -97,110 +98,110 @@ PWBFamixModelGenerator >> defineClasses [
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
-	super defineHierarchy.
-	library
-		--|> #TNamed;
-		--|> #TWithSourceAnchor.
-	graphicComponent
-		--|> sourcedEntity;
-		--|> #TWithAttributes;
-		--|> behavioral.
-	event
-		--|> behavioral;
-		--|> #TMethod;
-		--|> #TInvocable;
-		--|> #TNamed.
-	function
-		--|> behavioral;
-		--|> #TNamed;
-		--|> #TFunction.
-	trigger
-		--|> #TWithAttributes;
-		--|> behavioral;
-		--|> #TMethod;
-		--|> #TNamed.
-	subRoutine
-		--|> behavioral;
-		--|> #TMethod;
-		--|> #TInvocable;
-		--|> #TNamed.
-	variable
-		--|> #TWithSourceAnchor;
-		--|> #TNamed;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	dataWindow
-		--|> #TWithSourceAnchor;
-		--|> #TNamed;
-		--|> #TWithAttributes.
-	attribute
-		--|> #TWithSourceAnchor;
-		--|> #TNamed;
-		--|> #TAttribute.
-	method
-		--|> behavioral;
-		--|> #TMethod;
-		--|> #TNamed;
-		--|> #TWithParameters;
-		--|> #TInvocable;
-		--|> #TWithSignature.
-	behavioral
-		--|> #TWithSourceAnchor;
-		--|> #TWithAccesses;
-		--|> #TWithInvocations;
-		--|> #TWithReferences.
-	invocation --|> association.
-	invocation --|> #TInvocation.
-	invocation
-		--|> #TWithSignature;
-		--|> #TWithSourceAnchor.
-
-	"Defining all major objects (files)"
-	majorObject
-		--|> #TWithSourceAnchor;
-		--|> #TNamed;
-		--|> #TWithAttributes;
-		--|> #TWithAccesses;
-		--|> #TWithMethods;
-		--|> #TWithFunctions;
-		--|> #TWithReferences.
-	userObject --|> majorObject.
-	userObject --|> abstractType.
-	userObject --|> #TWithInvocations.
-	window --|> majorObject.
-	window --|> #TWithInvocations.
-	dataWindow --|> majorObject.
-	dataWindow --|> #TWithInvocations.
-	structureFile --|> majorObject.
-	functionFile --|> majorObject.
-	menuObject --|> majorObject.
-	application --|> majorObject.
-	queryFile --|> majorObject.
-	abstractType --|> #TNamed.
-	abstractType --|> #TType.
-	abstractType --|> #TReferenceable.
-	abstractType --|> #TWithSuperInheritances.
-	abstractType --|> #TWithSubInheritances.
-	customType --|> abstractType.
-	basicType --|> abstractType.
-	access
-		--|> association;
-		--|> #TWithSourceAnchor;
-		--|> #TAccess.
-	variableAccess
-		--|> association;
-		--|> #TWithSourceAnchor;
-		--|> #TAccess.
-	reference
-		--|> association;
-		--|> #TWithSourceAnchor;
-		--|> #TReference.
-	attribute
-		--|> #TWithSourceAnchor;
-		--|> #TNamed;
-		--|> #TAttribute;
-		--|> #TWithTypes;
-		--|> #TAccessible
+  super defineHierarchy.
+  tNamed --|> #TNamed.
+  library
+     --|> #TNamed;
+     --|> #TWithSourceAnchor.
+  graphicComponent
+     --|> sourcedEntity;
+     --|> #TWithAttributes;
+     --|> behavioral.
+  event
+     --|> behavioral;
+     --|> #TMethod;
+     --|> #TInvocable;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+  function
+     --|> behavioral;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+     --|> #TFunction.
+  trigger
+     --|> #TWithAttributes;
+     --|> behavioral;
+     --|> #TMethod;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+  subRoutine
+     --|> behavioral;
+     --|> #TMethod;
+     --|> #TInvocable;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+  variable
+     --|> #TWithSourceAnchor;
+     --|> #TNamed;
+     --|> #TWithTypes;
+     --|> #TAccessible.
+  dataWindow
+     --|> #TWithSourceAnchor;
+     --|> #TNamed;
+     --|> #TWithAttributes.
+  attribute
+     --|> #TWithSourceAnchor;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+     --|> #TAttribute.
+  method
+     --|> behavioral;
+     --|> #TMethod;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+     --|> #TWithParameters;
+     --|> #TInvocable;
+     --|> #TWithSignature.
+  behavioral
+     --|> #TWithSourceAnchor;
+     --|> #TWithAccesses;
+     --|> #TWithInvocations;
+     --|> #TWithReferences.
+  invocation --|> association.
+  invocation --|> #TInvocation.
+  invocation
+     --|> #TWithSignature;
+     --|> #TWithSourceAnchor.
+  
+  "Defining all major objects (files)"majorObject
+     --|> #TWithSourceAnchor;
+     --|> #TNamed;
+     --|> #TWithAttributes;
+     --|> #TWithAccesses;
+     --|> #TWithMethods;
+     --|> #TWithFunctions;
+     --|> #TWithReferences.
+  userObject --|> majorObject.
+  userObject --|> abstractType.
+  userObject --|> #TWithInvocations.
+  window --|> majorObject.
+  window --|> #TWithInvocations.
+  dataWindow --|> majorObject.
+  dataWindow --|> #TWithInvocations.
+  structureFile --|> majorObject.
+  functionFile --|> majorObject.
+  menuObject --|> majorObject.
+  application --|> majorObject.
+  queryFile --|> majorObject.
+  abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+  abstractType --|> #TType.
+  abstractType --|> #TReferenceable.
+  abstractType --|> #TWithSuperInheritances.
+  abstractType --|> #TWithSubInheritances.
+  customType --|> abstractType.
+  basicType --|> abstractType.
+  access
+     --|> association;
+     --|> #TWithSourceAnchor;
+     --|> #TAccess.
+  variableAccess
+     --|> association;
+     --|> #TWithSourceAnchor;
+     --|> #TAccess.
+  reference
+     --|> association;
+     --|> #TWithSourceAnchor;
+     --|> #TReference.
+  attribute
+     --|> #TWithSourceAnchor;
+     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+     --|> #TAttribute;
+     --|> #TWithTypes;
+     --|> #TAccessible
 ]
 
 { #category : #definition }
@@ -224,6 +225,12 @@ PWBFamixModelGenerator >> defineRelations [
 	(ticketAssociation property: #majorObject) *- (majorObject property: #ticketAssociations).
 	(ticketAssociation property: #ticket) *- (ticket property: #ticketAssociations).
 	
+]
+
+{ #category : #definition }
+PWBFamixModelGenerator >> defineTraits [
+	super defineTraits.
+	tNamed := builder newTraitNamed: #PBTNamed
 ]
 
 { #category : #definition }

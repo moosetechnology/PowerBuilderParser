@@ -13,40 +13,26 @@ Class {
 { #category : #meta }
 FamixPWBBehavioral class >> annotation [
 
-	<MSEClass: #Behavioral super: #MooseEntity>
+	<FMClass: #Behavioral super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBBehavioral class >> generatedSlotNames [
-	<generated>
-	'FamixPWBBehavioral class>>#generatedSlotNames'.
-	^ #(cyclomaticComplexity variables)
-]
-
-{ #category : #generator }
-FamixPWBBehavioral class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTWithAccesses FamixTWithInvocations FamixTWithReferences FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
 FamixPWBBehavioral class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
+	^ FamixPWBModel metamodel
 ]
 
-{ #category : #meta }
-FamixPWBBehavioral class >> requirements [
-
+{ #category : #adding }
+FamixPWBBehavioral >> addVariable: anObject [
 	<generated>
-	^ {  }
+	^ self variables add: anObject
 ]
 
-{ #category : #helpers }
+{ #category : #'visitor-double dispatching' }
 FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [ 
 	^ aFamixPWBAccessible accessAssociation new
 		from: self;
@@ -56,15 +42,15 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		yourself
 ]
 
-{ #category : #helpers }
+{ #category : #'as yet unclassified' }
 FamixPWBBehavioral >> createStubValueHolderNamed: aString [ 
 	^ self createValueHolderNamed: aString
 ]
 
-{ #category : #helpers }
+{ #category : #'as yet unclassified' }
 FamixPWBBehavioral >> createValueHolderNamed: aString [ 
 	^ FamixPWBVariable new
-		belongsTo: self;
+		behavioral: self;
 		mooseModel: self mooseModel;
 		name: aString;
 		yourself
@@ -73,20 +59,18 @@ FamixPWBBehavioral >> createValueHolderNamed: aString [
 { #category : #accessing }
 FamixPWBBehavioral >> cyclomaticComplexity [
 
-	<MSEProperty: #cyclomaticComplexity type: #Number>
+	<FMProperty: #cyclomaticComplexity type: #Number>
 	<generated>
 	^ cyclomaticComplexity
 ]
 
 { #category : #accessing }
 FamixPWBBehavioral >> cyclomaticComplexity: anObject [
-
 	<generated>
 	cyclomaticComplexity := anObject
-
 ]
 
-{ #category : #helpers }
+{ #category : #'as yet unclassified' }
 FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
@@ -113,21 +97,7 @@ FamixPWBBehavioral >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBBehavioral >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBBehavioral >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isInheritance [
 
 	<generated>
 	^ false
@@ -148,21 +118,14 @@ FamixPWBBehavioral >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBBehavioral >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBBehavioral >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBBehavioral >> isStructuralEntity [
 
 	<generated>
 	^ false
@@ -175,15 +138,17 @@ FamixPWBBehavioral >> isType [
 	^ false
 ]
 
-{ #category : #helpers }
+{ #category : #accessing }
 FamixPWBBehavioral >> reachableEntities [
 	^ self variables
 ]
 
 { #category : #accessing }
 FamixPWBBehavioral >> variables [
+	"Relation named: #variables type: #FamixPWBVariable opposite: #behavioral"
 
 	<generated>
+	<derived>
 	^ variables
 ]
 
@@ -192,14 +157,11 @@ FamixPWBBehavioral >> variables: anObject [
 
 	<generated>
 	variables value: anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBBehavioral >> variablesGroup [
-
 	<generated>
 	<navigation: 'Variables'>
-	^ MooseGroup
-			withAll: (self variables asSet)
+	^ MooseGroup withAll: self variables asSet
 ]
