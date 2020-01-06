@@ -40,3 +40,19 @@ FamixPWBGraphicComponent >> dataWindowGroup [
 	<navigation: 'DataWindow'>
 	^ MooseGroup with: self dataWindow
 ]
+
+{ #category : #accessing }
+FamixPWBGraphicComponent >> parentType [
+	"Relation named: #parentType type: #FamixTWithMethods opposite: #methods"
+
+	<generated>
+	<FMComment: 'Type declaring the method. It provides the implementation for belongsTo.'>
+	<container>
+	^ dataWindow
+]
+
+{ #category : #accessing }
+FamixPWBGraphicComponent >> parentType: anObject [
+  self dataWindow: anObject.
+  self resetMooseName
+]
