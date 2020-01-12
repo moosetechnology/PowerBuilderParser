@@ -34,7 +34,8 @@ Class {
 		'tNamed',
 		'tTag',
 		'tWithTag',
-		'tag'
+		'tag',
+		'tWithMethods'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -104,6 +105,7 @@ PWBFamixModelGenerator >> defineClasses [
 PWBFamixModelGenerator >> defineHierarchy [
   super defineHierarchy.
   tNamed --|> #TNamed.
+  tWithMethods --|> #TWithMethods.
   library
      --|> #TNamed;
      --|> #TWithSourceAnchor.
@@ -167,7 +169,7 @@ PWBFamixModelGenerator >> defineHierarchy [
      --|> #TNamed;
      --|> #TWithAttributes;
      --|> #TWithAccesses;
-     --|> #TWithMethods;
+     inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
      --|> #TWithFunctions;
      --|> #TWithReferences.
   userObject --|> majorObject.
@@ -237,7 +239,8 @@ PWBFamixModelGenerator >> defineTraits [
   super defineTraits.
   tNamed := builder newTraitNamed: #PBTNamed.
   tTag := builder newTraitNamed: #TTag.
-  tWithTag := builder newTraitNamed: #TWithTag
+  tWithTag := builder newTraitNamed: #TWithTag.
+  tWithMethods := builder newTraitNamed: #PBTWithTag
 ]
 
 { #category : #definition }

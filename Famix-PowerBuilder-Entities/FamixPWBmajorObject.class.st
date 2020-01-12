@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixPWBPBTWithTag - {#numberOfLinesOfCode} + FamixTNamed + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixPWBPBTWithTag classTrait + FamixTNamed classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#cyclomaticComplexity => FMProperty',
 		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects',

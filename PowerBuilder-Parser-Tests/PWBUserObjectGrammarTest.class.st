@@ -399,12 +399,27 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopUntil1 [
+	self parse: 'do
+	
+loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDoLoopWhile [
 	self parse: 'do 
 	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
 	if ll_wz = -1 then exit
 	atv_cible.collapseItem(ll_wz)
 	atv_cible.deleteItem(ll_wz)
+loop while 1 = 1' rule: #doLoopWhile
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopWhile1 [
+  self parse: 'do 
+	
+	
 loop while 1 = 1' rule: #doLoopWhile
 ]
 

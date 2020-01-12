@@ -66,7 +66,7 @@ PWBFamixImporter >> defaultImportingContext [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
-	^ #('uo_correpondant_pop.sru' 'u_web_browser.sru')
+	^ #('uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd' 'cwm.sra')
 ]
 
 { #category : #'as yet unclassified' }
@@ -132,4 +132,11 @@ PWBFamixImporter >> importInOnePassFromFolder: aFolder [
 	self folder: aFolder.
 	self importInOnePass.
 	^ self targetModel
+]
+
+{ #category : #'initialize-release' }
+PWBFamixImporter >> initialize [
+  super initialize.
+  targetModel := FamixPWBModel new.
+  importingContext := self defaultImportingContext
 ]
