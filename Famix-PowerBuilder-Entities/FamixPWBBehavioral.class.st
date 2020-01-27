@@ -1,9 +1,10 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixPWBTWithTag + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixPWBTWithTag classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
+		'#content',
 		'#cyclomaticComplexity',
 		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],

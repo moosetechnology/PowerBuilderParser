@@ -16,15 +16,6 @@ FamixPWBIndexedFileAnchor class >> annotation [
 ]
 
 { #category : #accessing }
-FamixPWBIndexedFileAnchor >> fileName [
-  < FMProperty: #fileName type: #String>
-  < generated>
-  < FMComment: 'Name of the source file'>
-  ^fileName
-  "copyReplaceAll: '/cleaned' with: ''"
-]
-
-{ #category : #accessing }
 FamixPWBIndexedFileAnchor >> fileReference [
   ^self rootFolder asFileReference resolve: self fileName
 ]

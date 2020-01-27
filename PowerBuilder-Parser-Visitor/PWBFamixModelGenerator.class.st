@@ -103,113 +103,116 @@ PWBFamixModelGenerator >> defineClasses [
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
-  super defineHierarchy.
-  tNamed --|> #TNamed.
-  tWithMethods --|> #TWithMethods.
-  library
-     --|> #TNamed;
-     --|> #TWithSourceAnchor.
-  graphicComponent
-     --|> sourcedEntity;
-     --|> #TWithAttributes;
-     --|> behavioral.
-  event
-     --|> behavioral;
-     --|> #TMethod;
-     --|> #TInvocable;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-  function
-     --|> behavioral;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-     --|> #TFunction.
-  trigger
-     --|> #TWithAttributes;
-     --|> behavioral;
-     --|> #TMethod;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-  subRoutine
-     --|> behavioral;
-     --|> #TMethod;
-     --|> #TInvocable;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-  variable
-     --|> #TWithSourceAnchor;
-     --|> #TNamed;
-     --|> #TWithTypes;
-     --|> #TAccessible;
-     --|> tWithTag.
-  dataWindow
-     --|> #TWithSourceAnchor;
-     --|> #TNamed;
-     --|> #TWithAttributes.
-  attribute
-     --|> #TWithSourceAnchor;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-     --|> #TAttribute.
-  method
-     --|> behavioral;
-     --|> #TMethod;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-     --|> #TWithParameters;
-     --|> #TInvocable;
-     --|> #TWithSignature.
-  behavioral
-     --|> #TWithSourceAnchor;
-     --|> #TWithAccesses;
-     --|> #TWithInvocations;
-     --|> #TWithReferences.
-  invocation --|> association.
-  invocation --|> #TInvocation.
-  invocation
-     --|> #TWithSignature;
-     --|> #TWithSourceAnchor.
-  
-  "Defining all major objects (files)"majorObject
-     --|> #TWithSourceAnchor;
-     --|> #TNamed;
-     --|> #TWithAttributes;
-     --|> #TWithAccesses;
-     inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
-     --|> #TWithFunctions;
-     --|> #TWithReferences.
-  userObject --|> majorObject.
-  userObject --|> abstractType.
-  userObject --|> #TWithInvocations.
-  window --|> majorObject.
-  window --|> #TWithInvocations.
-  dataWindow --|> majorObject.
-  dataWindow --|> #TWithInvocations.
-  structureFile --|> majorObject.
-  functionFile --|> majorObject.
-  menuObject --|> majorObject.
-  application --|> majorObject.
-  queryFile --|> majorObject.
-  abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-  abstractType --|> #TType.
-  abstractType --|> #TReferenceable.
-  abstractType --|> #TWithSuperInheritances.
-  abstractType --|> #TWithSubInheritances.
-  customType --|> abstractType.
-  basicType --|> abstractType.
-  access
-     --|> association;
-     --|> #TWithSourceAnchor;
-     --|> #TAccess.
-  variableAccess
-     --|> association;
-     --|> #TWithSourceAnchor;
-     --|> #TAccess.
-  reference
-     --|> association;
-     --|> #TWithSourceAnchor;
-     --|> #TReference.
-  attribute
-     --|> #TWithSourceAnchor;
-     inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-     --|> #TAttribute;
-     --|> #TWithTypes;
-     --|> #TAccessible.
-  tag --|> tTag
+	super defineHierarchy.
+	tNamed --|> #TNamed.
+	tWithMethods --|> #TWithMethods.
+	library
+		--|> #TNamed;
+		--|> #TWithSourceAnchor.
+	graphicComponent
+		--|> sourcedEntity;
+		--|> #TWithAttributes;
+		--|> behavioral.
+	event
+		--|> behavioral;
+		--|> #TMethod;
+		--|> #TInvocable;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+	function
+		--|> behavioral;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TFunction.
+	trigger
+		--|> #TWithAttributes;
+		--|> behavioral;
+		--|> #TMethod;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+	subRoutine
+		--|> behavioral;
+		--|> #TMethod;
+		--|> #TInvocable;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+	variable
+		--|> #TWithSourceAnchor;
+		--|> #TNamed;
+		--|> #TWithTypes;
+		--|> #TAccessible;
+		--|> tWithTag.
+	dataWindow
+		--|> #TWithSourceAnchor;
+		--|> #TNamed;
+		--|> #TWithAttributes.
+	attribute
+		--|> #TWithSourceAnchor;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TAttribute.
+	method
+		--|> behavioral;
+		--|> #TMethod;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TWithParameters;
+		--|> #TInvocable;
+		--|> #TWithSignature.
+	behavioral
+		--|> #TWithSourceAnchor;
+		--|> #TWithAccesses;
+		--|> #TWithInvocations;
+		--|> #TWithReferences;
+		--|> tWithTag.
+	invocation --|> association.
+	invocation --|> #TInvocation.
+	invocation
+		--|> #TWithSignature;
+		--|> #TWithSourceAnchor.
+
+	"Defining all major objects (files)"
+	majorObject
+		--|> #TWithSourceAnchor;
+		--|> #TNamed;
+		--|> #TWithAttributes;
+		--|> #TWithAccesses;
+		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
+		--|> #TWithFunctions;
+		--|> #TWithReferences;
+		--|> tWithTag.
+	userObject --|> majorObject.
+	userObject --|> abstractType.
+	userObject --|> #TWithInvocations.
+	window --|> majorObject.
+	window --|> #TWithInvocations.
+	dataWindow --|> majorObject.
+	dataWindow --|> #TWithInvocations.
+	structureFile --|> majorObject.
+	functionFile --|> majorObject.
+	menuObject --|> majorObject.
+	application --|> majorObject.
+	queryFile --|> majorObject.
+	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+	abstractType --|> #TType.
+	abstractType --|> #TReferenceable.
+	abstractType --|> #TWithSuperInheritances.
+	abstractType --|> #TWithSubInheritances.
+	customType --|> abstractType.
+	basicType --|> abstractType.
+	access
+		--|> association;
+		--|> #TWithSourceAnchor;
+		--|> #TAccess.
+	variableAccess
+		--|> association;
+		--|> #TWithSourceAnchor;
+		--|> #TAccess.
+	reference
+		--|> association;
+		--|> #TWithSourceAnchor;
+		--|> #TReference.
+	attribute
+		--|> #TWithSourceAnchor;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TAttribute;
+		--|> #TWithTypes;
+		--|> #TAccessible.
+	tag --|> tTag
 ]
 
 { #category : #definition }
