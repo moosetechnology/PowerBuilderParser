@@ -6,7 +6,10 @@ Class {
 	#instVars : [
 		'#content',
 		'#cyclomaticComplexity',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
+		'#deadLocalVariables',
+		'#deadArguments',
+		'#incomingInvocationSenders'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
