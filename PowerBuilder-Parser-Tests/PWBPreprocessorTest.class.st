@@ -22,7 +22,9 @@ PWBPreprocessorTest >> testCommentInComment [
 code')
 		equals:
 			'code
- 
+
+
+
 code'
 ]
 
@@ -170,7 +172,8 @@ PWBPreprocessorTest >> testSimpleComment3 [
 					'/* comment
 // comment */')
 		equals:
-			' '
+			'
+'
 ]
 
 { #category : #tests }

@@ -23,7 +23,13 @@ PWBPreprocessor >> code [
 
 { #category : #accessing }
 PWBPreprocessor >> comment [
-  ^(multiLineComment / singleLineComment) flatten ==> [:p |  p lineCount > 1 ifTrue: [ self createEmptyLinesWith: p ] ifFalse: [ '' ] ]
+	^ (multiLineComment / singleLineComment) flatten
+		==> [ :p | 
+			| nbl |
+			nbl := p lineCount.
+			nbl > 1
+				ifTrue: [ self createEmptyLinesWith: nbl - 1 ]
+				ifFalse: [ ' ' ] ]
 ]
 
 { #category : #accessing }
@@ -35,9 +41,10 @@ PWBPreprocessor >> content [
 ]
 
 { #category : #accessing }
-PWBPreprocessor >> createEmptyLinesWith: p [
-  ^String streamContents: [:stream |  1 to: p lines size do: [:it |  stream << ''.
-              stream nextPutAll: OSPlatform current lineEnding ] ]
+PWBPreprocessor >> createEmptyLinesWith: anInt [
+	^ String
+		streamContents:
+			[ :stream | 1 to: anInt do: [ :it | stream nextPut: Character cr ] ]
 ]
 
 { #category : #accessing }
@@ -75,7 +82,7 @@ PWBPreprocessor >> singleLineComment [
 
 { #category : #accessing }
 PWBPreprocessor >> start [
-  ^(header flatten optional , content) ==> [:p |  (self createEmptyLinesWith: p first) , p second ]
+	^ (header optional , content) ==> [ :p | p second ]
 ]
 
 { #category : #accessing }
