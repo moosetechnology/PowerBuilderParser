@@ -22,6 +22,16 @@ FamixPWBAttribute class >> metamodel [
 	^ FamixPWBModel metamodel
 ]
 
+{ #category : #accessing }
+FamixPWBAttribute >> deadArguments [
+	^ {}
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> deadLocalVariables [
+	^ {}
+]
+
 { #category : #testing }
 FamixPWBAttribute >> isAccess [
 
