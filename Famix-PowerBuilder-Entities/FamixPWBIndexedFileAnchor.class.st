@@ -3,9 +3,6 @@ Class {
 	#superclass : #FamixPWBAbstractFileAnchor,
 	#traits : 'FamixTIndexedFileNavigation',
 	#classTraits : 'FamixTIndexedFileNavigation classTrait',
-	#instVars : [
-		'#dpFlag'
-	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
