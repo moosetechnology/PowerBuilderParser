@@ -375,6 +375,32 @@ PWBQueryFileParser >> eventInvocation [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> eventPosting [
+	<generated>
+	^ super eventPosting withPositions
+		==> [ :production | 
+			PWBASTEventPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 1);
+				functionArguments: (production content at: 7);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> eventTriggering [
+	<generated>
+	^ super eventTriggering withPositions
+		==> [ :production | 
+			PWBASTEventTriggering new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 1);
+				functionArguments: (production content at: 7);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> eventType [
 	<generated>
 	^ super eventType withPositions

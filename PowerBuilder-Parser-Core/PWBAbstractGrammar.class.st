@@ -69,7 +69,9 @@ Class {
 		'specialVariable',
 		'expressionAction',
 		'createUsingInstruction',
-		'eventInvocation'
+		'eventInvocation',
+		'eventTriggering',
+		'eventPosting'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -338,6 +340,18 @@ PWBAbstractGrammar >> eventInvocation [
 		, functionArguments
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventPosting [
+	^ identifier , spaces optional , $. parser , spaces optional
+		, 'postEvent' token , blank , functionArguments
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventTriggering [
+	^ identifier , spaces optional , $. parser , spaces optional
+		, 'triggerEvent' token , blank , functionArguments
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
@@ -351,16 +365,19 @@ PWBAbstractGrammar >> exitStatement [
 { #category : #accessing }
 PWBAbstractGrammar >> expression [
 	<reify:
-		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / expressionTerm)
+		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / eventTriggering / eventPosting / expressionTerm)
 	into: #expression>
 	^ expressionWithSign / operatorExpression / parenthesedExpression
-		/ parenthesedArray / expressionTerm , expressionAction optional
+		/ parenthesedArray / eventTriggering / eventPosting / expressionTerm
+		, expressionAction optional
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionAction [
-	<reify: #(methodInvocation / attributeAccess) into: #action>
-	^ methodInvocation / attributeAccess , expressionAction optional
+	<reify: #(methodInvocation / attributeAccess)
+	into: #action>
+	^methodInvocation / attributeAccess
+		, expressionAction optional
 ]
 
 { #category : #accessing }

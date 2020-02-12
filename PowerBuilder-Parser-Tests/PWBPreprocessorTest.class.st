@@ -98,29 +98,6 @@ this.dw_detail}')
 ]
 
 { #category : #tests }
-PWBPreprocessorTest >> testNoComment1 [
-	self
-		assert:
-			(self
-				parse:
-					'if (id_dlq_dds >= ld_deb and id_dlq_dds <= ld_fin) OR &
-
-						   (id_dlq_fds >= ld_deb and id_dlq_fds <= ld_fin) THEN
-
-							   return ls_val
-
-						end if')
-		equals:
-			'if (id_dlq_dds >= ld_deb and id_dlq_dds <= ld_fin) OR 
-
-						   (id_dlq_fds >= ld_deb and id_dlq_fds <= ld_fin) THEN
-
-							   return ls_val
-
-						end if'
-]
-
-{ #category : #tests }
 PWBPreprocessorTest >> testRemoveExportInformations1 [
 	self
 		assert:

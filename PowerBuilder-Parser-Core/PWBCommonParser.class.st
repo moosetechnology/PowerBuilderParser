@@ -692,6 +692,19 @@ PWBCommonParser >> eventInvocation [
 ]
 
 { #category : #rules }
+PWBCommonParser >> eventPosting [
+	<generated>
+	^ super eventPosting withPositions
+		==> [ :production | 
+			PWBASTEventPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 1);
+				functionArguments: (production content at: 7);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> eventReferenceName [
 	<generated>
 	^ super eventReferenceName withPositions
@@ -704,6 +717,19 @@ PWBCommonParser >> eventReferenceName [
 						ifNotNil: [ (production content at: 1) at: 1 ]);
 				eventName: (production content at: 2);
 				arguments: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> eventTriggering [
+	<generated>
+	^ super eventTriggering withPositions
+		==> [ :production | 
+			PWBASTEventTriggering new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifier: (production content at: 1);
+				functionArguments: (production content at: 7);
 				yourself ]
 ]
 

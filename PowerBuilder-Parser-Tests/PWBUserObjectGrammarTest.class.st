@@ -1244,6 +1244,11 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPostEvent [
+	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPostFixOperator [
 	self parse: 'this.ii_tr_descendants ++' rule: #postFixOperator 
 ]
@@ -1559,6 +1564,11 @@ PWBUserObjectGrammarTest >> testTriggerDefinition4 [
 			'on uo_ancetre_pb.create
 end on'
 		rule: #triggerDefinition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent [
+	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
 ]
 
 { #category : #tests }
