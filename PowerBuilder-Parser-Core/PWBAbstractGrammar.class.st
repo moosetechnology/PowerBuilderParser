@@ -342,14 +342,20 @@ PWBAbstractGrammar >> eventInvocation [
 
 { #category : #'as yet unclassified' }
 PWBAbstractGrammar >> eventPosting [
-	^ identifier , spaces optional , $. parser , spaces optional
-		, 'postEvent' token , blank , functionArguments
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional , $. parser
+				, spaces optional) star , 'postEvent' token , blank
+		, functionArguments
 ]
 
 { #category : #'as yet unclassified' }
 PWBAbstractGrammar >> eventTriggering [
-	^ identifier , spaces optional , $. parser , spaces optional
-		, 'triggerEvent' token , blank , functionArguments
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional , $. parser
+				, spaces optional) star , 'triggerEvent' token , blank
+		, functionArguments
 ]
 
 { #category : #accessing }

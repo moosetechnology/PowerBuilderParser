@@ -394,7 +394,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
 	<generated>
-	self visit: aPWBASTEventPosting identifier.
+	self visitAll: aPWBASTEventPosting identifiers.
 	self visit: aPWBASTEventPosting functionArguments.
 ]
 
@@ -409,7 +409,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceNam
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
 	<generated>
-	self visit: aPWBASTEventTriggering identifier.
+	self visitAll: aPWBASTEventTriggering identifiers.
 	self visit: aPWBASTEventTriggering functionArguments.
 ]
 

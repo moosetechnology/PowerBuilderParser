@@ -180,10 +180,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventPosting: aPWBAST
 			aPWBASTEventPosting functionArguments functionArguments first
 				stopPosition.
 	eventInvocation := PWBASTEventInvocation new
-		identifier: customIdentifier;
-		arguments:
-			{aPWBASTEventPosting functionArguments functionArguments second.
-			aPWBASTEventPosting functionArguments functionArguments third}.
+		identifier: customIdentifier.
 	self visitPWBASTEventInvocation: eventInvocation
 ]
 
@@ -201,10 +198,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggering: aPWB
 	| customIdentifier eventInvocation |
 	customIdentifier := PWBASTIdentifier new
 		identifier:
-			(aPWBASTEventTriggering functionArguments functionArguments first
-				expression expression expressionTerm string
+			((aPWBASTEventTriggering functionArguments functionArguments first
+				expression expression expressionTerm asString
 				copyReplaceAll: '"'
-				with: '');
+				with: '') copyReplaceAll: '!' with: '');
 		startPosition:
 			aPWBASTEventTriggering functionArguments functionArguments first
 				startPosition;

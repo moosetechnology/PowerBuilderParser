@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTEventPosting,
 	#superclass : #Object,
 	#instVars : [
-		'identifier',
+		'identifiers',
 		'functionArguments',
 		'startPosition',
 		'stopPosition'
@@ -18,7 +18,7 @@ PWBASTEventPosting >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ identifier = anObject identifier
+	^ identifiers = anObject identifiers
 		and: [ functionArguments = anObject functionArguments
 				and: [ startPosition = anObject startPosition
 						and: [ stopPosition = anObject stopPosition ] ] ]
@@ -44,7 +44,7 @@ PWBASTEventPosting >> functionArguments: anObject [
 PWBASTEventPosting >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ identifier hash
+	^ identifiers hash
 		bitXor:
 			(functionArguments hash
 				bitXor: (startPosition hash bitXor: stopPosition hash))
@@ -58,6 +58,16 @@ PWBASTEventPosting >> identifier [
 { #category : #accessing }
 PWBASTEventPosting >> identifier: anObject [
 	identifier := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventPosting >> identifiers [
+	^ identifiers
+]
+
+{ #category : #accessing }
+PWBASTEventPosting >> identifiers: anObject [
+	identifiers := anObject
 ]
 
 { #category : #accessing }

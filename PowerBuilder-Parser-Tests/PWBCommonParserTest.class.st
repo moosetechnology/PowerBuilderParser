@@ -265,7 +265,6 @@ PWBCommonParserTest >> testAssignationStatement1 [
 								startPosition: 15;
 								stopPosition: 50;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 12;
 						stopPosition: 50;
 						yourself);
@@ -354,7 +353,6 @@ PWBCommonParserTest >> testAssignationStatement10 [
 								startPosition: 16;
 								stopPosition: 31;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 15;
 						stopPosition: 31;
 						yourself);
@@ -484,7 +482,6 @@ PWBCommonParserTest >> testAssignationStatement11 [
 								startPosition: 10;
 								stopPosition: 31;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 7;
 						stopPosition: 31;
 						yourself);
@@ -632,7 +629,6 @@ PWBCommonParserTest >> testAssignationStatement12 [
 								startPosition: 17;
 								stopPosition: 68;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 13;
 						stopPosition: 68;
 						yourself);
@@ -800,7 +796,6 @@ PWBCommonParserTest >> testAssignationStatement13 [
 								startPosition: 53;
 								stopPosition: 57;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 50;
 						stopPosition: 57;
 						yourself);
@@ -972,7 +967,6 @@ PWBCommonParserTest >> testAssignationStatement14 [
 								startPosition: 26;
 								stopPosition: 36;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 25;
 						stopPosition: 36;
 						yourself);
@@ -1159,7 +1153,6 @@ PWBCommonParserTest >> testAssignationStatement15 [
 								startPosition: 15;
 								stopPosition: 68;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 12;
 						stopPosition: 68;
 						yourself);
@@ -1218,7 +1211,6 @@ PWBCommonParserTest >> testAssignationStatement16 [
 								startPosition: 12;
 								stopPosition: 13;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 8;
 						stopPosition: 13;
 						yourself);
@@ -1305,7 +1297,6 @@ PWBCommonParserTest >> testAssignationStatement17 [
 								startPosition: 15;
 								stopPosition: 27;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 12;
 						stopPosition: 27;
 						yourself);
@@ -1438,7 +1429,6 @@ PWBCommonParserTest >> testAssignationStatement18 [
 								startPosition: 30;
 								stopPosition: 40;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 27;
 						stopPosition: 40;
 						yourself);
@@ -1497,7 +1487,6 @@ PWBCommonParserTest >> testAssignationStatement19 [
 								startPosition: 10;
 								stopPosition: 10;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 6;
 						stopPosition: 10;
 						yourself);
@@ -1611,7 +1600,6 @@ PWBCommonParserTest >> testAssignationStatement2 [
 								startPosition: 24;
 								stopPosition: 25;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 21;
 						stopPosition: 25;
 						yourself);
@@ -1712,7 +1700,6 @@ PWBCommonParserTest >> testAssignationStatement20 [
 								startPosition: 18;
 								stopPosition: 36;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 15;
 						stopPosition: 36;
 						yourself);
@@ -1869,7 +1856,6 @@ PWBCommonParserTest >> testAssignationStatement21 [
 								startPosition: 13;
 								stopPosition: 57;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 10;
 						stopPosition: 57;
 						yourself);
@@ -1964,7 +1950,6 @@ PWBCommonParserTest >> testAssignationStatement3 [
 								startPosition: 14;
 								stopPosition: 39;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 11;
 						stopPosition: 39;
 						yourself);
@@ -2099,7 +2084,6 @@ PWBCommonParserTest >> testAssignationStatement4 [
 								startPosition: 15;
 								stopPosition: 50;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 12;
 						stopPosition: 50;
 						yourself);
@@ -2232,7 +2216,6 @@ PWBCommonParserTest >> testAssignationStatement5 [
 								startPosition: 27;
 								stopPosition: 32;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 24;
 						stopPosition: 32;
 						yourself);
@@ -2391,7 +2374,6 @@ PWBCommonParserTest >> testAssignationStatement6 [
 								startPosition: 21;
 								stopPosition: 59;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 18;
 						stopPosition: 59;
 						yourself);
@@ -2526,7 +2508,6 @@ PWBCommonParserTest >> testAssignationStatement7 [
 								startPosition: 15;
 								stopPosition: 50;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 12;
 						stopPosition: 50;
 						yourself);
@@ -2707,7 +2688,6 @@ PWBCommonParserTest >> testAssignationStatement8 [
 								startPosition: 16;
 								stopPosition: 45;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 15;
 						stopPosition: 45;
 						yourself);
@@ -2796,7 +2776,6 @@ PWBCommonParserTest >> testAssignationStatement9 [
 								startPosition: 15;
 								stopPosition: 29;
 								yourself);
-						graphicIndex: nil;
 						startPosition: 14;
 						stopPosition: 29;
 						yourself);
@@ -2870,7 +2849,6 @@ PWBCommonParserTest >> testAttribute1 [
 												startPosition: 27;
 												stopPosition: 28;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 24;
 										stopPosition: 28;
 										yourself);
@@ -2945,7 +2923,6 @@ PWBCommonParserTest >> testAttribute10 [
 												startPosition: 34;
 												stopPosition: 37;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 30;
 										stopPosition: 37;
 										yourself);
@@ -3103,7 +3080,6 @@ PWBCommonParserTest >> testAttribute11 [
 												startPosition: 22;
 												stopPosition: 155;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 19;
 										stopPosition: 155;
 										yourself);
@@ -3238,7 +3214,6 @@ PWBCommonParserTest >> testAttribute3 [
 												startPosition: 21;
 												stopPosition: 23;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 18;
 										stopPosition: 23;
 										yourself);
@@ -3316,7 +3291,6 @@ PWBCommonParserTest >> testAttribute4 [
 												startPosition: 27;
 												stopPosition: 39;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 24;
 										stopPosition: 39;
 										yourself);
@@ -3510,7 +3484,6 @@ PWBCommonParserTest >> testAttribute7 [
 												startPosition: 33;
 												stopPosition: 33;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 30;
 										stopPosition: 33;
 										yourself);
@@ -3580,7 +3553,6 @@ PWBCommonParserTest >> testAttribute8 [
 												startPosition: 31;
 												stopPosition: 33;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 28;
 										stopPosition: 33;
 										yourself);
@@ -4043,7 +4015,6 @@ End Choose'
 																startPosition: 48;
 																stopPosition: 58;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 45;
 														stopPosition: 58;
 														yourself);
@@ -4148,7 +4119,6 @@ End Choose'
 																startPosition: 82;
 																stopPosition: 97;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 79;
 														stopPosition: 97;
 														yourself);
@@ -4253,7 +4223,6 @@ End Choose'
 																startPosition: 121;
 																stopPosition: 131;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 118;
 														stopPosition: 131;
 														yourself);
@@ -4358,7 +4327,6 @@ End Choose'
 																startPosition: 155;
 																stopPosition: 171;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 152;
 														stopPosition: 171;
 														yourself);
@@ -4463,7 +4431,6 @@ End Choose'
 																startPosition: 195;
 																stopPosition: 206;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 192;
 														stopPosition: 206;
 														yourself);
@@ -4568,7 +4535,6 @@ End Choose'
 																startPosition: 230;
 																stopPosition: 240;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 227;
 														stopPosition: 240;
 														yourself);
@@ -4751,7 +4717,6 @@ PWBCommonParserTest >> testChooseCase2 [
 																		startPosition: 53;
 																		stopPosition: 58;
 																		yourself);
-																graphicIndex: nil;
 																startPosition: 50;
 																stopPosition: 58;
 																yourself);
@@ -4824,7 +4789,6 @@ PWBCommonParserTest >> testChooseCase2 [
 																		startPosition: 78;
 																		stopPosition: 82;
 																		yourself);
-																graphicIndex: nil;
 																startPosition: 75;
 																stopPosition: 82;
 																yourself);
@@ -5084,7 +5048,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 50;
 																stopPosition: 65;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 47;
 														stopPosition: 65;
 														yourself);
@@ -5188,7 +5151,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 94;
 																stopPosition: 95;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 91;
 														stopPosition: 95;
 														yourself);
@@ -5292,7 +5254,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 124;
 																stopPosition: 125;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 121;
 														stopPosition: 125;
 														yourself);
@@ -5396,7 +5357,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 154;
 																stopPosition: 155;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 151;
 														stopPosition: 155;
 														yourself);
@@ -5500,7 +5460,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 184;
 																stopPosition: 185;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 181;
 														stopPosition: 185;
 														yourself);
@@ -5604,7 +5563,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 214;
 																stopPosition: 215;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 211;
 														stopPosition: 215;
 														yourself);
@@ -5708,7 +5666,6 @@ PWBCommonParserTest >> testChooseCase3 [
 																startPosition: 244;
 																stopPosition: 245;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 241;
 														stopPosition: 245;
 														yourself);
@@ -8259,7 +8216,6 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 														startPosition: 29;
 														stopPosition: 87;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 26;
 												stopPosition: 87;
 												yourself);
@@ -8388,7 +8344,6 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 														startPosition: 116;
 														stopPosition: 149;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 113;
 												stopPosition: 149;
 												yourself);
@@ -8752,7 +8707,6 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																						startPosition: 251;
 																						stopPosition: 284;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 248;
 																				stopPosition: 284;
 																				yourself);
@@ -8825,7 +8779,6 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																						startPosition: 300;
 																						stopPosition: 303;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 297;
 																				stopPosition: 303;
 																				yourself);
@@ -9317,7 +9270,6 @@ loop while 1 = 1'
 														startPosition: 14;
 														stopPosition: 49;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 11;
 												stopPosition: 49;
 												yourself);
@@ -10058,7 +10010,6 @@ loop'
 														startPosition: 69;
 														stopPosition: 127;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 66;
 												stopPosition: 127;
 												yourself);
@@ -10187,7 +10138,6 @@ loop'
 														startPosition: 156;
 														stopPosition: 189;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 153;
 												stopPosition: 189;
 												yourself);
@@ -10551,7 +10501,6 @@ loop'
 																						startPosition: 291;
 																						stopPosition: 324;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 288;
 																				stopPosition: 324;
 																				yourself);
@@ -10624,7 +10573,6 @@ loop'
 																						startPosition: 340;
 																						stopPosition: 343;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 337;
 																				stopPosition: 343;
 																				yourself);
@@ -11028,7 +10976,6 @@ end event'
 																						startPosition: 97;
 																						stopPosition: 101;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 94;
 																				stopPosition: 101;
 																				yourself);
@@ -11093,7 +11040,6 @@ end event'
 																								startPosition: 129;
 																								stopPosition: 137;
 																								yourself);
-																						graphicIndex: nil;
 																						startPosition: 126;
 																						stopPosition: 137;
 																						yourself);
@@ -11123,8 +11069,86 @@ end event'
 									(PWBASTExpression new
 										expression:
 											(PWBASTEventTriggering new
-												identifier: nil;
-												functionArguments: 'triggerEvent';
+												identifiers:
+													(OrderedCollection
+														withAll:
+															{(PWBASTIdentifier new
+																identifier: 'dw_liste';
+																startPosition: 146;
+																stopPosition: 153;
+																yourself)});
+												functionArguments:
+													(PWBASTFunctionArguments new
+														functionArguments:
+															{(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTString new
+																						string: '"edw_lecture"';
+																						startPosition: 168;
+																						stopPosition: 180;
+																						yourself);
+																				startPosition: 168;
+																				stopPosition: 180;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 168;
+																		stopPosition: 180;
+																		yourself);
+																startPosition: 168;
+																stopPosition: 180;
+																yourself).
+															(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '0';
+																						startPosition: 183;
+																						stopPosition: 183;
+																						yourself);
+																				startPosition: 183;
+																				stopPosition: 183;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 183;
+																		stopPosition: 183;
+																		yourself);
+																startPosition: 183;
+																stopPosition: 183;
+																yourself).
+															(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTString new
+																						string: '""';
+																						startPosition: 186;
+																						stopPosition: 187;
+																						yourself);
+																				startPosition: 186;
+																				stopPosition: 187;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 186;
+																		stopPosition: 187;
+																		yourself);
+																startPosition: 186;
+																stopPosition: 187;
+																yourself)};
+														startPosition: 167;
+														stopPosition: 188;
+														yourself);
 												startPosition: 146;
 												stopPosition: 188;
 												yourself);
@@ -11267,7 +11291,6 @@ end event'
 														startPosition: 62;
 														stopPosition: 74;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 59;
 												stopPosition: 74;
 												yourself);
@@ -11339,7 +11362,6 @@ end event'
 														startPosition: 85;
 														stopPosition: 85;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 82;
 												stopPosition: 85;
 												yourself);
@@ -11411,7 +11433,6 @@ end event'
 														startPosition: 96;
 														stopPosition: 96;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 93;
 												stopPosition: 96;
 												yourself);
@@ -11540,7 +11561,6 @@ end event'
 														startPosition: 111;
 														stopPosition: 128;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 108;
 												stopPosition: 128;
 												yourself);
@@ -11703,7 +11723,6 @@ end event'
 														startPosition: 144;
 														stopPosition: 168;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 141;
 												stopPosition: 168;
 												yourself);
@@ -12267,8 +12286,86 @@ end event'
 																	(PWBASTExpression new
 																		expression:
 																			(PWBASTEventPosting new
-																				identifier: nil;
-																				functionArguments: 'postevent';
+																				identifiers:
+																					(OrderedCollection
+																						withAll:
+																							{(PWBASTIdentifier new
+																								identifier: 'dw_liste';
+																								startPosition: 37;
+																								stopPosition: 44;
+																								yourself)});
+																				functionArguments:
+																					(PWBASTFunctionArguments new
+																						functionArguments:
+																							{(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTString new
+																														string: '"ue_menu"';
+																														startPosition: 56;
+																														stopPosition: 64;
+																														yourself);
+																												startPosition: 56;
+																												stopPosition: 64;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 56;
+																										stopPosition: 64;
+																										yourself);
+																								startPosition: 56;
+																								stopPosition: 64;
+																								yourself).
+																							(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTNumber new
+																														number: '1';
+																														startPosition: 66;
+																														stopPosition: 66;
+																														yourself);
+																												startPosition: 66;
+																												stopPosition: 66;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 66;
+																										stopPosition: 66;
+																										yourself);
+																								startPosition: 66;
+																								stopPosition: 66;
+																								yourself).
+																							(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTString new
+																														string: '"m_edt_rdc"';
+																														startPosition: 68;
+																														stopPosition: 78;
+																														yourself);
+																												startPosition: 68;
+																												stopPosition: 78;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 68;
+																										stopPosition: 78;
+																										yourself);
+																								startPosition: 68;
+																								stopPosition: 78;
+																								yourself)};
+																						startPosition: 55;
+																						stopPosition: 79;
+																						yourself);
 																				startPosition: 37;
 																				stopPosition: 79;
 																				yourself);
@@ -12747,7 +12844,6 @@ end event'
 																				startPosition: 98;
 																				stopPosition: 159;
 																				yourself);
-																		graphicIndex: nil;
 																		startPosition: 95;
 																		stopPosition: 159;
 																		yourself);
@@ -12945,7 +13041,6 @@ end event'
 																										startPosition: 234;
 																										stopPosition: 235;
 																										yourself);
-																								graphicIndex: nil;
 																								startPosition: 231;
 																								stopPosition: 235;
 																								yourself);
@@ -13273,8 +13368,42 @@ PWBCommonParserTest >> testEventPosting1 [
 		assert: (self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting)
 		equals:
 			(PWBASTEventPosting new
-				identifier: nil;
-				functionArguments: 'PostEvent';
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'bla';
+								startPosition: 1;
+								stopPosition: 3;
+								yourself)});
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"cb_exit_request"';
+														startPosition: 15;
+														stopPosition: 31;
+														yourself);
+												startPosition: 15;
+												stopPosition: 31;
+												yourself);
+										expressionAction: nil;
+										startPosition: 15;
+										stopPosition: 31;
+										yourself);
+								startPosition: 15;
+								stopPosition: 31;
+								yourself)};
+						startPosition: 14;
+						stopPosition: 32;
+						yourself);
 				startPosition: 1;
 				stopPosition: 32;
 				yourself)
@@ -13286,12 +13415,209 @@ PWBCommonParserTest >> testEventTriggering1 [
 	self
 		assert:
 			(self
+				parse: 'this.ya . yo.TriggerEvent("cb_exit_request")'
+				rule: #eventTriggering)
+		equals:
+			(PWBASTEventTriggering new
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'ya';
+								startPosition: 6;
+								stopPosition: 7;
+								yourself).
+							(PWBASTIdentifier new
+								identifier: 'yo';
+								startPosition: 11;
+								stopPosition: 12;
+								yourself)});
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"cb_exit_request"';
+														startPosition: 27;
+														stopPosition: 43;
+														yourself);
+												startPosition: 27;
+												stopPosition: 43;
+												yourself);
+										expressionAction: nil;
+										startPosition: 27;
+										stopPosition: 43;
+										yourself);
+								startPosition: 27;
+								stopPosition: 43;
+								yourself)};
+						startPosition: 26;
+						stopPosition: 44;
+						yourself);
+				startPosition: 1;
+				stopPosition: 44;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventTriggering2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'ya . yo.TriggerEvent("cb_exit_request")'
+				rule: #eventTriggering)
+		equals:
+			(PWBASTEventTriggering new
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'ya';
+								startPosition: 1;
+								stopPosition: 2;
+								yourself).
+							(PWBASTIdentifier new
+								identifier: 'yo';
+								startPosition: 6;
+								stopPosition: 7;
+								yourself)});
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"cb_exit_request"';
+														startPosition: 22;
+														stopPosition: 38;
+														yourself);
+												startPosition: 22;
+												stopPosition: 38;
+												yourself);
+										expressionAction: nil;
+										startPosition: 22;
+										stopPosition: 38;
+										yourself);
+								startPosition: 22;
+								stopPosition: 38;
+								yourself)};
+						startPosition: 21;
+						stopPosition: 39;
+						yourself);
+				startPosition: 1;
+				stopPosition: 39;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventTriggering3 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'this.yo.TriggerEvent("cb_exit_request")'
+				rule: #eventTriggering)
+		equals:
+			(PWBASTEventTriggering new
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'yo';
+								startPosition: 6;
+								stopPosition: 7;
+								yourself)});
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"cb_exit_request"';
+														startPosition: 22;
+														stopPosition: 38;
+														yourself);
+												startPosition: 22;
+												stopPosition: 38;
+												yourself);
+										expressionAction: nil;
+										startPosition: 22;
+										stopPosition: 38;
+										yourself);
+								startPosition: 22;
+								stopPosition: 38;
+								yourself)};
+						startPosition: 21;
+						stopPosition: 39;
+						yourself);
+				startPosition: 1;
+				stopPosition: 39;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventTriggering4 [
+	<generated>
+	self
+		assert:
+			(self
 				parse: 'yo.TriggerEvent("cb_exit_request")'
 				rule: #eventTriggering)
 		equals:
 			(PWBASTEventTriggering new
-				identifier: nil;
-				functionArguments: 'TriggerEvent';
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'yo';
+								startPosition: 1;
+								stopPosition: 2;
+								yourself)});
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"cb_exit_request"';
+														startPosition: 17;
+														stopPosition: 33;
+														yourself);
+												startPosition: 17;
+												stopPosition: 33;
+												yourself);
+										expressionAction: nil;
+										startPosition: 17;
+										stopPosition: 33;
+										yourself);
+								startPosition: 17;
+								stopPosition: 33;
+								yourself)};
+						startPosition: 16;
+						stopPosition: 34;
+						yourself);
 				startPosition: 1;
 				stopPosition: 34;
 				yourself)
@@ -14026,7 +14352,6 @@ PWBCommonParserTest >> testForLoop1 [
 										startPosition: 12;
 										stopPosition: 12;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 9;
 								stopPosition: 12;
 								yourself);
@@ -14140,7 +14465,6 @@ PWBCommonParserTest >> testForLoop2 [
 										startPosition: 16;
 										stopPosition: 16;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 13;
 								stopPosition: 16;
 								yourself);
@@ -14444,7 +14768,6 @@ PWBCommonParserTest >> testForLoop2 [
 																						startPosition: 183;
 																						stopPosition: 185;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 180;
 																				stopPosition: 185;
 																				yourself);
@@ -14801,7 +15124,6 @@ PWBCommonParserTest >> testForLoop2 [
 																						startPosition: 207;
 																						stopPosition: 284;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 204;
 																				stopPosition: 284;
 																				yourself);
@@ -14911,7 +15233,6 @@ next'
 										startPosition: 13;
 										stopPosition: 13;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 10;
 								stopPosition: 13;
 								yourself);
@@ -15036,7 +15357,6 @@ next'
 														startPosition: 47;
 														stopPosition: 51;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 44;
 												stopPosition: 51;
 												yourself);
@@ -15268,7 +15588,6 @@ next'
 														startPosition: 117;
 														stopPosition: 142;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 114;
 												stopPosition: 142;
 												yourself);
@@ -15375,7 +15694,6 @@ next'
 														startPosition: 176;
 														stopPosition: 209;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 173;
 												stopPosition: 209;
 												yourself);
@@ -15694,7 +16012,6 @@ next'
 																						startPosition: 308;
 																						stopPosition: 326;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 305;
 																				stopPosition: 326;
 																				yourself);
@@ -15855,7 +16172,6 @@ next'
 																						startPosition: 338;
 																						stopPosition: 373;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 335;
 																				stopPosition: 373;
 																				yourself);
@@ -19733,7 +20049,6 @@ end function'
 														startPosition: 165;
 														stopPosition: 244;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 162;
 												stopPosition: 244;
 												yourself);
@@ -21303,7 +21618,6 @@ PWBCommonParserTest >> testIfStatement10 [
 														startPosition: 41;
 														stopPosition: 43;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 38;
 												stopPosition: 43;
 												yourself);
@@ -21413,7 +21727,6 @@ PWBCommonParserTest >> testIfStatement10 [
 																startPosition: 63;
 																stopPosition: 78;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 60;
 														stopPosition: 78;
 														yourself);
@@ -22219,7 +22532,6 @@ PWBCommonParserTest >> testIfStatement12 [
 																								startPosition: 212;
 																								stopPosition: 215;
 																								yourself);
-																						graphicIndex: nil;
 																						startPosition: 209;
 																						stopPosition: 215;
 																						yourself);
@@ -22440,7 +22752,6 @@ PWBCommonParserTest >> testIfStatement13 [
 														startPosition: 61;
 														stopPosition: 65;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 58;
 												stopPosition: 65;
 												yourself);
@@ -22854,7 +23165,6 @@ PWBCommonParserTest >> testIfStatement15 [
 																startPosition: 44;
 																stopPosition: 46;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 41;
 														stopPosition: 46;
 														yourself);
@@ -23031,7 +23341,6 @@ PWBCommonParserTest >> testIfStatement15 [
 																				startPosition: 118;
 																				stopPosition: 118;
 																				yourself);
-																		graphicIndex: nil;
 																		startPosition: 115;
 																		stopPosition: 118;
 																		yourself);
@@ -23087,7 +23396,6 @@ PWBCommonParserTest >> testIfStatement15 [
 																				startPosition: 135;
 																				stopPosition: 136;
 																				yourself);
-																		graphicIndex: nil;
 																		startPosition: 132;
 																		stopPosition: 136;
 																		yourself);
@@ -23672,7 +23980,6 @@ PWBCommonParserTest >> testIfStatement16 [
 																startPosition: 62;
 																stopPosition: 109;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 59;
 														stopPosition: 109;
 														yourself);
@@ -23944,7 +24251,6 @@ PWBCommonParserTest >> testIfStatement16 [
 																				startPosition: 182;
 																				stopPosition: 228;
 																				yourself);
-																		graphicIndex: nil;
 																		startPosition: 179;
 																		stopPosition: 228;
 																		yourself);
@@ -24143,7 +24449,6 @@ PWBCommonParserTest >> testIfStatement16 [
 																		startPosition: 257;
 																		stopPosition: 304;
 																		yourself);
-																graphicIndex: nil;
 																startPosition: 254;
 																stopPosition: 304;
 																yourself);
@@ -24316,7 +24621,6 @@ end if'
 																						startPosition: 33;
 																						stopPosition: 33;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 30;
 																				stopPosition: 33;
 																				yourself);
@@ -24908,7 +25212,6 @@ PWBCommonParserTest >> testIfStatement4 [
 																startPosition: 141;
 																stopPosition: 142;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 138;
 														stopPosition: 142;
 														yourself);
@@ -25196,8 +25499,86 @@ end if'
 											(PWBASTExpression new
 												expression:
 													(PWBASTEventPosting new
-														identifier: nil;
-														functionArguments: 'postevent';
+														identifiers:
+															(OrderedCollection
+																withAll:
+																	{(PWBASTIdentifier new
+																		identifier: 'dw_liste';
+																		startPosition: 21;
+																		stopPosition: 28;
+																		yourself)});
+														functionArguments:
+															(PWBASTFunctionArguments new
+																functionArguments:
+																	{(PWBASTFunctionArgument new
+																		argumentOption: nil;
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTString new
+																								string: '"ue_menu"';
+																								startPosition: 40;
+																								stopPosition: 48;
+																								yourself);
+																						startPosition: 40;
+																						stopPosition: 48;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 40;
+																				stopPosition: 48;
+																				yourself);
+																		startPosition: 40;
+																		stopPosition: 48;
+																		yourself).
+																	(PWBASTFunctionArgument new
+																		argumentOption: nil;
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTNumber new
+																								number: '1';
+																								startPosition: 50;
+																								stopPosition: 50;
+																								yourself);
+																						startPosition: 50;
+																						stopPosition: 50;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 50;
+																				stopPosition: 50;
+																				yourself);
+																		startPosition: 50;
+																		stopPosition: 50;
+																		yourself).
+																	(PWBASTFunctionArgument new
+																		argumentOption: nil;
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTString new
+																								string: '"m_edt_rdc"';
+																								startPosition: 52;
+																								stopPosition: 62;
+																								yourself);
+																						startPosition: 52;
+																						stopPosition: 62;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 52;
+																				stopPosition: 62;
+																				yourself);
+																		startPosition: 52;
+																		stopPosition: 62;
+																		yourself)};
+																startPosition: 39;
+																stopPosition: 63;
+																yourself);
 														startPosition: 21;
 														stopPosition: 63;
 														yourself);
@@ -25730,82 +26111,40 @@ end if'
 										statement:
 											(PWBASTExpression new
 												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTSpecialVariable new
-																				this:
-																					(PWBASTThis new
-																						this: 'this';
-																						startPosition: 37;
-																						stopPosition: 40;
-																						yourself);
-																				startPosition: 37;
-																				stopPosition: 40;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 37;
-																		stopPosition: 40;
-																		yourself);
-																startPosition: 37;
-																stopPosition: 40;
-																yourself);
-														startPosition: 37;
-														stopPosition: 40;
-														yourself);
-												expressionAction:
-													(PWBASTExpressionAction new
-														action:
-															(PWBASTMethodInvocation new
-																methodInvocation:
-																	(PWBASTRegularMethodInvocation new
-																		uncheckedIdentifier:
-																			(PWBASTUncheckedIdentifier new
-																				uncheckedIdentifier: 'postEvent';
-																				startPosition: 42;
-																				stopPosition: 50;
-																				yourself);
-																		functionArguments:
-																			(PWBASTFunctionArguments new
-																				functionArguments:
-																					{(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTConstant new
-																												constant: 'rowFocusChanged!';
-																												startPosition: 52;
-																												stopPosition: 67;
-																												yourself);
-																										startPosition: 52;
-																										stopPosition: 67;
-																										yourself);
-																								expressionAction: nil;
+													(PWBASTEventPosting new
+														identifiers: (OrderedCollection withAll: {});
+														functionArguments:
+															(PWBASTFunctionArguments new
+																functionArguments:
+																	{(PWBASTFunctionArgument new
+																		argumentOption: nil;
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTConstant new
+																								constant: 'rowFocusChanged!';
 																								startPosition: 52;
 																								stopPosition: 67;
 																								yourself);
 																						startPosition: 52;
 																						stopPosition: 67;
-																						yourself)};
-																				startPosition: 51;
-																				stopPosition: 68;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 52;
+																				stopPosition: 67;
 																				yourself);
-																		startPosition: 41;
-																		stopPosition: 68;
-																		yourself);
-																startPosition: 41;
+																		startPosition: 52;
+																		stopPosition: 67;
+																		yourself)};
+																startPosition: 51;
 																stopPosition: 68;
 																yourself);
-														expressionAction: nil;
-														startPosition: 41;
+														startPosition: 37;
 														stopPosition: 68;
 														yourself);
+												expressionAction: nil;
 												startPosition: 37;
 												stopPosition: 68;
 												yourself);
@@ -27968,7 +28307,6 @@ PWBCommonParserTest >> testStatements1 [
 												startPosition: 11;
 												stopPosition: 12;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 10;
 										stopPosition: 12;
 										yourself);
@@ -28024,7 +28362,6 @@ PWBCommonParserTest >> testStatements1 [
 												startPosition: 28;
 												stopPosition: 29;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 26;
 										stopPosition: 29;
 										yourself);
@@ -28080,7 +28417,6 @@ PWBCommonParserTest >> testStatements1 [
 												startPosition: 45;
 												stopPosition: 46;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 43;
 										stopPosition: 46;
 										yourself);
@@ -28136,7 +28472,6 @@ PWBCommonParserTest >> testStatements1 [
 												startPosition: 63;
 												stopPosition: 64;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 60;
 										stopPosition: 64;
 										yourself);
@@ -28765,7 +29100,6 @@ end on'
 														startPosition: 63;
 														stopPosition: 77;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 62;
 												stopPosition: 77;
 												yourself);
@@ -28848,7 +29182,6 @@ end on'
 														startPosition: 94;
 														stopPosition: 109;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 93;
 												stopPosition: 109;
 												yourself);
@@ -29023,7 +29356,6 @@ end on'
 														startPosition: 126;
 														stopPosition: 155;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 125;
 												stopPosition: 155;
 												yourself);
@@ -29653,7 +29985,6 @@ PWBCommonParserTest >> testTryCatch1 [
 																								startPosition: 77;
 																								stopPosition: 112;
 																								yourself);
-																						graphicIndex: nil;
 																						startPosition: 74;
 																						stopPosition: 112;
 																						yourself);
@@ -29775,7 +30106,6 @@ PWBCommonParserTest >> testTryCatch1 [
 														startPosition: 164;
 														stopPosition: 191;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 161;
 												stopPosition: 191;
 												yourself);
@@ -29899,7 +30229,6 @@ PWBCommonParserTest >> testTryCatch1 [
 														startPosition: 238;
 														stopPosition: 241;
 														yourself);
-												graphicIndex: nil;
 												startPosition: 235;
 												stopPosition: 241;
 												yourself);
@@ -30104,7 +30433,6 @@ PWBCommonParserTest >> testTryCatch1 [
 																						startPosition: 316;
 																						stopPosition: 320;
 																						yourself);
-																				graphicIndex: nil;
 																				startPosition: 313;
 																				stopPosition: 320;
 																				yourself);
@@ -30237,7 +30565,6 @@ PWBCommonParserTest >> testTryCatch1 [
 																								startPosition: 374;
 																								stopPosition: 377;
 																								yourself);
-																						graphicIndex: nil;
 																						startPosition: 371;
 																						stopPosition: 377;
 																						yourself);
@@ -30482,7 +30809,6 @@ end type'
 																startPosition: 84;
 																stopPosition: 87;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 81;
 														stopPosition: 87;
 														yourself);
@@ -30544,7 +30870,6 @@ end type'
 																startPosition: 106;
 																stopPosition: 109;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 103;
 														stopPosition: 109;
 														yourself);
@@ -31979,7 +32304,6 @@ end type'
 																startPosition: 62;
 																stopPosition: 65;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 59;
 														stopPosition: 65;
 														yourself);
@@ -32041,7 +32365,6 @@ end type'
 																startPosition: 79;
 																stopPosition: 81;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 76;
 														stopPosition: 81;
 														yourself);
@@ -32103,7 +32426,6 @@ end type'
 																startPosition: 99;
 																stopPosition: 102;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 96;
 														stopPosition: 102;
 														yourself);
@@ -32165,7 +32487,6 @@ end type'
 																startPosition: 121;
 																stopPosition: 123;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 118;
 														stopPosition: 123;
 														yourself);
@@ -32249,7 +32570,6 @@ end type'
 																startPosition: 144;
 																stopPosition: 147;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 141;
 														stopPosition: 147;
 														yourself);
@@ -32311,7 +32631,6 @@ end type'
 																startPosition: 164;
 																stopPosition: 183;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 161;
 														stopPosition: 183;
 														yourself);
@@ -32378,7 +32697,6 @@ end type'
 																startPosition: 209;
 																stopPosition: 217;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 206;
 														stopPosition: 217;
 														yourself);
@@ -32440,7 +32758,6 @@ end type'
 																startPosition: 236;
 																stopPosition: 243;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 233;
 														stopPosition: 243;
 														yourself);
@@ -32827,7 +33144,6 @@ end type'
 																startPosition: 82;
 																stopPosition: 84;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 81;
 														stopPosition: 84;
 														yourself);
@@ -32889,7 +33205,6 @@ end type'
 																startPosition: 98;
 																stopPosition: 106;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 97;
 														stopPosition: 106;
 														yourself);
@@ -33064,7 +33379,6 @@ end type'
 																startPosition: 111;
 																stopPosition: 121;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 108;
 														stopPosition: 121;
 														yourself);
@@ -33188,7 +33502,6 @@ end type'
 																startPosition: 80;
 																stopPosition: 107;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 77;
 														stopPosition: 107;
 														yourself);
@@ -33250,7 +33563,6 @@ end type'
 																startPosition: 125;
 																stopPosition: 128;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 122;
 														stopPosition: 128;
 														yourself);
@@ -33312,7 +33624,6 @@ end type'
 																startPosition: 147;
 																stopPosition: 150;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 144;
 														stopPosition: 150;
 														yourself);
@@ -33374,7 +33685,6 @@ end type'
 																startPosition: 169;
 																stopPosition: 176;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 166;
 														stopPosition: 176;
 														yourself);
@@ -33436,7 +33746,6 @@ end type'
 																startPosition: 198;
 																stopPosition: 205;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 195;
 														stopPosition: 205;
 														yourself);
@@ -33498,7 +33807,6 @@ end type'
 																startPosition: 227;
 																stopPosition: 234;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 224;
 														stopPosition: 234;
 														yourself);
@@ -33560,7 +33868,6 @@ end type'
 																startPosition: 260;
 																stopPosition: 268;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 257;
 														stopPosition: 268;
 														yourself);
@@ -35157,7 +35464,6 @@ end variables'
 																startPosition: 89;
 																stopPosition: 89;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 86;
 														stopPosition: 89;
 														yourself);
@@ -35219,7 +35525,6 @@ end variables'
 																startPosition: 114;
 																stopPosition: 114;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 111;
 														stopPosition: 114;
 														yourself);
@@ -35292,7 +35597,6 @@ end variables'
 																startPosition: 140;
 																stopPosition: 141;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 137;
 														stopPosition: 141;
 														yourself);
@@ -35391,7 +35695,6 @@ end variables'
 																startPosition: 61;
 																stopPosition: 78;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 57;
 														stopPosition: 78;
 														yourself);
@@ -35629,7 +35932,6 @@ end variables'
 																startPosition: 132;
 																stopPosition: 132;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 129;
 														stopPosition: 132;
 														yourself);
@@ -35696,7 +35998,6 @@ end variables'
 																startPosition: 158;
 																stopPosition: 158;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 155;
 														stopPosition: 158;
 														yourself);
@@ -35763,7 +36064,6 @@ end variables'
 																startPosition: 177;
 																stopPosition: 180;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 174;
 														stopPosition: 180;
 														yourself);
@@ -35920,7 +36220,6 @@ end variables'
 																startPosition: 241;
 																stopPosition: 241;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 238;
 														stopPosition: 241;
 														yourself);
@@ -36037,7 +36336,6 @@ end variables'
 																startPosition: 309;
 																stopPosition: 309;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 306;
 														stopPosition: 309;
 														yourself);
@@ -36189,7 +36487,6 @@ end variables'
 																startPosition: 71;
 																stopPosition: 71;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 68;
 														stopPosition: 71;
 														yourself);
@@ -36256,7 +36553,6 @@ end variables'
 																startPosition: 105;
 																stopPosition: 105;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 102;
 														stopPosition: 105;
 														yourself);
@@ -36328,7 +36624,6 @@ end variables'
 																startPosition: 135;
 																stopPosition: 135;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 132;
 														stopPosition: 135;
 														yourself);
@@ -36400,7 +36695,6 @@ end variables'
 																startPosition: 164;
 																stopPosition: 164;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 161;
 														stopPosition: 164;
 														yourself);
@@ -36472,7 +36766,6 @@ end variables'
 																startPosition: 196;
 																stopPosition: 199;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 193;
 														stopPosition: 199;
 														yourself);
@@ -36544,7 +36837,6 @@ end variables'
 																startPosition: 228;
 																stopPosition: 229;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 225;
 														stopPosition: 229;
 														yourself);
@@ -36891,7 +37183,6 @@ end variables'
 																startPosition: 64;
 																stopPosition: 65;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 61;
 														stopPosition: 65;
 														yourself);
@@ -36958,7 +37249,6 @@ end variables'
 																startPosition: 96;
 																stopPosition: 96;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 93;
 														stopPosition: 96;
 														yourself);
@@ -37025,7 +37315,6 @@ end variables'
 																startPosition: 130;
 																stopPosition: 130;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 127;
 														stopPosition: 130;
 														yourself);
@@ -37087,7 +37376,6 @@ end variables'
 																startPosition: 158;
 																stopPosition: 158;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 155;
 														stopPosition: 158;
 														yourself);
@@ -37149,7 +37437,6 @@ end variables'
 																startPosition: 182;
 																stopPosition: 182;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 179;
 														stopPosition: 182;
 														yourself);
@@ -37211,7 +37498,6 @@ end variables'
 																startPosition: 214;
 																stopPosition: 214;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 211;
 														stopPosition: 214;
 														yourself);
@@ -37273,7 +37559,6 @@ end variables'
 																startPosition: 238;
 																stopPosition: 238;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 235;
 														stopPosition: 238;
 														yourself);
@@ -37335,7 +37620,6 @@ end variables'
 																startPosition: 257;
 																stopPosition: 258;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 254;
 														stopPosition: 258;
 														yourself);
@@ -37397,7 +37681,6 @@ end variables'
 																startPosition: 280;
 																stopPosition: 286;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 277;
 														stopPosition: 286;
 														yourself);
@@ -37582,7 +37865,6 @@ end variables'
 																startPosition: 50;
 																stopPosition: 53;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 46;
 														stopPosition: 53;
 														yourself);
@@ -37700,7 +37982,6 @@ end variables'
 																startPosition: 92;
 																stopPosition: 102;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 89;
 														stopPosition: 102;
 														yourself);
@@ -37818,7 +38099,6 @@ end variables'
 																startPosition: 140;
 																stopPosition: 150;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 136;
 														stopPosition: 150;
 														yourself);
@@ -37936,7 +38216,6 @@ end variables'
 																startPosition: 189;
 																stopPosition: 199;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 186;
 														stopPosition: 199;
 														yourself);
@@ -38054,7 +38333,6 @@ end variables'
 																startPosition: 238;
 																stopPosition: 248;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 234;
 														stopPosition: 248;
 														yourself);
@@ -38172,7 +38450,6 @@ end variables'
 																startPosition: 286;
 																stopPosition: 296;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 282;
 														stopPosition: 296;
 														yourself);
@@ -38290,7 +38567,6 @@ end variables'
 																startPosition: 335;
 																stopPosition: 345;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 332;
 														stopPosition: 345;
 														yourself);
@@ -38408,7 +38684,6 @@ end variables'
 																startPosition: 383;
 																stopPosition: 393;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 379;
 														stopPosition: 393;
 														yourself);
@@ -39096,7 +39371,6 @@ PWBCommonParserTest >> testVariableDeclarations4 [
 										startPosition: 24;
 										stopPosition: 162;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 21;
 								stopPosition: 162;
 								yourself);
@@ -39474,7 +39748,6 @@ PWBCommonParserTest >> testVariableDeclarations6 [
 										startPosition: 25;
 										stopPosition: 97;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 22;
 								stopPosition: 97;
 								yourself);
@@ -39758,7 +40031,6 @@ PWBCommonParserTest >> testVariableDeclarations7 [
 										startPosition: 30;
 										stopPosition: 66;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 26;
 								stopPosition: 66;
 								yourself);

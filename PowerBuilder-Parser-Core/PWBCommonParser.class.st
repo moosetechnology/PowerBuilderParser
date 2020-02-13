@@ -699,8 +699,10 @@ PWBCommonParser >> eventPosting [
 			PWBASTEventPosting new
 				startPosition: production start;
 				stopPosition: production stop;
-				identifier: (production content at: 1);
-				functionArguments: (production content at: 7);
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				functionArguments: (production content at: 5);
 				yourself ]
 ]
 
@@ -728,8 +730,10 @@ PWBCommonParser >> eventTriggering [
 			PWBASTEventTriggering new
 				startPosition: production start;
 				stopPosition: production stop;
-				identifier: (production content at: 1);
-				functionArguments: (production content at: 7);
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				functionArguments: (production content at: 5);
 				yourself ]
 ]
 

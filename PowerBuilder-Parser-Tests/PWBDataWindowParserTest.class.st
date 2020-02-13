@@ -105,7 +105,6 @@ PWBDataWindowParserTest >> testColumn1 [
 																startPosition: 14;
 																stopPosition: 21;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 13;
 														stopPosition: 21;
 														yourself);
@@ -178,7 +177,6 @@ PWBDataWindowParserTest >> testColumn1 [
 																startPosition: 41;
 																stopPosition: 42;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 40;
 														stopPosition: 42;
 														yourself);
@@ -251,7 +249,6 @@ PWBDataWindowParserTest >> testColumn1 [
 																startPosition: 49;
 																stopPosition: 55;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 48;
 														stopPosition: 55;
 														yourself);
@@ -307,7 +304,6 @@ PWBDataWindowParserTest >> testColumn1 [
 																startPosition: 64;
 																stopPosition: 72;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 63;
 														stopPosition: 72;
 														yourself);
@@ -394,7 +390,6 @@ PWBDataWindowParserTest >> testColumn2 [
 																startPosition: 14;
 																stopPosition: 21;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 13;
 														stopPosition: 21;
 														yourself);
@@ -467,7 +462,6 @@ PWBDataWindowParserTest >> testColumn2 [
 																startPosition: 41;
 																stopPosition: 42;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 40;
 														stopPosition: 42;
 														yourself);
@@ -540,7 +534,6 @@ PWBDataWindowParserTest >> testColumn2 [
 																startPosition: 49;
 																stopPosition: 55;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 48;
 														stopPosition: 55;
 														yourself);
@@ -596,7 +589,6 @@ PWBDataWindowParserTest >> testColumn2 [
 																startPosition: 64;
 																stopPosition: 72;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 63;
 														stopPosition: 72;
 														yourself);
@@ -712,7 +704,6 @@ PWBDataWindowParserTest >> testColumn3 [
 																startPosition: 14;
 																stopPosition: 23;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 13;
 														stopPosition: 23;
 														yourself);
@@ -785,7 +776,6 @@ PWBDataWindowParserTest >> testColumn3 [
 																startPosition: 32;
 																stopPosition: 34;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 31;
 														stopPosition: 34;
 														yourself);
@@ -858,7 +848,6 @@ PWBDataWindowParserTest >> testColumn3 [
 																startPosition: 54;
 																stopPosition: 56;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 53;
 														stopPosition: 56;
 														yourself);
@@ -931,7 +920,6 @@ PWBDataWindowParserTest >> testColumn3 [
 																startPosition: 63;
 																stopPosition: 69;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 62;
 														stopPosition: 69;
 														yourself);
@@ -987,7 +975,6 @@ PWBDataWindowParserTest >> testColumn3 [
 																startPosition: 78;
 																stopPosition: 86;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 77;
 														stopPosition: 86;
 														yourself);
@@ -1099,7 +1086,6 @@ PWBDataWindowParserTest >> testExport2 [
 																startPosition: 23;
 																stopPosition: 25;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 22;
 														stopPosition: 25;
 														yourself);
@@ -1155,7 +1141,6 @@ PWBDataWindowParserTest >> testExport2 [
 																startPosition: 45;
 																stopPosition: 47;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 44;
 														stopPosition: 47;
 														yourself);
@@ -1211,7 +1196,6 @@ PWBDataWindowParserTest >> testExport2 [
 																startPosition: 62;
 																stopPosition: 62;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 61;
 														stopPosition: 62;
 														yourself);
@@ -1267,7 +1251,6 @@ PWBDataWindowParserTest >> testExport2 [
 																startPosition: 77;
 																stopPosition: 77;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 76;
 														stopPosition: 77;
 														yourself);
@@ -1355,7 +1338,6 @@ PWBDataWindowParserTest >> testExport3 [
 																startPosition: 19;
 																stopPosition: 19;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 18;
 														stopPosition: 19;
 														yourself);
@@ -1428,7 +1410,6 @@ PWBDataWindowParserTest >> testExport3 [
 																startPosition: 46;
 																stopPosition: 48;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 45;
 														stopPosition: 48;
 														yourself);
@@ -1501,7 +1482,6 @@ PWBDataWindowParserTest >> testExport3 [
 																startPosition: 63;
 																stopPosition: 65;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 62;
 														stopPosition: 65;
 														yourself);
@@ -2428,7 +2408,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 22;
 																stopPosition: 24;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 21;
 														stopPosition: 24;
 														yourself);
@@ -2484,7 +2463,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 43;
 																stopPosition: 45;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 42;
 														stopPosition: 45;
 														yourself);
@@ -2540,7 +2518,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 68;
 																stopPosition: 70;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 67;
 														stopPosition: 70;
 														yourself);
@@ -2596,7 +2573,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 89;
 																stopPosition: 91;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 88;
 														stopPosition: 91;
 														yourself);
@@ -2652,7 +2628,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 110;
 																stopPosition: 112;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 109;
 														stopPosition: 112;
 														yourself);
@@ -2708,7 +2683,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 133;
 																stopPosition: 135;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 132;
 														stopPosition: 135;
 														yourself);
@@ -2764,7 +2738,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 156;
 																stopPosition: 158;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 155;
 														stopPosition: 158;
 														yourself);
@@ -2820,7 +2793,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 175;
 																stopPosition: 177;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 174;
 														stopPosition: 177;
 														yourself);
@@ -2876,7 +2848,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 192;
 																stopPosition: 192;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 191;
 														stopPosition: 192;
 														yourself);
@@ -2932,7 +2903,6 @@ PWBDataWindowParserTest >> testGenerator1 [
 																startPosition: 213;
 																stopPosition: 215;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 212;
 														stopPosition: 215;
 														yourself);
@@ -3041,7 +3011,6 @@ PWBDataWindowParserTest >> testGenerator3 [
 																startPosition: 24;
 																stopPosition: 26;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 23;
 														stopPosition: 26;
 														yourself);
@@ -3126,7 +3095,6 @@ PWBDataWindowParserTest >> testGenerator4 [
 																startPosition: 15;
 																stopPosition: 17;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 14;
 														stopPosition: 17;
 														yourself);
@@ -3262,7 +3230,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 15;
 																stopPosition: 16;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 14;
 														stopPosition: 16;
 														yourself);
@@ -3318,7 +3285,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 24;
 																stopPosition: 34;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 23;
 														stopPosition: 34;
 														yourself);
@@ -3374,7 +3340,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 49;
 																stopPosition: 51;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 48;
 														stopPosition: 51;
 														yourself);
@@ -3447,7 +3412,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 68;
 																stopPosition: 76;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 67;
 														stopPosition: 76;
 														yourself);
@@ -3520,7 +3484,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 100;
 																stopPosition: 102;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 99;
 														stopPosition: 102;
 														yourself);
@@ -3593,7 +3556,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 119;
 																stopPosition: 121;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 118;
 														stopPosition: 121;
 														yourself);
@@ -3649,7 +3611,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 133;
 																stopPosition: 135;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 132;
 														stopPosition: 135;
 														yourself);
@@ -3739,7 +3700,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 162;
 																stopPosition: 164;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 161;
 														stopPosition: 164;
 														yourself);
@@ -3829,7 +3789,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 192;
 																stopPosition: 194;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 191;
 														stopPosition: 194;
 														yourself);
@@ -3919,7 +3878,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 223;
 																stopPosition: 227;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 222;
 														stopPosition: 227;
 														yourself);
@@ -3992,7 +3950,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 244;
 																stopPosition: 246;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 243;
 														stopPosition: 246;
 														yourself);
@@ -4065,7 +4022,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 263;
 																stopPosition: 267;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 262;
 														stopPosition: 267;
 														yourself);
@@ -4138,7 +4094,6 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 																startPosition: 285;
 																stopPosition: 289;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 284;
 														stopPosition: 289;
 														yourself);
@@ -4243,7 +4198,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 13;
 																stopPosition: 18;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 12;
 														stopPosition: 18;
 														yourself);
@@ -4299,7 +4253,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 31;
 																stopPosition: 44;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 30;
 														stopPosition: 44;
 														yourself);
@@ -4355,7 +4308,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 48;
 																stopPosition: 50;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 47;
 														stopPosition: 50;
 														yourself);
@@ -4411,7 +4363,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 54;
 																stopPosition: 57;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 53;
 														stopPosition: 57;
 														yourself);
@@ -4467,7 +4418,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 66;
 																stopPosition: 70;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 65;
 														stopPosition: 70;
 														yourself);
@@ -4523,7 +4473,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 78;
 																stopPosition: 83;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 77;
 														stopPosition: 83;
 														yourself);
@@ -4579,7 +4528,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 92;
 																stopPosition: 94;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 91;
 														stopPosition: 94;
 														yourself);
@@ -4669,7 +4617,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 112;
 																stopPosition: 114;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 111;
 														stopPosition: 114;
 														yourself);
@@ -4725,7 +4672,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 125;
 																stopPosition: 126;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 124;
 														stopPosition: 126;
 														yourself);
@@ -4833,7 +4779,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 143;
 																stopPosition: 169;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 142;
 														stopPosition: 169;
 														yourself);
@@ -4906,7 +4851,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 186;
 																stopPosition: 188;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 183;
 														stopPosition: 188;
 														yourself);
@@ -4979,7 +4923,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 195;
 																stopPosition: 202;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 194;
 														stopPosition: 202;
 														yourself);
@@ -5052,7 +4995,6 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 																startPosition: 212;
 																stopPosition: 224;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 211;
 														stopPosition: 224;
 														yourself);
@@ -5140,7 +5082,6 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 																startPosition: 14;
 																stopPosition: 52;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 13;
 														stopPosition: 52;
 														yourself);
@@ -5245,7 +5186,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 13;
 																stopPosition: 18;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 12;
 														stopPosition: 18;
 														yourself);
@@ -5301,7 +5241,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 29;
 																stopPosition: 30;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 28;
 														stopPosition: 30;
 														yourself);
@@ -5357,7 +5296,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 34;
 																stopPosition: 39;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 33;
 														stopPosition: 39;
 														yourself);
@@ -5413,7 +5351,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 43;
 																stopPosition: 47;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 42;
 														stopPosition: 47;
 														yourself);
@@ -5469,7 +5406,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 56;
 																stopPosition: 59;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 55;
 														stopPosition: 59;
 														yourself);
@@ -5525,7 +5461,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 67;
 																stopPosition: 70;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 66;
 														stopPosition: 70;
 														yourself);
@@ -5581,7 +5516,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 79;
 																stopPosition: 81;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 78;
 														stopPosition: 81;
 														yourself);
@@ -5654,7 +5588,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 101;
 																stopPosition: 111;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 100;
 														stopPosition: 111;
 														yourself);
@@ -5744,7 +5677,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 135;
 																stopPosition: 137;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 134;
 														stopPosition: 137;
 														yourself);
@@ -5834,7 +5766,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 161;
 																stopPosition: 167;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 160;
 														stopPosition: 167;
 														yourself);
@@ -5907,7 +5838,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 185;
 																stopPosition: 187;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 184;
 														stopPosition: 187;
 														yourself);
@@ -5980,7 +5910,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 212;
 																stopPosition: 214;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 211;
 														stopPosition: 214;
 														yourself);
@@ -6053,7 +5982,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 229;
 																stopPosition: 231;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 228;
 														stopPosition: 231;
 														yourself);
@@ -6126,7 +6054,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 250;
 																stopPosition: 252;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 249;
 														stopPosition: 252;
 														yourself);
@@ -6199,7 +6126,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 271;
 																stopPosition: 273;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 270;
 														stopPosition: 273;
 														yourself);
@@ -6272,7 +6198,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 293;
 																stopPosition: 303;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 292;
 														stopPosition: 303;
 														yourself);
@@ -6345,7 +6270,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 326;
 																stopPosition: 328;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 325;
 														stopPosition: 328;
 														yourself);
@@ -6418,7 +6342,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 336;
 																stopPosition: 350;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 335;
 														stopPosition: 350;
 														yourself);
@@ -6474,7 +6397,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 360;
 																stopPosition: 362;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 359;
 														stopPosition: 362;
 														yourself);
@@ -6530,7 +6452,6 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 																startPosition: 377;
 																stopPosition: 379;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 376;
 														stopPosition: 379;
 														yourself);
@@ -9445,7 +9366,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 15;
 																stopPosition: 17;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 14;
 														stopPosition: 17;
 														yourself);
@@ -9501,7 +9421,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 25;
 																stopPosition: 35;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 24;
 														stopPosition: 35;
 														yourself);
@@ -9557,7 +9476,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 50;
 																stopPosition: 52;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 49;
 														stopPosition: 52;
 														yourself);
@@ -9630,7 +9548,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 69;
 																stopPosition: 77;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 68;
 														stopPosition: 77;
 														yourself);
@@ -9703,7 +9620,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 101;
 																stopPosition: 103;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 100;
 														stopPosition: 103;
 														yourself);
@@ -9776,7 +9692,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 120;
 																stopPosition: 122;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 119;
 														stopPosition: 122;
 														yourself);
@@ -9832,7 +9747,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 134;
 																stopPosition: 136;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 133;
 														stopPosition: 136;
 														yourself);
@@ -9922,7 +9836,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 163;
 																stopPosition: 165;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 162;
 														stopPosition: 165;
 														yourself);
@@ -10012,7 +9925,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 193;
 																stopPosition: 195;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 192;
 														stopPosition: 195;
 														yourself);
@@ -10102,7 +10014,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 224;
 																stopPosition: 228;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 223;
 														stopPosition: 228;
 														yourself);
@@ -10175,7 +10086,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 245;
 																stopPosition: 247;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 244;
 														stopPosition: 247;
 														yourself);
@@ -10248,7 +10158,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 264;
 																stopPosition: 268;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 263;
 														stopPosition: 268;
 														yourself);
@@ -10321,7 +10230,6 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 																startPosition: 286;
 																stopPosition: 290;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 285;
 														stopPosition: 290;
 														yourself);
@@ -10406,7 +10314,6 @@ PWBDataWindowParserTest >> testGraphicComponent2 [
 																startPosition: 18;
 																stopPosition: 20;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 17;
 														stopPosition: 20;
 														yourself);
@@ -10511,7 +10418,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 14;
 																stopPosition: 19;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 13;
 														stopPosition: 19;
 														yourself);
@@ -10567,7 +10473,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 23;
 																stopPosition: 28;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 22;
 														stopPosition: 28;
 														yourself);
@@ -10623,7 +10528,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 32;
 																stopPosition: 35;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 31;
 														stopPosition: 35;
 														yourself);
@@ -10679,7 +10583,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 44;
 																stopPosition: 47;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 43;
 														stopPosition: 47;
 														yourself);
@@ -10735,7 +10638,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 55;
 																stopPosition: 58;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 54;
 														stopPosition: 58;
 														yourself);
@@ -10808,7 +10710,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 66;
 																stopPosition: 72;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 65;
 														stopPosition: 72;
 														yourself);
@@ -10864,7 +10765,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 82;
 																stopPosition: 109;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 81;
 														stopPosition: 109;
 														yourself);
@@ -10937,7 +10837,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 123;
 																stopPosition: 125;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 122;
 														stopPosition: 125;
 														yourself);
@@ -11010,7 +10909,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 139;
 																stopPosition: 143;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 138;
 														stopPosition: 143;
 														yourself);
@@ -11083,7 +10981,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 155;
 																stopPosition: 157;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 154;
 														stopPosition: 157;
 														yourself);
@@ -11156,7 +11053,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 169;
 																stopPosition: 171;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 168;
 														stopPosition: 171;
 														yourself);
@@ -11229,7 +11125,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 183;
 																stopPosition: 187;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 182;
 														stopPosition: 187;
 														yourself);
@@ -11302,7 +11197,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 206;
 																stopPosition: 208;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 205;
 														stopPosition: 208;
 														yourself);
@@ -11375,7 +11269,6 @@ PWBDataWindowParserTest >> testGraphicComponent3 [
 																startPosition: 227;
 																stopPosition: 229;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 226;
 														stopPosition: 229;
 														yourself);
@@ -12859,7 +12752,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 16;
 																stopPosition: 17;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 15;
 														stopPosition: 17;
 														yourself);
@@ -12915,7 +12807,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 25;
 																stopPosition: 35;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 24;
 														stopPosition: 35;
 														yourself);
@@ -12971,7 +12862,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 50;
 																stopPosition: 52;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 49;
 														stopPosition: 52;
 														yourself);
@@ -13044,7 +12934,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 69;
 																stopPosition: 77;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 68;
 														stopPosition: 77;
 														yourself);
@@ -13117,7 +13006,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 101;
 																stopPosition: 103;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 100;
 														stopPosition: 103;
 														yourself);
@@ -13190,7 +13078,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 120;
 																stopPosition: 122;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 119;
 														stopPosition: 122;
 														yourself);
@@ -13246,7 +13133,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 134;
 																stopPosition: 136;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 133;
 														stopPosition: 136;
 														yourself);
@@ -13336,7 +13222,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 163;
 																stopPosition: 165;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 162;
 														stopPosition: 165;
 														yourself);
@@ -13426,7 +13311,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 193;
 																stopPosition: 195;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 192;
 														stopPosition: 195;
 														yourself);
@@ -13516,7 +13400,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 224;
 																stopPosition: 228;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 223;
 														stopPosition: 228;
 														yourself);
@@ -13589,7 +13472,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 245;
 																stopPosition: 247;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 244;
 														stopPosition: 247;
 														yourself);
@@ -13662,7 +13544,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 264;
 																stopPosition: 268;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 263;
 														stopPosition: 268;
 														yourself);
@@ -13735,7 +13616,6 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 																startPosition: 286;
 																stopPosition: 290;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 285;
 														stopPosition: 290;
 														yourself);
@@ -13823,7 +13703,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 13;
 																stopPosition: 13;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 12;
 														stopPosition: 13;
 														yourself);
@@ -13896,7 +13775,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 29;
 																stopPosition: 31;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 28;
 														stopPosition: 31;
 														yourself);
@@ -13969,7 +13847,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 48;
 																stopPosition: 49;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 47;
 														stopPosition: 49;
 														yourself);
@@ -14036,7 +13913,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 54;
 																stopPosition: 65;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 53;
 														stopPosition: 65;
 														yourself);
@@ -14109,7 +13985,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 80;
 																stopPosition: 90;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 79;
 														stopPosition: 90;
 														yourself);
@@ -14182,7 +14057,6 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 																startPosition: 106;
 																stopPosition: 116;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 105;
 														stopPosition: 116;
 														yourself);
@@ -14270,7 +14144,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 15;
 																stopPosition: 15;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 14;
 														stopPosition: 15;
 														yourself);
@@ -14326,7 +14199,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 23;
 																stopPosition: 33;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 22;
 														stopPosition: 33;
 														yourself);
@@ -14382,7 +14254,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 48;
 																stopPosition: 50;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 47;
 														stopPosition: 50;
 														yourself);
@@ -14455,7 +14326,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 67;
 																stopPosition: 75;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 66;
 														stopPosition: 75;
 														yourself);
@@ -14528,7 +14398,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 99;
 																stopPosition: 101;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 98;
 														stopPosition: 101;
 														yourself);
@@ -14601,7 +14470,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 118;
 																stopPosition: 120;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 117;
 														stopPosition: 120;
 														yourself);
@@ -14657,7 +14525,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 132;
 																stopPosition: 134;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 131;
 														stopPosition: 134;
 														yourself);
@@ -14747,7 +14614,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 161;
 																stopPosition: 163;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 160;
 														stopPosition: 163;
 														yourself);
@@ -14837,7 +14703,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 191;
 																stopPosition: 193;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 190;
 														stopPosition: 193;
 														yourself);
@@ -14927,7 +14792,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 222;
 																stopPosition: 226;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 221;
 														stopPosition: 226;
 														yourself);
@@ -15000,7 +14864,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 243;
 																stopPosition: 245;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 242;
 														stopPosition: 245;
 														yourself);
@@ -15073,7 +14936,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 262;
 																stopPosition: 266;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 261;
 														stopPosition: 266;
 														yourself);
@@ -15146,7 +15008,6 @@ PWBDataWindowParserTest >> testGraphicComponent9 [
 																startPosition: 284;
 																stopPosition: 288;
 																yourself);
-														graphicIndex: nil;
 														startPosition: 283;
 														stopPosition: 288;
 														yourself);
@@ -15260,7 +15121,6 @@ PWBDataWindowParserTest >> testOption1 [
 										startPosition: 6;
 										stopPosition: 21;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 5;
 								stopPosition: 21;
 								yourself);
@@ -15628,7 +15488,6 @@ PWBDataWindowParserTest >> testOption10 [
 										startPosition: 11;
 										stopPosition: 121;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 10;
 								stopPosition: 121;
 								yourself);
@@ -15774,7 +15633,6 @@ PWBDataWindowParserTest >> testOption11 [
 										startPosition: 16;
 										stopPosition: 66;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 15;
 								stopPosition: 66;
 								yourself);
@@ -15855,7 +15713,6 @@ PWBDataWindowParserTest >> testOption2 [
 										startPosition: 6;
 										stopPosition: 12;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 5;
 								stopPosition: 12;
 								yourself);
@@ -15953,7 +15810,6 @@ PWBDataWindowParserTest >> testOption3 [
 										startPosition: 6;
 										stopPosition: 13;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 5;
 								stopPosition: 13;
 								yourself);
@@ -16017,7 +15873,6 @@ PWBDataWindowParserTest >> testOption4 [
 										startPosition: 7;
 										stopPosition: 17;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 6;
 								stopPosition: 17;
 								yourself);
@@ -16098,7 +15953,6 @@ PWBDataWindowParserTest >> testOption5 [
 										startPosition: 12;
 										stopPosition: 12;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 11;
 								stopPosition: 12;
 								yourself);
@@ -16179,7 +16033,6 @@ PWBDataWindowParserTest >> testOption6 [
 										startPosition: 6;
 										stopPosition: 14;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 5;
 								stopPosition: 14;
 								yourself);
@@ -16260,7 +16113,6 @@ PWBDataWindowParserTest >> testOption7 [
 										startPosition: 21;
 										stopPosition: 21;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 18;
 								stopPosition: 21;
 								yourself);
@@ -16358,7 +16210,6 @@ PWBDataWindowParserTest >> testOption8 [
 										startPosition: 17;
 										stopPosition: 19;
 										yourself);
-								graphicIndex: nil;
 								startPosition: 16;
 								stopPosition: 19;
 								yourself);
@@ -16438,12 +16289,6 @@ PWBDataWindowParserTest >> testOption9 [
 										expressionAction: nil;
 										startPosition: 6;
 										stopPosition: 11;
-										yourself);
-								graphicIndex:
-									(PWBASTNumber new
-										number: '1';
-										startPosition: 13;
-										stopPosition: 13;
 										yourself);
 								startPosition: 5;
 								stopPosition: 13;
@@ -16527,7 +16372,6 @@ PWBDataWindowParserTest >> testOptions1 [
 												startPosition: 6;
 												stopPosition: 11;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 5;
 										stopPosition: 11;
 										yourself);
@@ -16583,7 +16427,6 @@ PWBDataWindowParserTest >> testOptions1 [
 												startPosition: 16;
 												stopPosition: 16;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 15;
 										stopPosition: 16;
 										yourself);
@@ -16820,7 +16663,6 @@ PWBDataWindowParserTest >> testTemplate1 [
 												startPosition: 19;
 												stopPosition: 44;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 18;
 										stopPosition: 44;
 										yourself);
@@ -16876,7 +16718,6 @@ PWBDataWindowParserTest >> testTemplate1 [
 												startPosition: 55;
 												stopPosition: 66;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 54;
 										stopPosition: 66;
 										yourself);
@@ -16932,7 +16773,6 @@ PWBDataWindowParserTest >> testTemplate1 [
 												startPosition: 73;
 												stopPosition: 94;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 72;
 										stopPosition: 94;
 										yourself);
@@ -16988,7 +16828,6 @@ PWBDataWindowParserTest >> testTemplate1 [
 												startPosition: 100;
 												stopPosition: 8091;
 												yourself);
-										graphicIndex: nil;
 										startPosition: 99;
 										stopPosition: 8091;
 										yourself);

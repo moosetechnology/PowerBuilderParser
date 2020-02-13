@@ -1572,6 +1572,35 @@ PWBUserObjectGrammarTest >> testTriggerEvent [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent1 [
+	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent3 [
+	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent4 [
+	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent5 [
+	self
+		parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
+		rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent6 [
+	self
+		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
+		rule: #eventTriggering
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTryCatch [
 	self parse: 'try
 	string ll_test
