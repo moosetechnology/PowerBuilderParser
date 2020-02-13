@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'identifiers',
+		'arrayPositions',
 		'functionArguments',
 		'startPosition',
 		'stopPosition'
@@ -19,15 +20,26 @@ PWBASTEventPosting >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
 	^ identifiers = anObject identifiers
-		and: [ functionArguments = anObject functionArguments
-				and: [ startPosition = anObject startPosition
-						and: [ stopPosition = anObject stopPosition ] ] ]
+		and: [ arrayPositions = anObject arrayPositions
+				and: [ functionArguments = anObject functionArguments
+						and: [ startPosition = anObject startPosition
+								and: [ stopPosition = anObject stopPosition ] ] ] ]
 ]
 
 { #category : #visiting }
 PWBASTEventPosting >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTEventPosting: self
+]
+
+{ #category : #accessing }
+PWBASTEventPosting >> arrayPositions [
+	^ arrayPositions
+]
+
+{ #category : #accessing }
+PWBASTEventPosting >> arrayPositions: anObject [
+	arrayPositions := anObject
 ]
 
 { #category : #accessing }
@@ -46,8 +58,10 @@ PWBASTEventPosting >> hash [
 
 	^ identifiers hash
 		bitXor:
-			(functionArguments hash
-				bitXor: (startPosition hash bitXor: stopPosition hash))
+			(arrayPositions hash
+				bitXor:
+					(functionArguments hash
+						bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 
 { #category : #accessing }

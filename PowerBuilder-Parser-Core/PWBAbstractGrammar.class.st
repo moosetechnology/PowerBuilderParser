@@ -344,18 +344,18 @@ PWBAbstractGrammar >> eventInvocation [
 PWBAbstractGrammar >> eventPosting [
 	^ ('this' token , spaces optional , $. parser) optional
 		,
-			(spaces optional , identifier , spaces optional , $. parser
-				, spaces optional) star , 'postEvent' token , blank
-		, functionArguments
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'postEvent' token , blank , functionArguments
 ]
 
 { #category : #'as yet unclassified' }
 PWBAbstractGrammar >> eventTriggering [
 	^ ('this' token , spaces optional , $. parser) optional
 		,
-			(spaces optional , identifier , spaces optional , $. parser
-				, spaces optional) star , 'triggerEvent' token , blank
-		, functionArguments
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'triggerEvent' token , blank , functionArguments
 ]
 
 { #category : #accessing }
@@ -371,11 +371,10 @@ PWBAbstractGrammar >> exitStatement [
 { #category : #accessing }
 PWBAbstractGrammar >> expression [
 	<reify:
-		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / eventTriggering / eventPosting / expressionTerm)
+		#(expressionWithSign / operatorExpression / parenthesedExpression / parenthesedArray / expressionTerm)
 	into: #expression>
 	^ expressionWithSign / operatorExpression / parenthesedExpression
-		/ parenthesedArray / eventTriggering / eventPosting / expressionTerm
-		, expressionAction optional
+		/ parenthesedArray / expressionTerm , expressionAction optional
 ]
 
 { #category : #accessing }
@@ -575,8 +574,9 @@ PWBAbstractGrammar >> start [
 
 { #category : #accessing }
 PWBAbstractGrammar >> statement [
-	^ specialStatement / assignationStatement / callStatement / ifStatement
-		/ functionInvocation / postFixOperator / expression
+	^ specialStatement / assignationStatement / callStatement
+		/ ifStatement / eventTriggering / eventPosting / functionInvocation
+		/ postFixOperator / expression
 ]
 
 { #category : #accessing }

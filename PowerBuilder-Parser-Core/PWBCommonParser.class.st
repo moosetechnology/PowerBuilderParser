@@ -702,6 +702,9 @@ PWBCommonParser >> eventPosting [
 				identifiers:
 					((production content at: 2)
 						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
 				functionArguments: (production content at: 5);
 				yourself ]
 ]
@@ -733,6 +736,9 @@ PWBCommonParser >> eventTriggering [
 				identifiers:
 					((production content at: 2)
 						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
 				functionArguments: (production content at: 5);
 				yourself ]
 ]

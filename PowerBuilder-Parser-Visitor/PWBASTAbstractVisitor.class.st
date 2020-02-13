@@ -395,6 +395,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 PWBASTAbstractVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
 	<generated>
 	self visitAll: aPWBASTEventPosting identifiers.
+	self visitAll: aPWBASTEventPosting arrayPositions.
 	self visit: aPWBASTEventPosting functionArguments.
 ]
 
@@ -410,6 +411,7 @@ PWBASTAbstractVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceNam
 PWBASTAbstractVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
 	<generated>
 	self visitAll: aPWBASTEventTriggering identifiers.
+	self visitAll: aPWBASTEventTriggering arrayPositions.
 	self visit: aPWBASTEventTriggering functionArguments.
 ]
 
