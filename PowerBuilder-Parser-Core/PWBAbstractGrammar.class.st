@@ -69,7 +69,9 @@ Class {
 		'specialVariable',
 		'expressionAction',
 		'createUsingInstruction',
-		'eventInvocation'
+		'eventInvocation',
+		'eventTriggering',
+		'eventPosting'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -338,6 +340,24 @@ PWBAbstractGrammar >> eventInvocation [
 		, functionArguments
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventPosting [
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'postEvent' token , blank , functionArguments
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventTriggering [
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'triggerEvent' token , blank , functionArguments
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
@@ -359,8 +379,10 @@ PWBAbstractGrammar >> expression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionAction [
-	<reify: #(methodInvocation / attributeAccess) into: #action>
-	^ methodInvocation / attributeAccess , expressionAction optional
+	<reify: #(methodInvocation / attributeAccess)
+	into: #action>
+	^methodInvocation / attributeAccess
+		, expressionAction optional
 ]
 
 { #category : #accessing }
@@ -552,8 +574,9 @@ PWBAbstractGrammar >> start [
 
 { #category : #accessing }
 PWBAbstractGrammar >> statement [
-	^ specialStatement / assignationStatement / callStatement / ifStatement
-		/ functionInvocation / postFixOperator / expression
+	^ specialStatement / assignationStatement / callStatement
+		/ ifStatement / eventTriggering / eventPosting / functionInvocation
+		/ postFixOperator / expression
 ]
 
 { #category : #accessing }
