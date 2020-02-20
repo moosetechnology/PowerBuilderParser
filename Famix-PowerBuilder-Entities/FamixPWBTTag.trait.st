@@ -1,9 +1,9 @@
 Trait {
 	#name : #FamixPWBTTag,
 	#instVars : [
-		'#name => FMProperty',
 		'#color => FMProperty',
-		'#entities => FMMany type: #FamixPWBTWithTag opposite: #tag'
+		'#entities => FMMany type: #FamixPWBTWithTags opposite: #tags',
+		'#name => FMProperty'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
@@ -39,7 +39,7 @@ FamixPWBTTag >> color: anObject [
 
 { #category : #accessing }
 FamixPWBTTag >> entities [
-	"Relation named: #entities type: #FamixPWBTWithTag opposite: #tag"
+	"Relation named: #entities type: #FamixPWBTWithTags opposite: #tags"
 
 	<generated>
 	<derived>

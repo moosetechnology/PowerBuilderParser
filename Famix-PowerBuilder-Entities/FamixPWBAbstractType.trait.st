@@ -1,7 +1,7 @@
 Trait {
 	#name : #FamixPWBAbstractType,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixPWBTWithSubInheritances + FamixPWBTWithSuperInheritances + FamixTReferenceable + FamixTType',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixPWBTWithSubInheritances classTrait + FamixPWBTWithSuperInheritances classTrait + FamixTReferenceable classTrait + FamixTType classTrait',
+	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixPWBTWithSubInheritances + FamixPWBTWithSuperInheritances + FamixPWBTWithTags + FamixTReferenceable + FamixTType',
+	#classTraits : 'FamixPWBPBTNamed classTrait + FamixPWBTWithSubInheritances classTrait + FamixPWBTWithSuperInheritances classTrait + FamixPWBTWithTags classTrait + FamixTReferenceable classTrait + FamixTType classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 

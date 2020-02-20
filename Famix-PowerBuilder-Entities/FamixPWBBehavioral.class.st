@@ -1,15 +1,15 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBTWithTag + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixPWBTWithTag classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixPWBTWithTags + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
+	#classTraits : 'FamixPWBTWithTags classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
 		'#content',
 		'#cyclomaticComplexity',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
-		'#deadLocalVariables',
 		'#deadArguments',
-		'#incomingInvocationSenders'
+		'#deadLocalVariables',
+		'#incomingInvocationSenders',
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }

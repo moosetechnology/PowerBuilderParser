@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBComment,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTComment',
-	#classTraits : 'FamixTComment classTrait',
+	#traits : 'FamixPWBTWithTags + FamixTComment',
+	#classTraits : 'FamixPWBTWithTags classTrait + FamixTComment classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

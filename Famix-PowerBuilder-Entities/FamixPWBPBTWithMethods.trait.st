@@ -1,14 +1,14 @@
 Trait {
-	#name : #FamixPWBPBTWithTag,
+	#name : #FamixPWBPBTWithMethods,
 	#traits : 'FamixTWithMethods',
 	#classTraits : 'FamixTWithMethods classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 
 { #category : #meta }
-FamixPWBPBTWithTag classSide >> annotation [
+FamixPWBPBTWithMethods classSide >> annotation [
 
-	<FMClass: #PBTWithTag super: #Object>
+	<FMClass: #PBTWithMethods super: #Object>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
