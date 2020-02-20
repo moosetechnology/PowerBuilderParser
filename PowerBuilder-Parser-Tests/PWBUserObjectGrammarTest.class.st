@@ -1244,6 +1244,11 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testPostEvent [
+	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPostFixOperator [
 	self parse: 'this.ii_tr_descendants ++' rule: #postFixOperator 
 ]
@@ -1559,6 +1564,40 @@ PWBUserObjectGrammarTest >> testTriggerDefinition4 [
 			'on uo_ancetre_pb.create
 end on'
 		rule: #triggerDefinition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent [
+	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent1 [
+	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent3 [
+	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent4 [
+	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent5 [
+	self
+		parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
+		rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent6 [
+	self
+		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
+		rule: #eventTriggering
 ]
 
 { #category : #tests }

@@ -426,6 +426,42 @@ PWBDataWindowParser >> eventInvocation [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> eventPosting [
+	<generated>
+	^ super eventPosting withPositions
+		==> [ :production | 
+			PWBASTEventPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				functionArguments: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> eventTriggering [
+	<generated>
+	^ super eventTriggering withPositions
+		==> [ :production | 
+			PWBASTEventTriggering new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				functionArguments: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> eventType [
 	<generated>
 	^ super eventType withPositions
