@@ -3,16 +3,8 @@ Class {
 	#superclass : #MooseEntity,
 	#traits : 'FamixPWBTTag + FamixPWBTWithTags',
 	#classTraits : 'FamixPWBTTag classTrait + FamixPWBTWithTags classTrait',
-	#classInstVars : [
-		'#tags'
-	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
-
-{ #category : #adding }
-FamixPWBTag class >> addTag: aFamixPWBTag [
-	self pwbTags add: aFamixPWBTag
-]
 
 { #category : #meta }
 FamixPWBTag class >> annotation [
@@ -28,37 +20,6 @@ FamixPWBTag class >> metamodel [
 
 	<generated>
 	^ FamixPWBModel metamodel
-]
-
-{ #category : #accessing }
-FamixPWBTag class >> pwbTags [
-	tags
-		ifNil: [ tags := OrderedCollection new.
-			tags
-				add:
-					(self new
-						name: 'Obsolette';
-						color: Color red);
-				add:
-					(self new
-						name: 'Not sure';
-						color: Color yellow);
-				add:
-					(self new
-						name: 'To be refactored';
-						color: Color orange) ].
-	^ tags
-]
-
-{ #category : #initialization }
-FamixPWBTag class >> resetTags [
-	<script>
-	tags := nil
-]
-
-{ #category : #'as yet unclassified' }
-FamixPWBTag class >> tagNamed: aString [
-	^ self pwbTags detect: [ :tag | tag name = aString ]
 ]
 
 { #category : #testing }

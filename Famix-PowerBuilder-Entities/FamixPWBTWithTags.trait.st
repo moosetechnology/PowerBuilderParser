@@ -25,7 +25,7 @@ FamixPWBTWithTags >> addTag: anObject [
 FamixPWBTWithTags >> tags [
 	"Relation named: #tags type: #FamixPWBTTag opposite: #entities"
 
-	<generated>
+	tags ifNil: [ tags := OrderedCollection new ].
 	^ tags
 ]
 

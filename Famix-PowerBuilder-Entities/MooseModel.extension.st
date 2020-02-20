@@ -9,20 +9,26 @@ MooseModel >> allTags [
 
 { #category : #'*Famix-PowerBuilder-Entities' }
 MooseModel >> defaultTags [
-	^ MooseGroup
-		withAll:
-			{(FamixPWBTag new
-				name: 'Obsolette';
-				mooseModel: self;
-				color: Color red).
-			(FamixPWBTag new
-				name: 'Not sure';
-				mooseModel: self;
-				color: Color yellow).
-			(FamixPWBTag new
-				name: 'To be refactored';
-				mooseModel: self;
-				color: Color orange)}
+	| futureActionTag |
+	futureActionTag := FamixPWBTag new
+		name: 'Future action';
+		mooseModel: self.
+	FamixPWBTag new
+		name: 'Obsolette';
+		mooseModel: self;
+		addTag: futureActionTag;
+		color: Color red.
+	FamixPWBTag new
+		name: 'Not sure';
+		mooseModel: self;
+		addTag: futureActionTag;
+		color: Color yellow.
+	FamixPWBTag new
+		name: 'To be refactored';
+		mooseModel: self;
+		addTag: futureActionTag;
+		color: Color orange.
+	^ self allWithType: FamixPWBTag
 ]
 
 { #category : #'*Famix-PowerBuilder-Entities' }
