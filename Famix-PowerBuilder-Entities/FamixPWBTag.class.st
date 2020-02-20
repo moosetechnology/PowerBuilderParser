@@ -123,3 +123,8 @@ FamixPWBTag >> isType [
 	<generated>
 	^ false
 ]
+
+{ #category : #accessing }
+FamixPWBTag >> unsafeRemoveEntity: anObject [
+	entities remove: anObject
+]
