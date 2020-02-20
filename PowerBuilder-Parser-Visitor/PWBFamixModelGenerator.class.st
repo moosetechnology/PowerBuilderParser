@@ -106,8 +106,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
 	tNamed --|> #TNamed.
 	tWithMethods --|> #TWithMethods.
-	association --|> tWithTags .
-	comment --|>tWithTags .
+	association --|> tWithTags.
+	comment --|> tWithTags.
 	library
 		--|> #TNamed;
 		--|> #TWithSourceAnchor.
@@ -217,7 +217,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-	tag --|> tTag
+	tag
+		--|> tTag;
+		--|> tWithTags
 ]
 
 { #category : #definition }

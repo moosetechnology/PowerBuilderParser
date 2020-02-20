@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBTag,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBTTag',
-	#classTraits : 'FamixPWBTTag classTrait',
+	#traits : 'FamixPWBTTag + FamixPWBTWithTags',
+	#classTraits : 'FamixPWBTTag classTrait + FamixPWBTWithTags classTrait',
 	#classInstVars : [
 		'#tags'
 	],
