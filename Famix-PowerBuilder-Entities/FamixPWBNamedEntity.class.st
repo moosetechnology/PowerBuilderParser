@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBNamedEntity,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixTNamed + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTNamed classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTNamedEntity + TDependencyQueries + TEntityMetaLevelDependency + FamixTNamed',
+	#classTraits : 'FamixTNamedEntity classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait + FamixTNamed classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

@@ -14,3 +14,8 @@ FamixPWBFunction class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #'accessing ' }
+FamixPWBFunction >> content: aCollection [
+	content := aCollection
+]

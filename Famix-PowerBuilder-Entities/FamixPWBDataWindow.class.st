@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBDataWindow,
 	#superclass : #FamixPWBmajorObject,
-	#traits : 'FamixTNamed + FamixTWithAttributes + FamixTWithInvocations + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithAttributes classTrait + FamixTWithInvocations classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixPWBTNamed + FamixTWithAttributes + FamixTWithInvocations + FamixTWithSourceAnchor + FamixTNamed',
+	#classTraits : 'FamixPWBTNamed classTrait + FamixTWithAttributes classTrait + FamixTWithInvocations classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#graphicComponents => FMMany type: #FamixPWBGraphicComponent opposite: #dataWindow'
 	],

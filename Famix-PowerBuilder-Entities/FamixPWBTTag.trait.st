@@ -66,3 +66,8 @@ FamixPWBTTag >> name: anObject [
 	<generated>
 	name := anObject
 ]
+
+{ #category : #accessing }
+FamixPWBTTag >> unsafeRemoveEntity: anObject [
+	entities remove: anObject
+]

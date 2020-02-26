@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBTWithTags + FamixTAccessible + FamixTNamed + FamixTWithSourceAnchor + FamixTWithTypes',
-	#classTraits : 'FamixPWBTWithTags classTrait + FamixTAccessible classTrait + FamixTNamed classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait',
+	#traits : 'FamixPWBTNamed + FamixPWBTWithTags + FamixTAccessible + FamixTWithSourceAnchor + FamixTWithTypes + FamixTNamed',
+	#classTraits : 'FamixPWBTNamed classTrait + FamixPWBTWithTags classTrait + FamixTAccessible classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
 	],
