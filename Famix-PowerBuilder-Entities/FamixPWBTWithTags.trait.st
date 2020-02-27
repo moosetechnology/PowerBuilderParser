@@ -17,8 +17,7 @@ FamixPWBTWithTags classSide >> annotation [
 
 { #category : #adding }
 FamixPWBTWithTags >> addTag: anObject [
-	<generated>
-	^ self tags add: anObject
+	super addTag: anObject
 ]
 
 { #category : #accessing }

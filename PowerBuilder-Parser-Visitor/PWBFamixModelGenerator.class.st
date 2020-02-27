@@ -217,9 +217,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-	tag
-		--|> tTag;
-		--|> tWithTags
+	tag --|> tTag
 ]
 
 { #category : #definition }

@@ -67,6 +67,11 @@ FamixPWBTTag >> name: anObject [
 	name := anObject
 ]
 
+{ #category : #'accessing ' }
+FamixPWBTTag >> unsafeAddEntity: anObject [
+	self addEntity: anObject
+]
+
 { #category : #accessing }
 FamixPWBTTag >> unsafeRemoveEntity: anObject [
 	entities remove: anObject

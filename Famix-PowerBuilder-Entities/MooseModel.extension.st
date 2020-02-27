@@ -38,13 +38,13 @@ MooseModel >> resetTags [
 
 { #category : #'*Famix-PowerBuilder-Entities' }
 MooseModel >> tagNamed: aString [
-	|tags|
+	| tags |
 	tags := self allTags.
-	tags detect: [ :o | o name = aString ]
-		ifNone: [ |tag|
-			tag := FAMIXTag new.
+	^ tags
+		detect: [ :o | o name = aString ]
+		ifNone: [ | tag |
+			tag := FamixPWBTag new.
 			tag name: aString.
 			tags add: tag.
-			tag]
-		
+			tag ]
 ]

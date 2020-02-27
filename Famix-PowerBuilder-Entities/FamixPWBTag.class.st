@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBTag,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBTTag + FamixPWBTWithTags',
-	#classTraits : 'FamixPWBTTag classTrait + FamixPWBTWithTags classTrait',
+	#traits : 'FamixPWBTTag',
+	#classTraits : 'FamixPWBTTag classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
