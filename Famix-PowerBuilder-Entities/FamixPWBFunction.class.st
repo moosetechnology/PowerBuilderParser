@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBFunction,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTInvocable + FamixTMethod + FamixTWithParameters + FamixTWithSignature',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTWithParameters classTrait + FamixTWithSignature classTrait',
+	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixPWBTHasSignature + FamixTInvocable + FamixTMethod + FamixTWithParameters',
+	#classTraits : 'FamixPWBPBTNamed classTrait + FamixPWBTHasSignature classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTWithParameters classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

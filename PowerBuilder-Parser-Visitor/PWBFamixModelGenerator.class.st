@@ -104,12 +104,11 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
-	tNamed --|> #TNamed.
+	tNamed --|> #TNamedEntity.
 	tWithMethods --|> #TWithMethods.
-	association --|> tWithTags.
 	comment --|> tWithTags.
 	library
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithSourceAnchor.
 	graphicComponent
 		--|> sourcedEntity;
@@ -136,13 +135,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	variable
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible;
 		--|> tWithTags.
 	dataWindow
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithAttributes.
 	attribute
 		--|> #TWithSourceAnchor;
@@ -155,23 +154,22 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TWithParameters;
 		--|> #TInvocable;
-		--|> #TWithSignature.
+		--|> #THasSignature.
 	behavioral
 		--|> #TWithSourceAnchor;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
 		--|> #TWithReferences;
 		--|> tWithTags.
-	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation
-		--|> #TWithSignature;
+		--|> #THasSignature;
 		--|> #TWithSourceAnchor.
 
 	"Defining all major objects (files)"
 	majorObject
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
 		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
@@ -193,22 +191,16 @@ PWBFamixModelGenerator >> defineHierarchy [
 	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
-	abstractType --|> #TWithSuperInheritances.
-	abstractType
-		--|> #TWithSubInheritances;
-		--|> tWithTags.
+	abstractType --|> tWithTags.
 	customType --|> abstractType.
 	basicType --|> abstractType.
 	access
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	variableAccess
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	reference
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TReference.
 	attribute

@@ -1,12 +1,12 @@
 Trait {
-	#name : #FamixPWBTWithSuperInheritances,
+	#name : #FamixPWBTHasSignature,
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 
 { #category : #meta }
-FamixPWBTWithSuperInheritances classSide >> annotation [
+FamixPWBTHasSignature classSide >> annotation [
 
-	<FMClass: #TWithSuperInheritances super: #Object>
+	<FMClass: #THasSignature super: #Object>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAssociation,
 	#superclass : #FamixPWBSourcedEntity,
-	#traits : 'FamixPWBTWithTags + FamixTAssociation + TAssociationMetaLevelDependency',
-	#classTraits : 'FamixPWBTWithTags classTrait + FamixTAssociation classTrait + TAssociationMetaLevelDependency classTrait',
+	#traits : 'FamixTAssociation + TAssociationMetaLevelDependency',
+	#classTraits : 'FamixTAssociation classTrait + TAssociationMetaLevelDependency classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
