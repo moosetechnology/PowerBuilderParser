@@ -65,20 +65,6 @@ PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter >> createDpCleanFilesFrom: aFolder into: anotherFolder [
-	anotherFolder ensureCreateDirectory.
-	aFolder visibleFiles
-		do: [ :aFile | 
-			| outputFile stream |
-			outputFile := (anotherFolder / aFile basename) asFileReference.
-			outputFile ensureDelete.
-			stream := aFile readStream.
-			"stream encoder: ZnUTF16Encoder new."
-			outputFile
-				writeStreamDo: [ :ws | ws nextPutAll: (PWBDPPreprocessor parse: stream upToEnd) ] ]
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
