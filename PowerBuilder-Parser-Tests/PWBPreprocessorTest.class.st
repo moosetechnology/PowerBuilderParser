@@ -98,6 +98,21 @@ this.dw_detail}')
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testHeader [
+	self
+		assert:
+			(self
+				parse:
+					'$PBExportHeader$uo_traitement_liq_cal.sru
+$PBExportComments$/2005/ $Claire$ 05/04/19~r~n/2004/ $Claire$ 04/04/19~r~n/2003/ $Chan$ 28/03/19~r~n/2002/ $Chan$ 27/03/19~r~n/2001/ $Manu$ 26/03/19~r~n/2000/ $Manu$ 22/03/19~r~n/1999/ $Chan$ 20/03/19~r~n/1989/ $Chan$ 18/03/19~r~n/1988/ $Chan$ 15/03/19~r~n/1987/ $Manu$ 06/03/19
+" blah "
+end')
+		equals:
+			'" blah "
+end'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testRemoveExportInformations1 [
 	self
 		assert:

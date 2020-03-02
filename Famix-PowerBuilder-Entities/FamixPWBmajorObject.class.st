@@ -35,6 +35,14 @@ FamixPWBmajorObject >> addTicketAssociation: anObject [
 ]
 
 { #category : #accessing }
+FamixPWBmajorObject >> cyclomaticComplexity [
+
+	<FMProperty: #cyclomaticComplexity type: #Number>
+	<generated>
+	^ cyclomaticComplexity
+]
+
+{ #category : #accessing }
 FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 	<generated>
 	cyclomaticComplexity := anObject
