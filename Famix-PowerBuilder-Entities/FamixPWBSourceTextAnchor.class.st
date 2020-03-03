@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBSourceTextAnchor,
 	#superclass : #FamixPWBSourceAnchor,
-	#traits : 'FamixTWithImmediateSource',
-	#classTraits : 'FamixTWithImmediateSource classTrait',
+	#traits : 'FamixTHasImmediateSource',
+	#classTraits : 'FamixTHasImmediateSource classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
