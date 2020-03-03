@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixPWBTNamed + FamixPWBTWithTags + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTWithSourceAnchor + FamixTNamed',
-	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixPWBTNamed classTrait + FamixPWBTWithTags classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
+	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixPWBTWithTags + FamixTNamedEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTWithSourceAnchor + FamixTNamed',
+	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixPWBTWithTags classTrait + FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#content',
 		'#cyclomaticComplexity => FMProperty',
@@ -32,6 +32,14 @@ FamixPWBmajorObject class >> metamodel [
 FamixPWBmajorObject >> addTicketAssociation: anObject [
 	<generated>
 	^ self ticketAssociations add: anObject
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> cyclomaticComplexity [
+
+	<FMProperty: #cyclomaticComplexity type: #Number>
+	<generated>
+	^ cyclomaticComplexity
 ]
 
 { #category : #accessing }

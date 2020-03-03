@@ -2,7 +2,8 @@ Class {
 	#name : #PWBFamixImporter,
 	#superclass : #MooseAbstractImporter,
 	#instVars : [
-		'folder'
+		'folder',
+		'preprocessedMap'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -47,29 +48,20 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
+	preprocessedMap := Dictionary new: aFolder visibleFiles size.
 	aFolder visibleFiles
 		do: [ :aFile | 
-			| outputFile stream |
+			| parser outputFile stream |
 			outputFile := (anotherFolder / aFile basename) asFileReference.
 			outputFile ensureDelete.
 			stream := aFile readStream.
 			"stream encoder: ZnUTF16Encoder new."
+			parser := PWBPreprocessor new.
 			outputFile
-				writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ] ]
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> createDpCleanFilesFrom: aFolder into: anotherFolder [
-	anotherFolder ensureCreateDirectory.
-	aFolder visibleFiles
-		do: [ :aFile | 
-			| outputFile stream |
-			outputFile := (anotherFolder / aFile basename) asFileReference.
-			outputFile ensureDelete.
-			stream := aFile readStream.
-			"stream encoder: ZnUTF16Encoder new."
-			outputFile
-				writeStreamDo: [ :ws | ws nextPutAll: (PWBDPPreprocessor parse: stream upToEnd) ] ]
+				writeStreamDo: [ :ws | ws nextPutAll: (parser parse: stream upToEnd) ].
+			preprocessedMap
+				at: outputFile fullName
+				put: parser characterIgnored ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -129,7 +121,7 @@ PWBFamixImporter >> importInOnePass [
 				name: dir basename;
 				mooseModel: self targetModel.
 			self createCleanFilesFrom: dir into: dir / 'cleaned'.
-			self createDpCleanFilesFrom: dir into: dir / 'dpcleaned'.
+			visitor preprocessingMap: preprocessedMap.
 			(self
 				fillModelUsing: library
 				visitor: visitor

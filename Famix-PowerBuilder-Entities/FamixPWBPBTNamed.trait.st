@@ -1,7 +1,7 @@
 Trait {
 	#name : #FamixPWBPBTNamed,
-	#traits : 'FamixPWBTNamed + FamixTNamed',
-	#classTraits : 'FamixPWBTNamed classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTNamedEntity + FamixTNamed',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTNamed classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 

@@ -23,12 +23,6 @@ FamixPWBImportingContext >> importApplication [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importAssociation [
-	<generated>
-	^ self import: FamixPWBAssociation
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importAttribute [
 	<generated>
 	^ self import: FamixPWBAttribute
@@ -284,12 +278,6 @@ FamixPWBImportingContext >> shouldImportAccess [
 FamixPWBImportingContext >> shouldImportApplication [
 	<generated>
 	^ self shouldImport: FamixPWBApplication
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportAssociation [
-	<generated>
-	^ self shouldImport: FamixPWBAssociation
 ]
 
 { #category : #testing }
