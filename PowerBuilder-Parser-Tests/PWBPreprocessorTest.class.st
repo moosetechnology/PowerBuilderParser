@@ -22,9 +22,9 @@ PWBPreprocessorTest >> testCommentInComment [
 code')
 		equals:
 			'code
-
-
-
+           
+              
+  
 code'
 ]
 
@@ -47,7 +47,7 @@ PWBPreprocessorTest >> testCommentWithThen [
 				parse:
 					'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb /*fiche 41092 $Amaury$ 30/12/2009*/ and ld_cur_fin >= ld_cur_deb/*fin fiche 41092*/then ')
 		equals:
-			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb   and ld_cur_fin >= ld_cur_deb then '
+			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb                                     and ld_cur_fin >= ld_cur_deb                   then '
 ]
 
 { #category : #tests }
@@ -61,7 +61,7 @@ PWBPreprocessorTest >> testEmptyComment [
 code')
 		equals:
 			'code
- 
+  
 code'
 ]
 
@@ -76,7 +76,7 @@ PWBPreprocessorTest >> testEmptyComment1 [
 code')
 		equals:
 			'code
- 
+    
 code'
 ]
 
@@ -94,7 +94,7 @@ PWBPreprocessorTest >> testEspelette [
 					'this.Control[]={this.dw_liste,&
 this.dw_detail}')
 		equals:
-			'this.Control[]={this.dw_liste,this.dw_detail}'
+			'this.Control[]={this.dw_liste,  this.dw_detail}'
 ]
 
 { #category : #tests }
@@ -161,7 +161,7 @@ PWBPreprocessorTest >> testSimpleComment [
 					'water // a comment
 water')
 		equals:
-			'water  
+		'water             
 water'
 ]
 
@@ -174,7 +174,7 @@ PWBPreprocessorTest >> testSimpleComment2 [
 					'water //*** a comment
 water 5*/3')
 		equals:
-			'water  
+			'water                
 water 5*/3'
 ]
 
@@ -187,8 +187,8 @@ PWBPreprocessorTest >> testSimpleComment3 [
 					'/* comment
 // comment */')
 		equals:
-			'
-'
+		'          
+             '
 ]
 
 { #category : #tests }
@@ -202,6 +202,6 @@ PWBPreprocessorTest >> testSimpleComment4 [
 code')
 		equals:
 			'code
- 
+                                  
 code'
 ]
