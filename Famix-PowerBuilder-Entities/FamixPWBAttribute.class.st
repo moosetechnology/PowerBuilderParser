@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAttribute,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixPWBTWithTags + FamixTAccessible + FamixTAttribute + FamixTWithSourceAnchor + FamixTWithTypes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixPWBTWithTags classTrait + FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait',
+	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTAccessible + FamixTAttribute + FamixTWithSourceAnchor + FamixTWithTypes',
+	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

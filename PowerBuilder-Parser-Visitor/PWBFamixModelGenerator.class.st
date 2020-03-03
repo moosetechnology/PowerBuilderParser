@@ -32,9 +32,6 @@ Class {
 		'ticket',
 		'ticketAssociation',
 		'tNamed',
-		'tTag',
-		'tWithTags',
-		'tag',
 		'tWithMethods'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
@@ -72,7 +69,7 @@ PWBFamixModelGenerator >> defineClasses [
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
-	
+
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
@@ -83,22 +80,21 @@ PWBFamixModelGenerator >> defineClasses [
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
 	queryFile := builder newClassNamed: #QueryFile.
-	
+
 	"Type"
 	abstractType := builder newTraitNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
-	
+
 	"Association"
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
 	variableAccess := builder newClassNamed: #VariableAccess.
 	reference := builder newClassNamed: #Reference.
-	
+
 	"CIM specific"
 	ticket := builder newClassNamed: #Ticket.
-	ticketAssociation := builder newClassNamed: #TicketAssociation.
-		tag := builder newClassNamed: #Tag.
+	ticketAssociation := builder newClassNamed: #TicketAssociation
 ]
 
 { #category : #definition }
@@ -106,7 +102,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
 	tNamed --|> #TNamedEntity.
 	tWithMethods --|> #TWithMethods.
-	comment --|> tWithTags.
 	library
 		--|> #TNamedEntity;
 		--|> #TWithSourceAnchor.
@@ -137,8 +132,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithSourceAnchor;
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
-		--|> #TAccessible;
-		--|> tWithTags.
+		--|> #TAccessible.
 	dataWindow
 		--|> #TWithSourceAnchor;
 		--|> #TNamedEntity;
@@ -146,8 +140,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	attribute
 		--|> #TWithSourceAnchor;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TAttribute;
-		--|> tWithTags.
+		--|> #TAttribute.
 	method
 		--|> behavioral;
 		--|> #TMethod;
@@ -159,8 +152,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithSourceAnchor;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
-		--|> #TWithReferences;
-		--|> tWithTags.
+		--|> #TWithReferences.
 	invocation --|> #TInvocation.
 	invocation
 		--|> #THasSignature;
@@ -174,8 +166,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithAccesses;
 		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
 		--|> #TWithFunctions;
-		--|> #TWithReferences;
-		--|> tWithTags.
+		--|> #TWithReferences.
 	userObject --|> majorObject.
 	userObject --|> abstractType.
 	userObject --|> #TWithInvocations.
@@ -191,7 +182,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
-	abstractType --|> tWithTags.
 	customType --|> abstractType.
 	basicType --|> abstractType.
 	access
@@ -208,8 +198,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
-		--|> #TAccessible.
-	tag --|> tTag
+		--|> #TAccessible
 ]
 
 { #category : #definition }
@@ -218,29 +207,28 @@ PWBFamixModelGenerator >> defineProperties [
 	behavioral property: #cyclomaticComplexity type: #Number.
 	ticket property: #number type: #Number.
 	ticketAssociation property: #date type: #String.
-	ticketAssociation property: #author type: #String.
-	tTag property: #name type: #String.
-	tTag property: #color type: #String.
-	
+	ticketAssociation property: #author type: #String
 ]
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineRelations [
-  (variable property: #behavioral) *-<> (behavioral property: #variables).
-  (dataWindow property: #graphicComponents) <>-* (graphicComponent property: #dataWindow).
-  (majorObject property: #library) *-<> (library property: #userObjects).
-  (ticketAssociation property: #majorObject) *- (majorObject property: #ticketAssociations).
-  (ticketAssociation property: #ticket) *- (ticket property: #ticketAssociations).
-  (tTag property: #entities) *-* (tWithTags property: #tags)
+	(variable property: #behavioral)
+		*-<> (behavioral property: #variables).
+	(dataWindow property: #graphicComponents)
+		<>-* (graphicComponent property: #dataWindow).
+	(majorObject property: #library)
+		*-<> (library property: #userObjects).
+	(ticketAssociation property: #majorObject)
+		*- (majorObject property: #ticketAssociations).
+	(ticketAssociation property: #ticket)
+		*- (ticket property: #ticketAssociations)
 ]
 
 { #category : #definition }
 PWBFamixModelGenerator >> defineTraits [
-  super defineTraits.
-  tNamed := builder newTraitNamed: #PBTNamed.
-  tTag := builder newTraitNamed: #TTag.
-  tWithTags := builder newTraitNamed: #TWithTags.
-  tWithMethods := builder newTraitNamed: #PBTWithMethods
+	super defineTraits.
+	tNamed := builder newTraitNamed: #PBTNamed.
+	tWithMethods := builder newTraitNamed: #PBTWithMethods
 ]
 
 { #category : #definition }

@@ -203,12 +203,6 @@ FamixPWBImportingContext >> importSubRoutine [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importTag [
-	<generated>
-	^ self import: FamixPWBTag
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importTicket [
 	<generated>
 	^ self import: FamixPWBTicket
@@ -458,12 +452,6 @@ FamixPWBImportingContext >> shouldImportStructureFile [
 FamixPWBImportingContext >> shouldImportSubRoutine [
 	<generated>
 	^ self shouldImport: FamixPWBSubRoutine
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportTag [
-	<generated>
-	^ self shouldImport: FamixPWBTag
 ]
 
 { #category : #testing }
