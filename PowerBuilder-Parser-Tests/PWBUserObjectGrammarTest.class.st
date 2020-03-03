@@ -1156,7 +1156,8 @@ END IF'
 PWBUserObjectGrammarTest >> testIfStatement5 [
 	self
 		parse:
-			'if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			'if ls_gpp_ids = ''00405727'' 
+			or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
 			string ls
 			ls = ""
 		end if'

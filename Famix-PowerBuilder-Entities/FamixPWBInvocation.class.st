@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBInvocation,
 	#superclass : #MooseEntity,
-	#traits : 'FamixPWBTHasSignature + FamixTInvocation + FamixTWithSourceAnchor',
-	#classTraits : 'FamixPWBTHasSignature classTrait + FamixTInvocation classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTWithSourceAnchor',
+	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTWithSourceAnchor classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
