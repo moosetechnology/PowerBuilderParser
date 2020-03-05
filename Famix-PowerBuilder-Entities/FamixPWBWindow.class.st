@@ -14,3 +14,8 @@ FamixPWBWindow class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #api }
+FamixPWBWindow >> incomingReferences [
+	^ {}
+]

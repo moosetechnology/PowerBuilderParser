@@ -170,7 +170,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventPosting: aPWBAST
 	customIdentifier := PWBASTIdentifier new
 		identifier:
 			(aPWBASTEventPosting functionArguments functionArguments first
-				expression expression expressionTerm string
+				expression expression expressionTerm toString
 				copyReplaceAll: '"'
 				with: '');
 		startPosition:

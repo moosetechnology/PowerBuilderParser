@@ -65,3 +65,8 @@ PWBASTAccessOrType >> stopPosition [
 PWBASTAccessOrType >> stopPosition: anObject [
 	stopPosition := anObject
 ]
+
+{ #category : #printing }
+PWBASTAccessOrType >> toString [
+	^ accessOrType accessed identifier identifier
+]
