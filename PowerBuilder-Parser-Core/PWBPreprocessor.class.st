@@ -12,7 +12,8 @@ Class {
 		'releaseNumber',
 		'header',
 		'content',
-		'characterIgnored'
+		'characterIgnored',
+		'binaryDataSection'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -20,6 +21,13 @@ Class {
 { #category : #accessing }
 PWBPreprocessor class >> ignoredNames [
 	^ super ignoredNames , { #characterIgnored }
+]
+
+{ #category : #accessing }
+PWBPreprocessor >> binaryDataSection [
+	"binaryDataSection should be at the end of the file"
+	^ 'Start of PowerBuilder Binary Data Section' parser , #any parser  plus
+		==> [ :p | '' ]
 ]
 
 { #category : #accessing }
@@ -34,7 +42,7 @@ PWBPreprocessor >> characterIgnored: anInt [
 
 { #category : #accessing }
 PWBPreprocessor >> code [
-	^ (string / comment / espeletteNewline) negate plus flatten
+	^ (string / comment / espeletteNewline / binaryDataSection) negate plus flatten
 ]
 
 { #category : #accessing }
@@ -45,10 +53,10 @@ PWBPreprocessor >> comment [
 
 { #category : #accessing }
 PWBPreprocessor >> content [
-	^ (string / comment / espeletteNewline / code) star end
+	^ (string / comment / espeletteNewline / code) star , binaryDataSection optional end
 		==> [ :production | 
 			String
-				streamContents: [ :stream | production do: [ :text | stream nextPutAll: text ] ] ]
+				streamContents: [ :stream | production first do: [ :text | stream nextPutAll: text ] ] ]
 ]
 
 { #category : #accessing }
@@ -115,6 +123,7 @@ PWBPreprocessor >> singleLineComment [
 
 { #category : #accessing }
 PWBPreprocessor >> start [
+	"remove the header of the file but keep its size so that positions in the cleaned file can be corrected to match those in the original file"
 	^ (header optional flatten , content) ==> [ :p |
 			self characterIgnored: p first size.
 			p second ]
