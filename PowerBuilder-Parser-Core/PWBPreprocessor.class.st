@@ -19,11 +19,6 @@ Class {
 }
 
 { #category : #accessing }
-PWBPreprocessor class >> ignoredNames [
-	^ super ignoredNames , { #characterIgnored }
-]
-
-{ #category : #accessing }
 PWBPreprocessor >> binaryDataSection [
 	"binaryDataSection should be at the end of the file"
 	^ 'Start of PowerBuilder Binary Data Section' parser , #any parser  plus

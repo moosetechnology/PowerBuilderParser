@@ -60,7 +60,7 @@ PWBDataWindowGrammar >> dataWindow [
 
 { #category : #accessing }
 PWBDataWindowGrammar >> dataWindowFile [
-	<reify: #(graphicComponent / dataWindow / table / generator / import / export) into: #fileStatement>
+	<reify: #(graphicComponent / dataWindow /dataComponent /table / generator / import / export) into: #fileStatement>
 	^ (graphicComponent / dataWindow / dataComponent / table / generator / import / export separatedBy: blank) , blank
 ]
 
