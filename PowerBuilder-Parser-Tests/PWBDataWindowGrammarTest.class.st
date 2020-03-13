@@ -9,6 +9,12 @@ PWBDataWindowGrammarTest >> parserClass [
 	^ PWBDataWindowGrammar 
 ]
 
+{ #category : #running }
+PWBDataWindowGrammarTest >> tearDown [
+	super tearDown.
+	PP2ParserResource reset.
+]
+
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testAccess [
 	self parse: 'this.dw_liste' rule: #expression
