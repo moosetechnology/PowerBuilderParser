@@ -39,7 +39,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 BaselineOfPowerBuilderParser >> baselineOfFamix: spec [
 	spec
     	baseline: 'Famix'
-    	with: [ spec repository: 'github://jecisc/Famix:v5.x.x/src' ]
+    	with: [ spec repository: 'github://jecisc/Famix:v6.0.1/src' ]
 ]
 
 { #category : #baselines }
