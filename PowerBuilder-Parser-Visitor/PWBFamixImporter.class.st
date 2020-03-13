@@ -72,7 +72,7 @@ PWBFamixImporter >> defaultImportingContext [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
-	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' "'w_affichage_site_externe.srw' 'dw_org.srd' 'cwm.sra')
+	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
 ]
 
 { #category : #'as yet unclassified' }

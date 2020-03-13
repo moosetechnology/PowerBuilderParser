@@ -61,8 +61,42 @@ PWBDataWindowGrammarTest >> testComputeGraphicComponent [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testDataComponent [
+	self
+		parse: 'data( 1001,"CRP", 84438,"CRPS", 309875,"CRCC", 309881,"CRCCS",)'
+		rule: #dataComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testDataWindow [
 	self parse: 'datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )' rule: #dataWindow
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testDataWindowFile [
+	self parse: 'datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 )
+header(height=80 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+detail(height=92 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+table(column=(type=long updatewhereclause=yes name=par_no dbname="PAR_NO" )
+ column=(type=char(12) updatewhereclause=yes name=org_cod dbname="ORG_COD" ) )
+data( 1001,"CRP", 84438,"CRPS", 309875,"CRCC", 309881,"CRCCS",) 
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="9" y="0" height="64" )
+text(band=header alignment="0" text="Par No" enabled="0" border="0" color="0" x="5" y="4" height="64" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="2149" y="0" height="64" )
+text(band=header alignment="0" text="Org Cod" enabled="0" border="0" color="0" x="2144" y="4" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" nativepdf.customsize=0 )
+export.xhtml()
+' rule: #dataWindowFile
 ]
 
 { #category : #accessing }

@@ -20,7 +20,8 @@ Class {
 		'export',
 		'formatType',
 		'dataWindowFile',
-		'template'
+		'template',
+		'dataComponent'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -48,6 +49,11 @@ PWBDataWindowGrammar >> columnDefinition [
 ]
 
 { #category : #'as yet unclassified' }
+PWBDataWindowGrammar >> dataComponent [
+	^ 'data' parser, $( parser, $) parser negate star , $) parser
+]
+
+{ #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> dataWindow [
 	^ 'datawindow' parser, parameters
 ]
@@ -55,7 +61,7 @@ PWBDataWindowGrammar >> dataWindow [
 { #category : #accessing }
 PWBDataWindowGrammar >> dataWindowFile [
 	<reify: #(graphicComponent / dataWindow / table / generator / import / export) into: #fileStatement>
-	^ (graphicComponent / dataWindow / table / generator / import / export separatedBy: blank) , blank
+	^ (graphicComponent / dataWindow / dataComponent / table / generator / import / export separatedBy: blank) , blank
 ]
 
 { #category : #'as yet unclassified' }
@@ -95,7 +101,7 @@ PWBDataWindowGrammar >> graphicComponentToken [
 	^ self
 		parserFor:
 
-			#('detail' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button' 'roundrectangle' 'graph')
+			#('detail' 'data' 'footer' 'header' 'summary' 'rectangle' 'text' 'column' 'compute' 'htmltable' 'line' 'ellipse' 'groupbox' 'group' 'sparse' 'bitmap' 'report' 'button' 'roundrectangle' 'graph')
 
 ]
 
