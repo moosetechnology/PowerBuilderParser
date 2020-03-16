@@ -259,6 +259,12 @@ PWBASTAbstractVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTDataComponent: anPWBASTDataComponent [
+	<generated>
+	^ anPWBASTDataComponent dataComponent
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDataWindow: aPWBASTDataWindow [
 	<generated>
 	self visit: aPWBASTDataWindow parameters.

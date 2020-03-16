@@ -303,6 +303,18 @@ PWBDataWindowParser >> customType [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> dataComponent [
+	<generated>
+	^ super dataComponent flatten withPositions
+		==> [ :production | 
+			PWBASTDataComponent new
+				startPosition: production start;
+				stopPosition: production stop;
+				dataComponent: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> dataWindow [
 	<generated>
 	^ super dataWindow withPositions

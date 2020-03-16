@@ -10,6 +10,18 @@ PWBPreprocessorTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testBinaryDataSection [
+	self assert: 
+		(self parse:
+			'Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Cu_web_browser.bin 
+2000000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000_web_browser.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point'
+		rule: #binaryDataSection)
+		equals: ''
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testCommentInComment [
 	self
 		assert:
@@ -48,6 +60,21 @@ PWBPreprocessorTest >> testCommentWithThen [
 					'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb /*fiche 41092 $Amaury$ 30/12/2009*/ and ld_cur_fin >= ld_cur_deb/*fin fiche 41092*/then ')
 		equals:
 			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb                                     and ld_cur_fin >= ld_cur_deb                   then '
+]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testContentWithBinaryDataSection [
+	self assert: 
+		(self parse:
+			'"blah"
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Cu_web_browser.bin 
+2000000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000_web_browser.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point')
+		equals: '"blah"
+
+'
 ]
 
 { #category : #tests }
