@@ -2,9 +2,7 @@ Class {
 	#name : #PWBASTCaseElse,
 	#superclass : #Object,
 	#instVars : [
-		'statements',
-		'startPosition',
-		'stopPosition'
+		'statements'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }

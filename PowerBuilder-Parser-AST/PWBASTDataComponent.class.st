@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTFile,
+	#name : #PWBASTDataComponent,
 	#superclass : #Object,
 	#instVars : [
-		'content',
+		'dataComponent',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,77 +10,58 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTFile >> = anObject [
+PWBASTDataComponent >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ content = anObject content
+	^ dataComponent = anObject dataComponent
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
-PWBASTFile >> acceptVisitor: aVisitor [
+PWBASTDataComponent >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTFile: self
+	^ aVisitor visitPWBASTDataComponent: self
 ]
 
 { #category : #accessing }
-PWBASTFile >> content [
-	^ content
+PWBASTDataComponent >> dataComponent [
+	^ dataComponent
 ]
 
 { #category : #accessing }
-PWBASTFile >> content: anObject [
-	content := anObject
-]
-
-{ #category : #accessing }
-PWBASTFile >> fileExtension [
-	^ fileExtension
-]
-
-{ #category : #accessing }
-PWBASTFile >> fileExtension: anObject [
-	fileExtension := anObject
-]
-
-{ #category : #accessing }
-PWBASTFile >> fileName [
-	^ fileName
-]
-
-{ #category : #accessing }
-PWBASTFile >> fileName: anObject [
-	fileName := anObject
+PWBASTDataComponent >> dataComponent: anObject [
+	dataComponent := anObject
 ]
 
 { #category : #comparing }
-PWBASTFile >> hash [
+PWBASTDataComponent >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ content hash bitXor: (startPosition hash bitXor: stopPosition hash)
+	^ dataComponent hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }
-PWBASTFile >> startPosition [
+PWBASTDataComponent >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTFile >> startPosition: anObject [
+PWBASTDataComponent >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTFile >> stopPosition [
+PWBASTDataComponent >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTFile >> stopPosition: anObject [
+PWBASTDataComponent >> stopPosition: anObject [
 	stopPosition := anObject
 ]

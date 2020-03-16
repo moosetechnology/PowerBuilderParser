@@ -165,12 +165,54 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
+	| customIdentifier eventInvocation |
+	customIdentifier := PWBASTIdentifier new
+		identifier:
+			(aPWBASTEventPosting functionArguments functionArguments first
+				expression expression expressionTerm toString
+				copyReplaceAll: '"'
+				with: '');
+		startPosition:
+			aPWBASTEventPosting functionArguments functionArguments first
+				startPosition;
+		stopPosition:
+			aPWBASTEventPosting functionArguments functionArguments first
+				stopPosition.
+	eventInvocation := PWBASTEventInvocation new
+		identifier: customIdentifier.
+	self visitPWBASTEventInvocation: eventInvocation
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
 	self flag: #TODO.	"Manage object class correctly"
 	self visit: aPWBASTEventReferenceName objectClass.
 	self currentEntity
 		name: (self visit: aPWBASTEventReferenceName eventName).
 	self visit: aPWBASTEventReferenceName arguments
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
+	| customIdentifier eventInvocation |
+	customIdentifier := PWBASTIdentifier new
+		identifier:
+			((aPWBASTEventTriggering functionArguments functionArguments first
+				expression expression expressionTerm asString
+				copyReplaceAll: '"'
+				with: '') copyReplaceAll: '!' with: '');
+		startPosition:
+			aPWBASTEventTriggering functionArguments functionArguments first
+				startPosition;
+		stopPosition:
+			aPWBASTEventTriggering functionArguments functionArguments first
+				stopPosition.
+	eventInvocation := PWBASTEventInvocation new
+		identifier: customIdentifier;
+		startPosition: aPWBASTEventTriggering startPosition;
+		stopPosition: aPWBASTEventTriggering stopPosition.
+	self visitPWBASTEventInvocation: eventInvocation
 ]
 
 { #category : #visiting }

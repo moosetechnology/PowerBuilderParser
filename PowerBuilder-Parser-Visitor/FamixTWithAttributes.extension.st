@@ -16,12 +16,12 @@ FamixTWithAttributes >> createStubValueHolderNamed: aString [
 ]
 
 { #category : #'*PowerBuilder-Parser-Visitor' }
-FamixTWithAttributes >> createValueHolderNamed: aString [ 
-	^ FamixPWBAttribute new
-		belongsTo: self;
-		mooseModel: self mooseModel;
-		name: aString;
-		yourself
+FamixTWithAttributes >> createValueHolderNamed: aString [
+  ^FamixPWBAttribute new
+     parentType: self;
+     mooseModel: self mooseModel;
+     name: aString;
+     yourself
 ]
 
 { #category : #'*PowerBuilder-Parser-Visitor' }

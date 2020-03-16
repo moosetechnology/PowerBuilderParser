@@ -30,7 +30,9 @@ Class {
 		'library',
 		'reference',
 		'ticket',
-		'ticketAssociation'
+		'ticketAssociation',
+		'tNamed',
+		'tWithMethods'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -67,7 +69,7 @@ PWBFamixModelGenerator >> defineClasses [
 	attribute := builder newClassNamed: #Attribute.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
-	
+
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
@@ -78,18 +80,18 @@ PWBFamixModelGenerator >> defineClasses [
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
 	queryFile := builder newClassNamed: #QueryFile.
-	
+
 	"Type"
 	abstractType := builder newTraitNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
 	basicType := builder newClassNamed: #BasicType.
-	
+
 	"Association"
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
 	variableAccess := builder newClassNamed: #VariableAccess.
 	reference := builder newClassNamed: #Reference.
-	
+
 	"CIM specific"
 	ticket := builder newClassNamed: #Ticket.
 	ticketAssociation := builder newClassNamed: #TicketAssociation
@@ -98,8 +100,10 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
+	tNamed --|> #TNamedEntity.
+	tWithMethods --|> #TWithMethods.
 	library
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithSourceAnchor.
 	graphicComponent
 		--|> sourcedEntity;
@@ -109,59 +113,58 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> behavioral;
 		--|> #TMethod;
 		--|> #TInvocable;
-		--|> #TNamed.
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	function
 		--|> behavioral;
-		--|> #TNamed;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TFunction.
 	trigger
 		--|> #TWithAttributes;
 		--|> behavioral;
 		--|> #TMethod;
-		--|> #TNamed.
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	subRoutine
 		--|> behavioral;
 		--|> #TMethod;
 		--|> #TInvocable;
-		--|> #TNamed.
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	variable
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
 	dataWindow
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithAttributes.
 	attribute
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute.
 	method
 		--|> behavioral;
 		--|> #TMethod;
-		--|> #TNamed;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TWithParameters;
 		--|> #TInvocable;
-		--|> #TWithSignature.
+		--|> #THasSignature.
 	behavioral
 		--|> #TWithSourceAnchor;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
 		--|> #TWithReferences.
-	invocation --|> association.
 	invocation --|> #TInvocation.
 	invocation
-		--|> #TWithSignature;
+		--|> #THasSignature;
 		--|> #TWithSourceAnchor.
 
 	"Defining all major objects (files)"
 	majorObject
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		--|> #TNamedEntity;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
-		--|> #TWithMethods;
+		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
 		--|> #TWithFunctions;
 		--|> #TWithReferences.
 	userObject --|> majorObject.
@@ -176,28 +179,23 @@ PWBFamixModelGenerator >> defineHierarchy [
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
-	abstractType --|> #TNamed.
+	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
-	abstractType --|> #TWithSuperInheritances.
-	abstractType --|> #TWithSubInheritances.
 	customType --|> abstractType.
 	basicType --|> abstractType.
 	access
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	variableAccess
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TAccess.
 	reference
-		--|> association;
 		--|> #TWithSourceAnchor;
 		--|> #TReference.
 	attribute
 		--|> #TWithSourceAnchor;
-		--|> #TNamed;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible
@@ -209,8 +207,7 @@ PWBFamixModelGenerator >> defineProperties [
 	behavioral property: #cyclomaticComplexity type: #Number.
 	ticket property: #number type: #Number.
 	ticketAssociation property: #date type: #String.
-	ticketAssociation property: #author type: #String.
-	
+	ticketAssociation property: #author type: #String
 ]
 
 { #category : #definition }
@@ -221,9 +218,17 @@ PWBFamixModelGenerator >> defineRelations [
 		<>-* (graphicComponent property: #dataWindow).
 	(majorObject property: #library)
 		*-<> (library property: #userObjects).
-	(ticketAssociation property: #majorObject) *- (majorObject property: #ticketAssociations).
-	(ticketAssociation property: #ticket) *- (ticket property: #ticketAssociations).
-	
+	(ticketAssociation property: #majorObject)
+		*- (majorObject property: #ticketAssociations).
+	(ticketAssociation property: #ticket)
+		*- (ticket property: #ticketAssociations)
+]
+
+{ #category : #definition }
+PWBFamixModelGenerator >> defineTraits [
+	super defineTraits.
+	tNamed := builder newTraitNamed: #PBTNamed.
+	tWithMethods := builder newTraitNamed: #PBTWithMethods
 ]
 
 { #category : #definition }

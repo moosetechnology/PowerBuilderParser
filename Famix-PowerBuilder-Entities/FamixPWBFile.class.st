@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBFile,
-	#superclass : #FamixPWBAbstractFile,
+	#superclass : #FamixPWBNamedEntity,
 	#traits : 'FamixTFile',
 	#classTraits : 'FamixTFile classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
@@ -9,28 +9,8 @@ Class {
 { #category : #meta }
 FamixPWBFile class >> annotation [
 
-	<MSEClass: #File super: #FamixPWBAbstractFile>
+	<FMClass: #File super: #FamixPWBNamedEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBFile class >> generatedSlotNames [
-	<generated>
-	'FamixPWBFile class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBFile class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTFile)
-]
-
-{ #category : #meta }
-FamixPWBFile class >> requirements [
-
-	<generated>
-	^ {  }
 ]

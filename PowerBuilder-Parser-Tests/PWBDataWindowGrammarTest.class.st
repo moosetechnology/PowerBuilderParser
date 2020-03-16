@@ -9,6 +9,12 @@ PWBDataWindowGrammarTest >> parserClass [
 	^ PWBDataWindowGrammar 
 ]
 
+{ #category : #running }
+PWBDataWindowGrammarTest >> tearDown [
+	super tearDown.
+	PP2ParserResource reset.
+]
+
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testAccess [
 	self parse: 'this.dw_liste' rule: #expression
@@ -55,8 +61,42 @@ PWBDataWindowGrammarTest >> testComputeGraphicComponent [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testDataComponent [
+	self
+		parse: 'data( 1001,"CRP", 84438,"CRPS", 309875,"CRCC", 309881,"CRCCS",)'
+		rule: #dataComponent
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testDataWindow [
 	self parse: 'datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )' rule: #dataWindow
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testDataWindowFile [
+	self parse: 'datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 )
+header(height=80 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+detail(height=92 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" )
+table(column=(type=long updatewhereclause=yes name=par_no dbname="PAR_NO" )
+ column=(type=char(12) updatewhereclause=yes name=org_cod dbname="ORG_COD" ) )
+data( 1001,"CRP", 84438,"CRPS", 309875,"CRCC", 309881,"CRCCS",) 
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="9" y="0" height="64" )
+text(band=header alignment="0" text="Par No" enabled="0" border="0" color="0" x="5" y="4" height="64" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="2149" y="0" height="64" )
+text(band=header alignment="0" text="Org Cod" enabled="0" border="0" color="0" x="2144" y="4" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" nativepdf.customsize=0 )
+export.xhtml()
+' rule: #dataWindowFile
 ]
 
 { #category : #accessing }
@@ -109,6 +149,26 @@ PWBDataWindowGrammarTest >> testGenerators [
 	self parse: 'xmlgen(inline="0" )' rule: #generator.
 	self parse: 'xsltgen()' rule: #generator.
 	self parse: 'jsgen()' rule: #generator
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testGraphGraphicComponent [
+	self
+		parse:
+			'graph(band=background height="276" width="4338" graphtype="12" render3d="0" perspective="2" rotation="-20" color="0" backcolor="80269524" shadecolor="8355711" range= 0 border="3" overlappercent="0" spacing="100" plotnulldata="0" elevation="20" depth="100"x="0" y="0" height="276" width="4338" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0"  name=gr_2 visible="1"  sizetodisplay=1  series="typ_mem"  category="temps"  values="mem"  title="Mémoire"  title.dispattr.backcolor="553648127"  title.dispattr.alignment="2"  title.dispattr.autosize="1"  title.dispattr.font.charset="0"  title.dispattr.font.escapement="0"  title.dispattr.font.face="Tahoma"  title.dispattr.font.family="2"  title.dispattr.font.height="0"  title.dispattr.font.italic="0"  title.dispattr.font.orientation="0"  title.dispattr.font.pitch="2"  title.dispattr.font.strikethrough="0"  title.dispattr.font.underline="0"  title.dispattr.font.weight="700"  title.dispattr.font.width="0"  title.dispattr.format="[general]"  title.dispattr.textcolor="0"  title.dispattr.displayexpression="title"  legend="0"  legend.dispattr.backcolor="536870912"  legend.dispattr.alignment="0"  legend.dispattr.autosize="1"  legend.dispattr.font.charset="0"  legend.dispattr.font.escapement="0"  legend.dispattr.font.face="Tahoma"  legend.dispattr.font.family="2"  legend.dispattr.font.height="0"  legend.dispattr.font.italic="0"  legend.dispattr.font.orientation="0"  legend.dispattr.font.pitch="2"  legend.dispattr.font.strikethrough="0"  legend.dispattr.font.underline="0"  legend.dispattr.font.weight="400"  legend.dispattr.font.width="0"  legend.dispattr.format="[general]"  legend.dispattr.textcolor="0"  legend.dispattr.displayexpression="series" 
+
+	series.autoscale="1" 
+
+	series.displayeverynlabels="0"  series.droplines="2"  series.frame="1"  series.label=""  series.majordivisions="0"  series.majorgridline="2"  series.majortic="3"  series.maximumvalue="0"  series.minimumvalue="0"  series.minordivisions="0"  series.minorgridline="0"  series.minortic="1"  series.originline="1"  series.primaryline="1"  series.roundto="0"  series.roundtounit="0"  series.scaletype="1"  series.scalevalue="1"  series.secondaryline="0"  series.shadebackedge="0"  series.dispattr.backcolor="536870912"  series.dispattr.alignment="0"  series.dispattr.autosize="1"  series.dispattr.font.charset="0"  series.dispattr.font.escapement="0"  series.dispattr.font.face="Tahoma"  series.dispattr.font.family="2"  series.dispattr.font.height="0"  series.dispattr.font.italic="0"  series.dispattr.font.orientation="0"  series.dispattr.font.pitch="2"  series.dispattr.font.strikethrough="0"  series.dispattr.font.underline="0"  series.dispattr.font.weight="400"  series.dispattr.font.width="0"  series.dispattr.format="[general]"  series.dispattr.textcolor="0"  series.dispattr.displayexpression="series"  series.labeldispattr.backcolor="553648127"  series.labeldispattr.alignment="2"  series.labeldispattr.autosize="1"  series.labeldispattr.font.charset="0"  series.labeldispattr.font.escapement="0"  series.labeldispattr.font.face="Tahoma"  series.labeldispattr.font.family="2"  series.labeldispattr.font.height="0"  series.labeldispattr.font.italic="0"  series.labeldispattr.font.orientation="0"  series.labeldispattr.font.pitch="2"  series.labeldispattr.font.strikethrough="0"  series.labeldispattr.font.underline="0"  series.labeldispattr.font.weight="400"  series.labeldispattr.font.width="0"  series.labeldispattr.format="[general]"  series.labeldispattr.textcolor="0"  series.labeldispattr.displayexpression="seriesaxislabel"  series.sort="1" 
+
+	category.autoscale="1" 
+
+	category.displayeverynlabels="30"  category.droplines="0"  category.frame="1"  category.label="Temps"  category.majordivisions="0"  category.majorgridline="0"  category.majortic="1"  category.maximumvalue="0"  category.minimumvalue="0"  category.minordivisions="0"  category.minorgridline="0"  category.minortic="1"  category.originline="0"  category.primaryline="1"  category.roundto="0"  category.roundtounit="0"  category.scaletype="1"  category.scalevalue="1"  category.secondaryline="0"  category.shadebackedge="1"  category.dispattr.backcolor="556870912"  category.dispattr.alignment="2"  category.dispattr.autosize="1"  category.dispattr.font.charset="0"  category.dispattr.font.escapement="0"  category.dispattr.font.face="Tahoma"  category.dispattr.font.family="2"  category.dispattr.font.height="0"  category.dispattr.font.italic="0"  category.dispattr.font.orientation="0"  category.dispattr.font.pitch="2"  category.dispattr.font.strikethrough="0"  category.dispattr.font.underline="0"  category.dispattr.font.weight="400"  category.dispattr.font.width="0"  category.dispattr.format="[general]"  category.dispattr.textcolor="0"  category.dispattr.displayexpression="category"  category.labeldispattr.backcolor="556870912"  category.labeldispattr.alignment="2"  category.labeldispattr.autosize="1"  category.labeldispattr.font.charset="0"  category.labeldispattr.font.escapement="0"  category.labeldispattr.font.face="Tahoma"  category.labeldispattr.font.family="2"  category.labeldispattr.font.height="0"  category.labeldispattr.font.italic="0"  category.labeldispattr.font.orientation="0"  category.labeldispattr.font.pitch="2"  category.labeldispattr.font.strikethrough="0"  category.labeldispattr.font.underline="0"  category.labeldispattr.font.weight="400"  category.labeldispattr.font.width="0"  category.labeldispattr.format="[general]"  category.labeldispattr.textcolor="0"  category.labeldispattr.displayexpression="categoryaxislabel"  category.sort="1" 
+
+	values.autoscale="1" 
+
+	values.displayeverynlabels="0"  values.droplines="0"  values.frame="1"  values.label="Mo"  values.majordivisions="0"  values.majorgridline="0"  values.majortic="2"  values.maximumvalue="1000"  values.minimumvalue="0"  values.minordivisions="0"  values.minorgridline="0"  values.minortic="1"  values.originline="1"  values.primaryline="1"  values.roundto="0"  values.roundtounit="0"  values.scaletype="1"  values.scalevalue="1"  values.secondaryline="0"  values.shadebackedge="0"  values.dispattr.backcolor="556870912"  values.dispattr.alignment="1"  values.dispattr.autosize="1"  values.dispattr.font.charset="0"  values.dispattr.font.escapement="0"  values.dispattr.font.face="Tahoma"  values.dispattr.font.family="2"  values.dispattr.font.height="0"  values.dispattr.font.italic="0"  values.dispattr.font.orientation="0"  values.dispattr.font.pitch="2"  values.dispattr.font.strikethrough="0"  values.dispattr.font.underline="0"  values.dispattr.font.weight="400"  values.dispattr.font.width="0"  values.dispattr.format="[General]"  values.dispattr.textcolor="0"  values.dispattr.displayexpression="value"  values.labeldispattr.backcolor="553648127"  values.labeldispattr.alignment="2"  values.labeldispattr.autosize="1"  values.labeldispattr.font.charset="0"  values.labeldispattr.font.escapement="900"  values.labeldispattr.font.face="Tahoma"  values.labeldispattr.font.family="2"  values.labeldispattr.font.height="0"  values.labeldispattr.font.italic="0"  values.labeldispattr.font.orientation="900"  values.labeldispattr.font.pitch="2"  values.labeldispattr.font.strikethrough="0"  values.labeldispattr.font.underline="0"  values.labeldispattr.font.weight="400"  values.labeldispattr.font.width="0"  values.labeldispattr.format="[general]"  values.labeldispattr.textcolor="0"  values.labeldispattr.displayexpression="valuesaxislabel" )'
+		rule: #graphicComponent
 ]
 
 { #category : #accessing }
@@ -478,6 +538,7 @@ PWBDataWindowGrammarTest >> testType [
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType2 [
+PP2ParserResource reset.
 	self parse: 'blob' rule: #type.
 ]
 

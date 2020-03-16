@@ -1,0 +1,7 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'PowerBuilderParser'
+    }
+  ]
+}

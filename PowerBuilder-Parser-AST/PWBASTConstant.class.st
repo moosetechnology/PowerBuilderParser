@@ -65,3 +65,8 @@ PWBASTConstant >> stopPosition [
 PWBASTConstant >> stopPosition: anObject [
 	stopPosition := anObject
 ]
+
+{ #category : #printing }
+PWBASTConstant >> toString [
+	^ constant
+]

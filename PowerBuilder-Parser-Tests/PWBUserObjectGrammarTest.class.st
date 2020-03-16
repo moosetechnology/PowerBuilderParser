@@ -292,6 +292,20 @@ End Choose' rule: #chooseCase
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testChooseCase5 [
+	self parse: 'choose case ls_Char
+		case "0" to "9"; 	li_Val = integer(ls_Char)
+		case "a", "A"; 	li_Val = 10
+		case "b", "B"; 	li_Val = 11
+		case "c", "C"; 	li_Val = 12
+		case "d", "D"; 	li_Val = 13
+		case "e", "E"; 	li_Val = 14
+		case "f", "F"; 	li_Val = 15
+		case else	 ;		return 0
+	end choose' rule: #chooseCase
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testCondition [
 	self parse: 'TRUE = TRUE and TRUE' rule: #condition.
 	self parse: 'this.validate()' rule: #condition.
@@ -319,6 +333,12 @@ PWBUserObjectGrammarTest >> testCondition2 [
 		rule: #condition.
 		
 	self parse: 'is_test <> ''''' rule: #condition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testCondition3 [
+	self parse: 'this.event edw_sauver( 0,0) <> 0'
+		rule: #condition.
 ]
 
 { #category : #tests }
@@ -379,12 +399,27 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopUntil1 [
+	self parse: 'do
+	
+loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDoLoopWhile [
 	self parse: 'do 
 	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
 	if ll_wz = -1 then exit
 	atv_cible.collapseItem(ll_wz)
 	atv_cible.deleteItem(ll_wz)
+loop while 1 = 1' rule: #doLoopWhile
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopWhile1 [
+  self parse: 'do 
+	
+	
 loop while 1 = 1' rule: #doLoopWhile
 ]
 
@@ -1069,6 +1104,16 @@ PWBUserObjectGrammarTest >> testIfStatement14 [
 ]
 
 { #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement15 [
+	self parse: 'if lt_h1= 00:00:00.0000 and lt_h2= 00:00:00.0000 and lt_h3= 00:00:00.0000 and lt_h4= 00:00:00.0000 then
+
+	return 1
+
+end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
 PWBUserObjectGrammarTest >> testIfStatement2 [
 	self
 		parse:
@@ -1111,7 +1156,8 @@ END IF'
 PWBUserObjectGrammarTest >> testIfStatement5 [
 	self
 		parse:
-			'if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			'if ls_gpp_ids = ''00405727'' 
+			or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
 			string ls
 			ls = ""
 		end if'
@@ -1196,6 +1242,11 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 	self
 		parse: 'open dynamic c_req_tax_cas using descriptor sqldat;'
 		rule: #openSqlCursor
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testPostEvent [
+	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting
 ]
 
 { #category : #tests }
@@ -1303,6 +1354,12 @@ delete' rule: #returnStatement.
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testReturnStatement1 [
+	self parse: 'Return EncodingUTF16LE!' rule: #returnStatement.
+
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSharedVariables [
 	self
 		parse:
@@ -1403,6 +1460,16 @@ PWBUserObjectGrammarTest >> testSqlQuery6 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testSqlQuery7 [
+	self parse: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;' rule: #sqlQuery
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testSqlQuery8 [
+	self parse: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;' rule: #sqlQuery
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testSqlRollbackStatement [
 	self parse: 'rollback using sqlca;' rule: #sqlRollbackStatement.
 	self parse: 'ROLLBACK ;' rule: #sqlRollbackStatement.
@@ -1498,6 +1565,40 @@ PWBUserObjectGrammarTest >> testTriggerDefinition4 [
 			'on uo_ancetre_pb.create
 end on'
 		rule: #triggerDefinition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent [
+	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent1 [
+	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent3 [
+	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent4 [
+	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent5 [
+	self
+		parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
+		rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent6 [
+	self
+		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
+		rule: #eventTriggering
 ]
 
 { #category : #tests }
@@ -1710,6 +1811,22 @@ PWBUserObjectGrammarTest >> testTypePrototypes3 [
 protected:
 Function Long addOverlappedObject(uLong inst, ref ST_RECT c) library "pb2xls"  Alias For "oo_addObject;Ansi"
 Function uLong createOverlappedStorage() library "pb2xls" Alias For "g_createOverlappedObjects"
+end prototypes'
+		rule: #typePrototypes
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTypePrototypes4 [
+	self
+		parse:
+			'type prototypes
+
+private subroutine OutputDebugString (String lpszOutputString) library ''kernel32.dll'' alias for ''OutputDebugStringA;Ansi'' ;
+
+private function long FindWindow(ref string lpClassName, ref string lpWindowName) library ''user32.dll'' alias for ''FindWindowA;Ansi'' ; 
+
+
+
 end prototypes'
 		rule: #typePrototypes
 ]

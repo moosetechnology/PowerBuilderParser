@@ -10,6 +10,18 @@ PWBPreprocessorTest >> parserClass [
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testBinaryDataSection [
+	self assert: 
+		(self parse:
+			'Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Cu_web_browser.bin 
+2000000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000_web_browser.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point'
+		rule: #binaryDataSection)
+		equals: ''
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testCommentInComment [
 	self
 		assert:
@@ -22,7 +34,9 @@ PWBPreprocessorTest >> testCommentInComment [
 code')
 		equals:
 			'code
- 
+           
+              
+  
 code'
 ]
 
@@ -45,7 +59,22 @@ PWBPreprocessorTest >> testCommentWithThen [
 				parse:
 					'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb /*fiche 41092 $Amaury$ 30/12/2009*/ and ld_cur_fin >= ld_cur_deb/*fin fiche 41092*/then ')
 		equals:
-			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb   and ld_cur_fin >= ld_cur_deb then '
+			'if ld_cur_deb <= ld_deb and ld_cur_fin >= ld_deb                                     and ld_cur_fin >= ld_cur_deb                   then '
+]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testContentWithBinaryDataSection [
+	self assert: 
+		(self parse:
+			'"blah"
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Cu_web_browser.bin 
+2000000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000_web_browser.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point')
+		equals: '"blah"
+
+'
 ]
 
 { #category : #tests }
@@ -59,7 +88,7 @@ PWBPreprocessorTest >> testEmptyComment [
 code')
 		equals:
 			'code
- 
+  
 code'
 ]
 
@@ -74,7 +103,7 @@ PWBPreprocessorTest >> testEmptyComment1 [
 code')
 		equals:
 			'code
- 
+    
 code'
 ]
 
@@ -92,7 +121,22 @@ PWBPreprocessorTest >> testEspelette [
 					'this.Control[]={this.dw_liste,&
 this.dw_detail}')
 		equals:
-			'this.Control[]={this.dw_liste,this.dw_detail}'
+			'this.Control[]={this.dw_liste,  this.dw_detail}'
+]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testHeader [
+	self
+		assert:
+			(self
+				parse:
+					'$PBExportHeader$uo_traitement_liq_cal.sru
+$PBExportComments$/2005/ $Claire$ 05/04/19~r~n/2004/ $Claire$ 04/04/19~r~n/2003/ $Chan$ 28/03/19~r~n/2002/ $Chan$ 27/03/19~r~n/2001/ $Manu$ 26/03/19~r~n/2000/ $Manu$ 22/03/19~r~n/1999/ $Chan$ 20/03/19~r~n/1989/ $Chan$ 18/03/19~r~n/1988/ $Chan$ 15/03/19~r~n/1987/ $Manu$ 06/03/19
+" blah "
+end')
+		equals:
+			'" blah "
+end'
 ]
 
 { #category : #tests }
@@ -144,7 +188,7 @@ PWBPreprocessorTest >> testSimpleComment [
 					'water // a comment
 water')
 		equals:
-			'water  
+		'water             
 water'
 ]
 
@@ -157,7 +201,7 @@ PWBPreprocessorTest >> testSimpleComment2 [
 					'water //*** a comment
 water 5*/3')
 		equals:
-			'water  
+			'water                
 water 5*/3'
 ]
 
@@ -170,7 +214,8 @@ PWBPreprocessorTest >> testSimpleComment3 [
 					'/* comment
 // comment */')
 		equals:
-			' '
+		'          
+             '
 ]
 
 { #category : #tests }
@@ -184,6 +229,6 @@ PWBPreprocessorTest >> testSimpleComment4 [
 code')
 		equals:
 			'code
- 
+                                  
 code'
 ]

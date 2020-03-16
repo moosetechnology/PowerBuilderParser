@@ -66,7 +66,6 @@ Class {
 		'sqlVariable',
 		'prepareSQL',
 		'destroyStatement',
-		'eventInvocation',
 		'blanks'
 	],
 	#category : #'PowerBuilder-Parser-Core'
@@ -139,7 +138,8 @@ PWBCommonGrammar >> case [
 
 { #category : #accessing }
 PWBCommonGrammar >> caseElse [
-	^ 'case' token , blank , 'else' token , blank , statements optional
+	^ 'case' token , blank , 'else' token , blank , statements optional,
+		 $; token trim optional, statements optional
 ]
 
 { #category : #accessing }
@@ -205,14 +205,12 @@ PWBCommonGrammar >> destroyStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> doLoopUntil [
-	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'until' token , blank
-		, expression
+  ^'do' token , blank , statements optional , blank , 'loop' token , blank , 'until' token , blank , expression
 ]
 
 { #category : #accessing }
 PWBCommonGrammar >> doLoopWhile [
-	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
-		, expression
+  ^'do' token , blank , statements optional , blank , 'loop' token , blank , 'while' token , blank , expression
 ]
 
 { #category : #accessing }
@@ -254,11 +252,6 @@ PWBCommonGrammar >> eventDeclaration [
 		, eventReferenceName , $; parser
 		, (customCallStatement , $; parser) optional , blank
 		, statements optional , blank , (self endOf: 'event')
-]
-
-{ #category : #accessing }
-PWBCommonGrammar >> eventInvocation [
-	^ 'event' token, identifier trim, arguments 
 ]
 
 { #category : #accessing }
@@ -396,7 +389,7 @@ PWBCommonGrammar >> sqlCommitStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> sqlQuery [
-	^ (self parserCaseInsensitiveFor: #('select' 'update' 'delete' 'insert' 'fetch')) , blanks
+	^ (self parserCaseInsensitiveFor: #('selectblob' 'select' 'updateblob' 'update' 'delete' 'insert' 'fetch' )) , blanks
 		, (string / $; parser negate) plus , $; parser
 ]
 
@@ -418,7 +411,7 @@ PWBCommonGrammar >> statement [
 		/ closeSqlCursor / sqlCommitStatement / declareCursor / prepareSQL
 		/ declareProcedure / executeProcedure / sqlQuery / tryCatch
 		/ forLoop / chooseCase / doWhileLoop / doUntilLoop / doLoopWhile
-		/ doLoopUntil / destroyStatement / variableDeclarations / eventInvocation
+		/ doLoopUntil / destroyStatement / variableDeclarations
 		/ super statement
 ]
 
@@ -475,7 +468,8 @@ PWBCommonGrammar >> typePrototypes [
 	^ 'type prototypes' token , blank
 		,
 			(accessModifierDefiner / functionDeclaration / subroutineDeclaration
-				separatedBy: blank) , blank , (self endOf: 'prototypes')
+				separatedBy: $; parser trim / blank) , ($; parser trim / blank)
+		, (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }

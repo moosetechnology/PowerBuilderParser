@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBDataWindow,
 	#superclass : #FamixPWBmajorObject,
-	#traits : 'FamixTContainingWithInvocationsGlue + FamixTNamed + FamixTWithAttributes + FamixTWithInvocations + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTContainingWithInvocationsGlue classTrait + FamixTNamed classTrait + FamixTWithAttributes classTrait + FamixTWithInvocations classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTNamedEntity + FamixTWithAttributes + FamixTWithInvocations + FamixTWithSourceAnchor + FamixTNamed',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithAttributes classTrait + FamixTWithInvocations classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#graphicComponents => FMMany type: #FamixPWBGraphicComponent opposite: #dataWindow'
 	],
@@ -12,36 +12,24 @@ Class {
 { #category : #meta }
 FamixPWBDataWindow class >> annotation [
 
-	<MSEClass: #DataWindow super: #FamixPWBmajorObject>
+	<FMClass: #DataWindow super: #FamixPWBmajorObject>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixPWBDataWindow class >> generatedSlotNames [
+{ #category : #adding }
+FamixPWBDataWindow >> addGraphicComponent: anObject [
 	<generated>
-	'FamixPWBDataWindow class>>#generatedSlotNames'.
-	^ #(graphicComponents)
-]
-
-{ #category : #generator }
-FamixPWBDataWindow class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTContainingWithInvocationsGlue FamixTNamed FamixTWithAttributes FamixTWithInvocations FamixTWithSourceAnchor)
-]
-
-{ #category : #meta }
-FamixPWBDataWindow class >> requirements [
-
-	<generated>
-	^ {  }
+	^ self graphicComponents add: anObject
 ]
 
 { #category : #accessing }
 FamixPWBDataWindow >> graphicComponents [
+	"Relation named: #graphicComponents type: #FamixPWBGraphicComponent opposite: #dataWindow"
 
 	<generated>
+	<derived>
 	^ graphicComponents
 ]
 
@@ -50,14 +38,11 @@ FamixPWBDataWindow >> graphicComponents: anObject [
 
 	<generated>
 	graphicComponents value: anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBDataWindow >> graphicComponentsGroup [
-
 	<generated>
 	<navigation: 'GraphicComponents'>
-	^ MooseGroup
-			withAll: (self graphicComponents asSet)
+	^ MooseGroup withAll: self graphicComponents asSet
 ]

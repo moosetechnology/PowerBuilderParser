@@ -68,7 +68,10 @@ Class {
 		'time',
 		'specialVariable',
 		'expressionAction',
-		'createUsingInstruction'
+		'createUsingInstruction',
+		'eventInvocation',
+		'eventTriggering',
+		'eventPosting'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -332,6 +335,30 @@ PWBAbstractGrammar >> endOf: aReservedWord [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> eventInvocation [
+	^ ('this.' token , spaces optional) optional , 'event' token , identifier trim
+		, functionArguments
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventPosting [
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'postEvent' token , blank , functionArguments
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventTriggering [
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, 'triggerEvent' token , blank , functionArguments
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
 ]
@@ -352,13 +379,17 @@ PWBAbstractGrammar >> expression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionAction [
-	<reify: #(methodInvocation / attributeAccess) into: #action>
-	^ methodInvocation / attributeAccess , expressionAction optional
+	<reify: #(methodInvocation / attributeAccess)
+	into: #action>
+	^methodInvocation / attributeAccess
+		, expressionAction optional
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
-	^ notExpression / functionInvocation / createUsingInstruction / constant / array / createInstruction / time / number / string / accessOrType / booleanValue / defaultVariable
+	^ notExpression / functionInvocation / createUsingInstruction
+		/ constant / array / createInstruction / time / number / string
+		/ eventInvocation / accessOrType / booleanValue / defaultVariable
 ]
 
 { #category : #accessing }
@@ -518,7 +549,7 @@ PWBAbstractGrammar >> reservedKeyword [
 
 { #category : #accessing }
 PWBAbstractGrammar >> returnStatement [
-	^ 'return' token , (spaces , expression) optional
+	^ 'return' token , (spaces , expression) optional , $! token optional
 ]
 
 { #category : #accessing }
@@ -543,8 +574,9 @@ PWBAbstractGrammar >> start [
 
 { #category : #accessing }
 PWBAbstractGrammar >> statement [
-	^ specialStatement / assignationStatement / callStatement / ifStatement
-		/ functionInvocation / postFixOperator / expression
+	^ specialStatement / assignationStatement / callStatement
+		/ ifStatement / eventTriggering / eventPosting / functionInvocation
+		/ postFixOperator / expression
 ]
 
 { #category : #accessing }
@@ -571,6 +603,7 @@ PWBAbstractGrammar >> this [
 PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
+		, ($. parser , (#digit parser times: 4)) optional
 ]
 
 { #category : #accessing }
