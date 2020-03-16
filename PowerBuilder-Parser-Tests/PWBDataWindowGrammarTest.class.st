@@ -504,5 +504,6 @@ PWBDataWindowGrammarTest >> testType2 [
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType3 [
+PP2ParserResource reset.
 	self parse: 'character' rule: #type
 ]
