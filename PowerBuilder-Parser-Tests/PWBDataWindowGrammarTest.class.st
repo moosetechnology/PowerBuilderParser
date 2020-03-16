@@ -498,6 +498,7 @@ PWBDataWindowGrammarTest >> testType [
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType2 [
+	PP2ParserResource reset.
 	self parse: 'blob' rule: #type.
 ]
 
