@@ -2,7 +2,8 @@ Class {
 	#name : #PWBFamixImporter,
 	#superclass : #MooseAbstractImporter,
 	#instVars : [
-		'folder'
+		'folder',
+		'preprocessedMap'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -47,20 +48,31 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
+	preprocessedMap := Dictionary new: aFolder visibleFiles size.
 	aFolder visibleFiles
 		do: [ :aFile | 
-			| outputFile stream |
+			| parser outputFile stream |
 			outputFile := (anotherFolder / aFile basename) asFileReference.
 			outputFile ensureDelete.
 			stream := aFile readStream.
 			"stream encoder: ZnUTF16Encoder new."
+			parser := PWBPreprocessor new.
 			outputFile
-				writeStreamDo: [ :ws | ws nextPutAll: (PWBPreprocessor parse: stream upToEnd) ] ]
+				writeStreamDo: [ :ws | ws nextPutAll: (parser parse: stream upToEnd) ].
+			preprocessedMap
+				at: outputFile fullName
+				put: parser characterIgnored ]
 ]
 
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
+]
+
+{ #category : #'as yet unclassified' }
+PWBFamixImporter >> fileToSkipForNow [
+	self flag: 'To be remove'.
+	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
 ]
 
 { #category : #'as yet unclassified' }
@@ -109,6 +121,7 @@ PWBFamixImporter >> importInOnePass [
 				name: dir basename;
 				mooseModel: self targetModel.
 			self createCleanFilesFrom: dir into: dir / 'cleaned'.
+			visitor preprocessingMap: preprocessedMap.
 			(self
 				fillModelUsing: library
 				visitor: visitor
@@ -126,4 +139,11 @@ PWBFamixImporter >> importInOnePassFromFolder: aFolder [
 	self folder: aFolder.
 	self importInOnePass.
 	^ self targetModel
+]
+
+{ #category : #'initialize-release' }
+PWBFamixImporter >> initialize [
+  super initialize.
+  targetModel := FamixPWBModel new.
+  importingContext := self defaultImportingContext
 ]

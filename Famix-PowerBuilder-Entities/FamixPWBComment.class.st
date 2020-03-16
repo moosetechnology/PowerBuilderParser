@@ -9,28 +9,8 @@ Class {
 { #category : #meta }
 FamixPWBComment class >> annotation [
 
-	<MSEClass: #Comment super: #FamixPWBSourcedEntity>
+	<FMClass: #Comment super: #FamixPWBSourcedEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBComment class >> generatedSlotNames [
-	<generated>
-	'FamixPWBComment class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBComment class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTComment)
-]
-
-{ #category : #meta }
-FamixPWBComment class >> requirements [
-
-	<generated>
-	^ {  }
 ]

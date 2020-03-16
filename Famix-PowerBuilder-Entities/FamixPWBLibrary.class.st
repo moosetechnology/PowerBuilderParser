@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBLibrary,
 	#superclass : #MooseEntity,
-	#traits : 'FamixTNamed + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTNamed classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTNamedEntity + FamixTWithSourceAnchor + FamixTNamed',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#userObjects => FMMany type: #FamixPWBmajorObject opposite: #library'
 	],
@@ -12,37 +12,23 @@ Class {
 { #category : #meta }
 FamixPWBLibrary class >> annotation [
 
-	<MSEClass: #Library super: #MooseEntity>
+	<FMClass: #Library super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBLibrary class >> generatedSlotNames [
-	<generated>
-	'FamixPWBLibrary class>>#generatedSlotNames'.
-	^ #(userObjects)
-]
-
-{ #category : #generator }
-FamixPWBLibrary class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTNamed FamixTWithSourceAnchor)
 ]
 
 { #category : #meta }
 FamixPWBLibrary class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
+	^ FamixPWBModel metamodel
 ]
 
-{ #category : #meta }
-FamixPWBLibrary class >> requirements [
-
+{ #category : #adding }
+FamixPWBLibrary >> addUserObject: anObject [
 	<generated>
-	^ {  }
+	^ self userObjects add: anObject
 ]
 
 { #category : #testing }
@@ -67,21 +53,7 @@ FamixPWBLibrary >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBLibrary >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBLibrary >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isInheritance [
 
 	<generated>
 	^ false
@@ -102,21 +74,14 @@ FamixPWBLibrary >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBLibrary >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBLibrary >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBLibrary >> isStructuralEntity [
 
 	<generated>
 	^ false
@@ -131,8 +96,10 @@ FamixPWBLibrary >> isType [
 
 { #category : #accessing }
 FamixPWBLibrary >> userObjects [
+	"Relation named: #userObjects type: #FamixPWBmajorObject opposite: #library"
 
 	<generated>
+	<derived>
 	^ userObjects
 ]
 
@@ -141,14 +108,11 @@ FamixPWBLibrary >> userObjects: anObject [
 
 	<generated>
 	userObjects value: anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBLibrary >> userObjectsGroup [
-
 	<generated>
 	<navigation: 'UserObjects'>
-	^ MooseGroup
-			withAll: (self userObjects asSet)
+	^ MooseGroup withAll: self userObjects asSet
 ]

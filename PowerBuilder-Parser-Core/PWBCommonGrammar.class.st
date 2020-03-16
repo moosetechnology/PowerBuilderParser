@@ -205,14 +205,12 @@ PWBCommonGrammar >> destroyStatement [
 
 { #category : #accessing }
 PWBCommonGrammar >> doLoopUntil [
-	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'until' token , blank
-		, expression
+  ^'do' token , blank , statements optional , blank , 'loop' token , blank , 'until' token , blank , expression
 ]
 
 { #category : #accessing }
 PWBCommonGrammar >> doLoopWhile [
-	^ 'do' token , blank , statements , blank , 'loop' token , blank , 'while' token , blank
-		, expression
+  ^'do' token , blank , statements optional , blank , 'loop' token , blank , 'while' token , blank , expression
 ]
 
 { #category : #accessing }

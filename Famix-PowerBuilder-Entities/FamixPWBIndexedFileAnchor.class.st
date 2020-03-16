@@ -9,28 +9,53 @@ Class {
 { #category : #meta }
 FamixPWBIndexedFileAnchor class >> annotation [
 
-	<MSEClass: #IndexedFileAnchor super: #FamixPWBAbstractFileAnchor>
+	<FMClass: #IndexedFileAnchor super: #FamixPWBAbstractFileAnchor>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixPWBIndexedFileAnchor class >> generatedSlotNames [
-	<generated>
-	'FamixPWBIndexedFileAnchor class>>#generatedSlotNames'.
-	^ #()
+{ #category : #'as yet unclassified' }
+FamixPWBIndexedFileAnchor >> dpFileName [
+	^ self fileName copyReplaceAll: 'cleaned' with: 'dpcleaned'
 ]
 
-{ #category : #generator }
-FamixPWBIndexedFileAnchor class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTIndexedFileNavigation)
+{ #category : #accessing }
+FamixPWBIndexedFileAnchor >> dpFileReference [
+	^ self rootFolder asFileReference resolve: self dpFileName
 ]
 
-{ #category : #meta }
-FamixPWBIndexedFileAnchor class >> requirements [
+{ #category : #private }
+FamixPWBIndexedFileAnchor >> dpSourceText [
+	| start |
+	self sourcesAreReadable
+		ifFalse: [ ^ '' ].
+	start := startPos ifNil: [ 1 ].
+	^ self dpFileReference
+		binaryReadStreamDo: [ :in | 
+			| stream |
+			stream := ZnCharacterReadStream on: in encoding: self encoding.
+			1 to: start - 1 do: [ :i | stream next ].
+			stream next: (endPos ifNil: [ in size + 1 ]) - start + 1 ]
+]
 
-	<generated>
-	^ {  }
+{ #category : #accessing }
+FamixPWBIndexedFileAnchor >> dpsourceText [
+	self shouldBeImplemented.
+]
+
+{ #category : #accessing }
+FamixPWBIndexedFileAnchor >> fileReference [
+  ^self rootFolder asFileReference resolve: self fileName
+]
+
+{ #category : #private }
+FamixPWBIndexedFileAnchor >> sourceText [
+  | start |
+  self sourcesAreReadable ifFalse: [ ^'' ].
+  start := startPos ifNil: [ 1 ].
+  ^self fileReference binaryReadStreamDo: [:in |  | stream |
+        stream := ZnCharacterReadStream on: in encoding: self encoding.
+        1 to: start - 1 do: [:i |  stream next ].
+        stream next: (endPos ifNil: [ in size + 1 ]) - start + 1 ]
 ]

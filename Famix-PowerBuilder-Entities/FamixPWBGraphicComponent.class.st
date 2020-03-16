@@ -12,54 +12,18 @@ Class {
 { #category : #meta }
 FamixPWBGraphicComponent class >> annotation [
 
-	<MSEClass: #GraphicComponent super: #FamixPWBBehavioral>
+	<FMClass: #GraphicComponent super: #FamixPWBBehavioral>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixPWBGraphicComponent class >> generatedSlotNames [
-	<generated>
-	'FamixPWBGraphicComponent class>>#generatedSlotNames'.
-	^ #(dataWindow)
-]
-
-{ #category : #generator }
-FamixPWBGraphicComponent class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTWithAttributes)
-]
-
-{ #category : #meta }
-FamixPWBGraphicComponent class >> requirements [
-
-	<generated>
-	^ { FamixPWBDataWindow }
-]
-
-{ #category : #accessing }
-FamixPWBGraphicComponent >> belongsTo [
-
-	<generated>
-	^ self dataWindow
-
-]
-
-{ #category : #accessing }
-FamixPWBGraphicComponent >> belongsTo: anObject [
-
-	<generated>
-	self dataWindow: anObject
-
-]
-
 { #category : #accessing }
 FamixPWBGraphicComponent >> dataWindow [
+	"Relation named: #dataWindow type: #FamixPWBDataWindow opposite: #graphicComponents"
 
 	<generated>
 	<container>
-
 	^ dataWindow
 ]
 
@@ -68,14 +32,17 @@ FamixPWBGraphicComponent >> dataWindow: anObject [
 
 	<generated>
 	dataWindow := anObject
-
 ]
 
 { #category : #navigation }
 FamixPWBGraphicComponent >> dataWindowGroup [
-
 	<generated>
 	<navigation: 'DataWindow'>
-	^ MooseGroup
-			with: (self dataWindow)
+	^ MooseGroup with: self dataWindow
+]
+
+{ #category : #accessing }
+FamixPWBGraphicComponent >> parentType: anObject [
+  self dataWindow: anObject.
+  self resetMooseName
 ]

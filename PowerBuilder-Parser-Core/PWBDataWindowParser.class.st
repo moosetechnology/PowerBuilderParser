@@ -303,6 +303,18 @@ PWBDataWindowParser >> customType [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> dataComponent [
+	<generated>
+	^ super dataComponent flatten withPositions
+		==> [ :production | 
+			PWBASTDataComponent new
+				startPosition: production start;
+				stopPosition: production stop;
+				dataComponent: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> dataWindow [
 	<generated>
 	^ super dataWindow withPositions
@@ -422,6 +434,42 @@ PWBDataWindowParser >> eventInvocation [
 				stopPosition: production stop;
 				identifier: (production content at: 3);
 				functionArguments: (production content at: 4);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> eventPosting [
+	<generated>
+	^ super eventPosting withPositions
+		==> [ :production | 
+			PWBASTEventPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				functionArguments: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> eventTriggering [
+	<generated>
+	^ super eventTriggering withPositions
+		==> [ :production | 
+			PWBASTEventTriggering new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				functionArguments: (production content at: 5);
 				yourself ]
 ]
 

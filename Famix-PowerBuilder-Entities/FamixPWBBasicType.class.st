@@ -9,37 +9,17 @@ Class {
 { #category : #meta }
 FamixPWBBasicType class >> annotation [
 
-	<MSEClass: #BasicType super: #MooseEntity>
+	<FMClass: #BasicType super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBBasicType class >> generatedSlotNames [
-	<generated>
-	'FamixPWBBasicType class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBBasicType class >> generatedTraitNames [
-	<generated>
-	^ #(FamixPWBAbstractType)
 ]
 
 { #category : #meta }
 FamixPWBBasicType class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
-]
-
-{ #category : #meta }
-FamixPWBBasicType class >> requirements [
-
-	<generated>
-	^ {  }
+	^ FamixPWBModel metamodel
 ]
 
 { #category : #testing }
@@ -64,21 +44,7 @@ FamixPWBBasicType >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBBasicType >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBBasicType >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBasicType >> isInheritance [
 
 	<generated>
 	^ false
@@ -99,21 +65,14 @@ FamixPWBBasicType >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBBasicType >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBasicType >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBBasicType >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBBasicType >> isStructuralEntity [
 
 	<generated>
 	^ false

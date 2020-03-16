@@ -13,69 +13,45 @@ Class {
 { #category : #meta }
 FamixPWBTicketAssociation class >> annotation [
 
-	<MSEClass: #TicketAssociation super: #MooseEntity>
+	<FMClass: #TicketAssociation super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBTicketAssociation class >> generatedSlotNames [
-	<generated>
-	'FamixPWBTicketAssociation class>>#generatedSlotNames'.
-	^ #(author date majorObject ticket)
-]
-
-{ #category : #generator }
-FamixPWBTicketAssociation class >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #meta }
 FamixPWBTicketAssociation class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
-]
-
-{ #category : #meta }
-FamixPWBTicketAssociation class >> requirements [
-
-	<generated>
-	^ {  }
+	^ FamixPWBModel metamodel
 ]
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> author [
 
-	<MSEProperty: #author type: #String>
+	<FMProperty: #author type: #String>
 	<generated>
 	^ author
 ]
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> author: anObject [
-
 	<generated>
 	author := anObject
-
 ]
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> date [
 
-	<MSEProperty: #date type: #String>
+	<FMProperty: #date type: #String>
 	<generated>
 	^ date
 ]
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> date: anObject [
-
 	<generated>
 	date := anObject
-
 ]
 
 { #category : #testing }
@@ -100,21 +76,7 @@ FamixPWBTicketAssociation >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBTicketAssociation >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBTicketAssociation >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isInheritance [
 
 	<generated>
 	^ false
@@ -135,21 +97,14 @@ FamixPWBTicketAssociation >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBTicketAssociation >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBTicketAssociation >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBTicketAssociation >> isStructuralEntity [
 
 	<generated>
 	^ false
@@ -164,6 +119,7 @@ FamixPWBTicketAssociation >> isType [
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> majorObject [
+	"Relation named: #majorObject type: #FamixPWBmajorObject opposite: #ticketAssociations"
 
 	<generated>
 	^ majorObject
@@ -174,11 +130,11 @@ FamixPWBTicketAssociation >> majorObject: anObject [
 
 	<generated>
 	majorObject := anObject
-
 ]
 
 { #category : #accessing }
 FamixPWBTicketAssociation >> ticket [
+	"Relation named: #ticket type: #FamixPWBTicket opposite: #ticketAssociations"
 
 	<generated>
 	^ ticket
@@ -189,5 +145,4 @@ FamixPWBTicketAssociation >> ticket: anObject [
 
 	<generated>
 	ticket := anObject
-
 ]

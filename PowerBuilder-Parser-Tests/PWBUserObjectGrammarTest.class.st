@@ -399,12 +399,27 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopUntil1 [
+	self parse: 'do
+	
+loop until ll_lig >= ll_nbs_lig or lb_trouve' rule: #doLoopUntil
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testDoLoopWhile [
 	self parse: 'do 
 	ll_wz = atv_cible.findItem(rootTreeItem!, 0)
 	if ll_wz = -1 then exit
 	atv_cible.collapseItem(ll_wz)
 	atv_cible.deleteItem(ll_wz)
+loop while 1 = 1' rule: #doLoopWhile
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testDoLoopWhile1 [
+  self parse: 'do 
+	
+	
 loop while 1 = 1' rule: #doLoopWhile
 ]
 
@@ -1141,7 +1156,8 @@ END IF'
 PWBUserObjectGrammarTest >> testIfStatement5 [
 	self
 		parse:
-			'if ls_gpp_ids = ''00405727'' or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			'if ls_gpp_ids = ''00405727'' 
+			or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
 			string ls
 			ls = ""
 		end if'
@@ -1226,6 +1242,11 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 	self
 		parse: 'open dynamic c_req_tax_cas using descriptor sqldat;'
 		rule: #openSqlCursor
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testPostEvent [
+	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting
 ]
 
 { #category : #tests }
@@ -1544,6 +1565,40 @@ PWBUserObjectGrammarTest >> testTriggerDefinition4 [
 			'on uo_ancetre_pb.create
 end on'
 		rule: #triggerDefinition
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent [
+	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent1 [
+	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent3 [
+	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent4 [
+	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent5 [
+	self
+		parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
+		rule: #eventTriggering
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent6 [
+	self
+		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
+		rule: #eventTriggering
 ]
 
 { #category : #tests }

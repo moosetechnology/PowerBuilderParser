@@ -64,3 +64,8 @@ PWBASTString >> string [
 PWBASTString >> string: anObject [
 	string := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+PWBASTString >> toString [
+	^ string
+]

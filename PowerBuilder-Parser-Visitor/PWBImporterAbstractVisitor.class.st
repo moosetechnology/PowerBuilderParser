@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'model',
 		'file',
-		'importingContext'
+		'importingContext',
+		'preprocessingMap'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -19,7 +20,7 @@ PWBImporterAbstractVisitor >> create: aClass [
 	entity := aClass new
 		mooseModel: self model;
 		yourself.
-	[ entity belongsTo: self currentEntity ]
+	[ entity parentType: self currentEntity ]
 		on: SRNoCurrentEntityAvailable
 		do: [ "Here we handle the first level of created entities" ].
 	[ entity cyclomaticComplexity: 1 ]
@@ -38,9 +39,9 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 				sourceAnchor:
 					(FamixPWBIndexedFileAnchor new
 						mooseModel: self model;
-						startPos: anASTNode startPosition;
-						fileName: (self file relativeTo: self model rootFolder) pathString;
-						endPos: anASTNode stopPosition;
+						startPos: (self unpreprocessedPosition: anASTNode startPosition);
+						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
+						endPos: (self unpreprocessedPosition: anASTNode stopPosition);
 						yourself) ].
 	^ created
 ]
@@ -105,6 +106,25 @@ PWBImporterAbstractVisitor >> model: anObject [
 	self pushAsScopeAll: FamixPWBEvent ofModel: model.
 	self pushAsScopeAll: FamixPWBSubRoutine ofModel: model.
 	self pushAsScopeAll: FamixPWBUserObject ofModel: model
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> preprocessingMap: aCollection [ 
+	preprocessingMap := aCollection 
+]
+
+{ #category : #'as yet unclassified' }
+PWBImporterAbstractVisitor >> unpreprocessedFile [
+	^ (self file fullName copyReplaceAll: '/cleaned' with: '')
+		asFileReference
+]
+
+{ #category : #'as yet unclassified' }
+PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
+	^ preprocessingMap
+		at: file fullName
+		ifPresent: [ :found | anInteger + found ]
+		ifAbsent: [ anInteger ]
 ]
 
 { #category : #'entities creation' }

@@ -7,37 +7,17 @@ Class {
 { #category : #meta }
 FamixPWBSqlQuery class >> annotation [
 
-	<MSEClass: #SqlQuery super: #MooseEntity>
+	<FMClass: #SqlQuery super: #MooseEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixPWBSqlQuery class >> generatedSlotNames [
-	<generated>
-	'FamixPWBSqlQuery class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixPWBSqlQuery class >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #meta }
 FamixPWBSqlQuery class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #PWBFamixModelGenerator) metamodel
-]
-
-{ #category : #meta }
-FamixPWBSqlQuery class >> requirements [
-
-	<generated>
-	^ {  }
+	^ FamixPWBModel metamodel
 ]
 
 { #category : #testing }
@@ -62,21 +42,7 @@ FamixPWBSqlQuery >> isAttribute [
 ]
 
 { #category : #testing }
-FamixPWBSqlQuery >> isClass [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBSqlQuery >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBSqlQuery >> isInheritance [
 
 	<generated>
 	^ false
@@ -97,21 +63,14 @@ FamixPWBSqlQuery >> isMethod [
 ]
 
 { #category : #testing }
-FamixPWBSqlQuery >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBSqlQuery >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBSqlQuery >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBSqlQuery >> isStructuralEntity [
 
 	<generated>
 	^ false

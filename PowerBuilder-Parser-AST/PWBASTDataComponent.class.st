@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTAccessOrType,
+	#name : #PWBASTDataComponent,
 	#superclass : #Object,
 	#instVars : [
-		'accessOrType',
+		'dataComponent',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,63 +10,58 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTAccessOrType >> = anObject [
+PWBASTDataComponent >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ accessOrType = anObject accessOrType
+	^ dataComponent = anObject dataComponent
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
-PWBASTAccessOrType >> acceptVisitor: aVisitor [
+PWBASTDataComponent >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTAccessOrType: self
+	^ aVisitor visitPWBASTDataComponent: self
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> accessOrType [
-	^ accessOrType
+PWBASTDataComponent >> dataComponent [
+	^ dataComponent
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> accessOrType: anObject [
-	accessOrType := anObject
+PWBASTDataComponent >> dataComponent: anObject [
+	dataComponent := anObject
 ]
 
 { #category : #comparing }
-PWBASTAccessOrType >> hash [
+PWBASTDataComponent >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ accessOrType hash
+	^ dataComponent hash
 		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> startPosition [
+PWBASTDataComponent >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> startPosition: anObject [
+PWBASTDataComponent >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> stopPosition [
+PWBASTDataComponent >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTAccessOrType >> stopPosition: anObject [
+PWBASTDataComponent >> stopPosition: anObject [
 	stopPosition := anObject
-]
-
-{ #category : #printing }
-PWBASTAccessOrType >> toString [
-	^ accessOrType accessed identifier identifier
 ]
