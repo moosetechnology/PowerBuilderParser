@@ -538,11 +538,14 @@ PWBDataWindowGrammarTest >> testType [
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType2 [
-PP2ParserResource reset.
+
+	PP2ParserResource reset.
+
 	self parse: 'blob' rule: #type.
 ]
 
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testType3 [
+PP2ParserResource reset.
 	self parse: 'character' rule: #type
 ]
