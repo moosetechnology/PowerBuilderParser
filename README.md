@@ -9,3 +9,4 @@ Metacello new
   onWarningLog;
   load.
 ```
+[![Build Status](https://travis-ci.org/moosetechnology/PowerBuilderParser.svg?branch=developpement)](https://travis-ci.org/moosetechnology/PowerBuilderParser)
