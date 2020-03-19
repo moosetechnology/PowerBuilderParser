@@ -12,5 +12,5 @@ FamixPWBmajorObject >> createAccessTo: aFamixPWBAttribute writing: aBoolean [
 
 { #category : #'*PowerBuilder-Parser-Visitor' }
 FamixPWBmajorObject >> reachableEntities [
-	^ self attributes
+	^ self attributes , self methods
 ]

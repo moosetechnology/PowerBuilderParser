@@ -77,3 +77,8 @@ FamixPWBInvocation >> isType [
 	<generated>
 	^ false
 ]
+
+{ #category : #printing }
+FamixPWBInvocation >> printOn: aStream [
+	^ aStream << self candidates anyOne name
+]

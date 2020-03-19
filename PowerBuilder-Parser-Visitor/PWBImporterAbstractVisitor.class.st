@@ -139,16 +139,18 @@ PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
-	^ SRThisWithNode
+	^ self resolvable: 
+		 (SRThisWithNode
 		node: anPWBASTThis
-		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ]
+		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
 ]
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayDefinition.
-	^ SRIdentifierWithNode
-		identifier: (self visit: aPWBASTVariable identifier)
-		expectedKind: FamixPWBVariable
-		node: aPWBASTVariable identifier
+	^ self
+		resolvable: (SRIdentifierWithNode
+			identifier: (self visit: aPWBASTVariable identifier)
+			expectedKind: FamixPWBVariable
+			node: aPWBASTVariable identifier)
 ]
