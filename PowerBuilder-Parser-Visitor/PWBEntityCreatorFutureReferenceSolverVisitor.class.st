@@ -256,11 +256,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
 	self
 		resolve:
-			((SRInvocationWithNode
+			((self
+				resolvable:
+				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTFunctionInvocation functionName)
+				expectedKind:
+					{FamixPWBSubRoutine.
+					FamixPWBFunction}
 				node: aPWBASTFunctionInvocation
-				expectedKind: FamixPWBSubRoutine
-				arguments: (self visit: aPWBASTFunctionInvocation functionArguments))
+				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
 					{((self createStub: FamixPWBSubRoutine)
 						name: aResolvable identifier;
@@ -304,13 +308,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBAST
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
 	self
 		resolve:
-			((SRInvocationWithNode
+			((self
+				resolvable:
+				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-				node: aPWBASTMethodInvocation
 				expectedKind:
-				{FamixPWBFunction.
+					{FamixPWBFunction.
 					FamixPWBEvent}
-				arguments: (self visit: aPWBASTMethodInvocation functionArguments))
+				node: aPWBASTMethodInvocation
+				arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
 					{((self createStub: FamixPWBFunction)
 						name: aResolvable identifier;
