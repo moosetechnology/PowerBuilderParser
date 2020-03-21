@@ -95,9 +95,9 @@ FamixPWBImportingContext >> importFunction [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importFunctionFile [
+FamixPWBImportingContext >> importGlobalFunction [
 	<generated>
-	^ self import: FamixPWBFunctionFile
+	^ self import: FamixPWBGlobalFunction
 ]
 
 { #category : #testing }
@@ -143,9 +143,9 @@ FamixPWBImportingContext >> importNamedEntity [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importQueryFile [
+FamixPWBImportingContext >> importQuery [
 	<generated>
-	^ self import: FamixPWBQueryFile
+	^ self import: FamixPWBQuery
 ]
 
 { #category : #testing }
@@ -191,9 +191,9 @@ FamixPWBImportingContext >> importSqlQuery [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importStructureFile [
+FamixPWBImportingContext >> importStructure [
 	<generated>
-	^ self import: FamixPWBStructureFile
+	^ self import: FamixPWBStructure
 ]
 
 { #category : #testing }
@@ -347,9 +347,9 @@ FamixPWBImportingContext >> shouldImportFunction [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportFunctionFile [
+FamixPWBImportingContext >> shouldImportGlobalFunction [
 	<generated>
-	^ self shouldImport: FamixPWBFunctionFile
+	^ self shouldImport: FamixPWBGlobalFunction
 ]
 
 { #category : #testing }
@@ -395,9 +395,9 @@ FamixPWBImportingContext >> shouldImportNamedEntity [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportQueryFile [
+FamixPWBImportingContext >> shouldImportQuery [
 	<generated>
-	^ self shouldImport: FamixPWBQueryFile
+	^ self shouldImport: FamixPWBQuery
 ]
 
 { #category : #testing }
@@ -443,9 +443,9 @@ FamixPWBImportingContext >> shouldImportSqlQuery [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportStructureFile [
+FamixPWBImportingContext >> shouldImportStructure [
 	<generated>
-	^ self shouldImport: FamixPWBStructureFile
+	^ self shouldImport: FamixPWBStructure
 ]
 
 { #category : #testing }

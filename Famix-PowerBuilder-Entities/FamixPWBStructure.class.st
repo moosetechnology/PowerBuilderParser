@@ -1,13 +1,13 @@
 Class {
-	#name : #FamixPWBFunctionFile,
+	#name : #FamixPWBStructure,
 	#superclass : #FamixPWBmajorObject,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBFunctionFile class >> annotation [
+FamixPWBStructure class >> annotation [
 
-	<FMClass: #FunctionFile super: #FamixPWBmajorObject>
+	<FMClass: #Structure super: #FamixPWBmajorObject>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

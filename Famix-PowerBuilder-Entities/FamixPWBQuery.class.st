@@ -1,13 +1,13 @@
 Class {
-	#name : #FamixPWBStructureFile,
+	#name : #FamixPWBQuery,
 	#superclass : #FamixPWBmajorObject,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBStructureFile class >> annotation [
+FamixPWBQuery class >> annotation [
 
-	<FMClass: #StructureFile super: #FamixPWBmajorObject>
+	<FMClass: #Query super: #FamixPWBmajorObject>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

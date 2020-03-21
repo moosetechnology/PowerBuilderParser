@@ -75,11 +75,11 @@ PWBFamixModelGenerator >> defineClasses [
 	dataWindow := builder newClassNamed: #DataWindow.
 	userObject := builder newClassNamed: #UserObject.
 	window := builder newClassNamed: #Window.
-	structureFile := builder newClassNamed: #StructureFile.
-	functionFile := builder newClassNamed: #FunctionFile.
+	structureFile := builder newClassNamed: #Structure.
+	functionFile := builder newClassNamed: #GlobalFunction.
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
-	queryFile := builder newClassNamed: #QueryFile.
+	queryFile := builder newClassNamed: #Query.
 
 	"Type"
 	abstractType := builder newTraitNamed: #AbstractType.
@@ -175,7 +175,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 	dataWindow --|> majorObject.
 	dataWindow --|> #TWithInvocations.
 	structureFile --|> majorObject.
-	functionFile --|> majorObject.
+	functionFile
+		--|> majorObject;
+		--|> #TWithInvocations;
+		--|> abstractType.
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
