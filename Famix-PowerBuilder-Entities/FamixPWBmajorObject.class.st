@@ -35,6 +35,20 @@ FamixPWBmajorObject >> addTicketAssociation: anObject [
 ]
 
 { #category : #accessing }
+FamixPWBmajorObject >> allIncomingInvocationsSenders [
+	| scan scanTop |
+	scan := OrderedCollection withAll: self incomingInvocationsSenders.
+	scanTop := 1.
+	[ scanTop > scan size ]
+		whileFalse: [ scan
+				addAll:
+					((scan at: scanTop) incomingInvocationsSenders
+						reject: [ :entity | scan includes: entity ]).
+			scanTop := scanTop + 1 ].
+	^ scan
+]
+
+{ #category : #accessing }
 FamixPWBmajorObject >> cyclomaticComplexity [
 
 	<FMProperty: #cyclomaticComplexity type: #Number>
@@ -46,6 +60,26 @@ FamixPWBmajorObject >> cyclomaticComplexity [
 FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 	<generated>
 	cyclomaticComplexity := anObject
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> incomingInvocationsSenders [
+	^ (self methods flatCollectAsSet: #incomingInvocationsSenders)
+		collectAsSet: #parentType
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> incomingInvocationsSenders: anInteger [
+	| scan scanTop level |
+	scan := OrderedCollection withAll: self incomingInvocationsSenders.
+	scanTop := 1.
+	[ scanTop > scan size ]
+		whileFalse: [ scan
+				addAll:
+					((scan at: scanTop) incomingInvocationsSenders
+						reject: [ :entity | scan includes: entity ]).
+			scanTop := scanTop + 1 ].
+	^ scan
 ]
 
 { #category : #testing }
