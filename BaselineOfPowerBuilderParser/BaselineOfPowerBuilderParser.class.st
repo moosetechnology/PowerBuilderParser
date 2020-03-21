@@ -67,7 +67,9 @@ BaselineOfPowerBuilderParser >> baselineOfPetitParser2: spec [
 BaselineOfPowerBuilderParser >> baselineOfSymbolResolver: spec [
 	spec
 		baseline: 'SymbolResolver'
-		with: [ spec repository: 'github://Larcheveque/SymbolResolver:master/src' ]
+
+		with: [ spec repository: 'github://moosetechnology/SymbolResolver:master/src' ]
+
 ]
 
 { #category : #accessing }
