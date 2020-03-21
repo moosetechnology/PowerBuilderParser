@@ -269,9 +269,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 				resolvable:
 				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTFunctionInvocation functionName)
-
-				expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
-developement
+				expectedKind:
+					{FamixPWBSubRoutine.
+					FamixPWBFunction}
 				node: aPWBASTFunctionInvocation
 				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
