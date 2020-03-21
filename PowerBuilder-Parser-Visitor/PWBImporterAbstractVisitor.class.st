@@ -87,11 +87,11 @@ PWBImporterAbstractVisitor >> majorEntityClassForExtension: anExtension [
 	^ {('srd' -> FamixPWBDataWindow).
 	('sru' -> FamixPWBUserObject).
 	('srw' -> FamixPWBWindow).
-	('srs' -> FamixPWBStructureFile).
-	('srf' -> FamixPWBFunctionFile).
+	('srs' -> FamixPWBStructure).
+	('srf' -> FamixPWBGlobalFunction).
 	('srm' -> FamixPWBMenuObject).
 	('sra' -> FamixPWBApplication).
-	('srq' -> FamixPWBQueryFile)} asDictionary at: anExtension
+	('srq' -> FamixPWBQuery)} asDictionary at: anExtension
 ]
 
 { #category : #accessing }

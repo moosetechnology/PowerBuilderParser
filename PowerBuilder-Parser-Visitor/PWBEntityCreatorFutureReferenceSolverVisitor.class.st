@@ -71,10 +71,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	self
 		resolve:
 			((self
-				resolvable: (SRIdentifierWithNode
+				resolvable:
+				(SRIdentifierWithNode
 				identifier: (self visit: aPWBASTCustomType identifier)
 				expectedKind:
-				{FamixPWBCustomType.
+					{FamixPWBCustomType.
+					FamixPWBGlobalFunction.
+					FamixPWBStructure.
+					FamixPWBQuery.
 					FamixPWBUserObject}
 				node: aPWBASTCustomType identifier))
 				foundAction: [ :identifier :currentEntity | 
