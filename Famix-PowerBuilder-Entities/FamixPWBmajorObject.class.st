@@ -64,22 +64,10 @@ FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 
 { #category : #accessing }
 FamixPWBmajorObject >> incomingInvocationsSenders [
-	^ (self methods flatCollectAsSet: #incomingInvocationsSenders)
-		collectAsSet: #parentType
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> incomingInvocationsSenders: anInteger [
-	| scan scanTop level |
-	scan := OrderedCollection withAll: self incomingInvocationsSenders.
-	scanTop := 1.
-	[ scanTop > scan size ]
-		whileFalse: [ scan
-				addAll:
-					((scan at: scanTop) incomingInvocationsSenders
-						reject: [ :entity | scan includes: entity ]).
-			scanTop := scanTop + 1 ].
-	^ scan
+	^ self
+		clean:
+			((self methods flatCollectAsSet: #incomingInvocationsSenders)
+				collectAsSet: #parentType)
 ]
 
 { #category : #testing }
