@@ -87,11 +87,11 @@ PWBImporterAbstractVisitor >> majorEntityClassForExtension: anExtension [
 	^ {('srd' -> FamixPWBDataWindow).
 	('sru' -> FamixPWBUserObject).
 	('srw' -> FamixPWBWindow).
-	('srs' -> FamixPWBStructureFile).
-	('srf' -> FamixPWBFunctionFile).
+	('srs' -> FamixPWBStructure).
+	('srf' -> FamixPWBGlobalFunction).
 	('srm' -> FamixPWBMenuObject).
 	('sra' -> FamixPWBApplication).
-	('srq' -> FamixPWBQueryFile)} asDictionary at: anExtension
+	('srq' -> FamixPWBQuery)} asDictionary at: anExtension
 ]
 
 { #category : #accessing }
@@ -139,16 +139,18 @@ PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
-	^ SRThisWithNode
+	^ self resolvable: 
+		 (SRThisWithNode
 		node: anPWBASTThis
-		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ]
+		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
 ]
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayDefinition.
-	^ SRIdentifierWithNode
-		identifier: (self visit: aPWBASTVariable identifier)
-		expectedKind: FamixPWBVariable
-		node: aPWBASTVariable identifier
+	^ self
+		resolvable: (SRIdentifierWithNode
+			identifier: (self visit: aPWBASTVariable identifier)
+			expectedKind: FamixPWBVariable
+			node: aPWBASTVariable identifier)
 ]
