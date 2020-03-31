@@ -66,7 +66,8 @@ FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 FamixPWBmajorObject >> incomingInvocationsSenders [
 	^ self
 		clean:
-			((self methods flatCollectAsSet: #incomingInvocationsSenders)
+			(((self methods reject: #isNoisyMethod)
+				flatCollectAsSet: #incomingInvocationsSenders)
 				collectAsSet: #parentType)
 ]
 
