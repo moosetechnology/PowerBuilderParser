@@ -37,10 +37,10 @@ FamixPWBBehavioral >> addVariable: anObject [
 ]
 
 { #category : #'visitor-double dispatching' }
-FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [ 
+FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 	^ aFamixPWBAccessible accessAssociation new
-		from: self;
-		to: aFamixPWBAccessible;
+		source: self;
+		target: aFamixPWBAccessible;
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
 		yourself

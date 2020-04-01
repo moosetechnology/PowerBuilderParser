@@ -33,6 +33,11 @@ PWBASTEventPosting >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
+PWBASTEventPosting >> argument: index [
+	^ self functionArguments functionArguments at: index
+]
+
+{ #category : #accessing }
 PWBASTEventPosting >> arrayPositions [
 	^ arrayPositions
 ]

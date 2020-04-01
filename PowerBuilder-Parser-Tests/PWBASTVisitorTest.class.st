@@ -42,7 +42,30 @@ end function
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
   return 1
-end function'
+end function
+
+private function integer eventTestingFunction()
+this.triggerEvent("evt_trigger", 0, "")
+this.postEvent("evt_post", 0, "")
+TriggerEvent( this, "destructor" )
+end function
+'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParserEventInvocation [
+	| modelTriggerEvent |
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self assert: (model allWithType: FamixPWBEvent) size equals: 2.
+	
+	modelTriggerEvent :=(model allWithType: FamixPWBEvent) anyOne.
+	
+	self assert: modelTriggerEvent incomingInvocations size equals: 1.
+	self
+		assert: modelTriggerEvent incomingInvocations anyOne sender name
+		equals: 'eventTestingFunction'
 ]
 
 { #category : #tests }
@@ -51,7 +74,7 @@ PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allInvocations size equals: 2.
+	self assert: model allInvocations size equals: 4.
 	invok := model allInvocations select: [ :i | i target anyOne name asLowercase = 'afunction' ].
 	self assert: invok size equals: 1.
 	self
@@ -66,8 +89,9 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allInvocations size equals: 2.
-	invok := model allInvocations select: [ :i | i target anyOne name asLowercase = 'anotherfunction' ].
+	self assert: model allInvocations size equals: 4.
+	invok := model allInvocations
+		select: [ :i | i target anyOne name asLowercase = 'anotherfunction' ].
 	self assert: invok size equals: 1.
 	self
 		assert: invok anyOne target anyOne name
