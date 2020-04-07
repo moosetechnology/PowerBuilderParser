@@ -474,6 +474,25 @@ PWBDataWindowParser >> eventTriggering [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> eventTriggeringOrPosting [
+	<generated>
+	^ super eventTriggeringOrPosting withPositions
+		==> [ :production | 
+			PWBASTEventTriggeringOrPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				eventInvocationType: (production content at: 3);
+				functionArguments: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> eventType [
 	<generated>
 	^ super eventType withPositions
@@ -903,6 +922,18 @@ PWBDataWindowParser >> parenthesedExpression [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> postEvent [
+	<generated>
+	^ super postEvent flatten withPositions
+		==> [ :production | 
+			PWBASTPostEvent new
+				startPosition: production start;
+				stopPosition: production stop;
+				postEvent: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> postFixOperator [
 	<generated>
 	^ super postFixOperator withPositions
@@ -1059,6 +1090,18 @@ PWBDataWindowParser >> time [
 				startPosition: production start;
 				stopPosition: production stop;
 				time: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> triggerEvent [
+	<generated>
+	^ super triggerEvent flatten withPositions
+		==> [ :production | 
+			PWBASTTriggerEvent new
+				startPosition: production start;
+				stopPosition: production stop;
+				triggerEvent: production content;
 				yourself ]
 ]
 

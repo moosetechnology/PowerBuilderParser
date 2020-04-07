@@ -422,6 +422,15 @@ PWBASTAbstractVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
+	<generated>
+	self visitAll: aPWBASTEventTriggeringOrPosting identifiers.
+	self visitAll: aPWBASTEventTriggeringOrPosting arrayPositions.
+	self visit: aPWBASTEventTriggeringOrPosting eventInvocationType.
+	self visit: aPWBASTEventTriggeringOrPosting functionArguments.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	<generated>
 	self visit: aPWBASTEventType eventType.
@@ -730,6 +739,12 @@ PWBASTAbstractVisitor >> visitPWBASTParenthesedExpression: aPWBASTParenthesedExp
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTPostEvent: anPWBASTPostEvent [
+	<generated>
+	^ anPWBASTPostEvent postEvent
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTPostFixOperator: aPWBASTPostFixOperator [
 	<generated>
 	self visit: aPWBASTPostFixOperator expression.
@@ -892,6 +907,12 @@ PWBASTAbstractVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition 
 	self visit: aPWBASTTriggerDefinition identifier.
 	self visit: aPWBASTTriggerDefinition eventType.
 	self visit: aPWBASTTriggerDefinition statements.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTTriggerEvent: anPWBASTTriggerEvent [
+	<generated>
+	^ anPWBASTTriggerEvent triggerEvent
 ]
 
 { #category : #visiting }

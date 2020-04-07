@@ -411,6 +411,25 @@ PWBQueryFileParser >> eventTriggering [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> eventTriggeringOrPosting [
+	<generated>
+	^ super eventTriggeringOrPosting withPositions
+		==> [ :production | 
+			PWBASTEventTriggeringOrPosting new
+				startPosition: production start;
+				stopPosition: production stop;
+				identifiers:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 2 ]);
+				arrayPositions:
+					((production content at: 2)
+						collect: [ :subProduction | subProduction at: 4 ]);
+				eventInvocationType: (production content at: 3);
+				functionArguments: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> eventType [
 	<generated>
 	^ super eventType withPositions
@@ -701,6 +720,18 @@ PWBQueryFileParser >> parenthesedExpression [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> postEvent [
+	<generated>
+	^ super postEvent flatten withPositions
+		==> [ :production | 
+			PWBASTPostEvent new
+				startPosition: production start;
+				stopPosition: production stop;
+				postEvent: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> postFixOperator [
 	<generated>
 	^ super postFixOperator withPositions
@@ -844,6 +875,18 @@ PWBQueryFileParser >> time [
 				startPosition: production start;
 				stopPosition: production stop;
 				time: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> triggerEvent [
+	<generated>
+	^ super triggerEvent flatten withPositions
+		==> [ :production | 
+			PWBASTTriggerEvent new
+				startPosition: production start;
+				stopPosition: production stop;
+				triggerEvent: production content;
 				yourself ]
 ]
 

@@ -71,7 +71,10 @@ Class {
 		'createUsingInstruction',
 		'eventInvocation',
 		'eventTriggering',
-		'eventPosting'
+		'eventPosting',
+		'eventTriggeringOrPosting',
+		'triggerEvent',
+		'postEvent'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -358,6 +361,16 @@ PWBAbstractGrammar >> eventTriggering [
 		, 'triggerEvent' token , blank , functionArguments
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventTriggeringOrPosting [
+	<reify: #(triggerEvent / postEvent) into: #eventInvocationType>
+	^ ('this' token , spaces optional , $. parser) optional
+		,
+			(spaces optional , identifier , spaces optional
+				, arrayPosition optional , $. parser , spaces optional) star
+		, (triggerEvent / postEvent) , blank , functionArguments
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
@@ -528,6 +541,11 @@ PWBAbstractGrammar >> parserFor: aCollectionOfString [
 	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> postEvent [
+	^ 'postEvent' token
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> postFixOperator [
 	^ expression , spaces optional , ('--' parser / '++' parser)
@@ -604,6 +622,11 @@ PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
 		, ($. parser , (#digit parser times: 4)) optional
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> triggerEvent [
+	^ 'triggerEvent' token
 ]
 
 { #category : #accessing }
