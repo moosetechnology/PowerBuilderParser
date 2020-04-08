@@ -273,7 +273,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTFunctionInvocation functionName)
 
+
 				expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
+
 
 				node: aPWBASTFunctionInvocation
 				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
