@@ -375,6 +375,30 @@ PWBQueryFileParser >> eventInvocation [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> eventLong [
+	<generated>
+	^ super eventLong withPositions
+		==> [ :production | 
+			PWBASTEventLong new
+				startPosition: production start;
+				stopPosition: production stop;
+				functionArgument: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> eventName [
+	<generated>
+	^ super eventName withPositions
+		==> [ :production | 
+			PWBASTEventName new
+				startPosition: production start;
+				stopPosition: production stop;
+				eventName: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> eventPosting [
 	<generated>
 	^ super eventPosting withPositions
@@ -424,8 +448,13 @@ PWBQueryFileParser >> eventTriggeringOrPosting [
 				arrayPositions:
 					((production content at: 2)
 						collect: [ :subProduction | subProduction at: 4 ]);
-				eventInvocationType: (production content at: 3);
-				functionArguments: (production content at: 5);
+				eventName: (production content at: 6);
+				eventWord:
+					((production content at: 7)
+						ifNotNil: [ (production content at: 7) at: 2 ]);
+				eventLong:
+					((production content at: 8)
+						ifNotNil: [ (production content at: 8) at: 2 ]);
 				yourself ]
 ]
 
@@ -438,6 +467,18 @@ PWBQueryFileParser >> eventType [
 				startPosition: production start;
 				stopPosition: production stop;
 				eventType: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> eventWord [
+	<generated>
+	^ super eventWord withPositions
+		==> [ :production | 
+			PWBASTEventWord new
+				startPosition: production start;
+				stopPosition: production stop;
+				functionArgument: production content;
 				yourself ]
 ]
 

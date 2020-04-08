@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'identifiers',
 		'arrayPositions',
-		'eventInvocationType',
-		'functionArguments',
+		'eventName',
+		'eventWord',
+		'eventLong',
 		'startPosition',
 		'stopPosition'
 	],
@@ -22,10 +23,11 @@ PWBASTEventTriggeringOrPosting >> = anObject [
 		ifFalse: [ ^ false ].
 	^ identifiers = anObject identifiers
 		and: [ arrayPositions = anObject arrayPositions
-				and: [ eventInvocationType = anObject eventInvocationType
-						and: [ functionArguments = anObject functionArguments
-								and: [ startPosition = anObject startPosition
-										and: [ stopPosition = anObject stopPosition ] ] ] ] ]
+				and: [ eventName = anObject eventName
+						and: [ eventWord = anObject eventWord
+								and: [ eventLong = anObject eventLong
+										and: [ startPosition = anObject startPosition
+												and: [ stopPosition = anObject stopPosition ] ] ] ] ] ]
 ]
 
 { #category : #visiting }
@@ -45,23 +47,33 @@ PWBASTEventTriggeringOrPosting >> arrayPositions: anObject [
 ]
 
 { #category : #accessing }
-PWBASTEventTriggeringOrPosting >> eventInvocationType [
-	^ eventInvocationType
+PWBASTEventTriggeringOrPosting >> eventLong [
+	^ eventLong
 ]
 
 { #category : #accessing }
-PWBASTEventTriggeringOrPosting >> eventInvocationType: anObject [
-	eventInvocationType := anObject
+PWBASTEventTriggeringOrPosting >> eventLong: anObject [
+	eventLong := anObject
 ]
 
 { #category : #accessing }
-PWBASTEventTriggeringOrPosting >> functionArguments [
-	^ functionArguments
+PWBASTEventTriggeringOrPosting >> eventName [
+	^ eventName
 ]
 
 { #category : #accessing }
-PWBASTEventTriggeringOrPosting >> functionArguments: anObject [
-	functionArguments := anObject
+PWBASTEventTriggeringOrPosting >> eventName: anObject [
+	eventName := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventTriggeringOrPosting >> eventWord [
+	^ eventWord
+]
+
+{ #category : #accessing }
+PWBASTEventTriggeringOrPosting >> eventWord: anObject [
+	eventWord := anObject
 ]
 
 { #category : #comparing }
@@ -72,10 +84,10 @@ PWBASTEventTriggeringOrPosting >> hash [
 		bitXor:
 			(arrayPositions hash
 				bitXor:
-					(eventInvocationType hash
+					(eventName hash
 						bitXor:
-							(functionArguments hash
-								bitXor: (startPosition hash bitXor: stopPosition hash))))
+							(eventWord hash
+								bitXor: (eventLong hash bitXor: (startPosition hash bitXor: stopPosition hash)))))
 ]
 
 { #category : #accessing }

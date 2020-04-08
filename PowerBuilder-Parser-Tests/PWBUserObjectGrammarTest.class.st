@@ -626,6 +626,17 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testEventDeclaration6 [
+	self parse: 'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
+	is_dct_ou_dct_int = "dct"
+else
+	is_dct_ou_dct_int = "dct_int"
+end if
+dw_liste.triggerEvent("edw_lecture", 0, "")
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
@@ -1599,6 +1610,11 @@ PWBUserObjectGrammarTest >> testTriggerEvent6 [
 	self
 		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
 		rule: #eventTriggeringOrPosting
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent7 [
+	self parse: 'this.ya . yo.TriggerEvent(Click!)' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }

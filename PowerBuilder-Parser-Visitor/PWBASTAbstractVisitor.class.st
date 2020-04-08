@@ -398,6 +398,18 @@ PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventLong: aPWBASTEventLong [
+	<generated>
+	self visit: aPWBASTEventLong functionArgument.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventName: aPWBASTEventName [
+	<generated>
+	self visit: aPWBASTEventName eventName.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
 	<generated>
 	self visitAll: aPWBASTEventPosting identifiers.
@@ -426,14 +438,21 @@ PWBASTAbstractVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTrigge
 	<generated>
 	self visitAll: aPWBASTEventTriggeringOrPosting identifiers.
 	self visitAll: aPWBASTEventTriggeringOrPosting arrayPositions.
-	self visit: aPWBASTEventTriggeringOrPosting eventInvocationType.
-	self visit: aPWBASTEventTriggeringOrPosting functionArguments.
+	self visit: aPWBASTEventTriggeringOrPosting eventName.
+	self visit: aPWBASTEventTriggeringOrPosting eventWord.
+	self visit: aPWBASTEventTriggeringOrPosting eventLong.
 ]
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	<generated>
 	self visit: aPWBASTEventType eventType.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventWord: aPWBASTEventWord [
+	<generated>
+	self visit: aPWBASTEventWord functionArgument.
 ]
 
 { #category : #visiting }

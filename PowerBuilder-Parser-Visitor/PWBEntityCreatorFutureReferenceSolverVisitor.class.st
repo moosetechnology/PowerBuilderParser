@@ -205,21 +205,25 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
+	<generated>
+	self visitAll: aPWBASTEventTriggering identifiers.
+	self visitAll: aPWBASTEventTriggering arrayPositions.
+	self visit: aPWBASTEventTriggering functionArguments
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
 	| customIdentifier eventInvocation eventName |
-	[eventName := (aPWBASTEventTriggering argument: 1) expression expression expressionTerm toString]
-	on: Error do: [^self].
+	[ eventName := aPWBASTEventTriggeringOrPosting eventName toString ]
+		on: Error
+		do: [ ^ self ].
 	customIdentifier := PWBASTIdentifier new
-		identifier: ((eventName copyReplaceAll: '"' with: '') copyReplaceAll: '!' with: '');
-		startPosition:
-			aPWBASTEventTriggering functionArguments functionArguments first
-				startPosition;
-		stopPosition:
-			aPWBASTEventTriggering functionArguments functionArguments first
-				stopPosition.
+		identifier:
+			((eventName copyReplaceAll: '"' with: '') copyReplaceAll: '!' with: '');
+		startPosition: aPWBASTEventTriggeringOrPosting startPosition;
+		stopPosition: aPWBASTEventTriggeringOrPosting stopPosition.
 	eventInvocation := PWBASTEventInvocation new
-		identifier: customIdentifier;
-		startPosition: aPWBASTEventTriggering startPosition;
-		stopPosition: aPWBASTEventTriggering stopPosition.
+		identifier: customIdentifier.
 	self visitPWBASTEventInvocation: eventInvocation
 ]
 
