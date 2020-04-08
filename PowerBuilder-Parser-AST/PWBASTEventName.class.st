@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTConstant,
+	#name : #PWBASTEventName,
 	#superclass : #Object,
 	#instVars : [
-		'constant',
+		'eventName',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,63 +10,73 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTConstant >> = anObject [
+PWBASTEventName >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ constant = anObject toString
+	^ eventName = anObject eventName
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
-PWBASTConstant >> acceptVisitor: aVisitor [
+PWBASTEventName >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTConstant: self
+	^ aVisitor visitPWBASTEventName: self
 ]
 
 { #category : #accessing }
-PWBASTConstant >> constant [
-	^ constant
+PWBASTEventName >> eventName [
+	^ eventName
 ]
 
 { #category : #accessing }
-PWBASTConstant >> constant: anObject [
-	constant := anObject
+PWBASTEventName >> eventName: anObject [
+	eventName := anObject
+]
+
+{ #category : #accessing }
+PWBASTEventName >> expression [
+	^ expression
+]
+
+{ #category : #accessing }
+PWBASTEventName >> expression: anObject [
+	expression := anObject
 ]
 
 { #category : #comparing }
-PWBASTConstant >> hash [
+PWBASTEventName >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ constant hash
+	^ eventName hash
 		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition [
+PWBASTEventName >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition: anObject [
+PWBASTEventName >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition [
+PWBASTEventName >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition: anObject [
+PWBASTEventName >> stopPosition: anObject [
 	stopPosition := anObject
 ]
 
 { #category : #printing }
-PWBASTConstant >> toString [
-	^ constant
+PWBASTEventName >> toString [
+	^ self eventName toString
 ]

@@ -70,8 +70,12 @@ Class {
 		'expressionAction',
 		'createUsingInstruction',
 		'eventInvocation',
-		'eventTriggering',
-		'eventPosting'
+		'eventTriggeringOrPosting',
+		'triggerEvent',
+		'postEvent',
+		'eventName',
+		'eventWord',
+		'eventLong'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -341,26 +345,35 @@ PWBAbstractGrammar >> eventInvocation [
 ]
 
 { #category : #'as yet unclassified' }
-PWBAbstractGrammar >> eventPosting [
-	^ ('this' token , spaces optional , $. parser) optional
-		,
-			(spaces optional , identifier , spaces optional
-				, arrayPosition optional , $. parser , spaces optional) star
-		, 'postEvent' token , blank , functionArguments
+PWBAbstractGrammar >> eventLong [
+	^ functionArgument trim
 ]
 
 { #category : #'as yet unclassified' }
-PWBAbstractGrammar >> eventTriggering [
+PWBAbstractGrammar >> eventName [
+	<reify: #(string / constant / accessOrType) into: #eventName>
+	^ (string / constant / accessOrType) trim
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventTriggeringOrPosting [
 	^ ('this' token , spaces optional , $. parser) optional
 		,
 			(spaces optional , identifier , spaces optional
 				, arrayPosition optional , $. parser , spaces optional) star
-		, 'triggerEvent' token , blank , functionArguments
+		, ('triggerEvent' token / 'postEvent' token) , blank , $( parser
+		, eventName , ($, parser trim , eventWord) optional
+		, ($, parser , eventLong) optional , $) parser
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> eventType [
 	^ defaultEventType / identifier
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> eventWord [
+	^ functionArgument trim
 ]
 
 { #category : #accessing }
@@ -528,6 +541,11 @@ PWBAbstractGrammar >> parserFor: aCollectionOfString [
 	^ (aCollectionOfString collect: #parser) reduce: [ :a :b | a / b ]
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> postEvent [
+	^ 'postEvent' token
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> postFixOperator [
 	^ expression , spaces optional , ('--' parser / '++' parser)
@@ -575,7 +593,7 @@ PWBAbstractGrammar >> start [
 { #category : #accessing }
 PWBAbstractGrammar >> statement [
 	^ specialStatement / assignationStatement / callStatement
-		/ ifStatement / eventTriggering / eventPosting / functionInvocation
+		/ ifStatement / eventTriggeringOrPosting/ functionInvocation
 		/ postFixOperator / expression
 ]
 
@@ -604,6 +622,11 @@ PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
 		, ($. parser , (#digit parser times: 4)) optional
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> triggerEvent [
+	^ 'triggerEvent' token
 ]
 
 { #category : #accessing }

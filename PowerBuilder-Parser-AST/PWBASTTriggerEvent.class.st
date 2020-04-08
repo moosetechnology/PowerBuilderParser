@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTConstant,
+	#name : #PWBASTTriggerEvent,
 	#superclass : #Object,
 	#instVars : [
-		'constant',
+		'triggerEvent',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,63 +10,58 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTConstant >> = anObject [
+PWBASTTriggerEvent >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ constant = anObject toString
+	^ triggerEvent = anObject triggerEvent
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
-PWBASTConstant >> acceptVisitor: aVisitor [
+PWBASTTriggerEvent >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTConstant: self
-]
-
-{ #category : #accessing }
-PWBASTConstant >> constant [
-	^ constant
-]
-
-{ #category : #accessing }
-PWBASTConstant >> constant: anObject [
-	constant := anObject
+	^ aVisitor visitPWBASTTriggerEvent: self
 ]
 
 { #category : #comparing }
-PWBASTConstant >> hash [
+PWBASTTriggerEvent >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ constant hash
+	^ triggerEvent hash
 		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition [
+PWBASTTriggerEvent >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition: anObject [
+PWBASTTriggerEvent >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition [
+PWBASTTriggerEvent >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition: anObject [
+PWBASTTriggerEvent >> stopPosition: anObject [
 	stopPosition := anObject
 ]
 
-{ #category : #printing }
-PWBASTConstant >> toString [
-	^ constant
+{ #category : #accessing }
+PWBASTTriggerEvent >> triggerEvent [
+	^ triggerEvent
+]
+
+{ #category : #accessing }
+PWBASTTriggerEvent >> triggerEvent1: anObject [
+	triggerEvent := anObject
 ]

@@ -398,6 +398,18 @@ PWBASTAbstractVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventLong: aPWBASTEventLong [
+	<generated>
+	self visit: aPWBASTEventLong functionArgument.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventName: aPWBASTEventName [
+	<generated>
+	self visit: aPWBASTEventName eventName.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
 	<generated>
 	self visitAll: aPWBASTEventPosting identifiers.
@@ -422,9 +434,25 @@ PWBASTAbstractVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
+	<generated>
+	self visitAll: aPWBASTEventTriggeringOrPosting identifiers.
+	self visitAll: aPWBASTEventTriggeringOrPosting arrayPositions.
+	self visit: aPWBASTEventTriggeringOrPosting eventName.
+	self visit: aPWBASTEventTriggeringOrPosting eventWord.
+	self visit: aPWBASTEventTriggeringOrPosting eventLong.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	<generated>
 	self visit: aPWBASTEventType eventType.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTEventWord: aPWBASTEventWord [
+	<generated>
+	self visit: aPWBASTEventWord functionArgument.
 ]
 
 { #category : #visiting }
@@ -730,6 +758,12 @@ PWBASTAbstractVisitor >> visitPWBASTParenthesedExpression: aPWBASTParenthesedExp
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTPostEvent: anPWBASTPostEvent [
+	<generated>
+	^ anPWBASTPostEvent postEvent
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTPostFixOperator: aPWBASTPostFixOperator [
 	<generated>
 	self visit: aPWBASTPostFixOperator expression.
@@ -892,6 +926,12 @@ PWBASTAbstractVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition 
 	self visit: aPWBASTTriggerDefinition identifier.
 	self visit: aPWBASTTriggerDefinition eventType.
 	self visit: aPWBASTTriggerDefinition statements.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTTriggerEvent: anPWBASTTriggerEvent [
+	<generated>
+	^ anPWBASTTriggerEvent triggerEvent
 ]
 
 { #category : #visiting }
