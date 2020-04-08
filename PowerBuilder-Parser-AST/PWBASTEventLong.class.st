@@ -1,8 +1,8 @@
 Class {
-	#name : #PWBASTConstant,
+	#name : #PWBASTEventLong,
 	#superclass : #Object,
 	#instVars : [
-		'constant',
+		'functionArgument',
 		'startPosition',
 		'stopPosition'
 	],
@@ -10,63 +10,58 @@ Class {
 }
 
 { #category : #comparing }
-PWBASTConstant >> = anObject [
+PWBASTEventLong >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
 	self == anObject
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ constant = anObject toString
+	^ functionArgument = anObject functionArgument
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
-PWBASTConstant >> acceptVisitor: aVisitor [
+PWBASTEventLong >> acceptVisitor: aVisitor [
 	<generated>
-	^ aVisitor visitPWBASTConstant: self
+	^ aVisitor visitPWBASTEventLong: self
 ]
 
 { #category : #accessing }
-PWBASTConstant >> constant [
-	^ constant
+PWBASTEventLong >> functionArgument [
+	^ functionArgument
 ]
 
 { #category : #accessing }
-PWBASTConstant >> constant: anObject [
-	constant := anObject
+PWBASTEventLong >> functionArgument: anObject [
+	functionArgument := anObject
 ]
 
 { #category : #comparing }
-PWBASTConstant >> hash [
+PWBASTEventLong >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ constant hash
+	^ functionArgument hash
 		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition [
+PWBASTEventLong >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> startPosition: anObject [
+PWBASTEventLong >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition [
+PWBASTEventLong >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-PWBASTConstant >> stopPosition: anObject [
+PWBASTEventLong >> stopPosition: anObject [
 	stopPosition := anObject
-]
-
-{ #category : #printing }
-PWBASTConstant >> toString [
-	^ constant
 ]

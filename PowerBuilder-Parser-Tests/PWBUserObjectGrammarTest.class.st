@@ -626,6 +626,17 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testEventDeclaration6 [
+	self parse: 'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
+	is_dct_ou_dct_int = "dct"
+else
+	is_dct_ou_dct_int = "dct_int"
+end if
+dw_liste.triggerEvent("edw_lecture", 0, "")
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testEventDeclarationEmpty [
 	self parse: 'event constructor;call super::constructor;
 end event' rule: #eventDeclaration
@@ -1246,7 +1257,7 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testPostEvent [
-	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventPosting
+	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
@@ -1569,36 +1580,41 @@ end on'
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent [
-	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+	self parse: 'yo.TriggerEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent1 [
-	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+	self parse: 'this.yo.TriggerEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent3 [
-	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+	self parse: 'this.ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent4 [
-	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggering
+	self parse: 'ya . yo.TriggerEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent5 [
 	self
 		parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
-		rule: #eventTriggering
+		rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }
 PWBUserObjectGrammarTest >> testTriggerEvent6 [
 	self
 		parse: 'idw_detail[li_courant].triggerEvent(as_evenement, al_wparam, al_lparam)'
-		rule: #eventTriggering
+		rule: #eventTriggeringOrPosting
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testTriggerEvent7 [
+	self parse: 'this.ya . yo.TriggerEvent(Click!)' rule: #eventTriggeringOrPosting
 ]
 
 { #category : #tests }

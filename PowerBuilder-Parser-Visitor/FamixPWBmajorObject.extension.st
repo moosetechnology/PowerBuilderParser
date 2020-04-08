@@ -3,8 +3,8 @@ Extension { #name : #FamixPWBmajorObject }
 { #category : #'*PowerBuilder-Parser-Visitor' }
 FamixPWBmajorObject >> createAccessTo: aFamixPWBAttribute writing: aBoolean [
 	^ FamixPWBAccess new
-		from: self;
-		to: aFamixPWBAttribute;
+		source: self;
+		target: aFamixPWBAttribute;
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
 		yourself
