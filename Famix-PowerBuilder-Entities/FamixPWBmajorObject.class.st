@@ -43,7 +43,7 @@ FamixPWBmajorObject >> allIncomingInvocationsSenders [
 		whileFalse: [ scan
 				addAll:
 					((scan at: scanTop) incomingInvocationsSenders
-						reject: [ :entity | scan includes: entity ]).
+						reject: [ :entity | scan includes: entity ]) asSet.
 			scanTop := scanTop + 1 ].
 	^ scan
 ]
@@ -69,6 +69,11 @@ FamixPWBmajorObject >> incomingInvocationsSenders [
 			(((self methods reject: #isNoisyMethod)
 				flatCollectAsSet: #incomingInvocationsSenders)
 				collectAsSet: #parentType)
+]
+
+{ #category : #query }
+FamixPWBmajorObject >> incomingInvocationsTypes [
+	^ self methodsIncomingInvocationsSenders collectAsSet: #class
 ]
 
 { #category : #testing }
@@ -155,6 +160,12 @@ FamixPWBmajorObject >> libraryGroup [
 	<generated>
 	<navigation: 'Library'>
 	^ MooseGroup with: self library
+]
+
+{ #category : #query }
+FamixPWBmajorObject >> methodsIncomingInvocationsSenders [
+	^ (self methods reject: #isNoisyMethod)
+		flatCollectAsSet: #incomingInvocationsSenders
 ]
 
 { #category : #accessing }
