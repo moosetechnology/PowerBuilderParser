@@ -17,12 +17,12 @@ FamixPWBModel class >> annotation [
 	<generated>
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #strategy }
 FamixPWBModel >> allModelAliveMethods [
 	^ self allMethods asSet select: [ :method | method isNotPWBDead ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #strategy }
 FamixPWBModel >> allModelDeadMethods [
 	^ self privateState
 		attributeAt: #allModelDeadMethods
@@ -30,7 +30,7 @@ FamixPWBModel >> allModelDeadMethods [
 			self allMethods asSet select: #isPWBDead ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #strategy }
 FamixPWBModel >> initializeMethodsToDeath [
 	((self allMethods asSet reject: #isNoisyMethod)
 		reject: [ :m | 
@@ -44,7 +44,7 @@ FamixPWBModel >> resetDeathMethodState [
 	self allMethods asSet do: [ :method | method isPWBDead: false ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #strategy }
 FamixPWBModel >> resurrectMethods [
 	| alive end |
 	self initializeMethodsToDeath.
