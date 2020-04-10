@@ -71,6 +71,16 @@ FamixPWBmajorObject >> incomingInvocationsSenders [
 				collectAsSet: #parentType)
 ]
 
+{ #category : #api }
+FamixPWBmajorObject >> incomingInvocationsSendersExpectFromMethodsOfType: aCollection [
+	^ self
+		clean:
+			((((self methods reject: [ :each | each isNoisyMethod ])
+				flatCollectAsSet: #incomingInvocationsSenders)
+				reject: [ :aMethod | aCollection includes: aMethod class ])
+				collectAsSet: #parentType)
+]
+
 { #category : #query }
 FamixPWBmajorObject >> incomingInvocationsTypes [
 	^ self methodsIncomingInvocationsSenders collectAsSet: #class

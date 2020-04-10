@@ -121,6 +121,11 @@ FamixPWBBehavioral >> isMethod [
 	^ false
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> isNotPWBDead [
+	^ self isPWBDead not
+]
+
 { #category : #testing }
 FamixPWBBehavioral >> isReference [
 
