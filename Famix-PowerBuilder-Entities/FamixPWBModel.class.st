@@ -22,12 +22,26 @@ FamixPWBModel >> allModelAliveMethods [
 	^ self allMethods asSet select: [ :method | method isNotPWBDead ]
 ]
 
+{ #category : #api }
+FamixPWBModel >> allModelDeadMethodWithAliveStrategy [
+	self killIncrementallyNonInvocatedMethods.
+	^ self allMethods asSet select: [ :method | method isPWBDead ]
+]
+
 { #category : #strategy }
 FamixPWBModel >> allModelDeadMethods [
 	^ self privateState
 		attributeAt: #allModelDeadMethods
 		ifAbsentPut: [ self resurrectMethods.
 			self allMethods asSet select: #isPWBDead ]
+]
+
+{ #category : #initialization }
+FamixPWBModel >> initializeMethodsToAlive [
+	self allMethods asSet
+		do: [ :method | 
+			method isPWBDead
+				ifTrue: [ method isPWBDead: false ] ]
 ]
 
 { #category : #strategy }
@@ -37,6 +51,34 @@ FamixPWBModel >> initializeMethodsToDeath [
 			{FamixPWBEvent.
 			FamixPWBTrigger} includes: m class ])
 		do: [ :m | m isPWBDead: true ]
+]
+
+{ #category : #api }
+FamixPWBModel >> killIncrementallyNonInvocatedMethods [
+	| defaultAlive deadMethods done |
+	self initializeMethodsToAlive.
+	defaultAlive := QueryDefaultAliveMethods runOn: self allMethods asSet.
+	QueryDirectDeadMethods runOn: self allMethods asSet.
+	deadMethods := self allMethods asSet
+		select: [ :method | method isPWBDead ].
+	done := false.
+	[ done ]
+		whileFalse: [ | modelDeadMethods |
+			deadMethods
+				do: [ :dead | 
+					| potentialDead deadFounded |
+					potentialDead := dead outgoingInvocationsCandidates
+						reject: [ :meth | meth isPWBDead or: [ defaultAlive includes: meth ] ].
+					deadFounded := potentialDead
+						reject:
+							[ :aMethod | aMethod incomingInvocationsSenders anySatisfy: #isNotPWBDead ].
+					deadFounded
+						ifNotEmpty: [ deadFounded do: [ :m | m isPWBDead: true ] ] ].
+			modelDeadMethods := self allMethods asSet
+				select: [ :method | method isPWBDead ].
+			deadMethods = modelDeadMethods
+				ifTrue: [ done := true ]
+				ifFalse: [ deadMethods := modelDeadMethods ] ]
 ]
 
 { #category : #initialization }

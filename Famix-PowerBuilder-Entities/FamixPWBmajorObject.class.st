@@ -45,7 +45,7 @@ FamixPWBmajorObject >> allIncomingInvocationsSenders [
 					((scan at: scanTop) incomingInvocationsSenders
 						reject: [ :entity | scan includes: entity ]) asSet.
 			scanTop := scanTop + 1 ].
-	^ scan
+	^ scan asSet
 ]
 
 { #category : #accessing }
