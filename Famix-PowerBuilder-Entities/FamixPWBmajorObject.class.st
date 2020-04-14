@@ -48,6 +48,14 @@ FamixPWBmajorObject >> allIncomingInvocationsSenders [
 	^ scan asSet
 ]
 
+{ #category : #api }
+FamixPWBmajorObject >> attributeAccess: attributeName [
+	^ self mooseModel allMethods
+		select: [ :method | 
+			(method accesses collectAsSet: [ :acces | acces variable ])
+				anySatisfy: [ :var | var name endsWith: attributeName ] ]
+]
+
 { #category : #accessing }
 FamixPWBmajorObject >> cyclomaticComplexity [
 
