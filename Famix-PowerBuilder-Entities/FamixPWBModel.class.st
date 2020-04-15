@@ -53,6 +53,12 @@ FamixPWBModel >> initializeMethodsToDeath [
 		do: [ :m | m isPWBDead: true ]
 ]
 
+{ #category : #actions }
+FamixPWBModel >> install [
+	super install.
+	self resurrectMethods
+]
+
 { #category : #api }
 FamixPWBModel >> killIncrementallyNonInvocatedMethods [
 	| defaultAlive deadMethods done |
