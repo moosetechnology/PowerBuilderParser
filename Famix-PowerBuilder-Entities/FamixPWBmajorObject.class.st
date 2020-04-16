@@ -72,9 +72,7 @@ FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 
 { #category : #accessing }
 FamixPWBmajorObject >> deadMethods [
-	^ self privateState
-		attributeAt: #deadMethods
-		ifAbsentPut: [ (self methods select: #isPWBDead) asSet asMooseGroup ]
+	^ (self methods select: #isPWBDead) asSet asMooseGroup
 ]
 
 { #category : #accessing }

@@ -30,10 +30,8 @@ FamixPWBModel >> allModelDeadMethodWithAliveStrategy [
 
 { #category : #strategy }
 FamixPWBModel >> allModelDeadMethods [
-	^ self privateState
-		attributeAt: #allModelDeadMethods
-		ifAbsentPut: [ self resurrectMethods.
-			self allMethods asSet select: #isPWBDead ]
+	self resurrectMethods.
+	^ self allMethods asSet select: #isPWBDead
 ]
 
 { #category : #initialization }
