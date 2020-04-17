@@ -43,9 +43,17 @@ FamixPWBmajorObject >> allIncomingInvocationsSenders [
 		whileFalse: [ scan
 				addAll:
 					((scan at: scanTop) incomingInvocationsSenders
-						reject: [ :entity | scan includes: entity ]).
+						reject: [ :entity | scan includes: entity ]) asSet.
 			scanTop := scanTop + 1 ].
-	^ scan
+	^ scan asSet
+]
+
+{ #category : #api }
+FamixPWBmajorObject >> attributeAccess: attributeName [
+	^ self mooseModel allMethods
+		select: [ :method | 
+			(method accesses collectAsSet: [ :acces | acces variable ])
+				anySatisfy: [ :var | var name endsWith: attributeName ] ]
 ]
 
 { #category : #accessing }
@@ -63,12 +71,32 @@ FamixPWBmajorObject >> cyclomaticComplexity: anObject [
 ]
 
 { #category : #accessing }
+FamixPWBmajorObject >> deadMethods [
+	^ (self methods select: #isPWBDead) asSet asMooseGroup
+]
+
+{ #category : #accessing }
 FamixPWBmajorObject >> incomingInvocationsSenders [
 	^ self
 		clean:
 			(((self methods reject: #isNoisyMethod)
 				flatCollectAsSet: #incomingInvocationsSenders)
 				collectAsSet: #parentType)
+]
+
+{ #category : #api }
+FamixPWBmajorObject >> incomingInvocationsSendersExpectFromMethodsOfType: aCollection [
+	^ self
+		clean:
+			((((self methods reject: [ :each | each isNoisyMethod ])
+				flatCollectAsSet: #incomingInvocationsSenders)
+				reject: [ :aMethod | aCollection includes: aMethod class ])
+				collectAsSet: #parentType)
+]
+
+{ #category : #query }
+FamixPWBmajorObject >> incomingInvocationsTypes [
+	^ self methodsIncomingInvocationsSenders collectAsSet: #class
 ]
 
 { #category : #testing }
@@ -155,6 +183,12 @@ FamixPWBmajorObject >> libraryGroup [
 	<generated>
 	<navigation: 'Library'>
 	^ MooseGroup with: self library
+]
+
+{ #category : #query }
+FamixPWBmajorObject >> methodsIncomingInvocationsSenders [
+	^ (self methods reject: #isNoisyMethod)
+		flatCollectAsSet: #incomingInvocationsSenders
 ]
 
 { #category : #accessing }

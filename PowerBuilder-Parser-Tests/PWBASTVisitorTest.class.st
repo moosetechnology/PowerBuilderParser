@@ -20,10 +20,12 @@ PWBASTVisitorTest >> setUp [
 		yourself.
 	visitor
 		file: 'aFile.sru' asFileReference;
+		preprocessingMap: OrderedDictionary new;
 		model: model.
 	visitor currentLibrary: library.
 	context := FamixPWBImportingContext new importMaximum.
-	context imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
+	context
+		imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
 	visitor importingContext: context.
 	result := PWBCommonParser new parse: self sourceExample.
 	result

@@ -174,41 +174,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventPosting: aPWBASTEventPosting [
-	| customIdentifier eventInvocation eventName |
-	[ eventName := (aPWBASTEventPosting argument: 1) expression
-		expression expressionTerm toString ]
-		on: Error
-		do: [ self halt ].
-	customIdentifier := PWBASTIdentifier new
-		identifier:
-			((eventName copyReplaceAll: '"' with: '') copyReplaceAll: '!' with: '');
-		startPosition:
-			aPWBASTEventPosting functionArguments functionArguments first
-				startPosition;
-		stopPosition:
-			aPWBASTEventPosting functionArguments functionArguments first
-				stopPosition.
-	eventInvocation := PWBASTEventInvocation new
-		identifier: customIdentifier.
-	self visitPWBASTEventInvocation: eventInvocation
-]
-
-{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
 	self flag: #TODO.	"Manage object class correctly"
 	self visit: aPWBASTEventReferenceName objectClass.
 	self currentEntity
 		name: (self visit: aPWBASTEventReferenceName eventName).
 	self visit: aPWBASTEventReferenceName arguments
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggering: aPWBASTEventTriggering [
-	<generated>
-	self visitAll: aPWBASTEventTriggering identifiers.
-	self visitAll: aPWBASTEventTriggering arrayPositions.
-	self visit: aPWBASTEventTriggering functionArguments
 ]
 
 { #category : #visiting }
@@ -220,10 +191,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPost
 	customIdentifier := PWBASTIdentifier new
 		identifier:
 			((eventName copyReplaceAll: '"' with: '') copyReplaceAll: '!' with: '');
-		startPosition: aPWBASTEventTriggeringOrPosting startPosition;
-		stopPosition: aPWBASTEventTriggeringOrPosting stopPosition.
+		yourself.
 	eventInvocation := PWBASTEventInvocation new
-		identifier: customIdentifier.
+		identifier: customIdentifier;
+		startPosition: aPWBASTEventTriggeringOrPosting startPosition;
+		stopPosition: aPWBASTEventTriggeringOrPosting stopPosition;
+		yourself.
 	self visitPWBASTEventInvocation: eventInvocation
 ]
 
@@ -272,11 +245,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 				resolvable:
 				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTFunctionInvocation functionName)
-
-
-				expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
-
-
+				expectedKind:
+					{FamixPWBSubRoutine.
+					FamixPWBFunction}
 				node: aPWBASTFunctionInvocation
 				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 

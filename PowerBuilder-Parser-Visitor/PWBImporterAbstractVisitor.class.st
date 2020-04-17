@@ -46,6 +46,22 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 	^ created
 ]
 
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
+	| created |
+	"self haltIf: [ anASTNode startPosition = 420261 ]."
+	created := self createAssociation: aClass.
+	created
+		sourceAnchor:
+			(FamixPWBIndexedFileAnchor new
+				mooseModel: self model;
+				startPos: (self unpreprocessedPosition: anASTNode startPosition);
+				fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
+				endPos: (self unpreprocessedPosition: anASTNode stopPosition);
+				yourself).
+	^ created
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> createStub: aClass [
 	| entity |
