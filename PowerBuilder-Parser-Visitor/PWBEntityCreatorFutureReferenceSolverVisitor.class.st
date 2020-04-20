@@ -82,6 +82,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 					FamixPWBUserObject}
 				node: aPWBASTCustomType identifier))
 				foundAction: [ :identifier :currentEntity | 
+					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					(self create: FamixPWBReference from: identifier node)
 						source: currentEntity;
 						target: identifier entity ];
@@ -133,9 +134,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
-					(self createAssociation: FamixPWBInvocation from: identifier node)
+					| association |
+					association := (self
+						createAssociation: FamixPWBInvocation
+						from: identifier node)
 						sender: currentEntity;
-						candidates: identifier candidates ])
+						candidates: identifier candidates.
+					association sourceAnchor
+						fileName: currentEntity sourceAnchor fileName.
+					association ])
 ]
 
 { #category : #visiting }
@@ -168,6 +175,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
+					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ])
@@ -255,6 +263,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
+					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ]).
@@ -307,6 +316,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
+					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ])
