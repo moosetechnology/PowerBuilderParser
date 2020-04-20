@@ -1039,6 +1039,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation8 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation9 [
+	self
+		parse:
+			'wf_sval_rdg(                   "TAU_CAF",                  today() )'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 	self parse: 'global uo_consultation_histo_suppression_ech uo_consultation_histo_suppression_ech' rule: #globalVariableDeclaration
 ]

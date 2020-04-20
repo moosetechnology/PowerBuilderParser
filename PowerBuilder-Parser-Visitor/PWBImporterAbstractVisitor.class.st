@@ -49,7 +49,7 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
 	| created |
-	"self haltIf: [ anASTNode startPosition = 420261 ]."
+"	self haltIf: aClass = FamixPWBInvocation."
 	created := self createAssociation: aClass.
 	created
 		sourceAnchor:
@@ -122,6 +122,15 @@ PWBImporterAbstractVisitor >> model: anObject [
 	self pushAsScopeAll: FamixPWBEvent ofModel: model.
 	self pushAsScopeAll: FamixPWBSubRoutine ofModel: model.
 	self pushAsScopeAll: FamixPWBUserObject ofModel: model
+]
+
+{ #category : #'as yet unclassified' }
+PWBImporterAbstractVisitor >> preprocessedFile: aFile [
+	self
+		file:
+			(aFile pathString
+				copyReplaceAll: aFile basename
+				with: 'cleaned/' , aFile basename) asFileReference
 ]
 
 { #category : #accessing }
