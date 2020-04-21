@@ -44,7 +44,7 @@ FamixPWBModel >> initializeMethodsToAlive [
 
 { #category : #strategy }
 FamixPWBModel >> initializeMethodsToDeath [
-	((self allMethods asSet reject: #isNoisyMethod)
+	((self allMethods asSet reject: #isPredefinedMethod)
 		reject: [ :m | 
 			{FamixPWBEvent.
 			FamixPWBTrigger} includes: m class ])

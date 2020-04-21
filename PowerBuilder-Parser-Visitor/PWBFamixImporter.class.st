@@ -48,7 +48,7 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
-	preprocessedMap := Dictionary new: aFolder visibleFiles size.
+	"preprocessedMap := Dictionary new: aFolder visibleFiles size."
 	aFolder visibleFiles
 		do: [ :aFile | 
 			| parser outputFile stream |
@@ -111,6 +111,7 @@ PWBFamixImporter >> folder: anObject [
 { #category : #'as yet unclassified' }
 PWBFamixImporter >> importInOnePass [
 	| library visitor |
+	preprocessedMap := Dictionary new.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor model: self targetModel.
 	visitor importingContext: self importingContext.
@@ -146,4 +147,9 @@ PWBFamixImporter >> initialize [
   super initialize.
   targetModel := FamixPWBModel new.
   importingContext := self defaultImportingContext
+]
+
+{ #category : #accessing }
+PWBFamixImporter >> preprocessedMap [
+	^ preprocessedMap
 ]
