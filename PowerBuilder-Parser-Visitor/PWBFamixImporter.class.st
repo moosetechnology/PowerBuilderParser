@@ -148,3 +148,8 @@ PWBFamixImporter >> initialize [
   targetModel := FamixPWBModel new.
   importingContext := self defaultImportingContext
 ]
+
+{ #category : #accessing }
+PWBFamixImporter >> preprocessedMap [
+	^ preprocessedMap
+]
