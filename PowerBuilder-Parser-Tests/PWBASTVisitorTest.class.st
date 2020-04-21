@@ -4,10 +4,44 @@ Class {
 	#instVars : [
 		'visitor',
 		'result',
-		'model'
+		'model',
+		'toDelete'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
+
+{ #category : #tests }
+PWBASTVisitorTest >> createDirectory: aString [
+	self toDelete addFirst: aString.
+	^ self filesystem
+		ensureCreateDirectory: (self filesystem pathFromString: aString)
+]
+
+{ #category : #setup }
+PWBASTVisitorTest >> createFileNamed: aString content: aBlock [
+	self toDelete addFirst: aString.
+	aString asFileReference writeStreamDo: aBlock
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> filesystem [
+	^ FileSystem disk
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> pwbLibAString [
+	^ 'pwbLibs/pwbLibA/'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> pwbLibBString [
+	^ 'pwbLibs/pwbLibB/'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> pwbLibsString [
+	^ 'pwbLibs/'
+]
 
 { #category : #running }
 PWBASTVisitorTest >> setUp [
@@ -158,6 +192,23 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 ]
 
 { #category : #tests }
+PWBASTVisitorTest >> testProssessingMapKeepAllPreprocessedFiles [
+	| importer |
+	self createDirectory: self pwbLibsString.
+	self createDirectory: self pwbLibAString.
+	self createDirectory: self pwbLibBString.
+	self
+		createFileNamed: self pwbLibAString , 'fileLibA.sru'
+		content: [ :stream | stream nextPutAll: self sourceExample ].
+	self
+		createFileNamed: self pwbLibBString , 'fileLibB.sru'
+		content: [ :stream | stream nextPutAll: '' ].
+	importer := PWBFamixImporter new.
+	importer importInOnePassFromFolder: self pwbLibsString.
+	self assert: importer preprocessedMap size equals: 2
+]
+
+{ #category : #tests }
 PWBASTVisitorTest >> testSourceTestSettings [
 	| eventTestingFunction |
 	visitor
@@ -173,4 +224,9 @@ this.triggerEvent("evt_trigger", 0, "")
 this.postEvent("evt_post", 0, "")
 TriggerEvent( this, "destructor" )
 end function'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> toDelete [
+	^ toDelete ifNil: [toDelete := OrderedCollection new]
 ]
