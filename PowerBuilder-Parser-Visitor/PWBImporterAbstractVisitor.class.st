@@ -49,7 +49,7 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
 	| created |
-"	self haltIf: aClass = FamixPWBInvocation."
+	"self haltIf: aClass = FamixPWBInvocation."
 	created := self createAssociation: aClass.
 	created
 		sourceAnchor:
