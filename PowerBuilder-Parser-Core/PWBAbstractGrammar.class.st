@@ -205,7 +205,7 @@ PWBAbstractGrammar >> array [
 
 { #category : #accessing }
 PWBAbstractGrammar >> arrayDesignation [
-	^ '[' parser , ']' parser
+	^ '[' parser trimRight , ']' parser trimLeft 
 ]
 
 { #category : #accessing }

@@ -20,6 +20,12 @@ PWBUserObjectGrammarTest >> testAccessOrType [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAccessOrType1 [
+	self parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]' rule: #expression.
+
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAccessOrTypeWithFollowingSpace [
 	self fail: 'dw_detail.visible ' rule: #accessOrType.
 	
@@ -793,6 +799,20 @@ PWBUserObjectGrammarTest >> testFunctionArgument1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionArgument2 [
+	self
+		parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]'
+		rule: #functionArgument
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionArguments1 [
+	self
+		parse: '(istr_sig_cas.ld_plf_forfait[ 1 ], istr_sig_cas.ld_rbo_cons_total[ 1 ] +  f_choix_limite_forfait_monture(1, istr_sig_cas.ld_lim_monture[ ], istr_sig_cas.ld_plafond_egale[ ]))'
+		rule: #functionArguments
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionDeclaration [
 	self
 		parse: 'public function integer uf_maj_caisse (long al_num, string as_param)'
@@ -1003,6 +1023,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 	self
 		parse:
 			'destroy(this.dw_liste)'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation10 [
+	self
+		parse:
+			'min(istr_sig_cas.ld_plf_forfait[ 1 ], istr_sig_cas.ld_rbo_cons_total[ 1 ] +  f_choix_limite_forfait_monture(1, istr_sig_cas.ld_lim_monture[ ], istr_sig_cas.ld_plafond_egale[ ]))'
 		rule: #functionInvocation
 ]
 
