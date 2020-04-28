@@ -211,7 +211,7 @@ PWBAbstractGrammar >> arrayDesignation [
 { #category : #accessing }
 PWBAbstractGrammar >> arrayPosition [
 	^ '[' parser trim , (expression separatedBy: $, parser trim)
-		, ']' parser trim
+		, ']' parser trimLeft 
 ]
 
 { #category : #accessing }

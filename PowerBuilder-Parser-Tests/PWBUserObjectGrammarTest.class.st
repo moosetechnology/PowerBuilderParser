@@ -80,6 +80,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement10 [
+	self
+		parse: 'istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAssignationStatement2 [
 	self
 		parse: 'ii_palette[1, ai_index] = ai_red'
@@ -750,6 +757,16 @@ PWBUserObjectGrammarTest >> testForLoop3 [
 			'for ll_i = 1 to ll_row_dlq
 
 		next'
+		rule: #forLoop
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testForLoop4 [
+	self
+		parse:
+			'For ll = 1 to 4
+			istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]
+	Next'
 		rule: #forLoop
 ]
 
