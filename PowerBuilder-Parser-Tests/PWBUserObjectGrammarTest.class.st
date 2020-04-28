@@ -129,6 +129,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement8 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement9 [
+	self
+		parse: 'istr_sig_cas.ll_qte_cons[ ll ] = 0'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAttribute [
 	self parse: 'integer ii_dossier_type = -1' rule: #attribute.
 	self parse: 'long il_cur_caisse, il_cot' rule: #attribute.
@@ -1129,6 +1136,24 @@ PWBUserObjectGrammarTest >> testIfStatement15 [
 	return 1
 
 end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement16 [
+	self parse: 'IF il_dbl_eqi = 1 OR lb_condition THEN
+	FOR ll = 1 TO 4 
+		istr_sig_cas.ll_qte_cons[ ll ] = 0
+		istr_sig_cas.ld_rbo_cons[ ll ] = 0
+		istr_sig_cas.ll_qte_cons_total[ ll ] = 0
+		istr_sig_cas.ld_rbo_cons_total[ ll ] = 0
+		istr_sig_cas.ld_rel_cons[ ll ] = 0
+    		istr_sig_cas.ld_roa_cons[ ll ] = 0
+		istr_sig_cas.ld_rel_cons_total[ ll ]  = 0
+		istr_sig_cas.ld_roa_cons_total[ ll ] = 0
+		il_dbl_eqi = 0
+	NEXT
+END IF' rule: #ifStatement.
 
 ]
 
