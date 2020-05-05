@@ -90,15 +90,6 @@ end function
 '
 ]
 
-{ #category : #running }
-PWBASTVisitorTest >> sourceExample2 [
-	^ 'private function integer aFunction2 ();
-  anotherFunction(2, "blah")
-  return ALONG
-end function
-'
-]
-
 { #category : #accessing }
 PWBASTVisitorTest >> sourceText: anEntity [
 	^ self sourceExample

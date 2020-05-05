@@ -23,6 +23,11 @@ FamixPWBAttribute class >> metamodel [
 ]
 
 { #category : #accessing }
+FamixPWBAttribute >> accessAssociation [
+	^ FamixPWBAccess
+]
+
+{ #category : #accessing }
 FamixPWBAttribute >> deadArguments [
 	^ {}
 ]
