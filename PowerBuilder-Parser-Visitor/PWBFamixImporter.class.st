@@ -22,6 +22,11 @@ PWBFamixImporter class >> astTestGenerationScript [
 ]
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter class >> createModelFor: aFile [
+	^ self new createModelFor: aFile
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> grammarGenerationScripts [
 	<script>
 	PPTASTGenerator
@@ -62,6 +67,36 @@ PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 			preprocessedMap
 				at: outputFile fullName
 				put: parser characterIgnored ]
+]
+
+{ #category : #'as yet unclassified' }
+PWBFamixImporter >> createModelFor: aFile [
+	| library visitor model parser cleanFileContents result |
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
+	visitor importingContext: self importingContext.
+	parser := PWBPreprocessor new.
+	model := FamixPWBModel new.
+	library := FamixPWBLibrary new
+		name: '';
+		mooseModel: model;
+		yourself.
+	cleanFileContents := parser parse: aFile contents.
+	preprocessedMap := OrderedDictionary new.
+	preprocessedMap at: aFile fullName put: parser characterIgnored.
+	visitor
+		file: aFile;
+		preprocessingMap: self preprocessedMap;
+		model: model.
+	visitor currentLibrary: library.
+	result := PWBAbstractGrammar
+		obtainASTFrom: cleanFileContents
+		fileExtension: aFile extension.
+	result
+		fileName: aFile base;
+		fileExtension: aFile extension.
+	result acceptVisitor: visitor.
+	visitor resolveUnresolvedReferences.
+	^ model
 ]
 
 { #category : #'as yet unclassified' }
