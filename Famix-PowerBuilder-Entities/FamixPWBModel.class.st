@@ -17,6 +17,12 @@ FamixPWBModel class >> annotation [
 	<generated>
 ]
 
+{ #category : #api }
+FamixPWBModel >> allContainersWithDuplicatedCode [
+	^ self allModelEntities
+		select: [ :entity | entity cloneLocations isNotEmpty ]
+]
+
 { #category : #strategy }
 FamixPWBModel >> allModelAliveMethods [
 	^ self allMethods asSet select: [ :method | method isNotPWBDead ]
@@ -32,6 +38,11 @@ FamixPWBModel >> allModelDeadMethodWithAliveStrategy [
 FamixPWBModel >> allModelDeadMethods [
 	self resurrectMethods.
 	^ self allMethods asSet select: #isPWBDead
+]
+
+{ #category : #accessing }
+FamixPWBModel >> dupSys: aDPDuplicationSystem [
+	self privateState attributeAt: #dupSys put: aDPDuplicationSystem
 ]
 
 { #category : #initialization }
