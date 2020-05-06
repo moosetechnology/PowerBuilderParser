@@ -253,6 +253,11 @@ FamixPWBmajorObject >> numberOfIncomingInvocations [
 ]
 
 { #category : #accessing }
+FamixPWBmajorObject >> tagNamed: aString [
+	^ self allTags detect: [ :tag | tag name = aString ]
+]
+
+{ #category : #accessing }
 FamixPWBmajorObject >> ticketAssociations [
 	"Relation named: #ticketAssociations type: #FamixPWBTicketAssociation opposite: #majorObject"
 
