@@ -42,6 +42,13 @@ FamixPWBEntity >> isAttribute [
 ]
 
 { #category : #testing }
+FamixPWBEntity >> isBehavioural [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBEntity >> isFunction [
 
 	<generated>

@@ -125,6 +125,12 @@ FamixPWBImportingContext >> importLibrary [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importLocalVariable [
+	<generated>
+	^ self import: FamixPWBLocalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importMenuObject [
 	<generated>
 	^ self import: FamixPWBMenuObject
@@ -143,6 +149,12 @@ FamixPWBImportingContext >> importNamedEntity [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importParameter [
+	<generated>
+	^ self import: FamixPWBParameter
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importQuery [
 	<generated>
 	^ self import: FamixPWBQuery
@@ -158,6 +170,12 @@ FamixPWBImportingContext >> importReference [
 FamixPWBImportingContext >> importRoutine [
 	<generated>
 	^ self import: FamixPWBRoutine
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> importSharedVariable [
+	<generated>
+	^ self import: FamixPWBSharedVariable
 ]
 
 { #category : #testing }
@@ -377,6 +395,12 @@ FamixPWBImportingContext >> shouldImportLibrary [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportLocalVariable [
+	<generated>
+	^ self shouldImport: FamixPWBLocalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportMenuObject [
 	<generated>
 	^ self shouldImport: FamixPWBMenuObject
@@ -395,6 +419,12 @@ FamixPWBImportingContext >> shouldImportNamedEntity [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportParameter [
+	<generated>
+	^ self shouldImport: FamixPWBParameter
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportQuery [
 	<generated>
 	^ self shouldImport: FamixPWBQuery
@@ -410,6 +440,12 @@ FamixPWBImportingContext >> shouldImportReference [
 FamixPWBImportingContext >> shouldImportRoutine [
 	<generated>
 	^ self shouldImport: FamixPWBRoutine
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportSharedVariable [
+	<generated>
+	^ self shouldImport: FamixPWBSharedVariable
 ]
 
 { #category : #testing }

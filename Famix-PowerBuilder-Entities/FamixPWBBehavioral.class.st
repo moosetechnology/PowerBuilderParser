@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBBehavioral,
-	#superclass : #MooseEntity,
+	#superclass : #FamixPWBEntity,
 	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
 	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
@@ -67,6 +67,15 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		target: aFamixPWBAccessible;
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBBehavioral >> createParameter: aString [
+	^ FamixPWBParameter new
+		behavioral: self;
+		mooseModel: self mooseModel;
+		name: aString;
 		yourself
 ]
 

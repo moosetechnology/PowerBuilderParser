@@ -54,6 +54,19 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgument [
+	self visit: aPWBASTArgument argumentOption.
+	self visit: aPWBASTArgument type.
+	self visit: aPWBASTArgument arrayWithSize.
+	^ self visit: aPWBASTArgument identifier
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
+	^ self visitAll: aPWBASTArguments arguments
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: anPWBASTBasicType [
 	^ self
 		ensureEntityWithType: FamixPWBBasicType
@@ -276,7 +289,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 	self visit: aPWBASTFunctionSignature type.
 	self currentEntity
 		name: (self visit: aPWBASTFunctionSignature identifier).
-	self visit: aPWBASTFunctionSignature arguments
+	^ self visit: aPWBASTFunctionSignature arguments
 ]
 
 { #category : #visiting }

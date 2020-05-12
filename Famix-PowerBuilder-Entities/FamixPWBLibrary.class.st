@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBLibrary,
-	#superclass : #MooseEntity,
+	#superclass : #FamixPWBEntity,
 	#traits : 'FamixTNamedEntity + FamixTWithSourceAnchor + FamixTNamed',
 	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
@@ -12,17 +12,10 @@ Class {
 { #category : #meta }
 FamixPWBLibrary class >> annotation [
 
-	<FMClass: #Library super: #MooseEntity>
+	<FMClass: #Library super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBLibrary class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #adding }

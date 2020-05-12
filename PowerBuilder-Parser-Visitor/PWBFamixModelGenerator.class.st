@@ -32,7 +32,10 @@ Class {
 		'ticket',
 		'ticketAssociation',
 		'tNamed',
-		'tWithMethods'
+		'tWithMethods',
+		'sharedVariable',
+		'localVariable',
+		'parameter'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -67,6 +70,9 @@ PWBFamixModelGenerator >> defineClasses [
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
 	attribute := builder newClassNamed: #Attribute.
+	parameter := builder newClassNamed: #Parameter.
+	sharedVariable := builder newClassNamed: #SharedVariable.
+	localVariable := builder newClassNamed: #LocalVariable.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
 
@@ -133,6 +139,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
+	parameter --|> variable.
+	sharedVariable --|> variable.
+	localVariable --|> variable.
 	dataWindow
 		--|> #TWithSourceAnchor;
 		--|> #TNamedEntity;
