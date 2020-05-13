@@ -374,15 +374,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	self currentEntity
-		createValueHolderNamed:
-			(self visit: aPWBASTVariableAssignation variable) representationString.
+		createValueHolderNamed: (self visit: aPWBASTVariableAssignation variable) representationString.
 	self visit: aPWBASTVariableAssignation assignation
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
-	<generated>
-	self flag: #TODO. "set type for declared variables"
+	self flag: #TODO.	"set type for declared variables"
 	self visit: aPWBASTVariableDeclarations type.
-	self visitAll: aPWBASTVariableDeclarations variableAssignations.
+	^ self visitAll: aPWBASTVariableDeclarations variableAssignations
 ]

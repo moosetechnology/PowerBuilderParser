@@ -47,7 +47,7 @@ PWBASTAbstractVisitor >> visitPWBASTArgument: aPWBASTArgument [
 	self visit: aPWBASTArgument argumentOption.
 	self visit: aPWBASTArgument type.
 	self visit: aPWBASTArgument identifier.
-	self visit: aPWBASTArgument arrayWithSize
+	self visit: aPWBASTArgument arrayWithSize.
 ]
 
 { #category : #visiting }
@@ -59,7 +59,7 @@ PWBASTAbstractVisitor >> visitPWBASTArgumentOption: anPWBASTArgumentOption [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTArguments: aPWBASTArguments [
 	<generated>
-	self visitAll: aPWBASTArguments arguments
+	self visitAll: aPWBASTArguments arguments.
 ]
 
 { #category : #visiting }
@@ -556,7 +556,7 @@ PWBASTAbstractVisitor >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclarat
 PWBASTAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	<generated>
 	self visit: aPWBASTFunctionDefinition functionSignature.
-	self visit: aPWBASTFunctionDefinition statements
+	self visit: aPWBASTFunctionDefinition statements.
 ]
 
 { #category : #visiting }

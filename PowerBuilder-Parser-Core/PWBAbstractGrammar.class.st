@@ -71,8 +71,6 @@ Class {
 		'createUsingInstruction',
 		'eventInvocation',
 		'eventTriggeringOrPosting',
-		'triggerEvent',
-		'postEvent',
 		'eventName',
 		'eventWord',
 		'eventLong'
@@ -623,11 +621,6 @@ PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
 		, ($. parser , (#digit parser times: 4)) optional
-]
-
-{ #category : #'as yet unclassified' }
-PWBAbstractGrammar >> triggerEvent [
-	^ 'triggerEvent' token
 ]
 
 { #category : #accessing }
