@@ -71,11 +71,11 @@ PWBASTVisitorTest >> setUp [
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
 	^ 'private function integer aFunction ();
-  long aLong
+  long lLong
 	var.isNull()
   anotherFunction(2, "blah")
 
-  return ALONG
+  return LLONG
 end function
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
@@ -112,6 +112,15 @@ PWBASTVisitorTest >> testFunctionInvocationSourceText [
 		assert: (self sourceText: invocation1)
 		equals: 'anotherFunction(2, "blah")'.
 	self assert: (self sourceText: invocation2) equals: '.isNull()'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParameter [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self assert: (model allWithType: FamixPWBParameter) size equals: 2.
+	self assert: (model allWithType: FamixPWBVariable) size equals: 2
 ]
 
 { #category : #tests }
@@ -188,7 +197,7 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	self assert: accs size equals: 2.
 	self
 		assertCollection: (accs collect: [ :acc | acc variable name ])
-		hasSameElements: {'aLong' . 'var'}
+		hasSameElements: {'lLong' . 'var'}
 ]
 
 { #category : #tests }

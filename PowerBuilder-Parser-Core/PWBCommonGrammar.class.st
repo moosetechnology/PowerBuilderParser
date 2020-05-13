@@ -323,6 +323,11 @@ PWBCommonGrammar >> functionSignature [
 		, blank , identifier , blank , arguments
 ]
 
+{ #category : #'as yet unclassified' }
+PWBCommonGrammar >> gloablVariables [
+	^ 'global variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
+]
+
 { #category : #accessing }
 PWBCommonGrammar >> globalVariableDeclaration [
 	^ 'global' parser , blank , type , blank , variable
