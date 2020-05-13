@@ -67,6 +67,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
+	self visit: aPWBASTAttribute accessModifier.
+	self visit: aPWBASTAttribute descriptor.
+	^ self visit: aPWBASTAttribute variableDeclarations
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
+	^ self visitAll: aPWBASTAttributes attributes
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: anPWBASTBasicType [
 	^ self
 		ensureEntityWithType: FamixPWBBasicType
@@ -372,10 +384,35 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
+	self visit: aPWBASTTypeDeclaration type.
+	self visit: aPWBASTTypeDeclaration fromClause.
+	self visit: aPWBASTTypeDeclaration eventType.
+	self visit: aPWBASTTypeDeclaration withinClause.
+	self visit: aPWBASTTypeDeclaration descriptor.
+	(self visit: aPWBASTTypeDeclaration attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | self currentEntity createValueHolderNamed: attString ] ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
+	(self visit: aPWBASTTypeVariable attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | self currentEntity createValueHolderNamed: attString ] ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
-	self currentEntity
-		createValueHolderNamed: (self visit: aPWBASTVariableAssignation variable) representationString.
-	self visit: aPWBASTVariableAssignation assignation
+	| variable |
+	variable := (self visit: aPWBASTVariableAssignation variable)
+		representationString.
+	self visit: aPWBASTVariableAssignation assignation.
+	^ (self currentEntity isKindOf: FamixPWBBehavioral)
+		ifTrue: [ self currentEntity createValueHolderNamed: variable ]
+		ifFalse: [ variable ]
 ]
 
 { #category : #visiting }

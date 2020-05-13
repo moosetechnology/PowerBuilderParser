@@ -914,12 +914,6 @@ PWBASTAbstractVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition 
 ]
 
 { #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTTriggerEvent: anPWBASTTriggerEvent [
-	<generated>
-	^ anPWBASTTriggerEvent triggerEvent
-]
-
-{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTTryCatch: aPWBASTTryCatch [
 	<generated>
 	self visit: aPWBASTTryCatch statements.

@@ -168,8 +168,9 @@ PWBCommonGrammar >> commonFile [
 	into: #fileStatement>
 	^ typeVariable / typePrototypes / typeDeclaration
 		/ functionDefinition / subroutineDefinition / forwardDeclaration
-		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
-		/ sharedVariables / prototypesDeclaration separatedBy: blank
+		/ globalVariables / globalVariableDeclaration / triggerDefinition
+		/ eventDeclaration / sharedVariables / prototypesDeclaration
+		separatedBy: blank
 ]
 
 { #category : #accessing }
