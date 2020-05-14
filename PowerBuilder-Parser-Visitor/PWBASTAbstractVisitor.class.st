@@ -11,8 +11,9 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
-	childrenNodes
-		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	^ childrenNodes
+		ifNotNil: [ childrenNodes
+				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
 { #category : #visiting }
@@ -592,6 +593,7 @@ PWBASTAbstractVisitor >> visitPWBASTGeneratorToken: anPWBASTGeneratorToken [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	<generated>
+	self halt.
 	self visit: aPWBASTGlobalVariableDeclaration type.
 	self visit: aPWBASTGlobalVariableDeclaration variable.
 ]
@@ -599,6 +601,7 @@ PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVari
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
 	<generated>
+	self halt .
 	self visit: aPWBASTGlobalVariables attributes.
 ]
 
@@ -794,7 +797,8 @@ PWBASTAbstractVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
 	<generated>
-	self visit: aPWBASTSharedVariables attributes.
+	self halt.
+	self visit: aPWBASTSharedVariables attributes
 ]
 
 { #category : #visiting }
