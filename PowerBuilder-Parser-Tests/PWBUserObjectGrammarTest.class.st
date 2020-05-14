@@ -1104,6 +1104,16 @@ PWBUserObjectGrammarTest >> testGlobalVariableDeclaration [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testGlobalVariables [
+	self
+		parse:
+			'global variables
+	long gl_var1
+	end variables'
+		rule: #globalVariables
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testGotoStatement [
 	self parse: 'Goto NextStep' rule: #gotoStatement.
 	self parse: 'GOTO OK' rule: #gotoStatement

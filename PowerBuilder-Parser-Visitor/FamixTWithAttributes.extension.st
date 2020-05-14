@@ -25,6 +25,15 @@ FamixTWithAttributes >> createValueHolderNamed: aString [
 ]
 
 { #category : #'*PowerBuilder-Parser-Visitor' }
+FamixTWithAttributes >> createValueHolderNamed: aString withType: aFamixPWBAttributeSubclass [
+	^ aFamixPWBAttributeSubclass new
+		parentType: self;
+		mooseModel: self mooseModel;
+		name: aString;
+		yourself
+]
+
+{ #category : #'*PowerBuilder-Parser-Visitor' }
 FamixTWithAttributes >> reachableEntities [
 	^ self attributes
 ]

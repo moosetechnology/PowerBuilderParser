@@ -70,12 +70,24 @@ PWBASTVisitorTest >> setUp [
 
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
-	^ 'private function integer aFunction ();
-  long aLong
+	^ 'global variables
+long gl_long1;
+global String  gs_string1;
+end variables
+	
+	shared variables
+long sl_long1;
+end variables
+type variables
+long il_long1;
+end variables
+
+	private function integer aFunction ();
+  long lLong
 	var.isNull()
   anotherFunction(2, "blah")
 
-  return ALONG
+  return LLONG
 end function
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
@@ -112,6 +124,36 @@ PWBASTVisitorTest >> testFunctionInvocationSourceText [
 		assert: (self sourceText: invocation1)
 		equals: 'anotherFunction(2, "blah")'.
 	self assert: (self sourceText: invocation2) equals: '.isNull()'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testGlobalVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBGlobalVariable) collect: #name)
+		hasSameElements: {'gl_long1' . 'gs_string1'}
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testInstanceVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBInstanceVariable) collect: #name)
+		hasSameElements: {'il_long1'}
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParameter [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBParameter) collect: #name)
+		hasSameElements: {'aLong' . 'aString'}
 ]
 
 { #category : #tests }
@@ -188,7 +230,7 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	self assert: accs size equals: 2.
 	self
 		assertCollection: (accs collect: [ :acc | acc variable name ])
-		hasSameElements: {'aLong' . 'var'}
+		hasSameElements: {'lLong' . 'var'}
 ]
 
 { #category : #tests }
@@ -206,6 +248,16 @@ PWBASTVisitorTest >> testProssessingMapKeepAllPreprocessedFiles [
 	importer := PWBFamixImporter new.
 	importer importInOnePassFromFolder: self pwbLibsString.
 	self assert: importer preprocessedMap size equals: 2
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testSharedVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBSharedVariable) collect: #name)
+		hasSameElements: {'sl_long1'}
 ]
 
 { #category : #tests }

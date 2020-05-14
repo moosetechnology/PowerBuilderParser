@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBTicketAssociation,
-	#superclass : #MooseEntity,
+	#superclass : #FamixPWBEntity,
 	#instVars : [
 		'#author',
 		'#date',
@@ -13,17 +13,10 @@ Class {
 { #category : #meta }
 FamixPWBTicketAssociation class >> annotation [
 
-	<FMClass: #TicketAssociation super: #MooseEntity>
+	<FMClass: #TicketAssociation super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBTicketAssociation class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #accessing }
@@ -52,69 +45,6 @@ FamixPWBTicketAssociation >> date [
 FamixPWBTicketAssociation >> date: anObject [
 	<generated>
 	date := anObject
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isAccess [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBTicketAssociation >> isType [
-
-	<generated>
-	^ false
 ]
 
 { #category : #accessing }

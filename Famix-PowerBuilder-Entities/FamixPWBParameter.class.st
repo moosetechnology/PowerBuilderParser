@@ -1,13 +1,13 @@
 Class {
-	#name : #FamixPWBSqlQuery,
-	#superclass : #FamixPWBEntity,
+	#name : #FamixPWBParameter,
+	#superclass : #FamixPWBVariable,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBSqlQuery class >> annotation [
+FamixPWBParameter class >> annotation [
 
-	<FMClass: #SqlQuery super: #FamixPWBEntity>
+	<FMClass: #Parameter super: #FamixPWBVariable>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

@@ -11,8 +11,9 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
-	childrenNodes
-		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	^ childrenNodes
+		ifNotNil: [ childrenNodes
+				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
 { #category : #visiting }
@@ -175,6 +176,7 @@ PWBASTAbstractVisitor >> visitPWBASTCase: aPWBASTCase [
 PWBASTAbstractVisitor >> visitPWBASTCaseElse: aPWBASTCaseElse [
 	<generated>
 	self visit: aPWBASTCaseElse statements.
+	self visit: aPWBASTCaseElse statement.
 ]
 
 { #category : #visiting }
@@ -596,6 +598,12 @@ PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVari
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
+	<generated>
+	self visit: aPWBASTGlobalVariables attributes.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTGotoStatement: aPWBASTGotoStatement [
 	<generated>
 	self visit: aPWBASTGotoStatement identifier.
@@ -910,12 +918,6 @@ PWBASTAbstractVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition 
 	self visit: aPWBASTTriggerDefinition identifier.
 	self visit: aPWBASTTriggerDefinition eventType.
 	self visit: aPWBASTTriggerDefinition statements.
-]
-
-{ #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTTriggerEvent: anPWBASTTriggerEvent [
-	<generated>
-	^ anPWBASTTriggerEvent triggerEvent
 ]
 
 { #category : #visiting }

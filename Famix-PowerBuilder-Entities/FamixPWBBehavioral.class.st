@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBBehavioral,
-	#superclass : #MooseEntity,
+	#superclass : #FamixPWBEntity,
 	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
 	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
 	#instVars : [
@@ -17,17 +17,10 @@ Class {
 { #category : #meta }
 FamixPWBBehavioral class >> annotation [
 
-	<FMClass: #Behavioral super: #MooseEntity>
+	<FMClass: #Behavioral super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBBehavioral class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #adding }
@@ -71,6 +64,15 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 ]
 
 { #category : #'as yet unclassified' }
+FamixPWBBehavioral >> createParameter: aString [
+	^ FamixPWBParameter new
+		behavioral: self;
+		mooseModel: self mooseModel;
+		name: aString;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
 FamixPWBBehavioral >> createStubValueHolderNamed: aString [ 
 	^ self createValueHolderNamed: aString
 ]
@@ -109,48 +111,6 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isAccess [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isMethod [
-
-	<generated>
-	^ false
-]
-
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
@@ -159,27 +119,6 @@ FamixPWBBehavioral >> isNotPWBDead [
 { #category : #api }
 FamixPWBBehavioral >> isPredefinedMethod [
 	^ self predifinedMethods includes: self name asLowercase
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isType [
-
-	<generated>
-	^ false
 ]
 
 { #category : #api }

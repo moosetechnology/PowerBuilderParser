@@ -314,6 +314,7 @@ PWBCommonParser >> caseElse [
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (production content at: 5);
+				statement: (production content at: 7);
 				yourself ]
 ]
 
@@ -750,24 +751,6 @@ PWBCommonParser >> eventReferenceName [
 ]
 
 { #category : #rules }
-PWBCommonParser >> eventTriggering [
-	<generated>
-	^ super eventTriggering withPositions
-		==> [ :production | 
-			PWBASTEventTriggering new
-				startPosition: production start;
-				stopPosition: production stop;
-				identifiers:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 2 ]);
-				arrayPositions:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 4 ]);
-				functionArguments: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBCommonParser >> eventTriggeringOrPosting [
 	<generated>
 	^ super eventTriggeringOrPosting withPositions
@@ -1073,6 +1056,18 @@ PWBCommonParser >> globalVariableDeclaration [
 				stopPosition: production stop;
 				type: (production content at: 3);
 				variable: (production content at: 5);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBCommonParser >> globalVariables [
+	<generated>
+	^ super globalVariables withPositions
+		==> [ :production | 
+			PWBASTGlobalVariables new
+				startPosition: production start;
+				stopPosition: production stop;
+				attributes: (production content at: 3);
 				yourself ]
 ]
 

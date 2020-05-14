@@ -54,6 +54,44 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgument [
+	self visit: aPWBASTArgument argumentOption.
+	self visit: aPWBASTArgument type.
+	self visit: aPWBASTArgument arrayWithSize.
+	^ self visit: aPWBASTArgument identifier
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
+	^ aPWBASTArguments arguments
+		ifNil: [ nil ]
+		ifNotNil: [ self visitAll: aPWBASTArguments arguments ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
+	self visit: aPWBASTAttribute accessModifier.
+	self visit: aPWBASTAttribute descriptor.
+	^ self visit: aPWBASTAttribute variableDeclarations
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
+	self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTAccessModifierDefiner ]).
+	self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTEventAttribute ]).
+	^ self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTAttribute ])
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: anPWBASTBasicType [
 	^ self
 		ensureEntityWithType: FamixPWBBasicType
@@ -276,7 +314,28 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 	self visit: aPWBASTFunctionSignature type.
 	self currentEntity
 		name: (self visit: aPWBASTFunctionSignature identifier).
-	self visit: aPWBASTFunctionSignature arguments
+	^ self visit: aPWBASTFunctionSignature arguments
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
+	self visit: aPWBASTGlobalVariableDeclaration type.
+	self currentEntity
+		createValueHolderNamed:
+			(self visit: aPWBASTGlobalVariableDeclaration variable)
+				representationString
+		withType: FamixPWBGlobalVariable
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
+	(self visit: aPWBASTGlobalVariables attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBGlobalVariable ] ]
 ]
 
 { #category : #visiting }
@@ -323,6 +382,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
+	(self visit: aPWBASTSharedVariables attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBSharedVariable ] ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDeclaration: aPWBASTSubroutineDeclaration [
 	self
 		useCurrentEntity: PWBNullEntityObject new
@@ -359,17 +429,48 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
+	self visit: aPWBASTTypeDeclaration type.
+	self visit: aPWBASTTypeDeclaration fromClause.
+	self visit: aPWBASTTypeDeclaration eventType.
+	self visit: aPWBASTTypeDeclaration withinClause.
+	self visit: aPWBASTTypeDeclaration descriptor.
+	(self visit: aPWBASTTypeDeclaration attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBInstanceVariable ] ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
+	(self visit: aPWBASTTypeVariable attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBInstanceVariable ] ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
-	self currentEntity
-		createValueHolderNamed:
-			(self visit: aPWBASTVariableAssignation variable) representationString.
-	self visit: aPWBASTVariableAssignation assignation
+	| variable |
+	variable := (self visit: aPWBASTVariableAssignation variable)
+		representationString.
+	self visit: aPWBASTVariableAssignation assignation.
+	^ (self currentEntity isKindOf: FamixPWBBehavioral)
+		ifTrue: [ self currentEntity
+				createValueHolderNamed: variable
+				withType: FamixPWBLocalVariable ]
+		ifFalse: [ variable ]
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
-	<generated>
-	self flag: #TODO. "set type for declared variables"
+	self flag: #TODO.	"set type for declared variables"
 	self visit: aPWBASTVariableDeclarations type.
-	self visitAll: aPWBASTVariableDeclarations variableAssignations.
+	^ self visitAll: aPWBASTVariableDeclarations variableAssignations
 ]
