@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTCaseElse,
 	#superclass : #Object,
 	#instVars : [
+		'statements',
 		'statements'
 	],
 	#category : #'PowerBuilder-Parser-AST'
@@ -47,6 +48,16 @@ PWBASTCaseElse >> startPosition: anObject [
 { #category : #accessing }
 PWBASTCaseElse >> statements [
 	^ statements
+]
+
+{ #category : #accessing }
+PWBASTCaseElse >> statements1 [
+	^ statements
+]
+
+{ #category : #accessing }
+PWBASTCaseElse >> statements1: anObject [
+	statements := anObject
 ]
 
 { #category : #accessing }

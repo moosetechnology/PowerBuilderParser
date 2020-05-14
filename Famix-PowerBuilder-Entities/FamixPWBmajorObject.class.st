@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixPWBmajorObject,
-	#superclass : #MooseEntity,
+	#superclass : #FamixPWBEntity,
 	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixTNamedEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTWithSourceAnchor + FamixTNamed',
 	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
 	#instVars : [
@@ -15,17 +15,10 @@ Class {
 { #category : #meta }
 FamixPWBmajorObject class >> annotation [
 
-	<FMClass: #majorObject super: #MooseEntity>
+	<FMClass: #majorObject super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBmajorObject class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #adding }
@@ -142,73 +135,10 @@ FamixPWBmajorObject >> incomingInvocationsTypes [
 	^ self methodsIncomingInvocationsSenders collectAsSet: #class
 ]
 
-{ #category : #testing }
-FamixPWBmajorObject >> isAccess [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isFunction [
-
-	<generated>
-	^ false
-]
-
 { #category : #'public-testing' }
 FamixPWBmajorObject >> isGenerallyUsed: obj [
 	^ {'uo_datawindow' . 'uo_traitement' . 'uo_parametres' . 'uo_dw_detail'.
 	'uo_liste_detail_en_partage'} includes: obj name
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBmajorObject >> isType [
-
-	<generated>
-	^ false
 ]
 
 { #category : #accessing }

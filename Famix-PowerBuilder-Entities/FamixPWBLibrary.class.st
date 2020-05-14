@@ -24,69 +24,6 @@ FamixPWBLibrary >> addUserObject: anObject [
 	^ self userObjects add: anObject
 ]
 
-{ #category : #testing }
-FamixPWBLibrary >> isAccess [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBLibrary >> isType [
-
-	<generated>
-	^ false
-]
-
 { #category : #accessing }
 FamixPWBLibrary >> userObjects [
 	"Relation named: #userObjects type: #FamixPWBmajorObject opposite: #library"

@@ -75,7 +75,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAtt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
-	^ self visitAll: aPWBASTAttributes attributes
+	self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTAccessModifierDefiner ]).
+	self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTEventAttribute ]).
+	^ self
+		visitAll:
+			(aPWBASTAttributes attributes
+				select: [ :att | att class = PWBASTAttribute ])
 ]
 
 { #category : #visiting }

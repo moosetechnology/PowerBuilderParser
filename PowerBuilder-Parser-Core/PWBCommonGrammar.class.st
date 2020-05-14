@@ -139,8 +139,8 @@ PWBCommonGrammar >> case [
 
 { #category : #accessing }
 PWBCommonGrammar >> caseElse [
-	^ 'case' token , blank , 'else' token , blank , statements optional,
-		 $; token trim optional, statements optional
+	^ 'case' token , blank , 'else' token , blank , statements optional
+		, $; token trim optional , statement optional
 ]
 
 { #category : #accessing }
