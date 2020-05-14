@@ -63,7 +63,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgu
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
-	^ self visitAll: aPWBASTArguments arguments
+	^ aPWBASTArguments arguments
+		ifNil: [ nil ]
+		ifNotNil: [ self visitAll: aPWBASTArguments arguments ]
 ]
 
 { #category : #visiting }
