@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'statements',
-		'statements'
+		'statement',
+		'startPosition',
+		'stopPosition'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -17,8 +19,9 @@ PWBASTCaseElse >> = anObject [
 	self class = anObject class
 		ifFalse: [ ^ false ].
 	^ statements = anObject statements
-		and: [ startPosition = anObject startPosition
-				and: [ stopPosition = anObject stopPosition ] ]
+		and: [ statement = anObject statement
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
@@ -32,7 +35,7 @@ PWBASTCaseElse >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ statements hash
-		bitXor: (startPosition hash bitXor: stopPosition hash)
+		bitXor: (statement hash bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }
@@ -46,18 +49,18 @@ PWBASTCaseElse >> startPosition: anObject [
 ]
 
 { #category : #accessing }
+PWBASTCaseElse >> statement [
+	^ statement
+]
+
+{ #category : #accessing }
+PWBASTCaseElse >> statement: anObject [
+	statement := anObject
+]
+
+{ #category : #accessing }
 PWBASTCaseElse >> statements [
 	^ statements
-]
-
-{ #category : #accessing }
-PWBASTCaseElse >> statements1 [
-	^ statements
-]
-
-{ #category : #accessing }
-PWBASTCaseElse >> statements1: anObject [
-	statements := anObject
 ]
 
 { #category : #accessing }

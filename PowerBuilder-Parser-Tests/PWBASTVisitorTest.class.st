@@ -62,7 +62,6 @@ PWBASTVisitorTest >> setUp [
 	context
 		imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
 	"visitor importingContext: context."
-	self halt.
 	result := PWBCommonParser new parse: self sourceExample.
 	result
 		fileName: 'aFile';
@@ -71,10 +70,10 @@ PWBASTVisitorTest >> setUp [
 
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
-	^ '
-	global variables
-	
-	end variables
+	^ 'global variables
+long gl_long1;
+String  gs_string1;
+end variables
 	
 	private function integer aFunction ();
   long lLong

@@ -164,7 +164,7 @@ PWBCommonGrammar >> closeSqlCursor [
 { #category : #accessing }
 PWBCommonGrammar >> commonFile [
 	<reify:
-		#(typeVariable / typePrototypes / typeDeclaration / functionDefinition / subroutineDefinition / forwardDeclaration / globalVariableDeclaration / triggerDefinition / eventDeclaration / sharedVariables / prototypesDeclaration)
+		#(typeVariable / typePrototypes / typeDeclaration / functionDefinition / subroutineDefinition / forwardDeclaration/globalVariables / globalVariableDeclaration / triggerDefinition / eventDeclaration / sharedVariables / prototypesDeclaration)
 	into: #fileStatement>
 	^ typeVariable / typePrototypes / typeDeclaration
 		/ functionDefinition / subroutineDefinition / forwardDeclaration

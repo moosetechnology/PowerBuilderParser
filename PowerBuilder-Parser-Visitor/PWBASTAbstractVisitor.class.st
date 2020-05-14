@@ -175,6 +175,7 @@ PWBASTAbstractVisitor >> visitPWBASTCase: aPWBASTCase [
 PWBASTAbstractVisitor >> visitPWBASTCaseElse: aPWBASTCaseElse [
 	<generated>
 	self visit: aPWBASTCaseElse statements.
+	self visit: aPWBASTCaseElse statement.
 ]
 
 { #category : #visiting }
@@ -593,6 +594,12 @@ PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVari
 	<generated>
 	self visit: aPWBASTGlobalVariableDeclaration type.
 	self visit: aPWBASTGlobalVariableDeclaration variable.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
+	<generated>
+	self visit: aPWBASTGlobalVariables attributes.
 ]
 
 { #category : #visiting }
