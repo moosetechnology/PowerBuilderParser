@@ -62,6 +62,7 @@ PWBASTVisitorTest >> setUp [
 	context
 		imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
 	"visitor importingContext: context."
+	self halt.
 	result := PWBCommonParser new parse: self sourceExample.
 	result
 		fileName: 'aFile';
@@ -70,7 +71,12 @@ PWBASTVisitorTest >> setUp [
 
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
-	^ 'private function integer aFunction ();
+	^ '
+	global variables
+	
+	end variables
+	
+	private function integer aFunction ();
   long lLong
 	var.isNull()
   anotherFunction(2, "blah")
@@ -119,8 +125,12 @@ PWBASTVisitorTest >> testParameter [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: (model allWithType: FamixPWBParameter) size equals: 2.
-	self assert: (model allWithType: FamixPWBVariable) size equals: 2
+	self
+		assertCollection: ((model allWithType: FamixPWBParameter) collect: #name)
+		hasSameElements: {'aLong' . 'aString'}.
+	self
+		assertCollection: ((model allWithType: FamixPWBVariable) collect: #name)
+		hasSameElements: {'lLong' . 'var'}
 ]
 
 { #category : #tests }
