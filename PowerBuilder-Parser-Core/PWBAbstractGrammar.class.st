@@ -205,12 +205,13 @@ PWBAbstractGrammar >> array [
 
 { #category : #accessing }
 PWBAbstractGrammar >> arrayDesignation [
-	^ '[' parser , ']' parser
+	^ '[' parser trimRight , ']' parser trimLeft 
 ]
 
 { #category : #accessing }
 PWBAbstractGrammar >> arrayPosition [
-	^ '[' parser , (expression separatedBy: $, parser trim) , ']' parser
+	^ '[' parser trim , (expression separatedBy: $, parser trim)
+		, ']' parser trimLeft 
 ]
 
 { #category : #accessing }

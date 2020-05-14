@@ -20,6 +20,12 @@ PWBUserObjectGrammarTest >> testAccessOrType [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAccessOrType1 [
+	self parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]' rule: #expression.
+
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAccessOrTypeWithFollowingSpace [
 	self fail: 'dw_detail.visible ' rule: #accessOrType.
 	
@@ -80,6 +86,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement10 [
+	self
+		parse: 'istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testAssignationStatement2 [
 	self
 		parse: 'ii_palette[1, ai_index] = ai_red'
@@ -125,6 +138,13 @@ PWBUserObjectGrammarTest >> testAssignationStatement7 [
 PWBUserObjectGrammarTest >> testAssignationStatement8 [
 	self
 		parse: 'iuo_nv_evn = create using ls_uo_gestion'
+		rule: #assignationStatement.
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testAssignationStatement9 [
+	self
+		parse: 'istr_sig_cas.ll_qte_cons[ ll ] = 0'
 		rule: #assignationStatement.
 ]
 
@@ -747,6 +767,16 @@ PWBUserObjectGrammarTest >> testForLoop3 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testForLoop4 [
+	self
+		parse:
+			'For ll = 1 to 4
+			istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]
+	Next'
+		rule: #forLoop
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testForwardDeclarations [
 	self
 		parse:
@@ -766,6 +796,20 @@ PWBUserObjectGrammarTest >> testFunctionArgument1 [
 	self
 		parse: 'ref coord'
 		rule: #functionArgument
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionArgument2 [
+	self
+		parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]'
+		rule: #functionArgument
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionArguments1 [
+	self
+		parse: '(istr_sig_cas.ld_plf_forfait[ 1 ], istr_sig_cas.ld_rbo_cons_total[ 1 ] +  f_choix_limite_forfait_monture(1, istr_sig_cas.ld_lim_monture[ ], istr_sig_cas.ld_plafond_egale[ ]))'
+		rule: #functionArguments
 ]
 
 { #category : #tests }
@@ -983,6 +1027,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation10 [
+	self
+		parse:
+			'min(istr_sig_cas.ld_plf_forfait[ 1 ], istr_sig_cas.ld_rbo_cons_total[ 1 ] +  f_choix_limite_forfait_monture(1, istr_sig_cas.ld_lim_monture[ ], istr_sig_cas.ld_plafond_egale[ ]))'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testFunctionInvocation2 [
 	self
 		parse:
@@ -1035,6 +1087,14 @@ PWBUserObjectGrammarTest >> testFunctionInvocation8 [
 	self
 		parse:
 			'matrace(''ls_anc_pa forcé à anc_pa_cim ''+dw_evn_sit.getitemstring (ll_row, "anc_pa_cim") )'
+		rule: #functionInvocation
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testFunctionInvocation9 [
+	self
+		parse:
+			'wf_sval_rdg(                   "TAU_CAF",                  today() )'
 		rule: #functionInvocation
 ]
 
@@ -1121,6 +1181,24 @@ PWBUserObjectGrammarTest >> testIfStatement15 [
 	return 1
 
 end if' rule: #ifStatement.
+
+]
+
+{ #category : #accessing }
+PWBUserObjectGrammarTest >> testIfStatement16 [
+	self parse: 'IF il_dbl_eqi = 1 OR lb_condition THEN
+	FOR ll = 1 TO 4 
+		istr_sig_cas.ll_qte_cons[ ll ] = 0
+		istr_sig_cas.ld_rbo_cons[ ll ] = 0
+		istr_sig_cas.ll_qte_cons_total[ ll ] = 0
+		istr_sig_cas.ld_rbo_cons_total[ ll ] = 0
+		istr_sig_cas.ld_rel_cons[ ll ] = 0
+    		istr_sig_cas.ld_roa_cons[ ll ] = 0
+		istr_sig_cas.ld_rel_cons_total[ ll ]  = 0
+		istr_sig_cas.ld_roa_cons_total[ ll ] = 0
+		il_dbl_eqi = 0
+	NEXT
+END IF' rule: #ifStatement.
 
 ]
 

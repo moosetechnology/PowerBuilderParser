@@ -36,6 +36,30 @@ FamixPWBBehavioral >> addVariable: anObject [
 	^ self variables add: anObject
 ]
 
+{ #category : #api }
+FamixPWBBehavioral >> allOutgoingInvocationCandidates [
+	| scan scanTop |
+	scan := OrderedCollection
+		withAll:
+			(self outgoingInvocationsCandidates
+				reject: [ :method | method isPredefinedMethod ]) asSet.
+	scanTop := 1.
+	[ scanTop > scan size ]
+		whileFalse: [ scan
+				addAll:
+					(((scan at: scanTop) outgoingInvocations flatCollect: #candidates)
+						reject: [ :method | method isPredefinedMethod or: [ scan includes: method ] ]).
+			scanTop := scanTop + 1 ].
+	^ scan
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> content [
+	content ifNil: [ self setContent ].
+	content ifEmpty: [ self setContent ].
+	^ content
+]
+
 { #category : #'visitor-double dispatching' }
 FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 	^ aFamixPWBAccessible accessAssociation new
@@ -72,6 +96,12 @@ FamixPWBBehavioral >> cyclomaticComplexity [
 FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 	<generated>
 	cyclomaticComplexity := anObject
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> incomingInvocationsSenders [
+	^ (self incomingInvocations collectAsSet: #sender)
+		reject: [ :m | (m isKindOf: FamixPWBmajorObject) or: [ m isPredefinedMethod ] ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -126,6 +156,11 @@ FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
 ]
 
+{ #category : #api }
+FamixPWBBehavioral >> isPredefinedMethod [
+	^ self predifinedMethods includes: self name asLowercase
+]
+
 { #category : #testing }
 FamixPWBBehavioral >> isReference [
 
@@ -147,9 +182,36 @@ FamixPWBBehavioral >> isType [
 	^ false
 ]
 
+{ #category : #api }
+FamixPWBBehavioral >> numberOfIncomingInvocations [
+	^ self incomingInvocationsSenders size
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> outgoingInvocationsCandidates [
+	^ (self outgoingInvocations flatCollect: #candidates) asSet
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> predifinedMethods [
+	^ #('sort' 'len' 'setnull' 'string' 'long' 'rowcount' 'Find' 'getitemdate' 'retrieve' 'isnull' 'setsort' 'getitemstring' 'isnull' 'left' 'setrow' 'upprt' 'trim' 'right' 'now' 'datetime' 'relativedate' 'today' 'triggerevent' 'replace' 'long' 'isnumber' 'getitemnumber' 'constructor' 'destroy')
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> reachableEntities [
 	^ self variables
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> roassalPresenter [
+	^ CIMFunctionInvocationsPresenter
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> setContent [
+	content := self allOutgoingInvocationCandidates
+		add: self;
+		yourself
 ]
 
 { #category : #accessing }
@@ -173,4 +235,11 @@ FamixPWBBehavioral >> variablesGroup [
 	<generated>
 	<navigation: 'Variables'>
 	^ MooseGroup withAll: self variables asSet
+]
+
+{ #category : #api }
+FamixPWBBehavioral >> withAllOutgoingInvocationCandidates [
+	^ self allOutgoingInvocationCandidates
+		add: self;
+		yourself
 ]
