@@ -160,8 +160,12 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	(self visit: aPWBASTFunctionDefinition functionSignature)
-		ifNotNil:
-			[ :argumentsArray | argumentsArray do: [ :arg | self currentEntity createParameter: arg ] ].
+		ifNotNil: [ :argumentsArray | 
+			argumentsArray
+				do: [ :arg | 
+					self currentEntity
+						createValueHolderNamed: arg
+						withType: FamixPWBParameter ] ].
 	self visit: aPWBASTFunctionDefinition statements
 ]
 
@@ -188,6 +192,10 @@ PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 				expectedKind:
 					{FamixPWBVariable.
 					FamixPWBAttribute.
-					FamixPWBParameter}
+					FamixPWBParameter.
+					FamixPWBGlobalVariable.
+					FamixPWBSharedVariable.
+					FamixPWBInstanceVariable.
+					FamixPWBLocalVariable}
 				node: aPWBASTVariable identifier)
 ]

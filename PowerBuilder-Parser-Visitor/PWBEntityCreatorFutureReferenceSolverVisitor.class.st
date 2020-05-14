@@ -406,7 +406,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 	(self visit: aPWBASTTypeDeclaration attributes)
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
-				do: [ :attString | self currentEntity createValueHolderNamed: attString ] ]
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBInstanceVariable ] ]
 ]
 
 { #category : #visiting }
@@ -414,7 +417,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 	(self visit: aPWBASTTypeVariable attributes)
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
-				do: [ :attString | self currentEntity createValueHolderNamed: attString ] ]
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBInstanceVariable ] ]
 ]
 
 { #category : #visiting }
@@ -424,7 +430,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
 	^ (self currentEntity isKindOf: FamixPWBBehavioral)
-		ifTrue: [ self currentEntity createValueHolderNamed: variable ]
+		ifTrue: [ self currentEntity
+				createValueHolderNamed: variable
+				withType: FamixPWBLocalVariable ]
 		ifFalse: [ variable ]
 ]
 

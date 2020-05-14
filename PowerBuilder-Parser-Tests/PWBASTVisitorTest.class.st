@@ -72,9 +72,16 @@ PWBASTVisitorTest >> setUp [
 PWBASTVisitorTest >> sourceExample [
 	^ 'global variables
 long gl_long1;
-String  gs_string1;
+global String  gs_string1;
 end variables
 	
+	shared variables
+long sl_long1;
+end variables
+type variables
+long il_long1;
+end variables
+
 	private function integer aFunction ();
   long lLong
 	var.isNull()
@@ -117,6 +124,26 @@ PWBASTVisitorTest >> testFunctionInvocationSourceText [
 		assert: (self sourceText: invocation1)
 		equals: 'anotherFunction(2, "blah")'.
 	self assert: (self sourceText: invocation2) equals: '.isNull()'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testGlobalVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBGlobalVariable) collect: #name)
+		hasSameElements: {'gl_long1' . 'gs_string1'}
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testInstanceVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBInstanceVariable) collect: #name)
+		hasSameElements: {'il_long1'}
 ]
 
 { #category : #tests }
@@ -224,6 +251,16 @@ PWBASTVisitorTest >> testProssessingMapKeepAllPreprocessedFiles [
 	importer := PWBFamixImporter new.
 	importer importInOnePassFromFolder: self pwbLibsString.
 	self assert: importer preprocessedMap size equals: 2
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testSharedVariables [
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self
+		assertCollection: ((model allWithType: FamixPWBSharedVariable) collect: #name)
+		hasSameElements: {'sl_long1'}
 ]
 
 { #category : #tests }

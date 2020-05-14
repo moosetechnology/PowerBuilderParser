@@ -593,7 +593,6 @@ PWBASTAbstractVisitor >> visitPWBASTGeneratorToken: anPWBASTGeneratorToken [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	<generated>
-	self halt.
 	self visit: aPWBASTGlobalVariableDeclaration type.
 	self visit: aPWBASTGlobalVariableDeclaration variable.
 ]
@@ -601,7 +600,6 @@ PWBASTAbstractVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVari
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
 	<generated>
-	self halt .
 	self visit: aPWBASTGlobalVariables attributes.
 ]
 
@@ -797,8 +795,7 @@ PWBASTAbstractVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
 	<generated>
-	self halt.
-	self visit: aPWBASTSharedVariables attributes
+	self visit: aPWBASTSharedVariables attributes.
 ]
 
 { #category : #visiting }
