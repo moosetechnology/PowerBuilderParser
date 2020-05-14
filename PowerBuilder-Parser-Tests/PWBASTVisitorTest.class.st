@@ -153,10 +153,7 @@ PWBASTVisitorTest >> testParameter [
 		resolveUnresolvedReferences.
 	self
 		assertCollection: ((model allWithType: FamixPWBParameter) collect: #name)
-		hasSameElements: {'aLong' . 'aString'}.
-	self
-		assertCollection: ((model allWithType: FamixPWBVariable) collect: #name)
-		hasSameElements: {'lLong' . 'var'}
+		hasSameElements: {'aLong' . 'aString'}
 ]
 
 { #category : #tests }
