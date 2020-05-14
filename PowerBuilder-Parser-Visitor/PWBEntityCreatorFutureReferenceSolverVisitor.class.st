@@ -318,6 +318,27 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
+	self visit: aPWBASTGlobalVariableDeclaration type.
+	self currentEntity
+		createValueHolderNamed:
+			(self visit: aPWBASTGlobalVariableDeclaration variable)
+				representationString
+		withType: FamixPWBGlobalVariable
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
+	(self visit: aPWBASTGlobalVariables attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBGlobalVariable ] ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGraphicComponent: aPWBASTGraphicComponent [
 	self
 		useCurrentEntity: (self create: FamixPWBGraphicComponent from: aPWBASTGraphicComponent)
@@ -358,6 +379,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ])
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
+	(self visit: aPWBASTSharedVariables attributes)
+		ifNotNil: [ :attributeStrings | 
+			attributeStrings flatten
+				do: [ :attString | 
+					self currentEntity
+						createValueHolderNamed: attString
+						withType: FamixPWBSharedVariable ] ]
 ]
 
 { #category : #visiting }
