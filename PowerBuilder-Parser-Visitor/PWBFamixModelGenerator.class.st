@@ -35,7 +35,9 @@ Class {
 		'tWithMethods',
 		'sharedVariable',
 		'localVariable',
-		'parameter'
+		'parameter',
+		'globalVariable',
+		'instanceVariable'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -73,6 +75,8 @@ PWBFamixModelGenerator >> defineClasses [
 	parameter := builder newClassNamed: #Parameter.
 	sharedVariable := builder newClassNamed: #SharedVariable.
 	localVariable := builder newClassNamed: #LocalVariable.
+	globalVariable := builder newClassNamed: #GlobalVariable.
+	instanceVariable := builder newClassNamed: #InstanceVariable.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
 
@@ -140,8 +144,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithTypes;
 		--|> #TAccessible.
 	parameter --|> variable.
-	sharedVariable --|> variable.
+	sharedVariable --|> attribute.
+	globalVariable --|> attribute.
 	localVariable --|> variable.
+	instanceVariable --|> attribute.
 	dataWindow
 		--|> #TWithSourceAnchor;
 		--|> #TNamedEntity;

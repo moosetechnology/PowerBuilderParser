@@ -1,13 +1,13 @@
 Class {
-	#name : #FamixPWBSharedVariable,
+	#name : #FamixPWBInstanceVariable,
 	#superclass : #FamixPWBAttribute,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
-FamixPWBSharedVariable class >> annotation [
+FamixPWBInstanceVariable class >> annotation [
 
-	<FMClass: #SharedVariable super: #FamixPWBAttribute>
+	<FMClass: #InstanceVariable super: #FamixPWBAttribute>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

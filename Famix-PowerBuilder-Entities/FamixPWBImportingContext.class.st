@@ -101,6 +101,12 @@ FamixPWBImportingContext >> importGlobalFunction [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importGlobalVariable [
+	<generated>
+	^ self import: FamixPWBGlobalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importGraphicComponent [
 	<generated>
 	^ self import: FamixPWBGraphicComponent
@@ -110,6 +116,12 @@ FamixPWBImportingContext >> importGraphicComponent [
 FamixPWBImportingContext >> importIndexedFileAnchor [
 	<generated>
 	^ self import: FamixPWBIndexedFileAnchor
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> importInstanceVariable [
+	<generated>
+	^ self import: FamixPWBInstanceVariable
 ]
 
 { #category : #testing }
@@ -371,6 +383,12 @@ FamixPWBImportingContext >> shouldImportGlobalFunction [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportGlobalVariable [
+	<generated>
+	^ self shouldImport: FamixPWBGlobalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportGraphicComponent [
 	<generated>
 	^ self shouldImport: FamixPWBGraphicComponent
@@ -380,6 +398,12 @@ FamixPWBImportingContext >> shouldImportGraphicComponent [
 FamixPWBImportingContext >> shouldImportIndexedFileAnchor [
 	<generated>
 	^ self shouldImport: FamixPWBIndexedFileAnchor
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportInstanceVariable [
+	<generated>
+	^ self shouldImport: FamixPWBInstanceVariable
 ]
 
 { #category : #testing }
