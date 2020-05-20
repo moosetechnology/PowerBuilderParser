@@ -46,6 +46,11 @@ FamixPWBBehavioral >> allOutgoingInvocationCandidates [
 	^ scan
 ]
 
+{ #category : #'as yet unclassified' }
+FamixPWBBehavioral >> clearReplicationCache [
+	self propertyNamed: #replicas put: OrderedCollection new
+]
+
 { #category : #api }
 FamixPWBBehavioral >> content [
 	content ifNil: [ self setContent ].
