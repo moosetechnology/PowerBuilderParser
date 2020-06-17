@@ -29,10 +29,10 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ].
 	spec
 		for: #WithoutMoose
-		do: [ self baselineOfFamix:  spec.
+		do: [ self baselineOfMoose:  spec.
 			spec
 				package: 'Famix-PowerBuilder-Entities'
-				with: [ spec requires: #('Famix') ] ]
+				with: [ spec requires: #('Moose') ] ]
 ]
 
 { #category : #baselines }
