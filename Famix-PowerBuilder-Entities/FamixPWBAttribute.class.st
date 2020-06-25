@@ -21,6 +21,15 @@ FamixPWBAttribute >> accessAssociation [
 ]
 
 { #category : #accessing }
+FamixPWBAttribute >> brPath [
+	brPath
+		ifNil: [ brPath := self accessingMethods
+				reject:
+					[ :method | (method isKindOf: FamixPWBmajorObject) or: [ method parentType isNil ] ] ].
+	^ brPath asOrderedCollection
+]
+
+{ #category : #accessing }
 FamixPWBAttribute >> deadArguments [
 	^ {}
 ]

@@ -412,7 +412,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 	self visit: aPWBASTSubroutineSignature accessModifier.
 	self currentEntity
 		name: (self visit: aPWBASTSubroutineSignature identifier).
-	self visit: aPWBASTSubroutineSignature arguments
+	^ self visit: aPWBASTSubroutineSignature arguments
 ]
 
 { #category : #visiting }

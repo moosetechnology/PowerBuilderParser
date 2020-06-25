@@ -46,6 +46,15 @@ FamixPWBBehavioral >> allOutgoingInvocationCandidates [
 	^ scan
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> brPath [
+	brPath
+		ifNil: [ brPath := self invokedBehaviours
+				reject: [ :method | method parentType isNil ] ].
+	^ brPath asOrderedCollection
+		sortDescending: [ :method | method invokedBehaviours size ]
+]
+
 { #category : #'as yet unclassified' }
 FamixPWBBehavioral >> clearReplicationCache [
 	self propertyNamed: #replicas put: OrderedCollection new

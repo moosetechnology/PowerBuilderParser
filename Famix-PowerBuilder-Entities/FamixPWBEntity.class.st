@@ -1,6 +1,9 @@
 Class {
 	#name : #FamixPWBEntity,
 	#superclass : #MooseEntity,
+	#instVars : [
+		'brPath'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -18,6 +21,11 @@ FamixPWBEntity class >> metamodel [
 
 	<generated>
 	^ FamixPWBModel metamodel
+]
+
+{ #category : #accessing }
+FamixPWBEntity >> brPath [
+	^ self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
