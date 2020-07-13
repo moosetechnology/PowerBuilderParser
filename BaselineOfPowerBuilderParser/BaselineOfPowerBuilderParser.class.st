@@ -29,7 +29,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ].
 	spec
 		for: #WithoutMoose
-		do: [ 	self baselineOfFamix: spec.
+		do: [ 	self baselineOfMoose: spec.
 			spec
 				package: 'Famix-PowerBuilder-Entities'
 				with: [ spec requires: #('Famix') ] ]
@@ -45,8 +45,10 @@ BaselineOfPowerBuilderParser >> baselineOfFamix: spec [
 { #category : #baselines }
 BaselineOfPowerBuilderParser >> baselineOfMoose: spec [
 	spec
-    	baseline: 'Moose'
-    	with: [ spec repository: 'github://moosetechnology/Moose:development/src' ]
+		baseline: 'Moose'
+		with: [ spec
+				repository:
+					'github://moosetechnology/Moose:5dce9cf7bca8c963c712d0ed4a25e86f4bc3d169/src' ]
 ]
 
 { #category : #baselines }
