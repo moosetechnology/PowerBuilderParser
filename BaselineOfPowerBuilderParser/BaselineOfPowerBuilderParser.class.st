@@ -48,7 +48,7 @@ BaselineOfPowerBuilderParser >> baselineOfMoose: spec [
 		baseline: 'Moose'
 		with: [ spec
 				repository:
-					'github://moosetechnology/Moose:c288c51647e892b654215ae319552ca086d85dee/src' ]
+					'github://moosetechnology/Moose:19ea2165b52cadafcd936935440311b583d1007e/src' ]
 ]
 
 { #category : #baselines }
