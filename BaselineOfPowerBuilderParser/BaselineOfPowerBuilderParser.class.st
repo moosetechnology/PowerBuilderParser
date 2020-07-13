@@ -32,7 +32,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 		do: [ 	self baselineOfMoose: spec.
 			spec
 				package: 'Famix-PowerBuilder-Entities'
-				with: [ spec requires: #('Famix') ] ]
+				with: [ spec requires: #('Moose') ] ]
 ]
 
 { #category : #baselines }
