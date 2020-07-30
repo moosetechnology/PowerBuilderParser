@@ -11,6 +11,6 @@ Metacello new
 ```
 
 ### travis:
-[![Build Status](https://travis-ci.org/moosetechnology/PowerBuilderParser.svg?branch=master)](https://travis-ci.org/moosetechnology/PowerBuilderParser)
+[![Build Status](https://api.travis-ci.com/moosetechnology/PowerBuilderParser.svg?branch=master)](https://travis-ci.com/moosetechnology/PowerBuilderParser)
 ### Jenkins: 
 [![Build Status](https://ci.inria.fr/pharo-contribution/job/PowerbuilderParser/badge/icon)](https://ci.inria.fr/pharo-contribution/job/PowerbuilderParser/)
