@@ -9,7 +9,8 @@ Class {
 		'#deadArguments',
 		'#deadLocalVariables',
 		'#incomingInvocationSenders',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
+		'#addedCharacter'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -77,13 +78,13 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBBehavioral >> createParameter: aString [
+{ #category : #initialization }
+FamixPWBBehavioral >> createParameter: argAST [
 	^ FamixPWBParameter new
-		behavioral: self;
+		declaredType: argAST type type basicType;
+		name: argAST identifier identifier;
 		mooseModel: self mooseModel;
-		name: aString;
-		yourself
+		behavioral: self
 ]
 
 { #category : #'as yet unclassified' }
@@ -165,6 +166,17 @@ FamixPWBBehavioral >> setContent [
 	content := self allOutgoingInvocationCandidates
 		add: self;
 		yourself
+]
+
+{ #category : #initialization }
+FamixPWBBehavioral >> setParameters [
+	| signature signatureAST |
+	signature := PWBPreprocessor parse: self sourceText lines first.
+	signatureAST := PWBCommonParser new functionSignature
+		parse: signature.
+	signatureAST arguments arguments ifNil: [ ^ self ].
+	signatureAST arguments arguments
+		do: [ :argAST | self addParameter: (self createParameter: argAST) ]
 ]
 
 { #category : #accessing }

@@ -40,6 +40,9 @@ Class {
 		'instanceVariable',
 		'argument'
 	],
+	#classInstVars : [
+		'builder'
+	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
@@ -81,7 +84,8 @@ PWBFamixModelGenerator >> defineClasses [
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
 	argument := builder newClassNamed: #Argument.
-	
+
+
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
@@ -221,7 +225,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TAccessible.
 	argument
 		--|> tNamed;
-		--|> #TWithSourceAnchor
+		--|> #TWithSourceAnchor.
+	parameter --|> #TParameter
 ]
 
 { #category : #definition }
@@ -231,7 +236,8 @@ PWBFamixModelGenerator >> defineProperties [
 	ticket property: #number type: #Number.
 	ticketAssociation property: #date type: #String.
 	ticketAssociation property: #author type: #String.
-	argument property: #argumentValue type: #Object
+	argument property: #argumentValue type: #Object.
+	parameter property: #parameterType type: #String
 ]
 
 { #category : #definition }
