@@ -37,7 +37,8 @@ Class {
 		'localVariable',
 		'parameter',
 		'globalVariable',
-		'instanceVariable'
+		'instanceVariable',
+		'argument'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -79,7 +80,8 @@ PWBFamixModelGenerator >> defineClasses [
 	instanceVariable := builder newClassNamed: #InstanceVariable.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
-
+	argument := builder newClassNamed: #Argument.
+	
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
 	dataWindow := builder newClassNamed: #DataWindow.
@@ -216,7 +218,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
-		--|> #TAccessible
+		--|> #TAccessible.
+	argument
+		--|> tNamed;
+		--|> #TWithSourceAnchor
 ]
 
 { #category : #definition }
@@ -225,7 +230,8 @@ PWBFamixModelGenerator >> defineProperties [
 	behavioral property: #cyclomaticComplexity type: #Number.
 	ticket property: #number type: #Number.
 	ticketAssociation property: #date type: #String.
-	ticketAssociation property: #author type: #String
+	ticketAssociation property: #author type: #String.
+	argument property: #argumentValue type: #Object
 ]
 
 { #category : #definition }
@@ -239,7 +245,9 @@ PWBFamixModelGenerator >> defineRelations [
 	(ticketAssociation property: #majorObject)
 		*- (majorObject property: #ticketAssociations).
 	(ticketAssociation property: #ticket)
-		*- (ticket property: #ticketAssociations)
+		*- (ticket property: #ticketAssociations).
+	(invocation property: #arguments)
+		<>-* (argument property: #invocation)
 ]
 
 { #category : #definition }

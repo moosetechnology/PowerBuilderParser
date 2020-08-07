@@ -3,6 +3,9 @@ Class {
 	#superclass : #FamixPWBEntity,
 	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTWithSourceAnchor',
 	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTWithSourceAnchor classTrait',
+	#instVars : [
+		'#arguments => FMMany type: #FamixPWBArgument opposite: #invocation'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -13,6 +16,35 @@ FamixPWBInvocation class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #adding }
+FamixPWBInvocation >> addArgument: anObject [
+	<generated>
+	^ self arguments add: anObject
+]
+
+{ #category : #accessing }
+FamixPWBInvocation >> arguments [
+	"Relation named: #arguments type: #FamixPWBArgument opposite: #invocation"
+
+	<generated>
+	<derived>
+	^ arguments
+]
+
+{ #category : #accessing }
+FamixPWBInvocation >> arguments: anObject [
+
+	<generated>
+	arguments value: anObject
+]
+
+{ #category : #navigation }
+FamixPWBInvocation >> argumentsGroup [
+	<generated>
+	<navigation: 'Arguments'>
+	^ MooseGroup withAll: self arguments asSet
 ]
 
 { #category : #printing }
