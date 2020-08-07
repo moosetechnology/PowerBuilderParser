@@ -226,10 +226,16 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					argumentASTs functionArguments
-						ifNotEmpty: [ argumentASTs functionArgument
-								do:
-									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ])
+					argumentASTs
+						ifNotNil: [ argumentASTs functionArguments
+								do: [ :argAST | 
+									| famixPWBArgument |
+									famixPWBArgument := self
+										create: FamixPWBArgument
+										from: argAST.
+									famixPWBArgument
+										name: famixPWBArgument sourceText;
+										invocation: invocation ] ] ])
 ]
 
 { #category : #visiting }
@@ -323,8 +329,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					argumentASTs functionArguments
-						ifNotEmpty: [ argumentASTs functionArgument
+					argumentASTs functionArguments isEmptyOrNil
+						ifFalse: [ argumentASTs functionArguments
 								do:
 									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ]).
 	self visit: aPWBASTFunctionInvocation defaultVariable
