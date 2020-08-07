@@ -156,6 +156,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoWhileLoop: aPWBASTD
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
+	| argumentASTs |
+	argumentASTs := aPWBASTMethodInvocation functionArguments.
 	self
 		resolve:
 			((self
@@ -172,15 +174,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
-					| association |
-					association := (self
+					| invocation |
+					self preprocessedFile: currentEntity sourceAnchor fileReference.
+					invocation := (self
 						createAssociation: FamixPWBInvocation
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					association sourceAnchor
-						fileName: currentEntity sourceAnchor fileName.
-					association ])
+					argumentASTs functionArguments
+						ifNotEmpty: [ argumentASTs functionArgument
+								do:
+									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ])
 ]
 
 { #category : #visiting }
@@ -200,6 +204,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
+	| argumentASTs |
+	argumentASTs := aPWBASTEventInvocation functionArguments.
 	self
 		resolve:
 			((self
@@ -213,10 +219,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
+					| invocation |
 					self preprocessedFile: currentEntity sourceAnchor fileReference.
-					(self createAssociation: FamixPWBInvocation from: identifier node)
+					invocation := (self
+						createAssociation: FamixPWBInvocation
+						from: identifier node)
 						sender: currentEntity;
-						candidates: identifier candidates ])
+						candidates: identifier candidates.
+					argumentASTs functionArguments
+						ifNotEmpty: [ argumentASTs functionArgument
+								do:
+									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ])
 ]
 
 { #category : #visiting }
@@ -285,6 +298,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
+	| argumentASTs |
+	argumentASTs := aPWBASTFunctionInvocation functionArguments.
 	self
 		resolve:
 			((self
@@ -295,16 +310,23 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 					{FamixPWBSubRoutine.
 					FamixPWBFunction}
 				node: aPWBASTFunctionInvocation
-				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
+				arguments: (self visit: argumentASTs)))
 				notFoundReplacementEntity: [ :aResolvable | 
 					{((self createStub: FamixPWBSubRoutine)
 						name: aResolvable identifier;
 						yourself)} ];
 				foundAction: [ :identifier :currentEntity | 
+					| invocation |
 					self preprocessedFile: currentEntity sourceAnchor fileReference.
-					(self createAssociation: FamixPWBInvocation from: identifier node)
+					invocation := (self
+						createAssociation: FamixPWBInvocation
+						from: identifier node)
 						sender: currentEntity;
-						candidates: identifier candidates ]).
+						candidates: identifier candidates.
+					argumentASTs functionArguments
+						ifNotEmpty: [ argumentASTs functionArgument
+								do:
+									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ]).
 	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
 
