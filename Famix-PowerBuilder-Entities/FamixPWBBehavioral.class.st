@@ -81,7 +81,7 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 { #category : #initialization }
 FamixPWBBehavioral >> createParameter: argAST [
 	^ FamixPWBParameter new
-		declaredType: argAST type type basicType;
+		parameterType: argAST type type basicType;
 		name: argAST identifier identifier;
 		mooseModel: self mooseModel;
 		behavioral: self
