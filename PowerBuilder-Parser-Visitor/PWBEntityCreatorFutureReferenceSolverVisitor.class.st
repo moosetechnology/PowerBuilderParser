@@ -181,10 +181,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					argumentASTs functionArguments
-						ifNotEmpty: [ argumentASTs functionArgument
-								do:
-									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ])
+					argumentASTs
+						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
+								ifFalse: [ argumentASTs functionArguments
+										do: [ :argAST | 
+											| famixPWBArgument |
+											famixPWBArgument := self
+												create: FamixPWBArgument
+												from: argAST.
+											famixPWBArgument invocation: invocation ] ] ] ])
 ]
 
 { #category : #visiting }
@@ -227,15 +232,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 						sender: currentEntity;
 						candidates: identifier candidates.
 					argumentASTs
-						ifNotNil: [ argumentASTs functionArguments
-								do: [ :argAST | 
-									| famixPWBArgument |
-									famixPWBArgument := self
-										create: FamixPWBArgument
-										from: argAST.
-									famixPWBArgument
-										name: famixPWBArgument sourceText;
-										invocation: invocation ] ] ])
+						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
+								ifFalse: [ argumentASTs functionArguments
+										do: [ :argAST | 
+											| famixPWBArgument |
+											famixPWBArgument := self
+												create: FamixPWBArgument
+												from: argAST.
+											famixPWBArgument invocation: invocation ] ] ] ])
 ]
 
 { #category : #visiting }
@@ -329,10 +333,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					argumentASTs functionArguments isEmptyOrNil
-						ifFalse: [ argumentASTs functionArguments
-								do:
-									[ :argAST | (self create: FamixPWBArgument from: argAST) invocation: invocation ] ] ]).
+					argumentASTs
+						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
+								ifFalse: [ argumentASTs functionArguments
+										do: [ :argAST | 
+											| famixPWBArgument |
+											famixPWBArgument := self
+												create: FamixPWBArgument
+												from: argAST.
+											famixPWBArgument invocation: invocation ] ] ] ]).
 	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
 
