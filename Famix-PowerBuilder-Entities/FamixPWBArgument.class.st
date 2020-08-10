@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBArgument,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTNamed + FamixTWithSourceAnchor',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixPWBPBTNamed + FamixTSourceEntity',
+	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTSourceEntity classTrait',
 	#instVars : [
 		'#argumentValue => FMProperty',
 		'#invocation => FMOne type: #FamixPWBInvocation opposite: #arguments'

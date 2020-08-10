@@ -1,16 +1,16 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
 	#instVars : [
+		'#addedCharacter',
 		'#content',
 		'#cyclomaticComplexity',
 		'#deadArguments',
 		'#deadLocalVariables',
 		'#incomingInvocationSenders',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
-		'#addedCharacter'
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }

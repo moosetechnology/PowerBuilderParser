@@ -13,7 +13,8 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 			"Groups"
 			self baselineOfPetitParser2: spec.
 			self baselineOfSymbolResolver: spec.
-		
+			self baselineOfFamix: spec.
+
 			"Packages"
 			spec
 				package: 'PowerBuilder-Parser-Tests'
@@ -21,18 +22,13 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 				package: 'PowerBuilder-Parser-Core'
 					with: [ spec requires: #('PetitParser2' 'PetitParserTooling') ];
 				package: 'PowerBuilder-Parser-AST';
-				package: 'Famix-PowerBuilder-Entities';
+				package: 'Famix-PowerBuilder-Entities'
+					with: [ spec requires: #('Famix') ];
 				package: 'PowerBuilder-Parser-Visitor'
 					with: [ "with: [ spec requires: #('Famix') ]"
 					spec
 						requires:
-							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ].
-	spec
-		for: #WithoutMoose
-		do: [ 	self baselineOfMoose: spec.
-			spec
-				package: 'Famix-PowerBuilder-Entities'
-				with: [ spec requires: #('Moose') ] ]
+							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ]
 ]
 
 { #category : #baselines }
@@ -40,15 +36,6 @@ BaselineOfPowerBuilderParser >> baselineOfFamix: spec [
 	spec
 	baseline: 'Famix'
 	with: [ spec repository: 'github://moosetechnology/Famix:development/src' ]
-]
-
-{ #category : #baselines }
-BaselineOfPowerBuilderParser >> baselineOfMoose: spec [
-	spec
-		baseline: 'Moose'
-		with: [ spec
-				repository:
-					'github://moosetechnology/Moose:19ea2165b52cadafcd936935440311b583d1007e/src' ]
 ]
 
 { #category : #baselines }
@@ -72,12 +59,4 @@ BaselineOfPowerBuilderParser >> baselineOfSymbolResolver: spec [
 
 		with: [ spec repository: 'github://moosetechnology/SymbolResolver:master/src' ]
 
-]
-
-{ #category : #accessing }
-BaselineOfPowerBuilderParser >> customProjectAttributes [
-	self class environment
-		at: #MooseEntity
-		ifAbsent: [ ^ #(#WithoutMoose) ].
-	^ #()
 ]

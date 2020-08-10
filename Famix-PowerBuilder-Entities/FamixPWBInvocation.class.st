@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBInvocation,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTSourceEntity',
+	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTSourceEntity classTrait',
 	#instVars : [
 		'#arguments => FMMany type: #FamixPWBArgument opposite: #invocation'
 	],
