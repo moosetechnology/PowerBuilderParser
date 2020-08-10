@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixTNamedEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTWithSourceAnchor + FamixTNamed',
-	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
+	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixTNamedEntity + FamixTSourceEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences + FamixTNamed',
+	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#content',
 		'#cyclomaticComplexity => FMProperty',

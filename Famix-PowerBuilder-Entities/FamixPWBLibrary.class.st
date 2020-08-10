@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBLibrary,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTNamedEntity + FamixTWithSourceAnchor + FamixTNamed',
-	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithSourceAnchor classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTNamedEntity + FamixTSourceEntity + FamixTNamed',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#userObjects => FMMany type: #FamixPWBmajorObject opposite: #library'
 	],

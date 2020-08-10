@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAccess,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccess + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTAccess classTrait + FamixTWithSourceAnchor classTrait',
+	#traits : 'FamixTAccess + FamixTSourceEntity',
+	#classTraits : 'FamixTAccess classTrait + FamixTSourceEntity classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

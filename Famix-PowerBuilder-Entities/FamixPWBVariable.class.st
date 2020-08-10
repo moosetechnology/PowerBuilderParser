@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTWithSourceAnchor + FamixTWithTypes + FamixTNamed',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes + FamixTNamed',
+	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
 	],

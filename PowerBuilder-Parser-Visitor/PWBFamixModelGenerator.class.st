@@ -120,7 +120,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	tWithMethods --|> #TWithMethods.
 	library
 		--|> #TNamedEntity;
-		--|> #TWithSourceAnchor.
+		--|> #TSourceEntity.
 	graphicComponent
 		--|> sourcedEntity;
 		--|> #TWithAttributes;
@@ -145,7 +145,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	variable
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
@@ -155,11 +155,11 @@ PWBFamixModelGenerator >> defineHierarchy [
 	localVariable --|> variable.
 	instanceVariable --|> attribute.
 	dataWindow
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithAttributes.
 	attribute
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute.
 	method
@@ -170,18 +170,18 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TInvocable;
 		--|> #THasSignature.
 	behavioral
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
 		--|> #TWithReferences.
 	invocation --|> #TInvocation.
 	invocation
 		--|> #THasSignature;
-		--|> #TWithSourceAnchor.
+		--|> #TSourceEntity.
 
 	"Defining all major objects (files)"
 	majorObject
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
@@ -209,23 +209,23 @@ PWBFamixModelGenerator >> defineHierarchy [
 	customType --|> abstractType.
 	basicType --|> abstractType.
 	access
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TAccess.
 	variableAccess
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TAccess.
 	reference
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TReference.
 	attribute
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible.
 	argument
 		--|> tNamed;
-		--|> #TWithSourceAnchor.
+		--|> #TSourceEntity.
 	parameter --|> #TParameter
 ]
 
