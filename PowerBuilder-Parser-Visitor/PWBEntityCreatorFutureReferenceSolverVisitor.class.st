@@ -305,7 +305,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 	famixFunction := self
 		create: FamixPWBFunction
 		from: aPWBASTFunctionDefinition.
-	famixFunction declaredType: functionRetunTypeHolder.
+	famixFunction returnType: functionRetunTypeHolder.
 	self
 		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ]
