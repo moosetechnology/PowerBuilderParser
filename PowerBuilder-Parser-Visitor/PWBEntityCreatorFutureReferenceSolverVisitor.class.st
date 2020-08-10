@@ -301,8 +301,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: 
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+	| famixFunction |
+	famixFunction := self
+		create: FamixPWBFunction
+		from: aPWBASTFunctionDefinition.
+	famixFunction declaredType: functionRetunTypeHolder.
 	self
-		useCurrentEntity: (self create: FamixPWBFunction from: aPWBASTFunctionDefinition)
+		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ]
 ]
 
@@ -348,7 +353,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	self visit: aPWBASTFunctionSignature accessModifier.
-	self visit: aPWBASTFunctionSignature type.
+	functionRetunTypeHolder := self visit: aPWBASTFunctionSignature type.
 	self currentEntity
 		name: (self visit: aPWBASTFunctionSignature identifier).
 	^ self visit: aPWBASTFunctionSignature arguments

@@ -7,7 +7,8 @@ Class {
 		'model',
 		'file',
 		'importingContext',
-		'preprocessingMap'
+		'preprocessingMap',
+		'functionRetunTypeHolder'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }

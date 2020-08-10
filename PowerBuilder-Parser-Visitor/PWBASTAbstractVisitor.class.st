@@ -930,8 +930,7 @@ PWBASTAbstractVisitor >> visitPWBASTTryCatch: aPWBASTTryCatch [
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTType: aPWBASTType [
-	<generated>
-	self visit: aPWBASTType type.
+	^ self visit: aPWBASTType type
 ]
 
 { #category : #visiting }
