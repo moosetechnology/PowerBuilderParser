@@ -3,9 +3,6 @@ Class {
 	#superclass : #FamixPWBBehavioral,
 	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTFunction',
 	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTFunction classTrait',
-	#instVars : [
-		'#returnType => FMProperty'
-	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -16,18 +13,4 @@ FamixPWBRoutine class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixPWBRoutine >> returnType [
-
-	<FMProperty: #returnType type: #Object>
-	<generated>
-	^ returnType
-]
-
-{ #category : #accessing }
-FamixPWBRoutine >> returnType: anObject [
-	<generated>
-	returnType := anObject
 ]
