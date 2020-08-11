@@ -14,3 +14,8 @@ FamixPWBBasicType class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #accessing }
+FamixPWBBasicType >> generateRandomValue [
+	^ RandomReturnValueGenerator valueFor: self name
+]

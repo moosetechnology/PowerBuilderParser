@@ -14,3 +14,8 @@ FamixPWBUserObject class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #accessing }
+FamixPWBUserObject >> brPath: aCollection [
+	brPath := aCollection
+]
