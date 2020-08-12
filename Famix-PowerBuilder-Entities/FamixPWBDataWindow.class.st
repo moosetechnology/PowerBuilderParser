@@ -44,5 +44,5 @@ FamixPWBDataWindow >> graphicComponents: anObject [
 FamixPWBDataWindow >> graphicComponentsGroup [
 	<generated>
 	<navigation: 'GraphicComponents'>
-	^ MooseGroup withAll: self graphicComponents asSet
+	^ MooseSpecializedGroup withAll: self graphicComponents asSet
 ]

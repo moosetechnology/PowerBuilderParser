@@ -237,7 +237,8 @@ PWBFamixModelGenerator >> defineProperties [
 	ticketAssociation property: #date type: #String.
 	ticketAssociation property: #author type: #String.
 	argument property: #argumentValue type: #Object.
-	parameter property: #parameterType type: #String
+	parameter property: #parameterType type: #String.
+	
 ]
 
 { #category : #definition }

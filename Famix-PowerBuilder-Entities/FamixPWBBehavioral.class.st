@@ -199,7 +199,7 @@ FamixPWBBehavioral >> variables: anObject [
 FamixPWBBehavioral >> variablesGroup [
 	<generated>
 	<navigation: 'Variables'>
-	^ MooseGroup withAll: self variables asSet
+	^ MooseSpecializedGroup withAll: self variables asSet
 ]
 
 { #category : #api }

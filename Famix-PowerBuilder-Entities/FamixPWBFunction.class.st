@@ -14,3 +14,13 @@ FamixPWBFunction class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #scoping }
+FamixPWBFunction >> returnType [
+	^ self privateState attributeAt: #returnType ifAbsent: [ nil ]
+]
+
+{ #category : #scoping }
+FamixPWBFunction >> returnType: anObject [
+	self attributeAt: #returnType put: anObject
+]

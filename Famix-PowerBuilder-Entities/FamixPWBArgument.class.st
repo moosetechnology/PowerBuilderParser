@@ -53,5 +53,5 @@ FamixPWBArgument >> invocation: anObject [
 FamixPWBArgument >> invocationGroup [
 	<generated>
 	<navigation: 'Invocation'>
-	^ MooseGroup with: self invocation
+	^ MooseSpecializedGroup with: self invocation
 ]

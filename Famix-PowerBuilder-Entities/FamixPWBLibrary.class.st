@@ -44,5 +44,5 @@ FamixPWBLibrary >> userObjects: anObject [
 FamixPWBLibrary >> userObjectsGroup [
 	<generated>
 	<navigation: 'UserObjects'>
-	^ MooseGroup withAll: self userObjects asSet
+	^ MooseSpecializedGroup withAll: self userObjects asSet
 ]

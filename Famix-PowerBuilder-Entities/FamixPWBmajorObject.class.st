@@ -161,7 +161,7 @@ FamixPWBmajorObject >> library: anObject [
 FamixPWBmajorObject >> libraryGroup [
 	<generated>
 	<navigation: 'Library'>
-	^ MooseGroup with: self library
+	^ MooseSpecializedGroup with: self library
 ]
 
 { #category : #query }
