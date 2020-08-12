@@ -80,8 +80,11 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 
 { #category : #initialization }
 FamixPWBBehavioral >> createParameter: argAST [
+	| visitor |
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
+		model: self mooseModel.
 	^ FamixPWBParameter new
-		parameterType: argAST type type basicType;
+		parameterType: (visitor visit: argAST type);
 		name: argAST identifier identifier;
 		mooseModel: self mooseModel;
 		behavioral: self
