@@ -127,7 +127,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					self
 						ensureEntityWithType: FamixPWBCustomType
-						named: (self visit: aPWBASTCustomType identifier) ])
+						named: (self visit: aPWBASTCustomType identifier) ]).
+					^ self visit: aPWBASTCustomType identifier
 ]
 
 { #category : #visiting }
@@ -305,10 +306,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 	famixFunction := self
 		create: FamixPWBFunction
 		from: aPWBASTFunctionDefinition.
-	famixFunction returnType: functionRetunTypeHolder.
+
 	self
 		useCurrentEntity: famixFunction
-		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ]
+		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ].
+		famixFunction returnType: functionRetunTypeHolder
 ]
 
 { #category : #visiting }

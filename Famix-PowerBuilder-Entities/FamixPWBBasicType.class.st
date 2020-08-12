@@ -14,3 +14,8 @@ FamixPWBBasicType class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #'as yet unclassified' }
+FamixPWBBasicType >> generateRandomValue [
+	^ RandomReturnValueGenerator valueFor: self name
+]

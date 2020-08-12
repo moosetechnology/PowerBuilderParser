@@ -25,7 +25,12 @@ FamixPWBEntity class >> metamodel [
 
 { #category : #accessing }
 FamixPWBEntity >> brPath [
-	^ self subclassResponsibility
+	^ brPath
+]
+
+{ #category : #accessing }
+FamixPWBEntity >> brPath: aCollection [
+	brPath := aCollection
 ]
 
 { #category : #'as yet unclassified' }
