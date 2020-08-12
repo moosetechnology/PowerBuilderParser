@@ -128,7 +128,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 					self
 						ensureEntityWithType: FamixPWBCustomType
 						named: (self visit: aPWBASTCustomType identifier) ]).
+
 					^ self visit: aPWBASTCustomType identifier
+
 ]
 
 { #category : #visiting }
@@ -307,10 +309,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 		create: FamixPWBFunction
 		from: aPWBASTFunctionDefinition.
 
+
 	self
 		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ].
 		famixFunction returnType: functionRetunTypeHolder
+
+	
 ]
 
 { #category : #visiting }

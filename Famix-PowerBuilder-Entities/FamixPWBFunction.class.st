@@ -3,6 +3,9 @@ Class {
 	#superclass : #FamixPWBBehavioral,
 	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTHasSignature + FamixTInvocable + FamixTMethod + FamixTWithParameters',
 	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTHasSignature classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTWithParameters classTrait',
+	#instVars : [
+		'#returnType => FMProperty'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -15,6 +18,7 @@ FamixPWBFunction class >> annotation [
 	^self
 ]
 
+
 { #category : #scoping }
 FamixPWBFunction >> returnType [
 	^ self privateState attributeAt: #returnType ifAbsent: [ nil ]
@@ -23,4 +27,6 @@ FamixPWBFunction >> returnType [
 { #category : #scoping }
 FamixPWBFunction >> returnType: anObject [
 	self attributeAt: #returnType put: anObject
+
+
 ]

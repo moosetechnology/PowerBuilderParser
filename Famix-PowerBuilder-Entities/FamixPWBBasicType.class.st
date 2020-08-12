@@ -15,7 +15,9 @@ FamixPWBBasicType class >> annotation [
 	^self
 ]
 
-{ #category : #'as yet unclassified' }
+
+{ #category : #accessing }
+
 FamixPWBBasicType >> generateRandomValue [
 	^ RandomReturnValueGenerator valueFor: self name
 ]
