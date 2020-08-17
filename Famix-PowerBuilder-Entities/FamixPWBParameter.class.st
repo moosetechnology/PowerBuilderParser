@@ -18,6 +18,16 @@ FamixPWBParameter class >> annotation [
 	^self
 ]
 
+{ #category : #testing }
+FamixPWBParameter >> basicTypes [
+	^ PWBCommonGrammar new basicTypeArray
+]
+
+{ #category : #testing }
+FamixPWBParameter >> isBasic [
+	^ self parameterType isKindOf: FamixPWBBasicType
+]
+
 { #category : #accessing }
 FamixPWBParameter >> parameterType [
 
