@@ -87,7 +87,8 @@ FamixPWBBehavioral >> createParameter: argAST [
 		parameterType: (visitor visit: argAST type);
 		name: argAST identifier identifier;
 		mooseModel: self mooseModel;
-		behavioral: self
+		behavioral: self;
+		startPos: argAST startPos
 ]
 
 { #category : #'as yet unclassified' }
@@ -179,7 +180,8 @@ FamixPWBBehavioral >> setParameters [
 		parse: signature.
 	signatureAST arguments arguments ifNil: [ ^ self ].
 	signatureAST arguments arguments
-		do: [ :argAST | self addParameter: (self createParameter: argAST) ]
+		do:
+			[ :argAST | self addParameter: (self createParameter: argAST) ]
 ]
 
 { #category : #accessing }

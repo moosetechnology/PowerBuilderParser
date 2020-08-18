@@ -4,7 +4,8 @@ Class {
 	#traits : 'FamixTParameter',
 	#classTraits : 'FamixTParameter classTrait',
 	#instVars : [
-		'#parameterType => FMProperty'
+		'#parameterType => FMProperty',
+		'#startPos => FMProperty'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -40,4 +41,18 @@ FamixPWBParameter >> parameterType [
 FamixPWBParameter >> parameterType: anObject [
 	<generated>
 	parameterType := anObject
+]
+
+{ #category : #accessing }
+FamixPWBParameter >> startPos [
+
+	<FMProperty: #startPos type: #Number>
+	<generated>
+	^ startPos
+]
+
+{ #category : #accessing }
+FamixPWBParameter >> startPos: anObject [
+	<generated>
+	startPos := anObject
 ]

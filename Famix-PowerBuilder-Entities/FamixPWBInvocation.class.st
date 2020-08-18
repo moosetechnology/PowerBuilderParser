@@ -51,3 +51,8 @@ FamixPWBInvocation >> argumentsGroup [
 FamixPWBInvocation >> printOn: aStream [
 	^ aStream << self candidates anyOne name
 ]
+
+{ #category : #accessing }
+FamixPWBInvocation >> resetArguments [
+	self arguments: (QueryInvocationArguments runOn: self)
+]
