@@ -7,6 +7,16 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #accessing }
+MrlInvocationVisitor >> lineText [
+	^ lineText
+]
+
+{ #category : #accessing }
+MrlInvocationVisitor >> lineText: anObject [
+	lineText := anObject
+]
+
 { #category : #visiting }
 MrlInvocationVisitor >> visit [
 	^ self visit: (MrlPWBParser parse: lineText)
@@ -16,8 +26,13 @@ MrlInvocationVisitor >> visit [
 MrlInvocationVisitor >> visitAll: childrenNodes [
 	^ childrenNodes
 		ifNotNil: [ childrenNodes
-				select: [ :each | each isKindOf: PWBASTFullInvocation ]
+				select: [ :each | each isNotNil ]
 				thenCollect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+]
+
+{ #category : #helpers }
+MrlInvocationVisitor >> visitPWBASTFile: aPWBASTFile [
+	^ self visit: aPWBASTFile invocation
 ]
 
 { #category : #visiting }
@@ -25,4 +40,9 @@ MrlInvocationVisitor >> visitPWBASTFullInvocation: aPWBASTFullInvocation [
 	^ lineText
 		copyFrom: aPWBASTFullInvocation startPosition
 		to: aPWBASTFullInvocation stopPosition
+]
+
+{ #category : #visiting }
+MrlInvocationVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
+	^ self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines
 ]
