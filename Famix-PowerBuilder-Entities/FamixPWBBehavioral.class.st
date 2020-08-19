@@ -88,7 +88,7 @@ FamixPWBBehavioral >> createParameter: argAST [
 		name: argAST identifier identifier;
 		mooseModel: self mooseModel;
 		behavioral: self;
-		startPos: argAST startPos
+		startPos: argAST startPosition
 ]
 
 { #category : #'as yet unclassified' }

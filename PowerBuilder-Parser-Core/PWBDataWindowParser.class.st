@@ -609,6 +609,19 @@ PWBDataWindowParser >> formatType [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> fullInvocation [
+	<generated>
+	^ super fullInvocation withPositions
+		==> [ :production | 
+			PWBASTFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionTerm: (production content at: 1);
+				expressionAction: (production content at: 2);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> functionArgument [
 	<generated>
 	^ super functionArgument withPositions
@@ -833,6 +846,18 @@ PWBDataWindowParser >> operatorExpression [
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
 				right: (production content at: 6);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> oppositeFullInvocation [
+	<generated>
+	^ super oppositeFullInvocation flatten withPositions
+		==> [ :production | 
+			PWBASTOppositeFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				oppositeFullInvocation: production content;
 				yourself ]
 ]
 

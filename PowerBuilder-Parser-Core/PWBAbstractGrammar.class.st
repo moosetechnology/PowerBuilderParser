@@ -73,7 +73,9 @@ Class {
 		'eventTriggeringOrPosting',
 		'eventName',
 		'eventWord',
-		'eventLong'
+		'eventLong',
+		'fullInvocation',
+		'oppositeFullInvocation'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -414,6 +416,11 @@ PWBAbstractGrammar >> file [
 	^ self subclassResponsibility 
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> fullInvocation [
+	^ expressionTerm , expressionAction
+]
+
 { #category : #accessing }
 PWBAbstractGrammar >> functionArgument [
 	^ (argumentOption , spaces) optional , expression
@@ -473,6 +480,11 @@ PWBAbstractGrammar >> methodInvocation [
 	^ dynamicMethodInvocation / regularMethodInvocation
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> mrlInvocationLine [
+	^ (fullInvocation / oppositeFullInvocation) plus
+]
+
 { #category : #helpers }
 PWBAbstractGrammar >> multiLinesRepeated: aParser [
 	^ (aParser separatedBy: $; parser trim / blank)
@@ -508,6 +520,11 @@ PWBAbstractGrammar >> operatorExpression [
 				parserCaseInsensitiveFor:
 					#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' 'AND' 'OR' 'and' 'or'))
 		, blank , expression	"','"
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractGrammar >> oppositeFullInvocation [
+	^ fullInvocation negate plus
 ]
 
 { #category : #accessing }

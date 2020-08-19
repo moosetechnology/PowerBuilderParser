@@ -11,9 +11,8 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
-	^ childrenNodes
-		ifNotNil: [ childrenNodes
-				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	childrenNodes
+		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
 { #category : #visiting }
@@ -534,6 +533,13 @@ PWBASTAbstractVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTFullInvocation: aPWBASTFullInvocation [
+	<generated>
+	self visit: aPWBASTFullInvocation expressionTerm.
+	self visit: aPWBASTFullInvocation expressionAction.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFunctionArgument: aPWBASTFunctionArgument [
 	<generated>
 	self visit: aPWBASTFunctionArgument argumentOption.
@@ -703,6 +709,12 @@ PWBASTAbstractVisitor >> visitPWBASTOperatorExpression: aPWBASTOperatorExpressio
 	self visit: aPWBASTOperatorExpression left.
 	self visit: aPWBASTOperatorExpression expressionAction.
 	self visit: aPWBASTOperatorExpression right.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTOppositeFullInvocation: anPWBASTOppositeFullInvocation [
+	<generated>
+	^ anPWBASTOppositeFullInvocation oppositeFullInvocation
 ]
 
 { #category : #visiting }
@@ -930,7 +942,8 @@ PWBASTAbstractVisitor >> visitPWBASTTryCatch: aPWBASTTryCatch [
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTType: aPWBASTType [
-	^ self visit: aPWBASTType type
+	<generated>
+	self visit: aPWBASTType type.
 ]
 
 { #category : #visiting }
