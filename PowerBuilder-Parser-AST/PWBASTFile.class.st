@@ -2,7 +2,7 @@ Class {
 	#name : #PWBASTFile,
 	#superclass : #Object,
 	#instVars : [
-		'content',
+		'invocation',
 		'startPosition',
 		'stopPosition',
 		'fileExtension',
@@ -19,7 +19,7 @@ PWBASTFile >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ content = anObject content
+	^ invocation = anObject invocation
 		and: [ startPosition = anObject startPosition
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
@@ -64,7 +64,18 @@ PWBASTFile >> fileName: anObject [
 PWBASTFile >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ content hash bitXor: (startPosition hash bitXor: stopPosition hash)
+	^ invocation hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
+]
+
+{ #category : #accessing }
+PWBASTFile >> invocation [
+	^ invocation
+]
+
+{ #category : #accessing }
+PWBASTFile >> invocation: anObject [
+	invocation := anObject
 ]
 
 { #category : #accessing }

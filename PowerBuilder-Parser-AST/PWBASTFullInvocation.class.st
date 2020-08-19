@@ -2,8 +2,7 @@ Class {
 	#name : #PWBASTFullInvocation,
 	#superclass : #Object,
 	#instVars : [
-		'expressionTerm',
-		'expressionAction',
+		'fullInvocation',
 		'startPosition',
 		'stopPosition'
 	],
@@ -18,10 +17,9 @@ PWBASTFullInvocation >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ expressionTerm = anObject expressionTerm
-		and: [ expressionAction = anObject expressionAction
-				and: [ startPosition = anObject startPosition
-						and: [ stopPosition = anObject stopPosition ] ] ]
+	^ fullInvocation = anObject fullInvocation
+		and: [ startPosition = anObject startPosition
+				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
 { #category : #visiting }
@@ -31,33 +29,21 @@ PWBASTFullInvocation >> acceptVisitor: aVisitor [
 ]
 
 { #category : #accessing }
-PWBASTFullInvocation >> expressionAction [
-	^ expressionAction
+PWBASTFullInvocation >> fullInvocation [
+	^ fullInvocation
 ]
 
 { #category : #accessing }
-PWBASTFullInvocation >> expressionAction: anObject [
-	expressionAction := anObject
-]
-
-{ #category : #accessing }
-PWBASTFullInvocation >> expressionTerm [
-	^ expressionTerm
-]
-
-{ #category : #accessing }
-PWBASTFullInvocation >> expressionTerm: anObject [
-	expressionTerm := anObject
+PWBASTFullInvocation >> fullInvocation: anObject [
+	fullInvocation := anObject
 ]
 
 { #category : #comparing }
 PWBASTFullInvocation >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ expressionTerm hash
-		bitXor:
-			(expressionAction hash
-				bitXor: (startPosition hash bitXor: stopPosition hash))
+	^ fullInvocation hash
+		bitXor: (startPosition hash bitXor: stopPosition hash)
 ]
 
 { #category : #accessing }

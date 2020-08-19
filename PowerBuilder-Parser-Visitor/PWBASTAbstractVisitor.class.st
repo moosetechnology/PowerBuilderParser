@@ -11,9 +11,8 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
-	^ childrenNodes
-		ifNotNil: [ childrenNodes
-				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	childrenNodes
+		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
 { #category : #visiting }
@@ -496,7 +495,7 @@ PWBASTAbstractVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSig
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFile: aPWBASTFile [
 	<generated>
-	self visit: aPWBASTFile content.
+	self visit: aPWBASTFile invocation.
 ]
 
 { #category : #visiting }
@@ -536,8 +535,7 @@ PWBASTAbstractVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFullInvocation: aPWBASTFullInvocation [
 	<generated>
-	self visit: aPWBASTFullInvocation expressionTerm.
-	self visit: aPWBASTFullInvocation expressionAction.
+	self visit: aPWBASTFullInvocation fullInvocation
 ]
 
 { #category : #visiting }
@@ -682,6 +680,13 @@ PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 PWBASTAbstractVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
 	<generated>
 	self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTMrlMethodInvocation: aPWBASTMrlMethodInvocation [
+	<generated>
+	self visit: aPWBASTMrlMethodInvocation expressionTerm.
+	self visit: aPWBASTMrlMethodInvocation expressionAction.
 ]
 
 { #category : #visiting }
