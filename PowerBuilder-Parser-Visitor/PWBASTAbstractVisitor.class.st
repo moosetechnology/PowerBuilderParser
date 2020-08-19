@@ -535,7 +535,7 @@ PWBASTAbstractVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTFullInvocation: aPWBASTFullInvocation [
 	<generated>
-	self visit: aPWBASTFullInvocation fullInvocation
+	self visit: aPWBASTFullInvocation fullInvocation.
 ]
 
 { #category : #visiting }
@@ -687,6 +687,12 @@ PWBASTAbstractVisitor >> visitPWBASTMrlMethodInvocation: aPWBASTMrlMethodInvocat
 	<generated>
 	self visit: aPWBASTMrlMethodInvocation expressionTerm.
 	self visit: aPWBASTMrlMethodInvocation expressionAction.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTMrlSignatures: aPWBASTMrlSignatures [
+	<generated>
+	self visit: aPWBASTMrlSignatures mrlSignatures.
 ]
 
 { #category : #visiting }

@@ -176,12 +176,11 @@ FamixPWBBehavioral >> setContent [
 FamixPWBBehavioral >> setParameters [
 	| signature signatureAST |
 	signature := PWBPreprocessor parse: self sourceText lines first.
-	signatureAST := PWBCommonParser new functionSignature
-		parse: signature.
+	signatureAST := (MrlPWBParser new mrlSignatures parse: signature)
+		mrlSignatures.
 	signatureAST arguments arguments ifNil: [ ^ self ].
 	signatureAST arguments arguments
-		do:
-			[ :argAST | self addParameter: (self createParameter: argAST) ]
+		do: [ :argAST | self addParameter: (self createParameter: argAST) ]
 ]
 
 { #category : #accessing }

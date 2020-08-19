@@ -1,11 +1,12 @@
 Class {
 	#name : #MrlPWBGrammar,
-	#superclass : #PWBAbstractGrammar,
+	#superclass : #PWBCommonGrammar,
 	#instVars : [
 		'fullInvocation',
 		'oppositeFullInvocation',
 		'mrlInvocationLine',
-		'mrlMethodInvocation'
+		'mrlMethodInvocation',
+		'mrlSignatures'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -24,12 +25,19 @@ MrlPWBGrammar >> fullInvocation [
 
 { #category : #accessing }
 MrlPWBGrammar >> mrlInvocationLine [
+<reify: #(fullInvocation / oppositeFullInvocation) into: #mrlInvocationLine>
 	^ (fullInvocation / oppositeFullInvocation) plus
 ]
 
 { #category : #'as yet unclassified' }
 MrlPWBGrammar >> mrlMethodInvocation [
 	^ expressionTerm , expressionAction
+]
+
+{ #category : #'as yet unclassified' }
+MrlPWBGrammar >> mrlSignatures [
+	<reify: #(functionSignature / subroutineSignature) into: #mrlSignatures>
+	^ functionSignature / subroutineSignature
 ]
 
 { #category : #accessing }
