@@ -11,8 +11,9 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
-	childrenNodes
-		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	^ childrenNodes
+		ifNotNil: [ childrenNodes
+				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
 { #category : #visiting }
@@ -675,6 +676,12 @@ PWBASTAbstractVisitor >> visitPWBASTIntervalExpression: aPWBASTIntervalExpressio
 PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	<generated>
 	self visit: aPWBASTMethodInvocation methodInvocation.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
+	<generated>
+	self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines.
 ]
 
 { #category : #visiting }

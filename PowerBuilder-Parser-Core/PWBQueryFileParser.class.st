@@ -697,6 +697,18 @@ PWBQueryFileParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> mrlInvocationLine [
+	<generated>
+	^ super mrlInvocationLine withPositions
+		==> [ :production | 
+			PWBASTMrlInvocationLine new
+				startPosition: production start;
+				stopPosition: production stop;
+				mrlInvocationLines: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> notExpression [
 	<generated>
 	^ super notExpression withPositions

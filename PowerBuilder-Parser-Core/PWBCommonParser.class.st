@@ -1179,6 +1179,18 @@ PWBCommonParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBCommonParser >> mrlInvocationLine [
+	<generated>
+	^ super mrlInvocationLine withPositions
+		==> [ :production | 
+			PWBASTMrlInvocationLine new
+				startPosition: production start;
+				stopPosition: production stop;
+				mrlInvocationLines: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> multiLineCase [
 	<generated>
 	^ super multiLineCase withPositions

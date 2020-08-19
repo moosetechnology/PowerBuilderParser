@@ -812,6 +812,18 @@ PWBDataWindowParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> mrlInvocationLine [
+	<generated>
+	^ super mrlInvocationLine withPositions
+		==> [ :production | 
+			PWBASTMrlInvocationLine new
+				startPosition: production start;
+				stopPosition: production stop;
+				mrlInvocationLines: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> notExpression [
 	<generated>
 	^ super notExpression withPositions

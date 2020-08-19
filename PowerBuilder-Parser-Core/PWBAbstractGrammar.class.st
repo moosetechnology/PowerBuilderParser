@@ -75,7 +75,8 @@ Class {
 		'eventWord',
 		'eventLong',
 		'fullInvocation',
-		'oppositeFullInvocation'
+		'oppositeFullInvocation',
+		'mrlInvocationLine'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -482,6 +483,7 @@ PWBAbstractGrammar >> methodInvocation [
 
 { #category : #'as yet unclassified' }
 PWBAbstractGrammar >> mrlInvocationLine [
+<reify: #(fullInvocation / oppositeFullInvocation)into: #mrlInvocationLine>
 	^ (fullInvocation / oppositeFullInvocation) plus
 ]
 

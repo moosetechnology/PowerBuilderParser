@@ -153,6 +153,13 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifAbsent: [ anInteger ]
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> visitAll: childrenNodes [
+	^ childrenNodes
+		ifNotNil: [ childrenNodes
+				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	^ self visit: aPWBASTEventType eventType
@@ -181,6 +188,11 @@ PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
 		 (SRThisWithNode
 		node: anPWBASTThis
 		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
+]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTType: aPWBASTType [
+	^ self visit: aPWBASTType type
 ]
 
 { #category : #visiting }
