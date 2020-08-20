@@ -31,18 +31,18 @@ MrlInvocationVisitor >> visitAll: childrenNodes [
 ]
 
 { #category : #helpers }
-MrlInvocationVisitor >> visitPWBASTFile: aPWBASTFile [
+MrlInvocationVisitor >> visitMrlPWBASTFile: aPWBASTFile [
 	^ self visit: aPWBASTFile invocation
 ]
 
 { #category : #visiting }
-MrlInvocationVisitor >> visitPWBASTFullInvocation: aPWBASTFullInvocation [
+MrlInvocationVisitor >> visitMrlPWBASTFullInvocation: aPWBASTFullInvocation [
 	^ lineText
 		copyFrom: aPWBASTFullInvocation startPosition
 		to: aPWBASTFullInvocation stopPosition
 ]
 
 { #category : #visiting }
-MrlInvocationVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
+MrlInvocationVisitor >> visitMrlPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
 	^ self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines
 ]
