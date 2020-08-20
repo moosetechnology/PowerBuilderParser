@@ -9,7 +9,7 @@ MrlPWBParser >> access [
 	<generated>
 	^ super access withPositions
 		==> [ :production | 
-			PWBASTAccess new
+			MrlPWBASTAccess new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessed: (production content at: 1);
@@ -22,7 +22,7 @@ MrlPWBParser >> accessModifier [
 	<generated>
 	^ super accessModifier flatten withPositions
 		==> [ :production | 
-			PWBASTAccessModifier new
+			MrlPWBASTAccessModifier new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessModifier: production content;
@@ -34,7 +34,7 @@ MrlPWBParser >> accessModifierDefiner [
 	<generated>
 	^ super accessModifierDefiner withPositions
 		==> [ :production | 
-			PWBASTAccessModifierDefiner new
+			MrlPWBASTAccessModifierDefiner new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessModifier: (production content at: 1);
@@ -46,7 +46,7 @@ MrlPWBParser >> accessOrType [
 	<generated>
 	^ super accessOrType withPositions
 		==> [ :production | 
-			PWBASTAccessOrType new
+			MrlPWBASTAccessOrType new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessOrType: production content;
@@ -58,7 +58,7 @@ MrlPWBParser >> argument [
 	<generated>
 	^ super argument withPositions
 		==> [ :production | 
-			PWBASTArgument new
+			MrlPWBASTArgument new
 				startPosition: production start;
 				stopPosition: production stop;
 				argumentOption:
@@ -75,7 +75,7 @@ MrlPWBParser >> argumentOption [
 	<generated>
 	^ super argumentOption flatten withPositions
 		==> [ :production | 
-			PWBASTArgumentOption new
+			MrlPWBASTArgumentOption new
 				startPosition: production start;
 				stopPosition: production stop;
 				argumentOption: production content;
@@ -87,7 +87,7 @@ MrlPWBParser >> arguments [
 	<generated>
 	^ super arguments withPositions
 		==> [ :production | 
-			PWBASTArguments new
+			MrlPWBASTArguments new
 				startPosition: production start;
 				stopPosition: production stop;
 				arguments:
@@ -101,7 +101,7 @@ MrlPWBParser >> array [
 	<generated>
 	^ super array withPositions
 		==> [ :production | 
-			PWBASTArray new
+			MrlPWBASTArray new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressions: (self rejectSeparators: (production content at: 2));
@@ -113,7 +113,7 @@ MrlPWBParser >> arrayDesignation [
 	<generated>
 	^ super arrayDesignation flatten withPositions
 		==> [ :production | 
-			PWBASTArrayDesignation new
+			MrlPWBASTArrayDesignation new
 				startPosition: production start;
 				stopPosition: production stop;
 				arrayDesignation: production content;
@@ -125,7 +125,7 @@ MrlPWBParser >> arrayPosition [
 	<generated>
 	^ super arrayPosition withPositions
 		==> [ :production | 
-			PWBASTArrayPosition new
+			MrlPWBASTArrayPosition new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressions: (self rejectSeparators: (production content at: 2));
@@ -137,7 +137,7 @@ MrlPWBParser >> arrayWithSize [
 	<generated>
 	^ super arrayWithSize withPositions
 		==> [ :production | 
-			PWBASTArrayWithSize new
+			MrlPWBASTArrayWithSize new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressions:
@@ -151,7 +151,7 @@ MrlPWBParser >> assignation [
 	<generated>
 	^ super assignation withPositions
 		==> [ :production | 
-			PWBASTAssignation new
+			MrlPWBASTAssignation new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 2);
@@ -163,7 +163,7 @@ MrlPWBParser >> assignationStatement [
 	<generated>
 	^ super assignationStatement withPositions
 		==> [ :production | 
-			PWBASTAssignationStatement new
+			MrlPWBASTAssignationStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessOrType: (production content at: 1);
@@ -177,7 +177,7 @@ MrlPWBParser >> attribute [
 	<generated>
 	^ super attribute withPositions
 		==> [ :production | 
-			PWBASTAttribute new
+			MrlPWBASTAttribute new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessModifier:
@@ -195,7 +195,7 @@ MrlPWBParser >> attributeAccess [
 	<generated>
 	^ super attributeAccess withPositions
 		==> [ :production | 
-			PWBASTAttributeAccess new
+			MrlPWBASTAttributeAccess new
 				startPosition: production start;
 				stopPosition: production stop;
 				uncheckedIdentifier: (production content at: 2);
@@ -210,7 +210,7 @@ MrlPWBParser >> attributes [
 	<generated>
 	^ super attributes withPositions
 		==> [ :production | 
-			PWBASTAttributes new
+			MrlPWBASTAttributes new
 				startPosition: production start;
 				stopPosition: production stop;
 				attributes: (self rejectSeparators: (production content at: 1));
@@ -222,7 +222,7 @@ MrlPWBParser >> basicType [
 	<generated>
 	^ super basicType flatten withPositions
 		==> [ :production | 
-			PWBASTBasicType new
+			MrlPWBASTBasicType new
 				startPosition: production start;
 				stopPosition: production stop;
 				basicType: production content;
@@ -234,7 +234,7 @@ MrlPWBParser >> behaviouralAlias [
 	<generated>
 	^ super behaviouralAlias withPositions
 		==> [ :production | 
-			PWBASTBehaviouralAlias new
+			MrlPWBASTBehaviouralAlias new
 				startPosition: production start;
 				stopPosition: production stop;
 				alias: (production content at: 3);
@@ -246,7 +246,7 @@ MrlPWBParser >> behaviouralLibrary [
 	<generated>
 	^ super behaviouralLibrary withPositions
 		==> [ :production | 
-			PWBASTBehaviouralLibrary new
+			MrlPWBASTBehaviouralLibrary new
 				startPosition: production start;
 				stopPosition: production stop;
 				libraryFile: (production content at: 3);
@@ -258,7 +258,7 @@ MrlPWBParser >> behaviouralOption [
 	<generated>
 	^ super behaviouralOption withPositions
 		==> [ :production | 
-			PWBASTBehaviouralOption new
+			MrlPWBASTBehaviouralOption new
 				startPosition: production start;
 				stopPosition: production stop;
 				behaviouralOption: production content;
@@ -270,7 +270,7 @@ MrlPWBParser >> booleanValue [
 	<generated>
 	^ super booleanValue flatten withPositions
 		==> [ :production | 
-			PWBASTBooleanValue new
+			MrlPWBASTBooleanValue new
 				startPosition: production start;
 				stopPosition: production stop;
 				booleanValue: production content;
@@ -282,7 +282,7 @@ MrlPWBParser >> callStatement [
 	<generated>
 	^ super callStatement withPositions
 		==> [ :production | 
-			PWBASTCallStatement new
+			MrlPWBASTCallStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				variable: (production content at: 3);
@@ -298,7 +298,7 @@ MrlPWBParser >> case [
 	<generated>
 	^ super case withPositions
 		==> [ :production | 
-			PWBASTCase new
+			MrlPWBASTCase new
 				startPosition: production start;
 				stopPosition: production stop;
 				case: production content;
@@ -310,7 +310,7 @@ MrlPWBParser >> caseElse [
 	<generated>
 	^ super caseElse withPositions
 		==> [ :production | 
-			PWBASTCaseElse new
+			MrlPWBASTCaseElse new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (production content at: 5);
@@ -323,7 +323,7 @@ MrlPWBParser >> catchBlock [
 	<generated>
 	^ super catchBlock withPositions
 		==> [ :production | 
-			PWBASTCatchBlock new
+			MrlPWBASTCatchBlock new
 				startPosition: production start;
 				stopPosition: production stop;
 				arguments: (production content at: 3);
@@ -338,7 +338,7 @@ MrlPWBParser >> chooseCase [
 	<generated>
 	^ super chooseCase withPositions
 		==> [ :production | 
-			PWBASTChooseCase new
+			MrlPWBASTChooseCase new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 5);
@@ -354,7 +354,7 @@ MrlPWBParser >> closeSqlCursor [
 	<generated>
 	^ super closeSqlCursor withPositions
 		==> [ :production | 
-			PWBASTCloseSqlCursor new
+			MrlPWBASTCloseSqlCursor new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 3);
@@ -366,7 +366,7 @@ MrlPWBParser >> commonFile [
 	<generated>
 	^ super commonFile withPositions
 		==> [ :production | 
-			PWBASTCommonFile new
+			MrlPWBASTCommonFile new
 				startPosition: production start;
 				stopPosition: production stop;
 				fileStatements: (self rejectSeparators: production content);
@@ -378,7 +378,7 @@ MrlPWBParser >> condition [
 	<generated>
 	^ super condition withPositions
 		==> [ :production | 
-			PWBASTCondition new
+			MrlPWBASTCondition new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: production content;
@@ -390,7 +390,7 @@ MrlPWBParser >> constant [
 	<generated>
 	^ super constant flatten withPositions
 		==> [ :production | 
-			PWBASTConstant new
+			MrlPWBASTConstant new
 				startPosition: production start;
 				stopPosition: production stop;
 				constant: production content;
@@ -402,7 +402,7 @@ MrlPWBParser >> continueStatement [
 	<generated>
 	^ super continueStatement flatten withPositions
 		==> [ :production | 
-			PWBASTContinueStatement new
+			MrlPWBASTContinueStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				continueStatement: production content;
@@ -414,7 +414,7 @@ MrlPWBParser >> createInstruction [
 	<generated>
 	^ super createInstruction withPositions
 		==> [ :production | 
-			PWBASTCreateInstruction new
+			MrlPWBASTCreateInstruction new
 				startPosition: production start;
 				stopPosition: production stop;
 				variable: (production content at: 3);
@@ -426,7 +426,7 @@ MrlPWBParser >> createUsingInstruction [
 	<generated>
 	^ super createUsingInstruction withPositions
 		==> [ :production | 
-			PWBASTCreateUsingInstruction new
+			MrlPWBASTCreateUsingInstruction new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -438,7 +438,7 @@ MrlPWBParser >> customCallStatement [
 	<generated>
 	^ super customCallStatement withPositions
 		==> [ :production | 
-			PWBASTCustomCallStatement new
+			MrlPWBASTCustomCallStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 5);
@@ -450,7 +450,7 @@ MrlPWBParser >> customType [
 	<generated>
 	^ super customType withPositions
 		==> [ :production | 
-			PWBASTCustomType new
+			MrlPWBASTCustomType new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: production content;
@@ -462,7 +462,7 @@ MrlPWBParser >> declareCursor [
 	<generated>
 	^ super declareCursor withPositions
 		==> [ :production | 
-			PWBASTDeclareCursor new
+			MrlPWBASTDeclareCursor new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 3);
@@ -475,7 +475,7 @@ MrlPWBParser >> declareProcedure [
 	<generated>
 	^ super declareProcedure withPositions
 		==> [ :production | 
-			PWBASTDeclareProcedure new
+			MrlPWBASTDeclareProcedure new
 				startPosition: production start;
 				stopPosition: production stop;
 				procedureName: (production content at: 3);
@@ -487,7 +487,7 @@ MrlPWBParser >> defaultEventType [
 	<generated>
 	^ super defaultEventType flatten withPositions
 		==> [ :production | 
-			PWBASTDefaultEventType new
+			MrlPWBASTDefaultEventType new
 				startPosition: production start;
 				stopPosition: production stop;
 				defaultEventType: production content;
@@ -499,7 +499,7 @@ MrlPWBParser >> defaultVariable [
 	<generated>
 	^ super defaultVariable flatten withPositions
 		==> [ :production | 
-			PWBASTDefaultVariable new
+			MrlPWBASTDefaultVariable new
 				startPosition: production start;
 				stopPosition: production stop;
 				defaultVariable: production content;
@@ -511,7 +511,7 @@ MrlPWBParser >> descriptor [
 	<generated>
 	^ super descriptor withPositions
 		==> [ :production | 
-			PWBASTDescriptor new
+			MrlPWBASTDescriptor new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -523,7 +523,7 @@ MrlPWBParser >> destroyStatement [
 	<generated>
 	^ super destroyStatement withPositions
 		==> [ :production | 
-			PWBASTDestroyStatement new
+			MrlPWBASTDestroyStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -535,7 +535,7 @@ MrlPWBParser >> doLoopUntil [
 	<generated>
 	^ super doLoopUntil withPositions
 		==> [ :production | 
-			PWBASTDoLoopUntil new
+			MrlPWBASTDoLoopUntil new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (production content at: 3);
@@ -548,7 +548,7 @@ MrlPWBParser >> doLoopWhile [
 	<generated>
 	^ super doLoopWhile withPositions
 		==> [ :production | 
-			PWBASTDoLoopWhile new
+			MrlPWBASTDoLoopWhile new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (production content at: 3);
@@ -561,7 +561,7 @@ MrlPWBParser >> doUntilLoop [
 	<generated>
 	^ super doUntilLoop withPositions
 		==> [ :production | 
-			PWBASTDoUntilLoop new
+			MrlPWBASTDoUntilLoop new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 5);
@@ -574,7 +574,7 @@ MrlPWBParser >> doWhileLoop [
 	<generated>
 	^ super doWhileLoop withPositions
 		==> [ :production | 
-			PWBASTDoWhileLoop new
+			MrlPWBASTDoWhileLoop new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 5);
@@ -587,7 +587,7 @@ MrlPWBParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions
 		==> [ :production | 
-			PWBASTDynamicMethodInvocation new
+			MrlPWBASTDynamicMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				uncheckedIdentifier: (production content at: 5);
@@ -600,7 +600,7 @@ MrlPWBParser >> else [
 	<generated>
 	^ super else withPositions
 		==> [ :production | 
-			PWBASTElse new
+			MrlPWBASTElse new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (production content at: 3);
@@ -612,7 +612,7 @@ MrlPWBParser >> elseIf [
 	<generated>
 	^ super elseIf withPositions
 		==> [ :production | 
-			PWBASTElseIf new
+			MrlPWBASTElseIf new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -625,7 +625,7 @@ MrlPWBParser >> elseOnLine [
 	<generated>
 	^ super elseOnLine withPositions
 		==> [ :production | 
-			PWBASTElseOnLine new
+			MrlPWBASTElseOnLine new
 				startPosition: production start;
 				stopPosition: production stop;
 				statement: (production content at: 4);
@@ -637,7 +637,7 @@ MrlPWBParser >> endForward [
 	<generated>
 	^ super endForward flatten withPositions
 		==> [ :production | 
-			PWBASTEndForward new
+			MrlPWBASTEndForward new
 				startPosition: production start;
 				stopPosition: production stop;
 				endForward: production content;
@@ -649,7 +649,7 @@ MrlPWBParser >> eventAttribute [
 	<generated>
 	^ super eventAttribute withPositions
 		==> [ :production | 
-			PWBASTEventAttribute new
+			MrlPWBASTEventAttribute new
 				startPosition: production start;
 				stopPosition: production stop;
 				returnType:
@@ -665,7 +665,7 @@ MrlPWBParser >> eventDeclaration [
 	<generated>
 	^ super eventDeclaration withPositions
 		==> [ :production | 
-			PWBASTEventDeclaration new
+			MrlPWBASTEventDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				returnType:
@@ -684,7 +684,7 @@ MrlPWBParser >> eventInvocation [
 	<generated>
 	^ super eventInvocation withPositions
 		==> [ :production | 
-			PWBASTEventInvocation new
+			MrlPWBASTEventInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 3);
@@ -697,7 +697,7 @@ MrlPWBParser >> eventLong [
 	<generated>
 	^ super eventLong withPositions
 		==> [ :production | 
-			PWBASTEventLong new
+			MrlPWBASTEventLong new
 				startPosition: production start;
 				stopPosition: production stop;
 				functionArgument: production content;
@@ -709,7 +709,7 @@ MrlPWBParser >> eventName [
 	<generated>
 	^ super eventName withPositions
 		==> [ :production | 
-			PWBASTEventName new
+			MrlPWBASTEventName new
 				startPosition: production start;
 				stopPosition: production stop;
 				eventName: production content;
@@ -721,7 +721,7 @@ MrlPWBParser >> eventReferenceName [
 	<generated>
 	^ super eventReferenceName withPositions
 		==> [ :production | 
-			PWBASTEventReferenceName new
+			MrlPWBASTEventReferenceName new
 				startPosition: production start;
 				stopPosition: production stop;
 				objectClass:
@@ -737,7 +737,7 @@ MrlPWBParser >> eventTriggeringOrPosting [
 	<generated>
 	^ super eventTriggeringOrPosting withPositions
 		==> [ :production | 
-			PWBASTEventTriggeringOrPosting new
+			MrlPWBASTEventTriggeringOrPosting new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifiers:
@@ -761,7 +761,7 @@ MrlPWBParser >> eventType [
 	<generated>
 	^ super eventType withPositions
 		==> [ :production | 
-			PWBASTEventType new
+			MrlPWBASTEventType new
 				startPosition: production start;
 				stopPosition: production stop;
 				eventType: production content;
@@ -773,7 +773,7 @@ MrlPWBParser >> eventWord [
 	<generated>
 	^ super eventWord withPositions
 		==> [ :production | 
-			PWBASTEventWord new
+			MrlPWBASTEventWord new
 				startPosition: production start;
 				stopPosition: production stop;
 				functionArgument: production content;
@@ -785,7 +785,7 @@ MrlPWBParser >> executeProcedure [
 	<generated>
 	^ super executeProcedure withPositions
 		==> [ :production | 
-			PWBASTExecuteProcedure new
+			MrlPWBASTExecuteProcedure new
 				startPosition: production start;
 				stopPosition: production stop;
 				immediate: (production content at: 2) notNil;
@@ -799,7 +799,7 @@ MrlPWBParser >> exitStatement [
 	<generated>
 	^ super exitStatement flatten withPositions
 		==> [ :production | 
-			PWBASTExitStatement new
+			MrlPWBASTExitStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				exitStatement: production content;
@@ -811,7 +811,7 @@ MrlPWBParser >> expression [
 	<generated>
 	^ super expression withPositions
 		==> [ :production | 
-			PWBASTExpression new
+			MrlPWBASTExpression new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 1);
@@ -824,7 +824,7 @@ MrlPWBParser >> expressionAction [
 	<generated>
 	^ super expressionAction withPositions
 		==> [ :production | 
-			PWBASTExpressionAction new
+			MrlPWBASTExpressionAction new
 				startPosition: production start;
 				stopPosition: production stop;
 				action: (production content at: 1);
@@ -837,7 +837,7 @@ MrlPWBParser >> expressionList [
 	<generated>
 	^ super expressionList withPositions
 		==> [ :production | 
-			PWBASTExpressionList new
+			MrlPWBASTExpressionList new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressions: (self rejectSeparators: production content);
@@ -849,7 +849,7 @@ MrlPWBParser >> expressionTerm [
 	<generated>
 	^ super expressionTerm withPositions
 		==> [ :production | 
-			PWBASTExpressionTerm new
+			MrlPWBASTExpressionTerm new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressionTerm: production content;
@@ -861,7 +861,7 @@ MrlPWBParser >> expressionWithSign [
 	<generated>
 	^ super expressionWithSign withPositions
 		==> [ :production | 
-			PWBASTExpressionWithSign new
+			MrlPWBASTExpressionWithSign new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -873,7 +873,7 @@ MrlPWBParser >> file [
 	<generated>
 	^ super file withPositions
 		==> [ :production | 
-			PWBASTFile new
+			MrlPWBASTFile new
 				startPosition: production start;
 				stopPosition: production stop;
 				invocation: production content;
@@ -885,7 +885,7 @@ MrlPWBParser >> finallyBlock [
 	<generated>
 	^ super finallyBlock withPositions
 		==> [ :production | 
-			PWBASTFinallyBlock new
+			MrlPWBASTFinallyBlock new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements:
@@ -899,7 +899,7 @@ MrlPWBParser >> forLoop [
 	<generated>
 	^ super forLoop withPositions
 		==> [ :production | 
-			PWBASTForLoop new
+			MrlPWBASTForLoop new
 				startPosition: production start;
 				stopPosition: production stop;
 				assignationStatement: (production content at: 3);
@@ -918,7 +918,7 @@ MrlPWBParser >> forwardDeclaration [
 	<generated>
 	^ super forwardDeclaration withPositions
 		==> [ :production | 
-			PWBASTForwardDeclaration new
+			MrlPWBASTForwardDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				typeDeclarations: (self rejectSeparators: (production content at: 3));
@@ -931,7 +931,7 @@ MrlPWBParser >> fromClause [
 	<generated>
 	^ super fromClause withPositions
 		==> [ :production | 
-			PWBASTFromClause new
+			MrlPWBASTFromClause new
 				startPosition: production start;
 				stopPosition: production stop;
 				customType: (production content at: 3);
@@ -943,7 +943,7 @@ MrlPWBParser >> fullInvocation [
 	<generated>
 	^ super fullInvocation withPositions
 		==> [ :production | 
-			PWBASTFullInvocation new
+			MrlPWBASTFullInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				fullInvocation: production content;
@@ -955,7 +955,7 @@ MrlPWBParser >> functionArgument [
 	<generated>
 	^ super functionArgument withPositions
 		==> [ :production | 
-			PWBASTFunctionArgument new
+			MrlPWBASTFunctionArgument new
 				startPosition: production start;
 				stopPosition: production stop;
 				argumentOption:
@@ -970,7 +970,7 @@ MrlPWBParser >> functionArguments [
 	<generated>
 	^ super functionArguments withPositions
 		==> [ :production | 
-			PWBASTFunctionArguments new
+			MrlPWBASTFunctionArguments new
 				startPosition: production start;
 				stopPosition: production stop;
 				functionArguments:
@@ -984,7 +984,7 @@ MrlPWBParser >> functionDeclaration [
 	<generated>
 	^ super functionDeclaration withPositions
 		==> [ :production | 
-			PWBASTFunctionDeclaration new
+			MrlPWBASTFunctionDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				functionSignature: (production content at: 1);
@@ -999,7 +999,7 @@ MrlPWBParser >> functionDefinition [
 	<generated>
 	^ super functionDefinition withPositions
 		==> [ :production | 
-			PWBASTFunctionDefinition new
+			MrlPWBASTFunctionDefinition new
 				startPosition: production start;
 				stopPosition: production stop;
 				functionSignature: (production content at: 1);
@@ -1012,7 +1012,7 @@ MrlPWBParser >> functionInvocation [
 	<generated>
 	^ super functionInvocation withPositions
 		==> [ :production | 
-			PWBASTFunctionInvocation new
+			MrlPWBASTFunctionInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				defaultVariable:
@@ -1028,7 +1028,7 @@ MrlPWBParser >> functionSignature [
 	<generated>
 	^ super functionSignature withPositions
 		==> [ :production | 
-			PWBASTFunctionSignature new
+			MrlPWBASTFunctionSignature new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessModifier:
@@ -1045,7 +1045,7 @@ MrlPWBParser >> globalVariableDeclaration [
 	<generated>
 	^ super globalVariableDeclaration withPositions
 		==> [ :production | 
-			PWBASTGlobalVariableDeclaration new
+			MrlPWBASTGlobalVariableDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				type: (production content at: 3);
@@ -1058,7 +1058,7 @@ MrlPWBParser >> globalVariables [
 	<generated>
 	^ super globalVariables withPositions
 		==> [ :production | 
-			PWBASTGlobalVariables new
+			MrlPWBASTGlobalVariables new
 				startPosition: production start;
 				stopPosition: production stop;
 				attributes: (production content at: 3);
@@ -1070,7 +1070,7 @@ MrlPWBParser >> gotoStatement [
 	<generated>
 	^ super gotoStatement withPositions
 		==> [ :production | 
-			PWBASTGotoStatement new
+			MrlPWBASTGotoStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 3);
@@ -1082,7 +1082,7 @@ MrlPWBParser >> identifier [
 	<generated>
 	^ super identifier flatten withPositions
 		==> [ :production | 
-			PWBASTIdentifier new
+			MrlPWBASTIdentifier new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: production content;
@@ -1094,7 +1094,7 @@ MrlPWBParser >> ifMultiLine [
 	<generated>
 	^ super ifMultiLine withPositions
 		==> [ :production | 
-			PWBASTIfMultiLine new
+			MrlPWBASTIfMultiLine new
 				startPosition: production start;
 				stopPosition: production stop;
 				condition: (production content at: 2);
@@ -1113,7 +1113,7 @@ MrlPWBParser >> ifSingleLine [
 	<generated>
 	^ super ifSingleLine withPositions
 		==> [ :production | 
-			PWBASTIfSingleLine new
+			MrlPWBASTIfSingleLine new
 				startPosition: production start;
 				stopPosition: production stop;
 				condition: (production content at: 2);
@@ -1127,7 +1127,7 @@ MrlPWBParser >> ifStatement [
 	<generated>
 	^ super ifStatement withPositions
 		==> [ :production | 
-			PWBASTIfStatement new
+			MrlPWBASTIfStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				ifStatement: production content;
@@ -1139,7 +1139,7 @@ MrlPWBParser >> intervalExpression [
 	<generated>
 	^ super intervalExpression withPositions
 		==> [ :production | 
-			PWBASTIntervalExpression new
+			MrlPWBASTIntervalExpression new
 				startPosition: production start;
 				stopPosition: production stop;
 				from: (production content at: 1);
@@ -1152,7 +1152,7 @@ MrlPWBParser >> methodInvocation [
 	<generated>
 	^ super methodInvocation withPositions
 		==> [ :production | 
-			PWBASTMethodInvocation new
+			MrlPWBASTMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				methodInvocation: production content;
@@ -1164,7 +1164,7 @@ MrlPWBParser >> mrlInvocationLine [
 	<generated>
 	^ super mrlInvocationLine withPositions
 		==> [ :production | 
-			PWBASTMrlInvocationLine new
+			MrlPWBASTMrlInvocationLine new
 				startPosition: production start;
 				stopPosition: production stop;
 				mrlInvocationLines: production content;
@@ -1176,7 +1176,7 @@ MrlPWBParser >> mrlMethodInvocation [
 	<generated>
 	^ super mrlMethodInvocation withPositions
 		==> [ :production | 
-			PWBASTMrlMethodInvocation new
+			MrlPWBASTMrlMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressionTerm: (production content at: 1);
@@ -1189,7 +1189,7 @@ MrlPWBParser >> mrlSignatures [
 	<generated>
 	^ super mrlSignatures withPositions
 		==> [ :production | 
-			PWBASTMrlSignatures new
+			MrlPWBASTMrlSignatures new
 				startPosition: production start;
 				stopPosition: production stop;
 				mrlSignatures: production content;
@@ -1201,7 +1201,7 @@ MrlPWBParser >> multiLineCase [
 	<generated>
 	^ super multiLineCase withPositions
 		==> [ :production | 
-			PWBASTMultiLineCase new
+			MrlPWBASTMultiLineCase new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressionList: (production content at: 3);
@@ -1214,7 +1214,7 @@ MrlPWBParser >> notExpression [
 	<generated>
 	^ super notExpression withPositions
 		==> [ :production | 
-			PWBASTNotExpression new
+			MrlPWBASTNotExpression new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -1226,7 +1226,7 @@ MrlPWBParser >> number [
 	<generated>
 	^ super number flatten withPositions
 		==> [ :production | 
-			PWBASTNumber new
+			MrlPWBASTNumber new
 				startPosition: production start;
 				stopPosition: production stop;
 				number: production content;
@@ -1238,7 +1238,7 @@ MrlPWBParser >> openSqlCursor [
 	<generated>
 	^ super openSqlCursor withPositions
 		==> [ :production | 
-			PWBASTOpenSqlCursor new
+			MrlPWBASTOpenSqlCursor new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 4);
@@ -1253,7 +1253,7 @@ MrlPWBParser >> operatorExpression [
 	<generated>
 	^ super operatorExpression withPositions
 		==> [ :production | 
-			PWBASTOperatorExpression new
+			MrlPWBASTOperatorExpression new
 				startPosition: production start;
 				stopPosition: production stop;
 				left: (production content at: 1);
@@ -1267,7 +1267,7 @@ MrlPWBParser >> oppositeFullInvocation [
 	<generated>
 	^ super oppositeFullInvocation flatten withPositions
 		==> [ :production | 
-			PWBASTOppositeFullInvocation new
+			MrlPWBASTOppositeFullInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				oppositeFullInvocation: production content;
@@ -1279,7 +1279,7 @@ MrlPWBParser >> parametrizedType [
 	<generated>
 	^ super parametrizedType flatten withPositions
 		==> [ :production | 
-			PWBASTParametrizedType new
+			MrlPWBASTParametrizedType new
 				startPosition: production start;
 				stopPosition: production stop;
 				parametrizedType: production content;
@@ -1291,7 +1291,7 @@ MrlPWBParser >> parenthesedArray [
 	<generated>
 	^ super parenthesedArray withPositions
 		==> [ :production | 
-			PWBASTParenthesedArray new
+			MrlPWBASTParenthesedArray new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 2);
@@ -1306,7 +1306,7 @@ MrlPWBParser >> parenthesedExpression [
 	<generated>
 	^ super parenthesedExpression withPositions
 		==> [ :production | 
-			PWBASTParenthesedExpression new
+			MrlPWBASTParenthesedExpression new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 3);
@@ -1318,7 +1318,7 @@ MrlPWBParser >> postFixOperator [
 	<generated>
 	^ super postFixOperator withPositions
 		==> [ :production | 
-			PWBASTPostFixOperator new
+			MrlPWBASTPostFixOperator new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression: (production content at: 1);
@@ -1330,7 +1330,7 @@ MrlPWBParser >> prepareSQL [
 	<generated>
 	^ super prepareSQL withPositions
 		==> [ :production | 
-			PWBASTPrepareSQL new
+			MrlPWBASTPrepareSQL new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 2);
@@ -1342,7 +1342,7 @@ MrlPWBParser >> programStep [
 	<generated>
 	^ super programStep withPositions
 		==> [ :production | 
-			PWBASTProgramStep new
+			MrlPWBASTProgramStep new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 1);
@@ -1354,7 +1354,7 @@ MrlPWBParser >> prototypesDeclaration [
 	<generated>
 	^ super prototypesDeclaration withPositions
 		==> [ :production | 
-			PWBASTPrototypesDeclaration new
+			MrlPWBASTPrototypesDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				declarations:
@@ -1368,7 +1368,7 @@ MrlPWBParser >> regularMethodInvocation [
 	<generated>
 	^ super regularMethodInvocation withPositions
 		==> [ :production | 
-			PWBASTRegularMethodInvocation new
+			MrlPWBASTRegularMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
 				uncheckedIdentifier: (production content at: 4);
@@ -1387,7 +1387,7 @@ MrlPWBParser >> returnStatement [
 	<generated>
 	^ super returnStatement withPositions
 		==> [ :production | 
-			PWBASTReturnStatement new
+			MrlPWBASTReturnStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				expression:
@@ -1407,7 +1407,7 @@ MrlPWBParser >> sharedVariables [
 	<generated>
 	^ super sharedVariables withPositions
 		==> [ :production | 
-			PWBASTSharedVariables new
+			MrlPWBASTSharedVariables new
 				startPosition: production start;
 				stopPosition: production stop;
 				attributes: (production content at: 3);
@@ -1419,7 +1419,7 @@ MrlPWBParser >> singleLineCase [
 	<generated>
 	^ super singleLineCase withPositions
 		==> [ :production | 
-			PWBASTSingleLineCase new
+			MrlPWBASTSingleLineCase new
 				startPosition: production start;
 				stopPosition: production stop;
 				expressionList: (production content at: 3);
@@ -1432,7 +1432,7 @@ MrlPWBParser >> specialStatement [
 	<generated>
 	^ super specialStatement withPositions
 		==> [ :production | 
-			PWBASTSpecialStatement new
+			MrlPWBASTSpecialStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				specialStatement: production content;
@@ -1444,7 +1444,7 @@ MrlPWBParser >> specialVariable [
 	<generated>
 	^ super specialVariable withPositions
 		==> [ :production | 
-			PWBASTSpecialVariable new
+			MrlPWBASTSpecialVariable new
 				startPosition: production start;
 				stopPosition: production stop;
 				this: production content;
@@ -1456,7 +1456,7 @@ MrlPWBParser >> sqlCommitStatement [
 	<generated>
 	^ super sqlCommitStatement withPositions
 		==> [ :production | 
-			PWBASTSqlCommitStatement new
+			MrlPWBASTSqlCommitStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				usingClause:
@@ -1470,7 +1470,7 @@ MrlPWBParser >> sqlQuery [
 	<generated>
 	^ super sqlQuery flatten withPositions
 		==> [ :production | 
-			PWBASTSqlQuery new
+			MrlPWBASTSqlQuery new
 				startPosition: production start;
 				stopPosition: production stop;
 				sqlQuery: production content;
@@ -1482,7 +1482,7 @@ MrlPWBParser >> sqlRollbackStatement [
 	<generated>
 	^ super sqlRollbackStatement withPositions
 		==> [ :production | 
-			PWBASTSqlRollbackStatement new
+			MrlPWBASTSqlRollbackStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				usingClause:
@@ -1496,7 +1496,7 @@ MrlPWBParser >> sqlVariable [
 	<generated>
 	^ super sqlVariable withPositions
 		==> [ :production | 
-			PWBASTSqlVariable new
+			MrlPWBASTSqlVariable new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 1);
@@ -1508,7 +1508,7 @@ MrlPWBParser >> statement [
 	<generated>
 	^ super statement withPositions
 		==> [ :production | 
-			PWBASTStatement new
+			MrlPWBASTStatement new
 				startPosition: production start;
 				stopPosition: production stop;
 				statement: production content;
@@ -1520,7 +1520,7 @@ MrlPWBParser >> statements [
 	<generated>
 	^ super statements withPositions
 		==> [ :production | 
-			PWBASTStatements new
+			MrlPWBASTStatements new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements: (self rejectSeparators: (production content at: 1));
@@ -1532,7 +1532,7 @@ MrlPWBParser >> string [
 	<generated>
 	^ super string flatten withPositions
 		==> [ :production | 
-			PWBASTString new
+			MrlPWBASTString new
 				startPosition: production start;
 				stopPosition: production stop;
 				string: production content;
@@ -1544,7 +1544,7 @@ MrlPWBParser >> subroutineDeclaration [
 	<generated>
 	^ super subroutineDeclaration withPositions
 		==> [ :production | 
-			PWBASTSubroutineDeclaration new
+			MrlPWBASTSubroutineDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				subroutineSignature: (production content at: 1);
@@ -1559,7 +1559,7 @@ MrlPWBParser >> subroutineDefinition [
 	<generated>
 	^ super subroutineDefinition withPositions
 		==> [ :production | 
-			PWBASTSubroutineDefinition new
+			MrlPWBASTSubroutineDefinition new
 				startPosition: production start;
 				stopPosition: production stop;
 				subroutineSignature: (production content at: 1);
@@ -1572,7 +1572,7 @@ MrlPWBParser >> subroutineSignature [
 	<generated>
 	^ super subroutineSignature withPositions
 		==> [ :production | 
-			PWBASTSubroutineSignature new
+			MrlPWBASTSubroutineSignature new
 				startPosition: production start;
 				stopPosition: production stop;
 				accessModifier:
@@ -1588,7 +1588,7 @@ MrlPWBParser >> this [
 	<generated>
 	^ super this flatten withPositions
 		==> [ :production | 
-			PWBASTThis new
+			MrlPWBASTThis new
 				startPosition: production start;
 				stopPosition: production stop;
 				this: production content;
@@ -1600,7 +1600,7 @@ MrlPWBParser >> time [
 	<generated>
 	^ super time flatten withPositions
 		==> [ :production | 
-			PWBASTTime new
+			MrlPWBASTTime new
 				startPosition: production start;
 				stopPosition: production stop;
 				time: production content;
@@ -1612,7 +1612,7 @@ MrlPWBParser >> transactionObject [
 	<generated>
 	^ super transactionObject withPositions
 		==> [ :production | 
-			PWBASTTransactionObject new
+			MrlPWBASTTransactionObject new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: production content;
@@ -1624,7 +1624,7 @@ MrlPWBParser >> triggerDefinition [
 	<generated>
 	^ super triggerDefinition withPositions
 		==> [ :production | 
-			PWBASTTriggerDefinition new
+			MrlPWBASTTriggerDefinition new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier:
@@ -1642,7 +1642,7 @@ MrlPWBParser >> tryCatch [
 	<generated>
 	^ super tryCatch withPositions
 		==> [ :production | 
-			PWBASTTryCatch new
+			MrlPWBASTTryCatch new
 				startPosition: production start;
 				stopPosition: production stop;
 				statements:
@@ -1662,7 +1662,7 @@ MrlPWBParser >> type [
 	<generated>
 	^ super type withPositions
 		==> [ :production | 
-			PWBASTType new
+			MrlPWBASTType new
 				startPosition: production start;
 				stopPosition: production stop;
 				type: production content;
@@ -1674,7 +1674,7 @@ MrlPWBParser >> typeDeclaration [
 	<generated>
 	^ super typeDeclaration withPositions
 		==> [ :production | 
-			PWBASTTypeDeclaration new
+			MrlPWBASTTypeDeclaration new
 				startPosition: production start;
 				stopPosition: production stop;
 				type: (production content at: 4);
@@ -1699,7 +1699,7 @@ MrlPWBParser >> typePrototypes [
 	<generated>
 	^ super typePrototypes withPositions
 		==> [ :production | 
-			PWBASTTypePrototypes new
+			MrlPWBASTTypePrototypes new
 				startPosition: production start;
 				stopPosition: production stop;
 				declarations: (self rejectSeparators: (production content at: 3));
@@ -1711,7 +1711,7 @@ MrlPWBParser >> typeVariable [
 	<generated>
 	^ super typeVariable withPositions
 		==> [ :production | 
-			PWBASTTypeVariable new
+			MrlPWBASTTypeVariable new
 				startPosition: production start;
 				stopPosition: production stop;
 				attributes: (production content at: 3);
@@ -1723,7 +1723,7 @@ MrlPWBParser >> uncheckedIdentifier [
 	<generated>
 	^ super uncheckedIdentifier flatten withPositions
 		==> [ :production | 
-			PWBASTUncheckedIdentifier new
+			MrlPWBASTUncheckedIdentifier new
 				startPosition: production start;
 				stopPosition: production stop;
 				uncheckedIdentifier: production content;
@@ -1735,7 +1735,7 @@ MrlPWBParser >> usingClause [
 	<generated>
 	^ super usingClause withPositions
 		==> [ :production | 
-			PWBASTUsingClause new
+			MrlPWBASTUsingClause new
 				startPosition: production start;
 				stopPosition: production stop;
 				transactionObject: (production content at: 3);
@@ -1747,7 +1747,7 @@ MrlPWBParser >> variable [
 	<generated>
 	^ super variable withPositions
 		==> [ :production | 
-			PWBASTVariable new
+			MrlPWBASTVariable new
 				startPosition: production start;
 				stopPosition: production stop;
 				identifier: (production content at: 1);
@@ -1760,7 +1760,7 @@ MrlPWBParser >> variableAssignation [
 	<generated>
 	^ super variableAssignation withPositions
 		==> [ :production | 
-			PWBASTVariableAssignation new
+			MrlPWBASTVariableAssignation new
 				startPosition: production start;
 				stopPosition: production stop;
 				variable: (production content at: 1);
@@ -1773,7 +1773,7 @@ MrlPWBParser >> variableDeclarations [
 	<generated>
 	^ super variableDeclarations withPositions
 		==> [ :production | 
-			PWBASTVariableDeclarations new
+			MrlPWBASTVariableDeclarations new
 				startPosition: production start;
 				stopPosition: production stop;
 				type: (production content at: 1);
@@ -1786,7 +1786,7 @@ MrlPWBParser >> withinClause [
 	<generated>
 	^ super withinClause withPositions
 		==> [ :production | 
-			PWBASTWithinClause new
+			MrlPWBASTWithinClause new
 				startPosition: production start;
 				stopPosition: production stop;
 				customType: (production content at: 3);
