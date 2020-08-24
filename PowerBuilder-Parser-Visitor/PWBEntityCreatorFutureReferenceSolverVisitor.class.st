@@ -36,6 +36,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTType [
+	^ self visit: aMrlPWBASTType type
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	self visit: aPWBASTAccess arrayPosition.
 	(self currentEntity class = FamixPWBDataWindow
