@@ -122,8 +122,7 @@ PWBASTAbstractVisitor >> visitMrlPWBASTAttributes: aMrlPWBASTAttributes [
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
-	<generated>
-	^ anMrlPWBASTBasicType basicType
+	^ self visitPWBASTBasicType: anMrlPWBASTBasicType
 ]
 
 { #category : #visiting }

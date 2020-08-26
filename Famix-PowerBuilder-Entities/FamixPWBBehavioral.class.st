@@ -130,6 +130,20 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokedBehaviours [
+	^ self queryAllOutgoingInvocations opposites
+]
+
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokedMethods [
+	<FMProperty: #invokedMethods type: #FamixMethod>
+	<derived>
+	<multivalued>
+	<FMComment: 'The methods invoked by the receiver'>
+	^ self invokedBehaviours select: [ :each | each isMethod ]
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
