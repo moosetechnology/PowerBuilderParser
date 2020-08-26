@@ -137,7 +137,7 @@ FamixPWBBehavioral >> invokedBehaviours [
 
 { #category : #'Famix-Extensions' }
 FamixPWBBehavioral >> invokedMethods [
-	<FMProperty: #invokedMethods type: #FamixMethod>
+	<FMProperty: #invokedMethods type: #FamixPWBBehavioral>
 	<derived>
 	<multivalued>
 	<FMComment: 'The methods invoked by the receiver'>
