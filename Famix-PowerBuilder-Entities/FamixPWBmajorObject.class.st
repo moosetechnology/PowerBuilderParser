@@ -22,6 +22,12 @@ FamixPWBmajorObject class >> annotation [
 ]
 
 { #category : #adding }
+FamixPWBmajorObject >> addBrPathMethod: anEntity [
+	brPath ifNil: [ brPath := Set new ].
+	brPath add: anEntity
+]
+
+{ #category : #adding }
 FamixPWBmajorObject >> addTicketAssociation: anObject [
 	<generated>
 	^ self ticketAssociations add: anObject
