@@ -144,6 +144,20 @@ FamixPWBBehavioral >> invokedMethods [
 	^ self invokedBehaviours select: [ :each | each isMethod ]
 ]
 
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokingBehaviours [
+	^ self queryAllIncomingInvocations opposites
+]
+
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokingMethods [
+	<FMProperty: #invokingMethods type: #FamixPWBBehavioral>
+	<derived>
+	<multivalued>
+	<FMComment: 'The methods invoking the receiver'>
+	^ self invokingBehaviours select: [ :each | each isMethod ]
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
