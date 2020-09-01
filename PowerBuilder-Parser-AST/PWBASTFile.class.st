@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'content',
 		'startPosition',
-		'stopPosition'
+		'stopPosition',
+		'fileExtension',
+		'fileName'
 	],
 	#category : #'PowerBuilder-Parser-AST'
 }
@@ -63,6 +65,16 @@ PWBASTFile >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ content hash bitXor: (startPosition hash bitXor: stopPosition hash)
+]
+
+{ #category : #accessing }
+PWBASTFile >> invocation [
+	^ invocation
+]
+
+{ #category : #accessing }
+PWBASTFile >> invocation: anObject [
+	invocation := anObject
 ]
 
 { #category : #accessing }

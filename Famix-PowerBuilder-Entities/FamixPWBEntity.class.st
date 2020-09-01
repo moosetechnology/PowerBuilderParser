@@ -1,6 +1,9 @@
 Class {
 	#name : #FamixPWBEntity,
 	#superclass : #MooseEntity,
+	#instVars : [
+		'brPath'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -20,6 +23,44 @@ FamixPWBEntity class >> metamodel [
 	^ FamixPWBModel metamodel
 ]
 
+{ #category : #accessing }
+FamixPWBEntity >> brPath [
+	^ brPath
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBEntity >> duplicationRate [
+	<MSEProperty: #duplicationRate type: #Number>
+	<MSEComment: 'Duplication Rate.'>
+	<derived>
+	^ self replicas
+		ifEmpty: [ 0 ]
+		ifNotEmpty: [ :cloneLocations | 
+			| accumulator usefulCloneLocations |
+			accumulator := 0.
+
+			"We remove the localisations already included in other localisations because this add noise."
+			usefulCloneLocations := cloneLocations
+				inject: OrderedCollection new
+				into: [ :res :cl | 
+					res
+						detect: [ :loc | loc isSupersetOfReplica: cl ]
+						ifNone: [ res add: cl ].
+					res ].
+
+			"We sort the fragments by startline to get the contiguous next to each other."
+			(usefulCloneLocations sort: #startLine ascending) allButLast
+				do: [ :aLocation | 
+					accumulator := accumulator
+						+
+							((aLocation isContiguousWith: (usefulCloneLocations after: aLocation))
+								ifTrue: [ (usefulCloneLocations after: aLocation) startLine
+										- aLocation startLine ]
+								ifFalse: [ aLocation length ]) ].
+			(accumulator + usefulCloneLocations anyOne length) asString , '/'
+				, self sourceText lineCount asString ]
+]
+
 { #category : #testing }
 FamixPWBEntity >> isAccess [
 
@@ -36,6 +77,13 @@ FamixPWBEntity >> isAssociation [
 
 { #category : #testing }
 FamixPWBEntity >> isAttribute [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBEntity >> isBehavioural [
 
 	<generated>
 	^ false

@@ -14,3 +14,8 @@ FamixPWBSubRoutine class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #'As yet unclassified' }
+FamixPWBSubRoutine >> returnType [
+	^ nil
+]

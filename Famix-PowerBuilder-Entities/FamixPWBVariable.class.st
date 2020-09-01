@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
-	#superclass : #MooseEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTWithSourceAnchor + FamixTWithTypes + FamixTNamed',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTWithSourceAnchor classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
+	#superclass : #FamixPWBEntity,
+	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes + FamixTNamed',
+	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
 	],
@@ -12,17 +12,10 @@ Class {
 { #category : #meta }
 FamixPWBVariable class >> annotation [
 
-	<FMClass: #Variable super: #MooseEntity>
+	<FMClass: #Variable super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBVariable class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #'as yet unclassified' }
@@ -51,67 +44,4 @@ FamixPWBVariable >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
 	^ MooseGroup with: self behavioral
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isAccess [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBVariable >> isType [
-
-	<generated>
-	^ false
 ]

@@ -23,6 +23,12 @@ FamixPWBImportingContext >> importApplication [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importArgument [
+	<generated>
+	^ self import: FamixPWBArgument
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importAttribute [
 	<generated>
 	^ self import: FamixPWBAttribute
@@ -101,6 +107,12 @@ FamixPWBImportingContext >> importGlobalFunction [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importGlobalVariable [
+	<generated>
+	^ self import: FamixPWBGlobalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importGraphicComponent [
 	<generated>
 	^ self import: FamixPWBGraphicComponent
@@ -113,6 +125,12 @@ FamixPWBImportingContext >> importIndexedFileAnchor [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importInstanceVariable [
+	<generated>
+	^ self import: FamixPWBInstanceVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importInvocation [
 	<generated>
 	^ self import: FamixPWBInvocation
@@ -122,6 +140,12 @@ FamixPWBImportingContext >> importInvocation [
 FamixPWBImportingContext >> importLibrary [
 	<generated>
 	^ self import: FamixPWBLibrary
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> importLocalVariable [
+	<generated>
+	^ self import: FamixPWBLocalVariable
 ]
 
 { #category : #testing }
@@ -143,6 +167,12 @@ FamixPWBImportingContext >> importNamedEntity [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importParameter [
+	<generated>
+	^ self import: FamixPWBParameter
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importQuery [
 	<generated>
 	^ self import: FamixPWBQuery
@@ -158,6 +188,12 @@ FamixPWBImportingContext >> importReference [
 FamixPWBImportingContext >> importRoutine [
 	<generated>
 	^ self import: FamixPWBRoutine
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> importSharedVariable [
+	<generated>
+	^ self import: FamixPWBSharedVariable
 ]
 
 { #category : #testing }
@@ -275,6 +311,12 @@ FamixPWBImportingContext >> shouldImportApplication [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportArgument [
+	<generated>
+	^ self shouldImport: FamixPWBArgument
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportAttribute [
 	<generated>
 	^ self shouldImport: FamixPWBAttribute
@@ -353,6 +395,12 @@ FamixPWBImportingContext >> shouldImportGlobalFunction [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportGlobalVariable [
+	<generated>
+	^ self shouldImport: FamixPWBGlobalVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportGraphicComponent [
 	<generated>
 	^ self shouldImport: FamixPWBGraphicComponent
@@ -365,6 +413,12 @@ FamixPWBImportingContext >> shouldImportIndexedFileAnchor [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportInstanceVariable [
+	<generated>
+	^ self shouldImport: FamixPWBInstanceVariable
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportInvocation [
 	<generated>
 	^ self shouldImport: FamixPWBInvocation
@@ -374,6 +428,12 @@ FamixPWBImportingContext >> shouldImportInvocation [
 FamixPWBImportingContext >> shouldImportLibrary [
 	<generated>
 	^ self shouldImport: FamixPWBLibrary
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportLocalVariable [
+	<generated>
+	^ self shouldImport: FamixPWBLocalVariable
 ]
 
 { #category : #testing }
@@ -395,6 +455,12 @@ FamixPWBImportingContext >> shouldImportNamedEntity [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> shouldImportParameter [
+	<generated>
+	^ self shouldImport: FamixPWBParameter
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> shouldImportQuery [
 	<generated>
 	^ self shouldImport: FamixPWBQuery
@@ -410,6 +476,12 @@ FamixPWBImportingContext >> shouldImportReference [
 FamixPWBImportingContext >> shouldImportRoutine [
 	<generated>
 	^ self shouldImport: FamixPWBRoutine
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportSharedVariable [
+	<generated>
+	^ self shouldImport: FamixPWBSharedVariable
 ]
 
 { #category : #testing }

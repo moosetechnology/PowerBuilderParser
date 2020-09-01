@@ -32,7 +32,16 @@ Class {
 		'ticket',
 		'ticketAssociation',
 		'tNamed',
-		'tWithMethods'
+		'tWithMethods',
+		'sharedVariable',
+		'localVariable',
+		'parameter',
+		'globalVariable',
+		'instanceVariable',
+		'argument'
+	],
+	#classInstVars : [
+		'builder'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -67,8 +76,15 @@ PWBFamixModelGenerator >> defineClasses [
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
 	attribute := builder newClassNamed: #Attribute.
+	parameter := builder newClassNamed: #Parameter.
+	sharedVariable := builder newClassNamed: #SharedVariable.
+	localVariable := builder newClassNamed: #LocalVariable.
+	globalVariable := builder newClassNamed: #GlobalVariable.
+	instanceVariable := builder newClassNamed: #InstanceVariable.
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
+	argument := builder newClassNamed: #Argument.
+
 
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
@@ -104,7 +120,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 	tWithMethods --|> #TWithMethods.
 	library
 		--|> #TNamedEntity;
-		--|> #TWithSourceAnchor.
+		--|> #TSourceEntity.
 	graphicComponent
 		--|> sourcedEntity;
 		--|> #TWithAttributes;
@@ -129,16 +145,21 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	variable
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
+	parameter --|> variable.
+	sharedVariable --|> attribute.
+	globalVariable --|> attribute.
+	localVariable --|> variable.
+	instanceVariable --|> attribute.
 	dataWindow
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithAttributes.
 	attribute
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute.
 	method
@@ -149,18 +170,18 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TInvocable;
 		--|> #THasSignature.
 	behavioral
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
 		--|> #TWithReferences.
 	invocation --|> #TInvocation.
 	invocation
 		--|> #THasSignature;
-		--|> #TWithSourceAnchor.
+		--|> #TSourceEntity.
 
 	"Defining all major objects (files)"
 	majorObject
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithAttributes;
 		--|> #TWithAccesses;
@@ -188,20 +209,24 @@ PWBFamixModelGenerator >> defineHierarchy [
 	customType --|> abstractType.
 	basicType --|> abstractType.
 	access
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TAccess.
 	variableAccess
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TAccess.
 	reference
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		--|> #TReference.
 	attribute
-		--|> #TWithSourceAnchor;
+		--|> #TSourceEntity;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
-		--|> #TAccessible
+		--|> #TAccessible.
+	argument
+		--|> tNamed;
+		--|> #TSourceEntity.
+	parameter --|> #TParameter
 ]
 
 { #category : #definition }
@@ -210,7 +235,11 @@ PWBFamixModelGenerator >> defineProperties [
 	behavioral property: #cyclomaticComplexity type: #Number.
 	ticket property: #number type: #Number.
 	ticketAssociation property: #date type: #String.
-	ticketAssociation property: #author type: #String
+	ticketAssociation property: #author type: #String.
+	argument property: #argumentValue type: #Object.
+	parameter property: #parameterType type: #String.
+	parameter property: #startPos type: #Number.
+	method property: #returnType type: #Object
 ]
 
 { #category : #definition }
@@ -224,7 +253,9 @@ PWBFamixModelGenerator >> defineRelations [
 	(ticketAssociation property: #majorObject)
 		*- (majorObject property: #ticketAssociations).
 	(ticketAssociation property: #ticket)
-		*- (ticket property: #ticketAssociations)
+		*- (ticket property: #ticketAssociations).
+	(invocation property: #arguments)
+		<>-* (argument property: #invocation)
 ]
 
 { #category : #definition }

@@ -66,7 +66,8 @@ Class {
 		'sqlVariable',
 		'prepareSQL',
 		'destroyStatement',
-		'blanks'
+		'blanks',
+		'globalVariables'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -138,8 +139,8 @@ PWBCommonGrammar >> case [
 
 { #category : #accessing }
 PWBCommonGrammar >> caseElse [
-	^ 'case' token , blank , 'else' token , blank , statements optional,
-		 $; token trim optional, statements optional
+	^ 'case' token , blank , 'else' token , blank , statements optional
+		, $; token trim optional , statement optional
 ]
 
 { #category : #accessing }
@@ -163,12 +164,13 @@ PWBCommonGrammar >> closeSqlCursor [
 { #category : #accessing }
 PWBCommonGrammar >> commonFile [
 	<reify:
-		#(typeVariable / typePrototypes / typeDeclaration / functionDefinition / subroutineDefinition / forwardDeclaration / globalVariableDeclaration / triggerDefinition / eventDeclaration / sharedVariables / prototypesDeclaration)
+		#(typeVariable / typePrototypes / typeDeclaration / functionDefinition / subroutineDefinition / forwardDeclaration/globalVariables / globalVariableDeclaration / triggerDefinition / eventDeclaration / sharedVariables / prototypesDeclaration)
 	into: #fileStatement>
 	^ typeVariable / typePrototypes / typeDeclaration
 		/ functionDefinition / subroutineDefinition / forwardDeclaration
-		/ globalVariableDeclaration / triggerDefinition / eventDeclaration
-		/ sharedVariables / prototypesDeclaration separatedBy: blank
+		/ globalVariables / globalVariableDeclaration / triggerDefinition
+		/ eventDeclaration / sharedVariables / prototypesDeclaration
+		separatedBy: blank
 ]
 
 { #category : #accessing }
@@ -326,6 +328,11 @@ PWBCommonGrammar >> functionSignature [
 { #category : #accessing }
 PWBCommonGrammar >> globalVariableDeclaration [
 	^ 'global' parser , blank , type , blank , variable
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonGrammar >> globalVariables [
+	^ 'global variables' parser , blank , attributes optional , blank , (self endOf: 'variables')
 ]
 
 { #category : #accessing }

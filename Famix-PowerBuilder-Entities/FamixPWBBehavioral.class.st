@@ -1,9 +1,10 @@
 Class {
 	#name : #FamixPWBBehavioral,
-	#superclass : #MooseEntity,
-	#traits : 'FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithSourceAnchor classTrait',
+	#superclass : #FamixPWBEntity,
+	#traits : 'FamixTSourceEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
 	#instVars : [
+		'#addedCharacter',
 		'#content',
 		'#cyclomaticComplexity',
 		'#deadArguments',
@@ -17,17 +18,10 @@ Class {
 { #category : #meta }
 FamixPWBBehavioral class >> annotation [
 
-	<FMClass: #Behavioral super: #MooseEntity>
+	<FMClass: #Behavioral super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixPWBBehavioral class >> metamodel [
-
-	<generated>
-	^ FamixPWBModel metamodel
 ]
 
 { #category : #adding }
@@ -53,6 +47,20 @@ FamixPWBBehavioral >> allOutgoingInvocationCandidates [
 	^ scan
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> brPath [
+	brPath
+		ifNil: [ brPath := self invokedBehaviours
+				reject: [ :method | method parentType isNil ] ].
+	^ brPath asOrderedCollection
+		sortDescending: [ :method | method invokedBehaviours size ]
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBBehavioral >> clearReplicationCache [
+	self propertyNamed: #replicas put: OrderedCollection new
+]
+
 { #category : #api }
 FamixPWBBehavioral >> content [
 	content ifNil: [ self setContent ].
@@ -68,6 +76,19 @@ FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
 		isWrite: aBoolean;
 		mooseModel: self mooseModel;
 		yourself
+]
+
+{ #category : #initialization }
+FamixPWBBehavioral >> createParameter: argAST [
+	| visitor |
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
+		model: self mooseModel.
+	^ FamixPWBParameter new
+		parameterType: (visitor visit: argAST type);
+		name: argAST identifier identifier;
+		mooseModel: self mooseModel;
+		behavioral: self;
+		startPos: argAST startPosition
 ]
 
 { #category : #'as yet unclassified' }
@@ -109,46 +130,32 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isAccess [
-
-	<generated>
-	^ false
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokedBehaviours [
+	^ self queryAllOutgoingInvocations opposites
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isAssociation [
-
-	<generated>
-	^ false
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokedMethods [
+	<FMProperty: #invokedMethods type: #FamixPWBBehavioral>
+	<derived>
+	<multivalued>
+	<FMComment: 'The methods invoked by the receiver'>
+	^ self invokedBehaviours select: [ :each | each isMethod ]
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isAttribute [
-
-	<generated>
-	^ false
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokingBehaviours [
+	^ self queryAllIncomingInvocations opposites
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isMethod [
-
-	<generated>
-	^ false
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> invokingMethods [
+	<FMProperty: #invokingMethods type: #FamixPWBBehavioral>
+	<derived>
+	<multivalued>
+	<FMComment: 'The methods invoking the receiver'>
+	^ self invokingBehaviours select: [ :each | each isMethod ]
 ]
 
 { #category : #accessing }
@@ -159,27 +166,6 @@ FamixPWBBehavioral >> isNotPWBDead [
 { #category : #api }
 FamixPWBBehavioral >> isPredefinedMethod [
 	^ self predifinedMethods includes: self name asLowercase
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isType [
-
-	<generated>
-	^ false
 ]
 
 { #category : #api }
@@ -212,6 +198,22 @@ FamixPWBBehavioral >> setContent [
 	content := self allOutgoingInvocationCandidates
 		add: self;
 		yourself
+]
+
+{ #category : #initialization }
+FamixPWBBehavioral >> setParameters [
+	| signature signatureAST |
+	signature := PWBPreprocessor parse: self sourceText lines first.
+	signatureAST := (MrlPWBParser new mrlSignatures parse: signature)
+		mrlSignatures.
+	signatureAST arguments arguments ifNil: [ ^ self ].
+	signatureAST arguments arguments
+		do: [ :argAST | 
+			| parameter |
+			parameter := self createParameter: argAST.
+			self parameters
+				detect: [ :aParam | aParam = parameter ]
+				ifNone: [ self addParameter: parameter ] ]
 ]
 
 { #category : #accessing }

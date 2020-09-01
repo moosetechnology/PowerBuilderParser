@@ -462,42 +462,6 @@ PWBDataWindowParser >> eventName [
 ]
 
 { #category : #rules }
-PWBDataWindowParser >> eventPosting [
-	<generated>
-	^ super eventPosting withPositions
-		==> [ :production | 
-			PWBASTEventPosting new
-				startPosition: production start;
-				stopPosition: production stop;
-				identifiers:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 2 ]);
-				arrayPositions:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 4 ]);
-				functionArguments: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
-PWBDataWindowParser >> eventTriggering [
-	<generated>
-	^ super eventTriggering withPositions
-		==> [ :production | 
-			PWBASTEventTriggering new
-				startPosition: production start;
-				stopPosition: production stop;
-				identifiers:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 2 ]);
-				arrayPositions:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 4 ]);
-				functionArguments: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBDataWindowParser >> eventTriggeringOrPosting [
 	<generated>
 	^ super eventTriggeringOrPosting withPositions
@@ -641,6 +605,19 @@ PWBDataWindowParser >> formatType [
 				startPosition: production start;
 				stopPosition: production stop;
 				formatType: production content;
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> fullInvocation [
+	<generated>
+	^ super fullInvocation withPositions
+		==> [ :production | 
+			PWBASTFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionTerm: (production content at: 1);
+				expressionAction: (production content at: 2);
 				yourself ]
 ]
 
@@ -835,6 +812,18 @@ PWBDataWindowParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> mrlInvocationLine [
+	<generated>
+	^ super mrlInvocationLine withPositions
+		==> [ :production | 
+			PWBASTMrlInvocationLine new
+				startPosition: production start;
+				stopPosition: production stop;
+				mrlInvocationLines: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> notExpression [
 	<generated>
 	^ super notExpression withPositions
@@ -869,6 +858,18 @@ PWBDataWindowParser >> operatorExpression [
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
 				right: (production content at: 6);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> oppositeFullInvocation [
+	<generated>
+	^ super oppositeFullInvocation flatten withPositions
+		==> [ :production | 
+			PWBASTOppositeFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				oppositeFullInvocation: production content;
 				yourself ]
 ]
 

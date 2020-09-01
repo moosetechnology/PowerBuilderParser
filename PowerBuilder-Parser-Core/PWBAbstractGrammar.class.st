@@ -71,8 +71,6 @@ Class {
 		'createUsingInstruction',
 		'eventInvocation',
 		'eventTriggeringOrPosting',
-		'triggerEvent',
-		'postEvent',
 		'eventName',
 		'eventWord',
 		'eventLong'
@@ -109,54 +107,6 @@ PWBAbstractGrammar class >> obtainASTFromFile: aFile [
 PWBAbstractGrammar class >> parse: content fileExtension: fileExtension [
 	^ (self allSubclasses detect: [ :class | class supportExtension: fileExtension ]) new
 		parse: content
-]
-
-{ #category : #parsing }
-PWBAbstractGrammar class >> scripts [
-	"just to store it"
-
-	| keep |
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/export'
-		asFileReference files
-		do: [ :aFile | 
-			| outputFile stream |
-			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport/'
-				, aFile basename) asFileReference.
-			outputFile ensureDelete.
-			outputFile
-				writeStreamDo: [ :s | 
-					keep := false.
-					stream := aFile readStream.
-					stream encoder: ZnUTF16Encoder new.
-					ZnCharacterEncoder detectEncoding: aFile.
-					stream contents
-						linesDo: [ :aLine | 
-							keep
-								ifFalse: [ keep := (aLine beginsWith: '$') not ]
-								ifTrue: [ s nextPutAll: aLine.
-									s cr ] ] ] ].
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExport'
-		asFileReference files
-		do: [ :aFile | 
-			| outputFile |
-			outputFile := ('/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments/'
-				, aFile basename) asFileReference.
-			outputFile ensureDelete.
-			outputFile
-				writeStreamDo:
-					[ :s | s nextPutAll: (PWBPreprocessor parse: aFile readStream contents) ] ].
-	'/Users/larcheveque/Google Drive/Professionnel/INRIA/PowerBuilder/cleanExportWithoutComments'
-		asFileReference files
-		collect: [ :aFile | 
-			| result stream |
-			stream := aFile readStream.
-			stream encoder: ZnUTF8Encoder new.
-			result := PWBAbstractGrammar
-				parse: stream contents
-				fileExtension: aFile extension.
-			result isPetit2Failure
-				ifTrue: [ result debugObject file: aFile ]
-				ifFalse: [ result ] ]
 ]
 
 { #category : #parsing }
@@ -249,7 +199,7 @@ PWBAbstractGrammar >> basicType [
 
 { #category : #accessing }
 PWBAbstractGrammar >> basicTypeArray [
-	^ #('long' 'datetime' 'date' 'integer' 'string' 'character' 'char')
+	^ #('long' 'datetime' 'date' 'integer' 'string' 'character' 'char' 'boolean' 'decimal' 'any' 'double')
 ]
 
 { #category : #accessing }
@@ -623,11 +573,6 @@ PWBAbstractGrammar >> time [
 	^ (#digit parser times: 2) , $: parser , (#digit parser times: 2)
 		, $: parser , (#digit parser times: 2)
 		, ($. parser , (#digit parser times: 4)) optional
-]
-
-{ #category : #'as yet unclassified' }
-PWBAbstractGrammar >> triggerEvent [
-	^ 'triggerEvent' token
 ]
 
 { #category : #accessing }

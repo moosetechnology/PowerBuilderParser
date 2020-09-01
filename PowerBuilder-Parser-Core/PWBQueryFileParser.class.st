@@ -557,6 +557,19 @@ PWBQueryFileParser >> file [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> fullInvocation [
+	<generated>
+	^ super fullInvocation withPositions
+		==> [ :production | 
+			PWBASTFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionTerm: (production content at: 1);
+				expressionAction: (production content at: 2);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> functionArgument [
 	<generated>
 	^ super functionArgument withPositions
@@ -684,6 +697,18 @@ PWBQueryFileParser >> methodInvocation [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> mrlInvocationLine [
+	<generated>
+	^ super mrlInvocationLine withPositions
+		==> [ :production | 
+			PWBASTMrlInvocationLine new
+				startPosition: production start;
+				stopPosition: production stop;
+				mrlInvocationLines: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> notExpression [
 	<generated>
 	^ super notExpression withPositions
@@ -718,6 +743,18 @@ PWBQueryFileParser >> operatorExpression [
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
 				right: (production content at: 6);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBQueryFileParser >> oppositeFullInvocation [
+	<generated>
+	^ super oppositeFullInvocation flatten withPositions
+		==> [ :production | 
+			PWBASTOppositeFullInvocation new
+				startPosition: production start;
+				stopPosition: production stop;
+				oppositeFullInvocation: production content;
 				yourself ]
 ]
 

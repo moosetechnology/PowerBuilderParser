@@ -1,84 +1,58 @@
 Class {
 	#name : #FamixPWBInvocation,
-	#superclass : #MooseEntity,
-	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTWithSourceAnchor',
-	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTWithSourceAnchor classTrait',
+	#superclass : #FamixPWBEntity,
+	#traits : 'FamixTHasSignature + FamixTInvocation + FamixTSourceEntity',
+	#classTraits : 'FamixTHasSignature classTrait + FamixTInvocation classTrait + FamixTSourceEntity classTrait',
+	#instVars : [
+		'#arguments => FMMany type: #FamixPWBArgument opposite: #invocation'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBInvocation class >> annotation [
 
-	<FMClass: #Invocation super: #MooseEntity>
+	<FMClass: #Invocation super: #FamixPWBEntity>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #meta }
-FamixPWBInvocation class >> metamodel [
-
+{ #category : #adding }
+FamixPWBInvocation >> addArgument: anObject [
 	<generated>
-	^ FamixPWBModel metamodel
+	^ self arguments add: anObject
 ]
 
-{ #category : #testing }
-FamixPWBInvocation >> isAccess [
+{ #category : #accessing }
+FamixPWBInvocation >> arguments [
+	"Relation named: #arguments type: #FamixPWBArgument opposite: #invocation"
 
 	<generated>
-	^ false
+	<derived>
+	^ arguments
 ]
 
-{ #category : #testing }
-FamixPWBInvocation >> isAssociation [
+{ #category : #accessing }
+FamixPWBInvocation >> arguments: anObject [
 
 	<generated>
-	^ false
+	arguments value: anObject
 ]
 
-{ #category : #testing }
-FamixPWBInvocation >> isAttribute [
-
+{ #category : #navigation }
+FamixPWBInvocation >> argumentsGroup [
 	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBInvocation >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBInvocation >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBInvocation >> isReference [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBInvocation >> isStructuralEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBInvocation >> isType [
-
-	<generated>
-	^ false
+	<navigation: 'Arguments'>
+	^ MooseGroup withAll: self arguments asSet
 ]
 
 { #category : #printing }
 FamixPWBInvocation >> printOn: aStream [
 	^ aStream << self candidates anyOne name
+]
+
+{ #category : #accessing }
+FamixPWBInvocation >> resetArguments [
+	self arguments: (QueryInvocationArguments runOn: self)
 ]

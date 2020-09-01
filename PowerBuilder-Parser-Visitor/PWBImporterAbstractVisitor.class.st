@@ -7,7 +7,8 @@ Class {
 		'model',
 		'file',
 		'importingContext',
-		'preprocessingMap'
+		'preprocessingMap',
+		'functionRetunTypeHolder'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -152,9 +153,28 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifAbsent: [ anInteger ]
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> visitAll: childrenNodes [
+	^ childrenNodes
+		ifNotNil: [ childrenNodes
+				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	^ self visit: aPWBASTEventType eventType
+]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+	(self visit: aPWBASTFunctionDefinition functionSignature)
+		ifNotNil: [ :argumentsArray | 
+			argumentsArray
+				do: [ :arg | 
+					self currentEntity
+						createValueHolderNamed: arg
+						withType: FamixPWBParameter ] ].
+	self visit: aPWBASTFunctionDefinition statements
 ]
 
 { #category : #visiting }
@@ -171,6 +191,11 @@ PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
 ]
 
 { #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTType: aPWBASTType [
+	^ self visit: aPWBASTType type
+]
+
+{ #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	self visit: aPWBASTVariable arrayDefinition.
 	^ self
@@ -179,6 +204,11 @@ PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 				identifier: (self visit: aPWBASTVariable identifier)
 				expectedKind:
 					{FamixPWBVariable.
-					FamixPWBAttribute}
+					FamixPWBAttribute.
+					FamixPWBParameter.
+					FamixPWBGlobalVariable.
+					FamixPWBSharedVariable.
+					FamixPWBInstanceVariable.
+					FamixPWBLocalVariable}
 				node: aPWBASTVariable identifier)
 ]
