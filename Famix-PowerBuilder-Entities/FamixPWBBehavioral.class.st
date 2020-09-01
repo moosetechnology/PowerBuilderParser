@@ -208,7 +208,12 @@ FamixPWBBehavioral >> setParameters [
 		mrlSignatures.
 	signatureAST arguments arguments ifNil: [ ^ self ].
 	signatureAST arguments arguments
-		do: [ :argAST | self addParameter: (self createParameter: argAST) ]
+		do: [ :argAST | 
+			| parameter |
+			parameter := self createParameter: argAST.
+			self parameters
+				detect: [ :aParam | aParam = parameter ]
+				ifNone: [ self addParameter: parameter ] ]
 ]
 
 { #category : #accessing }

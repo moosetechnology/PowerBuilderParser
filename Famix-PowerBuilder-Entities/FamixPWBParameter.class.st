@@ -19,6 +19,12 @@ FamixPWBParameter class >> annotation [
 	^self
 ]
 
+{ #category : #accessing }
+FamixPWBParameter >> = aFamixPWBParameter [
+	^ aFamixPWBParameter parameterType = self parameterType
+		and: [ aFamixPWBParameter name = self name ]
+]
+
 { #category : #testing }
 FamixPWBParameter >> basicTypes [
 	^ PWBCommonGrammar new basicTypeArray
