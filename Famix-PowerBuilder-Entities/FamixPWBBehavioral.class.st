@@ -203,6 +203,7 @@ FamixPWBBehavioral >> setContent [
 { #category : #initialization }
 FamixPWBBehavioral >> setParameters [
 	| signature signatureAST |
+	self removeAllParameters.
 	signature := PWBPreprocessor parse: self sourceText lines first.
 	signatureAST := (MrlPWBParser new mrlSignatures parse: signature)
 		mrlSignatures.

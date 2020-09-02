@@ -40,6 +40,15 @@ FamixPWBModel >> allModelDeadMethods [
 	^ self allMethods asSet select: #isPWBDead
 ]
 
+{ #category : #initialization }
+FamixPWBModel >> brPath [
+	self privateState
+		attributeAt: #brPath
+		ifAbsent:
+			(QueryBRFunctionsFromKnownPoint
+				runOn: (self allWithType: FamixPWBWindow))
+]
+
 { #category : #accessing }
 FamixPWBModel >> dupSys: aDPDuplicationSystem [
 	self privateState attributeAt: #dupSys put: aDPDuplicationSystem
@@ -115,4 +124,10 @@ FamixPWBModel >> resurrectMethods [
 			alive = self allModelAliveMethods
 				ifTrue: [ end := true ]
 				ifFalse: [ alive := self allModelAliveMethods ] ]
+]
+
+{ #category : #initialization }
+FamixPWBModel >> setBrPath [
+	QueryBRFunctionsFromKnownPoint
+		runOn: (self allWithType: FamixPWBWindow)
 ]
