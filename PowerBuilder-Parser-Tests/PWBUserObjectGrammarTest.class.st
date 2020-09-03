@@ -1030,7 +1030,7 @@ PWBUserObjectGrammarTest >> testFunctionInvocation1 [
 PWBUserObjectGrammarTest >> testFunctionInvocation10 [
 	self
 		parse:
-			'min(istr_sig_cas.ld_plf_forfait[ 1 ], istr_sig_cas.ld_rbo_cons_total[ 1 ] +  f_choix_limite_forfait_monture(1, istr_sig_cas.ld_lim_monture[ ], istr_sig_cas.ld_plafond_egale[ ]))'
+			'of_check_process_row ( ll_dw_row, ll_row_y, lb_newpage, ipo_progress)'
 		rule: #functionInvocation
 ]
 

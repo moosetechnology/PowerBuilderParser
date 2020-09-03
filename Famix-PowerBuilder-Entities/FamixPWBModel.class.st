@@ -1,6 +1,9 @@
 Class {
 	#name : #FamixPWBModel,
 	#superclass : #MooseModel,
+	#instVars : [
+		'brPath'
+	],
 	#category : #'Famix-PowerBuilder-Entities-Model'
 }
 
@@ -42,11 +45,10 @@ FamixPWBModel >> allModelDeadMethods [
 
 { #category : #initialization }
 FamixPWBModel >> brPath [
-	self privateState
-		attributeAt: #brPath
-		ifAbsent:
-			(QueryBRFunctionsFromKnownPoint
-				runOn: (self allWithType: FamixPWBWindow))
+	brPath
+		ifNil: [ brPath := QueryBRFunctionsFromKnownPoint
+				runOn: (self allWithType: FamixPWBWindow) ].
+	^ brPath
 ]
 
 { #category : #accessing }

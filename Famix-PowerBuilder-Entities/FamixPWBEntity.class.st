@@ -25,7 +25,7 @@ FamixPWBEntity class >> metamodel [
 
 { #category : #accessing }
 FamixPWBEntity >> brPath [
-	^ brPath
+	^ self mooseModel brPath at: self ifAbsent: {}
 ]
 
 { #category : #'as yet unclassified' }
