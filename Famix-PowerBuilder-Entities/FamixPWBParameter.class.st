@@ -35,6 +35,11 @@ FamixPWBParameter >> isBasic [
 	^ self parameterType isKindOf: FamixPWBBasicType
 ]
 
+{ #category : #testing }
+FamixPWBParameter >> isPWBDataWindow [
+	^ {'uo_datawindow' . 'datawindow'} includes: self parameterType
+]
+
 { #category : #accessing }
 FamixPWBParameter >> parameterType [
 
