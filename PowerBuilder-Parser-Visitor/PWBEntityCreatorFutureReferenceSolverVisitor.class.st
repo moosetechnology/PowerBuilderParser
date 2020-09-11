@@ -36,6 +36,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
+	^ self
+		ensureEntityWithType: FamixPWBBasicType
+		named: anMrlPWBASTBasicType basicType
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTCustomType: aMrlPWBASTCustomType [
 	^ self
 		ensureEntityWithType: FamixPWBCustomType

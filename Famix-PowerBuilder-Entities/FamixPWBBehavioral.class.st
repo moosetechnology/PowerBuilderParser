@@ -211,6 +211,7 @@ FamixPWBBehavioral >> setParameters [
 		do: [ :argAST | 
 			| parameter |
 			parameter := self createParameter: argAST.
+			self halt.
 			self parameters
 				detect: [ :aParam | aParam = parameter ]
 				ifNone: [ self addParameter: parameter ] ]
