@@ -231,6 +231,30 @@ PWBDataWindowParser >> columnDefinition [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> columnNameOption [
+	<generated>
+	^ super columnNameOption withPositions
+		==> [ :production | 
+			PWBASTColumnNameOption new
+				startPosition: production start;
+				stopPosition: production stop;
+				expression: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
+PWBDataWindowParser >> columnTypeOption [
+	<generated>
+	^ super columnTypeOption withPositions
+		==> [ :production | 
+			PWBASTColumnTypeOption new
+				startPosition: production start;
+				stopPosition: production stop;
+				expression: (production content at: 3);
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> condition [
 	<generated>
 	^ super condition withPositions
@@ -881,7 +905,7 @@ PWBDataWindowParser >> option [
 			PWBASTOption new
 				startPosition: production start;
 				stopPosition: production stop;
-				assignationStatement: production content;
+				option: production content;
 				yourself ]
 ]
 

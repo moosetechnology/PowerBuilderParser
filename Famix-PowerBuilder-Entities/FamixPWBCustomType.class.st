@@ -14,3 +14,8 @@ FamixPWBCustomType class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #testing }
+FamixPWBCustomType >> isPWBDataWindow [
+	^ {'uo_datawindow' . 'datawindow'} includes: self name
+]

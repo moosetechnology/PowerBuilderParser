@@ -122,7 +122,8 @@ PWBASTAbstractVisitor >> visitMrlPWBASTAttributes: aMrlPWBASTAttributes [
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
-	^ self visitPWBASTBasicType: anMrlPWBASTBasicType
+	<generated>
+	^ anMrlPWBASTBasicType basicType
 ]
 
 { #category : #visiting }
@@ -1095,6 +1096,18 @@ PWBASTAbstractVisitor >> visitPWBASTColumnDefinition: aPWBASTColumnDefinition [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTColumnNameOption: aPWBASTColumnNameOption [
+	<generated>
+	self visit: aPWBASTColumnNameOption expression.
+]
+
+{ #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTColumnTypeOption: aPWBASTColumnTypeOption [
+	<generated>
+	self visit: aPWBASTColumnTypeOption expression.
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTCommonFile: aPWBASTCommonFile [
 	<generated>
 	self visitAll: aPWBASTCommonFile fileStatements.
@@ -1621,7 +1634,7 @@ PWBASTAbstractVisitor >> visitPWBASTOppositeFullInvocation: anPWBASTOppositeFull
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTOption: aPWBASTOption [
 	<generated>
-	self visit: aPWBASTOption assignationStatement.
+	self visit: aPWBASTOption option.
 ]
 
 { #category : #visiting }

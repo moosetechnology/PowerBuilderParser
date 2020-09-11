@@ -53,6 +53,21 @@ PWBDataWindowGrammarTest >> testColumnGraphicComponent [
 ]
 
 { #category : #accessing }
+PWBDataWindowGrammarTest >> testColumnNameOption [
+	self parse: 'dbname="dlq.NUM_EQI"' rule: #columnNameOption
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testColumnTypeOption [
+	self parse: 'type=char(8)' rule: #columnTypeOption
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testColumnTypeOption1 [
+	self parse: 'type=long' rule: #columnTypeOption
+]
+
+{ #category : #accessing }
 PWBDataWindowGrammarTest >> testComputeGraphicComponent [
 	self
 		parse:

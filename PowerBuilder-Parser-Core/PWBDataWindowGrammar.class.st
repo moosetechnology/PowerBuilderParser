@@ -21,7 +21,9 @@ Class {
 		'formatType',
 		'dataWindowFile',
 		'template',
-		'dataComponent'
+		'dataComponent',
+		'columnTypeOption',
+		'columnNameOption'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -46,6 +48,16 @@ PWBDataWindowGrammar >> column [
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> columnDefinition [
 	^ $( parser , options trim , $) parser
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowGrammar >> columnNameOption [
+	^ 'dbname' parser / 'name' parser , $= parser trim , expression
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowGrammar >> columnTypeOption [
+	^ 'type' parser , $= parser trim , expression
 ]
 
 { #category : #'as yet unclassified' }
@@ -112,7 +124,9 @@ PWBDataWindowGrammar >> import [
 
 { #category : #'as yet unclassified' }
 PWBDataWindowGrammar >> option [
-	^ assignationStatement
+	<reify: #(columnTypeOption / columnNameOption / assignationStatement)
+	into: #option>
+	^ columnTypeOption / columnNameOption / assignationStatement
 ]
 
 { #category : #'as yet unclassified' }
