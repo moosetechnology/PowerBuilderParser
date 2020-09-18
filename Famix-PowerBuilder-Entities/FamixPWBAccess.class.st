@@ -14,3 +14,8 @@ FamixPWBAccess class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #testing }
+FamixPWBAccess >> isInstanceVariableAccess [
+	^ variable isKindOf: FamixPWBInstanceVariable
+]

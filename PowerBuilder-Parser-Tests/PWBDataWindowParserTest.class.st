@@ -26,86 +26,57 @@ PWBDataWindowParserTest >> testColumn1 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'type';
-																				startPosition: 9;
-																				stopPosition: 12;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 9;
-																		stopPosition: 12;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 9;
-																stopPosition: 12;
-																yourself);
-														startPosition: 9;
-														stopPosition: 12;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnTypeOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'char';
-																						startPosition: 14;
-																						stopPosition: 17;
-																						yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTFunctionInvocation new
+																		defaultVariable: nil;
+																		functionName:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'char';
+																				startPosition: 14;
+																				stopPosition: 17;
+																				yourself);
+																		functionArguments:
+																			(PWBASTFunctionArguments new
 																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
+																					{(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
 																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTNumber new
-																														number: '24';
-																														startPosition: 19;
-																														stopPosition: 20;
-																														yourself);
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '24';
 																												startPosition: 19;
 																												stopPosition: 20;
 																												yourself);
-																										expressionAction: nil;
 																										startPosition: 19;
 																										stopPosition: 20;
 																										yourself);
+																								expressionAction: nil;
 																								startPosition: 19;
 																								stopPosition: 20;
-																								yourself)};
-																						startPosition: 18;
-																						stopPosition: 21;
-																						yourself);
-																				startPosition: 14;
+																								yourself);
+																						startPosition: 19;
+																						stopPosition: 20;
+																						yourself)};
+																				startPosition: 18;
 																				stopPosition: 21;
 																				yourself);
 																		startPosition: 14;
 																		stopPosition: 21;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 14;
 																stopPosition: 21;
 																yourself);
-														startPosition: 13;
+														expressionAction: nil;
+														startPosition: 14;
 														stopPosition: 21;
 														yourself);
 												startPosition: 9;
@@ -115,7 +86,7 @@ PWBDataWindowParserTest >> testColumn1 [
 										stopPosition: 21;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -187,69 +158,40 @@ PWBDataWindowParserTest >> testColumn1 [
 										stopPosition: 42;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 44;
-																				stopPosition: 47;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 44;
-																		stopPosition: 47;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 44;
-																stopPosition: 47;
-																yourself);
-														startPosition: 44;
-														stopPosition: 47;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'dct_aoc';
-																										startPosition: 49;
-																										stopPosition: 55;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'dct_aoc';
 																								startPosition: 49;
 																								stopPosition: 55;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 49;
 																						stopPosition: 55;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 49;
 																				stopPosition: 55;
 																				yourself);
 																		startPosition: 49;
 																		stopPosition: 55;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 49;
 																stopPosition: 55;
 																yourself);
-														startPosition: 48;
+														expressionAction: nil;
+														startPosition: 49;
 														stopPosition: 55;
 														yourself);
 												startPosition: 44;
@@ -259,52 +201,23 @@ PWBDataWindowParserTest >> testColumn1 [
 										stopPosition: 55;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'dbname';
-																				startPosition: 57;
-																				stopPosition: 62;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 57;
-																		stopPosition: 62;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 57;
-																stopPosition: 62;
-																yourself);
-														startPosition: 57;
-														stopPosition: 62;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"dct_aoc"';
-																				startPosition: 64;
-																				stopPosition: 72;
-																				yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTString new
+																		string: '"dct_aoc"';
 																		startPosition: 64;
 																		stopPosition: 72;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 64;
 																stopPosition: 72;
 																yourself);
-														startPosition: 63;
+														expressionAction: nil;
+														startPosition: 64;
 														stopPosition: 72;
 														yourself);
 												startPosition: 57;
@@ -340,57 +253,28 @@ PWBDataWindowParserTest >> testColumn2 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'type';
-																				startPosition: 9;
-																				stopPosition: 12;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 9;
-																		stopPosition: 12;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 9;
-																stopPosition: 12;
-																yourself);
-														startPosition: 9;
-														stopPosition: 12;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnTypeOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTBasicType new
-																						basicType: 'datetime';
-																						startPosition: 14;
-																						stopPosition: 21;
-																						yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTBasicType new
+																				basicType: 'datetime';
 																				startPosition: 14;
 																				stopPosition: 21;
 																				yourself);
 																		startPosition: 14;
 																		stopPosition: 21;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 14;
 																stopPosition: 21;
 																yourself);
-														startPosition: 13;
+														expressionAction: nil;
+														startPosition: 14;
 														stopPosition: 21;
 														yourself);
 												startPosition: 9;
@@ -400,7 +284,7 @@ PWBDataWindowParserTest >> testColumn2 [
 										stopPosition: 21;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -472,69 +356,40 @@ PWBDataWindowParserTest >> testColumn2 [
 										stopPosition: 42;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 44;
-																				stopPosition: 47;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 44;
-																		stopPosition: 47;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 44;
-																stopPosition: 47;
-																yourself);
-														startPosition: 44;
-														stopPosition: 47;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'dct_dac';
-																										startPosition: 49;
-																										stopPosition: 55;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'dct_dac';
 																								startPosition: 49;
 																								stopPosition: 55;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 49;
 																						stopPosition: 55;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 49;
 																				stopPosition: 55;
 																				yourself);
 																		startPosition: 49;
 																		stopPosition: 55;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 49;
 																stopPosition: 55;
 																yourself);
-														startPosition: 48;
+														expressionAction: nil;
+														startPosition: 49;
 														stopPosition: 55;
 														yourself);
 												startPosition: 44;
@@ -544,52 +399,23 @@ PWBDataWindowParserTest >> testColumn2 [
 										stopPosition: 55;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'dbname';
-																				startPosition: 57;
-																				stopPosition: 62;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 57;
-																		stopPosition: 62;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 57;
-																stopPosition: 62;
-																yourself);
-														startPosition: 57;
-														stopPosition: 62;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"dct_dac"';
-																				startPosition: 64;
-																				stopPosition: 72;
-																				yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTString new
+																		string: '"dct_dac"';
 																		startPosition: 64;
 																		stopPosition: 72;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 64;
 																stopPosition: 72;
 																yourself);
-														startPosition: 63;
+														expressionAction: nil;
+														startPosition: 64;
 														stopPosition: 72;
 														yourself);
 												startPosition: 57;
@@ -625,86 +451,57 @@ PWBDataWindowParserTest >> testColumn3 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'type';
-																				startPosition: 9;
-																				stopPosition: 12;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 9;
-																		stopPosition: 12;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 9;
-																stopPosition: 12;
-																yourself);
-														startPosition: 9;
-														stopPosition: 12;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnTypeOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'decimal';
-																						startPosition: 14;
-																						stopPosition: 20;
-																						yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTFunctionInvocation new
+																		defaultVariable: nil;
+																		functionName:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'decimal';
+																				startPosition: 14;
+																				stopPosition: 20;
+																				yourself);
+																		functionArguments:
+																			(PWBASTFunctionArguments new
 																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
+																					{(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
 																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTNumber new
-																														number: '5';
-																														startPosition: 22;
-																														stopPosition: 22;
-																														yourself);
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '5';
 																												startPosition: 22;
 																												stopPosition: 22;
 																												yourself);
-																										expressionAction: nil;
 																										startPosition: 22;
 																										stopPosition: 22;
 																										yourself);
+																								expressionAction: nil;
 																								startPosition: 22;
 																								stopPosition: 22;
-																								yourself)};
-																						startPosition: 21;
-																						stopPosition: 23;
-																						yourself);
-																				startPosition: 14;
+																								yourself);
+																						startPosition: 22;
+																						stopPosition: 22;
+																						yourself)};
+																				startPosition: 21;
 																				stopPosition: 23;
 																				yourself);
 																		startPosition: 14;
 																		stopPosition: 23;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 14;
 																stopPosition: 23;
 																yourself);
-														startPosition: 13;
+														expressionAction: nil;
+														startPosition: 14;
 														stopPosition: 23;
 														yourself);
 												startPosition: 9;
@@ -714,7 +511,7 @@ PWBDataWindowParserTest >> testColumn3 [
 										stopPosition: 23;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -786,7 +583,7 @@ PWBDataWindowParserTest >> testColumn3 [
 										stopPosition: 34;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -858,69 +655,40 @@ PWBDataWindowParserTest >> testColumn3 [
 										stopPosition: 56;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 58;
-																				stopPosition: 61;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 58;
-																		stopPosition: 61;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 58;
-																stopPosition: 61;
-																yourself);
-														startPosition: 58;
-														stopPosition: 61;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'nov_ttc';
-																										startPosition: 63;
-																										stopPosition: 69;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'nov_ttc';
 																								startPosition: 63;
 																								stopPosition: 69;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 63;
 																						stopPosition: 69;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 63;
 																				stopPosition: 69;
 																				yourself);
 																		startPosition: 63;
 																		stopPosition: 69;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 63;
 																stopPosition: 69;
 																yourself);
-														startPosition: 62;
+														expressionAction: nil;
+														startPosition: 63;
 														stopPosition: 69;
 														yourself);
 												startPosition: 58;
@@ -930,52 +698,23 @@ PWBDataWindowParserTest >> testColumn3 [
 										stopPosition: 69;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'dbname';
-																				startPosition: 71;
-																				stopPosition: 76;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 71;
-																		stopPosition: 76;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 71;
-																stopPosition: 76;
-																yourself);
-														startPosition: 71;
-														stopPosition: 76;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"NOV_TTC"';
-																				startPosition: 78;
-																				stopPosition: 86;
-																				yourself);
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTString new
+																		string: '"NOV_TTC"';
 																		startPosition: 78;
 																		stopPosition: 86;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 78;
 																stopPosition: 86;
 																yourself);
-														startPosition: 77;
+														expressionAction: nil;
+														startPosition: 78;
 														stopPosition: 86;
 														yourself);
 												startPosition: 71;
@@ -992,6 +731,132 @@ PWBDataWindowParserTest >> testColumn3 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 88;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testColumnNameOption1 [
+	<generated>
+	self
+		assert: (self parse: 'dbname="dlq.NUM_EQI"' rule: #columnNameOption)
+		equals:
+			(PWBASTColumnNameOption new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTString new
+										string: '"dlq.NUM_EQI"';
+										startPosition: 8;
+										stopPosition: 20;
+										yourself);
+								startPosition: 8;
+								stopPosition: 20;
+								yourself);
+						expressionAction: nil;
+						startPosition: 8;
+						stopPosition: 20;
+						yourself);
+				startPosition: 1;
+				stopPosition: 20;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testColumnTypeOption1 [
+	<generated>
+	self
+		assert: (self parse: 'type=char(8)' rule: #columnTypeOption)
+		equals:
+			(PWBASTColumnTypeOption new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTFunctionInvocation new
+										defaultVariable: nil;
+										functionName:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'char';
+												startPosition: 6;
+												stopPosition: 9;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments:
+													{(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '8';
+																				startPosition: 11;
+																				stopPosition: 11;
+																				yourself);
+																		startPosition: 11;
+																		stopPosition: 11;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 11;
+																stopPosition: 11;
+																yourself);
+														startPosition: 11;
+														stopPosition: 11;
+														yourself)};
+												startPosition: 10;
+												stopPosition: 12;
+												yourself);
+										startPosition: 6;
+										stopPosition: 12;
+										yourself);
+								startPosition: 6;
+								stopPosition: 12;
+								yourself);
+						expressionAction: nil;
+						startPosition: 6;
+						stopPosition: 12;
+						yourself);
+				startPosition: 1;
+				stopPosition: 12;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataWindowParserTest >> testColumnTypeOption2 [
+	<generated>
+	self
+		assert: (self parse: 'type=long' rule: #columnTypeOption)
+		equals:
+			(PWBASTColumnTypeOption new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTBasicType new
+												basicType: 'long';
+												startPosition: 6;
+												stopPosition: 9;
+												yourself);
+										startPosition: 6;
+										stopPosition: 9;
+										yourself);
+								startPosition: 6;
+								stopPosition: 9;
+								yourself);
+						expressionAction: nil;
+						startPosition: 6;
+						stopPosition: 9;
+						yourself);
+				startPosition: 1;
+				stopPosition: 9;
 				yourself)
 ]
 
@@ -1057,7 +922,7 @@ PWBDataWindowParserTest >> testExport2 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1112,7 +977,7 @@ PWBDataWindowParserTest >> testExport2 [
 										stopPosition: 25;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1167,7 +1032,7 @@ PWBDataWindowParserTest >> testExport2 [
 										stopPosition: 47;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1222,7 +1087,7 @@ PWBDataWindowParserTest >> testExport2 [
 										stopPosition: 62;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1309,7 +1174,7 @@ PWBDataWindowParserTest >> testExport3 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1364,7 +1229,7 @@ PWBDataWindowParserTest >> testExport3 [
 										stopPosition: 19;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -1436,7 +1301,7 @@ PWBDataWindowParserTest >> testExport3 [
 										stopPosition: 48;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2379,7 +2244,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2434,7 +2299,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 24;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2489,7 +2354,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 45;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2544,7 +2409,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 70;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2599,7 +2464,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 91;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2654,7 +2519,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 112;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2709,7 +2574,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 135;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2764,7 +2629,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 158;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2819,7 +2684,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 177;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2874,7 +2739,7 @@ PWBDataWindowParserTest >> testGenerator1 [
 										stopPosition: 192;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -2982,7 +2847,7 @@ PWBDataWindowParserTest >> testGenerator3 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3066,7 +2931,7 @@ PWBDataWindowParserTest >> testGenerator4 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3201,7 +3066,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3256,7 +3121,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 15;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3311,7 +3176,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 33;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3366,7 +3231,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 50;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3438,7 +3303,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 75;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3510,7 +3375,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 101;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3582,7 +3447,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 120;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3637,7 +3502,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 134;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3726,7 +3591,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 163;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3815,7 +3680,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 193;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3904,7 +3769,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 226;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -3976,7 +3841,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 245;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -4048,7 +3913,7 @@ PWBDataWindowParserTest >> testGraphicComponent1 [
 										stopPosition: 266;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5107,7 +4972,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5162,7 +5027,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 17;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5217,7 +5082,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 35;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5272,7 +5137,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 52;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5344,7 +5209,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 77;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5416,7 +5281,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 103;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5488,7 +5353,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 122;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5543,7 +5408,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 136;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5632,7 +5497,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 165;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5721,7 +5586,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 195;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5810,7 +5675,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 228;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5882,7 +5747,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 247;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -5954,7 +5819,7 @@ PWBDataWindowParserTest >> testGraphicComponent11 [
 										stopPosition: 268;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6058,7 +5923,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6113,7 +5978,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 										stopPosition: 13;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6185,7 +6050,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 										stopPosition: 31;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6257,7 +6122,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 										stopPosition: 49;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6323,7 +6188,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 										stopPosition: 65;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6395,7 +6260,7 @@ PWBDataWindowParserTest >> testGraphicComponent12 [
 										stopPosition: 90;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6499,7 +6364,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6554,7 +6419,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 17;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6609,7 +6474,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 35;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6664,7 +6529,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 52;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6736,7 +6601,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 77;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6808,7 +6673,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 103;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6880,7 +6745,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 122;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -6935,7 +6800,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 136;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -7024,7 +6889,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 165;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -7113,7 +6978,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 195;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -7202,7 +7067,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 228;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -7274,7 +7139,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 247;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -7346,7 +7211,7 @@ PWBDataWindowParserTest >> testGraphicComponent13 [
 										stopPosition: 268;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8401,7 +8266,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8456,7 +8321,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 16;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8511,7 +8376,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 34;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8566,7 +8431,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 51;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8638,7 +8503,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 76;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8710,7 +8575,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 102;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8782,7 +8647,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 121;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8837,7 +8702,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 135;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -8926,7 +8791,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 164;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -9015,7 +8880,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 194;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -9104,7 +8969,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 227;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -9176,7 +9041,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 246;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -9248,7 +9113,7 @@ PWBDataWindowParserTest >> testGraphicComponent15 [
 										stopPosition: 267;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10303,7 +10168,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10375,7 +10240,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 18;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10430,7 +10295,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 44;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10485,7 +10350,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 50;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10540,7 +10405,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 57;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10595,7 +10460,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 70;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10650,7 +10515,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 83;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10705,7 +10570,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 94;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10794,7 +10659,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 114;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10849,7 +10714,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 126;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -10956,7 +10821,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 169;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -11028,69 +10893,40 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 188;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 190;
-																				stopPosition: 193;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 190;
-																		stopPosition: 193;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 190;
-																stopPosition: 193;
-																yourself);
-														startPosition: 190;
-														stopPosition: 193;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'dw_det_1';
-																										startPosition: 195;
-																										stopPosition: 202;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'dw_det_1';
 																								startPosition: 195;
 																								stopPosition: 202;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 195;
 																						stopPosition: 202;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 195;
 																				stopPosition: 202;
 																				yourself);
 																		startPosition: 195;
 																		stopPosition: 202;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 195;
 																stopPosition: 202;
 																yourself);
-														startPosition: 194;
+														expressionAction: nil;
+														startPosition: 195;
 														stopPosition: 202;
 														yourself);
 												startPosition: 190;
@@ -11100,7 +10936,7 @@ PWBDataWindowParserTest >> testGraphicComponent17 [
 										stopPosition: 202;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -13107,7 +12943,7 @@ PWBDataWindowParserTest >> testGraphicComponent4 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14145,7 +13981,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14217,7 +14053,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 19;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14272,7 +14108,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 28;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14327,7 +14163,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 35;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14382,7 +14218,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 47;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14437,69 +14273,40 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 58;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 61;
-																				stopPosition: 64;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 61;
-																		stopPosition: 64;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 61;
-																stopPosition: 64;
-																yourself);
-														startPosition: 61;
-														stopPosition: 64;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'tem_dtc';
-																										startPosition: 66;
-																										stopPosition: 72;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'tem_dtc';
 																								startPosition: 66;
 																								stopPosition: 72;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 66;
 																						stopPosition: 72;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 66;
 																				stopPosition: 72;
 																				yourself);
 																		startPosition: 66;
 																		stopPosition: 72;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 66;
 																stopPosition: 72;
 																yourself);
-														startPosition: 65;
+														expressionAction: nil;
+														startPosition: 66;
 														stopPosition: 72;
 														yourself);
 												startPosition: 61;
@@ -14509,7 +14316,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 72;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14564,7 +14371,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 109;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14636,7 +14443,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 125;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14708,7 +14515,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 143;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14780,7 +14587,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 157;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14852,7 +14659,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 171;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14924,7 +14731,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 187;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -14996,7 +14803,7 @@ PWBDataWindowParserTest >> testGraphicComponent6 [
 										stopPosition: 208;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15100,7 +14907,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15172,7 +14979,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 18;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15227,7 +15034,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 30;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15282,7 +15089,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 39;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15337,7 +15144,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 47;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15392,7 +15199,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 59;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15447,7 +15254,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 70;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15502,7 +15309,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 81;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15574,7 +15381,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 111;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15663,7 +15470,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 137;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15752,7 +15559,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 167;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15824,7 +15631,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 187;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15896,7 +15703,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 214;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -15968,7 +15775,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 231;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16040,7 +15847,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 252;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16112,7 +15919,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 273;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16184,7 +15991,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 303;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16256,69 +16063,40 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 328;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'name';
-																				startPosition: 331;
-																				stopPosition: 334;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 331;
-																		stopPosition: 334;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 331;
-																stopPosition: 334;
-																yourself);
-														startPosition: 331;
-														stopPosition: 334;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
+										option:
+											(PWBASTColumnNameOption new
+												expression:
+													(PWBASTExpression new
 														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'p_recherche_adn';
-																										startPosition: 336;
-																										stopPosition: 350;
-																										yourself);
-																								arrayDefinition: nil;
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'p_recherche_adn';
 																								startPosition: 336;
 																								stopPosition: 350;
 																								yourself);
-																						arrayPosition: nil;
+																						arrayDefinition: nil;
 																						startPosition: 336;
 																						stopPosition: 350;
 																						yourself);
+																				arrayPosition: nil;
 																				startPosition: 336;
 																				stopPosition: 350;
 																				yourself);
 																		startPosition: 336;
 																		stopPosition: 350;
 																		yourself);
-																expressionAction: nil;
 																startPosition: 336;
 																stopPosition: 350;
 																yourself);
-														startPosition: 335;
+														expressionAction: nil;
+														startPosition: 336;
 														stopPosition: 350;
 														yourself);
 												startPosition: 331;
@@ -16328,7 +16106,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 350;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16383,7 +16161,7 @@ PWBDataWindowParserTest >> testGraphicComponent7 [
 										stopPosition: 362;
 										yourself).
 									(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16470,7 +16248,7 @@ PWBDataWindowParserTest >> testGraphicComponent8 [
 							(PWBASTOptions new
 								options:
 									{(PWBASTOption new
-										assignationStatement:
+										option:
 											(PWBASTAssignationStatement new
 												accessOrType:
 													(PWBASTAccessOrType new
@@ -16653,69 +16431,40 @@ PWBDataWindowParserTest >> testOption1 [
 		assert: (self parse: 'name=dct_aoc' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'name';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
+				option:
+					(PWBASTColumnNameOption new
+						expression:
+							(PWBASTExpression new
 								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'dct_aoc';
-																				startPosition: 6;
-																				stopPosition: 12;
-																				yourself);
-																		arrayDefinition: nil;
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'dct_aoc';
 																		startPosition: 6;
 																		stopPosition: 12;
 																		yourself);
-																arrayPosition: nil;
+																arrayDefinition: nil;
 																startPosition: 6;
 																stopPosition: 12;
 																yourself);
+														arrayPosition: nil;
 														startPosition: 6;
 														stopPosition: 12;
 														yourself);
 												startPosition: 6;
 												stopPosition: 12;
 												yourself);
-										expressionAction: nil;
 										startPosition: 6;
 										stopPosition: 12;
 										yourself);
-								startPosition: 5;
+								expressionAction: nil;
+								startPosition: 6;
 								stopPosition: 12;
 								yourself);
 						startPosition: 1;
@@ -16736,7 +16485,7 @@ PWBDataWindowParserTest >> testOption10 [
 				rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -16878,69 +16627,40 @@ PWBDataWindowParserTest >> testOption11 [
 		assert: (self parse: 'name=date_naissance_t' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'name';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
+				option:
+					(PWBASTColumnNameOption new
+						expression:
+							(PWBASTExpression new
 								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'date_naissance_t';
-																				startPosition: 6;
-																				stopPosition: 21;
-																				yourself);
-																		arrayDefinition: nil;
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'date_naissance_t';
 																		startPosition: 6;
 																		stopPosition: 21;
 																		yourself);
-																arrayPosition: nil;
+																arrayDefinition: nil;
 																startPosition: 6;
 																stopPosition: 21;
 																yourself);
+														arrayPosition: nil;
 														startPosition: 6;
 														stopPosition: 21;
 														yourself);
 												startPosition: 6;
 												stopPosition: 21;
 												yourself);
-										expressionAction: nil;
 										startPosition: 6;
 										stopPosition: 21;
 										yourself);
-								startPosition: 5;
+								expressionAction: nil;
+								startPosition: 6;
 								stopPosition: 21;
 								yourself);
 						startPosition: 1;
@@ -16958,86 +16678,57 @@ PWBDataWindowParserTest >> testOption2 [
 		assert: (self parse: 'type=char(24)' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'type';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
+				option:
+					(PWBASTColumnTypeOption new
+						expression:
+							(PWBASTExpression new
 								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTFunctionInvocation new
-														defaultVariable: nil;
-														functionName:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'char';
-																startPosition: 6;
-																stopPosition: 9;
-																yourself);
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTFunctionInvocation new
+												defaultVariable: nil;
+												functionName:
+													(PWBASTUncheckedIdentifier new
+														uncheckedIdentifier: 'char';
+														startPosition: 6;
+														stopPosition: 9;
+														yourself);
+												functionArguments:
+													(PWBASTFunctionArguments new
 														functionArguments:
-															(PWBASTFunctionArguments new
-																functionArguments:
-																	{(PWBASTFunctionArgument new
-																		argumentOption: nil;
+															{(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
 																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTNumber new
-																								number: '24';
-																								startPosition: 11;
-																								stopPosition: 12;
-																								yourself);
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '24';
 																						startPosition: 11;
 																						stopPosition: 12;
 																						yourself);
-																				expressionAction: nil;
 																				startPosition: 11;
 																				stopPosition: 12;
 																				yourself);
+																		expressionAction: nil;
 																		startPosition: 11;
 																		stopPosition: 12;
-																		yourself)};
-																startPosition: 10;
-																stopPosition: 13;
-																yourself);
-														startPosition: 6;
+																		yourself);
+																startPosition: 11;
+																stopPosition: 12;
+																yourself)};
+														startPosition: 10;
 														stopPosition: 13;
 														yourself);
 												startPosition: 6;
 												stopPosition: 13;
 												yourself);
-										expressionAction: nil;
 										startPosition: 6;
 										stopPosition: 13;
 										yourself);
-								startPosition: 5;
+								expressionAction: nil;
+								startPosition: 6;
 								stopPosition: 13;
 								yourself);
 						startPosition: 1;
@@ -17055,7 +16746,7 @@ PWBDataWindowParserTest >> testOption3 [
 		assert: (self parse: 'color="536870912"' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17118,7 +16809,7 @@ PWBDataWindowParserTest >> testOption4 [
 		assert: (self parse: 'edit.limit=0' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17198,69 +16889,40 @@ PWBDataWindowParserTest >> testOption5 [
 		assert: (self parse: 'name=compute_1' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'name';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
+				option:
+					(PWBASTColumnNameOption new
+						expression:
+							(PWBASTExpression new
 								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'compute_1';
-																				startPosition: 6;
-																				stopPosition: 14;
-																				yourself);
-																		arrayDefinition: nil;
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'compute_1';
 																		startPosition: 6;
 																		stopPosition: 14;
 																		yourself);
-																arrayPosition: nil;
+																arrayDefinition: nil;
 																startPosition: 6;
 																stopPosition: 14;
 																yourself);
+														arrayPosition: nil;
 														startPosition: 6;
 														stopPosition: 14;
 														yourself);
 												startPosition: 6;
 												stopPosition: 14;
 												yourself);
-										expressionAction: nil;
 										startPosition: 6;
 										stopPosition: 14;
 										yourself);
-								startPosition: 5;
+								expressionAction: nil;
+								startPosition: 6;
 								stopPosition: 14;
 								yourself);
 						startPosition: 1;
@@ -17278,7 +16940,7 @@ PWBDataWindowParserTest >> testOption6 [
 		assert: (self parse: 'print.orientation = 0' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17358,7 +17020,7 @@ PWBDataWindowParserTest >> testOption7 [
 		assert: (self parse: 'height.autosize=yes' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17455,7 +17117,7 @@ PWBDataWindowParserTest >> testOption8 [
 		assert: (self parse: 'band=header.1' rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17538,7 +17200,7 @@ PWBDataWindowParserTest >> testOption9 [
 				rule: #option)
 		equals:
 			(PWBASTOption new
-				assignationStatement:
+				option:
 					(PWBASTAssignationStatement new
 						accessOrType:
 							(PWBASTAccessOrType new
@@ -17904,7 +17566,7 @@ PWBDataWindowParserTest >> testOptions1 [
 			(PWBASTOptions new
 				options:
 					{(PWBASTOption new
-						assignationStatement:
+						option:
 							(PWBASTAssignationStatement new
 								accessOrType:
 									(PWBASTAccessOrType new
@@ -17976,7 +17638,7 @@ PWBDataWindowParserTest >> testOptions1 [
 						stopPosition: 11;
 						yourself).
 					(PWBASTOption new
-						assignationStatement:
+						option:
 							(PWBASTAssignationStatement new
 								accessOrType:
 									(PWBASTAccessOrType new
@@ -18212,7 +17874,7 @@ PWBDataWindowParserTest >> testTemplate1 [
 			(PWBASTTemplate new
 				options:
 					{(PWBASTOption new
-						assignationStatement:
+						option:
 							(PWBASTAssignationStatement new
 								accessOrType:
 									(PWBASTAccessOrType new
@@ -18267,7 +17929,7 @@ PWBDataWindowParserTest >> testTemplate1 [
 						stopPosition: 44;
 						yourself).
 					(PWBASTOption new
-						assignationStatement:
+						option:
 							(PWBASTAssignationStatement new
 								accessOrType:
 									(PWBASTAccessOrType new
@@ -18322,52 +17984,23 @@ PWBDataWindowParserTest >> testTemplate1 [
 						stopPosition: 66;
 						yourself).
 					(PWBASTOption new
-						assignationStatement:
-							(PWBASTAssignationStatement new
-								accessOrType:
-									(PWBASTAccessOrType new
-										accessOrType:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'name';
-																startPosition: 68;
-																stopPosition: 71;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 68;
-														stopPosition: 71;
-														yourself);
-												arrayPosition: nil;
-												startPosition: 68;
-												stopPosition: 71;
-												yourself);
-										startPosition: 68;
-										stopPosition: 71;
-										yourself);
-								expressionAction: nil;
-								assignation:
-									(PWBASTAssignation new
+						option:
+							(PWBASTColumnNameOption new
+								expression:
+									(PWBASTExpression new
 										expression:
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"template_xml_ges_dv3"';
-																startPosition: 73;
-																stopPosition: 94;
-																yourself);
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"template_xml_ges_dv3"';
 														startPosition: 73;
 														stopPosition: 94;
 														yourself);
-												expressionAction: nil;
 												startPosition: 73;
 												stopPosition: 94;
 												yourself);
-										startPosition: 72;
+										expressionAction: nil;
+										startPosition: 73;
 										stopPosition: 94;
 										yourself);
 								startPosition: 68;
@@ -18377,7 +18010,7 @@ PWBDataWindowParserTest >> testTemplate1 [
 						stopPosition: 94;
 						yourself).
 					(PWBASTOption new
-						assignationStatement:
+						option:
 							(PWBASTAssignationStatement new
 								accessOrType:
 									(PWBASTAccessOrType new

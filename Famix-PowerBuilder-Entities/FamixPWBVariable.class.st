@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes + FamixTNamed',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait + FamixTNamed classTrait',
+	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
 	],
@@ -16,6 +16,13 @@ FamixPWBVariable class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #testing }
+FamixPWBVariable class >> isDeprecated [
+	"TNamed was renamed #TNamedEntity. You should update your generator."
+
+	^ false
 ]
 
 { #category : #'as yet unclassified' }
@@ -44,4 +51,9 @@ FamixPWBVariable >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
 	^ MooseGroup with: self behavioral
+]
+
+{ #category : #testing }
+FamixPWBVariable >> isInstanceVariable [
+	^ false
 ]

@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBGraphicComponent,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixTWithAttributes',
-	#classTraits : 'FamixTWithAttributes classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithAttributes',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAttributes classTrait',
 	#instVars : [
 		'#dataWindow => FMOne type: #FamixPWBDataWindow opposite: #graphicComponents'
 	],

@@ -38,3 +38,8 @@ FamixPWBAttribute >> deadArguments [
 FamixPWBAttribute >> deadLocalVariables [
 	^ {}
 ]
+
+{ #category : #testing }
+FamixPWBAttribute >> isInstanceVariable [
+	^ true
+]

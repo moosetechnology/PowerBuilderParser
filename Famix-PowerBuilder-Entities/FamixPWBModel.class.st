@@ -45,8 +45,8 @@ FamixPWBModel >> allModelDeadMethods [
 
 { #category : #initialization }
 FamixPWBModel >> brPath [
-	brPath
-		ifNil: [ brPath := QueryBRFunctionsFromKnownPoint
+	brPath isEmptyOrNil
+		ifTrue: [ brPath := QueryBRFunctionsFromKnownPoint
 				runOn: (self allWithType: FamixPWBWindow) ].
 	^ brPath
 ]

@@ -122,7 +122,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamedEntity;
 		--|> #TSourceEntity.
 	graphicComponent
-		--|> sourcedEntity;
+		--|> #TSourceEntity;
 		--|> #TWithAttributes;
 		--|> behavioral.
 	event

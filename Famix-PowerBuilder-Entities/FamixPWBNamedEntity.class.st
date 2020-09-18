@@ -14,3 +14,10 @@ FamixPWBNamedEntity class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #testing }
+FamixPWBNamedEntity class >> isDeprecated [
+	"TNamed was renamed #TNamedEntity. You should update your generator."
+
+	^ false
+]
