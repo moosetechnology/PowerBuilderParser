@@ -35,6 +35,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
 ]
 
+{ #category : #'as yet unclassified' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
+	typeDeclarationType
+		ifNil: [ typeDeclarationType := OrderedDictionary new ].
+	^ typeDeclarationType
+]
+
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
 	^ self
@@ -147,7 +154,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 					self
 						ensureEntityWithType: FamixPWBCustomType
 						named: (self visit: aPWBASTCustomType identifier) ]).
-	^ aPWBASTCustomType identifier
+	^ self
+		ensureEntityWithType: FamixPWBCustomType
+		named: (self visit: aPWBASTCustomType identifier)
 ]
 
 { #category : #visiting }
@@ -419,6 +428,16 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBAST
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
+{ #category : #'as yet unclassified' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
+	^ self
+		ensureEntityWithType: FamixPWBBasicType
+		named:
+			(anPWBASTParametrizedType parametrizedType
+				copyWithRegex: '{.*}'
+				matchesReplacedWith: '')
+]
+
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
 	self
@@ -512,9 +531,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
 				do: [ :attString | 
-					self currentEntity
+					| var |
+					var := self currentEntity
 						createValueHolderNamed: attString
-						withType: FamixPWBInstanceVariable ] ]
+						withType: FamixPWBInstanceVariable.
+					var addType: (self typeDeclarationType at: attString) ] ]
 ]
 
 { #category : #visiting }
@@ -532,7 +553,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
-	self flag: #TODO.	"set type for declared variables"
-	self visit: aPWBASTVariableDeclarations type.
-	^ self visitAll: aPWBASTVariableDeclarations variableAssignations
+	| varNames vartype |
+	varNames := self
+		visitAll: aPWBASTVariableDeclarations variableAssignations.
+	vartype := self visit: aPWBASTVariableDeclarations type.
+	self haltIf: vartype = 'decimal{2}'.
+	varNames
+		do: [ :varName | self typeDeclarationType at: varName put: vartype ].
+	^ varNames
 ]
