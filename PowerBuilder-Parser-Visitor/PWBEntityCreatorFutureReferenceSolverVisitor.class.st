@@ -5,7 +5,8 @@ Class {
 	#name : #PWBEntityCreatorFutureReferenceSolverVisitor,
 	#superclass : #PWBImporterAbstractVisitor,
 	#instVars : [
-		'currentLibrary'
+		'currentLibrary',
+		'typeDeclarationType'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -520,9 +521,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
 				do: [ :attString | 
-					self currentEntity
+					| var |
+					
+					var := self currentEntity
 						createValueHolderNamed: attString
-						withType: FamixPWBInstanceVariable ] ]
+						withType: FamixPWBInstanceVariable.
+					var attributeType: (self typeDeclarationType at: attString) ] ]
 ]
 
 { #category : #visiting }
@@ -532,10 +536,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 			attributeStrings flatten
 				do: [ :attString | 
 					| var |
+					
 					var := self currentEntity
 						createValueHolderNamed: attString
 						withType: FamixPWBInstanceVariable.
-					var addType: (self typeDeclarationType at: attString) ] ]
+					var attributeType: (self typeDeclarationType at: attString) ] ]
 ]
 
 { #category : #visiting }
@@ -557,7 +562,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations:
 	varNames := self
 		visitAll: aPWBASTVariableDeclarations variableAssignations.
 	vartype := self visit: aPWBASTVariableDeclarations type.
-	self haltIf: vartype = 'decimal{2}'.
 	varNames
 		do: [ :varName | self typeDeclarationType at: varName put: vartype ].
 	^ varNames

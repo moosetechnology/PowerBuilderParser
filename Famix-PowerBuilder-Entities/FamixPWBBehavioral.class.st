@@ -158,6 +158,11 @@ FamixPWBBehavioral >> invokingMethods [
 	^ self invokingBehaviours select: [ :each | each isMethod ]
 ]
 
+{ #category : #testing }
+FamixPWBBehavioral >> isEvent [
+	^ false
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not

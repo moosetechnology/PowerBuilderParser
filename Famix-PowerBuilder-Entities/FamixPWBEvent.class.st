@@ -14,3 +14,8 @@ FamixPWBEvent class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #testing }
+FamixPWBEvent >> isEvent [
+	^ true
+]

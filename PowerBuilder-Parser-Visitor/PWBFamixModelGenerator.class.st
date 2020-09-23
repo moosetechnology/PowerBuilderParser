@@ -239,7 +239,8 @@ PWBFamixModelGenerator >> defineProperties [
 	argument property: #argumentValue type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
-	method property: #returnType type: #Object
+	method property: #returnType type: #Object.
+	attribute property: #attributeType type: #Object
 ]
 
 { #category : #definition }
