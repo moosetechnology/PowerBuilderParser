@@ -137,6 +137,34 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
+{ #category : #'maryline-log' }
+FamixPWBBehavioral >> insertParametersBeforeLog [
+	| signature |
+	signature := self sourceText lines first.
+	self setParameters.
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< signature;
+				crlf.
+			self parameters
+				do: [ :param | 
+					| log |
+					param logOn: stream context: 'before' ].
+			stream << (self sourceText copyReplaceAll: signature with: '') ]
+]
+
+{ #category : #'maryline-log' }
+FamixPWBBehavioral >> insertReturnLogIn: aString [
+	| result |
+	result := aString.
+	self returns
+		ifEmpty: [ result := aString ]
+		ifNotEmpty:
+			[ self returns do: [ :return | result := return insertLogIn: result ] ].
+	^ result
+]
+
 { #category : #'Famix-Extensions' }
 FamixPWBBehavioral >> invokedBehaviours [
 	^ self queryAllOutgoingInvocations opposites
@@ -243,6 +271,8 @@ FamixPWBBehavioral >> setContent [
 { #category : #initialization }
 FamixPWBBehavioral >> setParameters [
 	| signature signatureAST |
+	self parameters isEmptyOrNil
+		ifFalse: [ ^ self ].
 	signature := PWBPreprocessor parse: self sourceText lines first.
 	signatureAST := (MrlPWBParser new mrlSignatures parse: signature)
 		mrlSignatures.

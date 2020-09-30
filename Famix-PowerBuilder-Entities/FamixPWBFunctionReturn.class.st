@@ -43,6 +43,16 @@ FamixPWBFunctionReturn >> behavioralGroup [
 	^ MooseGroup with: self behavioral
 ]
 
+{ #category : #'maryline-log' }
+FamixPWBFunctionReturn >> insertLogIn: aString [
+	| log |
+	log := 'f_mrl_logger().return_value_logger().log('
+		, self returnValue asString , ',"' , behavioral name , '","'
+		, behavioral parentType name , '")' , String crlf , self sourceText
+		, String crlf.
+	^ aString copyReplaceAll: self sourceText with: log
+]
+
 { #category : #accessing }
 FamixPWBFunctionReturn >> returnValue [
 

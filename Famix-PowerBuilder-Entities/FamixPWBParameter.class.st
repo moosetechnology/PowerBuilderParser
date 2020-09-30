@@ -34,6 +34,25 @@ FamixPWBParameter >> isPWBDataWindow [
 	^ self parameterType isPWBDataWindow
 ]
 
+{ #category : #'as yet unclassified' }
+FamixPWBParameter >> logOn: stream context: aString [
+	stream
+		<< 'f_mrl_logger().invocation_parameter_logger().log("';
+		<< self name;
+		<< '",';
+		<< self name;
+		<< ',"';
+		<< self behavioral parentType name;
+		<< '","';
+		<< self behavioral name;
+		<< '"';
+		<< ',"';
+		<< aString;
+		<< '")';
+		crlf.
+	^ stream
+]
+
 { #category : #accessing }
 FamixPWBParameter >> parameterType [
 
