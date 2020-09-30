@@ -1,12 +1,12 @@
 Class {
 	#name : #FamixPWBFunctionReturn,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTSourceEntity',
-	#classTraits : 'FamixTSourceEntity classTrait',
+	#traits : 'FamixPWBPBTNamed + FamixTSourceEntity',
+	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTSourceEntity classTrait',
 	#instVars : [
-		'#parentType => FMOne type: #FamixPWBRoutine opposite: #returns',
-		'#returnType => FMProperty',
-		'#returnValue => FMProperty'
+		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #returns',
+		'#returnValue => FMProperty',
+		'#type => FMProperty'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -21,40 +21,26 @@ FamixPWBFunctionReturn class >> annotation [
 ]
 
 { #category : #accessing }
-FamixPWBFunctionReturn >> parentType [
-	"Relation named: #parentType type: #FamixPWBRoutine opposite: #returns"
+FamixPWBFunctionReturn >> behavioral [
+	"Relation named: #behavioral type: #FamixPWBBehavioral opposite: #returns"
 
 	<generated>
 	<container>
-	^ parentType
+	^ behavioral
 ]
 
 { #category : #accessing }
-FamixPWBFunctionReturn >> parentType: anObject [
+FamixPWBFunctionReturn >> behavioral: anObject [
 
 	<generated>
-	parentType := anObject
+	behavioral := anObject
 ]
 
 { #category : #navigation }
-FamixPWBFunctionReturn >> parentTypeGroup [
+FamixPWBFunctionReturn >> behavioralGroup [
 	<generated>
-	<navigation: 'ParentType'>
-	^ MooseGroup with: self parentType
-]
-
-{ #category : #accessing }
-FamixPWBFunctionReturn >> returnType [
-
-	<FMProperty: #returnType type: #Object>
-	<generated>
-	^ returnType
-]
-
-{ #category : #accessing }
-FamixPWBFunctionReturn >> returnType: anObject [
-	<generated>
-	returnType := anObject
+	<navigation: 'Behavioral'>
+	^ MooseGroup with: self behavioral
 ]
 
 { #category : #accessing }
@@ -69,4 +55,18 @@ FamixPWBFunctionReturn >> returnValue [
 FamixPWBFunctionReturn >> returnValue: anObject [
 	<generated>
 	returnValue := anObject
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> type [
+
+	<FMProperty: #type type: #Object>
+	<generated>
+	^ type
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> type: anObject [
+	<generated>
+	type := anObject
 ]

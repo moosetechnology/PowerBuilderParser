@@ -306,6 +306,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
+	^ self visit: aPWBASTExpressionTerm expressionTerm
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
 	majorEntity := self
@@ -338,6 +343,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	| famixFunction |
+	"self halt."
 	famixFunction := self
 		create: FamixPWBFunction
 		from: aPWBASTFunctionDefinition.
@@ -471,9 +477,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
-	self halt.
-	self currentEntity.
-	self visit: aPWBASTReturnStatement expression
+	| return |
+	return := self visit: aPWBASTReturnStatement expression.
+	return
+		ifNotNil: [ (self
+				createAssociation: FamixPWBFunctionReturn
+				from: aPWBASTReturnStatement)
+				behavioral: self currentEntity;
+				type: functionRetunTypeHolder;
+				returnValue: (self visit: aPWBASTReturnStatement expression) ]
 ]
 
 { #category : #visiting }

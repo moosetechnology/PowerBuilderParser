@@ -228,7 +228,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> tNamed;
 		--|> #TSourceEntity.
 	parameter --|> #TParameter.
-	functionReturn --|> #TSourceEntity
+	functionReturn
+		--|> #TSourceEntity;
+		--|> tNamed
 ]
 
 { #category : #definition }
@@ -241,7 +243,8 @@ PWBFamixModelGenerator >> defineProperties [
 	argument property: #argumentValue type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
-	functionReturn property: #returnType type: #Object.
+	method property: #returnType type: #Object.
+	functionReturn property: #type type: #Object.
 	functionReturn property: #returnValue type: #Object.
 	attribute property: #attributeType type: #Object
 ]
@@ -260,10 +263,8 @@ PWBFamixModelGenerator >> defineRelations [
 		*- (ticket property: #ticketAssociations).
 	(invocation property: #arguments)
 		<>-* (argument property: #invocation).
-	(function property: #returns) <>-* (functionReturn property: #parentType).
-	(method property: #returns) <>-* (functionReturn property: #parentType).
-	
-	
+	(behavioral property: #returns)
+		<>-* (functionReturn property: #behavioral)
 ]
 
 { #category : #definition }

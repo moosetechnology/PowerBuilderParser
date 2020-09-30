@@ -10,6 +10,7 @@ Class {
 		'#deadArguments',
 		'#deadLocalVariables',
 		'#incomingInvocationSenders',
+		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
 		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
@@ -22,6 +23,12 @@ FamixPWBBehavioral class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #adding }
+FamixPWBBehavioral >> addReturn: anObject [
+	<generated>
+	^ self returns add: anObject
 ]
 
 { #category : #adding }
@@ -196,6 +203,29 @@ FamixPWBBehavioral >> predifinedMethods [
 { #category : #accessing }
 FamixPWBBehavioral >> reachableEntities [
 	^ self variables
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> returns [
+	"Relation named: #returns type: #FamixPWBFunctionReturn opposite: #behavioral"
+
+	<generated>
+	<derived>
+	^ returns
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> returns: anObject [
+
+	<generated>
+	returns value: anObject
+]
+
+{ #category : #navigation }
+FamixPWBBehavioral >> returnsGroup [
+	<generated>
+	<navigation: 'Returns'>
+	^ MooseGroup withAll: self returns asSet
 ]
 
 { #category : #api }

@@ -4,7 +4,7 @@ Class {
 	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTHasSignature + FamixTInvocable + FamixTMethod + FamixTWithParameters',
 	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTHasSignature classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTWithParameters classTrait',
 	#instVars : [
-		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #parentType'
+		'#returnType => FMProperty'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -18,31 +18,16 @@ FamixPWBFunction class >> annotation [
 	^self
 ]
 
-{ #category : #adding }
-FamixPWBFunction >> addReturn: anObject [
+{ #category : #accessing }
+FamixPWBFunction >> returnType [
+
+	<FMProperty: #returnType type: #Object>
 	<generated>
-	^ self returns add: anObject
+	^ returnType
 ]
 
 { #category : #accessing }
-FamixPWBFunction >> returns [
-	"Relation named: #returns type: #FamixPWBFunctionReturn opposite: #parentType"
-
+FamixPWBFunction >> returnType: anObject [
 	<generated>
-	<derived>
-	^ returns
-]
-
-{ #category : #accessing }
-FamixPWBFunction >> returns: anObject [
-
-	<generated>
-	returns value: anObject
-]
-
-{ #category : #navigation }
-FamixPWBFunction >> returnsGroup [
-	<generated>
-	<navigation: 'Returns'>
-	^ MooseGroup withAll: self returns asSet
+	returnType := anObject
 ]
