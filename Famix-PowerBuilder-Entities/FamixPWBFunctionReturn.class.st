@@ -4,7 +4,9 @@ Class {
 	#traits : 'FamixTSourceEntity',
 	#classTraits : 'FamixTSourceEntity classTrait',
 	#instVars : [
-		'#parentType => FMOne type: #FamixPWBRoutine opposite: #returns'
+		'#parentType => FMOne type: #FamixPWBRoutine opposite: #returns',
+		'#returnType => FMProperty',
+		'#returnValue => FMProperty'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -39,4 +41,32 @@ FamixPWBFunctionReturn >> parentTypeGroup [
 	<generated>
 	<navigation: 'ParentType'>
 	^ MooseGroup with: self parentType
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> returnType [
+
+	<FMProperty: #returnType type: #Object>
+	<generated>
+	^ returnType
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> returnType: anObject [
+	<generated>
+	returnType := anObject
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> returnValue [
+
+	<FMProperty: #returnValue type: #Object>
+	<generated>
+	^ returnValue
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> returnValue: anObject [
+	<generated>
+	returnValue := anObject
 ]

@@ -186,6 +186,61 @@ PWBDataWindowGrammarTest >> testGraphGraphicComponent [
 		rule: #graphicComponent
 ]
 
+{ #category : #tests }
+PWBDataWindowGrammarTest >> testGraphicComponent10 [
+	self
+		parse:
+			'ellipse(band=detail x="2350" y="32" height="36" width="41"  name=tem_dtc visible="1~tif(isNull(liq_dtc),0,1)" brush.hatch="6" brush.color="255" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="0" )'
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testGraphicComponent14 [
+	
+self
+				parse: 'detail(height=92 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
+				rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testGraphicComponent16 [
+	self
+		parse:
+			'footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
+		rule: #graphicComponent
+]
+
+{ #category : #tests }
+PWBDataWindowGrammarTest >> testGraphicComponent2 [
+	self
+		parse:
+			'summary(height=84 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
+		rule: #graphicComponent
+]
+
+{ #category : #tests }
+PWBDataWindowGrammarTest >> testGraphicComponent3 [
+	self
+		parse:
+			'ellipse(band=detail x="2350" y="32" height="36" width="41"  name=tem_dtc visible="1~tif(isNull(liq_dtc),0,1)" brush.hatch="6" brush.color="255" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="0" )'
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testGraphicComponent5 [
+	self
+		parse:
+			'summary(height=84 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )'
+		rule: #graphicComponent
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testGraphicComponent9 [
+	self
+		parse: 'sparse(names="dossier_interne	no_ligne_dans_dossier")'
+		rule: #graphicComponent
+]
+
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testGroup [
 	self
