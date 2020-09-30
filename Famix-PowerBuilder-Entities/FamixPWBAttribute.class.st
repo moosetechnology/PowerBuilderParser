@@ -60,3 +60,8 @@ FamixPWBAttribute >> deadLocalVariables [
 FamixPWBAttribute >> isInstanceVariable [
 	^ true
 ]
+
+{ #category : #accessor }
+FamixPWBAttribute >> typeName [
+	^ attributeType name
+]

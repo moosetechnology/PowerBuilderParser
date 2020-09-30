@@ -16,6 +16,11 @@ FamixPWBCustomType class >> annotation [
 ]
 
 { #category : #testing }
+FamixPWBCustomType >> isBasic [
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBCustomType >> isPWBDataWindow [
 	^ {'uo_datawindow' . 'datawindow'} includes: self name
 ]

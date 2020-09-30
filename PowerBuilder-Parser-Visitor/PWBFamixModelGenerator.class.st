@@ -38,7 +38,8 @@ Class {
 		'parameter',
 		'globalVariable',
 		'instanceVariable',
-		'argument'
+		'argument',
+		'functionReturn'
 	],
 	#classInstVars : [
 		'builder'
@@ -84,7 +85,7 @@ PWBFamixModelGenerator >> defineClasses [
 	method := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
 	argument := builder newClassNamed: #Argument.
-
+	functionReturn := builder newClassNamed: #FunctionReturn.
 
 	"Major objects"
 	majorObject := builder newClassNamed: #majorObject.
@@ -226,7 +227,8 @@ PWBFamixModelGenerator >> defineHierarchy [
 	argument
 		--|> tNamed;
 		--|> #TSourceEntity.
-	parameter --|> #TParameter
+	parameter --|> #TParameter.
+	functionReturn --|> #TSourceEntity
 ]
 
 { #category : #definition }
@@ -239,7 +241,7 @@ PWBFamixModelGenerator >> defineProperties [
 	argument property: #argumentValue type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
-	method property: #returnType type: #Object.
+	"method property: #returnType type: #Object."
 	attribute property: #attributeType type: #Object
 ]
 
@@ -256,7 +258,11 @@ PWBFamixModelGenerator >> defineRelations [
 	(ticketAssociation property: #ticket)
 		*- (ticket property: #ticketAssociations).
 	(invocation property: #arguments)
-		<>-* (argument property: #invocation)
+		<>-* (argument property: #invocation).
+	(function property: #returns) <>-* (functionReturn property: #parentType).
+	(method property: #returns) <>-* (functionReturn property: #parentType).
+	
+	
 ]
 
 { #category : #definition }

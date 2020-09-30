@@ -300,6 +300,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPost
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTExpression [
+	self visit: aPWBASTExpression expressionAction.
+	^ self visit: aPWBASTExpression expression
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
 	majorEntity := self
@@ -461,6 +467,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 					(self createAssociation: FamixPWBInvocation from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates ])
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
+	self halt.
+	self currentEntity.
+	self visit: aPWBASTReturnStatement expression
 ]
 
 { #category : #visiting }

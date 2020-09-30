@@ -16,6 +16,11 @@ FamixPWBBasicType class >> annotation [
 ]
 
 { #category : #testing }
+FamixPWBBasicType >> isBasic [
+	^ true
+]
+
+{ #category : #testing }
 FamixPWBBasicType >> isPWBDataWindow [
 	^ false
 ]

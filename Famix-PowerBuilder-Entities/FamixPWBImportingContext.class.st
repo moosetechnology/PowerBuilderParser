@@ -101,6 +101,12 @@ FamixPWBImportingContext >> importFunction [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importFunctionReturn [
+	<generated>
+	^ self import: FamixPWBFunctionReturn
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importGlobalFunction [
 	<generated>
 	^ self import: FamixPWBGlobalFunction
@@ -386,6 +392,12 @@ FamixPWBImportingContext >> shouldImportFolder [
 FamixPWBImportingContext >> shouldImportFunction [
 	<generated>
 	^ self shouldImport: FamixPWBFunction
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportFunctionReturn [
+	<generated>
+	^ self shouldImport: FamixPWBFunctionReturn
 ]
 
 { #category : #testing }
