@@ -2,7 +2,7 @@ Class {
 	#name : #FamixPWBModel,
 	#superclass : #MooseModel,
 	#instVars : [
-		'brPath'
+		'businessRulePath'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Model'
 }
@@ -44,11 +44,11 @@ FamixPWBModel >> allModelDeadMethods [
 ]
 
 { #category : #initialization }
-FamixPWBModel >> brPath [
-	brPath isEmptyOrNil
-		ifTrue: [ brPath := QueryBRFunctionsFromKnownPoint
+FamixPWBModel >> businessRulePath [
+	businessRulePath isEmptyOrNil
+		ifTrue: [ businessRulePath := QueryBRFunctionsFromKnownPoint
 				runOn: (self allWithType: FamixPWBWindow) ].
-	^ brPath
+	^ businessRulePath
 ]
 
 { #category : #accessing }

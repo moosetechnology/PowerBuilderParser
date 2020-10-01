@@ -13,7 +13,8 @@ Class {
 		'#parameters => FMMany type: #FamixPWBParameter opposite: #behavioral',
 		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
 		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
+		'#businessRulePath'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -63,11 +64,11 @@ FamixPWBBehavioral >> allOutgoingInvocationCandidates [
 ]
 
 { #category : #accessing }
-FamixPWBBehavioral >> brPath [
-	brPath
-		ifNil: [ brPath := self invokedBehaviours
+FamixPWBBehavioral >> businessRulePath [
+	businessRulePath
+		ifNil: [ businessRulePath := self invokedBehaviours
 				reject: [ :method | method parentType isNil ] ].
-	^ brPath asOrderedCollection
+	^ businessRulePath asOrderedCollection
 		sortDescending: [ :method | method invokedBehaviours size ]
 ]
 

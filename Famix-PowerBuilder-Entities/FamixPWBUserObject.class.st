@@ -17,5 +17,5 @@ FamixPWBUserObject class >> annotation [
 
 { #category : #accessing }
 FamixPWBUserObject >> brPath: aCollection [
-	brPath := aCollection
+	businessRulePath := aCollection
 ]

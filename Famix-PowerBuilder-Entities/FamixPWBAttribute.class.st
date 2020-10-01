@@ -38,12 +38,12 @@ FamixPWBAttribute >> attributeType: anObject [
 ]
 
 { #category : #accessing }
-FamixPWBAttribute >> brPath [
-	brPath
-		ifNil: [ brPath := self accessingMethods
+FamixPWBAttribute >> businessRulePath [
+	businessRulePath
+		ifNil: [ businessRulePath := self accessingMethods
 				reject:
 					[ :method | (method isKindOf: FamixPWBmajorObject) or: [ method parentType isNil ] ] ].
-	^ brPath asOrderedCollection
+	^ businessRulePath asOrderedCollection
 ]
 
 { #category : #accessing }

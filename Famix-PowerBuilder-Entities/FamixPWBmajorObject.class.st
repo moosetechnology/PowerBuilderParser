@@ -20,12 +20,6 @@ FamixPWBmajorObject class >> annotation [
 	^self
 ]
 
-{ #category : #adding }
-FamixPWBmajorObject >> addBrPathMethod: anEntity [
-	brPath ifNil: [ brPath := Set new ].
-	brPath add: anEntity
-]
-
 { #category : #accessing }
 FamixPWBmajorObject >> allIncomingInvocationsSenders [
 	| scan scanTop |

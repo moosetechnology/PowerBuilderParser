@@ -167,6 +167,8 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+	| signature |
+	"A signature always and with a $; charater at definition"
 	(self visit: aPWBASTFunctionDefinition functionSignature)
 		ifNotNil: [ :argumentsArray | 
 			argumentsArray
@@ -174,11 +176,14 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 					self currentEntity
 						createValueHolderNamed: arg
 						withType: FamixPWBParameter ] ].
-	(self
+	signature := self
 		createAssociation: FamixPWBBehaviorSignature
-		from: aPWBASTFunctionDefinition functionSignature)
-		name: self currentEntity name;
+		from: aPWBASTFunctionDefinition functionSignature.
+	signature
+		name: self currentEntity name , 'signature';
 		behavioral: self currentEntity.
+	signature sourceAnchor
+		stopPosition: signature sourceAnchor stopPosition + 1.
 	self visit: aPWBASTFunctionDefinition statements
 ]
 
