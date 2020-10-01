@@ -174,6 +174,11 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 					self currentEntity
 						createValueHolderNamed: arg
 						withType: FamixPWBParameter ] ].
+	(self
+		createAssociation: FamixPWBBehaviorSignature
+		from: aPWBASTFunctionDefinition functionSignature)
+		name: self currentEntity name;
+		behavioral: self currentEntity.
 	self visit: aPWBASTFunctionDefinition statements
 ]
 

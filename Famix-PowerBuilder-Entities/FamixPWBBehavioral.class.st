@@ -10,7 +10,9 @@ Class {
 		'#deadArguments',
 		'#deadLocalVariables',
 		'#incomingInvocationSenders',
+		'#parameters => FMMany type: #FamixPWBParameter opposite: #behavioral',
 		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
+		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral',
 		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
@@ -23,6 +25,12 @@ FamixPWBBehavioral class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #adding }
+FamixPWBBehavioral >> addParameter: anObject [
+	<generated>
+	^ self parameters add: anObject
 ]
 
 { #category : #adding }
@@ -137,34 +145,6 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
-{ #category : #'maryline-log' }
-FamixPWBBehavioral >> insertParametersBeforeLog [
-	| signature |
-	signature := self sourceText lines first.
-	self setParameters.
-	^ String
-		streamContents: [ :stream | 
-			stream
-				<< signature;
-				crlf.
-			self parameters
-				do: [ :param | 
-					| log |
-					param logOn: stream context: 'before' ].
-			stream << (self sourceText copyReplaceAll: signature with: '') ]
-]
-
-{ #category : #'maryline-log' }
-FamixPWBBehavioral >> insertReturnLogIn: aString [
-	| result |
-	result := aString.
-	self returns
-		ifEmpty: [ result := aString ]
-		ifNotEmpty:
-			[ self returns do: [ :return | result := return insertLogIn: result ] ].
-	^ result
-]
-
 { #category : #'Famix-Extensions' }
 FamixPWBBehavioral >> invokedBehaviours [
 	^ self queryAllOutgoingInvocations opposites
@@ -221,6 +201,29 @@ FamixPWBBehavioral >> numberOfIncomingInvocations [
 { #category : #api }
 FamixPWBBehavioral >> outgoingInvocationsCandidates [
 	^ (self outgoingInvocations flatCollect: #candidates) asSet
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> parameters [
+	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
+
+	<generated>
+	<derived>
+	^ parameters
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> parameters: anObject [
+
+	<generated>
+	parameters value: anObject
+]
+
+{ #category : #navigation }
+FamixPWBBehavioral >> parametersGroup [
+	<generated>
+	<navigation: 'Parameters'>
+	^ MooseGroup withAll: self parameters asSet
 ]
 
 { #category : #api }
@@ -284,6 +287,28 @@ FamixPWBBehavioral >> setParameters [
 			self parameters
 				detect: [ :aParam | aParam = parameter ]
 				ifNone: [ self addParameter: parameter ] ]
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> signature [
+	"Relation named: #signature type: #FamixPWBBehaviorSignature opposite: #behavioral"
+
+	<generated>
+	^ signature
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> signature: anObject [
+
+	<generated>
+	signature := anObject
+]
+
+{ #category : #navigation }
+FamixPWBBehavioral >> signatureGroup [
+	<generated>
+	<navigation: 'Signature'>
+	^ MooseGroup with: self signature
 ]
 
 { #category : #accessing }

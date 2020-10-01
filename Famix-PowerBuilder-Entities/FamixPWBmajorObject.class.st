@@ -6,8 +6,7 @@ Class {
 	#instVars : [
 		'#content',
 		'#cyclomaticComplexity => FMProperty',
-		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects',
-		'#ticketAssociations => FMMany type: #FamixPWBTicketAssociation opposite: #majorObject'
+		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -25,12 +24,6 @@ FamixPWBmajorObject class >> annotation [
 FamixPWBmajorObject >> addBrPathMethod: anEntity [
 	brPath ifNil: [ brPath := Set new ].
 	brPath add: anEntity
-]
-
-{ #category : #adding }
-FamixPWBmajorObject >> addTicketAssociation: anObject [
-	<generated>
-	^ self ticketAssociations add: anObject
 ]
 
 { #category : #accessing }
@@ -191,20 +184,4 @@ FamixPWBmajorObject >> numberOfIncomingInvocations [
 { #category : #accessing }
 FamixPWBmajorObject >> tagNamed: aString [
 	^ self allTags detect: [ :tag | tag name = aString ]
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> ticketAssociations [
-	"Relation named: #ticketAssociations type: #FamixPWBTicketAssociation opposite: #majorObject"
-
-	<generated>
-	<derived>
-	^ ticketAssociations
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> ticketAssociations: anObject [
-
-	<generated>
-	ticketAssociations value: anObject
 ]

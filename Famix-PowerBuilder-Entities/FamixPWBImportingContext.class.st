@@ -41,6 +41,12 @@ FamixPWBImportingContext >> importBasicType [
 ]
 
 { #category : #testing }
+FamixPWBImportingContext >> importBehaviorSignature [
+	<generated>
+	^ self import: FamixPWBBehaviorSignature
+]
+
+{ #category : #testing }
 FamixPWBImportingContext >> importBehavioral [
 	<generated>
 	^ self import: FamixPWBBehavioral
@@ -245,18 +251,6 @@ FamixPWBImportingContext >> importSubRoutine [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importTicket [
-	<generated>
-	^ self import: FamixPWBTicket
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> importTicketAssociation [
-	<generated>
-	^ self import: FamixPWBTicketAssociation
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importTrigger [
 	<generated>
 	^ self import: FamixPWBTrigger
@@ -332,6 +326,12 @@ FamixPWBImportingContext >> shouldImportAttribute [
 FamixPWBImportingContext >> shouldImportBasicType [
 	<generated>
 	^ self shouldImport: FamixPWBBasicType
+]
+
+{ #category : #testing }
+FamixPWBImportingContext >> shouldImportBehaviorSignature [
+	<generated>
+	^ self shouldImport: FamixPWBBehaviorSignature
 ]
 
 { #category : #testing }
@@ -536,18 +536,6 @@ FamixPWBImportingContext >> shouldImportStructure [
 FamixPWBImportingContext >> shouldImportSubRoutine [
 	<generated>
 	^ self shouldImport: FamixPWBSubRoutine
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportTicket [
-	<generated>
-	^ self shouldImport: FamixPWBTicket
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportTicketAssociation [
-	<generated>
-	^ self shouldImport: FamixPWBTicketAssociation
 ]
 
 { #category : #testing }

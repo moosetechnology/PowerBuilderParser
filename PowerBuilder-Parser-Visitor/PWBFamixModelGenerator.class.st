@@ -29,8 +29,6 @@ Class {
 		'queryFile',
 		'library',
 		'reference',
-		'ticket',
-		'ticketAssociation',
 		'tNamed',
 		'tWithMethods',
 		'sharedVariable',
@@ -39,7 +37,8 @@ Class {
 		'globalVariable',
 		'instanceVariable',
 		'argument',
-		'functionReturn'
+		'functionReturn',
+		'behaviorSignature'
 	],
 	#classInstVars : [
 		'builder'
@@ -97,7 +96,7 @@ PWBFamixModelGenerator >> defineClasses [
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
 	queryFile := builder newClassNamed: #Query.
-
+	behaviorSignature := builder newClassNamed: #BehaviorSignature.
 	"Type"
 	abstractType := builder newTraitNamed: #AbstractType.
 	customType := builder newClassNamed: #CustomType.
@@ -107,11 +106,7 @@ PWBFamixModelGenerator >> defineClasses [
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
 	variableAccess := builder newClassNamed: #VariableAccess.
-	reference := builder newClassNamed: #Reference.
-
-	"CIM specific"
-	ticket := builder newClassNamed: #Ticket.
-	ticketAssociation := builder newClassNamed: #TicketAssociation
+	reference := builder newClassNamed: #Reference
 ]
 
 { #category : #definition }
@@ -150,7 +145,11 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-	parameter --|> variable.
+	parameter
+		--|> #TSourceEntity;
+		--|> #TNamedEntity;
+		--|> #TWithTypes;
+		--|> #TAccessible.
 	sharedVariable --|> attribute.
 	globalVariable --|> attribute.
 	localVariable --|> variable.
@@ -230,6 +229,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 	parameter --|> #TParameter.
 	functionReturn
 		--|> #TSourceEntity;
+		--|> tNamed.
+	behaviorSignature
+		--|> #TSourceEntity;
 		--|> tNamed
 ]
 
@@ -237,9 +239,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 PWBFamixModelGenerator >> defineProperties [
 	majorObject property: #cyclomaticComplexity type: #Number.
 	behavioral property: #cyclomaticComplexity type: #Number.
-	ticket property: #number type: #Number.
-	ticketAssociation property: #date type: #String.
-	ticketAssociation property: #author type: #String.
 	argument property: #argumentValue type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
@@ -257,14 +256,14 @@ PWBFamixModelGenerator >> defineRelations [
 		<>-* (graphicComponent property: #dataWindow).
 	(majorObject property: #library)
 		*-<> (library property: #userObjects).
-	(ticketAssociation property: #majorObject)
-		*- (majorObject property: #ticketAssociations).
-	(ticketAssociation property: #ticket)
-		*- (ticket property: #ticketAssociations).
 	(invocation property: #arguments)
 		<>-* (argument property: #invocation).
 	(behavioral property: #returns)
-		<>-* (functionReturn property: #behavioral)
+		<>-* (functionReturn property: #behavioral).
+	(behavioral property: #signature)
+		<>- (behaviorSignature property: #behavioral).
+	(parameter property: #behavioral)
+		*-<> (behavioral property: #parameters)
 ]
 
 { #category : #definition }
