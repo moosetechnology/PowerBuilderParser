@@ -134,6 +134,11 @@ FamixPWBmajorObject >> isGenerallyUsed: obj [
 	'uo_liste_detail_en_partage'} includes: obj name
 ]
 
+{ #category : #testing }
+FamixPWBmajorObject >> isPWBClass [
+	^ true
+]
+
 { #category : #accessing }
 FamixPWBmajorObject >> library [
 	"Relation named: #library type: #FamixPWBLibrary opposite: #userObjects"

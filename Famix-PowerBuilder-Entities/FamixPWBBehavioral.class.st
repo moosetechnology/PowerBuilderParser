@@ -174,11 +174,6 @@ FamixPWBBehavioral >> invokingMethods [
 	^ self invokingBehaviours select: [ :each | each isMethod ]
 ]
 
-{ #category : #testing }
-FamixPWBBehavioral >> isEvent [
-	^ false
-]
-
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
@@ -187,11 +182,6 @@ FamixPWBBehavioral >> isNotPWBDead [
 { #category : #api }
 FamixPWBBehavioral >> isPredefinedMethod [
 	^ self predifinedMethods includes: self name asLowercase
-]
-
-{ #category : #testing }
-FamixPWBBehavioral >> isSubRoutine [
-	^ self class = FamixPWBSubRoutine
 ]
 
 { #category : #api }

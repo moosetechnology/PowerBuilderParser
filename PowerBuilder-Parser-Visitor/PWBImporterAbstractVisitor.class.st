@@ -182,8 +182,7 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 	signature
 		name: self currentEntity name , 'signature';
 		behavioral: self currentEntity.
-	signature sourceAnchor
-		stopPosition: signature sourceAnchor stopPosition + 1.
+	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	self visit: aPWBASTFunctionDefinition statements
 ]
 

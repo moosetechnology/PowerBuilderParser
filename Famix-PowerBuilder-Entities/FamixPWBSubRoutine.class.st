@@ -15,6 +15,11 @@ FamixPWBSubRoutine class >> annotation [
 	^self
 ]
 
+{ #category : #testing }
+FamixPWBSubRoutine >> isSubRoutine [
+	^ true
+]
+
 { #category : #'As yet unclassified' }
 FamixPWBSubRoutine >> returnType [
 	^ nil

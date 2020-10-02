@@ -18,6 +18,11 @@ FamixPWBFunction class >> annotation [
 	^self
 ]
 
+{ #category : #testing }
+FamixPWBFunction >> isFunction [
+	^ true
+]
+
 { #category : #accessing }
 FamixPWBFunction >> returnType [
 

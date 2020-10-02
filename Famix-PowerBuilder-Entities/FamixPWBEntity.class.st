@@ -87,6 +87,11 @@ FamixPWBEntity >> isBehavioural [
 ]
 
 { #category : #testing }
+FamixPWBEntity >> isEvent [
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBEntity >> isFunction [
 
 	<generated>
@@ -108,6 +113,11 @@ FamixPWBEntity >> isMethod [
 ]
 
 { #category : #testing }
+FamixPWBEntity >> isPWBClass [
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBEntity >> isReference [
 
 	<generated>
@@ -118,6 +128,11 @@ FamixPWBEntity >> isReference [
 FamixPWBEntity >> isStructuralEntity [
 
 	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixPWBEntity >> isSubRoutine [
 	^ false
 ]
 
