@@ -17,5 +17,6 @@ FamixPWBAccess class >> annotation [
 
 { #category : #testing }
 FamixPWBAccess >> isInstanceVariableAccess [
-	^ variable isKindOf: FamixPWBInstanceVariable
+	^ variable isInstanceVariable
+		and: [ ({'true' . 'false'} includes: variable name asLowercase) not ]
 ]

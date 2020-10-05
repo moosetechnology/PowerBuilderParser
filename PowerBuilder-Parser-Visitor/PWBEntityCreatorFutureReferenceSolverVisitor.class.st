@@ -579,7 +579,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 	variable := (self visit: aPWBASTVariableAssignation variable)
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
-	^ (self currentEntity isKindOf: FamixPWBBehavioral)
+	^ self currentEntity isBehavioural
 		ifTrue: [ self currentEntity
 				createValueHolderNamed: variable
 				withType: FamixPWBLocalVariable ]

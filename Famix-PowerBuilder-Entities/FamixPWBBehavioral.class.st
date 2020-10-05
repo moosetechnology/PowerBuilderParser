@@ -28,6 +28,17 @@ FamixPWBBehavioral class >> annotation [
 	^self
 ]
 
+{ #category : #'Famix-Extensions' }
+FamixPWBBehavioral >> accessedAttributes [
+	"Returns the set of attributes of my class accessed by me (method). 
+	Used to support the calculation of LCOM"
+
+	^ ((self queryOutgoingAccesses opposites
+		withinParentUsing: FamixPWBPBTWithMethods) asSet
+		select: #isInstanceVariable)
+		reject: [ :aMethod | {'true' . 'false'} includes: aMethod name asLowercase ]
+]
+
 { #category : #adding }
 FamixPWBBehavioral >> addParameter: anObject [
 	<generated>
@@ -70,6 +81,11 @@ FamixPWBBehavioral >> businessRulePath [
 				reject: [ :method | method parentType isNil ] ].
 	^ businessRulePath asOrderedCollection
 		sortDescending: [ :method | method invokedBehaviours size ]
+]
+
+{ #category : #initialization }
+FamixPWBBehavioral >> clean: aString [
+	^ aString copyReplaceAll: '/*' with: ''
 ]
 
 { #category : #'as yet unclassified' }
@@ -146,6 +162,11 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> instanceVariableAccesses [
+	^ self accesses select: [ :acc | acc isInstanceVariableAccess ]
+]
+
 { #category : #'Famix-Extensions' }
 FamixPWBBehavioral >> invokedBehaviours [
 	^ self queryAllOutgoingInvocations opposites
@@ -174,6 +195,11 @@ FamixPWBBehavioral >> invokingMethods [
 	^ self invokingBehaviours select: [ :each | each isMethod ]
 ]
 
+{ #category : #testing }
+FamixPWBBehavioral >> isBehavioural [
+	^ true
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not
@@ -198,8 +224,8 @@ FamixPWBBehavioral >> outgoingInvocationsCandidates [
 FamixPWBBehavioral >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
 
-	<generated>
-	<derived>
+	parameters isEmptyOrNil
+		ifTrue: [ self setParameters ].
 	^ parameters
 ]
 
@@ -264,11 +290,10 @@ FamixPWBBehavioral >> setContent [
 
 { #category : #initialization }
 FamixPWBBehavioral >> setParameters [
-	| signature signatureAST |
-	self parameters isEmptyOrNil
-		ifFalse: [ ^ self ].
-	signature := PWBPreprocessor parse: self sourceText lines first.
-	signatureAST := (MrlPWBParser new mrlSignatures parse: signature)
+	| signatureAST aSignature |
+	aSignature := self
+		clean: (PWBPreprocessor parse: self sourceText lines first).
+	signatureAST := (MrlPWBParser new mrlSignatures parse: aSignature)
 		mrlSignatures.
 	signatureAST arguments arguments ifNil: [ ^ self ].
 	signatureAST arguments arguments

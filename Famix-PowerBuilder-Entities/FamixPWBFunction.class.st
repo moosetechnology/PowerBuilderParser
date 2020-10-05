@@ -24,6 +24,15 @@ FamixPWBFunction >> isFunction [
 ]
 
 { #category : #accessing }
+FamixPWBFunction >> parameters [
+	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
+
+	parameters isEmptyOrNil
+		ifTrue: [ self setParameters ].
+	^ parameters
+]
+
+{ #category : #accessing }
 FamixPWBFunction >> returnType [
 
 	<FMProperty: #returnType type: #Object>

@@ -43,12 +43,22 @@ FamixPWBModel >> allModelDeadMethods [
 	^ self allMethods asSet select: #isPWBDead
 ]
 
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> allModelPWBUserObjects [
+	^ self allWithType: FamixPWBUserObject
+]
+
 { #category : #initialization }
 FamixPWBModel >> businessRulePath [
 	businessRulePath isEmptyOrNil
 		ifTrue: [ businessRulePath := QueryBRFunctionsFromKnownPoint
 				runOn: (self allWithType: FamixPWBWindow) ].
 	^ businessRulePath
+]
+
+{ #category : #accessing }
+FamixPWBModel >> businessRulePath: anObject [
+	businessRulePath := anObject
 ]
 
 { #category : #accessing }
