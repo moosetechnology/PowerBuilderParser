@@ -291,6 +291,7 @@ FamixPWBBehavioral >> setContent [
 { #category : #initialization }
 FamixPWBBehavioral >> setParameters [
 	| signatureAST aSignature |
+	self sourceAnchor ifNil: [ ^ self ].
 	aSignature := self
 		clean: (PWBPreprocessor parse: self sourceText lines first).
 	signatureAST := (MrlPWBParser new mrlSignatures parse: aSignature)
