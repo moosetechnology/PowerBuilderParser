@@ -1936,6 +1936,18 @@ end prototypes'
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testTypePrototypes5 [
+	self
+		parse:
+			'type prototypes
+
+
+
+end prototypes'
+		rule: #typePrototypes
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testTypeVariable [
 	self parse: 'type variables
 date id_aujourd_hui
