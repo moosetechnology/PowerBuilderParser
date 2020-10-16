@@ -1720,7 +1720,9 @@ PWBCommonParser >> typePrototypes [
 			PWBASTTypePrototypes new
 				startPosition: production start;
 				stopPosition: production stop;
-				declarations: (self rejectSeparators: (production content at: 3));
+				declarations:
+					(((production content at: 3) at: 1)
+						ifNotNil: [ self rejectSeparators: ((production content at: 3) at: 1) ]);
 				yourself ]
 ]
 

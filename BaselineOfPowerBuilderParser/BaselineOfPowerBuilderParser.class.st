@@ -48,7 +48,7 @@ BaselineOfPowerBuilderParser >> baselineOfPetitParser2: spec [
 	spec
 		baseline: 'PetitParserTooling'
 		with: [ spec
-				repository: 'github://Larcheveque/PetitParserTooling';
+				repository: 'github://moosetechnology/PetitParserTooling';
 				loads: #(PetitParser2Boost) ]
 ]
 

@@ -1002,7 +1002,7 @@ PWBASTAbstractVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
 PWBASTAbstractVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 	<generated>
 	self visit: aPWBASTAttributeAccess uncheckedIdentifier.
-	self visit: aPWBASTAttributeAccess arrayInformation
+	self visit: aPWBASTAttributeAccess arrayInformation.
 ]
 
 { #category : #visiting }
