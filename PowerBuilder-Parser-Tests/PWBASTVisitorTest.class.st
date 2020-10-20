@@ -10,35 +10,35 @@ Class {
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
-{ #category : #tests }
+{ #category : #running }
 PWBASTVisitorTest >> createDirectory: aString [
 	self toDelete addFirst: aString.
 	^ self filesystem
 		ensureCreateDirectory: (self filesystem pathFromString: aString)
 ]
 
-{ #category : #setup }
+{ #category : #running }
 PWBASTVisitorTest >> createFileNamed: aString content: aBlock [
 	self toDelete addFirst: aString.
 	aString asFileReference writeStreamDo: aBlock
 ]
 
-{ #category : #tests }
+{ #category : #accessing }
 PWBASTVisitorTest >> filesystem [
 	^ FileSystem disk
 ]
 
-{ #category : #tests }
+{ #category : #accessing }
 PWBASTVisitorTest >> pwbLibAString [
 	^ 'pwbLibs/pwbLibA/'
 ]
 
-{ #category : #tests }
+{ #category : #accessing }
 PWBASTVisitorTest >> pwbLibBString [
 	^ 'pwbLibs/pwbLibB/'
 ]
 
-{ #category : #tests }
+{ #category : #accessing }
 PWBASTVisitorTest >> pwbLibsString [
 	^ 'pwbLibs/'
 ]
@@ -71,36 +71,35 @@ PWBASTVisitorTest >> setUp [
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
 	^ 'global variables
-long gl_long1;
-global String  gs_string1;
+  long gl_long1;
+  global String  gs_string1;
 end variables
-	
-	shared variables
-long sl_long1;
+
+shared variables
+  long sl_long1;
 end variables
 
 type variables
-long il_long1;
+  long il_long1;
 end variables
 
-	private function integer aFunction ();
+private function integer aFunction ();
   long lLong
-	var.isNull()
+  var.isNull()
   anotherFunction(2, "blah")
-
   return LLONG
 end function
 
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
-  this.dataWindow.attribute = 5
+  this.il_long1 = 5
   return 1
 end function
 
 private function integer eventTestingFunction()
-this.triggerEvent("evt_trigger", 0, "")
-this.postEvent("evt_post", 0, "")
-TriggerEvent( this, "destructor" )
+  this.triggerEvent("evt_trigger", 0, "")
+  this.postEvent("evt_post", 0, "")
+  TriggerEvent( this, "destructor" )
 end function
 ' 
 ]
@@ -166,7 +165,7 @@ PWBASTVisitorTest >> testParserAttributeAccess [
 		visit: result;
 		resolveUnresolvedReferences.
 	self assert: model allAccesses size equals: 4.
-	acc := model allAccesses select: [ :a | a variable name asLowercase = 'attribute' ].
+	acc := model allAccesses select: [ :a | a variable name asLowercase = 'il_long1' ].
 	
 	self
 		assert: acc anyOne accessor name
@@ -197,11 +196,13 @@ PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 		visit: result;
 		resolveUnresolvedReferences.
 	self assert: model allInvocations size equals: 5.
-	invok := model allInvocations select: [ :i | i target anyOne name asLowercase = 'afunction' ].
+	invok := model allInvocations select: [ :i |
+		(i source name asLowercase = 'afunction')
+		and: [ i target anyOne name asLowercase ~= 'isnull' ] ].
 	self assert: invok size equals: 1.
 	self
 		assert: invok anyOne target anyOne name
-		equals: 'aFunction'.
+		equals: 'anotherFunction'.
 	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 0
 ]
 
@@ -213,11 +214,11 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 		resolveUnresolvedReferences.
 	self assert: model allInvocations size equals: 5.
 	invok := model allInvocations
-		select: [ :i | i target anyOne name asLowercase = 'anotherfunction' ].
+		select: [ :i | i source name asLowercase = 'anotherfunction' ].
 	self assert: invok size equals: 1.
 	self
 		assert: invok anyOne target anyOne name
-		equals: 'anotherFunction'.
+		equals: 'aFunction'.
 	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 0
 ]
 
@@ -228,10 +229,10 @@ PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 		visit: result;
 		resolveUnresolvedReferences.
 	self assert: model allAccesses size equals: 4.
-	acc := model allAccesses select: [ :a | a variable name asLowercase = 'aLong' ].
+	acc := model allAccesses select: [ :a | a variable name asLowercase = 'along' ].
 	self assert: acc size equals: 1.
 	self
-		assert: acc anyOne accessor name
+		assert: acc anyOne accessor name asLowercase
 		equals: 'anotherfunction'.
 ]
 
@@ -241,13 +242,13 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allAccesses size equals: 3.
+	self assert: model allAccesses size equals: 4.
 	accs := model allAccesses
 		select: [ :a | a accessor name asLowercase = 'afunction' ].
 	self assert: accs size equals: 2.
 	self
-		assertCollection: (accs collect: [ :acc | acc variable name ])
-		hasSameElements: {'lLong' . 'var'}
+		assertCollection: (accs collect: [ :acc | acc variable name asLowercase ])
+		hasSameElements: {'llong' . 'var'}
 ]
 
 { #category : #tests }
@@ -289,13 +290,13 @@ PWBASTVisitorTest >> testSourceTestSettings [
 		assert: (self sourceText: eventTestingFunction)
 		equals:
 			'private function integer eventTestingFunction()
-this.triggerEvent("evt_trigger", 0, "")
-this.postEvent("evt_post", 0, "")
-TriggerEvent( this, "destructor" )
+  this.triggerEvent("evt_trigger", 0, "")
+  this.postEvent("evt_post", 0, "")
+  TriggerEvent( this, "destructor" )
 end function'
 ]
 
-{ #category : #tests }
+{ #category : #running }
 PWBASTVisitorTest >> toDelete [
 	^ toDelete ifNil: [toDelete := OrderedCollection new]
 ]

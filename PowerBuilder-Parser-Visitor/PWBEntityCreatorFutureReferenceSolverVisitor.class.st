@@ -12,6 +12,50 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #'entities creation' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpressionAction [
+	| name |
+	name := (self visit: aPWBASTExpressionAction action).
+	aPWBASTExpressionAction expressionAction
+		ifNotNil: [ :subExprAction | name , '.' , self attributeAccessName: subExprAction  ].
+	^name
+]
+
+{ #category : #'entities creation' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
+	(self currentEntity class = FamixPWBDataWindow
+		or: [ self currentEntity class = FamixPWBGraphicComponent ])
+		ifFalse: [ | identifiers |
+			identifiers := self createSRIdentifier: aPWBASTExpressionAction.
+			identifiers
+				foundAction: [ :identifier :currentEntity | 
+					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
+						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: false ] ];
+				notFoundReplacementEntity: [ :identifier :currentEntity | 
+					currentEntity
+						createStubValueHolderNamed: identifier representationString ].
+			self resolve: identifiers ]
+
+		ifTrue: [ self visit: aPWBASTExpressionAction accessed ]
+]
+
+{ #category : #'entities creation' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpressionAction [
+	^self
+		resolvable:
+			(SRIdentifierWithNode
+				identifier: (self attributeAccessName: aPWBASTExpressionAction)
+				expectedKind:
+					{FamixPWBVariable.
+					FamixPWBAttribute.
+					FamixPWBParameter.
+					FamixPWBGlobalVariable.
+					FamixPWBSharedVariable.
+					FamixPWBInstanceVariable.
+					FamixPWBLocalVariable}
+				node: aPWBASTExpressionAction)
+]
+
 { #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> currentLibrary: aFamixPWBLibrary [
 	currentLibrary := aFamixPWBLibrary
@@ -39,7 +83,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 	typeDeclarationType
 		ifNil: [ typeDeclarationType := OrderedDictionary new ].
@@ -67,7 +111,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTTy
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	self halt.
 	self visit: aPWBASTAccess arrayPosition.
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
@@ -319,22 +362,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
 	<generated>
 	aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [ 1 halt.
-			currentAttributeAccess := currentAttributeAccess , '.'
-				, (self visitPWBASTAttributeAccess: aPWBASTExpressionAction action).
-				aPWBASTExpressionAction expressionAction  ifNotNil: [ 
-			self
-				visitPWBASTExpressionAction: aPWBASTExpressionAction expressionAction  ].
-			
-			
-			
-			
-			
-			
-			
-			
-			]
-		ifFalse: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
+		ifTrue: [ self createAttributeAcces: aPWBASTExpressionAction]
+		ifFalse: [  super visitPWBASTExpressionAction: aPWBASTExpressionAction ]	
+
 ]
 
 { #category : #visiting }
@@ -474,7 +504,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBAST
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 	^ self
 		ensureEntityWithType: FamixPWBBasicType
