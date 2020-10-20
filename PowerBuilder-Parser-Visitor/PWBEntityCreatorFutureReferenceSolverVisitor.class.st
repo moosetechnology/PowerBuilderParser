@@ -6,7 +6,8 @@ Class {
 	#superclass : #PWBImporterAbstractVisitor,
 	#instVars : [
 		'currentLibrary',
-		'typeDeclarationType'
+		'typeDeclarationType',
+		'visitedSigleLineIfStatement'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -28,7 +29,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType name
 
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
-	self initialiseFutureSolver
+	self initialiseFutureSolver.
+	visitedSigleLineIfStatement := false.
+	currentAttributeAccess := ''
 ]
 
 { #category : #resolution }
@@ -64,6 +67,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTTy
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
+	self halt.
 	self visit: aPWBASTAccess arrayPosition.
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
@@ -100,6 +104,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAtt
 	self visit: aPWBASTAttribute accessModifier.
 	self visit: aPWBASTAttribute descriptor.
 	^ self visit: aPWBASTAttribute variableDeclarations
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
+	self visit: aPWBASTAttributeAccess arrayInformation.
+	^ self visit: aPWBASTAttributeAccess uncheckedIdentifier
 ]
 
 { #category : #visiting }
@@ -306,6 +316,28 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	<generated>
+	aPWBASTExpressionAction isAttributeAccess
+		ifTrue: [ 1 halt.
+			currentAttributeAccess := currentAttributeAccess , '.'
+				, (self visitPWBASTAttributeAccess: aPWBASTExpressionAction action).
+				aPWBASTExpressionAction expressionAction  ifNotNil: [ 
+			self
+				visitPWBASTExpressionAction: aPWBASTExpressionAction expressionAction  ].
+			
+			
+			
+			
+			
+			
+			
+			
+			]
+		ifFalse: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
 	^ self visit: aPWBASTExpressionTerm expressionTerm
 ]
@@ -438,6 +470,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfMultiLine: aPWBASTI
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
 	self currentEntity increaseCyclomaticComplexity.
+	visitedSigleLineIfStatement := true.
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
@@ -490,7 +523,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWB
 				returnValue:
 					(famixFunctionReturn sourceText asLowercase
 						copyReplaceAll: 'return'
-						with: '') trim ]
+						with: '') trim;
+				doesBelongToSingleLineIfStatement: visitedSigleLineIfStatement.
+			visitedSigleLineIfStatement := false ]
 ]
 
 { #category : #visiting }

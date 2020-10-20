@@ -48,14 +48,6 @@ FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
 
-{ #category : #initialization }
-FamixPWBModel >> businessRulePath [
-	businessRulePath isEmptyOrNil
-		ifTrue: [ businessRulePath := QueryBRFunctionsFromKnownPoint
-				runOn: (self allWithType: FamixPWBWindow) ].
-	^ businessRulePath
-]
-
 { #category : #accessing }
 FamixPWBModel >> businessRulePath: anObject [
 	businessRulePath := anObject
@@ -64,6 +56,14 @@ FamixPWBModel >> businessRulePath: anObject [
 { #category : #accessing }
 FamixPWBModel >> dupSys: aDPDuplicationSystem [
 	self privateState attributeAt: #dupSys put: aDPDuplicationSystem
+]
+
+{ #category : #initialization }
+FamixPWBModel >> getBusinessRuleFunctions [
+	businessRulePath isEmptyOrNil
+		ifTrue: [ businessRulePath := QueryBRFunctionsFromKnownPoint
+				runOn: (self allWithType: FamixPWBWindow) ].
+	^ businessRulePath
 ]
 
 { #category : #initialization }

@@ -1,6 +1,9 @@
 Class {
 	#name : #PWBASTAbstractVisitor,
 	#superclass : #Object,
+	#instVars : [
+		'currentAttributeAccess'
+	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
@@ -1364,10 +1367,10 @@ PWBASTAbstractVisitor >> visitPWBASTExpression: aPWBASTExpression [
 ]
 
 { #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+PWBASTAbstractVisitor >> visitPWBASTExpressionAction: aMrlPWBASTExpressionAction [
 	<generated>
-	self visit: aPWBASTExpressionAction action.
-	self visit: aPWBASTExpressionAction expressionAction.
+	self visit: aMrlPWBASTExpressionAction action.
+	self visit: aMrlPWBASTExpressionAction expressionAction.
 ]
 
 { #category : #visiting }

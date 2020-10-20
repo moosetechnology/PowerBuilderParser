@@ -20,11 +20,6 @@ FamixPWBEntity class >> metamodel [
 	^ FamixPWBModel metamodel
 ]
 
-{ #category : #accessing }
-FamixPWBEntity >> businessRulePath [
-	^ self mooseModel businessRulePath at: self ifAbsent: {}
-]
-
 { #category : #'as yet unclassified' }
 FamixPWBEntity >> duplicationRate [
 	<MSEProperty: #duplicationRate type: #Number>
@@ -56,6 +51,11 @@ FamixPWBEntity >> duplicationRate [
 								ifFalse: [ aLocation length ]) ].
 			(accumulator + usefulCloneLocations anyOne length) asString , '/'
 				, self sourceText lineCount asString ]
+]
+
+{ #category : #accessing }
+FamixPWBEntity >> getBusinessRuleFunctions [
+	^ self mooseModel getBusinessRuleFunctions at: self ifAbsent: {}
 ]
 
 { #category : #testing }

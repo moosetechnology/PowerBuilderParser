@@ -27,8 +27,6 @@ FamixPWBFunction >> isFunction [
 FamixPWBFunction >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
 
-	parameters isEmptyOrNil
-		ifTrue: [ self setParameters ].
 	^ parameters
 ]
 

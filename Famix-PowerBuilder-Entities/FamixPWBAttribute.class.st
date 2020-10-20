@@ -38,15 +38,6 @@ FamixPWBAttribute >> attributeType: anObject [
 ]
 
 { #category : #accessing }
-FamixPWBAttribute >> businessRulePath [
-	businessRulePath
-		ifNil: [ businessRulePath := self accessingMethods
-				reject:
-					[ :method | (method isKindOf: FamixPWBmajorObject) or: [ method parentType isNil ] ] ].
-	^ businessRulePath asOrderedCollection
-]
-
-{ #category : #accessing }
 FamixPWBAttribute >> deadArguments [
 	^ {}
 ]
@@ -54,6 +45,15 @@ FamixPWBAttribute >> deadArguments [
 { #category : #accessing }
 FamixPWBAttribute >> deadLocalVariables [
 	^ {}
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> getBusinessRuleFunctions [
+	businessRulePath
+		ifNil: [ businessRulePath := self accessingMethods
+				reject:
+					[ :method | (method isKindOf: FamixPWBmajorObject) or: [ method parentType isNil ] ] ].
+	^ businessRulePath asOrderedCollection
 ]
 
 { #category : #testing }

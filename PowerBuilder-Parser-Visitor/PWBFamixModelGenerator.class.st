@@ -245,6 +245,9 @@ PWBFamixModelGenerator >> defineProperties [
 	method property: #returnType type: #Object.
 	functionReturn property: #type type: #Object.
 	functionReturn property: #returnValue type: #Object.
+	functionReturn
+		property: #doesBelongToSingleLineIfStatement
+		type: #Boolean.
 	attribute property: #attributeType type: #Object
 ]
 

@@ -78,6 +78,7 @@ end variables
 	shared variables
 long sl_long1;
 end variables
+
 type variables
 long il_long1;
 end variables
@@ -89,8 +90,10 @@ end variables
 
   return LLONG
 end function
+
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
+  this.dataWindow.attribute = 5
   return 1
 end function
 
@@ -99,7 +102,7 @@ this.triggerEvent("evt_trigger", 0, "")
 this.postEvent("evt_post", 0, "")
 TriggerEvent( this, "destructor" )
 end function
-'
+' 
 ]
 
 { #category : #accessing }
@@ -157,6 +160,20 @@ PWBASTVisitorTest >> testParameter [
 ]
 
 { #category : #tests }
+PWBASTVisitorTest >> testParserAttributeAccess [
+	| acc |
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	self assert: model allAccesses size equals: 4.
+	acc := model allAccesses select: [ :a | a variable name asLowercase = 'attribute' ].
+	
+	self
+		assert: acc anyOne accessor name
+		equals: 'anotherFunction'.
+]
+
+{ #category : #tests }
 PWBASTVisitorTest >> testParserEventInvocation [
 	| modelTriggerEvent |
 	visitor
@@ -210,12 +227,12 @@ PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allAccesses size equals: 3.
-	acc := model allAccesses select: [ :a | a accessor name asLowercase = 'anotherfunction' ].
+	self assert: model allAccesses size equals: 4.
+	acc := model allAccesses select: [ :a | a variable name asLowercase = 'aLong' ].
 	self assert: acc size equals: 1.
 	self
-		assert: acc anyOne variable name
-		equals: 'aLong'.
+		assert: acc anyOne accessor name
+		equals: 'anotherfunction'.
 ]
 
 { #category : #tests }

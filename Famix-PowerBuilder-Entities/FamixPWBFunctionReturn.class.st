@@ -5,6 +5,7 @@ Class {
 	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTSourceEntity classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #returns',
+		'#doesBelongToSingleLineIfStatement => FMProperty',
 		'#returnValue => FMProperty',
 		'#type => FMProperty'
 	],
@@ -41,6 +42,20 @@ FamixPWBFunctionReturn >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
 	^ MooseGroup with: self behavioral
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> doesBelongToSingleLineIfStatement [
+
+	<FMProperty: #doesBelongToSingleLineIfStatement type: #Boolean>
+	<generated>
+	^ doesBelongToSingleLineIfStatement
+]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> doesBelongToSingleLineIfStatement: anObject [
+	<generated>
+	doesBelongToSingleLineIfStatement := anObject
 ]
 
 { #category : #accessing }

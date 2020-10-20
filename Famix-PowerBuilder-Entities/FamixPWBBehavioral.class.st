@@ -5,6 +5,7 @@ Class {
 	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
 	#instVars : [
 		'#addedCharacter',
+		'#businessRulePath',
 		'#content',
 		'#cyclomaticComplexity',
 		'#deadArguments',
@@ -13,8 +14,7 @@ Class {
 		'#parameters => FMMany type: #FamixPWBParameter opposite: #behavioral',
 		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
 		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral',
-		'#businessRulePath'
+		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -72,15 +72,6 @@ FamixPWBBehavioral >> allOutgoingInvocationCandidates [
 						reject: [ :method | method isPredefinedMethod or: [ scan includes: method ] ]).
 			scanTop := scanTop + 1 ].
 	^ scan
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> businessRulePath [
-	businessRulePath
-		ifNil: [ businessRulePath := self invokedBehaviours
-				reject: [ :method | method parentType isNil ] ].
-	^ businessRulePath asOrderedCollection
-		sortDescending: [ :method | method invokedBehaviours size ]
 ]
 
 { #category : #initialization }
@@ -149,6 +140,15 @@ FamixPWBBehavioral >> cyclomaticComplexity [
 FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 	<generated>
 	cyclomaticComplexity := anObject
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> getBusinessRuleFunctions [
+	businessRulePath
+		ifNil: [ businessRulePath := self invokedBehaviours
+				reject: [ :method | method parentType isNil ] ].
+	^ businessRulePath asOrderedCollection
+		sortDescending: [ :method | method invokedBehaviours size ]
 ]
 
 { #category : #api }
@@ -224,8 +224,6 @@ FamixPWBBehavioral >> outgoingInvocationsCandidates [
 FamixPWBBehavioral >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
 
-	parameters isEmptyOrNil
-		ifTrue: [ self setParameters ].
 	^ parameters
 ]
 

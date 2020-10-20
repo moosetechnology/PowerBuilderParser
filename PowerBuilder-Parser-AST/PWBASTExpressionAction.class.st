@@ -60,6 +60,12 @@ PWBASTExpressionAction >> hash [
 				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
+{ #category : #testing }
+PWBASTExpressionAction >> isAttributeAccess [
+	self flag: 'refactor #isKindOf:'.
+	^self action isKindOf: PWBASTAttributeAccess 
+]
+
 { #category : #accessing }
 PWBASTExpressionAction >> startPosition [
 	^ startPosition
