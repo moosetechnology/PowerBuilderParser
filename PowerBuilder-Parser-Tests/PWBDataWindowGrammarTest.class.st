@@ -202,6 +202,14 @@ self
 				rule: #graphicComponent
 ]
 
+{ #category : #tests }
+PWBDataWindowGrammarTest >> testGraphicComponent15 [
+	self
+		parse:
+			'ole(band=background x="2434" y="8572" height="11350" width="16510" border="0" tooltip.backcolor="0" tooltip.delay.initial="0" tooltip.delay.visible="0" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0"  clientname="untitled"range=0 binaryindex=1 activation=1 linkupdateoptions=0 contentsallowed=2 displaytype=1  name=ole_1 visible="1~t0" )'
+		rule: #graphicComponent
+]
+
 { #category : #accessing }
 PWBDataWindowGrammarTest >> testGraphicComponent16 [
 	self

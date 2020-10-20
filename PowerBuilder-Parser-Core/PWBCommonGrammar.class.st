@@ -474,9 +474,9 @@ PWBCommonGrammar >> typePrototypes [
 	into: #declaration>
 	^ 'type prototypes' token , blank
 		,
-			(accessModifierDefiner / functionDeclaration / subroutineDeclaration
-				separatedBy: $; parser trim / blank) , ($; parser trim / blank)
-		, (self endOf: 'prototypes')
+			((accessModifierDefiner / functionDeclaration / subroutineDeclaration
+				separatedBy: $; parser trim / blank) , ($; parser trim / blank))
+				optional , (self endOf: 'prototypes')
 ]
 
 { #category : #accessing }

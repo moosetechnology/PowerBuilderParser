@@ -27,6 +27,7 @@ FamixPWBFunction >> isFunction [
 FamixPWBFunction >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
 
+	
 	^ parameters
 ]
 
