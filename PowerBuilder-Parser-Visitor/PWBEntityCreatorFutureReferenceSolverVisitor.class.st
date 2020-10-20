@@ -17,7 +17,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 	| name |
 	name := (self visit: aPWBASTExpressionAction action).
 	aPWBASTExpressionAction expressionAction
-		ifNotNil: [ :subExprAction | name , '.' , self attributeAccessName: subExprAction  ].
+		ifNotNil: [ :subExprAction |
+			subExprAction isAttributeAccess
+				ifTrue: [ name := name , '.' , (self attributeAccessName: subExprAction ) ] ].
 	^name
 ]
 
@@ -36,7 +38,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 						createStubValueHolderNamed: identifier representationString ].
 			self resolve: identifiers ]
 
-		ifTrue: [ self visit: aPWBASTExpressionAction accessed ]
+		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 ]
 
 { #category : #'entities creation' }
