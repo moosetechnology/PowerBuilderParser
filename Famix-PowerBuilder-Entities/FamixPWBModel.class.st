@@ -2,7 +2,7 @@ Class {
 	#name : #FamixPWBModel,
 	#superclass : #MooseModel,
 	#instVars : [
-		'businessRulePath'
+		'businessRuleFunctions'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Model'
 }
@@ -48,22 +48,27 @@ FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
 
-{ #category : #initialization }
-FamixPWBModel >> businessRulePath [
-	businessRulePath isEmptyOrNil
-		ifTrue: [ businessRulePath := QueryBRFunctionsFromKnownPoint
-				runOn: (self allWithType: FamixPWBWindow) ].
-	^ businessRulePath
-]
-
-{ #category : #accessing }
-FamixPWBModel >> businessRulePath: anObject [
-	businessRulePath := anObject
-]
-
 { #category : #accessing }
 FamixPWBModel >> dupSys: aDPDuplicationSystem [
 	self privateState attributeAt: #dupSys put: aDPDuplicationSystem
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
+	| variables |
+	variables := aCollectionOfPWBObjects
+		flatCollectAsSet:
+			[ :each | each attributes select: [ :e | e accessingMethods isNotEmpty ] ].
+	^ variables
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> getBusinessRuleFunctions [
+	businessRuleFunctions isEmptyOrNil
+		ifTrue: [ businessRuleFunctions := (self
+				selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: (self allWithType: FamixPWBWindow)))
+				groupedBy: #parentType ].
+	^ businessRuleFunctions
 ]
 
 { #category : #initialization }
@@ -136,6 +141,22 @@ FamixPWBModel >> resurrectMethods [
 			alive = self allModelAliveMethods
 				ifTrue: [ end := true ]
 				ifFalse: [ alive := self allModelAliveMethods ] ]
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> selectIncomingInvocationMethodsUntilConvergence: aCollection [
+	| methods stop |
+	methods := ((aCollection
+		flatCollectAsSet: [ :e | e accessingMethods ])
+		reject: [ :e | e isPWBClass ]) asSet.
+	stop := 0.
+	[ stop = methods size ]
+		whileFalse: [ stop := methods size.
+			methods
+				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
+	^ methods
+		select:
+			[ :behavioral | behavioral parentType isNotNil and: [ behavioral isFunction ] ]
 ]
 
 { #category : #initialization }
