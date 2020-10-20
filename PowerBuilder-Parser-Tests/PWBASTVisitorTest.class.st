@@ -170,6 +170,7 @@ PWBASTVisitorTest >> testParserAttributeAccess [
 	self
 		assert: acc anyOne accessor name
 		equals: 'anotherFunction'.
+	self assert: acc anyOne isWrite
 ]
 
 { #category : #tests }

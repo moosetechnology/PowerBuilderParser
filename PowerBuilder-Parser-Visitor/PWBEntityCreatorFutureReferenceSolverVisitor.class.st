@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'currentLibrary',
 		'typeDeclarationType',
-		'visitedSigleLineIfStatement'
+		'visitedSigleLineIfStatement',
+		'assignmentRHS'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -27,12 +28,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifFalse: [ | identifiers |
+		ifFalse: [ | identifiers writeAccess |
 			identifiers := self createSRIdentifier: aPWBASTExpressionAction.
+			writeAccess := assignmentRHS.
 			identifiers
-				foundAction: [ :identifier :currentEntity | 
+				foundAction: [ :identifier :currentEntity |
 					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: false ] ];
+						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -75,9 +77,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType name
 
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
+	super initialize.
 	self initialiseFutureSolver.
 	visitedSigleLineIfStatement := false.
-	currentAttributeAccess := ''
+	currentAttributeAccess := ''.
+	assignmentRHS := false.
 ]
 
 { #category : #resolution }
@@ -116,12 +120,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 	self visit: aPWBASTAccess arrayPosition.
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifFalse: [ | identifiers |
+		ifFalse: [ | identifiers writeAccess |
 			identifiers := self visit: aPWBASTAccess accessed.
+			writeAccess := assignmentRHS.
 			identifiers
 				foundAction: [ :identifier :currentEntity | 
 					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: false ] ];
+						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -142,6 +147,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 	^ aPWBASTArguments arguments
 		ifNil: [ nil ]
 		ifNotNil: [ self visitAll: aPWBASTArguments arguments ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aMrlPWBASTAssignationStatement [
+	self visit: aMrlPWBASTAssignationStatement accessOrType.
+	assignmentRHS := true.
+	self visit: aMrlPWBASTAssignationStatement expressionAction.
+	assignmentRHS := false.
+	self visit: aMrlPWBASTAssignationStatement assignation.
 ]
 
 { #category : #visiting }
