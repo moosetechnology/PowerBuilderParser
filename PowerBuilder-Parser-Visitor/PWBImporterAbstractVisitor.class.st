@@ -187,12 +187,12 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 	| signature |
 	"A signature always and with a $; charater at definition"
 	(self visit: aPWBASTFunctionDefinition functionSignature)
-		ifNotNil: [ :argumentsArray | 
-			argumentsArray
+		ifNotNil: [ aPWBASTFunctionDefinition functionSignature arguments arguments
 				do: [ :arg | 
-					self currentEntity
-						createValueHolderNamed: arg
-						withType: FamixPWBParameter ] ].
+					(self currentEntity
+						createValueHolderNamed: (self visit: arg)
+						withType: FamixPWBParameter)
+						parameterType: (self visit: arg type) ] ].
 	signature := self
 		createAssociation: FamixPWBBehaviorSignature
 		from: aPWBASTFunctionDefinition functionSignature.

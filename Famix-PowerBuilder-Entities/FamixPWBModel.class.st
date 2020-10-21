@@ -25,6 +25,15 @@ FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
 
+{ #category : #api }
+FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
+	| variables |
+	variables := aCollectionOfPWBObjects
+		flatCollectAsSet:
+			[ :each | each attributes select: [ :e | e accessingMethods isNotEmpty ] ].
+	^ variables
+]
+
 { #category : #'as yet unclassified' }
 FamixPWBModel >> getBusinessRuleFunctions [
 	businessRuleFunctions isEmptyOrNil
@@ -32,4 +41,20 @@ FamixPWBModel >> getBusinessRuleFunctions [
 				selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: (self allWithType: FamixPWBWindow)))
 				groupedBy: #parentType ].
 	^ businessRuleFunctions
+]
+
+{ #category : #api }
+FamixPWBModel >> selectIncomingInvocationMethodsUntilConvergence: aCollection [
+	| methods stop |
+	methods := ((aCollection
+		flatCollectAsSet: [ :e | e accessingMethods ])
+		reject: [ :e | e isPWBClass ]) asSet.
+	stop := 0.
+	[ stop = methods size ]
+		whileFalse: [ stop := methods size.
+			methods
+				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
+	^ methods
+		select:
+			[ :behavioral | behavioral parentType isNotNil and: [ behavioral isFunction ] ]
 ]
