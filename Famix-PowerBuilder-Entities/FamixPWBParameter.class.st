@@ -51,12 +51,17 @@ FamixPWBParameter >> behavioralGroup [
 
 { #category : #testing }
 FamixPWBParameter >> isBasic [
-	^ self parameterType isKindOf: FamixPWBBasicType
+	^ self parameterType isBasic
 ]
 
 { #category : #testing }
 FamixPWBParameter >> isPWBDataWindow [
 	^ self parameterType isPWBDataWindow
+]
+
+{ #category : #testing }
+FamixPWBParameter >> isWritable [
+	^ self isBasic not or: [ self parameterOption = 'ref' ]
 ]
 
 { #category : #accessing }
