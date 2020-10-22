@@ -84,6 +84,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	assignmentRHS := false.
 ]
 
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> invocationStringFrom: aPWBASTFunctionInvocation [
+	| defaultVariable functionName arguments |
+	defaultVariable := self
+		visit: aPWBASTFunctionInvocation defaultVariable.
+	functionName := self visit: aPWBASTFunctionInvocation functionName.
+	arguments := self visit: aPWBASTFunctionInvocation functionArguments
+]
+
 { #category : #resolution }
 PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
@@ -126,12 +135,20 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			identifiers
 				foundAction: [ :identifier :currentEntity | 
 					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: writeAccess ] ];
+						ifFalse: [ currentEntity
+								createAccessTo: identifiers entity
+								writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
 			self resolve: identifiers ]
-		ifTrue: [ self visit: aPWBASTAccess accessed ]
+		ifTrue: [ self visit: aPWBASTAccess accessed ].
+	^ (self visit: aPWBASTAccess accessed) identifier
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
+	^ self visit: aPWBASTAccessOrType accessOrType
 ]
 
 { #category : #visiting }
@@ -389,6 +406,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBA
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
+	^ self visit: aPWBASTExpressionWithSign expression
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
 	majorEntity := self
@@ -467,7 +489,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 												create: FamixPWBArgument
 												from: argAST.
 											famixPWBArgument invocation: invocation ] ] ] ]).
-	self visit: aPWBASTFunctionInvocation defaultVariable
+	^ self invocationStringFrom: aPWBASTFunctionInvocation
 ]
 
 { #category : #visiting }
@@ -565,11 +587,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWB
 			famixFunctionReturn
 				behavioral: self currentEntity;
 				type: functionRetunTypeHolder;
-				name: self currentEntity name , '.Return';
-				returnValue:
-					(famixFunctionReturn sourceText asLowercase
-						copyReplaceAll: 'return'
-						with: '') trim;
+				name: self currentEntity name , '.Return'.
+			return = self
+				ifTrue: [ famixFunctionReturn
+						returnValue:
+							(famixFunctionReturn sourceText asLowercase
+								copyReplaceAll: 'return'
+								with: '') trim ]
+				ifFalse: [ famixFunctionReturn returnValue: return ].
+			famixFunctionReturn
 				doesBelongToSingleLineIfStatement: visitedSigleLineIfStatement.
 			visitedSigleLineIfStatement := false ]
 ]
