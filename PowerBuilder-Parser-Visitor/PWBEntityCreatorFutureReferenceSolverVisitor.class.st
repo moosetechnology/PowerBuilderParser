@@ -489,7 +489,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 												create: FamixPWBArgument
 												from: argAST.
 											famixPWBArgument invocation: invocation ] ] ] ]).
-	^ self invocationStringFrom: aPWBASTFunctionInvocation
+	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
 
 { #category : #visiting }
