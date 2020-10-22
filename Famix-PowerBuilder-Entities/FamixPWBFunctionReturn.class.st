@@ -41,7 +41,7 @@ FamixPWBFunctionReturn >> behavioral: anObject [
 FamixPWBFunctionReturn >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
-	^ MooseGroup with: self behavioral
+	^ MooseSpecializedGroup with: self behavioral
 ]
 
 { #category : #accessing }

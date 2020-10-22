@@ -240,6 +240,7 @@ PWBFamixModelGenerator >> defineProperties [
 	majorObject property: #cyclomaticComplexity type: #Number.
 	behavioral property: #cyclomaticComplexity type: #Number.
 	argument property: #argumentValue type: #Object.
+	parameter property: #parameterOption type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
 	method property: #returnType type: #Object.

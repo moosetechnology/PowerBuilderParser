@@ -717,24 +717,6 @@ PWBCommonParser >> eventName [
 ]
 
 { #category : #rules }
-PWBCommonParser >> eventPosting [
-	<generated>
-	^ super eventPosting withPositions
-		==> [ :production | 
-			PWBASTEventPosting new
-				startPosition: production start;
-				stopPosition: production stop;
-				identifiers:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 2 ]);
-				arrayPositions:
-					((production content at: 2)
-						collect: [ :subProduction | subProduction at: 4 ]);
-				functionArguments: (production content at: 5);
-				yourself ]
-]
-
-{ #category : #rules }
 PWBCommonParser >> eventReferenceName [
 	<generated>
 	^ super eventReferenceName withPositions

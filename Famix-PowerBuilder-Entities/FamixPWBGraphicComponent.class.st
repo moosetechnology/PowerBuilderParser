@@ -38,7 +38,7 @@ FamixPWBGraphicComponent >> dataWindow: anObject [
 FamixPWBGraphicComponent >> dataWindowGroup [
 	<generated>
 	<navigation: 'DataWindow'>
-	^ MooseGroup with: self dataWindow
+	^ MooseSpecializedGroup with: self dataWindow
 ]
 
 { #category : #accessing }

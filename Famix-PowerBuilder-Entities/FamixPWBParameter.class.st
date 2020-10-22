@@ -5,6 +5,7 @@ Class {
 	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTParameter classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
 	#instVars : [
 		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #parameters',
+		'#parameterOption => FMProperty',
 		'#parameterType => FMProperty',
 		'#startPos => FMProperty'
 	],
@@ -45,7 +46,7 @@ FamixPWBParameter >> behavioral: anObject [
 FamixPWBParameter >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
-	^ MooseGroup with: self behavioral
+	^ MooseSpecializedGroup with: self behavioral
 ]
 
 { #category : #testing }
@@ -56,6 +57,20 @@ FamixPWBParameter >> isBasic [
 { #category : #testing }
 FamixPWBParameter >> isPWBDataWindow [
 	^ self parameterType isPWBDataWindow
+]
+
+{ #category : #accessing }
+FamixPWBParameter >> parameterOption [
+
+	<FMProperty: #parameterOption type: #Object>
+	<generated>
+	^ parameterOption
+]
+
+{ #category : #accessing }
+FamixPWBParameter >> parameterOption: anObject [
+	<generated>
+	parameterOption := anObject
 ]
 
 { #category : #accessing }

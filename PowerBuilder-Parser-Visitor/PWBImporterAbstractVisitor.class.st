@@ -192,12 +192,13 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 					(self currentEntity
 						createValueHolderNamed: (self visit: arg)
 						withType: FamixPWBParameter)
-						parameterType: (self visit: arg type) ] ].
+						parameterType: (self visit: arg type);
+						parameterOption: (self visit: arg argumentOption) ] ].
 	signature := self
 		createAssociation: FamixPWBBehaviorSignature
 		from: aPWBASTFunctionDefinition functionSignature.
 	signature
-		name: self currentEntity name , 'signature';
+		name: self currentEntity name;
 		behavioral: self currentEntity.
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	self visit: aPWBASTFunctionDefinition statements

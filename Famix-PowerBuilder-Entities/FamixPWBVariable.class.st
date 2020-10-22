@@ -50,7 +50,7 @@ FamixPWBVariable >> behavioral: anObject [
 FamixPWBVariable >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
-	^ MooseGroup with: self behavioral
+	^ MooseSpecializedGroup with: self behavioral
 ]
 
 { #category : #testing }

@@ -39,5 +39,5 @@ FamixPWBBehaviorSignature >> behavioral: anObject [
 FamixPWBBehaviorSignature >> behavioralGroup [
 	<generated>
 	<navigation: 'Behavioral'>
-	^ MooseGroup with: self behavioral
+	^ MooseSpecializedGroup with: self behavioral
 ]

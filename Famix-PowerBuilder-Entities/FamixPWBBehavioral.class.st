@@ -238,7 +238,7 @@ FamixPWBBehavioral >> parameters: anObject [
 FamixPWBBehavioral >> parametersGroup [
 	<generated>
 	<navigation: 'Parameters'>
-	^ MooseGroup withAll: self parameters asSet
+	^ MooseSpecializedGroup withAll: self parameters asSet
 ]
 
 { #category : #api }
@@ -271,7 +271,7 @@ FamixPWBBehavioral >> returns: anObject [
 FamixPWBBehavioral >> returnsGroup [
 	<generated>
 	<navigation: 'Returns'>
-	^ MooseGroup withAll: self returns asSet
+	^ MooseSpecializedGroup withAll: self returns asSet
 ]
 
 { #category : #api }
@@ -323,7 +323,7 @@ FamixPWBBehavioral >> signature: anObject [
 FamixPWBBehavioral >> signatureGroup [
 	<generated>
 	<navigation: 'Signature'>
-	^ MooseGroup with: self signature
+	^ MooseSpecializedGroup with: self signature
 ]
 
 { #category : #accessing }
@@ -346,7 +346,7 @@ FamixPWBBehavioral >> variables: anObject [
 FamixPWBBehavioral >> variablesGroup [
 	<generated>
 	<navigation: 'Variables'>
-	^ MooseGroup withAll: self variables asSet
+	^ MooseSpecializedGroup withAll: self variables asSet
 ]
 
 { #category : #api }
