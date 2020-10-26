@@ -579,6 +579,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	| return famixFunctionReturn |
+	
 	return := self visit: aPWBASTReturnStatement expression.
 	return
 		ifNotNil: [ famixFunctionReturn := self
@@ -588,7 +589,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWB
 				behavioral: self currentEntity;
 				type: functionRetunTypeHolder;
 				name: self currentEntity name , '.Return'.
-			return = self
+			(return = self
+				or: [ aPWBASTReturnStatement expressionAction isNotNil ])
 				ifTrue: [ famixFunctionReturn
 						returnValue:
 							(famixFunctionReturn sourceText asLowercase

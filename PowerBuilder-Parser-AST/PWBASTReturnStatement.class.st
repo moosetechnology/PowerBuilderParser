@@ -38,6 +38,11 @@ PWBASTReturnStatement >> expression: anObject [
 	expression := anObject
 ]
 
+{ #category : #accessing }
+PWBASTReturnStatement >> expressionAction [
+	^ expression expressionAction
+]
+
 { #category : #comparing }
 PWBASTReturnStatement >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
