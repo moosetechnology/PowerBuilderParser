@@ -1381,7 +1381,7 @@ PWBUserObjectGrammarTest >> testProgramStep2 [
 PWBUserObjectGrammarTest >> testPrototypesDeclaration [
 	self
 		parse:
-			'forward prototypes
+			'forward  prototypes
 public function boolean uf_init_caisse ()
 public function integer uf_maj_caisse (long al_num, string as_param)
 public function boolean uf_ouvre_caisse ()
@@ -1434,6 +1434,18 @@ public function blob of_ansi2unicode (string as_value, unsignedinteger ai_codepa
 public function string of_unicode2ansi (blob a_value)
 public function string of_unicode2ansi (blob a_value, unsignedinteger ai_codepage)
 public function string of_unicode2ansi (blob a_value, unsignedinteger ai_codepage, character ac_default_char)
+end prototypes'
+		rule: #prototypesDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testPrototypesDeclaration5 [
+	self
+		parse:
+			'forward  prototypes
+
+public function string getjsonstring ()
+
 end prototypes'
 		rule: #prototypesDeclaration
 ]

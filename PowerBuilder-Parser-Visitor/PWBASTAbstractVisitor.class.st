@@ -1367,10 +1367,10 @@ PWBASTAbstractVisitor >> visitPWBASTExpression: aPWBASTExpression [
 ]
 
 { #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTExpressionAction: aMrlPWBASTExpressionAction [
+PWBASTAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
 	<generated>
-	self visit: aMrlPWBASTExpressionAction action.
-	self visit: aMrlPWBASTExpressionAction expressionAction.
+	self visit: aPWBASTExpressionAction action.
+	self visit: aPWBASTExpressionAction expressionAction.
 ]
 
 { #category : #visiting }

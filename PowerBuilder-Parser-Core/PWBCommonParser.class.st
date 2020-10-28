@@ -1346,8 +1346,8 @@ PWBCommonParser >> prototypesDeclaration [
 				startPosition: production start;
 				stopPosition: production stop;
 				declarations:
-					((production content at: 3)
-						ifNotNil: [ self rejectSeparators: (production content at: 3) ]);
+					((production content at: 5)
+						ifNotNil: [ self rejectSeparators: (production content at: 5) ]);
 				yourself ]
 ]
 
