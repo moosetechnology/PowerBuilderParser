@@ -158,7 +158,9 @@ PWBImporterAbstractVisitor >> preprocessingMap: aCollection [
 
 { #category : #'as yet unclassified' }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
-	^ (self file fullName copyReplaceAll: '/cleaned' with: '')
+	| separator |
+	separator := Smalltalk os filePathSeparator.
+	^ (self file fullName copyReplaceAll: separator , 'cleaned' with: '')
 		asFileReference
 ]
 
