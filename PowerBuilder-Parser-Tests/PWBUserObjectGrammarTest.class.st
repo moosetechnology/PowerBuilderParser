@@ -1953,8 +1953,6 @@ PWBUserObjectGrammarTest >> testTypePrototypes5 [
 		parse:
 			'type prototypes
 
-
-
 end prototypes'
 		rule: #typePrototypes
 ]
