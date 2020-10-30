@@ -84,16 +84,16 @@ type variables
 end variables
 
 private function integer aFunction ();
-  long lLong
+  long lL_return
   var.isNull()
   anotherFunction(2, "blah")
-  return LLONG
+  return LL_RETURN
 end function
 
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
   this.il_long1 = 5
-  return 1
+  return il_long1[1]
 end function
 
 private function integer eventTestingFunction()
@@ -164,13 +164,11 @@ PWBASTVisitorTest >> testParserAttributeAccess [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allAccesses size equals: 4.
-	acc := model allAccesses select: [ :a | a variable name asLowercase = 'il_long1' ].
-	
-	self
-		assert: acc anyOne accessor name
-		equals: 'anotherFunction'.
-	self assert: acc anyOne isWrite
+	self assert: model allAccesses size equals: 5.
+	acc := model allAccesses
+		select: [ :a | a variable name asLowercase = 'il_long1' ].
+	self assert: acc anyOne accessor name equals: 'anotherFunction'.
+	self assert: (acc select: #isWrite) isNotEmpty
 ]
 
 { #category : #tests }
@@ -224,12 +222,38 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 ]
 
 { #category : #tests }
+PWBASTVisitorTest >> testParserReturn [
+	| return |
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	return := (model allWithType: FamixPWBFunctionReturn)
+		detect: [ :r | r name = 'aFunction.Return' ]
+		ifNone: [ nil ].
+	self assert: return isNotNil.
+	self assert: return returnValue equals: 'LL_RETURN'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParserReturnArrayWithSize [
+	| return |
+	visitor
+		visit: result;
+		resolveUnresolvedReferences.
+	return := (model allWithType: FamixPWBFunctionReturn)
+		detect: [ :r | r name = 'anotherFunction.Return' ]
+		ifNone: [ nil ].
+	self assert: return isNotNil.
+	self assert: return returnValue equals: 'il_long1[ 1 ]'
+]
+
+{ #category : #tests }
 PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 	| acc |
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allAccesses size equals: 4.
+	self assert: model allAccesses size equals: 5.
 	acc := model allAccesses select: [ :a | a variable name asLowercase = 'along' ].
 	self assert: acc size equals: 1.
 	self
@@ -243,13 +267,13 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	visitor
 		visit: result;
 		resolveUnresolvedReferences.
-	self assert: model allAccesses size equals: 4.
+	self assert: model allAccesses size equals: 5.
 	accs := model allAccesses
 		select: [ :a | a accessor name asLowercase = 'afunction' ].
 	self assert: accs size equals: 2.
 	self
 		assertCollection: (accs collect: [ :acc | acc variable name asLowercase ])
-		hasSameElements: {'llong' . 'var'}
+		hasSameElements: {'ll_return' . 'var'}
 ]
 
 { #category : #tests }

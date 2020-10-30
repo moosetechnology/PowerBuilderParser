@@ -226,7 +226,6 @@ PWBImporterAbstractVisitor >> visitPWBASTType: aPWBASTType [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
-	self visit: aPWBASTVariable arrayDefinition.
 	^ self
 		resolvable:
 			(SRIdentifierWithNode
@@ -239,5 +238,6 @@ PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 					FamixPWBSharedVariable.
 					FamixPWBInstanceVariable.
 					FamixPWBLocalVariable}
-				node: aPWBASTVariable identifier)
+				node: aPWBASTVariable identifier
+				arrayWithSize: (self visit: aPWBASTVariable arrayDefinition))
 ]

@@ -126,24 +126,31 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTTy
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
+	| sRIdentifierWithNode |
 	self visit: aPWBASTAccess arrayPosition.
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifFalse: [ | identifiers writeAccess |
-			identifiers := self visit: aPWBASTAccess accessed.
+		ifFalse: [ | writeAccess |
+			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := assignmentRHS.
-			identifiers
+			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity | 
-					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
+					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [ currentEntity
-								createAccessTo: identifiers entity
+								createAccessTo: sRIdentifierWithNode entity
 								writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
-			self resolve: identifiers ]
-		ifTrue: [ self visit: aPWBASTAccess accessed ].
-	^ (self visit: aPWBASTAccess accessed) identifier
+			self resolve: sRIdentifierWithNode.
+			sRIdentifierWithNode identifier
+				ifNotNil: [ :identifier | 
+					^ identifier
+						,
+							(sRIdentifierWithNode arrayWithSize
+								ifNil: [ '' ]
+								ifNotNil: [ sRIdentifierWithNode arrayWithSize ]) ] ]
+		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
 
 { #category : #visiting }
@@ -167,12 +174,29 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aMrlPWBASTAssignationStatement [
-	self visit: aMrlPWBASTAssignationStatement accessOrType.
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
+	| expressions |
+	expressions := self visitAll: aPWBASTArrayWithSize expressions.
+	expressions ifEmpty: [ ^ self ].
+	^ String
+		streamContents: [ :stream | 
+			stream << '[ '.
+			1 to: expressions size - 1 do: [ :iter | 
+				stream
+					<< (expressions at: iter);
+					<< ',' ].
+			stream
+				<< expressions last;
+				<< ' ]' ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
+	self visit: aPWBASTAssignationStatement accessOrType.
 	assignmentRHS := true.
-	self visit: aMrlPWBASTAssignationStatement expressionAction.
+	self visit: aPWBASTAssignationStatement expressionAction.
 	assignmentRHS := false.
-	self visit: aMrlPWBASTAssignationStatement assignation.
+	self visit: aPWBASTAssignationStatement assignation
 ]
 
 { #category : #visiting }
