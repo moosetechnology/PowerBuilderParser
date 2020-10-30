@@ -177,7 +177,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 	| expressions |
 	expressions := self visitAll: aPWBASTArrayWithSize expressions.
-	expressions ifEmpty: [ ^ self ].
+	expressions ifNil: [ ^ self ].
 	^ String
 		streamContents: [ :stream | 
 			stream << '[ '.
