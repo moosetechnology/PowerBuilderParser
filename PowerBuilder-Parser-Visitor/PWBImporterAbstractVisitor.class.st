@@ -226,18 +226,20 @@ PWBImporterAbstractVisitor >> visitPWBASTType: aPWBASTType [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
-	^ self
-		resolvable:
-			(SRIdentifierWithNode
-				identifier: (self visit: aPWBASTVariable identifier)
-				expectedKind:
-					{FamixPWBVariable.
-					FamixPWBAttribute.
-					FamixPWBParameter.
-					FamixPWBGlobalVariable.
-					FamixPWBSharedVariable.
-					FamixPWBInstanceVariable.
-					FamixPWBLocalVariable}
-				node: aPWBASTVariable identifier
-				arrayWithSize: (self visit: aPWBASTVariable arrayDefinition))
+	| resolvable arrayWithSize |
+	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
+	resolvable := SRIdentifierWithNode
+		identifier: (self visit: aPWBASTVariable identifier)
+		expectedKind:
+			{FamixPWBVariable.
+			FamixPWBAttribute.
+			FamixPWBParameter.
+			FamixPWBGlobalVariable.
+			FamixPWBSharedVariable.
+			FamixPWBInstanceVariable.
+			FamixPWBLocalVariable}
+		node: aPWBASTVariable identifier.
+	arrayWithSize = self
+		ifFalse: [ resolvable arrayWithSize: arrayWithSize ].
+	^ self resolvable: resolvable
 ]
