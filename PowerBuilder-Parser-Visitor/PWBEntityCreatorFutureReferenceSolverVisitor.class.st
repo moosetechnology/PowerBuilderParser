@@ -605,24 +605,20 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	| return famixFunctionReturn |
-	
 	return := self visit: aPWBASTReturnStatement expression.
 	return
-		ifNotNil: [ famixFunctionReturn := self
+		ifNotNil: [ | returnText |
+			famixFunctionReturn := self
 				createAssociation: FamixPWBFunctionReturn
 				from: aPWBASTReturnStatement.
+			returnText := famixFunctionReturn sourceText trim.
 			famixFunctionReturn
 				behavioral: self currentEntity;
 				type: functionRetunTypeHolder;
 				name: self currentEntity name , '.Return'.
-			(return = self
-				or: [ aPWBASTReturnStatement expressionAction isNotNil ])
-				ifTrue: [ famixFunctionReturn
-						returnValue:
-							(famixFunctionReturn sourceText asLowercase
-								copyReplaceAll: 'return'
-								with: '') trim ]
-				ifFalse: [ famixFunctionReturn returnValue: return ].
+			returnText
+				ifNotEmpty:
+					[ :text | famixFunctionReturn returnValue: (text copyFrom: 7 to: text size) ].
 			famixFunctionReturn
 				doesBelongToSingleLineIfStatement: visitedSigleLineIfStatement.
 			visitedSigleLineIfStatement := false ]
