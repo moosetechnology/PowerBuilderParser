@@ -25,6 +25,13 @@ FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
 
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> cleanRootFolder [
+	self rootFolder allDirectories
+		select: [ :dir | dir basename = 'cleaned' ]
+		thenDo: #deleteAll
+]
+
 { #category : #api }
 FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
 	| variables |
@@ -41,6 +48,13 @@ FamixPWBModel >> getBusinessRuleFunctions [
 				selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: (self allWithType: FamixPWBWindow)))
 				groupedBy: #parentType ].
 	^ businessRuleFunctions
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> install [
+	super install.
+	self cleanRootFolder.
+	"self resurrectMethods"
 ]
 
 { #category : #api }

@@ -79,7 +79,7 @@ FamixPWBBehavioral >> clean: aString [
 	^ aString copyReplaceAll: '/*' with: ''
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'*FamixReplication' }
 FamixPWBBehavioral >> clearReplicationCache [
 	self propertyNamed: #replicas put: OrderedCollection new
 ]
