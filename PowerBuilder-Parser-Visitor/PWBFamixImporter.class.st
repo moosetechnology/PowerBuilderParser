@@ -177,6 +177,7 @@ PWBFamixImporter >> importInOnePass [
 PWBFamixImporter >> importInOnePassFromFolder: aFolder [
 	self folder: aFolder.
 	self importInOnePass.
+	self removeCleanFilesFoldersFrom: aFolder.
 	^ self targetModel
 ]
 
@@ -190,4 +191,11 @@ PWBFamixImporter >> initialize [
 { #category : #accessing }
 PWBFamixImporter >> preprocessedMap [
 	^ preprocessedMap
+]
+
+{ #category : #removing }
+PWBFamixImporter >> removeCleanFilesFoldersFrom: aFolder [
+	aFolder asFileReference allDirectories
+		select: [ :dir | dir basename = 'cleaned' ]
+		thenDo: #deleteAll
 ]
