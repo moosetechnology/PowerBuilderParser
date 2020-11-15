@@ -72,3 +72,8 @@ FamixPWBModel >> selectIncomingInvocationMethodsUntilConvergence: aCollection [
 		select:
 			[ :behavioral | behavioral parentType isNotNil and: [ behavioral isFunction ] ]
 ]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> setBusinessRuleFunctions: aDictionary [
+	businessRuleFunctions := aDictionary
+]
