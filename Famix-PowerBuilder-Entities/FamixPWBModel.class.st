@@ -51,6 +51,25 @@ FamixPWBModel >> getBusinessRuleFunctions [
 ]
 
 { #category : #'as yet unclassified' }
+FamixPWBModel >> getBusinessRuleFunctionsFromToscaSenarios [
+	| famixBehaviors |
+	famixBehaviors := (self allWithType: FamixPWBFunction)
+		, (self allWithType: FamixPWBSubRoutine)
+		select: [ :each | each parentType isNotNil ].
+	businessRuleFunctions
+		ifNil: [ self
+				setBusinessRuleFunctions:
+					((MrlBehavior loadAll
+						flatCollectAsSet: [ :aBehavior | 
+							famixBehaviors
+								select: [ :each | 
+									each parentType name = aBehavior pwb_object
+										and: [ each name = aBehavior behavior_name ] ] ])
+						groupedBy: #parentType) ].
+	^ businessRuleFunctions
+]
+
+{ #category : #'as yet unclassified' }
 FamixPWBModel >> install [
 	super install.
 	self cleanRootFolder.
