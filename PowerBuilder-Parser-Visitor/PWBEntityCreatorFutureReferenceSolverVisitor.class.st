@@ -469,7 +469,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	| famixFunction |
-	"self halt."
 	famixFunction := self
 		create: FamixPWBFunction
 		from: aPWBASTFunctionDefinition.
@@ -651,7 +650,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	<generated>
 	self visit: aPWBASTSubroutineSignature accessModifier.
 	self currentEntity
 		name: (self visit: aPWBASTSubroutineSignature identifier).

@@ -80,6 +80,17 @@ PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
 	^ created
 ]
 
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
+	^ aCollection
+		do: [ :arg | 
+			(self currentEntity
+				createValueHolderNamed: (self visit: arg)
+				withType: FamixPWBParameter)
+				parameterType: (self visit: arg type);
+				parameterOption: (self visit: arg argumentOption) ]
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> createStub: aClass [
 	| entity |
@@ -189,13 +200,8 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 	| signature |
 	"A signature always and with a $; charater at definition"
 	(self visit: aPWBASTFunctionDefinition functionSignature)
-		ifNotNil: [ aPWBASTFunctionDefinition functionSignature arguments arguments
-				do: [ :arg | 
-					(self currentEntity
-						createValueHolderNamed: (self visit: arg)
-						withType: FamixPWBParameter)
-						parameterType: (self visit: arg type);
-						parameterOption: (self visit: arg argumentOption) ] ].
+		ifNotNil: [ self
+				createPWBParameters: aPWBASTFunctionDefinition functionSignature arguments arguments ].
 	signature := self
 		createAssociation: FamixPWBBehaviorSignature
 		from: aPWBASTFunctionDefinition functionSignature.
@@ -209,6 +215,22 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
 	^ self visit: aPWBASTSpecialVariable this
+]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
+	| signature |
+	(self visit: aPWBASTSubroutineDefinition subroutineSignature)
+		ifNotNil: [ self
+				createPWBParameters: aPWBASTSubroutineDefinition subroutineSignature arguments arguments ].
+	signature := self
+		createAssociation: FamixPWBBehaviorSignature
+		from: aPWBASTSubroutineDefinition subroutineSignature.
+	signature
+		name: self currentEntity name;
+		behavioral: self currentEntity.
+	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
+	self visit: aPWBASTSubroutineDefinition statements
 ]
 
 { #category : #visiting }
