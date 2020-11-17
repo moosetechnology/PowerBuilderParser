@@ -21,6 +21,11 @@ FamixPWBModel class >> annotation [
 ]
 
 { #category : #'as yet unclassified' }
+FamixPWBModel >> allModelPWBObjects [
+	^ MooseGroup withAll: (self entities select: #isPWBClass)
+]
+
+{ #category : #'as yet unclassified' }
 FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
