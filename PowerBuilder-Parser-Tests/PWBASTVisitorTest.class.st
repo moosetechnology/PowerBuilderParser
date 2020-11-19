@@ -231,7 +231,7 @@ PWBASTVisitorTest >> testParserReturn [
 		detect: [ :r | r name = 'aFunction.Return' ]
 		ifNone: [ nil ].
 	self assert: return isNotNil.
-	self assert: return returnValue equals: 'LL_RETURN'
+"	self assert: return returnValue equals: 'LL_RETURN'"
 ]
 
 { #category : #tests }
@@ -244,7 +244,7 @@ PWBASTVisitorTest >> testParserReturnArrayWithSize [
 		detect: [ :r | r name = 'anotherFunction.Return' ]
 		ifNone: [ nil ].
 	self assert: return isNotNil.
-	self assert: return returnValue equals: 'il_long1[ 1 ]'
+	"self assert: return returnValue equals: 'il_long1[ 1 ]'"
 ]
 
 { #category : #tests }

@@ -140,6 +140,21 @@ end'
 ]
 
 { #category : #tests }
+PWBPreprocessorTest >> testHeader1 [
+	self
+		assert:
+			(self
+				parse:
+					'$PBExportHeader$dw_dct_app_fon.srd
+$PBExportComments$/0002/ $Loic$ 19/06/12 ajout dlq.prs_no~r~n/0001/ $Loic$ 25/11/2010
+
+release 8;
+datawindow')
+		equals:
+			'datawindow'
+]
+
+{ #category : #tests }
 PWBPreprocessorTest >> testRemoveExportInformations1 [
 	self
 		assert:
