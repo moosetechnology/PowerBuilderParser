@@ -611,7 +611,7 @@ PWBDataWindowGrammarTest >> testText [
 PWBDataWindowGrammarTest >> testType [
 	self fail: 'this.dw_liste' rule: #type.
 	self fail: 'this' rule: #type.
-	self parse: 'char(16)' rule: #type.
+
 ]
 
 { #category : #accessing }
@@ -626,4 +626,10 @@ PWBDataWindowGrammarTest >> testType2 [
 PWBDataWindowGrammarTest >> testType3 [
 PP2ParserResource reset.
 	self parse: 'character' rule: #type
+]
+
+{ #category : #accessing }
+PWBDataWindowGrammarTest >> testType4 [
+PP2ParserResource reset.
+	self parse: 'char(16)' rule: #type.
 ]
