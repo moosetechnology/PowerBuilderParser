@@ -48,10 +48,7 @@ FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
 
 { #category : #'as yet unclassified' }
 FamixPWBModel >> getBusinessRuleFunctions [
-	businessRuleFunctions isEmptyOrNil
-		ifTrue: [ businessRuleFunctions := (self
-				selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: (self allWithType: FamixPWBWindow)))
-				groupedBy: #parentType ].
+	businessRuleFunctions ifNil: [ self getRuntimeBehaviors ].
 	^ businessRuleFunctions
 ]
 
@@ -72,6 +69,24 @@ FamixPWBModel >> getBusinessRuleFunctionsFromToscaSenarios [
 										and: [ each name = aBehavior behavior_name ] ] ])
 						groupedBy: #parentType) ].
 	^ businessRuleFunctions
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBModel >> getRuntimeBehaviors [
+	businessRuleFunctions := OrderedDictionary new.
+	MrlBehavior loadAll
+		do: [ :each | 
+			self allModelMethods
+				detect: [ :m | 
+					m parentType isNotNil
+						and: [ m parentType name = each pwb_object
+								and: [ each behavior_name = m name ] ] ]
+				ifFound: [ :founded | 
+					businessRuleFunctions
+						at: founded parentType
+						ifAbsentPut: [ OrderedCollection new ].
+					(businessRuleFunctions at: founded parentType) add: founded ]
+				ifNone: [  ] ]
 ]
 
 { #category : #'as yet unclassified' }
