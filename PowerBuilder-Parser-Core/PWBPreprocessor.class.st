@@ -69,7 +69,7 @@ PWBPreprocessor >> exportInformations [
 { #category : #accessing }
 PWBPreprocessor >> header [
 	^ (exportInformations separatedBy: #newline parser)
-		, (#newline parser , releaseNumber) optional , #newline parser
+		, (#newline parser plus , releaseNumber) optional , #newline parser
 ]
 
 { #category : #accessing }

@@ -1344,6 +1344,16 @@ PWBUserObjectGrammarTest >> testOpenDynamicSqlCursor1 [
 ]
 
 { #category : #tests }
+PWBUserObjectGrammarTest >> testParametrizedType [
+	self parse: 'Decimal{2}' rule: #parametrizedType
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testParametrizedType1 [
+	self parse: 'char(16)' rule: #parametrizedType
+]
+
+{ #category : #tests }
 PWBUserObjectGrammarTest >> testPostEvent [
 	self parse: 'bla.PostEvent("cb_exit_request")' rule: #eventTriggeringOrPosting
 ]
@@ -2104,5 +2114,13 @@ PWBUserObjectGrammarTest >> testVariableDeclarations3 [
 	self
 		parse:
 			'string as_tab_err[1 to 50,2]'
+		rule: #variableDeclarations
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testVariableDeclarations4 [
+	self
+		parse:
+			'Decimal{2} ld_mon_tot_imp, ld_imp_chq, ld_dct_dbt'
 		rule: #variableDeclarations
 ]

@@ -464,7 +464,7 @@ PWBAbstractGrammar >> operatorExpression [
 
 { #category : #accessing }
 PWBAbstractGrammar >> parametrizedType [
-	^ (self parserFor: #('char' 'decimal' 'blob'))
+	^ 'char' token / 'decimal' token / 'blob' token
 		,
 			(($( parser , number , $) parser)
 				/ (spaces optional , ${ parser , number trim , $} parser))

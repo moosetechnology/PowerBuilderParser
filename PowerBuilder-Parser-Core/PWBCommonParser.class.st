@@ -1696,18 +1696,16 @@ PWBCommonParser >> typeDeclaration [
 
 { #category : #rules }
 PWBCommonParser >> typePrototypes [
+	<generated>
 	^ super typePrototypes withPositions
 		==> [ :production | 
-			| ast |
-			ast := PWBASTTypePrototypes new
+			PWBASTTypePrototypes new
 				startPosition: production start;
 				stopPosition: production stop;
-				yourself.
-			(production content at: 3)
-				ifNotNil: [ ast
-						declarations:
-							(((production content at: 3) at: 1)
-								ifNotNil: [ self rejectSeparators: ((production content at: 3) at: 1) ]) ] ]
+				declarations:
+					(((production content at: 3) at: 1)
+						ifNotNil: [ self rejectSeparators: ((production content at: 3) at: 1) ]);
+				yourself ]
 ]
 
 { #category : #rules }
