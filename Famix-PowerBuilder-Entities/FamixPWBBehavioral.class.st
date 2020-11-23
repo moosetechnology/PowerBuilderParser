@@ -79,11 +79,6 @@ FamixPWBBehavioral >> clean: aString [
 	^ aString copyReplaceAll: '/*' with: ''
 ]
 
-{ #category : #'*FamixReplication' }
-FamixPWBBehavioral >> clearReplicationCache [
-	self propertyNamed: #replicas put: OrderedCollection new
-]
-
 { #category : #api }
 FamixPWBBehavioral >> content [
 	content ifNil: [ self setContent ].
