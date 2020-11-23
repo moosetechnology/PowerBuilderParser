@@ -57,7 +57,7 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 PWBFamixImporter class >> updateData: aBuilder [
 	<worldMenu>
 	(aBuilder item: #CreatePWBModel)
-		order: 12;
+		parent: #PWBTools;
 		help: 'Create a Powerbuilder model from source code';
 		label: 'CreatePWBModel';
 		action: [ | folder |
