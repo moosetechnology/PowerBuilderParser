@@ -54,6 +54,21 @@ PWBFamixImporter class >> importFromFolder: aFolder [
 ]
 
 { #category : #'as yet unclassified' }
+PWBFamixImporter class >> updateData: aBuilder [
+	<worldMenu>
+	(aBuilder item: #CreatePWBModel)
+		order: 12;
+		help: 'Create a Powerbuilder model from source code';
+		label: 'CreatePWBModel';
+		action: [ | folder |
+			folder := UITheme builder
+				chooseDirectory: 'Choose Powerbuilder parent/libraryListe source files'.
+			(self importFromFolder: folder)
+				name: folder basename;
+				install ]
+]
+
+{ #category : #'as yet unclassified' }
 PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 	anotherFolder ensureCreateDirectory.
 	"preprocessedMap := Dictionary new: aFolder visibleFiles size."
