@@ -62,10 +62,11 @@ PWBFamixImporter class >> updateData: aBuilder [
 		label: 'CreatePWBModel';
 		action: [ | folder |
 			folder := UITheme builder
-				chooseDirectory: 'Choose Powerbuilder parent/libraryListe source files'.
-			(self importFromFolder: folder)
-				name: folder basename;
-				install ]
+				chooseDirectory: 'Choose Powerbuilder parent/libraryListe source files folder'.
+			folder
+				ifNotNil: [ (self importFromFolder: folder)
+						name: folder basename;
+						install ] ]
 ]
 
 { #category : #'as yet unclassified' }
