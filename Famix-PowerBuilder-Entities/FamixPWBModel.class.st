@@ -49,6 +49,7 @@ FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
 { #category : #'as yet unclassified' }
 FamixPWBModel >> getBusinessRuleFunctions [
 	businessRuleFunctions ifNil: [ self getRuntimeBehaviors ].
+	businessRuleFunctions ifEmpty: [ self getRuntimeBehaviors ].
 	^ businessRuleFunctions
 ]
 

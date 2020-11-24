@@ -88,7 +88,14 @@ PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 				createValueHolderNamed: (self visit: arg)
 				withType: FamixPWBParameter)
 				parameterType: (self visit: arg type);
-				parameterOption: (self visit: arg argumentOption) ]
+				parameterOption: (self visit: arg argumentOption);
+				sourceAnchor:
+					(FamixPWBIndexedFileAnchor new
+						mooseModel: self model;
+						startPos: (self unpreprocessedPosition: arg startPosition);
+						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
+						endPos: (self unpreprocessedPosition: arg stopPosition);
+						yourself) ]
 ]
 
 { #category : #helpers }
