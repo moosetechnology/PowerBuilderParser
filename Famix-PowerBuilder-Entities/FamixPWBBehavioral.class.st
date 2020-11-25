@@ -220,6 +220,11 @@ FamixPWBBehavioral >> isPredefinedMethod [
 	^ self predifinedMethods includes: self name asLowercase
 ]
 
+{ #category : #testing }
+FamixPWBBehavioral >> isPrivate [
+	^ self accessModifier asLowercase = 'private'
+]
+
 { #category : #api }
 FamixPWBBehavioral >> numberOfIncomingInvocations [
 	^ self incomingInvocationsSenders size
