@@ -222,7 +222,8 @@ FamixPWBBehavioral >> isPredefinedMethod [
 
 { #category : #testing }
 FamixPWBBehavioral >> isPrivate [
-	^ self accessModifier asLowercase = 'private'
+	^ self accessModifier isNotNil
+		and: [ self accessModifier asLowercase = 'private' ]
 ]
 
 { #category : #api }
