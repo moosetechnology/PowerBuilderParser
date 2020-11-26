@@ -29,12 +29,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | identifiers writeAccess |
-			identifiers := self createSRIdentifier: aPWBASTExpressionAction.
+			identifiers := self createResolvableIdentifier: aPWBASTExpressionAction.
 			writeAccess := assignmentRHS.
 			identifiers
 				foundAction: [ :identifier :currentEntity |
-					(identifiers entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity createAccessTo: identifiers entity writing: writeAccess ] ];
+					(identifier entity class inheritsFrom: FamixPWBmajorObject)
+						ifFalse: [ currentEntity createAccessTo: identifier entity writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -44,20 +44,33 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 ]
 
 { #category : #'entities creation' }
+PWBEntityCreatorFutureReferenceSolverVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
+	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
+]
+
+{ #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpressionAction [
-	^self
-		resolvable:
-			(SRIdentifierWithNode
-				identifier: (self attributeAccessName: aPWBASTExpressionAction)
-				expectedKind:
-					{FamixPWBVariable.
-					FamixPWBAttribute.
-					FamixPWBParameter.
-					FamixPWBGlobalVariable.
-					FamixPWBSharedVariable.
-					FamixPWBInstanceVariable.
-					FamixPWBLocalVariable}
-				node: aPWBASTExpressionAction)
+	| sRIdentifierWithNode |
+	sRIdentifierWithNode := SRIdentifierWithNode
+		identifier: (self visit: aPWBASTExpressionAction action)
+		expectedKind:
+			{FamixPWBVariable .
+			FamixPWBAttribute .
+			FamixPWBParameter .
+			FamixPWBGlobalVariable .
+			FamixPWBSharedVariable .
+			FamixPWBInstanceVariable .
+			FamixPWBLocalVariable}
+		node: aPWBASTExpressionAction.
+
+	aPWBASTExpressionAction expressionAction
+		ifNotNil: [ :subExprAction |
+			subExprAction isAttributeAccess
+				ifTrue: [
+					sRIdentifierWithNode
+						next: (self createSRIdentifier: subExprAction) ] ].
+
+	^sRIdentifierWithNode 
 ]
 
 { #category : #accessing }
