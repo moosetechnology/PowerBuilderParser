@@ -280,9 +280,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 					self
 						ensureEntityWithType: FamixPWBCustomType
 						named: (self visit: aPWBASTCustomType identifier) ]).
-	^ self
-		ensureEntityWithType: FamixPWBCustomType
-		named: (self visit: aPWBASTCustomType identifier)
+
 ]
 
 { #category : #visiting }
