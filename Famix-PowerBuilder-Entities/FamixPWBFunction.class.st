@@ -23,6 +23,17 @@ FamixPWBFunction >> isFunction [
 	^ true
 ]
 
+{ #category : #printing }
+FamixPWBFunction >> mooseNameOn: stream [
+	self parentType
+		ifNotNil: [ :parent | 
+			parent mooseNameOn: stream.
+			stream nextPut: $. ].
+	self signature
+		ifNotNil: [ :aSignature | aSignature mooseNameOn: stream ]
+		ifNil: [ self name ifNotNil: [ :aName | stream nextPutAll: aName ] ]
+]
+
 { #category : #accessing }
 FamixPWBFunction >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
