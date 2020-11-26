@@ -45,19 +45,14 @@ PWBASTVisitorTest >> pwbLibsString [
 
 { #category : #running }
 PWBASTVisitorTest >> setUp [
-	| library context |
+	| context |
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor importingContext: PWBFamixImporter new importingContext.
-	model := FamixPWBModel new.
-	library := FamixPWBLibrary new
-		name: 'TestLib';
-		mooseModel: model;
-		yourself.
+	self setupModel.
 	visitor
 		file: 'aFile.sru' asFileReference;
 		preprocessingMap: OrderedDictionary new;
 		model: model.
-	visitor currentLibrary: library.
 	context := FamixPWBImportingContext new importMaximum.
 	context
 		imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
@@ -65,7 +60,22 @@ PWBASTVisitorTest >> setUp [
 	result := PWBCommonParser new parse: self sourceExample.
 	result
 		fileName: 'aFile';
-		fileExtension: 'sru'
+		fileExtension: 'sru'.
+	visitor
+		visit: result ;
+		resolveUnresolvedReferences.
+]
+
+{ #category : #running }
+PWBASTVisitorTest >> setupModel [
+	| library |
+	model := FamixPWBModel new.
+	library := FamixPWBLibrary new
+		name: 'TestLib';
+		mooseModel: model;
+		yourself.
+	visitor currentLibrary: library.
+
 ]
 
 { #category : #running }
@@ -114,9 +124,6 @@ PWBASTVisitorTest >> sourceText: anEntity [
 { #category : #tests }
 PWBASTVisitorTest >> testFunctionInvocationSourceText [
 	| invocation1 invocation2 |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	invocation1 := ((model allWithType: FamixPWBFunction)
 		detect: [ :function | function name = 'anotherFunction' ])
 		incomingInvocations anyOne.
@@ -130,9 +137,6 @@ PWBASTVisitorTest >> testFunctionInvocationSourceText [
 
 { #category : #tests }
 PWBASTVisitorTest >> testGlobalVariables [
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self
 		assertCollection: ((model allWithType: FamixPWBGlobalVariable) collect: #name)
 		hasSameElements: {'gl_long1' . 'gs_string1'}
@@ -140,9 +144,6 @@ PWBASTVisitorTest >> testGlobalVariables [
 
 { #category : #tests }
 PWBASTVisitorTest >> testInstanceVariables [
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self
 		assertCollection: ((model allWithType: FamixPWBInstanceVariable) collect: #name)
 		hasSameElements: {'il_long1'}
@@ -150,9 +151,6 @@ PWBASTVisitorTest >> testInstanceVariables [
 
 { #category : #tests }
 PWBASTVisitorTest >> testParameter [
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self
 		assertCollection: ((model allWithType: FamixPWBParameter) collect: #name)
 		hasSameElements: {'aLong' . 'aString'}
@@ -161,9 +159,6 @@ PWBASTVisitorTest >> testParameter [
 { #category : #tests }
 PWBASTVisitorTest >> testParserAttributeAccess [
 	| acc |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: model allAccesses size equals: 5.
 	acc := model allAccesses
 		select: [ :a | a variable name asLowercase = 'il_long1' ].
@@ -174,9 +169,6 @@ PWBASTVisitorTest >> testParserAttributeAccess [
 { #category : #tests }
 PWBASTVisitorTest >> testParserEventInvocation [
 	| modelTriggerEvent |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: (model allWithType: FamixPWBEvent) size equals: 2.
 	modelTriggerEvent := (model allWithType: FamixPWBEvent) anyOne.
 	self assert: modelTriggerEvent incomingInvocations size equals: 1.
@@ -191,9 +183,6 @@ PWBASTVisitorTest >> testParserEventInvocation [
 { #category : #tests }
 PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 	| invok |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: model allInvocations size equals: 5.
 	invok := model allInvocations select: [ :i |
 		(i source name asLowercase = 'afunction')
@@ -208,9 +197,6 @@ PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 { #category : #tests }
 PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 	| invok |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: model allInvocations size equals: 5.
 	invok := model allInvocations
 		select: [ :i | i source name asLowercase = 'anotherfunction' ].
@@ -224,9 +210,6 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 { #category : #tests }
 PWBASTVisitorTest >> testParserReturn [
 	| return |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	return := (model allWithType: FamixPWBFunctionReturn)
 		detect: [ :r | r name = 'aFunction.Return' ]
 		ifNone: [ nil ].
@@ -237,9 +220,6 @@ PWBASTVisitorTest >> testParserReturn [
 { #category : #tests }
 PWBASTVisitorTest >> testParserReturnArrayWithSize [
 	| return |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	return := (model allWithType: FamixPWBFunctionReturn)
 		detect: [ :r | r name = 'anotherFunction.Return' ]
 		ifNone: [ nil ].
@@ -250,9 +230,6 @@ PWBASTVisitorTest >> testParserReturnArrayWithSize [
 { #category : #tests }
 PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 	| acc |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: model allAccesses size equals: 5.
 	acc := model allAccesses select: [ :a | a variable name asLowercase = 'along' ].
 	self assert: acc size equals: 1.
@@ -264,9 +241,6 @@ PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 { #category : #tests }
 PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	| accs |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self assert: model allAccesses size equals: 5.
 	accs := model allAccesses
 		select: [ :a | a accessor name asLowercase = 'afunction' ].
@@ -295,9 +269,6 @@ PWBASTVisitorTest >> testProssessingMapKeepAllPreprocessedFiles [
 
 { #category : #tests }
 PWBASTVisitorTest >> testSharedVariables [
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	self
 		assertCollection: ((model allWithType: FamixPWBSharedVariable) collect: #name)
 		hasSameElements: {'sl_long1'}
@@ -306,9 +277,6 @@ PWBASTVisitorTest >> testSharedVariables [
 { #category : #tests }
 PWBASTVisitorTest >> testSourceTestSettings [
 	| eventTestingFunction |
-	visitor
-		visit: result;
-		resolveUnresolvedReferences.
 	eventTestingFunction := (model allWithType: FamixPWBFunction)
 		detect: [ :function | function name = 'eventTestingFunction' ].
 	self
