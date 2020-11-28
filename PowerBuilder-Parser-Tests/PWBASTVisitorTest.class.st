@@ -4,44 +4,10 @@ Class {
 	#instVars : [
 		'visitor',
 		'result',
-		'model',
-		'toDelete'
+		'model'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
-
-{ #category : #running }
-PWBASTVisitorTest >> createDirectory: aString [
-	self toDelete addFirst: aString.
-	^ self filesystem
-		ensureCreateDirectory: (self filesystem pathFromString: aString)
-]
-
-{ #category : #running }
-PWBASTVisitorTest >> createFileNamed: aString content: aBlock [
-	self toDelete addFirst: aString.
-	aString asFileReference writeStreamDo: aBlock
-]
-
-{ #category : #accessing }
-PWBASTVisitorTest >> filesystem [
-	^ FileSystem disk
-]
-
-{ #category : #accessing }
-PWBASTVisitorTest >> pwbLibAString [
-	^ 'pwbLibs/pwbLibA/'
-]
-
-{ #category : #accessing }
-PWBASTVisitorTest >> pwbLibBString [
-	^ 'pwbLibs/pwbLibB/'
-]
-
-{ #category : #accessing }
-PWBASTVisitorTest >> pwbLibsString [
-	^ 'pwbLibs/'
-]
 
 { #category : #running }
 PWBASTVisitorTest >> setUp [
@@ -86,7 +52,7 @@ PWBASTVisitorTest >> sourceExample [
 end variables
 
 shared variables
-  long sl_long1;
+  uo_test sl_long1;
 end variables
 
 type variables
@@ -251,23 +217,6 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 ]
 
 { #category : #tests }
-PWBASTVisitorTest >> testProssessingMapKeepAllPreprocessedFiles [
-	| importer |
-	self createDirectory: self pwbLibsString.
-	self createDirectory: self pwbLibAString.
-	self createDirectory: self pwbLibBString.
-	self
-		createFileNamed: self pwbLibAString , 'fileLibA.sru'
-		content: [ :stream | stream nextPutAll: self sourceExample ].
-	self
-		createFileNamed: self pwbLibBString , 'fileLibB.sru'
-		content: [ :stream | stream nextPutAll: '' ].
-	importer := PWBFamixImporter new.
-	importer importInOnePassFromFolder: self pwbLibsString.
-	self assert: importer preprocessedMap size equals: 2
-]
-
-{ #category : #tests }
 PWBASTVisitorTest >> testSharedVariables [
 	self
 		assertCollection: ((model allWithType: FamixPWBSharedVariable) collect: #name)
@@ -287,9 +236,4 @@ PWBASTVisitorTest >> testSourceTestSettings [
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
 end function'
-]
-
-{ #category : #running }
-PWBASTVisitorTest >> toDelete [
-	^ toDelete ifNil: [toDelete := OrderedCollection new]
 ]
