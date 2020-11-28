@@ -16,7 +16,7 @@ PWBASTVisitorTest >> setUp [
 	visitor importingContext: PWBFamixImporter new importingContext.
 	self setupModel.
 	visitor
-		file: 'aFile.sru' asFileReference;
+		file: 'testFile.sru' asFileReference;
 		preprocessingMap: OrderedDictionary new;
 		model: model.
 	context := FamixPWBImportingContext new importMaximum.
@@ -25,7 +25,7 @@ PWBASTVisitorTest >> setUp [
 	"visitor importingContext: context."
 	result := PWBCommonParser new parse: self sourceExample.
 	result
-		fileName: 'aFile';
+		fileName: 'testFile';
 		fileExtension: 'sru'.
 	visitor
 		visit: result ;
@@ -56,7 +56,7 @@ PWBASTVisitorTest >> sourceExample [
 end variables
 
 shared variables
-  uo_test sl_long1;
+  test_uo uo_var;
 end variables
 
 type variables
@@ -223,7 +223,7 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 { #category : #tests }
 PWBASTVisitorTest >> testResolveUserObjectType [
 	| uoTests|
-	uoTests := model entities select: [ : e | e name = 'uo_test' ].
+	uoTests := model entities select: [ : e | e name = 'test_uo' ].
 	self assert: uoTests size equals: 1.
 	self assert: uoTests anyOne class equals: FamixPWBUserObject 
 ]
@@ -232,7 +232,7 @@ PWBASTVisitorTest >> testResolveUserObjectType [
 PWBASTVisitorTest >> testSharedVariables [
 	self
 		assertCollection: ((model allWithType: FamixPWBSharedVariable) collect: #name)
-		hasSameElements: {'sl_long1'}
+		hasSameElements: {'uo_var'}
 ]
 
 { #category : #tests }
