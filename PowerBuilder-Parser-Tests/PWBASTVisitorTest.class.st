@@ -42,6 +42,10 @@ PWBASTVisitorTest >> setupModel [
 		yourself.
 	visitor currentLibrary: library.
 
+	FamixPWBUserObject new
+		name: 'test_uo' ;
+		mooseModel: model ;
+		yourself.
 ]
 
 { #category : #running }
@@ -214,6 +218,14 @@ PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	self
 		assertCollection: (accs collect: [ :acc | acc variable name asLowercase ])
 		hasSameElements: {'ll_return' . 'var'}
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testResolveUserObjectType [
+	| uoTests|
+	uoTests := model entities select: [ : e | e name = 'uo_test' ].
+	self assert: uoTests size equals: 1.
+	self assert: uoTests anyOne class equals: FamixPWBUserObject 
 ]
 
 { #category : #tests }
