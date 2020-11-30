@@ -45,7 +45,6 @@ PWBASTVisitorTest >> pwbLibsString [
 
 { #category : #running }
 PWBASTVisitorTest >> setUp [
-	| context |
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor importingContext: PWBFamixImporter new importingContext.
 	self setupModel.
@@ -53,17 +52,13 @@ PWBASTVisitorTest >> setUp [
 		file: 'aFile.sru' asFileReference;
 		preprocessingMap: OrderedDictionary new;
 		model: model.
-	context := FamixPWBImportingContext new importMaximum.
-	context
-		imports: (context imports reject: [ :class | class name endsWith: 'Anchor' ]).
-	"visitor importingContext: context."
 	result := PWBCommonParser new parse: self sourceExample.
 	result
 		fileName: 'aFile';
 		fileExtension: 'sru'.
 	visitor
-		visit: result ;
-		resolveUnresolvedReferences.
+		visit: result;
+		resolveUnresolvedReferences
 ]
 
 { #category : #running }

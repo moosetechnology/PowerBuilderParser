@@ -12,12 +12,3 @@ FamixPWBInstanceVariable class >> annotation [
 	<generated>
 	^self
 ]
-
-{ #category : #converting }
-FamixPWBInstanceVariable >> asMrlArgument [
-	^ PWBInvocationArgument new
-		startPosition: self sourceAnchor startPosition;
-		stopPosition: self sourceAnchor stopPosition;
-		receiver: self parentTypes name;
-		argumentName: self name
-]

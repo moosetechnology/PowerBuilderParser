@@ -39,20 +39,22 @@ end function'
 
 { #category : #tests }
 PWBASTVisitorAccesTest >> testAccessInstanceVariable [
-    self assert: model allAccesses size equals: 3.
-    self assert:
-		(model allAccesses
-			allSatisfy: [:access |
-				access variable class == FamixPWBInstanceVariable]).
-    self
-		assert: (model allAccesses select: [ :acc | acc variable name = 'my_uo']) size
+	self assert: model allAccesses size equals: 3.
+	self
+		assert:
+			(model allAccesses
+				allSatisfy: [ :access | access variable class == FamixPWBInstanceVariable ]).
+	self
+		assert:
+			(model allAccesses select: [ :acc | acc variable name = 'my_uo' ])
+				size
 		equals: 2.
-    model allAccesses
-		detect: [ :acc | acc variable name = 'var']
+	model allAccesses
+		detect: [ :acc | acc variable name = 'var' ]
 		ifNone: [ self fail ].
-
-    self
-        assert: (model allAccesses detect: [ :acc | acc variable name = 'var']) parentType name
-        equals: 'test_uo'
-
+	self
+		assert:
+			(model allAccesses detect: [ :acc | acc variable name = 'var' ])
+				parentType name
+		equals: 'test_uo'
 ]

@@ -258,29 +258,30 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
-	self
-		resolve:
-			((self
-				resolvable:
-				(SRIdentifierWithNode
-				identifier: (self visit: aPWBASTCustomType identifier)
-				expectedKind:
-					{FamixPWBCustomType.
-					FamixPWBGlobalFunction.
-					FamixPWBStructure.
-					FamixPWBQuery.
-					FamixPWBUserObject}
-				node: aPWBASTCustomType identifier))
-				foundAction: [ :identifier :currentEntity | 
-					self preprocessedFile: currentEntity sourceAnchor fileReference.
-					(self create: FamixPWBReference from: identifier node)
-						source: currentEntity;
-						target: identifier entity ];
-				notFoundReplacementEntity: [ :identifier :currentEntity | 
-					self
-						ensureEntityWithType: FamixPWBCustomType
-						named: (self visit: aPWBASTCustomType identifier) ]).
-
+	| typeToResolve |
+	typeToResolve := (self
+		resolvable:
+		(SRIdentifierWithNode
+		identifier: (self visit: aPWBASTCustomType identifier)
+		expectedKind:
+			{FamixPWBCustomType.
+			FamixPWBGlobalFunction.
+			FamixPWBStructure.
+			FamixPWBQuery.
+			FamixPWBUserObject}
+		node: aPWBASTCustomType identifier))
+		foundAction: [ :identifier :currentEntity | 
+			self preprocessedFile: currentEntity sourceAnchor fileReference.
+			(self create: FamixPWBReference from: identifier node)
+				source: currentEntity;
+				target: identifier entity ];
+		notFoundReplacementEntity: [ :identifier :currentEntity | 
+			self halt.
+			self
+				ensureEntityWithType: FamixPWBCustomType
+				named: (self visit: aPWBASTCustomType identifier) ].
+	self resolve: typeToResolve.
+	^ typeToResolve
 ]
 
 { #category : #visiting }
