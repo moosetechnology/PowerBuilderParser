@@ -4,6 +4,22 @@ Class {
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
+{ #category : #public }
+PWBPreprocessorTest >> createDirectory: aString [
+	^ self filesystem
+		ensureCreateDirectory: (self filesystem pathFromString: aString)
+]
+
+{ #category : #setup }
+PWBPreprocessorTest >> createFileNamed: aString content: aBlock [
+	aString asFileReference writeStreamDo: aBlock
+]
+
+{ #category : #accessing }
+PWBPreprocessorTest >> filesystem [
+	^ FileSystem disk
+]
+
 { #category : #accessing }
 PWBPreprocessorTest >> parserClass [
 	^ PWBPreprocessor
@@ -152,6 +168,39 @@ release 8;
 datawindow')
 		equals:
 			'datawindow'
+]
+
+{ #category : #tests }
+PWBPreprocessorTest >> testProssessingMapKeepAllPreprocessedFiles [
+	| importer parentDirectory subDirectoryA subDirectoryB |
+	parentDirectory := 'pwbLibs/'.
+	subDirectoryA := 'pwbLibs/pwbLibA/'.
+	subDirectoryB := 'pwbLibs/pwbLibB/'.
+
+	self createDirectory: subDirectoryA.
+	self createDirectory: subDirectoryB.
+	self
+		createFileNamed: subDirectoryA , 'fileLibA.sru'
+		content: [ :stream | stream nextPutAll: 
+'private function integer aFunction ();
+  return 0
+end function
+'  ].
+	self
+		createFileNamed: subDirectoryB , 'fileLibB.sru'
+		content: [ :stream | stream nextPutAll: 
+'private function integer otherFunction ();
+  return 1
+end function
+' ].
+
+	importer := PWBFamixImporter new.
+	importer importInOnePassFromFolder: parentDirectory.
+
+	self assert: importer preprocessedMap size equals: 2.
+
+	parentDirectory asFileReference deleteAll.
+
 ]
 
 { #category : #tests }

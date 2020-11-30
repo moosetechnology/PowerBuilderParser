@@ -6,15 +6,11 @@ Class {
 
 { #category : #running }
 PWBASTVisitorAccesTest >> setupModel [
-	| pwbUO |
 	super setupModel.
-	pwbUO := FamixPWBUserObject new
-		name: 'test_uo' ;
-		mooseModel: model ;
-		yourself.
+
 	FamixPWBInstanceVariable new 
 		name: 'var' ;
-		parentType: pwbUO ;
+		parentType: (model entityNamed: 'uo_test') ;
 		mooseModel: model
 ]
 
