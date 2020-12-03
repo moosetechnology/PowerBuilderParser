@@ -65,8 +65,3 @@ FamixPWBAttribute >> isInstanceVariable [
 FamixPWBAttribute >> typeName [
 	^ attributeType name
 ]
-
-{ #category : #updating }
-FamixPWBAttribute >> updateWithResolved: aFamixPWBEntity [
-	attributeType := aFamixPWBEntity
-]

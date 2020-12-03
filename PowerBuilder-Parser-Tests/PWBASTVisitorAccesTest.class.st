@@ -21,7 +21,6 @@ PWBASTVisitorAccesTest >> sourceExample [
 end variables
 
 private function integer aFunction ();
-  this.my_uo
   this.my_uo.var = 5
   return 0
 end function'
@@ -29,7 +28,7 @@ end function'
 
 { #category : #tests }
 PWBASTVisitorAccesTest >> testAccessInstanceVariable [
-	self assert: model allAccesses size equals: 3.
+	self assert: model allAccesses size equals: 1.
 	self
 		assert:
 			(model allAccesses
@@ -38,7 +37,7 @@ PWBASTVisitorAccesTest >> testAccessInstanceVariable [
 		assert:
 			(model allAccesses select: [ :acc | acc variable name = 'my_uo' ])
 				size
-		equals: 2.
+		equals: 0.
 	model allAccesses
 		detect: [ :acc | acc variable name = 'var' ]
 		ifNone: [ self fail ].
