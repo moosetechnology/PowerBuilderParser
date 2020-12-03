@@ -685,20 +685,13 @@ PWBASTAbstractVisitor >> visitPWBASTIntervalExpression: aPWBASTIntervalExpressio
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	<generated>
-	self visit: aPWBASTMethodInvocation methodInvocation.
+	self visit: aPWBASTMethodInvocation methodInvocation
 ]
 
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
 	<generated>
 	self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines.
-]
-
-{ #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTMrlMethodInvocation: aPWBASTMrlMethodInvocation [
-	<generated>
-	self visit: aPWBASTMrlMethodInvocation expressionTerm.
-	self visit: aPWBASTMrlMethodInvocation expressionAction.
 ]
 
 { #category : #visiting }

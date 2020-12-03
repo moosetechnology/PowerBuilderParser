@@ -66,6 +66,11 @@ PWBASTExpressionAction >> isAttributeAccess [
 	^self action isKindOf: PWBASTAttributeAccess 
 ]
 
+{ #category : #testing }
+PWBASTExpressionAction >> isChainOfExpressionAction [
+	^ expressionAction isNotNil
+]
+
 { #category : #accessing }
 PWBASTExpressionAction >> startPosition [
 	^ startPosition

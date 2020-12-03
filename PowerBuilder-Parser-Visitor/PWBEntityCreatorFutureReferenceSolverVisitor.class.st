@@ -67,7 +67,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpre
 		ifNotNil: [ :subExprAction | 
 			subExprAction isAttributeAccess
 				ifTrue:
-					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ] ].
+					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
+				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
 	^ sRIdentifierWithNode
 ]
 
@@ -127,11 +128,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity | 
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ sRIdentifierWithNode
-								acces:
-									(currentEntity
-										createAccessTo: sRIdentifierWithNode entity
-										writing: writeAccess) ] ];
+						ifFalse: [ currentEntity
+								createAccessTo: sRIdentifierWithNode entity
+								writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -289,6 +288,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoWhileLoop: aPWBASTD
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
 	| argumentASTs |
+		self halt.
 	argumentASTs := aPWBASTMethodInvocation functionArguments.
 	self
 		resolve:
@@ -409,11 +409,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
-	<generated>
-	aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [ self createAttributeAcces: aPWBASTExpressionAction]
-		ifFalse: [  super visitPWBASTExpressionAction: aPWBASTExpressionAction ]	
-
+	^ aPWBASTExpressionAction isAttributeAccess
+		ifTrue: [ self createAttributeAcces: aPWBASTExpressionAction ]
+		ifFalse: [ aPWBASTExpressionAction expressionAction
+				ifNil: [ self visit: aPWBASTExpressionAction action ]
+				ifNotNil: [ self visit: aPWBASTExpressionAction action.
+					self visit: aPWBASTExpressionAction expressionAction ] ]
 ]
 
 { #category : #visiting }
@@ -472,7 +473,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
 	| argumentASTs |
-	self halt.
 	argumentASTs := aPWBASTFunctionInvocation functionArguments.
 	self
 		resolve:
@@ -497,7 +497,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 						from: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
-					argumentASTs
+					"	argumentASTs
 						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
 								ifFalse: [ argumentASTs functionArguments
 										do: [ :argAST | 
@@ -505,7 +505,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 											famixPWBArgument := self
 												create: FamixPWBArgument
 												from: argAST.
-											famixPWBArgument invocation: invocation ] ] ].
+											famixPWBArgument invocation: invocation ] ] ]."
 					invocation ]).
 	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
@@ -561,6 +561,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBAST
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
+	^ self visit: aPWBASTMethodInvocation methodInvocation
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 	^ self
 		ensureEntityWithType: FamixPWBBasicType
@@ -572,26 +577,28 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
-	self
-		resolve:
-			((self
-				resolvable:
-				(SRInvocationWithNode
-				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-				expectedKind:
-					{FamixPWBFunction.
-					FamixPWBEvent}
-				node: aPWBASTMethodInvocation
-				arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-				notFoundReplacementEntity: [ :aResolvable | 
-					{((self createStub: FamixPWBFunction)
-						name: aResolvable identifier;
-						yourself)} ];
-				foundAction: [ :identifier :currentEntity | 
-					self preprocessedFile: currentEntity sourceAnchor fileReference.
-					(self createAssociation: FamixPWBInvocation from: identifier node)
-						sender: currentEntity;
-						candidates: identifier candidates ])
+	| toResolve |
+	toResolve := (self
+		resolvable:
+		(SRInvocationWithNode
+		identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
+		expectedKind:
+			{FamixPWBFunction.
+			FamixPWBEvent.
+			FamixPWBSubRoutine}
+		node: aPWBASTMethodInvocation
+		arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
+		notFoundReplacementEntity: [ :aResolvable | 
+			{((self createStub: FamixPWBFunction)
+				name: aResolvable identifier;
+				yourself)} ];
+		foundAction: [ :identifier :currentEntity | 
+			self preprocessedFile: currentEntity sourceAnchor fileReference.
+			(self createAssociation: FamixPWBInvocation from: identifier node)
+				sender: currentEntity;
+				candidates: identifier candidates ].
+	self resolve: toResolve.
+	^ toResolve
 ]
 
 { #category : #visiting }

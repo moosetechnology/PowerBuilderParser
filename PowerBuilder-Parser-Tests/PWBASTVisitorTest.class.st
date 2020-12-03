@@ -166,9 +166,7 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 	invok := model allInvocations
 		select: [ :i | i source name asLowercase = 'anotherfunction' ].
 	self assert: invok size equals: 1.
-	self
-		assert: invok anyOne target anyOne name
-		equals: 'aFunction'.
+	self assert: invok anyOne target anyOne name equals: 'aFunction'.
 	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 0
 ]
 
