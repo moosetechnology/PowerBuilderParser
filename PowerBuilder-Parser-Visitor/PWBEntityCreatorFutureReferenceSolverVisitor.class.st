@@ -239,7 +239,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	| typeToResolve |
 	typeToResolve := (self
 		resolvable:
-		(SRIdentifierWithNode
+		(SRTypeIdentifierWithNode
 		identifier: (self visit: aPWBASTCustomType identifier)
 		expectedKind:
 			{FamixPWBCustomType.
@@ -679,16 +679,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
-	(self visit: aPWBASTTypeVariable attributes)
-		ifNotNil: [ :attributeStrings | 
-			attributeStrings flatten
-				do: [ :attString | 
-					| var |
-					var := self currentEntity
-						createValueHolderNamed: attString
-						withType: FamixPWBInstanceVariable.
-					var attributeType: (self typeDeclarationType at: attString).
-					var attributeType owner: var ] ]
+	typeDeclarationType := Dictionary new.
+	self visit: aPWBASTTypeVariable attributes.
+	typeDeclarationType
+		keysAndValuesDo: [ :attString :type | 
+			| var |
+			var := self currentEntity
+				createValueHolderNamed: attString
+				withType: FamixPWBInstanceVariable.
+			var attributeType: type.
+			type isResolvable
+				ifTrue: [ type addTypedVariable: var ] ]
 ]
 
 { #category : #visiting }
