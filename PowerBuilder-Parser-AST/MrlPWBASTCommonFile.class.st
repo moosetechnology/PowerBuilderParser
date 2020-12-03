@@ -22,12 +22,6 @@ MrlPWBASTCommonFile >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCommonFile >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCommonFile: self
-]
-
 { #category : #accessing }
 MrlPWBASTCommonFile >> fileStatements [
 	^ fileStatements

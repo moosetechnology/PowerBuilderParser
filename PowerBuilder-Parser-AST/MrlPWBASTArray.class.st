@@ -22,12 +22,6 @@ MrlPWBASTArray >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTArray >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTArray: self
-]
-
 { #category : #accessing }
 MrlPWBASTArray >> expressions [
 	^ expressions

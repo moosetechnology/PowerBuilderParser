@@ -22,12 +22,6 @@ MrlPWBASTBehaviouralAlias >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTBehaviouralAlias >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTBehaviouralAlias: self
-]
-
 { #category : #accessing }
 MrlPWBASTBehaviouralAlias >> alias [
 	^ alias

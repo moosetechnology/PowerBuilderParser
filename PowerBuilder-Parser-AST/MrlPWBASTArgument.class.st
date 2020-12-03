@@ -28,12 +28,6 @@ MrlPWBASTArgument >> = anObject [
 										and: [ stopPosition = anObject stopPosition ] ] ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTArgument >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTArgument: self
-]
-
 { #category : #accessing }
 MrlPWBASTArgument >> argumentOption [
 	^ argumentOption

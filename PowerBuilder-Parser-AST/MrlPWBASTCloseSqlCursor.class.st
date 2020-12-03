@@ -22,12 +22,6 @@ MrlPWBASTCloseSqlCursor >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCloseSqlCursor >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCloseSqlCursor: self
-]
-
 { #category : #comparing }
 MrlPWBASTCloseSqlCursor >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

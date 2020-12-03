@@ -22,12 +22,6 @@ MrlPWBASTCondition >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCondition >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCondition: self
-]
-
 { #category : #accessing }
 MrlPWBASTCondition >> expression [
 	^ expression

@@ -22,12 +22,6 @@ MrlPWBASTConstant >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTConstant >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTConstant: self
-]
-
 { #category : #accessing }
 MrlPWBASTConstant >> constant [
 	^ constant

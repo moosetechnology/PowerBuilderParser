@@ -22,12 +22,6 @@ MrlPWBASTAccessOrType >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTAccessOrType >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTAccessOrType: self
-]
-
 { #category : #accessing }
 MrlPWBASTAccessOrType >> accessOrType [
 	^ accessOrType

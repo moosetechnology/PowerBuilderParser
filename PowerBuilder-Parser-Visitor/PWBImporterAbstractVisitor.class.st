@@ -174,6 +174,11 @@ PWBImporterAbstractVisitor >> preprocessingMap: aCollection [
 	preprocessingMap := aCollection 
 ]
 
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolve: identifiers [
+	^ self solver resolve: identifiers
+]
+
 { #category : #'as yet unclassified' }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
 	| separator |

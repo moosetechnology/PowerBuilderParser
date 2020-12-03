@@ -22,12 +22,6 @@ MrlPWBASTArrayDesignation >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTArrayDesignation >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTArrayDesignation: self
-]
-
 { #category : #accessing }
 MrlPWBASTArrayDesignation >> arrayDesignation [
 	^ arrayDesignation

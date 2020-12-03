@@ -22,12 +22,6 @@ MrlPWBASTCase >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCase >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCase: self
-]
-
 { #category : #accessing }
 MrlPWBASTCase >> case [
 	^ case

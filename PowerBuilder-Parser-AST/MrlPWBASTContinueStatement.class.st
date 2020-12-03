@@ -22,12 +22,6 @@ MrlPWBASTContinueStatement >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTContinueStatement >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTContinueStatement: self
-]
-
 { #category : #accessing }
 MrlPWBASTContinueStatement >> continueStatement [
 	^ continueStatement

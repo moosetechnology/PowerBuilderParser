@@ -22,12 +22,6 @@ MrlPWBASTBehaviouralLibrary >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTBehaviouralLibrary >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTBehaviouralLibrary: self
-]
-
 { #category : #comparing }
 MrlPWBASTBehaviouralLibrary >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

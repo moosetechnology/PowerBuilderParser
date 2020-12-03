@@ -24,12 +24,6 @@ MrlPWBASTCaseElse >> = anObject [
 						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCaseElse >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCaseElse: self
-]
-
 { #category : #comparing }
 MrlPWBASTCaseElse >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

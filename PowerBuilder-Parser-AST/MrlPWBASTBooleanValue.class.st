@@ -22,12 +22,6 @@ MrlPWBASTBooleanValue >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTBooleanValue >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTBooleanValue: self
-]
-
 { #category : #accessing }
 MrlPWBASTBooleanValue >> booleanValue [
 	^ booleanValue

@@ -26,12 +26,6 @@ MrlPWBASTAssignationStatement >> = anObject [
 								and: [ stopPosition = anObject stopPosition ] ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTAssignationStatement >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTAssignationStatement: self
-]
-
 { #category : #accessing }
 MrlPWBASTAssignationStatement >> accessOrType [
 	^ accessOrType

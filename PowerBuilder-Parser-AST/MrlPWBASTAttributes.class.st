@@ -22,12 +22,6 @@ MrlPWBASTAttributes >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTAttributes >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTAttributes: self
-]
-
 { #category : #accessing }
 MrlPWBASTAttributes >> attributes [
 	^ attributes

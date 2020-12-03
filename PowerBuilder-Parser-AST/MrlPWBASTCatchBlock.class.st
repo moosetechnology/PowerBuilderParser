@@ -24,12 +24,6 @@ MrlPWBASTCatchBlock >> = anObject [
 						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTCatchBlock >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTCatchBlock: self
-]
-
 { #category : #accessing }
 MrlPWBASTCatchBlock >> arguments [
 	^ arguments

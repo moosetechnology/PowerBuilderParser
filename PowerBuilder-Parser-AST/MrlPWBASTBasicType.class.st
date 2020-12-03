@@ -22,12 +22,6 @@ MrlPWBASTBasicType >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTBasicType >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTBasicType: self
-]
-
 { #category : #accessing }
 MrlPWBASTBasicType >> basicType [
 	^ basicType

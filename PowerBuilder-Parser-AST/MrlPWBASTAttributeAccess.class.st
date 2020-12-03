@@ -24,12 +24,6 @@ MrlPWBASTAttributeAccess >> = anObject [
 						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTAttributeAccess >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTAttributeAccess: self
-]
-
 { #category : #accessing }
 MrlPWBASTAttributeAccess >> arrayInformation [
 	^ arrayInformation

@@ -26,12 +26,6 @@ MrlPWBASTChooseCase >> = anObject [
 								and: [ stopPosition = anObject stopPosition ] ] ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTChooseCase >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTChooseCase: self
-]
-
 { #category : #accessing }
 MrlPWBASTChooseCase >> caseElse [
 	^ caseElse

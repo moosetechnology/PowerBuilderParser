@@ -22,12 +22,6 @@ MrlPWBASTAccessModifierDefiner >> = anObject [
 				and: [ stopPosition = anObject stopPosition ] ]
 ]
 
-{ #category : #visiting }
-MrlPWBASTAccessModifierDefiner >> acceptVisitor: aVisitor [
-	<generated>
-	^ aVisitor visitMrlPWBASTAccessModifierDefiner: self
-]
-
 { #category : #accessing }
 MrlPWBASTAccessModifierDefiner >> accessModifier [
 	^ accessModifier

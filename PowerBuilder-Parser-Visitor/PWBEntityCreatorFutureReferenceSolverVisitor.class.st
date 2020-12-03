@@ -54,23 +54,20 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpre
 	sRIdentifierWithNode := SRIdentifierWithNode
 		identifier: (self visit: aPWBASTExpressionAction action)
 		expectedKind:
-			{FamixPWBVariable .
-			FamixPWBAttribute .
-			FamixPWBParameter .
-			FamixPWBGlobalVariable .
-			FamixPWBSharedVariable .
-			FamixPWBInstanceVariable .
+			{FamixPWBVariable.
+			FamixPWBAttribute.
+			FamixPWBParameter.
+			FamixPWBGlobalVariable.
+			FamixPWBSharedVariable.
+			FamixPWBInstanceVariable.
 			FamixPWBLocalVariable}
 		node: aPWBASTExpressionAction.
-
 	aPWBASTExpressionAction expressionAction
-		ifNotNil: [ :subExprAction |
+		ifNotNil: [ :subExprAction | 
 			subExprAction isAttributeAccess
-				ifTrue: [
-					sRIdentifierWithNode
-						next: (self createSRIdentifier: subExprAction) ] ].
-
-	^sRIdentifierWithNode 
+				ifTrue:
+					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ] ].
+	^ sRIdentifierWithNode
 ]
 
 { #category : #accessing }
@@ -116,25 +113,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 	typeDeclarationType
 		ifNil: [ typeDeclarationType := OrderedDictionary new ].
 	^ typeDeclarationType
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
-	^ self
-		ensureEntityWithType: FamixPWBBasicType
-		named: anMrlPWBASTBasicType basicType
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTCustomType: aMrlPWBASTCustomType [
-	^ self
-		ensureEntityWithType: FamixPWBCustomType
-		named: (self visit: aMrlPWBASTCustomType identifier)
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTType [
-	^ self visit: aMrlPWBASTType type
 ]
 
 { #category : #visiting }
@@ -276,12 +254,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				source: currentEntity;
 				target: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			self halt.
 			self
 				ensureEntityWithType: FamixPWBCustomType
 				named: (self visit: aPWBASTCustomType identifier) ].
-	self resolve: typeToResolve.
-	^ typeToResolve
+	^ self resolve: typeToResolve
 ]
 
 { #category : #visiting }
@@ -525,7 +501,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 											famixPWBArgument := self
 												create: FamixPWBArgument
 												from: argAST.
-											famixPWBArgument invocation: invocation ] ] ] ]).
+											famixPWBArgument invocation: invocation ] ] ].
+					invocation ]).
 	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
 
@@ -707,11 +684,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 			attributeStrings flatten
 				do: [ :attString | 
 					| var |
-					
 					var := self currentEntity
 						createValueHolderNamed: attString
 						withType: FamixPWBInstanceVariable.
-					var attributeType: (self typeDeclarationType at: attString) ] ]
+					var attributeType: (self typeDeclarationType at: attString).
+					var attributeType owner: var ] ]
 ]
 
 { #category : #visiting }

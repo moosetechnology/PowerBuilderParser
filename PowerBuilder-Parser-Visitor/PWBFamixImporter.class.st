@@ -38,9 +38,6 @@ PWBFamixImporter class >> grammarGenerationScripts [
 	PPTASTGenerator
 		generateEverythingFrom: PWBCommonGrammar
 		generationStrategy: PPTASTGeneratorStrategy pwbUserObjectStrategy.
-	PPTASTGenerator
-		generateEverythingFrom: MrlPWBGrammar
-		generationStrategy: PPTASTGeneratorStrategy pwbMrlStrategy.
 	#(fileExtension fileName)
 		do: [ :aSelector | 
 			PPTASTGeneratorStrategy new
