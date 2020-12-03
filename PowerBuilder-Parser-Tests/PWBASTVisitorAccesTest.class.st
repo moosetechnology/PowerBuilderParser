@@ -7,30 +7,24 @@ Class {
 { #category : #running }
 PWBASTVisitorAccesTest >> setupModel [
 	super setupModel.
-
-	FamixPWBInstanceVariable new 
-		name: 'var' ;
-		parentType: (model entityNamed: 'uo_test') ;
+	FamixPWBInstanceVariable new
+		name: 'var';
+		attributeType: (FamixPWBBasicType named: 'string');
+		parentType: (model entityNamed: 'test_uo');
 		mooseModel: model
 ]
 
 { #category : #running }
 PWBASTVisitorAccesTest >> sourceExample [
-	^
-'global variables
-end variables
-
-type variables
+	^ 'type variables
   test_uo my_uo;
 end variables
 
 private function integer aFunction ();
-  this.my_uo = 4
+  this.my_uo
   this.my_uo.var = 5
-  my_uo.myFunction()
   return 0
 end function'
-
 ]
 
 { #category : #tests }
@@ -51,6 +45,14 @@ PWBASTVisitorAccesTest >> testAccessInstanceVariable [
 	self
 		assert:
 			(model allAccesses detect: [ :acc | acc variable name = 'var' ])
-				parentType name
+				variable parentType name
 		equals: 'test_uo'
+]
+
+{ #category : #tests }
+PWBASTVisitorAccesTest >> testAccessReadOrWriteIsConsistent [
+	self
+		assert:
+			((model allAccesses select: [ :acc | acc variable name = 'my_uo' ])
+				allSatisfy: [ :access | access isWrite not ])
 ]
