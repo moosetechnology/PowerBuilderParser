@@ -15,12 +15,12 @@ PWBASTVisitorTest >> setUp [
 	visitor importingContext: PWBFamixImporter new importingContext.
 	self setupModel.
 	visitor
-		file: 'aFile.sru' asFileReference;
+		file: 'testFile.sru' asFileReference;
 		preprocessingMap: OrderedDictionary new;
 		model: model.
 	result := PWBCommonParser new parse: self sourceExample.
 	result
-		fileName: 'aFile';
+		fileName: 'testFile';
 		fileExtension: 'sru'.
 	visitor
 		visit: result;

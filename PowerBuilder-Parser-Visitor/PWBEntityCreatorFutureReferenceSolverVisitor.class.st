@@ -8,7 +8,7 @@ Class {
 		'currentLibrary',
 		'typeDeclarationType',
 		'visitedSigleLineIfStatement',
-		'assignmentRHS'
+		'assignmentRightHandSideExist'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -29,17 +29,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | identifiers writeAccess |
-			identifiers := self createResolvableIdentifier: aPWBASTExpressionAction.
-			writeAccess := assignmentRHS.
+			identifiers := self
+				createResolvableIdentifier: aPWBASTExpressionAction.
+			writeAccess := assignmentRightHandSideExist.
 			identifiers
-				foundAction: [ :identifier :currentEntity |
+				foundAction: [ :identifier :currentEntity | 
 					(identifier entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity createAccessTo: identifier entity writing: writeAccess ] ];
+						ifFalse:
+							[ currentEntity createAccessTo: identifier entity writing: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
 			self resolve: identifiers ]
-
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 ]
 
@@ -90,8 +91,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	super initialize.
 	self initialiseFutureSolver.
 	visitedSigleLineIfStatement := false.
-	currentAttributeAccess := ''.
-	assignmentRHS := false.
+	assignmentRightHandSideExist := false
 ]
 
 { #category : #visiting }
@@ -123,13 +123,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
-			writeAccess := assignmentRHS.
+			writeAccess := assignmentRightHandSideExist.
 			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity | 
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity
-								createAccessTo: sRIdentifierWithNode entity
-								writing: writeAccess ] ];
+						ifFalse: [ sRIdentifierWithNode
+								acces:
+									(currentEntity
+										createAccessTo: sRIdentifierWithNode entity
+										writing: writeAccess) ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -186,9 +188,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBAS
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	self visit: aPWBASTAssignationStatement accessOrType.
-	assignmentRHS := true.
+	assignmentRightHandSideExist := true.
 	self visit: aPWBASTAssignationStatement expressionAction.
-	assignmentRHS := false.
+	assignmentRightHandSideExist := false.
 	self visit: aPWBASTAssignationStatement assignation
 ]
 
@@ -463,12 +465,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 	self
 		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ].
-	famixFunction returnType: functionRetunTypeHolder
+	famixFunction returnType: functionRetunTypeHolder.
+	^ famixFunction
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
 	| argumentASTs |
+	self halt.
 	argumentASTs := aPWBASTFunctionInvocation functionArguments.
 	self
 		resolve:
@@ -621,6 +625,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWB
 					self currentEntity
 						createValueHolderNamed: attString
 						withType: FamixPWBSharedVariable ] ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTStatement: aPWBASTStatement [
+	^ self visit: aPWBASTStatement statement
 ]
 
 { #category : #visiting }

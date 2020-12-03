@@ -221,7 +221,8 @@ PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefi
 		name: self currentEntity name;
 		behavioral: self currentEntity.
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
-	self visit: aPWBASTFunctionDefinition statements
+	self visit: aPWBASTFunctionDefinition statements.
+	^ self currentEntity
 ]
 
 { #category : #visiting }

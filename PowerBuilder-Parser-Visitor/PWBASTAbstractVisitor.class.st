@@ -1,9 +1,6 @@
 Class {
 	#name : #PWBASTAbstractVisitor,
 	#superclass : #Object,
-	#instVars : [
-		'currentAttributeAccess'
-	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 

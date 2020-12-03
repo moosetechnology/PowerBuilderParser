@@ -7,9 +7,12 @@ Class {
 { #category : #running }
 PWBASTVisitorAccesTest >> setupModel [
 	super setupModel.
-	FamixPWBInstanceVariable new
-		name: 'var';
+	(FamixPWBInstanceVariable named: 'var')
 		attributeType: (FamixPWBBasicType named: 'string');
+		parentType: (model entityNamed: 'test_uo');
+		mooseModel: model.
+	(FamixPWBFunction named: 'myFunc')
+		returnType: (FamixPWBFunctionReturn new type: (model entityNamed: 'test_uo'));
 		parentType: (model entityNamed: 'test_uo');
 		mooseModel: model
 ]
@@ -21,7 +24,9 @@ PWBASTVisitorAccesTest >> sourceExample [
 end variables
 
 private function integer aFunction ();
-  this.my_uo.var = 5
+ this.my_uo.var = 5
+this.my_uo.myFunc()
+this.my_uo.myFunc().var
   return 0
 end function'
 ]
