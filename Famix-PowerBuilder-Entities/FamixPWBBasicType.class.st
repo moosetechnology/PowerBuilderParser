@@ -24,3 +24,8 @@ FamixPWBBasicType >> isBasic [
 FamixPWBBasicType >> isPWBDataWindow [
 	^ false
 ]
+
+{ #category : #accessing }
+FamixPWBBasicType >> owner: aFamixPWBInstanceVariable [
+	
+]
