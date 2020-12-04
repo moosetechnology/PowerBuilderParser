@@ -1,4 +1,4 @@
-name: PowerBuilderParser health   
+name: Github Actions build  
 
 on: [push, pull_request]
 
@@ -23,3 +23,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  test_coverage:
+    name: Coveralls
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v1
+
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+
+    - name: npm install, make test-coverage
+      run: |
+        npm install
+        make test-coverage
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
