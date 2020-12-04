@@ -4,6 +4,7 @@ Class {
 	#traits : 'FamixTSourceEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
 	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
 	#instVars : [
+		'#accessModifier => FMProperty',
 		'#addedCharacter',
 		'#businessRulePath',
 		'#content',
@@ -26,6 +27,20 @@ FamixPWBBehavioral class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> accessModifier [
+
+	<FMProperty: #accessModifier type: #String>
+	<generated>
+	^ accessModifier
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> accessModifier: anObject [
+	<generated>
+	accessModifier := anObject
 ]
 
 { #category : #'Famix-Extensions' }
@@ -203,6 +218,12 @@ FamixPWBBehavioral >> isNotPWBDead [
 { #category : #api }
 FamixPWBBehavioral >> isPredefinedMethod [
 	^ self predifinedMethods includes: self name asLowercase
+]
+
+{ #category : #testing }
+FamixPWBBehavioral >> isPrivate [
+	^ self accessModifier isNotNil
+		and: [ self accessModifier asLowercase = 'private' ]
 ]
 
 { #category : #api }

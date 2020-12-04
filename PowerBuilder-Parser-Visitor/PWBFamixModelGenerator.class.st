@@ -249,7 +249,8 @@ PWBFamixModelGenerator >> defineProperties [
 	functionReturn
 		property: #doesBelongToSingleLineIfStatement
 		type: #Boolean.
-	attribute property: #attributeType type: #Object
+	attribute property: #attributeType type: #Object.
+	behavioral property: #accessModifier type: #String
 ]
 
 { #category : #definition }

@@ -512,10 +512,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
-	self visit: aPWBASTFunctionSignature accessModifier.
 	functionRetunTypeHolder := self visit: aPWBASTFunctionSignature type.
 	self currentEntity
-		name: (self visit: aPWBASTFunctionSignature identifier).
+		name: (self visit: aPWBASTFunctionSignature identifier);
+		accessModifier: (self visit: aPWBASTFunctionSignature accessModifier).
 	^ self visit: aPWBASTFunctionSignature arguments
 ]
 
