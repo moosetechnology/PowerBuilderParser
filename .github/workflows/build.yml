@@ -24,7 +24,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #Coverall
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ${{matrix.os}}-${{matrix.smalltalk}}
+  finish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
