@@ -17,6 +17,8 @@ matrix:
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
   - bash upload.sh Pharo.image Pharo.changes
+  - npm install -g coveralls
+  - cat "coverage/lcov.info" | coveralls
 
 branches:
   except:
