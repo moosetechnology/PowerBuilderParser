@@ -7,7 +7,7 @@ SmalltalkCISpec {
    #testing : {
     #coverage : {
       #packages : [ 'PowerBuilderParser*' ],
-      #format : #coveralls
+      #format : #lcov
     }
   }
 }
