@@ -8,7 +8,7 @@
 
 You can download the project in your image by doing:
 
-```st
+```smalltalk
 Metacello new
   baseline: 'PowerBuilderParser';
   repository: 'github://moosetechnology/PowerBuilderParser';
