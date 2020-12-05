@@ -3,8 +3,8 @@ name: Github Actions build
 on: [push, pull_request]
 
 jobs:
-  build:
-    strategy:
+  tests: build
+   strategy:
       matrix:
         os: [  macos-latest ]
         smalltalk:
@@ -13,31 +13,9 @@ jobs:
     name: ${{ matrix.smalltalk }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Setup smalltalkCI
-        uses: hpi-swa/setup-smalltalkCI@v1
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
         with:
-          smalltalk-version: ${{ matrix.smalltalk }}
-      - name: Run smalltalkCI self test
-        run: smalltalkci -s ${{ matrix.smalltalk }} --self-test
-        timeout-minutes: 15
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # tests:
-  #   needs: build
-  #   strategy:
-  #     matrix:
-  #       os: [  macos-latest ]
-  #       smalltalk:
-  #         - Pharo64-8.0
-  #   runs-on: ${{ matrix.os }}
-  #   name: ${{ matrix.smalltalk }} on ${{ matrix.os }}
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Coveralls GitHub Action
-  #       uses: coverallsapp/github-action@v1.1.2
-  #       with:
-  #        github-token: ${{ secrets.GITHUB_TOKEN }}
-  #        path-to-lcov: ./coverage/lcov.info
-  #        flag-name: "Unit"
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            path-to-lcov: ./coverage/lcov.info
+            flag-name: "Unit"
