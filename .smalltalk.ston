@@ -3,10 +3,11 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'PowerBuilderParser'
     }
-  ]  ,
-  #testing : {
+  ],
+   #testing : {
     #coverage : {
-      #packages : [ 'PowerBuilderParser*' ]
+      #packages : [ 'PowerBuilder*' ],
+      #format : #lcov
     }
   }
 }
