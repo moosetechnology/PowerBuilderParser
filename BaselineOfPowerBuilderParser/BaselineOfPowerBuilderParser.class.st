@@ -34,10 +34,8 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 { #category : #baselines }
 BaselineOfPowerBuilderParser >> baselineOfFamix: spec [
 	spec
-		baseline: 'Famix'
-		with: [ spec
-				repository:
-					'github://moosetechnology/Famix:8701793dde7cf0b1ec908995763d9ea17134717e/src' ]
+	baseline: 'Famix'
+	with: [ spec repository: 'github://moosetechnology/Famix:development/src' ]
 ]
 
 { #category : #baselines }

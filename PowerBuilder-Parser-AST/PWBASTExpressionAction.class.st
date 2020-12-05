@@ -1,4 +1,3 @@
-
 Class {
 	#name : #PWBASTExpressionAction,
 	#superclass : #Object,
@@ -91,4 +90,3 @@ PWBASTExpressionAction >> stopPosition [
 PWBASTExpressionAction >> stopPosition: anObject [
 	stopPosition := anObject
 ]
-
