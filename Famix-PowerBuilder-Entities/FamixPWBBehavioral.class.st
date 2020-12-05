@@ -302,24 +302,6 @@ FamixPWBBehavioral >> setContent [
 		yourself
 ]
 
-{ #category : #initialization }
-FamixPWBBehavioral >> setParameters [
-	| signatureAST aSignature |
-	self sourceAnchor ifNil: [ ^ self ].
-	aSignature := self
-		clean: (PWBPreprocessor parse: self sourceText lines first).
-	signatureAST := (MrlPWBParser new mrlSignatures parse: aSignature)
-		mrlSignatures.
-	signatureAST arguments arguments ifNil: [ ^ self ].
-	signatureAST arguments arguments
-		do: [ :argAST | 
-			| parameter |
-			parameter := self createParameter: argAST.
-			self parameters
-				detect: [ :aParam | aParam = parameter ]
-				ifNone: [ self addParameter: parameter ] ]
-]
-
 { #category : #accessing }
 FamixPWBBehavioral >> signature [
 	"Relation named: #signature type: #FamixPWBBehaviorSignature opposite: #behavioral"

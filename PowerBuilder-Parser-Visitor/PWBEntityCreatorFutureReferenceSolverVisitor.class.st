@@ -106,25 +106,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTBasicType: anMrlPWBASTBasicType [
-	^ self
-		ensureEntityWithType: FamixPWBBasicType
-		named: anMrlPWBASTBasicType basicType
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTCustomType: aMrlPWBASTCustomType [
-	^ self
-		ensureEntityWithType: FamixPWBCustomType
-		named: (self visit: aMrlPWBASTCustomType identifier)
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitMrlPWBASTType: aMrlPWBASTType [
-	^ self visit: aMrlPWBASTType type
-]
-
-{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	| sRIdentifierWithNode |
 	self visit: aPWBASTAccess arrayPosition.
