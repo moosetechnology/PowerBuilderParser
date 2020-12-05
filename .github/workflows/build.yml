@@ -1,4 +1,5 @@
-name: PowerBuilderParser health   
+name: Github Actions build  
+
 
 on: [push, pull_request]
 
@@ -22,4 +23,22 @@ jobs:
         timeout-minutes: 15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+#Coverall
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ${{matrix.os}}-${{matrix.smalltalk}}
+  #        parallel: true
+  # finish:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Coveralls Finished
+  #     uses: coverallsapp/github-action@master
+  #     with:
+  #       github-token: ${{ secrets.github_token }}
+  #       parallel-finished: true
 
