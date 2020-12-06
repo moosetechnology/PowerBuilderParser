@@ -125,6 +125,11 @@ FamixPWBEntity >> isReference [
 ]
 
 { #category : #testing }
+FamixPWBEntity >> isResolvable [
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBEntity >> isStructuralEntity [
 
 	<generated>
@@ -141,4 +146,11 @@ FamixPWBEntity >> isType [
 
 	<generated>
 	^ false
+]
+
+{ #category : #testing }
+FamixPWBEntity >> postResolveActionWith: aSRResolver [
+	"By default do nothing"
+
+	
 ]
