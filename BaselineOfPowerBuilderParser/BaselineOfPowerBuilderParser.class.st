@@ -13,7 +13,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 			"Groups"
 			self baselineOfPetitParser2: spec.
 			self baselineOfSymbolResolver: spec.
-			self baselineOfFamix: spec.
+			"	self baselineOfFamix: spec."
 
 			"Packages"
 			spec
