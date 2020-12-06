@@ -23,7 +23,7 @@ FamixPWBFunction >> isFunction [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : #accessing }
 FamixPWBFunction >> mooseNameOn: stream [
 	self parentType
 		ifNotNil: [ :parent | 

@@ -31,7 +31,7 @@ private function integer aFunction ();
 end function'
 ]
 
-{ #category : #tests }
+{ #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
 	self assert: model allAccesses size equals: 2.
@@ -43,7 +43,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	self assert: accVar variable parentType name equals: 'test_uo'
 ]
 
-{ #category : #tests }
+{ #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	| access |
 	access := model allAccesses
