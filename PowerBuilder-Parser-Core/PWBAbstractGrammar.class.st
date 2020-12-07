@@ -73,7 +73,8 @@ Class {
 		'eventTriggeringOrPosting',
 		'eventName',
 		'eventWord',
-		'eventLong'
+		'eventLong',
+		'expressionSign'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -350,6 +351,11 @@ PWBAbstractGrammar >> expressionAction [
 ]
 
 { #category : #accessing }
+PWBAbstractGrammar >> expressionSign [
+	^ $+ parser / $- parser
+]
+
+{ #category : #accessing }
 PWBAbstractGrammar >> expressionTerm [
 	^ notExpression / functionInvocation / createUsingInstruction
 		/ constant / array / createInstruction / time / number / string
@@ -358,7 +364,7 @@ PWBAbstractGrammar >> expressionTerm [
 
 { #category : #accessing }
 PWBAbstractGrammar >> expressionWithSign [
-	^ $+ parser / $- parser , spaces optional, expression
+	^ expressionSign , spaces optional , expression
 ]
 
 { #category : #accessing }

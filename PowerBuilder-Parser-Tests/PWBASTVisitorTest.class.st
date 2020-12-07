@@ -175,7 +175,7 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 PWBASTVisitorTest >> testParserReturn [
 	| return |
 	return := (model allWithType: FamixPWBFunctionReturn)
-		select: [ :r | r name = 'aFunction.Return' ].
+		select: [ :r | r name = 'aFunction' ].
 	self assert: return isNotEmpty.
 	self
 		assert: (return detect: [ :r | r returnValue beginsWith: 'LL' ]) returnValue
@@ -189,7 +189,7 @@ PWBASTVisitorTest >> testParserReturn [
 PWBASTVisitorTest >> testParserReturnArrayWithSize [
 	| return |
 	return := (model allWithType: FamixPWBFunctionReturn)
-		detect: [ :r | r name = 'anotherFunction.Return' ]
+		detect: [ :r | r name = 'anotherFunction' ]
 		ifNone: [ nil ].
 	self assert: return isNotNil.
 	self assert: return returnValue equals: 'il_long1[ 1 ]'

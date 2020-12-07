@@ -845,6 +845,18 @@ PWBCommonParser >> expressionList [
 ]
 
 { #category : #rules }
+PWBCommonParser >> expressionSign [
+	<generated>
+	^ super expressionSign flatten withPositions
+		==> [ :production | 
+			PWBASTExpressionSign new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionSign: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> expressionTerm [
 	<generated>
 	^ super expressionTerm withPositions
@@ -861,10 +873,10 @@ PWBCommonParser >> expressionWithSign [
 	<generated>
 	^ super expressionWithSign withPositions
 		==> [ :production | 
-			self halt.
 			PWBASTExpressionWithSign new
 				startPosition: production start;
 				stopPosition: production stop;
+				expressionSign: (production content at: 1);
 				expression: (production content at: 3);
 				yourself ]
 ]

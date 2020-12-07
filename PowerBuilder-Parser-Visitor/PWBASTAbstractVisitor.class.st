@@ -493,6 +493,12 @@ PWBASTAbstractVisitor >> visitPWBASTExpressionList: aPWBASTExpressionList [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTExpressionSign: anPWBASTExpressionSign [
+	<generated>
+	^ anPWBASTExpressionSign expressionSign
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
 	<generated>
 	self visit: aPWBASTExpressionTerm expressionTerm.
@@ -501,6 +507,7 @@ PWBASTAbstractVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
 	<generated>
+	self visit: aPWBASTExpressionWithSign expressionSign.
 	self visit: aPWBASTExpressionWithSign expression.
 ]
 
@@ -685,7 +692,7 @@ PWBASTAbstractVisitor >> visitPWBASTIntervalExpression: aPWBASTIntervalExpressio
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 	<generated>
-	self visit: aPWBASTMethodInvocation methodInvocation
+	self visit: aPWBASTMethodInvocation methodInvocation.
 ]
 
 { #category : #visiting }

@@ -416,7 +416,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBA
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
-	^ self visit: aPWBASTExpressionWithSign expression
+	^ (self visit: aPWBASTExpressionWithSign expressionSign)
+		, (self visit: aPWBASTExpressionWithSign expression)
 ]
 
 { #category : #visiting }
