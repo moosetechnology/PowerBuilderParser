@@ -69,6 +69,8 @@ end function
 private function integer anotherFunction (long aLong, string aString);  
   AFUNCTION(aLong)
   this.il_long1 = 5
+  return trim("bla")
+  return ll_pos - 1 
   return il_long1[1]
 end function
 
@@ -172,17 +174,29 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 ]
 
 { #category : #tests }
-PWBASTVisitorTest >> testParserReturn [
-	| return |
-	return := (model allWithType: FamixPWBFunctionReturn)
-		select: [ :r | r name = 'aFunction' ].
-	self assert: return isNotEmpty.
+PWBASTVisitorTest >> testParserReturnAfunctionCall [
+	| returns |
+	returns := (model allWithType: FamixPWBFunctionReturn)
+		select: [ :r | r name = 'anotherFunction' ].
+	self assert: returns isNotEmpty.
 	self
-		assert: (return detect: [ :r | r returnValue beginsWith: 'LL' ]) returnValue
-		equals: 'LL_RETURN'.
+		assert:
+			(returns detect: [ :r | r returnValue beginsWith: 'trim' ])
+				returnValue
+		equals: 'trim("bla")'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParserReturnArithmeticExpression [
+	| returns |
+	returns := (model allWithType: FamixPWBFunctionReturn)
+		select: [ :r | r name = 'anotherFunction' ].
+	self assert: returns isNotEmpty.
 	self
-		assert: (return detect: [ :r | r returnValue endsWith: '1' ]) returnValue
-		equals: '-1'
+		assert:
+			(returns detect: [ :r | r returnValue beginsWith: 'll_pos' ])
+				returnValue
+		equals: 'll_pos - 1'
 ]
 
 { #category : #tests }
@@ -192,7 +206,29 @@ PWBASTVisitorTest >> testParserReturnArrayWithSize [
 		detect: [ :r | r name = 'anotherFunction' ]
 		ifNone: [ nil ].
 	self assert: return isNotNil.
-	self assert: return returnValue equals: 'il_long1[ 1 ]'
+	self assert: return returnValue equals: 'il_long1[1]'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParserReturnConstant [
+	| returns |
+	returns := (model allWithType: FamixPWBFunctionReturn)
+		select: [ :r | r name = 'aFunction' ].
+	self assert: returns isNotEmpty.
+	self
+		assert: (returns detect: [ :r | r returnValue endsWith: '1' ]) returnValue
+		equals: '-1'
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParserReturnVariable [
+	| returns |
+	returns := (model allWithType: FamixPWBFunctionReturn)
+		select: [ :r | r name = 'aFunction' ].
+	self assert: returns isNotEmpty.
+	self
+		assert: (returns detect: [ :r | r returnValue beginsWith: 'LL' ]) returnValue
+		equals: 'LL_RETURN'
 ]
 
 { #category : #tests }
