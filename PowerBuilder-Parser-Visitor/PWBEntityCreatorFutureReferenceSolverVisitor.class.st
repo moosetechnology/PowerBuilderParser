@@ -7,8 +7,8 @@ Class {
 	#instVars : [
 		'currentLibrary',
 		'typeDeclarationType',
-		'visitedSigleLineIfStatement',
-		'assignmentRightHandSideExist'
+		'expressionIsLeftHandSide',
+		'functionRetunTypeHolder'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -31,7 +31,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 		ifFalse: [ | identifiers writeAccess |
 			identifiers := self
 				createResolvableIdentifier: aPWBASTExpressionAction.
-			writeAccess := assignmentRightHandSideExist.
+			writeAccess := expressionIsLeftHandSide.
 			identifiers
 				foundAction: [ :identifier :currentEntity | 
 					(identifier entity class inheritsFrom: FamixPWBmajorObject)
@@ -91,8 +91,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType name
 PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	super initialize.
 	self initialiseFutureSolver.
-	visitedSigleLineIfStatement := false.
-	assignmentRightHandSideExist := false
+	expressionIsLeftHandSide := false
 ]
 
 { #category : #visiting }
@@ -124,7 +123,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
-			writeAccess := assignmentRightHandSideExist.
+			writeAccess := expressionIsLeftHandSide.
 			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity | 
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
@@ -160,29 +159,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
-	| expressions |
-	expressions := self visitAll: aPWBASTArrayWithSize expressions.
-	expressions ifNil: [ ^ self ].
-	(expressions anySatisfy: [ :expr | expr = self ])
-		ifTrue: [ ^ self ].
-	^ String
-		streamContents: [ :stream | 
-			stream << '[ '.
-			1 to: expressions size - 1 do: [ :iter | 
-				stream
-					<< (expressions at: iter);
-					<< ',' ].
-			stream
-				<< expressions last;
-				<< ' ]' ]
+	^ self visitAll: aPWBASTArrayWithSize expressions
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	self visit: aPWBASTAssignationStatement accessOrType.
-	assignmentRightHandSideExist := true.
+	expressionIsLeftHandSide := true.
 	self visit: aPWBASTAssignationStatement expressionAction.
-	assignmentRightHandSideExist := false.
+	expressionIsLeftHandSide := false.
 	self visit: aPWBASTAssignationStatement assignation
 ]
 
@@ -301,8 +286,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 					| invocation |
 					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					invocation := (self
-						createAssociation: FamixPWBInvocation
-						from: identifier node)
+						createEntity: FamixPWBInvocation
+						withAnchorFrom: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
 					argumentASTs
@@ -351,8 +336,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 					| invocation |
 					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					invocation := (self
-						createAssociation: FamixPWBInvocation
-						from: identifier node)
+						createEntity: FamixPWBInvocation
+						withAnchorFrom: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
 					argumentASTs
@@ -486,8 +471,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 					| invocation |
 					self preprocessedFile: currentEntity sourceAnchor fileReference.
 					invocation := (self
-						createAssociation: FamixPWBInvocation
-						from: identifier node)
+						createEntity: FamixPWBInvocation
+						withAnchorFrom: identifier node)
 						sender: currentEntity;
 						candidates: identifier candidates.
 					"	argumentASTs
@@ -506,15 +491,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	| signature arguments |
-		"A signature always and with a $; charater at definition"
+	self currentEntity isNullPatternObject
+		ifTrue: [ ^ self ].
 	arguments := aPWBASTFunctionSignature arguments arguments.
 	arguments ifNotNil: [ self createPWBParameters: arguments ].
 	signature := self
-		createAssociation: FamixPWBBehaviorSignature
-		from: aPWBASTFunctionSignature.
+		createEntity: FamixPWBBehaviorSignature
+		withAnchorFrom: aPWBASTFunctionSignature.
 	signature
 		name: self currentEntity name;
 		behavioral: self currentEntity.
+	"A signature always ends with a $; charater at definition"
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	functionRetunTypeHolder := self visit: aPWBASTFunctionSignature type.
 	self currentEntity
@@ -560,7 +547,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfMultiLine: aPWBASTI
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
 	self currentEntity increaseCyclomaticComplexity.
-	visitedSigleLineIfStatement := true.
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
@@ -598,7 +584,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 				yourself)} ];
 		foundAction: [ :identifier :currentEntity | 
 			self preprocessedFile: currentEntity sourceAnchor fileReference.
-			(self createAssociation: FamixPWBInvocation from: identifier node)
+			(self createEntity: FamixPWBInvocation withAnchorFrom: identifier node)
 				sender: currentEntity;
 				candidates: identifier candidates ].
 	self resolve: toResolve.
@@ -607,24 +593,19 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
-	| return famixFunctionReturn |
+	| famixFunctionReturn codeRewriteVisitor |
+	1 halt.
 	famixFunctionReturn := self
-		createAssociation: FamixPWBFunctionReturn
-		from: aPWBASTReturnStatement.
+		createEntity: FamixPWBFunctionReturn
+		withAnchorFrom: aPWBASTReturnStatement.
 	famixFunctionReturn
 		behavioral: self currentEntity;
 		type: functionRetunTypeHolder;
 		name: self currentEntity name.
-	return := self visit: aPWBASTReturnStatement expression.
-	famixFunctionReturn
-		returnValue:
-			(return isResolvable
-				ifTrue: [ return identifier
-						ifNotNil: [ :identifier | 
-							identifier
-								,
-									(return arrayWithSize ifNil: [ '' ] ifNotNil: [ return arrayWithSize ]) ] ]
-				ifFalse: [ return ]).
+	self visit: aPWBASTReturnStatement expression.
+	codeRewriteVisitor := PWBCodeRewriteVisitor new.
+	codeRewriteVisitor visit: aPWBASTReturnStatement expression.
+	famixFunctionReturn returnValue: codeRewriteVisitor stream.
 	^ famixFunctionReturn
 ]
 
@@ -666,8 +647,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 	arguments := aPWBASTSubroutineSignature arguments arguments.
 	arguments ifNotNil: [ self createPWBParameters: arguments ].
 	signature := self
-		createAssociation: FamixPWBBehaviorSignature
-		from: aPWBASTSubroutineSignature.
+		createEntity: FamixPWBBehaviorSignature
+		withAnchorFrom: aPWBASTSubroutineSignature.
 	signature
 		name: self currentEntity name;
 		behavioral: self currentEntity.
