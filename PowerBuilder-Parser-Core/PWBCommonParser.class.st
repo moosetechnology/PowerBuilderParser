@@ -861,6 +861,7 @@ PWBCommonParser >> expressionWithSign [
 	<generated>
 	^ super expressionWithSign withPositions
 		==> [ :production | 
+			self halt.
 			PWBASTExpressionWithSign new
 				startPosition: production start;
 				stopPosition: production stop;

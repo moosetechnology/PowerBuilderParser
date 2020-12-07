@@ -209,18 +209,7 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
-	| signature |
-	"A signature always and with a $; charater at definition"
-	(self visit: aPWBASTFunctionDefinition functionSignature)
-		ifNotNil: [ self
-				createPWBParameters: aPWBASTFunctionDefinition functionSignature arguments arguments ].
-	signature := self
-		createAssociation: FamixPWBBehaviorSignature
-		from: aPWBASTFunctionDefinition functionSignature.
-	signature
-		name: self currentEntity name;
-		behavioral: self currentEntity.
-	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
+	self visit: aPWBASTFunctionDefinition functionSignature.
 	self visit: aPWBASTFunctionDefinition statements.
 	^ self currentEntity
 ]
@@ -232,18 +221,9 @@ PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
-	| signature |
-	(self visit: aPWBASTSubroutineDefinition subroutineSignature)
-		ifNotNil: [ self
-				createPWBParameters: aPWBASTSubroutineDefinition subroutineSignature arguments arguments ].
-	signature := self
-		createAssociation: FamixPWBBehaviorSignature
-		from: aPWBASTSubroutineDefinition subroutineSignature.
-	signature
-		name: self currentEntity name;
-		behavioral: self currentEntity.
-	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
-	self visit: aPWBASTSubroutineDefinition statements
+	self visit: aPWBASTSubroutineDefinition subroutineSignature.
+	self visit: aPWBASTSubroutineDefinition statements.
+	^ self currentEntity
 ]
 
 { #category : #visiting }
