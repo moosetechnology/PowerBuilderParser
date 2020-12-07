@@ -63,6 +63,7 @@ private function integer aFunction ();
   var.isNull()
   anotherFunction(2, "blah")
   return LL_RETURN
+  return -1
 end function
 
 private function integer anotherFunction (long aLong, string aString);  
@@ -76,7 +77,7 @@ private function integer eventTestingFunction()
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
 end function
-' 
+'
 ]
 
 { #category : #accessing }
@@ -174,20 +175,24 @@ PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 PWBASTVisitorTest >> testParserReturn [
 	| return |
 	return := (model allWithType: FamixPWBFunctionReturn)
-		detect: [ :r | r name = 'aFunction.Return' ]
-		ifNone: [ nil ].
-	self assert: return isNotNil.
-"	self assert: return returnValue equals: 'LL_RETURN'"
+		select: [ :r | r name = 'aFunction' ].
+	self assert: return isNotEmpty.
+	self
+		assert: (return detect: [ :r | r returnValue beginsWith: 'LL' ]) returnValue
+		equals: 'LL_RETURN'.
+	self
+		assert: (return detect: [ :r | r returnValue endsWith: '1' ]) returnValue
+		equals: '-1'
 ]
 
 { #category : #tests }
 PWBASTVisitorTest >> testParserReturnArrayWithSize [
 	| return |
 	return := (model allWithType: FamixPWBFunctionReturn)
-		detect: [ :r | r name = 'anotherFunction.Return' ]
+		detect: [ :r | r name = 'anotherFunction' ]
 		ifNone: [ nil ].
 	self assert: return isNotNil.
-	"self assert: return returnValue equals: 'il_long1[ 1 ]'"
+	self assert: return returnValue equals: 'il_long1[ 1 ]'
 ]
 
 { #category : #tests }

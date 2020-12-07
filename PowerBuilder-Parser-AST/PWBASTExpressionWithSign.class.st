@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTExpressionWithSign,
 	#superclass : #Object,
 	#instVars : [
+		'expressionSign',
 		'expression',
 		'startPosition',
 		'stopPosition'
@@ -17,9 +18,10 @@ PWBASTExpressionWithSign >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ expression = anObject expression
-		and: [ startPosition = anObject startPosition
-				and: [ stopPosition = anObject stopPosition ] ]
+	^ expressionSign = anObject expressionSign
+		and: [ expression = anObject expression
+				and: [ startPosition = anObject startPosition
+						and: [ stopPosition = anObject stopPosition ] ] ]
 ]
 
 { #category : #visiting }
@@ -38,12 +40,24 @@ PWBASTExpressionWithSign >> expression: anObject [
 	expression := anObject
 ]
 
+{ #category : #accessing }
+PWBASTExpressionWithSign >> expressionSign [
+	^ expressionSign
+]
+
+{ #category : #accessing }
+PWBASTExpressionWithSign >> expressionSign: anObject [
+	expressionSign := anObject
+]
+
 { #category : #comparing }
 PWBASTExpressionWithSign >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ expression hash
-		bitXor: (startPosition hash bitXor: stopPosition hash)
+	^ expressionSign hash
+		bitXor:
+			(expression hash
+				bitXor: (startPosition hash bitXor: stopPosition hash))
 ]
 
 { #category : #accessing }

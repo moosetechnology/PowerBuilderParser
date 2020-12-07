@@ -120,7 +120,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	| sRIdentifierWithNode |
 	self visit: aPWBASTAccess arrayPosition.
-	(self currentEntity class = FamixPWBDataWindow
+	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
@@ -134,14 +134,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
-			self resolve: sRIdentifierWithNode.
-			sRIdentifierWithNode identifier
-				ifNotNil: [ :identifier | 
-					^ identifier
-						,
-							(sRIdentifierWithNode arrayWithSize
-								ifNil: [ '' ]
-								ifNotNil: [ sRIdentifierWithNode arrayWithSize ]) ] ]
+			self resolve: sRIdentifierWithNode ]
 		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
 
@@ -288,7 +281,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoWhileLoop: aPWBASTD
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
 	| argumentASTs |
-		self halt.
 	argumentASTs := aPWBASTMethodInvocation functionArguments.
 	self
 		resolve:
@@ -424,7 +416,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBA
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
-	^ self visit: aPWBASTExpressionWithSign expression
+	^ (self visit: aPWBASTExpressionWithSign expressionSign)
+		, (self visit: aPWBASTExpressionWithSign expression)
 ]
 
 { #category : #visiting }
@@ -467,7 +460,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ].
 	famixFunction returnType: functionRetunTypeHolder.
-	^ famixFunction
+	^ self currentEntity
 ]
 
 { #category : #visiting }
@@ -512,11 +505,22 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
+	| signature arguments |
+		"A signature always and with a $; charater at definition"
+	arguments := aPWBASTFunctionSignature arguments arguments.
+	arguments ifNotNil: [ self createPWBParameters: arguments ].
+	signature := self
+		createAssociation: FamixPWBBehaviorSignature
+		from: aPWBASTFunctionSignature.
+	signature
+		name: self currentEntity name;
+		behavioral: self currentEntity.
+	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	functionRetunTypeHolder := self visit: aPWBASTFunctionSignature type.
 	self currentEntity
 		name: (self visit: aPWBASTFunctionSignature identifier);
 		accessModifier: (self visit: aPWBASTFunctionSignature accessModifier).
-	^ self visit: aPWBASTFunctionSignature arguments
+	^ signature
 ]
 
 { #category : #visiting }
@@ -604,23 +608,24 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	| return famixFunctionReturn |
+	famixFunctionReturn := self
+		createAssociation: FamixPWBFunctionReturn
+		from: aPWBASTReturnStatement.
+	famixFunctionReturn
+		behavioral: self currentEntity;
+		type: functionRetunTypeHolder;
+		name: self currentEntity name.
 	return := self visit: aPWBASTReturnStatement expression.
-	return
-		ifNotNil: [ | returnText |
-			famixFunctionReturn := self
-				createAssociation: FamixPWBFunctionReturn
-				from: aPWBASTReturnStatement.
-			returnText := famixFunctionReturn sourceText trim.
-			famixFunctionReturn
-				behavioral: self currentEntity;
-				type: functionRetunTypeHolder;
-				name: self currentEntity name , '.Return'.
-			returnText
-				ifNotEmpty:
-					[ :text | famixFunctionReturn returnValue: (text copyFrom: 7 to: text size) ].
-			famixFunctionReturn
-				doesBelongToSingleLineIfStatement: visitedSigleLineIfStatement.
-			visitedSigleLineIfStatement := false ]
+	famixFunctionReturn
+		returnValue:
+			(return isResolvable
+				ifTrue: [ return identifier
+						ifNotNil: [ :identifier | 
+							identifier
+								,
+									(return arrayWithSize ifNil: [ '' ] ifNotNil: [ return arrayWithSize ]) ] ]
+				ifFalse: [ return ]).
+	^ famixFunctionReturn
 ]
 
 { #category : #visiting }
@@ -655,10 +660,22 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	self visit: aPWBASTSubroutineSignature accessModifier.
+	"A signature always and with a $; charater at definition"
+
+	| arguments signature |
+	arguments := aPWBASTSubroutineSignature arguments arguments.
+	arguments ifNotNil: [ self createPWBParameters: arguments ].
+	signature := self
+		createAssociation: FamixPWBBehaviorSignature
+		from: aPWBASTSubroutineSignature.
+	signature
+		name: self currentEntity name;
+		behavioral: self currentEntity.
+	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	self currentEntity
-		name: (self visit: aPWBASTSubroutineSignature identifier).
-	^ self visit: aPWBASTSubroutineSignature arguments
+		name: (self visit: aPWBASTSubroutineSignature identifier);
+		accessModifier: (self visit: aPWBASTSubroutineSignature accessModifier).
+	^ signature
 ]
 
 { #category : #visiting }

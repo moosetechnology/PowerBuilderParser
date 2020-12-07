@@ -59,6 +59,6 @@ BaselineOfPowerBuilderParser >> baselineOfSymbolResolver: spec [
 	spec
 		baseline: 'SymbolResolver'
 
-		with: [ spec repository: 'github://moosetechnology/SymbolResolver:master/src' ]
+		with: [ spec repository: 'github://moosetechnology/SymbolResolver:main/src' ]
 
 ]

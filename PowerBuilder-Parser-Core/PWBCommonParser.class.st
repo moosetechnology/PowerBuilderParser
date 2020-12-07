@@ -845,6 +845,18 @@ PWBCommonParser >> expressionList [
 ]
 
 { #category : #rules }
+PWBCommonParser >> expressionSign [
+	<generated>
+	^ super expressionSign flatten withPositions
+		==> [ :production | 
+			PWBASTExpressionSign new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionSign: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> expressionTerm [
 	<generated>
 	^ super expressionTerm withPositions
@@ -864,6 +876,7 @@ PWBCommonParser >> expressionWithSign [
 			PWBASTExpressionWithSign new
 				startPosition: production start;
 				stopPosition: production stop;
+				expressionSign: (production content at: 1);
 				expression: (production content at: 3);
 				yourself ]
 ]
@@ -1696,15 +1709,15 @@ PWBCommonParser >> typeDeclaration [
 
 { #category : #rules }
 PWBCommonParser >> typePrototypes [
-	<generated>
 	^ super typePrototypes withPositions
 		==> [ :production | 
 			PWBASTTypePrototypes new
 				startPosition: production start;
 				stopPosition: production stop;
 				declarations:
-					(((production content at: 3) at: 1)
-						ifNotNil: [ self rejectSeparators: ((production content at: 3) at: 1) ]);
+					((production content at: 3)
+						ifNotNil: [ ((production content at: 3) at: 1)
+								ifNotNil: [ self rejectSeparators: ((production content at: 3) at: 1) ] ]);
 				yourself ]
 ]
 
