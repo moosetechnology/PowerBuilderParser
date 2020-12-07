@@ -696,18 +696,6 @@ PWBASTAbstractVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
 ]
 
 { #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTMrlInvocationLine: aPWBASTMrlInvocationLine [
-	<generated>
-	self visitAll: aPWBASTMrlInvocationLine mrlInvocationLines.
-]
-
-{ #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTMrlSignatures: aPWBASTMrlSignatures [
-	<generated>
-	self visit: aPWBASTMrlSignatures mrlSignatures.
-]
-
-{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTMultiLineCase: aPWBASTMultiLineCase [
 	<generated>
 	self visit: aPWBASTMultiLineCase expressionList.

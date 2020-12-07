@@ -7,8 +7,7 @@ Class {
 		'model',
 		'file',
 		'importingContext',
-		'preprocessingMap',
-		'functionRetunTypeHolder'
+		'preprocessingMap'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -65,10 +64,10 @@ PWBImporterAbstractVisitor >> createAccessTo: aFamixPWBAccessible writing: aBool
 ]
 
 { #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
+PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	| created |
 	"self haltIf: aClass = FamixPWBInvocation."
-	created := self createAssociation: aClass.
+	created := self createModelEntity: aClass.
 	created
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
@@ -82,8 +81,6 @@ PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
-	self currentEntity isNullPatternObject
-		ifTrue: [ ^ self ].
 	^ aCollection
 		collect: [ :arg | 
 			(self currentEntity
@@ -256,7 +253,6 @@ PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
 			FamixPWBInstanceVariable.
 			FamixPWBLocalVariable}
 		node: aPWBASTVariable identifier.
-	arrayWithSize = self
-		ifFalse: [ resolvable arrayWithSize: arrayWithSize ].
+	resolvable arrayDefinition: arrayWithSize.
 	^ self resolvable: resolvable
 ]
