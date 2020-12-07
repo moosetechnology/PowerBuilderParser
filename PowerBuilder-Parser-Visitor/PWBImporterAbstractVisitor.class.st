@@ -82,8 +82,10 @@ PWBImporterAbstractVisitor >> createAssociation: aClass from: anASTNode [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
+	self currentEntity isNullPatternObject
+		ifTrue: [ ^ self ].
 	^ aCollection
-		do: [ :arg | 
+		collect: [ :arg | 
 			(self currentEntity
 				createValueHolderNamed: (self visit: arg)
 				withType: FamixPWBParameter)

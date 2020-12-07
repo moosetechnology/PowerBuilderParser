@@ -247,3 +247,11 @@ PWBASTVisitorTest >> testSourceTestSettings [
   TriggerEvent( this, "destructor" )
 end function'
 ]
+
+{ #category : #'as yet unclassified' }
+PWBASTVisitorTest >> testVisitorShouldNotCreateParametersIfCurrentIsaNullObjectPattern [
+	visitor currentEntity: PWBNullEntityObject new.
+	self assert: (visitor createPWBParameters: {}) equals: visitor.
+	visitor currentEntity: FamixPWBFunction new.
+	self assert: (visitor createPWBParameters: {}) equals: {}
+]
