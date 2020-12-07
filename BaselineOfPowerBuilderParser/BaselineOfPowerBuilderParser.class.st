@@ -50,7 +50,7 @@ BaselineOfPowerBuilderParser >> baselineOfPetitParser2: spec [
 	spec
 		baseline: 'PetitParserTooling'
 		with: [ spec
-				repository: 'github://moosetechnology/PetitParserTooling:master';
+				repository: 'github://moosetechnology/PetitParserTooling';
 				loads: #(PetitParser2Boost) ]
 ]
 
