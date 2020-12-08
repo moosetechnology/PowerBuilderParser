@@ -28,6 +28,14 @@ PWBCodeRewriteVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 ]
 
 { #category : #visiting }
+PWBCodeRewriteVisitor >> visitPWBASTExpressionOperator: aPWBASTExpressionOperator [
+	stream
+		space;
+		<< aPWBASTExpressionOperator expressionOperator;
+		space
+]
+
+{ #category : #visiting }
 PWBCodeRewriteVisitor >> visitPWBASTExpressionSign: aPWBASTExpressionSign [
 	stream << aPWBASTExpressionSign expressionSign
 ]

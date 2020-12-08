@@ -493,6 +493,12 @@ PWBASTAbstractVisitor >> visitPWBASTExpressionList: aPWBASTExpressionList [
 ]
 
 { #category : #visiting }
+PWBASTAbstractVisitor >> visitPWBASTExpressionOperator: anPWBASTExpressionOperator [
+	<generated>
+	^ anPWBASTExpressionOperator expressionOperator
+]
+
+{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTExpressionSign: anPWBASTExpressionSign [
 	<generated>
 	^ anPWBASTExpressionSign expressionSign
@@ -726,6 +732,7 @@ PWBASTAbstractVisitor >> visitPWBASTOperatorExpression: aPWBASTOperatorExpressio
 	<generated>
 	self visit: aPWBASTOperatorExpression left.
 	self visit: aPWBASTOperatorExpression expressionAction.
+	self visit: aPWBASTOperatorExpression expressionOperator.
 	self visit: aPWBASTOperatorExpression right.
 ]
 

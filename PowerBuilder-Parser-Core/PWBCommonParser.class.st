@@ -845,6 +845,18 @@ PWBCommonParser >> expressionList [
 ]
 
 { #category : #rules }
+PWBCommonParser >> expressionOperator [
+	<generated>
+	^ super expressionOperator flatten withPositions
+		==> [ :production | 
+			PWBASTExpressionOperator new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionOperator: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBCommonParser >> expressionSign [
 	<generated>
 	^ super expressionSign flatten withPositions
@@ -1174,18 +1186,6 @@ PWBCommonParser >> methodInvocation [
 ]
 
 { #category : #rules }
-PWBCommonParser >> mrlInvocationLine [
-	<generated>
-	^ super mrlInvocationLine withPositions
-		==> [ :production | 
-			PWBASTMrlInvocationLine new
-				startPosition: production start;
-				stopPosition: production stop;
-				mrlInvocationLines: production content;
-				yourself ]
-]
-
-{ #category : #rules }
 PWBCommonParser >> multiLineCase [
 	<generated>
 	^ super multiLineCase withPositions
@@ -1247,6 +1247,7 @@ PWBCommonParser >> operatorExpression [
 				stopPosition: production stop;
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
+				expressionOperator: (production content at: 4);
 				right: (production content at: 6);
 				yourself ]
 ]

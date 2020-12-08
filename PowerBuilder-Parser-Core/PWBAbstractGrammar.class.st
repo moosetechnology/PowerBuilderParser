@@ -75,7 +75,7 @@ Class {
 		'eventWord',
 		'eventLong',
 		'expressionSign',
-		'expressionOperators'
+		'expressionOperator'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -352,7 +352,7 @@ PWBAbstractGrammar >> expressionAction [
 ]
 
 { #category : #accessing }
-PWBAbstractGrammar >> expressionOperators [
+PWBAbstractGrammar >> expressionOperator [
 	^ self
 		parserCaseInsensitiveFor:
 			#('+' '-' '#' '^' '*' '/' '=' '<=' '>=' '>' '<>' '<' 'AND' 'OR' 'and' 'or')
@@ -469,7 +469,7 @@ PWBAbstractGrammar >> operatorExpression [
 	<rename: #expression into: #right>
 	^ parenthesedExpression / expressionTerm , expressionAction optional
 		, blank
-		, expressionOperators 
+		, expressionOperator 
 		, blank , expression	"','"
 ]
 

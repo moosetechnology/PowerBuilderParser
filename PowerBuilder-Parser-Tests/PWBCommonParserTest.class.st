@@ -44,6 +44,37 @@ PWBCommonParserTest >> testAccessOrType1 [
 PWBCommonParserTest >> testArgument1 [
 	<generated>
 	self
+		assert: (self parse: 'string as_param' rule: #argument)
+		equals:
+			(PWBASTArgument new
+				argumentOption: nil;
+				type:
+					(PWBASTType new
+						type:
+							(PWBASTBasicType new
+								basicType: 'string';
+								startPosition: 1;
+								stopPosition: 6;
+								yourself);
+						startPosition: 1;
+						stopPosition: 6;
+						yourself);
+				identifier:
+					(PWBASTIdentifier new
+						identifier: 'as_param';
+						startPosition: 8;
+						stopPosition: 15;
+						yourself);
+				arrayWithSize: nil;
+				startPosition: 1;
+				stopPosition: 15;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testArgument2 [
+	<generated>
+	self
 		assert: (self parse: 'string as_ctr_ass[10, 20]' rule: #argument)
 		equals:
 			(PWBASTArgument new
@@ -109,43 +140,12 @@ PWBCommonParserTest >> testArgument1 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testArgument2 [
-	<generated>
-	self
-		assert: (self parse: 'string as_param' rule: #argument)
-		equals:
-			(PWBASTArgument new
-				argumentOption: nil;
-				type:
-					(PWBASTType new
-						type:
-							(PWBASTBasicType new
-								basicType: 'string';
-								startPosition: 1;
-								stopPosition: 6;
-								yourself);
-						startPosition: 1;
-						stopPosition: 6;
-						yourself);
-				identifier:
-					(PWBASTIdentifier new
-						identifier: 'as_param';
-						startPosition: 8;
-						stopPosition: 15;
-						yourself);
-				arrayWithSize: nil;
-				startPosition: 1;
-				stopPosition: 15;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testAssignationStatement1 [
 	<generated>
 	self
 		assert:
 			(self
-				parse: 'll_seconde2 = SecondsAfter(00:00:00, lt_heure_fin)'
+				parse: 'll_seconde1 = SecondsAfter(lt_heure_deb, 23:59:59)'
 				rule: #assignationStatement)
 		equals:
 			(PWBASTAssignationStatement new
@@ -157,7 +157,7 @@ PWBCommonParserTest >> testAssignationStatement1 [
 									(PWBASTVariable new
 										identifier:
 											(PWBASTIdentifier new
-												identifier: 'll_seconde2';
+												identifier: 'll_seconde1';
 												startPosition: 1;
 												stopPosition: 11;
 												yourself);
@@ -198,20 +198,37 @@ PWBCommonParserTest >> testAssignationStatement1 [
 																		expression:
 																			(PWBASTExpressionTerm new
 																				expressionTerm:
-																					(PWBASTTime new
-																						time: '00:00:00';
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'lt_heure_deb';
+																												startPosition: 28;
+																												stopPosition: 39;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 28;
+																										stopPosition: 39;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 28;
+																								stopPosition: 39;
+																								yourself);
 																						startPosition: 28;
-																						stopPosition: 35;
+																						stopPosition: 39;
 																						yourself);
 																				startPosition: 28;
-																				stopPosition: 35;
+																				stopPosition: 39;
 																				yourself);
 																		expressionAction: nil;
 																		startPosition: 28;
-																		stopPosition: 35;
+																		stopPosition: 39;
 																		yourself);
 																startPosition: 28;
-																stopPosition: 35;
+																stopPosition: 39;
 																yourself).
 															(PWBASTFunctionArgument new
 																argumentOption: nil;
@@ -220,36 +237,19 @@ PWBCommonParserTest >> testAssignationStatement1 [
 																		expression:
 																			(PWBASTExpressionTerm new
 																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'lt_heure_fin';
-																												startPosition: 38;
-																												stopPosition: 49;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 38;
-																										stopPosition: 49;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 38;
-																								stopPosition: 49;
-																								yourself);
-																						startPosition: 38;
+																					(PWBASTTime new
+																						time: '23:59:59';
+																						startPosition: 42;
 																						stopPosition: 49;
 																						yourself);
-																				startPosition: 38;
+																				startPosition: 42;
 																				stopPosition: 49;
 																				yourself);
 																		expressionAction: nil;
-																		startPosition: 38;
+																		startPosition: 42;
 																		stopPosition: 49;
 																		yourself);
-																startPosition: 38;
+																startPosition: 42;
 																stopPosition: 49;
 																yourself)};
 														startPosition: 27;
@@ -275,6 +275,338 @@ PWBCommonParserTest >> testAssignationStatement1 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testAssignationStatement10 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'Ls_SqlSelect += " where det_cai.lib like " + "''" + ls_dct_dss + "%''"'
+				rule: #assignationStatement)
+		equals:
+			(PWBASTAssignationStatement new
+				accessOrType:
+					(PWBASTAccessOrType new
+						accessOrType:
+							(PWBASTAccess new
+								accessed:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'Ls_SqlSelect';
+												startPosition: 1;
+												stopPosition: 12;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 1;
+										stopPosition: 12;
+										yourself);
+								arrayPosition: nil;
+								startPosition: 1;
+								stopPosition: 12;
+								yourself);
+						startPosition: 1;
+						stopPosition: 12;
+						yourself);
+				expressionAction: nil;
+				assignation:
+					(PWBASTAssignation new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTOperatorExpression new
+										left:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '" where det_cai.lib like "';
+														startPosition: 17;
+														stopPosition: 42;
+														yourself);
+												startPosition: 17;
+												stopPosition: 42;
+												yourself);
+										expressionAction: nil;
+										expressionOperator:
+											(PWBASTExpressionOperator new
+												expressionOperator: '+';
+												startPosition: 44;
+												stopPosition: 44;
+												yourself);
+										right:
+											(PWBASTExpression new
+												expression:
+													(PWBASTOperatorExpression new
+														left:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTString new
+																		string: '"''"';
+																		startPosition: 46;
+																		stopPosition: 48;
+																		yourself);
+																startPosition: 46;
+																stopPosition: 48;
+																yourself);
+														expressionAction: nil;
+														expressionOperator:
+															(PWBASTExpressionOperator new
+																expressionOperator: '+';
+																startPosition: 50;
+																stopPosition: 50;
+																yourself);
+														right:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTOperatorExpression new
+																		left:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'ls_dct_dss';
+																												startPosition: 52;
+																												stopPosition: 61;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 52;
+																										stopPosition: 61;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 52;
+																								stopPosition: 61;
+																								yourself);
+																						startPosition: 52;
+																						stopPosition: 61;
+																						yourself);
+																				startPosition: 52;
+																				stopPosition: 61;
+																				yourself);
+																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '+';
+																				startPosition: 63;
+																				stopPosition: 63;
+																				yourself);
+																		right:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTString new
+																								string: '"%''"';
+																								startPosition: 65;
+																								stopPosition: 68;
+																								yourself);
+																						startPosition: 65;
+																						stopPosition: 68;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 65;
+																				stopPosition: 68;
+																				yourself);
+																		startPosition: 52;
+																		stopPosition: 68;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 52;
+																stopPosition: 68;
+																yourself);
+														startPosition: 46;
+														stopPosition: 68;
+														yourself);
+												expressionAction: nil;
+												startPosition: 46;
+												stopPosition: 68;
+												yourself);
+										startPosition: 17;
+										stopPosition: 68;
+										yourself);
+								expressionAction: nil;
+								startPosition: 17;
+								stopPosition: 68;
+								yourself);
+						startPosition: 13;
+						stopPosition: 68;
+						yourself);
+				startPosition: 1;
+				stopPosition: 68;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAssignationStatement11 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'am_menu.m_contextuel.m_nouveau_dd.item[1].enabled = false'
+				rule: #assignationStatement)
+		equals:
+			(PWBASTAssignationStatement new
+				accessOrType:
+					(PWBASTAccessOrType new
+						accessOrType:
+							(PWBASTAccess new
+								accessed:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'am_menu';
+												startPosition: 1;
+												stopPosition: 7;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 1;
+										stopPosition: 7;
+										yourself);
+								arrayPosition: nil;
+								startPosition: 1;
+								stopPosition: 7;
+								yourself);
+						startPosition: 1;
+						stopPosition: 7;
+						yourself);
+				expressionAction:
+					(PWBASTExpressionAction new
+						action:
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'm_contextuel';
+										startPosition: 9;
+										stopPosition: 20;
+										yourself);
+								arrayInformation: nil;
+								startPosition: 8;
+								stopPosition: 20;
+								yourself);
+						expressionAction:
+							(PWBASTExpressionAction new
+								action:
+									(PWBASTAttributeAccess new
+										uncheckedIdentifier:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'm_nouveau_dd';
+												startPosition: 22;
+												stopPosition: 33;
+												yourself);
+										arrayInformation: nil;
+										startPosition: 21;
+										stopPosition: 33;
+										yourself);
+								expressionAction:
+									(PWBASTExpressionAction new
+										action:
+											(PWBASTAttributeAccess new
+												uncheckedIdentifier:
+													(PWBASTUncheckedIdentifier new
+														uncheckedIdentifier: 'item';
+														startPosition: 35;
+														stopPosition: 38;
+														yourself);
+												arrayInformation:
+													(PWBASTArrayPosition new
+														expressions:
+															{(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '1';
+																				startPosition: 40;
+																				stopPosition: 40;
+																				yourself);
+																		startPosition: 40;
+																		stopPosition: 40;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 40;
+																stopPosition: 40;
+																yourself)};
+														startPosition: 39;
+														stopPosition: 41;
+														yourself);
+												startPosition: 34;
+												stopPosition: 41;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'enabled';
+																startPosition: 43;
+																stopPosition: 49;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 42;
+														stopPosition: 49;
+														yourself);
+												expressionAction: nil;
+												startPosition: 42;
+												stopPosition: 49;
+												yourself);
+										startPosition: 34;
+										stopPosition: 49;
+										yourself);
+								startPosition: 21;
+								stopPosition: 49;
+								yourself);
+						startPosition: 8;
+						stopPosition: 49;
+						yourself);
+				assignation:
+					(PWBASTAssignation new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'false';
+																		startPosition: 53;
+																		stopPosition: 57;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 53;
+																stopPosition: 57;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 53;
+														stopPosition: 57;
+														yourself);
+												startPosition: 53;
+												stopPosition: 57;
+												yourself);
+										startPosition: 53;
+										stopPosition: 57;
+										yourself);
+								expressionAction: nil;
+								startPosition: 53;
+								stopPosition: 57;
+								yourself);
+						startPosition: 50;
+						stopPosition: 57;
+						yourself);
+				startPosition: 1;
+				stopPosition: 57;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAssignationStatement12 [
 	<generated>
 	self
 		assert:
@@ -350,6 +682,12 @@ PWBCommonParserTest >> testAssignationStatement10 [
 																stopPosition: 21;
 																yourself);
 														expressionAction: nil;
+														expressionOperator:
+															(PWBASTExpressionOperator new
+																expressionOperator: '+';
+																startPosition: 22;
+																stopPosition: 22;
+																yourself);
 														right:
 															(PWBASTExpression new
 																expression:
@@ -445,7 +783,7 @@ PWBCommonParserTest >> testAssignationStatement10 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement11 [
+PWBCommonParserTest >> testAssignationStatement13 [
 	<generated>
 	self
 		assert:
@@ -631,7 +969,7 @@ PWBCommonParserTest >> testAssignationStatement11 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement12 [
+PWBCommonParserTest >> testAssignationStatement14 [
 	<generated>
 	self
 		assert: (self parse: 'll_mois -= 12' rule: #assignationStatement)
@@ -689,7 +1027,7 @@ PWBCommonParserTest >> testAssignationStatement12 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement13 [
+PWBCommonParserTest >> testAssignationStatement15 [
 	<generated>
 	self
 		assert: (self parse: 'ld_resultat = - ld_resultat' rule: #assignationStatement)
@@ -781,7 +1119,7 @@ PWBCommonParserTest >> testAssignationStatement13 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement14 [
+PWBCommonParserTest >> testAssignationStatement16 [
 	<generated>
 	self
 		assert:
@@ -913,7 +1251,7 @@ PWBCommonParserTest >> testAssignationStatement14 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement15 [
+PWBCommonParserTest >> testAssignationStatement17 [
 	<generated>
 	self
 		assert: (self parse: 'll_wz /= 2' rule: #assignationStatement)
@@ -971,7 +1309,7 @@ PWBCommonParserTest >> testAssignationStatement15 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement16 [
+PWBCommonParserTest >> testAssignationStatement18 [
 	<generated>
 	self
 		assert:
@@ -1071,7 +1409,7 @@ PWBCommonParserTest >> testAssignationStatement16 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement17 [
+PWBCommonParserTest >> testAssignationStatement19 [
 	<generated>
 	self
 		assert:
@@ -1227,7 +1565,7 @@ PWBCommonParserTest >> testAssignationStatement17 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement18 [
+PWBCommonParserTest >> testAssignationStatement2 [
 	<generated>
 	self
 		assert:
@@ -1295,6 +1633,12 @@ PWBCommonParserTest >> testAssignationStatement18 [
 												stopPosition: 31;
 												yourself);
 										expressionAction: nil;
+										expressionOperator:
+											(PWBASTExpressionOperator new
+												expressionOperator: '+';
+												startPosition: 33;
+												stopPosition: 33;
+												yourself);
 										right:
 											(PWBASTExpression new
 												expression:
@@ -1328,6 +1672,12 @@ PWBCommonParserTest >> testAssignationStatement18 [
 																stopPosition: 45;
 																yourself);
 														expressionAction: nil;
+														expressionOperator:
+															(PWBASTExpressionOperator new
+																expressionOperator: '+';
+																startPosition: 47;
+																stopPosition: 47;
+																yourself);
 														right:
 															(PWBASTExpression new
 																expression:
@@ -1385,13 +1735,10 @@ PWBCommonParserTest >> testAssignationStatement18 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement19 [
+PWBCommonParserTest >> testAssignationStatement20 [
 	<generated>
 	self
-		assert:
-			(self
-				parse: 'iuo_nv_evn = create using ls_uo_gestion'
-				rule: #assignationStatement)
+		assert: (self parse: 'gw_utile.is_not [ll] = ""' rule: #assignationStatement)
 		equals:
 			(PWBASTAssignationStatement new
 				accessOrType:
@@ -1402,22 +1749,77 @@ PWBCommonParserTest >> testAssignationStatement19 [
 									(PWBASTVariable new
 										identifier:
 											(PWBASTIdentifier new
-												identifier: 'iuo_nv_evn';
+												identifier: 'gw_utile';
 												startPosition: 1;
-												stopPosition: 10;
+												stopPosition: 8;
 												yourself);
 										arrayDefinition: nil;
 										startPosition: 1;
-										stopPosition: 10;
+										stopPosition: 8;
 										yourself);
 								arrayPosition: nil;
 								startPosition: 1;
-								stopPosition: 10;
+								stopPosition: 8;
 								yourself);
 						startPosition: 1;
-						stopPosition: 10;
+						stopPosition: 8;
 						yourself);
-				expressionAction: nil;
+				expressionAction:
+					(PWBASTExpressionAction new
+						action:
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'is_not';
+										startPosition: 10;
+										stopPosition: 15;
+										yourself);
+								arrayInformation:
+									(PWBASTArrayPosition new
+										expressions:
+											{(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll';
+																						startPosition: 18;
+																						stopPosition: 19;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 18;
+																				stopPosition: 19;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 18;
+																		stopPosition: 19;
+																		yourself);
+																startPosition: 18;
+																stopPosition: 19;
+																yourself);
+														startPosition: 18;
+														stopPosition: 19;
+														yourself);
+												expressionAction: nil;
+												startPosition: 18;
+												stopPosition: 19;
+												yourself)};
+										startPosition: 17;
+										stopPosition: 20;
+										yourself);
+								startPosition: 9;
+								stopPosition: 20;
+								yourself);
+						expressionAction: nil;
+						startPosition: 9;
+						stopPosition: 20;
+						yourself);
 				assignation:
 					(PWBASTAssignation new
 						expression:
@@ -1425,61 +1827,28 @@ PWBCommonParserTest >> testAssignationStatement19 [
 								expression:
 									(PWBASTExpressionTerm new
 										expressionTerm:
-											(PWBASTCreateUsingInstruction new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTAccessOrType new
-																		accessOrType:
-																			(PWBASTAccess new
-																				accessed:
-																					(PWBASTVariable new
-																						identifier:
-																							(PWBASTIdentifier new
-																								identifier: 'ls_uo_gestion';
-																								startPosition: 27;
-																								stopPosition: 39;
-																								yourself);
-																						arrayDefinition: nil;
-																						startPosition: 27;
-																						stopPosition: 39;
-																						yourself);
-																				arrayPosition: nil;
-																				startPosition: 27;
-																				stopPosition: 39;
-																				yourself);
-																		startPosition: 27;
-																		stopPosition: 39;
-																		yourself);
-																startPosition: 27;
-																stopPosition: 39;
-																yourself);
-														expressionAction: nil;
-														startPosition: 27;
-														stopPosition: 39;
-														yourself);
-												startPosition: 14;
-												stopPosition: 39;
+											(PWBASTString new
+												string: '""';
+												startPosition: 24;
+												stopPosition: 25;
 												yourself);
-										startPosition: 14;
-										stopPosition: 39;
+										startPosition: 24;
+										stopPosition: 25;
 										yourself);
 								expressionAction: nil;
-								startPosition: 14;
-								stopPosition: 39;
+								startPosition: 24;
+								stopPosition: 25;
 								yourself);
-						startPosition: 11;
-						stopPosition: 39;
+						startPosition: 21;
+						stopPosition: 25;
 						yourself);
 				startPosition: 1;
-				stopPosition: 39;
+				stopPosition: 25;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement2 [
+PWBCommonParserTest >> testAssignationStatement21 [
 	<generated>
 	self
 		assert:
@@ -1613,7 +1982,101 @@ PWBCommonParserTest >> testAssignationStatement2 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement20 [
+PWBCommonParserTest >> testAssignationStatement22 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'iuo_nv_evn = create using ls_uo_gestion'
+				rule: #assignationStatement)
+		equals:
+			(PWBASTAssignationStatement new
+				accessOrType:
+					(PWBASTAccessOrType new
+						accessOrType:
+							(PWBASTAccess new
+								accessed:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'iuo_nv_evn';
+												startPosition: 1;
+												stopPosition: 10;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 1;
+										stopPosition: 10;
+										yourself);
+								arrayPosition: nil;
+								startPosition: 1;
+								stopPosition: 10;
+								yourself);
+						startPosition: 1;
+						stopPosition: 10;
+						yourself);
+				expressionAction: nil;
+				assignation:
+					(PWBASTAssignation new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTCreateUsingInstruction new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'ls_uo_gestion';
+																								startPosition: 27;
+																								stopPosition: 39;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 27;
+																						stopPosition: 39;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 27;
+																				stopPosition: 39;
+																				yourself);
+																		startPosition: 27;
+																		stopPosition: 39;
+																		yourself);
+																startPosition: 27;
+																stopPosition: 39;
+																yourself);
+														expressionAction: nil;
+														startPosition: 27;
+														stopPosition: 39;
+														yourself);
+												startPosition: 14;
+												stopPosition: 39;
+												yourself);
+										startPosition: 14;
+										stopPosition: 39;
+										yourself);
+								expressionAction: nil;
+								startPosition: 14;
+								stopPosition: 39;
+								yourself);
+						startPosition: 11;
+						stopPosition: 39;
+						yourself);
+				startPosition: 1;
+				stopPosition: 39;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAssignationStatement23 [
 	<generated>
 	self
 		assert:
@@ -1745,236 +2208,7 @@ PWBCommonParserTest >> testAssignationStatement20 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement21 [
-	<generated>
-	self
-		assert: (self parse: 'gw_utile.is_not [ll] = ""' rule: #assignationStatement)
-		equals:
-			(PWBASTAssignationStatement new
-				accessOrType:
-					(PWBASTAccessOrType new
-						accessOrType:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'gw_utile';
-												startPosition: 1;
-												stopPosition: 8;
-												yourself);
-										arrayDefinition: nil;
-										startPosition: 1;
-										stopPosition: 8;
-										yourself);
-								arrayPosition: nil;
-								startPosition: 1;
-								stopPosition: 8;
-								yourself);
-						startPosition: 1;
-						stopPosition: 8;
-						yourself);
-				expressionAction:
-					(PWBASTExpressionAction new
-						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'is_not';
-										startPosition: 10;
-										stopPosition: 15;
-										yourself);
-								arrayInformation:
-									(PWBASTArrayPosition new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'll';
-																						startPosition: 18;
-																						stopPosition: 19;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 18;
-																				stopPosition: 19;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 18;
-																		stopPosition: 19;
-																		yourself);
-																startPosition: 18;
-																stopPosition: 19;
-																yourself);
-														startPosition: 18;
-														stopPosition: 19;
-														yourself);
-												expressionAction: nil;
-												startPosition: 18;
-												stopPosition: 19;
-												yourself)};
-										startPosition: 17;
-										stopPosition: 20;
-										yourself);
-								startPosition: 9;
-								stopPosition: 20;
-								yourself);
-						expressionAction: nil;
-						startPosition: 9;
-						stopPosition: 20;
-						yourself);
-				assignation:
-					(PWBASTAssignation new
-						expression:
-							(PWBASTExpression new
-								expression:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTString new
-												string: '""';
-												startPosition: 24;
-												stopPosition: 25;
-												yourself);
-										startPosition: 24;
-										stopPosition: 25;
-										yourself);
-								expressionAction: nil;
-								startPosition: 24;
-								stopPosition: 25;
-								yourself);
-						startPosition: 21;
-						stopPosition: 25;
-						yourself);
-				startPosition: 1;
-				stopPosition: 25;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement22 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'istr_sig_cas.ll_qte_cons[ ll ] = 0'
-				rule: #assignationStatement)
-		equals:
-			(PWBASTAssignationStatement new
-				accessOrType:
-					(PWBASTAccessOrType new
-						accessOrType:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'istr_sig_cas';
-												startPosition: 1;
-												stopPosition: 12;
-												yourself);
-										arrayDefinition: nil;
-										startPosition: 1;
-										stopPosition: 12;
-										yourself);
-								arrayPosition: nil;
-								startPosition: 1;
-								stopPosition: 12;
-								yourself);
-						startPosition: 1;
-						stopPosition: 12;
-						yourself);
-				expressionAction:
-					(PWBASTExpressionAction new
-						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'll_qte_cons';
-										startPosition: 14;
-										stopPosition: 24;
-										yourself);
-								arrayInformation:
-									(PWBASTArrayPosition new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'll';
-																						startPosition: 27;
-																						stopPosition: 28;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 27;
-																				stopPosition: 28;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 27;
-																		stopPosition: 28;
-																		yourself);
-																startPosition: 27;
-																stopPosition: 28;
-																yourself);
-														startPosition: 27;
-														stopPosition: 28;
-														yourself);
-												expressionAction: nil;
-												startPosition: 27;
-												stopPosition: 28;
-												yourself)};
-										startPosition: 25;
-										stopPosition: 30;
-										yourself);
-								startPosition: 13;
-								stopPosition: 30;
-								yourself);
-						expressionAction: nil;
-						startPosition: 13;
-						stopPosition: 30;
-						yourself);
-				assignation:
-					(PWBASTAssignation new
-						expression:
-							(PWBASTExpression new
-								expression:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTNumber new
-												number: '0';
-												startPosition: 34;
-												stopPosition: 34;
-												yourself);
-										startPosition: 34;
-										stopPosition: 34;
-										yourself);
-								expressionAction: nil;
-								startPosition: 34;
-								stopPosition: 34;
-								yourself);
-						startPosition: 31;
-						stopPosition: 34;
-						yourself);
-				startPosition: 1;
-				stopPosition: 34;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement23 [
+PWBCommonParserTest >> testAssignationStatement3 [
 	<generated>
 	self
 		assert:
@@ -2152,6 +2386,12 @@ PWBCommonParserTest >> testAssignationStatement23 [
 												startPosition: 49;
 												stopPosition: 64;
 												yourself);
+										expressionOperator:
+											(PWBASTExpressionOperator new
+												expressionOperator: '+';
+												startPosition: 66;
+												stopPosition: 66;
+												yourself);
 										right:
 											(PWBASTExpression new
 												expression:
@@ -2257,12 +2497,12 @@ PWBCommonParserTest >> testAssignationStatement23 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement3 [
+PWBCommonParserTest >> testAssignationStatement4 [
 	<generated>
 	self
 		assert:
 			(self
-				parse: 'll_seconde1 = SecondsAfter(lt_heure_deb, 23:59:59)'
+				parse: 'll_seconde2 = SecondsAfter(00:00:00, lt_heure_fin)'
 				rule: #assignationStatement)
 		equals:
 			(PWBASTAssignationStatement new
@@ -2274,7 +2514,7 @@ PWBCommonParserTest >> testAssignationStatement3 [
 									(PWBASTVariable new
 										identifier:
 											(PWBASTIdentifier new
-												identifier: 'll_seconde1';
+												identifier: 'll_seconde2';
 												startPosition: 1;
 												stopPosition: 11;
 												yourself);
@@ -2315,37 +2555,20 @@ PWBCommonParserTest >> testAssignationStatement3 [
 																		expression:
 																			(PWBASTExpressionTerm new
 																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'lt_heure_deb';
-																												startPosition: 28;
-																												stopPosition: 39;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 28;
-																										stopPosition: 39;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 28;
-																								stopPosition: 39;
-																								yourself);
+																					(PWBASTTime new
+																						time: '00:00:00';
 																						startPosition: 28;
-																						stopPosition: 39;
+																						stopPosition: 35;
 																						yourself);
 																				startPosition: 28;
-																				stopPosition: 39;
+																				stopPosition: 35;
 																				yourself);
 																		expressionAction: nil;
 																		startPosition: 28;
-																		stopPosition: 39;
+																		stopPosition: 35;
 																		yourself);
 																startPosition: 28;
-																stopPosition: 39;
+																stopPosition: 35;
 																yourself).
 															(PWBASTFunctionArgument new
 																argumentOption: nil;
@@ -2354,19 +2577,36 @@ PWBCommonParserTest >> testAssignationStatement3 [
 																		expression:
 																			(PWBASTExpressionTerm new
 																				expressionTerm:
-																					(PWBASTTime new
-																						time: '23:59:59';
-																						startPosition: 42;
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'lt_heure_fin';
+																												startPosition: 38;
+																												stopPosition: 49;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 38;
+																										stopPosition: 49;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 38;
+																								stopPosition: 49;
+																								yourself);
+																						startPosition: 38;
 																						stopPosition: 49;
 																						yourself);
-																				startPosition: 42;
+																				startPosition: 38;
 																				stopPosition: 49;
 																				yourself);
 																		expressionAction: nil;
-																		startPosition: 42;
+																		startPosition: 38;
 																		stopPosition: 49;
 																		yourself);
-																startPosition: 42;
+																startPosition: 38;
 																stopPosition: 49;
 																yourself)};
 														startPosition: 27;
@@ -2391,7 +2631,123 @@ PWBCommonParserTest >> testAssignationStatement3 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement4 [
+PWBCommonParserTest >> testAssignationStatement5 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'istr_sig_cas.ll_qte_cons[ ll ] = 0'
+				rule: #assignationStatement)
+		equals:
+			(PWBASTAssignationStatement new
+				accessOrType:
+					(PWBASTAccessOrType new
+						accessOrType:
+							(PWBASTAccess new
+								accessed:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'istr_sig_cas';
+												startPosition: 1;
+												stopPosition: 12;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 1;
+										stopPosition: 12;
+										yourself);
+								arrayPosition: nil;
+								startPosition: 1;
+								stopPosition: 12;
+								yourself);
+						startPosition: 1;
+						stopPosition: 12;
+						yourself);
+				expressionAction:
+					(PWBASTExpressionAction new
+						action:
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'll_qte_cons';
+										startPosition: 14;
+										stopPosition: 24;
+										yourself);
+								arrayInformation:
+									(PWBASTArrayPosition new
+										expressions:
+											{(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll';
+																						startPosition: 27;
+																						stopPosition: 28;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 27;
+																				stopPosition: 28;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 27;
+																		stopPosition: 28;
+																		yourself);
+																startPosition: 27;
+																stopPosition: 28;
+																yourself);
+														startPosition: 27;
+														stopPosition: 28;
+														yourself);
+												expressionAction: nil;
+												startPosition: 27;
+												stopPosition: 28;
+												yourself)};
+										startPosition: 25;
+										stopPosition: 30;
+										yourself);
+								startPosition: 13;
+								stopPosition: 30;
+								yourself);
+						expressionAction: nil;
+						startPosition: 13;
+						stopPosition: 30;
+						yourself);
+				assignation:
+					(PWBASTAssignation new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTNumber new
+												number: '0';
+												startPosition: 34;
+												stopPosition: 34;
+												yourself);
+										startPosition: 34;
+										stopPosition: 34;
+										yourself);
+								expressionAction: nil;
+								startPosition: 34;
+								stopPosition: 34;
+								yourself);
+						startPosition: 31;
+						stopPosition: 34;
+						yourself);
+				startPosition: 1;
+				stopPosition: 34;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAssignationStatement6 [
 	<generated>
 	self
 		assert:
@@ -2571,7 +2927,7 @@ PWBCommonParserTest >> testAssignationStatement4 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement5 [
+PWBCommonParserTest >> testAssignationStatement7 [
 	<generated>
 	self
 		assert:
@@ -2659,7 +3015,7 @@ PWBCommonParserTest >> testAssignationStatement5 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement6 [
+PWBCommonParserTest >> testAssignationStatement8 [
 	<generated>
 	self
 		assert:
@@ -2747,7 +3103,7 @@ PWBCommonParserTest >> testAssignationStatement6 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement7 [
+PWBCommonParserTest >> testAssignationStatement9 [
 	<generated>
 	self
 		assert:
@@ -2876,320 +3232,6 @@ PWBCommonParserTest >> testAssignationStatement7 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement8 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'Ls_SqlSelect += " where det_cai.lib like " + "''" + ls_dct_dss + "%''"'
-				rule: #assignationStatement)
-		equals:
-			(PWBASTAssignationStatement new
-				accessOrType:
-					(PWBASTAccessOrType new
-						accessOrType:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'Ls_SqlSelect';
-												startPosition: 1;
-												stopPosition: 12;
-												yourself);
-										arrayDefinition: nil;
-										startPosition: 1;
-										stopPosition: 12;
-										yourself);
-								arrayPosition: nil;
-								startPosition: 1;
-								stopPosition: 12;
-								yourself);
-						startPosition: 1;
-						stopPosition: 12;
-						yourself);
-				expressionAction: nil;
-				assignation:
-					(PWBASTAssignation new
-						expression:
-							(PWBASTExpression new
-								expression:
-									(PWBASTOperatorExpression new
-										left:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '" where det_cai.lib like "';
-														startPosition: 17;
-														stopPosition: 42;
-														yourself);
-												startPosition: 17;
-												stopPosition: 42;
-												yourself);
-										expressionAction: nil;
-										right:
-											(PWBASTExpression new
-												expression:
-													(PWBASTOperatorExpression new
-														left:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTString new
-																		string: '"''"';
-																		startPosition: 46;
-																		stopPosition: 48;
-																		yourself);
-																startPosition: 46;
-																stopPosition: 48;
-																yourself);
-														expressionAction: nil;
-														right:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'ls_dct_dss';
-																												startPosition: 52;
-																												stopPosition: 61;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 52;
-																										stopPosition: 61;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 52;
-																								stopPosition: 61;
-																								yourself);
-																						startPosition: 52;
-																						stopPosition: 61;
-																						yourself);
-																				startPosition: 52;
-																				stopPosition: 61;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTString new
-																								string: '"%''"';
-																								startPosition: 65;
-																								stopPosition: 68;
-																								yourself);
-																						startPosition: 65;
-																						stopPosition: 68;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 65;
-																				stopPosition: 68;
-																				yourself);
-																		startPosition: 52;
-																		stopPosition: 68;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 52;
-																stopPosition: 68;
-																yourself);
-														startPosition: 46;
-														stopPosition: 68;
-														yourself);
-												expressionAction: nil;
-												startPosition: 46;
-												stopPosition: 68;
-												yourself);
-										startPosition: 17;
-										stopPosition: 68;
-										yourself);
-								expressionAction: nil;
-								startPosition: 17;
-								stopPosition: 68;
-								yourself);
-						startPosition: 13;
-						stopPosition: 68;
-						yourself);
-				startPosition: 1;
-				stopPosition: 68;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAssignationStatement9 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'am_menu.m_contextuel.m_nouveau_dd.item[1].enabled = false'
-				rule: #assignationStatement)
-		equals:
-			(PWBASTAssignationStatement new
-				accessOrType:
-					(PWBASTAccessOrType new
-						accessOrType:
-							(PWBASTAccess new
-								accessed:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'am_menu';
-												startPosition: 1;
-												stopPosition: 7;
-												yourself);
-										arrayDefinition: nil;
-										startPosition: 1;
-										stopPosition: 7;
-										yourself);
-								arrayPosition: nil;
-								startPosition: 1;
-								stopPosition: 7;
-								yourself);
-						startPosition: 1;
-						stopPosition: 7;
-						yourself);
-				expressionAction:
-					(PWBASTExpressionAction new
-						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'm_contextuel';
-										startPosition: 9;
-										stopPosition: 20;
-										yourself);
-								arrayInformation: nil;
-								startPosition: 8;
-								stopPosition: 20;
-								yourself);
-						expressionAction:
-							(PWBASTExpressionAction new
-								action:
-									(PWBASTAttributeAccess new
-										uncheckedIdentifier:
-											(PWBASTUncheckedIdentifier new
-												uncheckedIdentifier: 'm_nouveau_dd';
-												startPosition: 22;
-												stopPosition: 33;
-												yourself);
-										arrayInformation: nil;
-										startPosition: 21;
-										stopPosition: 33;
-										yourself);
-								expressionAction:
-									(PWBASTExpressionAction new
-										action:
-											(PWBASTAttributeAccess new
-												uncheckedIdentifier:
-													(PWBASTUncheckedIdentifier new
-														uncheckedIdentifier: 'item';
-														startPosition: 35;
-														stopPosition: 38;
-														yourself);
-												arrayInformation:
-													(PWBASTArrayPosition new
-														expressions:
-															{(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '1';
-																				startPosition: 40;
-																				stopPosition: 40;
-																				yourself);
-																		startPosition: 40;
-																		stopPosition: 40;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 40;
-																stopPosition: 40;
-																yourself)};
-														startPosition: 39;
-														stopPosition: 41;
-														yourself);
-												startPosition: 34;
-												stopPosition: 41;
-												yourself);
-										expressionAction:
-											(PWBASTExpressionAction new
-												action:
-													(PWBASTAttributeAccess new
-														uncheckedIdentifier:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'enabled';
-																startPosition: 43;
-																stopPosition: 49;
-																yourself);
-														arrayInformation: nil;
-														startPosition: 42;
-														stopPosition: 49;
-														yourself);
-												expressionAction: nil;
-												startPosition: 42;
-												stopPosition: 49;
-												yourself);
-										startPosition: 34;
-										stopPosition: 49;
-										yourself);
-								startPosition: 21;
-								stopPosition: 49;
-								yourself);
-						startPosition: 8;
-						stopPosition: 49;
-						yourself);
-				assignation:
-					(PWBASTAssignation new
-						expression:
-							(PWBASTExpression new
-								expression:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'false';
-																		startPosition: 53;
-																		stopPosition: 57;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 53;
-																stopPosition: 57;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 53;
-														stopPosition: 57;
-														yourself);
-												startPosition: 53;
-												stopPosition: 57;
-												yourself);
-										startPosition: 53;
-										stopPosition: 57;
-										yourself);
-								expressionAction: nil;
-								startPosition: 53;
-								stopPosition: 57;
-								yourself);
-						startPosition: 50;
-						stopPosition: 57;
-						yourself);
-				startPosition: 1;
-				stopPosition: 57;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testAttribute1 [
 	<generated>
 	self
@@ -3277,6 +3319,80 @@ PWBCommonParserTest >> testAttribute1 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testAttribute10 [
+	<generated>
+	self
+		assert: (self parse: 'Constant Private Long WM_USER		= 1024' rule: #attribute)
+		equals:
+			(PWBASTAttribute new
+				accessModifier:
+					(PWBASTAccessModifier new
+						accessModifier: 'Private';
+						startPosition: 10;
+						stopPosition: 16;
+						yourself);
+				variableDeclarations:
+					(PWBASTVariableDeclarations new
+						type:
+							(PWBASTType new
+								type:
+									(PWBASTBasicType new
+										basicType: 'Long';
+										startPosition: 18;
+										stopPosition: 21;
+										yourself);
+								startPosition: 18;
+								stopPosition: 21;
+								yourself);
+						variableAssignations:
+							{(PWBASTVariableAssignation new
+								variable:
+									(PWBASTVariable new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'WM_USER';
+												startPosition: 23;
+												stopPosition: 29;
+												yourself);
+										arrayDefinition: nil;
+										startPosition: 23;
+										stopPosition: 29;
+										yourself);
+								assignation:
+									(PWBASTAssignation new
+										expression:
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTNumber new
+																number: '1024';
+																startPosition: 34;
+																stopPosition: 37;
+																yourself);
+														startPosition: 34;
+														stopPosition: 37;
+														yourself);
+												expressionAction: nil;
+												startPosition: 34;
+												stopPosition: 37;
+												yourself);
+										startPosition: 30;
+										stopPosition: 37;
+										yourself);
+								startPosition: 23;
+								stopPosition: 37;
+								yourself)};
+						startPosition: 18;
+						stopPosition: 37;
+						yourself);
+				descriptor: nil;
+				startPosition: 1;
+				stopPosition: 37;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testAttribute11 [
 	<generated>
 	self
 		assert:
@@ -3429,80 +3545,6 @@ PWBCommonParserTest >> testAttribute10 [
 				descriptor: nil;
 				startPosition: 1;
 				stopPosition: 155;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testAttribute11 [
-	<generated>
-	self
-		assert: (self parse: 'Constant Private Long WM_USER		= 1024' rule: #attribute)
-		equals:
-			(PWBASTAttribute new
-				accessModifier:
-					(PWBASTAccessModifier new
-						accessModifier: 'Private';
-						startPosition: 10;
-						stopPosition: 16;
-						yourself);
-				variableDeclarations:
-					(PWBASTVariableDeclarations new
-						type:
-							(PWBASTType new
-								type:
-									(PWBASTBasicType new
-										basicType: 'Long';
-										startPosition: 18;
-										stopPosition: 21;
-										yourself);
-								startPosition: 18;
-								stopPosition: 21;
-								yourself);
-						variableAssignations:
-							{(PWBASTVariableAssignation new
-								variable:
-									(PWBASTVariable new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'WM_USER';
-												startPosition: 23;
-												stopPosition: 29;
-												yourself);
-										arrayDefinition: nil;
-										startPosition: 23;
-										stopPosition: 29;
-										yourself);
-								assignation:
-									(PWBASTAssignation new
-										expression:
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '1024';
-																startPosition: 34;
-																stopPosition: 37;
-																yourself);
-														startPosition: 34;
-														stopPosition: 37;
-														yourself);
-												expressionAction: nil;
-												startPosition: 34;
-												stopPosition: 37;
-												yourself);
-										startPosition: 30;
-										stopPosition: 37;
-										yourself);
-								startPosition: 23;
-								stopPosition: 37;
-								yourself)};
-						startPosition: 18;
-						stopPosition: 37;
-						yourself);
-				descriptor: nil;
-				startPosition: 1;
-				stopPosition: 37;
 				yourself)
 ]
 
@@ -4291,16 +4333,14 @@ PWBCommonParserTest >> testChooseCase1 [
 		assert:
 			(self
 				parse:
-					'choose case ls_Char
-		case "0" to "9"; 	li_Val = integer(ls_Char)
-		case "a", "A"; 	li_Val = 10
-		case "b", "B"; 	li_Val = 11
-		case "c", "C"; 	li_Val = 12
-		case "d", "D"; 	li_Val = 13
-		case "e", "E"; 	li_Val = 14
-		case "f", "F"; 	li_Val = 15
-		case else	 ;		return 0
-	end choose'
+					'Choose Case ai_band_type
+	Case 1; is_band_id = BAND_HEADER
+	Case 2; is_band_id = BAND_GROUPHEADER
+	Case 3; is_band_id = BAND_DETAIL
+	Case 4; is_band_id = BAND_GROUPTRAILER
+	Case 5; is_band_id = BAND_SUMMARY
+	Case 6; is_band_id = BAND_FOOTER
+End Choose'
 				rule: #chooseCase)
 		equals:
 			(PWBASTChooseCase new
@@ -4316,27 +4356,27 @@ PWBCommonParserTest >> testChooseCase1 [
 													(PWBASTVariable new
 														identifier:
 															(PWBASTIdentifier new
-																identifier: 'ls_Char';
+																identifier: 'ai_band_type';
 																startPosition: 13;
-																stopPosition: 19;
+																stopPosition: 24;
 																yourself);
 														arrayDefinition: nil;
 														startPosition: 13;
-														stopPosition: 19;
+														stopPosition: 24;
 														yourself);
 												arrayPosition: nil;
 												startPosition: 13;
-												stopPosition: 19;
+												stopPosition: 24;
 												yourself);
 										startPosition: 13;
-										stopPosition: 19;
+										stopPosition: 24;
 										yourself);
 								startPosition: 13;
-								stopPosition: 19;
+								stopPosition: 24;
 								yourself);
 						expressionAction: nil;
 						startPosition: 13;
-						stopPosition: 19;
+						stopPosition: 24;
 						yourself);
 				cases:
 					{(PWBASTCase new
@@ -4345,46 +4385,24 @@ PWBCommonParserTest >> testChooseCase1 [
 								expressionList:
 									(PWBASTExpressionList new
 										expressions:
-											{(PWBASTIntervalExpression new
-												from:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTString new
-																		string: '"0"';
-																		startPosition: 28;
-																		stopPosition: 30;
-																		yourself);
-																startPosition: 28;
-																stopPosition: 30;
+											{(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTNumber new
+																number: '1';
+																startPosition: 32;
+																stopPosition: 32;
 																yourself);
-														expressionAction: nil;
-														startPosition: 28;
-														stopPosition: 30;
+														startPosition: 32;
+														stopPosition: 32;
 														yourself);
-												to:
-													(PWBASTExpression new
-															expression:
-																(PWBASTExpressionTerm new
-																	expressionTerm:
-																		(PWBASTString new
-																			string: '"9"';
-																			startPosition: 35;
-																			stopPosition: 37;
-																			yourself);
-																	startPosition: 35;
-																	stopPosition: 37;
-																	yourself);
-															expressionAction: nil;
-															startPosition: 35;
-															stopPosition: 37;
-															yourself);
-												startPosition: 28;
-												stopPosition: 37;
+												expressionAction: nil;
+												startPosition: 32;
+												stopPosition: 32;
 												yourself)};
-										startPosition: 28;
-										stopPosition: 37;
+										startPosition: 32;
+										stopPosition: 32;
 										yourself);
 								statement:
 									(PWBASTStatement new
@@ -4398,20 +4416,20 @@ PWBCommonParserTest >> testChooseCase1 [
 																	(PWBASTVariable new
 																		identifier:
 																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 41;
-																				stopPosition: 46;
+																				identifier: 'is_band_id';
+																				startPosition: 35;
+																				stopPosition: 44;
 																				yourself);
 																		arrayDefinition: nil;
-																		startPosition: 41;
-																		stopPosition: 46;
+																		startPosition: 35;
+																		stopPosition: 44;
 																		yourself);
 																arrayPosition: nil;
-																startPosition: 41;
-																stopPosition: 46;
+																startPosition: 35;
+																stopPosition: 44;
 																yourself);
-														startPosition: 41;
-														stopPosition: 46;
+														startPosition: 35;
+														stopPosition: 44;
 														yourself);
 												expressionAction: nil;
 												assignation:
@@ -4421,83 +4439,49 @@ PWBCommonParserTest >> testChooseCase1 [
 																expression:
 																	(PWBASTExpressionTerm new
 																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'integer';
-																						startPosition: 50;
-																						stopPosition: 56;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTAccessOrType new
-																														accessOrType:
-																															(PWBASTAccess new
-																																accessed:
-																																	(PWBASTVariable new
-																																		identifier:
-																																			(PWBASTIdentifier new
-																																				identifier: 'ls_Char';
-																																				startPosition: 58;
-																																				stopPosition: 64;
-																																				yourself);
-																																		arrayDefinition: nil;
-																																		startPosition: 58;
-																																		stopPosition: 64;
-																																		yourself);
-																																arrayPosition: nil;
-																																startPosition: 58;
-																																stopPosition: 64;
-																																yourself);
-																														startPosition: 58;
-																														stopPosition: 64;
-																														yourself);
-																												startPosition: 58;
-																												stopPosition: 64;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 58;
-																										stopPosition: 64;
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_HEADER';
+																										startPosition: 48;
+																										stopPosition: 58;
 																										yourself);
-																								startPosition: 58;
-																								stopPosition: 64;
-																								yourself)};
-																						startPosition: 57;
-																						stopPosition: 65;
+																								arrayDefinition: nil;
+																								startPosition: 48;
+																								stopPosition: 58;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 48;
+																						stopPosition: 58;
 																						yourself);
-																				startPosition: 50;
-																				stopPosition: 65;
+																				startPosition: 48;
+																				stopPosition: 58;
 																				yourself);
-																		startPosition: 50;
-																		stopPosition: 65;
+																		startPosition: 48;
+																		stopPosition: 58;
 																		yourself);
 																expressionAction: nil;
-																startPosition: 50;
-																stopPosition: 65;
+																startPosition: 48;
+																stopPosition: 58;
 																yourself);
-														startPosition: 47;
-														stopPosition: 65;
+														startPosition: 45;
+														stopPosition: 58;
 														yourself);
-												startPosition: 41;
-												stopPosition: 65;
+												startPosition: 35;
+												stopPosition: 58;
 												yourself);
-										startPosition: 41;
-										stopPosition: 65;
+										startPosition: 35;
+										stopPosition: 58;
 										yourself);
-								startPosition: 23;
-								stopPosition: 65;
+								startPosition: 27;
+								stopPosition: 58;
 								yourself);
-						startPosition: 23;
-						stopPosition: 65;
+						startPosition: 27;
+						stopPosition: 58;
 						yourself).
 					(PWBASTCase new
 						case:
@@ -4509,36 +4493,124 @@ PWBCommonParserTest >> testChooseCase1 [
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTString new
-																string: '"a"';
-																startPosition: 74;
-																stopPosition: 76;
+															(PWBASTNumber new
+																number: '2';
+																startPosition: 66;
+																stopPosition: 66;
 																yourself);
-														startPosition: 74;
-														stopPosition: 76;
+														startPosition: 66;
+														stopPosition: 66;
 														yourself);
 												expressionAction: nil;
-												startPosition: 74;
-												stopPosition: 76;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"A"';
-																startPosition: 79;
-																stopPosition: 81;
+												startPosition: 66;
+												stopPosition: 66;
+												yourself)};
+										startPosition: 66;
+										stopPosition: 66;
+										yourself);
+								statement:
+									(PWBASTStatement new
+										statement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'is_band_id';
+																				startPosition: 69;
+																				stopPosition: 78;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 69;
+																		stopPosition: 78;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 69;
+																stopPosition: 78;
+																yourself);
+														startPosition: 69;
+														stopPosition: 78;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_GROUPHEADER';
+																										startPosition: 82;
+																										stopPosition: 97;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 82;
+																								stopPosition: 97;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 82;
+																						stopPosition: 97;
+																						yourself);
+																				startPosition: 82;
+																				stopPosition: 97;
+																				yourself);
+																		startPosition: 82;
+																		stopPosition: 97;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 82;
+																stopPosition: 97;
 																yourself);
 														startPosition: 79;
-														stopPosition: 81;
+														stopPosition: 97;
+														yourself);
+												startPosition: 69;
+												stopPosition: 97;
+												yourself);
+										startPosition: 69;
+										stopPosition: 97;
+										yourself);
+								startPosition: 61;
+								stopPosition: 97;
+								yourself);
+						startPosition: 61;
+						stopPosition: 97;
+						yourself).
+					(PWBASTCase new
+						case:
+							(PWBASTSingleLineCase new
+								expressionList:
+									(PWBASTExpressionList new
+										expressions:
+											{(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTNumber new
+																number: '3';
+																startPosition: 105;
+																stopPosition: 105;
+																yourself);
+														startPosition: 105;
+														stopPosition: 105;
 														yourself);
 												expressionAction: nil;
-												startPosition: 79;
-												stopPosition: 81;
+												startPosition: 105;
+												stopPosition: 105;
 												yourself)};
-										startPosition: 74;
-										stopPosition: 81;
+										startPosition: 105;
+										stopPosition: 105;
 										yourself);
 								statement:
 									(PWBASTStatement new
@@ -4552,20 +4624,20 @@ PWBCommonParserTest >> testChooseCase1 [
 																	(PWBASTVariable new
 																		identifier:
 																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 85;
-																				stopPosition: 90;
+																				identifier: 'is_band_id';
+																				startPosition: 108;
+																				stopPosition: 117;
 																				yourself);
 																		arrayDefinition: nil;
-																		startPosition: 85;
-																		stopPosition: 90;
+																		startPosition: 108;
+																		stopPosition: 117;
 																		yourself);
 																arrayPosition: nil;
-																startPosition: 85;
-																stopPosition: 90;
+																startPosition: 108;
+																stopPosition: 117;
 																yourself);
-														startPosition: 85;
-														stopPosition: 90;
+														startPosition: 108;
+														stopPosition: 117;
 														yourself);
 												expressionAction: nil;
 												assignation:
@@ -4575,32 +4647,49 @@ PWBCommonParserTest >> testChooseCase1 [
 																expression:
 																	(PWBASTExpressionTerm new
 																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '10';
-																				startPosition: 94;
-																				stopPosition: 95;
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_DETAIL';
+																										startPosition: 121;
+																										stopPosition: 131;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 121;
+																								stopPosition: 131;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 121;
+																						stopPosition: 131;
+																						yourself);
+																				startPosition: 121;
+																				stopPosition: 131;
 																				yourself);
-																		startPosition: 94;
-																		stopPosition: 95;
+																		startPosition: 121;
+																		stopPosition: 131;
 																		yourself);
 																expressionAction: nil;
-																startPosition: 94;
-																stopPosition: 95;
+																startPosition: 121;
+																stopPosition: 131;
 																yourself);
-														startPosition: 91;
-														stopPosition: 95;
+														startPosition: 118;
+														stopPosition: 131;
 														yourself);
-												startPosition: 85;
-												stopPosition: 95;
+												startPosition: 108;
+												stopPosition: 131;
 												yourself);
-										startPosition: 85;
-										stopPosition: 95;
+										startPosition: 108;
+										stopPosition: 131;
 										yourself);
-								startPosition: 69;
-								stopPosition: 95;
+								startPosition: 100;
+								stopPosition: 131;
 								yourself);
-						startPosition: 69;
-						stopPosition: 95;
+						startPosition: 100;
+						stopPosition: 131;
 						yourself).
 					(PWBASTCase new
 						case:
@@ -4612,139 +4701,20 @@ PWBCommonParserTest >> testChooseCase1 [
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTString new
-																string: '"b"';
-																startPosition: 104;
-																stopPosition: 106;
-																yourself);
-														startPosition: 104;
-														stopPosition: 106;
-														yourself);
-												expressionAction: nil;
-												startPosition: 104;
-												stopPosition: 106;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"B"';
-																startPosition: 109;
-																stopPosition: 111;
-																yourself);
-														startPosition: 109;
-														stopPosition: 111;
-														yourself);
-												expressionAction: nil;
-												startPosition: 109;
-												stopPosition: 111;
-												yourself)};
-										startPosition: 104;
-										stopPosition: 111;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 115;
-																				stopPosition: 120;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 115;
-																		stopPosition: 120;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 115;
-																stopPosition: 120;
-																yourself);
-														startPosition: 115;
-														stopPosition: 120;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '11';
-																				startPosition: 124;
-																				stopPosition: 125;
-																				yourself);
-																		startPosition: 124;
-																		stopPosition: 125;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 124;
-																stopPosition: 125;
-																yourself);
-														startPosition: 121;
-														stopPosition: 125;
-														yourself);
-												startPosition: 115;
-												stopPosition: 125;
-												yourself);
-										startPosition: 115;
-										stopPosition: 125;
-										yourself);
-								startPosition: 99;
-								stopPosition: 125;
-								yourself);
-						startPosition: 99;
-						stopPosition: 125;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"c"';
-																startPosition: 134;
-																stopPosition: 136;
-																yourself);
-														startPosition: 134;
-														stopPosition: 136;
-														yourself);
-												expressionAction: nil;
-												startPosition: 134;
-												stopPosition: 136;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"C"';
+															(PWBASTNumber new
+																number: '4';
 																startPosition: 139;
-																stopPosition: 141;
+																stopPosition: 139;
 																yourself);
 														startPosition: 139;
-														stopPosition: 141;
+														stopPosition: 139;
 														yourself);
 												expressionAction: nil;
 												startPosition: 139;
-												stopPosition: 141;
+												stopPosition: 139;
 												yourself)};
-										startPosition: 134;
-										stopPosition: 141;
+										startPosition: 139;
+										stopPosition: 139;
 										yourself);
 								statement:
 									(PWBASTStatement new
@@ -4758,20 +4728,20 @@ PWBCommonParserTest >> testChooseCase1 [
 																	(PWBASTVariable new
 																		identifier:
 																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 145;
-																				stopPosition: 150;
+																				identifier: 'is_band_id';
+																				startPosition: 142;
+																				stopPosition: 151;
 																				yourself);
 																		arrayDefinition: nil;
-																		startPosition: 145;
-																		stopPosition: 150;
+																		startPosition: 142;
+																		stopPosition: 151;
 																		yourself);
 																arrayPosition: nil;
-																startPosition: 145;
-																stopPosition: 150;
+																startPosition: 142;
+																stopPosition: 151;
 																yourself);
-														startPosition: 145;
-														stopPosition: 150;
+														startPosition: 142;
+														stopPosition: 151;
 														yourself);
 												expressionAction: nil;
 												assignation:
@@ -4781,135 +4751,49 @@ PWBCommonParserTest >> testChooseCase1 [
 																expression:
 																	(PWBASTExpressionTerm new
 																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '12';
-																				startPosition: 154;
-																				stopPosition: 155;
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_GROUPTRAILER';
+																										startPosition: 155;
+																										stopPosition: 171;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 155;
+																								stopPosition: 171;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 155;
+																						stopPosition: 171;
+																						yourself);
+																				startPosition: 155;
+																				stopPosition: 171;
 																				yourself);
-																		startPosition: 154;
-																		stopPosition: 155;
+																		startPosition: 155;
+																		stopPosition: 171;
 																		yourself);
 																expressionAction: nil;
-																startPosition: 154;
-																stopPosition: 155;
-																yourself);
-														startPosition: 151;
-														stopPosition: 155;
-														yourself);
-												startPosition: 145;
-												stopPosition: 155;
-												yourself);
-										startPosition: 145;
-										stopPosition: 155;
-										yourself);
-								startPosition: 129;
-								stopPosition: 155;
-								yourself);
-						startPosition: 129;
-						stopPosition: 155;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"d"';
-																startPosition: 164;
-																stopPosition: 166;
-																yourself);
-														startPosition: 164;
-														stopPosition: 166;
-														yourself);
-												expressionAction: nil;
-												startPosition: 164;
-												stopPosition: 166;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"D"';
-																startPosition: 169;
+																startPosition: 155;
 																stopPosition: 171;
 																yourself);
-														startPosition: 169;
+														startPosition: 152;
 														stopPosition: 171;
 														yourself);
-												expressionAction: nil;
-												startPosition: 169;
+												startPosition: 142;
 												stopPosition: 171;
-												yourself)};
-										startPosition: 164;
+												yourself);
+										startPosition: 142;
 										stopPosition: 171;
 										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 175;
-																				stopPosition: 180;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 175;
-																		stopPosition: 180;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 175;
-																stopPosition: 180;
-																yourself);
-														startPosition: 175;
-														stopPosition: 180;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '13';
-																				startPosition: 184;
-																				stopPosition: 185;
-																				yourself);
-																		startPosition: 184;
-																		stopPosition: 185;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 184;
-																stopPosition: 185;
-																yourself);
-														startPosition: 181;
-														stopPosition: 185;
-														yourself);
-												startPosition: 175;
-												stopPosition: 185;
-												yourself);
-										startPosition: 175;
-										stopPosition: 185;
-										yourself);
-								startPosition: 159;
-								stopPosition: 185;
+								startPosition: 134;
+								stopPosition: 171;
 								yourself);
-						startPosition: 159;
-						stopPosition: 185;
+						startPosition: 134;
+						stopPosition: 171;
 						yourself).
 					(PWBASTCase new
 						case:
@@ -4921,36 +4805,20 @@ PWBCommonParserTest >> testChooseCase1 [
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTString new
-																string: '"e"';
-																startPosition: 194;
-																stopPosition: 196;
+															(PWBASTNumber new
+																number: '5';
+																startPosition: 179;
+																stopPosition: 179;
 																yourself);
-														startPosition: 194;
-														stopPosition: 196;
+														startPosition: 179;
+														stopPosition: 179;
 														yourself);
 												expressionAction: nil;
-												startPosition: 194;
-												stopPosition: 196;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"E"';
-																startPosition: 199;
-																stopPosition: 201;
-																yourself);
-														startPosition: 199;
-														stopPosition: 201;
-														yourself);
-												expressionAction: nil;
-												startPosition: 199;
-												stopPosition: 201;
+												startPosition: 179;
+												stopPosition: 179;
 												yourself)};
-										startPosition: 194;
-										stopPosition: 201;
+										startPosition: 179;
+										stopPosition: 179;
 										yourself);
 								statement:
 									(PWBASTStatement new
@@ -4964,20 +4832,20 @@ PWBCommonParserTest >> testChooseCase1 [
 																	(PWBASTVariable new
 																		identifier:
 																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 205;
-																				stopPosition: 210;
+																				identifier: 'is_band_id';
+																				startPosition: 182;
+																				stopPosition: 191;
 																				yourself);
 																		arrayDefinition: nil;
-																		startPosition: 205;
-																		stopPosition: 210;
+																		startPosition: 182;
+																		stopPosition: 191;
 																		yourself);
 																arrayPosition: nil;
-																startPosition: 205;
-																stopPosition: 210;
+																startPosition: 182;
+																stopPosition: 191;
 																yourself);
-														startPosition: 205;
-														stopPosition: 210;
+														startPosition: 182;
+														stopPosition: 191;
 														yourself);
 												expressionAction: nil;
 												assignation:
@@ -4987,32 +4855,49 @@ PWBCommonParserTest >> testChooseCase1 [
 																expression:
 																	(PWBASTExpressionTerm new
 																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '14';
-																				startPosition: 214;
-																				stopPosition: 215;
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_SUMMARY';
+																										startPosition: 195;
+																										stopPosition: 206;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 195;
+																								stopPosition: 206;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 195;
+																						stopPosition: 206;
+																						yourself);
+																				startPosition: 195;
+																				stopPosition: 206;
 																				yourself);
-																		startPosition: 214;
-																		stopPosition: 215;
+																		startPosition: 195;
+																		stopPosition: 206;
 																		yourself);
 																expressionAction: nil;
-																startPosition: 214;
-																stopPosition: 215;
+																startPosition: 195;
+																stopPosition: 206;
 																yourself);
-														startPosition: 211;
-														stopPosition: 215;
+														startPosition: 192;
+														stopPosition: 206;
 														yourself);
-												startPosition: 205;
-												stopPosition: 215;
+												startPosition: 182;
+												stopPosition: 206;
 												yourself);
-										startPosition: 205;
-										stopPosition: 215;
+										startPosition: 182;
+										stopPosition: 206;
 										yourself);
-								startPosition: 189;
-								stopPosition: 215;
+								startPosition: 174;
+								stopPosition: 206;
 								yourself);
-						startPosition: 189;
-						stopPosition: 215;
+						startPosition: 174;
+						stopPosition: 206;
 						yourself).
 					(PWBASTCase new
 						case:
@@ -5024,65 +4909,49 @@ PWBCommonParserTest >> testChooseCase1 [
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTString new
-																string: '"f"';
-																startPosition: 224;
+															(PWBASTNumber new
+																number: '6';
+																startPosition: 214;
+																stopPosition: 214;
+																yourself);
+														startPosition: 214;
+														stopPosition: 214;
+														yourself);
+												expressionAction: nil;
+												startPosition: 214;
+												stopPosition: 214;
+												yourself)};
+										startPosition: 214;
+										stopPosition: 214;
+										yourself);
+								statement:
+									(PWBASTStatement new
+										statement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'is_band_id';
+																				startPosition: 217;
+																				stopPosition: 226;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 217;
+																		stopPosition: 226;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 217;
 																stopPosition: 226;
 																yourself);
-														startPosition: 224;
+														startPosition: 217;
 														stopPosition: 226;
 														yourself);
 												expressionAction: nil;
-												startPosition: 224;
-												stopPosition: 226;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"F"';
-																startPosition: 229;
-																stopPosition: 231;
-																yourself);
-														startPosition: 229;
-														stopPosition: 231;
-														yourself);
-												expressionAction: nil;
-												startPosition: 229;
-												stopPosition: 231;
-												yourself)};
-										startPosition: 224;
-										stopPosition: 231;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'li_Val';
-																				startPosition: 235;
-																				stopPosition: 240;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 235;
-																		stopPosition: 240;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 235;
-																stopPosition: 240;
-																yourself);
-														startPosition: 235;
-														stopPosition: 240;
-														yourself);
-												expressionAction: nil;
 												assignation:
 													(PWBASTAssignation new
 														expression:
@@ -5090,73 +4959,53 @@ PWBCommonParserTest >> testChooseCase1 [
 																expression:
 																	(PWBASTExpressionTerm new
 																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '15';
-																				startPosition: 244;
-																				stopPosition: 245;
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'BAND_FOOTER';
+																										startPosition: 230;
+																										stopPosition: 240;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 230;
+																								stopPosition: 240;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 230;
+																						stopPosition: 240;
+																						yourself);
+																				startPosition: 230;
+																				stopPosition: 240;
 																				yourself);
-																		startPosition: 244;
-																		stopPosition: 245;
+																		startPosition: 230;
+																		stopPosition: 240;
 																		yourself);
 																expressionAction: nil;
-																startPosition: 244;
-																stopPosition: 245;
+																startPosition: 230;
+																stopPosition: 240;
 																yourself);
-														startPosition: 241;
-														stopPosition: 245;
+														startPosition: 227;
+														stopPosition: 240;
 														yourself);
-												startPosition: 235;
-												stopPosition: 245;
+												startPosition: 217;
+												stopPosition: 240;
 												yourself);
-										startPosition: 235;
-										stopPosition: 245;
+										startPosition: 217;
+										stopPosition: 240;
 										yourself);
-								startPosition: 219;
-								stopPosition: 245;
+								startPosition: 209;
+								stopPosition: 240;
 								yourself);
-						startPosition: 219;
-						stopPosition: 245;
+						startPosition: 209;
+						stopPosition: 240;
 						yourself)};
-				caseElse:
-					(PWBASTCaseElse new
-						statements: nil;
-						statement:
-							(PWBASTStatement new
-								statement:
-									(PWBASTSpecialStatement new
-										specialStatement:
-											(PWBASTReturnStatement new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTNumber new
-																		number: '0';
-																		startPosition: 270;
-																		stopPosition: 270;
-																		yourself);
-																startPosition: 270;
-																stopPosition: 270;
-																yourself);
-														expressionAction: nil;
-														startPosition: 270;
-														stopPosition: 270;
-														yourself);
-												startPosition: 263;
-												stopPosition: 270;
-												yourself);
-										startPosition: 263;
-										stopPosition: 270;
-										yourself);
-								startPosition: 263;
-								stopPosition: 270;
-								yourself);
-						startPosition: 249;
-						stopPosition: 270;
-						yourself);
+				caseElse: nil;
 				startPosition: 1;
-				stopPosition: 282;
+				stopPosition: 251;
 				yourself)
 ]
 
@@ -7021,14 +6870,15 @@ PWBCommonParserTest >> testChooseCase5 [
 		assert:
 			(self
 				parse:
-					'Choose Case ai_band_type
-	Case 1; is_band_id = BAND_HEADER
-	Case 2; is_band_id = BAND_GROUPHEADER
-	Case 3; is_band_id = BAND_DETAIL
-	Case 4; is_band_id = BAND_GROUPTRAILER
-	Case 5; is_band_id = BAND_SUMMARY
-	Case 6; is_band_id = BAND_FOOTER
-End Choose'
+					'choose case ls_evn
+		case "AC","EN"
+			ll_old_nbe = ll_nbe
+			ll_old_ll_xz = ll_xz
+		case "DC"
+			
+		case else
+			
+	end choose'
 				rule: #chooseCase)
 		equals:
 			(PWBASTChooseCase new
@@ -7044,32 +6894,32 @@ End Choose'
 													(PWBASTVariable new
 														identifier:
 															(PWBASTIdentifier new
-																identifier: 'ai_band_type';
+																identifier: 'ls_evn';
 																startPosition: 13;
-																stopPosition: 24;
+																stopPosition: 18;
 																yourself);
 														arrayDefinition: nil;
 														startPosition: 13;
-														stopPosition: 24;
+														stopPosition: 18;
 														yourself);
 												arrayPosition: nil;
 												startPosition: 13;
-												stopPosition: 24;
+												stopPosition: 18;
 												yourself);
 										startPosition: 13;
-										stopPosition: 24;
+										stopPosition: 18;
 										yourself);
 								startPosition: 13;
-								stopPosition: 24;
+								stopPosition: 18;
 								yourself);
 						expressionAction: nil;
 						startPosition: 13;
-						stopPosition: 24;
+						stopPosition: 18;
 						yourself);
 				cases:
 					{(PWBASTCase new
 						case:
-							(PWBASTSingleLineCase new
+							(PWBASTMultiLineCase new
 								expressionList:
 									(PWBASTExpressionList new
 										expressions:
@@ -7077,103 +6927,196 @@ End Choose'
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTNumber new
-																number: '1';
+															(PWBASTString new
+																string: '"AC"';
+																startPosition: 27;
+																stopPosition: 30;
+																yourself);
+														startPosition: 27;
+														stopPosition: 30;
+														yourself);
+												expressionAction: nil;
+												startPosition: 27;
+												stopPosition: 30;
+												yourself).
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTString new
+																string: '"EN"';
 																startPosition: 32;
-																stopPosition: 32;
+																stopPosition: 35;
 																yourself);
 														startPosition: 32;
-														stopPosition: 32;
+														stopPosition: 35;
 														yourself);
 												expressionAction: nil;
 												startPosition: 32;
-												stopPosition: 32;
+												stopPosition: 35;
 												yourself)};
-										startPosition: 32;
-										stopPosition: 32;
+										startPosition: 27;
+										stopPosition: 39;
 										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
+								statements:
+									(PWBASTStatements new
+										statements:
+											{(PWBASTStatement new
+												statement:
+													(PWBASTAssignationStatement new
 														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 35;
-																				stopPosition: 44;
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_old_nbe';
+																						startPosition: 40;
+																						stopPosition: 49;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 40;
+																				stopPosition: 49;
 																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 35;
-																		stopPosition: 44;
+																		arrayPosition: nil;
+																		startPosition: 40;
+																		stopPosition: 49;
 																		yourself);
-																arrayPosition: nil;
-																startPosition: 35;
-																stopPosition: 44;
+																startPosition: 40;
+																stopPosition: 49;
 																yourself);
-														startPosition: 35;
-														stopPosition: 44;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
+														expressionAction: nil;
+														assignation:
+															(PWBASTAssignation new
 																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_HEADER';
-																										startPosition: 48;
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'll_nbe';
+																												startPosition: 53;
+																												stopPosition: 58;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 53;
 																										stopPosition: 58;
 																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 48;
+																								arrayPosition: nil;
+																								startPosition: 53;
 																								stopPosition: 58;
 																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 48;
+																						startPosition: 53;
 																						stopPosition: 58;
 																						yourself);
-																				startPosition: 48;
+																				startPosition: 53;
 																				stopPosition: 58;
 																				yourself);
-																		startPosition: 48;
+																		expressionAction: nil;
+																		startPosition: 53;
 																		stopPosition: 58;
 																		yourself);
-																expressionAction: nil;
-																startPosition: 48;
+																startPosition: 50;
 																stopPosition: 58;
 																yourself);
-														startPosition: 45;
+														startPosition: 40;
 														stopPosition: 58;
 														yourself);
-												startPosition: 35;
+												startPosition: 40;
 												stopPosition: 58;
-												yourself);
-										startPosition: 35;
-										stopPosition: 58;
+												yourself).
+											(PWBASTStatement new
+												statement:
+													(PWBASTAssignationStatement new
+														accessOrType:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_old_ll_xz';
+																						startPosition: 63;
+																						stopPosition: 74;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 63;
+																				stopPosition: 74;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 63;
+																		stopPosition: 74;
+																		yourself);
+																startPosition: 63;
+																stopPosition: 74;
+																yourself);
+														expressionAction: nil;
+														assignation:
+															(PWBASTAssignation new
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'll_xz';
+																												startPosition: 78;
+																												stopPosition: 82;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 78;
+																										stopPosition: 82;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 78;
+																								stopPosition: 82;
+																								yourself);
+																						startPosition: 78;
+																						stopPosition: 82;
+																						yourself);
+																				startPosition: 78;
+																				stopPosition: 82;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 78;
+																		stopPosition: 82;
+																		yourself);
+																startPosition: 75;
+																stopPosition: 82;
+																yourself);
+														startPosition: 63;
+														stopPosition: 82;
+														yourself);
+												startPosition: 63;
+												stopPosition: 82;
+												yourself)};
+										startPosition: 40;
+										stopPosition: 82;
 										yourself);
-								startPosition: 27;
-								stopPosition: 58;
+								startPosition: 22;
+								stopPosition: 82;
 								yourself);
-						startPosition: 27;
-						stopPosition: 58;
+						startPosition: 22;
+						stopPosition: 82;
 						yourself).
 					(PWBASTCase new
 						case:
-							(PWBASTSingleLineCase new
+							(PWBASTMultiLineCase new
 								expressionList:
 									(PWBASTExpressionList new
 										expressions:
@@ -7181,519 +7124,37 @@ End Choose'
 												expression:
 													(PWBASTExpressionTerm new
 														expressionTerm:
-															(PWBASTNumber new
-																number: '2';
-																startPosition: 66;
-																stopPosition: 66;
+															(PWBASTString new
+																string: '"DC"';
+																startPosition: 91;
+																stopPosition: 94;
 																yourself);
-														startPosition: 66;
-														stopPosition: 66;
+														startPosition: 91;
+														stopPosition: 94;
 														yourself);
 												expressionAction: nil;
-												startPosition: 66;
-												stopPosition: 66;
+												startPosition: 91;
+												stopPosition: 94;
 												yourself)};
-										startPosition: 66;
-										stopPosition: 66;
+										startPosition: 91;
+										stopPosition: 101;
 										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 69;
-																				stopPosition: 78;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 69;
-																		stopPosition: 78;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 69;
-																stopPosition: 78;
-																yourself);
-														startPosition: 69;
-														stopPosition: 78;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_GROUPHEADER';
-																										startPosition: 82;
-																										stopPosition: 97;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 82;
-																								stopPosition: 97;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 82;
-																						stopPosition: 97;
-																						yourself);
-																				startPosition: 82;
-																				stopPosition: 97;
-																				yourself);
-																		startPosition: 82;
-																		stopPosition: 97;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 82;
-																stopPosition: 97;
-																yourself);
-														startPosition: 79;
-														stopPosition: 97;
-														yourself);
-												startPosition: 69;
-												stopPosition: 97;
-												yourself);
-										startPosition: 69;
-										stopPosition: 97;
-										yourself);
-								startPosition: 61;
-								stopPosition: 97;
+								statements: nil;
+								startPosition: 86;
+								stopPosition: 101;
 								yourself);
-						startPosition: 61;
-						stopPosition: 97;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '3';
-																startPosition: 105;
-																stopPosition: 105;
-																yourself);
-														startPosition: 105;
-														stopPosition: 105;
-														yourself);
-												expressionAction: nil;
-												startPosition: 105;
-												stopPosition: 105;
-												yourself)};
-										startPosition: 105;
-										stopPosition: 105;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 108;
-																				stopPosition: 117;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 108;
-																		stopPosition: 117;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 108;
-																stopPosition: 117;
-																yourself);
-														startPosition: 108;
-														stopPosition: 117;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_DETAIL';
-																										startPosition: 121;
-																										stopPosition: 131;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 121;
-																								stopPosition: 131;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 121;
-																						stopPosition: 131;
-																						yourself);
-																				startPosition: 121;
-																				stopPosition: 131;
-																				yourself);
-																		startPosition: 121;
-																		stopPosition: 131;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 121;
-																stopPosition: 131;
-																yourself);
-														startPosition: 118;
-														stopPosition: 131;
-														yourself);
-												startPosition: 108;
-												stopPosition: 131;
-												yourself);
-										startPosition: 108;
-										stopPosition: 131;
-										yourself);
-								startPosition: 100;
-								stopPosition: 131;
-								yourself);
-						startPosition: 100;
-						stopPosition: 131;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '4';
-																startPosition: 139;
-																stopPosition: 139;
-																yourself);
-														startPosition: 139;
-														stopPosition: 139;
-														yourself);
-												expressionAction: nil;
-												startPosition: 139;
-												stopPosition: 139;
-												yourself)};
-										startPosition: 139;
-										stopPosition: 139;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 142;
-																				stopPosition: 151;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 142;
-																		stopPosition: 151;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 142;
-																stopPosition: 151;
-																yourself);
-														startPosition: 142;
-														stopPosition: 151;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_GROUPTRAILER';
-																										startPosition: 155;
-																										stopPosition: 171;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 155;
-																								stopPosition: 171;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 155;
-																						stopPosition: 171;
-																						yourself);
-																				startPosition: 155;
-																				stopPosition: 171;
-																				yourself);
-																		startPosition: 155;
-																		stopPosition: 171;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 155;
-																stopPosition: 171;
-																yourself);
-														startPosition: 152;
-														stopPosition: 171;
-														yourself);
-												startPosition: 142;
-												stopPosition: 171;
-												yourself);
-										startPosition: 142;
-										stopPosition: 171;
-										yourself);
-								startPosition: 134;
-								stopPosition: 171;
-								yourself);
-						startPosition: 134;
-						stopPosition: 171;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '5';
-																startPosition: 179;
-																stopPosition: 179;
-																yourself);
-														startPosition: 179;
-														stopPosition: 179;
-														yourself);
-												expressionAction: nil;
-												startPosition: 179;
-												stopPosition: 179;
-												yourself)};
-										startPosition: 179;
-										stopPosition: 179;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 182;
-																				stopPosition: 191;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 182;
-																		stopPosition: 191;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 182;
-																stopPosition: 191;
-																yourself);
-														startPosition: 182;
-														stopPosition: 191;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_SUMMARY';
-																										startPosition: 195;
-																										stopPosition: 206;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 195;
-																								stopPosition: 206;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 195;
-																						stopPosition: 206;
-																						yourself);
-																				startPosition: 195;
-																				stopPosition: 206;
-																				yourself);
-																		startPosition: 195;
-																		stopPosition: 206;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 195;
-																stopPosition: 206;
-																yourself);
-														startPosition: 192;
-														stopPosition: 206;
-														yourself);
-												startPosition: 182;
-												stopPosition: 206;
-												yourself);
-										startPosition: 182;
-										stopPosition: 206;
-										yourself);
-								startPosition: 174;
-								stopPosition: 206;
-								yourself);
-						startPosition: 174;
-						stopPosition: 206;
-						yourself).
-					(PWBASTCase new
-						case:
-							(PWBASTSingleLineCase new
-								expressionList:
-									(PWBASTExpressionList new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '6';
-																startPosition: 214;
-																stopPosition: 214;
-																yourself);
-														startPosition: 214;
-														stopPosition: 214;
-														yourself);
-												expressionAction: nil;
-												startPosition: 214;
-												stopPosition: 214;
-												yourself)};
-										startPosition: 214;
-										stopPosition: 214;
-										yourself);
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_band_id';
-																				startPosition: 217;
-																				stopPosition: 226;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 217;
-																		stopPosition: 226;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 217;
-																stopPosition: 226;
-																yourself);
-														startPosition: 217;
-														stopPosition: 226;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'BAND_FOOTER';
-																										startPosition: 230;
-																										stopPosition: 240;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 230;
-																								stopPosition: 240;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 230;
-																						stopPosition: 240;
-																						yourself);
-																				startPosition: 230;
-																				stopPosition: 240;
-																				yourself);
-																		startPosition: 230;
-																		stopPosition: 240;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 230;
-																stopPosition: 240;
-																yourself);
-														startPosition: 227;
-														stopPosition: 240;
-														yourself);
-												startPosition: 217;
-												stopPosition: 240;
-												yourself);
-										startPosition: 217;
-										stopPosition: 240;
-										yourself);
-								startPosition: 209;
-								stopPosition: 240;
-								yourself);
-						startPosition: 209;
-						stopPosition: 240;
+						startPosition: 86;
+						stopPosition: 101;
 						yourself)};
-				caseElse: nil;
+				caseElse:
+					(PWBASTCaseElse new
+						statements: nil;
+						statement: nil;
+						startPosition: 102;
+						stopPosition: 116;
+						yourself);
 				startPosition: 1;
-				stopPosition: 251;
+				stopPosition: 126;
 				yourself)
 ]
 
@@ -7717,524 +7178,6 @@ PWBCommonParserTest >> testCloseSqlCursor1 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testCondition1 [
-	<generated>
-	self
-		assert: (self parse: '(ai_index < 8) or (ai_index > 64)' rule: #condition)
-		equals:
-			(PWBASTCondition new
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTOperatorExpression new
-								left:
-									(PWBASTParenthesedExpression new
-										expression:
-											(PWBASTExpression new
-												expression:
-													(PWBASTOperatorExpression new
-														left:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTAccessOrType new
-																		accessOrType:
-																			(PWBASTAccess new
-																				accessed:
-																					(PWBASTVariable new
-																						identifier:
-																							(PWBASTIdentifier new
-																								identifier: 'ai_index';
-																								startPosition: 2;
-																								stopPosition: 9;
-																								yourself);
-																						arrayDefinition: nil;
-																						startPosition: 2;
-																						stopPosition: 9;
-																						yourself);
-																				arrayPosition: nil;
-																				startPosition: 2;
-																				stopPosition: 9;
-																				yourself);
-																		startPosition: 2;
-																		stopPosition: 9;
-																		yourself);
-																startPosition: 2;
-																stopPosition: 9;
-																yourself);
-														expressionAction: nil;
-														right:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '8';
-																				startPosition: 13;
-																				stopPosition: 13;
-																				yourself);
-																		startPosition: 13;
-																		stopPosition: 13;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 13;
-																stopPosition: 13;
-																yourself);
-														startPosition: 2;
-														stopPosition: 13;
-														yourself);
-												expressionAction: nil;
-												startPosition: 2;
-												stopPosition: 13;
-												yourself);
-										startPosition: 1;
-										stopPosition: 14;
-										yourself);
-								expressionAction: nil;
-								right:
-									(PWBASTExpression new
-										expression:
-											(PWBASTParenthesedExpression new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTOperatorExpression new
-																left:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'ai_index';
-																										startPosition: 20;
-																										stopPosition: 27;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 20;
-																								stopPosition: 27;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 20;
-																						stopPosition: 27;
-																						yourself);
-																				startPosition: 20;
-																				stopPosition: 27;
-																				yourself);
-																		startPosition: 20;
-																		stopPosition: 27;
-																		yourself);
-																expressionAction: nil;
-																right:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTNumber new
-																						number: '64';
-																						startPosition: 31;
-																						stopPosition: 32;
-																						yourself);
-																				startPosition: 31;
-																				stopPosition: 32;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 31;
-																		stopPosition: 32;
-																		yourself);
-																startPosition: 20;
-																stopPosition: 32;
-																yourself);
-														expressionAction: nil;
-														startPosition: 20;
-														stopPosition: 32;
-														yourself);
-												startPosition: 19;
-												stopPosition: 33;
-												yourself);
-										expressionAction: nil;
-										startPosition: 19;
-										stopPosition: 33;
-										yourself);
-								startPosition: 1;
-								stopPosition: 33;
-								yourself);
-						expressionAction: nil;
-						startPosition: 1;
-						stopPosition: 33;
-						yourself);
-				startPosition: 1;
-				stopPosition: 33;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition10 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'this.getparent().classname() = ''w_dossier_participation'' and ii_tp_courante = 4'
-				rule: #condition)
-		equals:
-			(PWBASTCondition new
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTOperatorExpression new
-								left:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTSpecialVariable new
-																this:
-																	(PWBASTThis new
-																		this: 'this';
-																		startPosition: 1;
-																		stopPosition: 4;
-																		yourself);
-																startPosition: 1;
-																stopPosition: 4;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								expressionAction:
-									(PWBASTExpressionAction new
-										action:
-											(PWBASTMethodInvocation new
-												methodInvocation:
-													(PWBASTRegularMethodInvocation new
-														uncheckedIdentifier:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'getparent';
-																startPosition: 6;
-																stopPosition: 14;
-																yourself);
-														functionArguments:
-															(PWBASTFunctionArguments new
-																functionArguments: nil;
-																startPosition: 15;
-																stopPosition: 16;
-																yourself);
-														startPosition: 5;
-														stopPosition: 16;
-														yourself);
-												startPosition: 5;
-												stopPosition: 16;
-												yourself);
-										expressionAction:
-											(PWBASTExpressionAction new
-												action:
-													(PWBASTMethodInvocation new
-														methodInvocation:
-															(PWBASTRegularMethodInvocation new
-																uncheckedIdentifier:
-																	(PWBASTUncheckedIdentifier new
-																		uncheckedIdentifier: 'classname';
-																		startPosition: 18;
-																		stopPosition: 26;
-																		yourself);
-																functionArguments:
-																	(PWBASTFunctionArguments new
-																		functionArguments: nil;
-																		startPosition: 27;
-																		stopPosition: 28;
-																		yourself);
-																startPosition: 17;
-																stopPosition: 28;
-																yourself);
-														startPosition: 17;
-														stopPosition: 28;
-														yourself);
-												expressionAction: nil;
-												startPosition: 17;
-												stopPosition: 28;
-												yourself);
-										startPosition: 5;
-										stopPosition: 28;
-										yourself);
-								right:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '''w_dossier_participation''';
-																startPosition: 32;
-																stopPosition: 56;
-																yourself);
-														startPosition: 32;
-														stopPosition: 56;
-														yourself);
-												expressionAction: nil;
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTOperatorExpression new
-																left:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'ii_tp_courante';
-																										startPosition: 62;
-																										stopPosition: 75;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 62;
-																								stopPosition: 75;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 62;
-																						stopPosition: 75;
-																						yourself);
-																				startPosition: 62;
-																				stopPosition: 75;
-																				yourself);
-																		startPosition: 62;
-																		stopPosition: 75;
-																		yourself);
-																expressionAction: nil;
-																right:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTNumber new
-																						number: '4';
-																						startPosition: 79;
-																						stopPosition: 79;
-																						yourself);
-																				startPosition: 79;
-																				stopPosition: 79;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 79;
-																		stopPosition: 79;
-																		yourself);
-																startPosition: 62;
-																stopPosition: 79;
-																yourself);
-														expressionAction: nil;
-														startPosition: 62;
-														stopPosition: 79;
-														yourself);
-												startPosition: 32;
-												stopPosition: 79;
-												yourself);
-										expressionAction: nil;
-										startPosition: 32;
-										stopPosition: 79;
-										yourself);
-								startPosition: 1;
-								stopPosition: 79;
-								yourself);
-						expressionAction: nil;
-						startPosition: 1;
-						stopPosition: 79;
-						yourself);
-				startPosition: 1;
-				stopPosition: 79;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition11 [
-	<generated>
-	self
-		assert: (self parse: 'this.event edw_sauver( 0,0) <> 0' rule: #condition)
-		equals:
-			(PWBASTCondition new
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTOperatorExpression new
-								left:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTEventInvocation new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'edw_sauver';
-														startPosition: 12;
-														stopPosition: 21;
-														yourself);
-												functionArguments:
-													(PWBASTFunctionArguments new
-														functionArguments:
-															{(PWBASTFunctionArgument new
-																argumentOption: nil;
-																expression:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTNumber new
-																						number: '0';
-																						startPosition: 24;
-																						stopPosition: 24;
-																						yourself);
-																				startPosition: 24;
-																				stopPosition: 24;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 24;
-																		stopPosition: 24;
-																		yourself);
-																startPosition: 24;
-																stopPosition: 24;
-																yourself).
-															(PWBASTFunctionArgument new
-																argumentOption: nil;
-																expression:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTNumber new
-																						number: '0';
-																						startPosition: 26;
-																						stopPosition: 26;
-																						yourself);
-																				startPosition: 26;
-																				stopPosition: 26;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 26;
-																		stopPosition: 26;
-																		yourself);
-																startPosition: 26;
-																stopPosition: 26;
-																yourself)};
-														startPosition: 22;
-														stopPosition: 27;
-														yourself);
-												startPosition: 1;
-												stopPosition: 27;
-												yourself);
-										startPosition: 1;
-										stopPosition: 27;
-										yourself);
-								expressionAction: nil;
-								right:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNumber new
-														number: '0';
-														startPosition: 32;
-														stopPosition: 32;
-														yourself);
-												startPosition: 32;
-												stopPosition: 32;
-												yourself);
-										expressionAction: nil;
-										startPosition: 32;
-										stopPosition: 32;
-										yourself);
-								startPosition: 1;
-								stopPosition: 32;
-								yourself);
-						expressionAction: nil;
-						startPosition: 1;
-						stopPosition: 32;
-						yourself);
-				startPosition: 1;
-				stopPosition: 32;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition2 [
-	<generated>
-	self
-		assert: (self parse: 'is_test <> ''''' rule: #condition)
-		equals:
-			(PWBASTCondition new
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTOperatorExpression new
-								left:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'is_test';
-																		startPosition: 1;
-																		stopPosition: 7;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 1;
-																stopPosition: 7;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 1;
-														stopPosition: 7;
-														yourself);
-												startPosition: 1;
-												stopPosition: 7;
-												yourself);
-										startPosition: 1;
-										stopPosition: 7;
-										yourself);
-								expressionAction: nil;
-								right:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '''''';
-														startPosition: 12;
-														stopPosition: 13;
-														yourself);
-												startPosition: 12;
-												stopPosition: 13;
-												yourself);
-										expressionAction: nil;
-										startPosition: 12;
-										stopPosition: 13;
-										yourself);
-								startPosition: 1;
-								stopPosition: 13;
-								yourself);
-						expressionAction: nil;
-						startPosition: 1;
-						stopPosition: 13;
-						yourself);
-				startPosition: 1;
-				stopPosition: 13;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition3 [
 	<generated>
 	self
 		assert: (self parse: 'TRUE = TRUE and TRUE' rule: #condition)
@@ -8273,6 +7216,12 @@ PWBCommonParserTest >> testCondition3 [
 										stopPosition: 4;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '=';
+										startPosition: 6;
+										stopPosition: 6;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -8306,6 +7255,12 @@ PWBCommonParserTest >> testCondition3 [
 														stopPosition: 11;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'and';
+														startPosition: 13;
+														stopPosition: 15;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -8360,7 +7315,254 @@ PWBCommonParserTest >> testCondition3 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition4 [
+PWBCommonParserTest >> testCondition10 [
+	<generated>
+	self
+		assert: (self parse: '(ai_index < 8) or (ai_index > 64)' rule: #condition)
+		equals:
+			(PWBASTCondition new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTParenthesedExpression new
+										expression:
+											(PWBASTExpression new
+												expression:
+													(PWBASTOperatorExpression new
+														left:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'ai_index';
+																								startPosition: 2;
+																								stopPosition: 9;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 2;
+																						stopPosition: 9;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 2;
+																				stopPosition: 9;
+																				yourself);
+																		startPosition: 2;
+																		stopPosition: 9;
+																		yourself);
+																startPosition: 2;
+																stopPosition: 9;
+																yourself);
+														expressionAction: nil;
+														expressionOperator:
+															(PWBASTExpressionOperator new
+																expressionOperator: '<';
+																startPosition: 11;
+																stopPosition: 11;
+																yourself);
+														right:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '8';
+																				startPosition: 13;
+																				stopPosition: 13;
+																				yourself);
+																		startPosition: 13;
+																		stopPosition: 13;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 13;
+																stopPosition: 13;
+																yourself);
+														startPosition: 2;
+														stopPosition: 13;
+														yourself);
+												expressionAction: nil;
+												startPosition: 2;
+												stopPosition: 13;
+												yourself);
+										startPosition: 1;
+										stopPosition: 14;
+										yourself);
+								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: 'or';
+										startPosition: 16;
+										stopPosition: 17;
+										yourself);
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTParenthesedExpression new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'ai_index';
+																										startPosition: 20;
+																										stopPosition: 27;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 20;
+																								stopPosition: 27;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 20;
+																						stopPosition: 27;
+																						yourself);
+																				startPosition: 20;
+																				stopPosition: 27;
+																				yourself);
+																		startPosition: 20;
+																		stopPosition: 27;
+																		yourself);
+																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '>';
+																		startPosition: 29;
+																		stopPosition: 29;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '64';
+																						startPosition: 31;
+																						stopPosition: 32;
+																						yourself);
+																				startPosition: 31;
+																				stopPosition: 32;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 31;
+																		stopPosition: 32;
+																		yourself);
+																startPosition: 20;
+																stopPosition: 32;
+																yourself);
+														expressionAction: nil;
+														startPosition: 20;
+														stopPosition: 32;
+														yourself);
+												startPosition: 19;
+												stopPosition: 33;
+												yourself);
+										expressionAction: nil;
+										startPosition: 19;
+										stopPosition: 33;
+										yourself);
+								startPosition: 1;
+								stopPosition: 33;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 33;
+						yourself);
+				startPosition: 1;
+				stopPosition: 33;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testCondition11 [
+	<generated>
+	self
+		assert: (self parse: 'is_test <> ''''' rule: #condition)
+		equals:
+			(PWBASTCondition new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'is_test';
+																		startPosition: 1;
+																		stopPosition: 7;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 1;
+																stopPosition: 7;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 1;
+														stopPosition: 7;
+														yourself);
+												startPosition: 1;
+												stopPosition: 7;
+												yourself);
+										startPosition: 1;
+										stopPosition: 7;
+										yourself);
+								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '<>';
+										startPosition: 9;
+										stopPosition: 10;
+										yourself);
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '''''';
+														startPosition: 12;
+														stopPosition: 13;
+														yourself);
+												startPosition: 12;
+												stopPosition: 13;
+												yourself);
+										expressionAction: nil;
+										startPosition: 12;
+										stopPosition: 13;
+										yourself);
+								startPosition: 1;
+								stopPosition: 13;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 13;
+						yourself);
+				startPosition: 1;
+				stopPosition: 13;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testCondition2 [
 	<generated>
 	self
 		assert: (self parse: 'this.validate()' rule: #condition)
@@ -8432,7 +7634,7 @@ PWBCommonParserTest >> testCondition4 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition5 [
+PWBCommonParserTest >> testCondition3 [
 	<generated>
 	self
 		assert: (self parse: 'true <> false' rule: #condition)
@@ -8471,6 +7673,12 @@ PWBCommonParserTest >> testCondition5 [
 										stopPosition: 4;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '<>';
+										startPosition: 6;
+										stopPosition: 7;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -8518,7 +7726,7 @@ PWBCommonParserTest >> testCondition5 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition6 [
+PWBCommonParserTest >> testCondition4 [
 	<generated>
 	self
 		assert: (self parse: 'dw_detail.getRow() <> this.getRow()' rule: #condition)
@@ -8583,6 +7791,12 @@ PWBCommonParserTest >> testCondition6 [
 										expressionAction: nil;
 										startPosition: 10;
 										stopPosition: 18;
+										yourself);
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '<>';
+										startPosition: 20;
+										stopPosition: 21;
 										yourself);
 								right:
 									(PWBASTExpression new
@@ -8657,7 +7871,7 @@ PWBCommonParserTest >> testCondition6 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition7 [
+PWBCommonParserTest >> testCondition5 [
 	<generated>
 	self
 		assert:
@@ -8716,6 +7930,12 @@ PWBCommonParserTest >> testCondition7 [
 										startPosition: 10;
 										stopPosition: 17;
 										yourself);
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '=';
+										startPosition: 19;
+										stopPosition: 19;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -8749,6 +7969,12 @@ PWBCommonParserTest >> testCondition7 [
 														stopPosition: 24;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'and';
+														startPosition: 26;
+														stopPosition: 28;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -8808,6 +8034,12 @@ PWBCommonParserTest >> testCondition7 [
 																		expressionAction: nil;
 																		startPosition: 39;
 																		stopPosition: 47;
+																		yourself);
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '<>';
+																		startPosition: 49;
+																		stopPosition: 50;
 																		yourself);
 																right:
 																	(PWBASTExpression new
@@ -8896,7 +8128,7 @@ PWBCommonParserTest >> testCondition7 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition8 [
+PWBCommonParserTest >> testCondition6 [
 	<generated>
 	self
 		assert:
@@ -9087,6 +8319,12 @@ PWBCommonParserTest >> testCondition8 [
 										stopPosition: 54;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: 'and';
+										startPosition: 56;
+										stopPosition: 58;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -9208,6 +8446,12 @@ PWBCommonParserTest >> testCondition8 [
 														startPosition: 73;
 														stopPosition: 105;
 														yourself);
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '<';
+														startPosition: 107;
+														stopPosition: 107;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -9257,7 +8501,7 @@ PWBCommonParserTest >> testCondition8 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testCondition9 [
+PWBCommonParserTest >> testCondition7 [
 	<generated>
 	self
 		assert:
@@ -9333,6 +8577,12 @@ PWBCommonParserTest >> testCondition9 [
 										stopPosition: 15;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: 'Or';
+										startPosition: 17;
+										stopPosition: 18;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -9400,6 +8650,12 @@ PWBCommonParserTest >> testCondition9 [
 														stopPosition: 32;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '<';
+														startPosition: 34;
+														stopPosition: 34;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -9462,6 +8718,12 @@ PWBCommonParserTest >> testCondition9 [
 																		stopPosition: 48;
 																		yourself);
 																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '-';
+																		startPosition: 50;
+																		stopPosition: 50;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -9502,6 +8764,325 @@ PWBCommonParserTest >> testCondition9 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 53;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testCondition8 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'this.getparent().classname() = ''w_dossier_participation'' and ii_tp_courante = 4'
+				rule: #condition)
+		equals:
+			(PWBASTCondition new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 1;
+																		stopPosition: 4;
+																		yourself);
+																startPosition: 1;
+																stopPosition: 4;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 1;
+														stopPosition: 4;
+														yourself);
+												startPosition: 1;
+												stopPosition: 4;
+												yourself);
+										startPosition: 1;
+										stopPosition: 4;
+										yourself);
+								expressionAction:
+									(PWBASTExpressionAction new
+										action:
+											(PWBASTMethodInvocation new
+												methodInvocation:
+													(PWBASTRegularMethodInvocation new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'getparent';
+																startPosition: 6;
+																stopPosition: 14;
+																yourself);
+														functionArguments:
+															(PWBASTFunctionArguments new
+																functionArguments: nil;
+																startPosition: 15;
+																stopPosition: 16;
+																yourself);
+														startPosition: 5;
+														stopPosition: 16;
+														yourself);
+												startPosition: 5;
+												stopPosition: 16;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTMethodInvocation new
+														methodInvocation:
+															(PWBASTRegularMethodInvocation new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'classname';
+																		startPosition: 18;
+																		stopPosition: 26;
+																		yourself);
+																functionArguments:
+																	(PWBASTFunctionArguments new
+																		functionArguments: nil;
+																		startPosition: 27;
+																		stopPosition: 28;
+																		yourself);
+																startPosition: 17;
+																stopPosition: 28;
+																yourself);
+														startPosition: 17;
+														stopPosition: 28;
+														yourself);
+												expressionAction: nil;
+												startPosition: 17;
+												stopPosition: 28;
+												yourself);
+										startPosition: 5;
+										stopPosition: 28;
+										yourself);
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '=';
+										startPosition: 30;
+										stopPosition: 30;
+										yourself);
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTString new
+																string: '''w_dossier_participation''';
+																startPosition: 32;
+																stopPosition: 56;
+																yourself);
+														startPosition: 32;
+														stopPosition: 56;
+														yourself);
+												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'and';
+														startPosition: 58;
+														stopPosition: 60;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'ii_tp_courante';
+																										startPosition: 62;
+																										stopPosition: 75;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 62;
+																								stopPosition: 75;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 62;
+																						stopPosition: 75;
+																						yourself);
+																				startPosition: 62;
+																				stopPosition: 75;
+																				yourself);
+																		startPosition: 62;
+																		stopPosition: 75;
+																		yourself);
+																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '=';
+																		startPosition: 77;
+																		stopPosition: 77;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '4';
+																						startPosition: 79;
+																						stopPosition: 79;
+																						yourself);
+																				startPosition: 79;
+																				stopPosition: 79;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 79;
+																		stopPosition: 79;
+																		yourself);
+																startPosition: 62;
+																stopPosition: 79;
+																yourself);
+														expressionAction: nil;
+														startPosition: 62;
+														stopPosition: 79;
+														yourself);
+												startPosition: 32;
+												stopPosition: 79;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 79;
+										yourself);
+								startPosition: 1;
+								stopPosition: 79;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 79;
+						yourself);
+				startPosition: 1;
+				stopPosition: 79;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testCondition9 [
+	<generated>
+	self
+		assert: (self parse: 'this.event edw_sauver( 0,0) <> 0' rule: #condition)
+		equals:
+			(PWBASTCondition new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTEventInvocation new
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'edw_sauver';
+														startPosition: 12;
+														stopPosition: 21;
+														yourself);
+												functionArguments:
+													(PWBASTFunctionArguments new
+														functionArguments:
+															{(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '0';
+																						startPosition: 24;
+																						stopPosition: 24;
+																						yourself);
+																				startPosition: 24;
+																				stopPosition: 24;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 24;
+																		stopPosition: 24;
+																		yourself);
+																startPosition: 24;
+																stopPosition: 24;
+																yourself).
+															(PWBASTFunctionArgument new
+																argumentOption: nil;
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '0';
+																						startPosition: 26;
+																						stopPosition: 26;
+																						yourself);
+																				startPosition: 26;
+																				stopPosition: 26;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 26;
+																		stopPosition: 26;
+																		yourself);
+																startPosition: 26;
+																stopPosition: 26;
+																yourself)};
+														startPosition: 22;
+														stopPosition: 27;
+														yourself);
+												startPosition: 1;
+												stopPosition: 27;
+												yourself);
+										startPosition: 1;
+										stopPosition: 27;
+										yourself);
+								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '<>';
+										startPosition: 29;
+										stopPosition: 30;
+										yourself);
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNumber new
+														number: '0';
+														startPosition: 32;
+														stopPosition: 32;
+														yourself);
+												startPosition: 32;
+												stopPosition: 32;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 32;
+										yourself);
+								startPosition: 1;
+								stopPosition: 32;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 32;
+						yourself);
+				startPosition: 1;
+				stopPosition: 32;
 				yourself)
 ]
 
@@ -9674,139 +9255,6 @@ PWBCommonParserTest >> testDestroyStatement1 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testDoLoopUntil1 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'do
-	
-loop until ll_lig >= ll_nbs_lig or lb_trouve'
-				rule: #doLoopUntil)
-		equals:
-			(PWBASTDoLoopUntil new
-				statements: nil;
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTOperatorExpression new
-								left:
-									(PWBASTExpressionTerm new
-										expressionTerm:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'll_lig';
-																		startPosition: 17;
-																		stopPosition: 22;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 17;
-																stopPosition: 22;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 17;
-														stopPosition: 22;
-														yourself);
-												startPosition: 17;
-												stopPosition: 22;
-												yourself);
-										startPosition: 17;
-										stopPosition: 22;
-										yourself);
-								expressionAction: nil;
-								right:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'll_nbs_lig';
-																						startPosition: 27;
-																						stopPosition: 36;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 27;
-																				stopPosition: 36;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 27;
-																		stopPosition: 36;
-																		yourself);
-																startPosition: 27;
-																stopPosition: 36;
-																yourself);
-														startPosition: 27;
-														stopPosition: 36;
-														yourself);
-												expressionAction: nil;
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTAccessOrType new
-																		accessOrType:
-																			(PWBASTAccess new
-																				accessed:
-																					(PWBASTVariable new
-																						identifier:
-																							(PWBASTIdentifier new
-																								identifier: 'lb_trouve';
-																								startPosition: 41;
-																								stopPosition: 49;
-																								yourself);
-																						arrayDefinition: nil;
-																						startPosition: 41;
-																						stopPosition: 49;
-																						yourself);
-																				arrayPosition: nil;
-																				startPosition: 41;
-																				stopPosition: 49;
-																				yourself);
-																		startPosition: 41;
-																		stopPosition: 49;
-																		yourself);
-																startPosition: 41;
-																stopPosition: 49;
-																yourself);
-														expressionAction: nil;
-														startPosition: 41;
-														stopPosition: 49;
-														yourself);
-												startPosition: 27;
-												stopPosition: 49;
-												yourself);
-										expressionAction: nil;
-										startPosition: 27;
-										stopPosition: 49;
-										yourself);
-								startPosition: 17;
-								stopPosition: 49;
-								yourself);
-						expressionAction: nil;
-						startPosition: 17;
-						stopPosition: 49;
-						yourself);
-				startPosition: 1;
-				stopPosition: 49;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testDoLoopUntil2 [
 	<generated>
 	self
 		assert:
@@ -10038,6 +9486,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																		startPosition: 37;
 																		stopPosition: 81;
 																		yourself);
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '+';
+																		startPosition: 83;
+																		stopPosition: 83;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -10242,6 +9696,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																																stopPosition: 163;
 																																yourself);
 																														expressionAction: nil;
+																														expressionOperator:
+																															(PWBASTExpressionOperator new
+																																expressionOperator: '+';
+																																startPosition: 165;
+																																stopPosition: 165;
+																																yourself);
 																														right:
 																															(PWBASTExpression new
 																																expression:
@@ -10275,6 +9735,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																																				stopPosition: 189;
 																																				yourself);
 																																		expressionAction: nil;
+																																		expressionOperator:
+																																			(PWBASTExpressionOperator new
+																																				expressionOperator: '+';
+																																				startPosition: 191;
+																																				stopPosition: 191;
+																																				yourself);
 																																		right:
 																																			(PWBASTExpression new
 																																				expression:
@@ -10327,6 +9793,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																																stopPosition: 200;
 																																yourself);
 																														expressionAction: nil;
+																														expressionOperator:
+																															(PWBASTExpressionOperator new
+																																expressionOperator: '+';
+																																startPosition: 202;
+																																stopPosition: 202;
+																																yourself);
 																														right:
 																															(PWBASTExpression new
 																																expression:
@@ -10360,6 +9832,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																																				stopPosition: 218;
 																																				yourself);
 																																		expressionAction: nil;
+																																		expressionOperator:
+																																			(PWBASTExpressionOperator new
+																																				expressionOperator: '+';
+																																				startPosition: 220;
+																																				stopPosition: 220;
+																																				yourself);
 																																		right:
 																																			(PWBASTExpression new
 																																				expression:
@@ -10404,6 +9882,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 																				stopPosition: 225;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '>';
+																				startPosition: 227;
+																				stopPosition: 227;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -10684,6 +10168,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 										stopPosition: 329;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '>=';
+										startPosition: 331;
+										stopPosition: 332;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -10717,6 +10207,12 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 														stopPosition: 343;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'or';
+														startPosition: 345;
+														stopPosition: 346;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -10771,6 +10267,151 @@ loop until ll_lig >= ll_nbs_lig or lb_trouve'
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testDoLoopUntil2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'do
+	
+loop until ll_lig >= ll_nbs_lig or lb_trouve'
+				rule: #doLoopUntil)
+		equals:
+			(PWBASTDoLoopUntil new
+				statements: nil;
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTOperatorExpression new
+								left:
+									(PWBASTExpressionTerm new
+										expressionTerm:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'll_lig';
+																		startPosition: 17;
+																		stopPosition: 22;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 17;
+																stopPosition: 22;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 17;
+														stopPosition: 22;
+														yourself);
+												startPosition: 17;
+												stopPosition: 22;
+												yourself);
+										startPosition: 17;
+										stopPosition: 22;
+										yourself);
+								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '>=';
+										startPosition: 24;
+										stopPosition: 25;
+										yourself);
+								right:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_nbs_lig';
+																						startPosition: 27;
+																						stopPosition: 36;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 27;
+																				stopPosition: 36;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 27;
+																		stopPosition: 36;
+																		yourself);
+																startPosition: 27;
+																stopPosition: 36;
+																yourself);
+														startPosition: 27;
+														stopPosition: 36;
+														yourself);
+												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'or';
+														startPosition: 38;
+														stopPosition: 39;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'lb_trouve';
+																								startPosition: 41;
+																								stopPosition: 49;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 41;
+																						stopPosition: 49;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 41;
+																				stopPosition: 49;
+																				yourself);
+																		startPosition: 41;
+																		stopPosition: 49;
+																		yourself);
+																startPosition: 41;
+																stopPosition: 49;
+																yourself);
+														expressionAction: nil;
+														startPosition: 41;
+														stopPosition: 49;
+														yourself);
+												startPosition: 27;
+												stopPosition: 49;
+												yourself);
+										expressionAction: nil;
+										startPosition: 27;
+										stopPosition: 49;
+										yourself);
+								startPosition: 17;
+								stopPosition: 49;
+								yourself);
+						expressionAction: nil;
+						startPosition: 17;
+						stopPosition: 49;
+						yourself);
+				startPosition: 1;
+				stopPosition: 49;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testDoLoopWhile1 [
 	<generated>
 	self
@@ -10801,6 +10442,12 @@ loop while 1 = 1'
 										stopPosition: 20;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '=';
+										startPosition: 22;
+										stopPosition: 22;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -11032,6 +10679,12 @@ loop while 1 = 1'
 																				stopPosition: 59;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 61;
+																				stopPosition: 61;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -11329,6 +10982,12 @@ loop while 1 = 1'
 										stopPosition: 147;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '=';
+										startPosition: 149;
+										stopPosition: 149;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -11411,6 +11070,12 @@ loop'
 										stopPosition: 15;
 										yourself);
 								expressionAction: nil;
+								expressionOperator:
+									(PWBASTExpressionOperator new
+										expressionOperator: '>=';
+										startPosition: 17;
+										stopPosition: 18;
+										yourself);
 								right:
 									(PWBASTExpression new
 										expression:
@@ -11444,6 +11109,12 @@ loop'
 														stopPosition: 29;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: 'or';
+														startPosition: 31;
+														stopPosition: 32;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -11705,6 +11376,12 @@ loop'
 																		startPosition: 77;
 																		stopPosition: 121;
 																		yourself);
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '+';
+																		startPosition: 123;
+																		stopPosition: 123;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -11909,6 +11586,12 @@ loop'
 																																stopPosition: 203;
 																																yourself);
 																														expressionAction: nil;
+																														expressionOperator:
+																															(PWBASTExpressionOperator new
+																																expressionOperator: '+';
+																																startPosition: 205;
+																																stopPosition: 205;
+																																yourself);
 																														right:
 																															(PWBASTExpression new
 																																expression:
@@ -11942,6 +11625,12 @@ loop'
 																																				stopPosition: 229;
 																																				yourself);
 																																		expressionAction: nil;
+																																		expressionOperator:
+																																			(PWBASTExpressionOperator new
+																																				expressionOperator: '+';
+																																				startPosition: 231;
+																																				stopPosition: 231;
+																																				yourself);
 																																		right:
 																																			(PWBASTExpression new
 																																				expression:
@@ -11994,6 +11683,12 @@ loop'
 																																stopPosition: 240;
 																																yourself);
 																														expressionAction: nil;
+																														expressionOperator:
+																															(PWBASTExpressionOperator new
+																																expressionOperator: '+';
+																																startPosition: 242;
+																																stopPosition: 242;
+																																yourself);
 																														right:
 																															(PWBASTExpression new
 																																expression:
@@ -12027,6 +11722,12 @@ loop'
 																																				stopPosition: 258;
 																																				yourself);
 																																		expressionAction: nil;
+																																		expressionOperator:
+																																			(PWBASTExpressionOperator new
+																																				expressionOperator: '+';
+																																				startPosition: 260;
+																																				stopPosition: 260;
+																																				yourself);
 																																		right:
 																																			(PWBASTExpression new
 																																				expression:
@@ -12071,6 +11772,12 @@ loop'
 																				stopPosition: 265;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '>';
+																				startPosition: 267;
+																				stopPosition: 267;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -12541,12 +12248,7 @@ PWBCommonParserTest >> testEventDeclaration1 [
 		assert:
 			(self
 				parse:
-					'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
-	is_dct_ou_dct_int = "dct"
-else
-	is_dct_ou_dct_int = "dct_int"
-end if
-dw_liste.triggerEvent("edw_lecture", 0, "")
+					'event constructor;call super::constructor;
 end event'
 				rule: #eventDeclaration)
 		equals:
@@ -12554,325 +12256,31 @@ end event'
 				returnType: nil;
 				eventReferenceName:
 					(PWBASTEventReferenceName new
-						objectClass:
-							(PWBASTIdentifier new
-								identifier: 'dw_liste';
-								startPosition: 7;
-								stopPosition: 14;
-								yourself);
+						objectClass: nil;
 						eventName:
 							(PWBASTIdentifier new
-								identifier: 'edw_dct_ou_dct_int';
-								startPosition: 17;
-								stopPosition: 34;
+								identifier: 'constructor';
+								startPosition: 7;
+								stopPosition: 17;
 								yourself);
-						arguments:
-							(PWBASTArguments new
-								arguments: nil;
-								startPosition: 35;
-								stopPosition: 36;
-								yourself);
+						arguments: nil;
 						startPosition: 7;
-						stopPosition: 36;
+						stopPosition: 17;
 						yourself);
-				customCallStatement: nil;
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTIfStatement new
-										ifStatement:
-											(PWBASTIfMultiLine new
-												condition:
-													(PWBASTCondition new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'is_dct_ou_dct_int';
-																												startPosition: 41;
-																												stopPosition: 57;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 41;
-																										stopPosition: 57;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 41;
-																								stopPosition: 57;
-																								yourself);
-																						startPosition: 41;
-																						stopPosition: 57;
-																						yourself);
-																				startPosition: 41;
-																				stopPosition: 57;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTString new
-																								string: '"dct_int"';
-																								startPosition: 61;
-																								stopPosition: 69;
-																								yourself);
-																						startPosition: 61;
-																						stopPosition: 69;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 61;
-																				stopPosition: 69;
-																				yourself);
-																		startPosition: 41;
-																		stopPosition: 69;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 41;
-																stopPosition: 69;
-																yourself);
-														startPosition: 41;
-														stopPosition: 69;
-														yourself);
-												statements:
-													(PWBASTStatements new
-														statements:
-															{(PWBASTStatement new
-																statement:
-																	(PWBASTAssignationStatement new
-																		accessOrType:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'is_dct_ou_dct_int';
-																										startPosition: 77;
-																										stopPosition: 93;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 77;
-																								stopPosition: 93;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 77;
-																						stopPosition: 93;
-																						yourself);
-																				startPosition: 77;
-																				stopPosition: 93;
-																				yourself);
-																		expressionAction: nil;
-																		assignation:
-																			(PWBASTAssignation new
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTString new
-																										string: '"dct"';
-																										startPosition: 97;
-																										stopPosition: 101;
-																										yourself);
-																								startPosition: 97;
-																								stopPosition: 101;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 97;
-																						stopPosition: 101;
-																						yourself);
-																				startPosition: 94;
-																				stopPosition: 101;
-																				yourself);
-																		startPosition: 77;
-																		stopPosition: 101;
-																		yourself);
-																startPosition: 77;
-																stopPosition: 101;
-																yourself)};
-														startPosition: 77;
-														stopPosition: 101;
-														yourself);
-												elseIfs: (OrderedCollection withAll: {});
-												else:
-													(PWBASTElse new
-														statements:
-															(PWBASTStatements new
-																statements:
-																	{(PWBASTStatement new
-																		statement:
-																			(PWBASTAssignationStatement new
-																				accessOrType:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'is_dct_ou_dct_int';
-																												startPosition: 109;
-																												stopPosition: 125;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 109;
-																										stopPosition: 125;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 109;
-																								stopPosition: 125;
-																								yourself);
-																						startPosition: 109;
-																						stopPosition: 125;
-																						yourself);
-																				expressionAction: nil;
-																				assignation:
-																					(PWBASTAssignation new
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTString new
-																												string: '"dct_int"';
-																												startPosition: 129;
-																												stopPosition: 137;
-																												yourself);
-																										startPosition: 129;
-																										stopPosition: 137;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 129;
-																								stopPosition: 137;
-																								yourself);
-																						startPosition: 126;
-																						stopPosition: 137;
-																						yourself);
-																				startPosition: 109;
-																				stopPosition: 137;
-																				yourself);
-																		startPosition: 109;
-																		stopPosition: 137;
-																		yourself)};
-																startPosition: 109;
-																stopPosition: 137;
-																yourself);
-														startPosition: 103;
-														stopPosition: 137;
-														yourself);
-												startPosition: 38;
-												stopPosition: 144;
-												yourself);
-										startPosition: 38;
-										stopPosition: 144;
-										yourself);
-								startPosition: 38;
-								stopPosition: 144;
-								yourself).
-							(PWBASTStatement new
-								statement:
-									(PWBASTEventTriggeringOrPosting new
-										identifiers:
-											(OrderedCollection
-												withAll:
-													{(PWBASTIdentifier new
-														identifier: 'dw_liste';
-														startPosition: 146;
-														stopPosition: 153;
-														yourself)});
-										arrayPositions: (OrderedCollection withAll: {nil});
-										eventName:
-											(PWBASTEventName new
-												eventName:
-													(PWBASTString new
-														string: '"edw_lecture"';
-														startPosition: 168;
-														stopPosition: 180;
-														yourself);
-												startPosition: 168;
-												stopPosition: 180;
-												yourself);
-										eventWord:
-											(PWBASTEventWord new
-												functionArgument:
-													(PWBASTFunctionArgument new
-														argumentOption: nil;
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 183;
-																				stopPosition: 183;
-																				yourself);
-																		startPosition: 183;
-																		stopPosition: 183;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 183;
-																stopPosition: 183;
-																yourself);
-														startPosition: 183;
-														stopPosition: 183;
-														yourself);
-												startPosition: 183;
-												stopPosition: 183;
-												yourself);
-										eventLong:
-											(PWBASTEventLong new
-												functionArgument:
-													(PWBASTFunctionArgument new
-														argumentOption: nil;
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '""';
-																				startPosition: 186;
-																				stopPosition: 187;
-																				yourself);
-																		startPosition: 186;
-																		stopPosition: 187;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 186;
-																stopPosition: 187;
-																yourself);
-														startPosition: 186;
-														stopPosition: 187;
-														yourself);
-												startPosition: 185;
-												stopPosition: 187;
-												yourself);
-										startPosition: 146;
-										stopPosition: 188;
-										yourself);
-								startPosition: 146;
-								stopPosition: 188;
-								yourself)};
-						startPosition: 38;
-						stopPosition: 188;
+				customCallStatement:
+					(PWBASTCustomCallStatement new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'constructor';
+								startPosition: 31;
+								stopPosition: 41;
+								yourself);
+						startPosition: 19;
+						stopPosition: 41;
 						yourself);
+				statements: nil;
 				startPosition: 1;
-				stopPosition: 198;
+				stopPosition: 52;
 				yourself)
 ]
 
@@ -13534,6 +12942,12 @@ end event'
 																				stopPosition: 57;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 59;
+																				stopPosition: 59;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -13793,6 +13207,1244 @@ end event'
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testEventDeclaration4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
+	is_dct_ou_dct_int = "dct"
+else
+	is_dct_ou_dct_int = "dct_int"
+end if
+dw_liste.triggerEvent("edw_lecture", 0, "")
+end event'
+				rule: #eventDeclaration)
+		equals:
+			(PWBASTEventDeclaration new
+				returnType: nil;
+				eventReferenceName:
+					(PWBASTEventReferenceName new
+						objectClass:
+							(PWBASTIdentifier new
+								identifier: 'dw_liste';
+								startPosition: 7;
+								stopPosition: 14;
+								yourself);
+						eventName:
+							(PWBASTIdentifier new
+								identifier: 'edw_dct_ou_dct_int';
+								startPosition: 17;
+								stopPosition: 34;
+								yourself);
+						arguments:
+							(PWBASTArguments new
+								arguments: nil;
+								startPosition: 35;
+								stopPosition: 36;
+								yourself);
+						startPosition: 7;
+						stopPosition: 36;
+						yourself);
+				customCallStatement: nil;
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTIfStatement new
+										ifStatement:
+											(PWBASTIfMultiLine new
+												condition:
+													(PWBASTCondition new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTOperatorExpression new
+																		left:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'is_dct_ou_dct_int';
+																												startPosition: 41;
+																												stopPosition: 57;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 41;
+																										stopPosition: 57;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 41;
+																								stopPosition: 57;
+																								yourself);
+																						startPosition: 41;
+																						stopPosition: 57;
+																						yourself);
+																				startPosition: 41;
+																				stopPosition: 57;
+																				yourself);
+																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 59;
+																				stopPosition: 59;
+																				yourself);
+																		right:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTString new
+																								string: '"dct_int"';
+																								startPosition: 61;
+																								stopPosition: 69;
+																								yourself);
+																						startPosition: 61;
+																						stopPosition: 69;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 61;
+																				stopPosition: 69;
+																				yourself);
+																		startPosition: 41;
+																		stopPosition: 69;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 41;
+																stopPosition: 69;
+																yourself);
+														startPosition: 41;
+														stopPosition: 69;
+														yourself);
+												statements:
+													(PWBASTStatements new
+														statements:
+															{(PWBASTStatement new
+																statement:
+																	(PWBASTAssignationStatement new
+																		accessOrType:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'is_dct_ou_dct_int';
+																										startPosition: 77;
+																										stopPosition: 93;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 77;
+																								stopPosition: 93;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 77;
+																						stopPosition: 93;
+																						yourself);
+																				startPosition: 77;
+																				stopPosition: 93;
+																				yourself);
+																		expressionAction: nil;
+																		assignation:
+																			(PWBASTAssignation new
+																				expression:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTString new
+																										string: '"dct"';
+																										startPosition: 97;
+																										stopPosition: 101;
+																										yourself);
+																								startPosition: 97;
+																								stopPosition: 101;
+																								yourself);
+																						expressionAction: nil;
+																						startPosition: 97;
+																						stopPosition: 101;
+																						yourself);
+																				startPosition: 94;
+																				stopPosition: 101;
+																				yourself);
+																		startPosition: 77;
+																		stopPosition: 101;
+																		yourself);
+																startPosition: 77;
+																stopPosition: 101;
+																yourself)};
+														startPosition: 77;
+														stopPosition: 101;
+														yourself);
+												elseIfs: (OrderedCollection withAll: {});
+												else:
+													(PWBASTElse new
+														statements:
+															(PWBASTStatements new
+																statements:
+																	{(PWBASTStatement new
+																		statement:
+																			(PWBASTAssignationStatement new
+																				accessOrType:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'is_dct_ou_dct_int';
+																												startPosition: 109;
+																												stopPosition: 125;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 109;
+																										stopPosition: 125;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 109;
+																								stopPosition: 125;
+																								yourself);
+																						startPosition: 109;
+																						stopPosition: 125;
+																						yourself);
+																				expressionAction: nil;
+																				assignation:
+																					(PWBASTAssignation new
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTString new
+																												string: '"dct_int"';
+																												startPosition: 129;
+																												stopPosition: 137;
+																												yourself);
+																										startPosition: 129;
+																										stopPosition: 137;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 129;
+																								stopPosition: 137;
+																								yourself);
+																						startPosition: 126;
+																						stopPosition: 137;
+																						yourself);
+																				startPosition: 109;
+																				stopPosition: 137;
+																				yourself);
+																		startPosition: 109;
+																		stopPosition: 137;
+																		yourself)};
+																startPosition: 109;
+																stopPosition: 137;
+																yourself);
+														startPosition: 103;
+														stopPosition: 137;
+														yourself);
+												startPosition: 38;
+												stopPosition: 144;
+												yourself);
+										startPosition: 38;
+										stopPosition: 144;
+										yourself);
+								startPosition: 38;
+								stopPosition: 144;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTEventTriggeringOrPosting new
+										identifiers:
+											(OrderedCollection
+												withAll:
+													{(PWBASTIdentifier new
+														identifier: 'dw_liste';
+														startPosition: 146;
+														stopPosition: 153;
+														yourself)});
+										arrayPositions: (OrderedCollection withAll: {nil});
+										eventName:
+											(PWBASTEventName new
+												eventName:
+													(PWBASTString new
+														string: '"edw_lecture"';
+														startPosition: 168;
+														stopPosition: 180;
+														yourself);
+												startPosition: 168;
+												stopPosition: 180;
+												yourself);
+										eventWord:
+											(PWBASTEventWord new
+												functionArgument:
+													(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 183;
+																				stopPosition: 183;
+																				yourself);
+																		startPosition: 183;
+																		stopPosition: 183;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 183;
+																stopPosition: 183;
+																yourself);
+														startPosition: 183;
+														stopPosition: 183;
+														yourself);
+												startPosition: 183;
+												stopPosition: 183;
+												yourself);
+										eventLong:
+											(PWBASTEventLong new
+												functionArgument:
+													(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '""';
+																				startPosition: 186;
+																				stopPosition: 187;
+																				yourself);
+																		startPosition: 186;
+																		stopPosition: 187;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 186;
+																stopPosition: 187;
+																yourself);
+														startPosition: 186;
+														stopPosition: 187;
+														yourself);
+												startPosition: 185;
+												stopPosition: 187;
+												yourself);
+										startPosition: 146;
+										stopPosition: 188;
+										yourself);
+								startPosition: 146;
+								stopPosition: 188;
+								yourself)};
+						startPosition: 38;
+						stopPosition: 188;
+						yourself);
+				startPosition: 1;
+				stopPosition: 198;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventDeclaration5 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'event ue_rdc();
+if il_cot = 1 then
+	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
+else
+	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
+end if
+end event'
+				rule: #eventDeclaration)
+		equals:
+			(PWBASTEventDeclaration new
+				returnType: nil;
+				eventReferenceName:
+					(PWBASTEventReferenceName new
+						objectClass: nil;
+						eventName:
+							(PWBASTIdentifier new
+								identifier: 'ue_rdc';
+								startPosition: 7;
+								stopPosition: 12;
+								yourself);
+						arguments:
+							(PWBASTArguments new
+								arguments: nil;
+								startPosition: 13;
+								stopPosition: 14;
+								yourself);
+						startPosition: 7;
+						stopPosition: 14;
+						yourself);
+				customCallStatement: nil;
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTIfStatement new
+										ifStatement:
+											(PWBASTIfMultiLine new
+												condition:
+													(PWBASTCondition new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTOperatorExpression new
+																		left:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'il_cot';
+																												startPosition: 20;
+																												stopPosition: 25;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 20;
+																										stopPosition: 25;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 20;
+																								stopPosition: 25;
+																								yourself);
+																						startPosition: 20;
+																						stopPosition: 25;
+																						yourself);
+																				startPosition: 20;
+																				stopPosition: 25;
+																				yourself);
+																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 27;
+																				stopPosition: 27;
+																				yourself);
+																		right:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTNumber new
+																								number: '1';
+																								startPosition: 29;
+																								stopPosition: 29;
+																								yourself);
+																						startPosition: 29;
+																						stopPosition: 29;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 29;
+																				stopPosition: 29;
+																				yourself);
+																		startPosition: 20;
+																		stopPosition: 29;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 20;
+																stopPosition: 29;
+																yourself);
+														startPosition: 20;
+														stopPosition: 29;
+														yourself);
+												statements:
+													(PWBASTStatements new
+														statements:
+															{(PWBASTStatement new
+																statement:
+																	(PWBASTEventTriggeringOrPosting new
+																		identifiers:
+																			(OrderedCollection
+																				withAll:
+																					{(PWBASTIdentifier new
+																						identifier: 'dw_liste';
+																						startPosition: 37;
+																						stopPosition: 44;
+																						yourself)});
+																		arrayPositions: (OrderedCollection withAll: {nil});
+																		eventName:
+																			(PWBASTEventName new
+																				eventName:
+																					(PWBASTString new
+																						string: '"ue_menu"';
+																						startPosition: 56;
+																						stopPosition: 64;
+																						yourself);
+																				startPosition: 56;
+																				stopPosition: 64;
+																				yourself);
+																		eventWord:
+																			(PWBASTEventWord new
+																				functionArgument:
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '1';
+																												startPosition: 66;
+																												stopPosition: 66;
+																												yourself);
+																										startPosition: 66;
+																										stopPosition: 66;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 66;
+																								stopPosition: 66;
+																								yourself);
+																						startPosition: 66;
+																						stopPosition: 66;
+																						yourself);
+																				startPosition: 66;
+																				stopPosition: 66;
+																				yourself);
+																		eventLong:
+																			(PWBASTEventLong new
+																				functionArgument:
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTString new
+																												string: '"m_edt_rdc"';
+																												startPosition: 68;
+																												stopPosition: 78;
+																												yourself);
+																										startPosition: 68;
+																										stopPosition: 78;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 68;
+																								stopPosition: 78;
+																								yourself);
+																						startPosition: 68;
+																						stopPosition: 78;
+																						yourself);
+																				startPosition: 68;
+																				stopPosition: 78;
+																				yourself);
+																		startPosition: 37;
+																		stopPosition: 79;
+																		yourself);
+																startPosition: 37;
+																stopPosition: 79;
+																yourself)};
+														startPosition: 37;
+														stopPosition: 79;
+														yourself);
+												elseIfs: (OrderedCollection withAll: {});
+												else:
+													(PWBASTElse new
+														statements:
+															(PWBASTStatements new
+																statements:
+																	{(PWBASTStatement new
+																		statement:
+																			(PWBASTFunctionInvocation new
+																				defaultVariable: nil;
+																				functionName:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'messagebox';
+																						startPosition: 87;
+																						stopPosition: 96;
+																						yourself);
+																				functionArguments:
+																					(PWBASTFunctionArguments new
+																						functionArguments:
+																							{(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTString new
+																														string: '"Attention"';
+																														startPosition: 98;
+																														stopPosition: 108;
+																														yourself);
+																												startPosition: 98;
+																												stopPosition: 108;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 98;
+																										stopPosition: 108;
+																										yourself);
+																								startPosition: 98;
+																								stopPosition: 108;
+																								yourself).
+																							(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTString new
+																														string: '"Vous ne vous trouvez pas sur les cotisations de l''adhérent"';
+																														startPosition: 110;
+																														stopPosition: 169;
+																														yourself);
+																												startPosition: 110;
+																												stopPosition: 169;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 110;
+																										stopPosition: 169;
+																										yourself);
+																								startPosition: 110;
+																								stopPosition: 169;
+																								yourself)};
+																						startPosition: 97;
+																						stopPosition: 170;
+																						yourself);
+																				startPosition: 87;
+																				stopPosition: 170;
+																				yourself);
+																		startPosition: 87;
+																		stopPosition: 170;
+																		yourself)};
+																startPosition: 87;
+																stopPosition: 170;
+																yourself);
+														startPosition: 81;
+														stopPosition: 170;
+														yourself);
+												startPosition: 17;
+												stopPosition: 177;
+												yourself);
+										startPosition: 17;
+										stopPosition: 177;
+										yourself);
+								startPosition: 17;
+								stopPosition: 177;
+								yourself)};
+						startPosition: 17;
+						stopPosition: 177;
+						yourself);
+				startPosition: 1;
+				stopPosition: 187;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventDeclaration6 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'event constructor;call super::constructor;
+this.ii_dw_type = DW_TYPE_LISTE
+this.x = 0
+this.y = 0
+this.width = parent.width - 100
+this.height = (parent.height / 2) - 200
+end event'
+				rule: #eventDeclaration)
+		equals:
+			(PWBASTEventDeclaration new
+				returnType: nil;
+				eventReferenceName:
+					(PWBASTEventReferenceName new
+						objectClass: nil;
+						eventName:
+							(PWBASTIdentifier new
+								identifier: 'constructor';
+								startPosition: 7;
+								stopPosition: 17;
+								yourself);
+						arguments: nil;
+						startPosition: 7;
+						stopPosition: 17;
+						yourself);
+				customCallStatement:
+					(PWBASTCustomCallStatement new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'constructor';
+								startPosition: 31;
+								stopPosition: 41;
+								yourself);
+						startPosition: 19;
+						stopPosition: 41;
+						yourself);
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 44;
+																		stopPosition: 47;
+																		yourself);
+																startPosition: 44;
+																stopPosition: 47;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 44;
+														stopPosition: 47;
+														yourself);
+												startPosition: 44;
+												stopPosition: 47;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'ii_dw_type';
+																startPosition: 49;
+																stopPosition: 58;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 48;
+														stopPosition: 58;
+														yourself);
+												expressionAction: nil;
+												startPosition: 48;
+												stopPosition: 58;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'DW_TYPE_LISTE';
+																								startPosition: 62;
+																								stopPosition: 74;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 62;
+																						stopPosition: 74;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 62;
+																				stopPosition: 74;
+																				yourself);
+																		startPosition: 62;
+																		stopPosition: 74;
+																		yourself);
+																startPosition: 62;
+																stopPosition: 74;
+																yourself);
+														expressionAction: nil;
+														startPosition: 62;
+														stopPosition: 74;
+														yourself);
+												startPosition: 59;
+												stopPosition: 74;
+												yourself);
+										startPosition: 44;
+										stopPosition: 74;
+										yourself);
+								startPosition: 44;
+								stopPosition: 74;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 76;
+																		stopPosition: 79;
+																		yourself);
+																startPosition: 76;
+																stopPosition: 79;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 76;
+														stopPosition: 79;
+														yourself);
+												startPosition: 76;
+												stopPosition: 79;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'x';
+																startPosition: 81;
+																stopPosition: 81;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 80;
+														stopPosition: 81;
+														yourself);
+												expressionAction: nil;
+												startPosition: 80;
+												stopPosition: 81;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTNumber new
+																		number: '0';
+																		startPosition: 85;
+																		stopPosition: 85;
+																		yourself);
+																startPosition: 85;
+																stopPosition: 85;
+																yourself);
+														expressionAction: nil;
+														startPosition: 85;
+														stopPosition: 85;
+														yourself);
+												startPosition: 82;
+												stopPosition: 85;
+												yourself);
+										startPosition: 76;
+										stopPosition: 85;
+										yourself);
+								startPosition: 76;
+								stopPosition: 85;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 87;
+																		stopPosition: 90;
+																		yourself);
+																startPosition: 87;
+																stopPosition: 90;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 87;
+														stopPosition: 90;
+														yourself);
+												startPosition: 87;
+												stopPosition: 90;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'y';
+																startPosition: 92;
+																stopPosition: 92;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 91;
+														stopPosition: 92;
+														yourself);
+												expressionAction: nil;
+												startPosition: 91;
+												stopPosition: 92;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTNumber new
+																		number: '0';
+																		startPosition: 96;
+																		stopPosition: 96;
+																		yourself);
+																startPosition: 96;
+																stopPosition: 96;
+																yourself);
+														expressionAction: nil;
+														startPosition: 96;
+														stopPosition: 96;
+														yourself);
+												startPosition: 93;
+												stopPosition: 96;
+												yourself);
+										startPosition: 87;
+										stopPosition: 96;
+										yourself);
+								startPosition: 87;
+								stopPosition: 96;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 98;
+																		stopPosition: 101;
+																		yourself);
+																startPosition: 98;
+																stopPosition: 101;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 98;
+														stopPosition: 101;
+														yourself);
+												startPosition: 98;
+												stopPosition: 101;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'width';
+																startPosition: 103;
+																stopPosition: 107;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 102;
+														stopPosition: 107;
+														yourself);
+												expressionAction: nil;
+												startPosition: 102;
+												stopPosition: 107;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'parent';
+																										startPosition: 111;
+																										stopPosition: 116;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 111;
+																								stopPosition: 116;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 111;
+																						stopPosition: 116;
+																						yourself);
+																				startPosition: 111;
+																				stopPosition: 116;
+																				yourself);
+																		startPosition: 111;
+																		stopPosition: 116;
+																		yourself);
+																expressionAction:
+																	(PWBASTExpressionAction new
+																		action:
+																			(PWBASTAttributeAccess new
+																				uncheckedIdentifier:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'width';
+																						startPosition: 118;
+																						stopPosition: 122;
+																						yourself);
+																				arrayInformation: nil;
+																				startPosition: 117;
+																				stopPosition: 122;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 117;
+																		stopPosition: 122;
+																		yourself);
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '-';
+																		startPosition: 124;
+																		stopPosition: 124;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '100';
+																						startPosition: 126;
+																						stopPosition: 128;
+																						yourself);
+																				startPosition: 126;
+																				stopPosition: 128;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 126;
+																		stopPosition: 128;
+																		yourself);
+																startPosition: 111;
+																stopPosition: 128;
+																yourself);
+														expressionAction: nil;
+														startPosition: 111;
+														stopPosition: 128;
+														yourself);
+												startPosition: 108;
+												stopPosition: 128;
+												yourself);
+										startPosition: 98;
+										stopPosition: 128;
+										yourself);
+								startPosition: 98;
+								stopPosition: 128;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTSpecialVariable new
+																this:
+																	(PWBASTThis new
+																		this: 'this';
+																		startPosition: 130;
+																		stopPosition: 133;
+																		yourself);
+																startPosition: 130;
+																stopPosition: 133;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 130;
+														stopPosition: 133;
+														yourself);
+												startPosition: 130;
+												stopPosition: 133;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'height';
+																startPosition: 135;
+																stopPosition: 140;
+																yourself);
+														arrayInformation: nil;
+														startPosition: 134;
+														stopPosition: 140;
+														yourself);
+												expressionAction: nil;
+												startPosition: 134;
+												stopPosition: 140;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'parent';
+																																startPosition: 145;
+																																stopPosition: 150;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 145;
+																														stopPosition: 150;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 145;
+																												stopPosition: 150;
+																												yourself);
+																										startPosition: 145;
+																										stopPosition: 150;
+																										yourself);
+																								startPosition: 145;
+																								stopPosition: 150;
+																								yourself);
+																						expressionAction:
+																							(PWBASTExpressionAction new
+																								action:
+																									(PWBASTAttributeAccess new
+																										uncheckedIdentifier:
+																											(PWBASTUncheckedIdentifier new
+																												uncheckedIdentifier: 'height';
+																												startPosition: 152;
+																												stopPosition: 157;
+																												yourself);
+																										arrayInformation: nil;
+																										startPosition: 151;
+																										stopPosition: 157;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 151;
+																								stopPosition: 157;
+																								yourself);
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '/';
+																								startPosition: 159;
+																								stopPosition: 159;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '2';
+																												startPosition: 161;
+																												stopPosition: 161;
+																												yourself);
+																										startPosition: 161;
+																										stopPosition: 161;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 161;
+																								stopPosition: 161;
+																								yourself);
+																						startPosition: 145;
+																						stopPosition: 161;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 145;
+																				stopPosition: 161;
+																				yourself);
+																		startPosition: 144;
+																		stopPosition: 162;
+																		yourself);
+																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '-';
+																		startPosition: 164;
+																		stopPosition: 164;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '200';
+																						startPosition: 166;
+																						stopPosition: 168;
+																						yourself);
+																				startPosition: 166;
+																				stopPosition: 168;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 166;
+																		stopPosition: 168;
+																		yourself);
+																startPosition: 144;
+																stopPosition: 168;
+																yourself);
+														expressionAction: nil;
+														startPosition: 144;
+														stopPosition: 168;
+														yourself);
+												startPosition: 141;
+												stopPosition: 168;
+												yourself);
+										startPosition: 130;
+										stopPosition: 168;
+										yourself);
+								startPosition: 130;
+								stopPosition: 168;
+								yourself)};
+						startPosition: 44;
+						stopPosition: 168;
+						yourself);
+				startPosition: 1;
+				stopPosition: 178;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testEventDeclaration7 [
 	<generated>
 	self
 		assert:
@@ -14244,6 +14896,12 @@ end event'
 																										stopPosition: 185;
 																										yourself);
 																								expressionAction: nil;
+																								expressionOperator:
+																									(PWBASTExpressionOperator new
+																										expressionOperator: 'or';
+																										startPosition: 187;
+																										stopPosition: 188;
+																										yourself);
 																								right:
 																									(PWBASTExpression new
 																										expression:
@@ -14277,6 +14935,12 @@ end event'
 																														stopPosition: 200;
 																														yourself);
 																												expressionAction: nil;
+																												expressionOperator:
+																													(PWBASTExpressionOperator new
+																														expressionOperator: '=';
+																														startPosition: 202;
+																														stopPosition: 202;
+																														yourself);
 																												right:
 																													(PWBASTExpression new
 																														expression:
@@ -14679,732 +15343,44 @@ end event'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testEventDeclaration5 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'event ue_rdc();
-if il_cot = 1 then
-	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
-else
-	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
-end if
-end event'
-				rule: #eventDeclaration)
-		equals:
-			(PWBASTEventDeclaration new
-				returnType: nil;
-				eventReferenceName:
-					(PWBASTEventReferenceName new
-						objectClass: nil;
-						eventName:
-							(PWBASTIdentifier new
-								identifier: 'ue_rdc';
-								startPosition: 7;
-								stopPosition: 12;
-								yourself);
-						arguments:
-							(PWBASTArguments new
-								arguments: nil;
-								startPosition: 13;
-								stopPosition: 14;
-								yourself);
-						startPosition: 7;
-						stopPosition: 14;
-						yourself);
-				customCallStatement: nil;
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTIfStatement new
-										ifStatement:
-											(PWBASTIfMultiLine new
-												condition:
-													(PWBASTCondition new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'il_cot';
-																												startPosition: 20;
-																												stopPosition: 25;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 20;
-																										stopPosition: 25;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 20;
-																								stopPosition: 25;
-																								yourself);
-																						startPosition: 20;
-																						stopPosition: 25;
-																						yourself);
-																				startPosition: 20;
-																				stopPosition: 25;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTNumber new
-																								number: '1';
-																								startPosition: 29;
-																								stopPosition: 29;
-																								yourself);
-																						startPosition: 29;
-																						stopPosition: 29;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 29;
-																				stopPosition: 29;
-																				yourself);
-																		startPosition: 20;
-																		stopPosition: 29;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 20;
-																stopPosition: 29;
-																yourself);
-														startPosition: 20;
-														stopPosition: 29;
-														yourself);
-												statements:
-													(PWBASTStatements new
-														statements:
-															{(PWBASTStatement new
-																statement:
-																	(PWBASTEventTriggeringOrPosting new
-																		identifiers:
-																			(OrderedCollection
-																				withAll:
-																					{(PWBASTIdentifier new
-																						identifier: 'dw_liste';
-																						startPosition: 37;
-																						stopPosition: 44;
-																						yourself)});
-																		arrayPositions: (OrderedCollection withAll: {nil});
-																		eventName:
-																			(PWBASTEventName new
-																				eventName:
-																					(PWBASTString new
-																						string: '"ue_menu"';
-																						startPosition: 56;
-																						stopPosition: 64;
-																						yourself);
-																				startPosition: 56;
-																				stopPosition: 64;
-																				yourself);
-																		eventWord:
-																			(PWBASTEventWord new
-																				functionArgument:
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '1';
-																												startPosition: 66;
-																												stopPosition: 66;
-																												yourself);
-																										startPosition: 66;
-																										stopPosition: 66;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 66;
-																								stopPosition: 66;
-																								yourself);
-																						startPosition: 66;
-																						stopPosition: 66;
-																						yourself);
-																				startPosition: 66;
-																				stopPosition: 66;
-																				yourself);
-																		eventLong:
-																			(PWBASTEventLong new
-																				functionArgument:
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTString new
-																												string: '"m_edt_rdc"';
-																												startPosition: 68;
-																												stopPosition: 78;
-																												yourself);
-																										startPosition: 68;
-																										stopPosition: 78;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 68;
-																								stopPosition: 78;
-																								yourself);
-																						startPosition: 68;
-																						stopPosition: 78;
-																						yourself);
-																				startPosition: 68;
-																				stopPosition: 78;
-																				yourself);
-																		startPosition: 37;
-																		stopPosition: 79;
-																		yourself);
-																startPosition: 37;
-																stopPosition: 79;
-																yourself)};
-														startPosition: 37;
-														stopPosition: 79;
-														yourself);
-												elseIfs: (OrderedCollection withAll: {});
-												else:
-													(PWBASTElse new
-														statements:
-															(PWBASTStatements new
-																statements:
-																	{(PWBASTStatement new
-																		statement:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'messagebox';
-																						startPosition: 87;
-																						stopPosition: 96;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTString new
-																														string: '"Attention"';
-																														startPosition: 98;
-																														stopPosition: 108;
-																														yourself);
-																												startPosition: 98;
-																												stopPosition: 108;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 98;
-																										stopPosition: 108;
-																										yourself);
-																								startPosition: 98;
-																								stopPosition: 108;
-																								yourself).
-																							(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTString new
-																														string: '"Vous ne vous trouvez pas sur les cotisations de l''adhérent"';
-																														startPosition: 110;
-																														stopPosition: 169;
-																														yourself);
-																												startPosition: 110;
-																												stopPosition: 169;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 110;
-																										stopPosition: 169;
-																										yourself);
-																								startPosition: 110;
-																								stopPosition: 169;
-																								yourself)};
-																						startPosition: 97;
-																						stopPosition: 170;
-																						yourself);
-																				startPosition: 87;
-																				stopPosition: 170;
-																				yourself);
-																		startPosition: 87;
-																		stopPosition: 170;
-																		yourself)};
-																startPosition: 87;
-																stopPosition: 170;
-																yourself);
-														startPosition: 81;
-														stopPosition: 170;
-														yourself);
-												startPosition: 17;
-												stopPosition: 177;
-												yourself);
-										startPosition: 17;
-										stopPosition: 177;
-										yourself);
-								startPosition: 17;
-								stopPosition: 177;
-								yourself)};
-						startPosition: 17;
-						stopPosition: 177;
-						yourself);
-				startPosition: 1;
-				stopPosition: 187;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testEventDeclaration6 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'event constructor;call super::constructor;
-end event'
-				rule: #eventDeclaration)
-		equals:
-			(PWBASTEventDeclaration new
-				returnType: nil;
-				eventReferenceName:
-					(PWBASTEventReferenceName new
-						objectClass: nil;
-						eventName:
-							(PWBASTIdentifier new
-								identifier: 'constructor';
-								startPosition: 7;
-								stopPosition: 17;
-								yourself);
-						arguments: nil;
-						startPosition: 7;
-						stopPosition: 17;
-						yourself);
-				customCallStatement:
-					(PWBASTCustomCallStatement new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'constructor';
-								startPosition: 31;
-								stopPosition: 41;
-								yourself);
-						startPosition: 19;
-						stopPosition: 41;
-						yourself);
-				statements: nil;
-				startPosition: 1;
-				stopPosition: 52;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testEventDeclaration7 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'event ue_rdc();
-if il_cot = 1 then
-	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
-else
-	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
-end if
-end event'
-				rule: #eventDeclaration)
-		equals:
-			(PWBASTEventDeclaration new
-				returnType: nil;
-				eventReferenceName:
-					(PWBASTEventReferenceName new
-						objectClass: nil;
-						eventName:
-							(PWBASTIdentifier new
-								identifier: 'ue_rdc';
-								startPosition: 7;
-								stopPosition: 12;
-								yourself);
-						arguments:
-							(PWBASTArguments new
-								arguments: nil;
-								startPosition: 13;
-								stopPosition: 14;
-								yourself);
-						startPosition: 7;
-						stopPosition: 14;
-						yourself);
-				customCallStatement: nil;
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTIfStatement new
-										ifStatement:
-											(PWBASTIfMultiLine new
-												condition:
-													(PWBASTCondition new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'il_cot';
-																												startPosition: 20;
-																												stopPosition: 25;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 20;
-																										stopPosition: 25;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 20;
-																								stopPosition: 25;
-																								yourself);
-																						startPosition: 20;
-																						stopPosition: 25;
-																						yourself);
-																				startPosition: 20;
-																				stopPosition: 25;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTNumber new
-																								number: '1';
-																								startPosition: 29;
-																								stopPosition: 29;
-																								yourself);
-																						startPosition: 29;
-																						stopPosition: 29;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 29;
-																				stopPosition: 29;
-																				yourself);
-																		startPosition: 20;
-																		stopPosition: 29;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 20;
-																stopPosition: 29;
-																yourself);
-														startPosition: 20;
-														stopPosition: 29;
-														yourself);
-												statements:
-													(PWBASTStatements new
-														statements:
-															{(PWBASTStatement new
-																statement:
-																	(PWBASTEventTriggeringOrPosting new
-																		identifiers:
-																			(OrderedCollection
-																				withAll:
-																					{(PWBASTIdentifier new
-																						identifier: 'dw_liste';
-																						startPosition: 37;
-																						stopPosition: 44;
-																						yourself)});
-																		arrayPositions: (OrderedCollection withAll: {nil});
-																		eventName:
-																			(PWBASTEventName new
-																				eventName:
-																					(PWBASTString new
-																						string: '"ue_menu"';
-																						startPosition: 56;
-																						stopPosition: 64;
-																						yourself);
-																				startPosition: 56;
-																				stopPosition: 64;
-																				yourself);
-																		eventWord:
-																			(PWBASTEventWord new
-																				functionArgument:
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '1';
-																												startPosition: 66;
-																												stopPosition: 66;
-																												yourself);
-																										startPosition: 66;
-																										stopPosition: 66;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 66;
-																								stopPosition: 66;
-																								yourself);
-																						startPosition: 66;
-																						stopPosition: 66;
-																						yourself);
-																				startPosition: 66;
-																				stopPosition: 66;
-																				yourself);
-																		eventLong:
-																			(PWBASTEventLong new
-																				functionArgument:
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTString new
-																												string: '"m_edt_rdc"';
-																												startPosition: 68;
-																												stopPosition: 78;
-																												yourself);
-																										startPosition: 68;
-																										stopPosition: 78;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 68;
-																								stopPosition: 78;
-																								yourself);
-																						startPosition: 68;
-																						stopPosition: 78;
-																						yourself);
-																				startPosition: 68;
-																				stopPosition: 78;
-																				yourself);
-																		startPosition: 37;
-																		stopPosition: 79;
-																		yourself);
-																startPosition: 37;
-																stopPosition: 79;
-																yourself)};
-														startPosition: 37;
-														stopPosition: 79;
-														yourself);
-												elseIfs: (OrderedCollection withAll: {});
-												else:
-													(PWBASTElse new
-														statements:
-															(PWBASTStatements new
-																statements:
-																	{(PWBASTStatement new
-																		statement:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'messagebox';
-																						startPosition: 87;
-																						stopPosition: 96;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTString new
-																														string: '"Attention"';
-																														startPosition: 98;
-																														stopPosition: 108;
-																														yourself);
-																												startPosition: 98;
-																												stopPosition: 108;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 98;
-																										stopPosition: 108;
-																										yourself);
-																								startPosition: 98;
-																								stopPosition: 108;
-																								yourself).
-																							(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTString new
-																														string: '"Vous ne vous trouvez pas sur les cotisations de l''adhérent"';
-																														startPosition: 110;
-																														stopPosition: 169;
-																														yourself);
-																												startPosition: 110;
-																												stopPosition: 169;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 110;
-																										stopPosition: 169;
-																										yourself);
-																								startPosition: 110;
-																								stopPosition: 169;
-																								yourself)};
-																						startPosition: 97;
-																						stopPosition: 170;
-																						yourself);
-																				startPosition: 87;
-																				stopPosition: 170;
-																				yourself);
-																		startPosition: 87;
-																		stopPosition: 170;
-																		yourself)};
-																startPosition: 87;
-																stopPosition: 170;
-																yourself);
-														startPosition: 81;
-														stopPosition: 170;
-														yourself);
-												startPosition: 17;
-												stopPosition: 177;
-												yourself);
-										startPosition: 17;
-										stopPosition: 177;
-										yourself);
-								startPosition: 17;
-								stopPosition: 177;
-								yourself)};
-						startPosition: 17;
-						stopPosition: 177;
-						yourself);
-				startPosition: 1;
-				stopPosition: 187;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testEventTriggeringOrPosting1 [
 	<generated>
 	self
 		assert:
 			(self
-				parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
+				parse: 'this.ya . yo.TriggerEvent(Click!)'
 				rule: #eventTriggeringOrPosting)
 		equals:
 			(PWBASTEventTriggeringOrPosting new
-				identifiers: (OrderedCollection withAll: {});
-				arrayPositions: (OrderedCollection withAll: {});
+				identifiers:
+					(OrderedCollection
+						withAll:
+							{(PWBASTIdentifier new
+								identifier: 'ya';
+								startPosition: 6;
+								stopPosition: 7;
+								yourself).
+							(PWBASTIdentifier new
+								identifier: 'yo';
+								startPosition: 11;
+								stopPosition: 12;
+								yourself)});
+				arrayPositions: (OrderedCollection withAll: {nil . nil});
 				eventName:
 					(PWBASTEventName new
 						eventName:
-							(PWBASTString new
-								string: '"tr_prp_val"';
-								startPosition: 14;
-								stopPosition: 25;
+							(PWBASTConstant new
+								constant: 'Click!';
+								startPosition: 27;
+								stopPosition: 32;
 								yourself);
-						startPosition: 14;
-						stopPosition: 25;
+						startPosition: 27;
+						stopPosition: 32;
 						yourself);
-				eventWord:
-					(PWBASTEventWord new
-						functionArgument:
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNumber new
-														number: '0';
-														startPosition: 28;
-														stopPosition: 28;
-														yourself);
-												startPosition: 28;
-												stopPosition: 28;
-												yourself);
-										expressionAction: nil;
-										startPosition: 28;
-										stopPosition: 28;
-										yourself);
-								startPosition: 28;
-								stopPosition: 28;
-								yourself);
-						startPosition: 28;
-						stopPosition: 28;
-						yourself);
-				eventLong:
-					(PWBASTEventLong new
-						functionArgument:
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'as_prp_cod';
-																				startPosition: 31;
-																				stopPosition: 40;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 31;
-																		stopPosition: 40;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 31;
-																stopPosition: 40;
-																yourself);
-														startPosition: 31;
-														stopPosition: 40;
-														yourself);
-												startPosition: 31;
-												stopPosition: 40;
-												yourself);
-										expressionAction: nil;
-										startPosition: 31;
-										stopPosition: 40;
-										yourself);
-								startPosition: 31;
-								stopPosition: 40;
-								yourself);
-						startPosition: 30;
-						stopPosition: 40;
-						yourself);
+				eventWord: nil;
+				eventLong: nil;
 				startPosition: 1;
-				stopPosition: 41;
+				stopPosition: 33;
 				yourself)
 ]
 
@@ -15414,7 +15390,7 @@ PWBCommonParserTest >> testEventTriggeringOrPosting2 [
 	self
 		assert:
 			(self
-				parse: 'bla.PostEvent("cb_exit_request")'
+				parse: 'this.yo.TriggerEvent("cb_exit_request")'
 				rule: #eventTriggeringOrPosting)
 		equals:
 			(PWBASTEventTriggeringOrPosting new
@@ -15422,9 +15398,9 @@ PWBCommonParserTest >> testEventTriggeringOrPosting2 [
 					(OrderedCollection
 						withAll:
 							{(PWBASTIdentifier new
-								identifier: 'bla';
-								startPosition: 1;
-								stopPosition: 3;
+								identifier: 'yo';
+								startPosition: 6;
+								stopPosition: 7;
 								yourself)});
 				arrayPositions: (OrderedCollection withAll: {nil});
 				eventName:
@@ -15432,16 +15408,16 @@ PWBCommonParserTest >> testEventTriggeringOrPosting2 [
 						eventName:
 							(PWBASTString new
 								string: '"cb_exit_request"';
-								startPosition: 15;
-								stopPosition: 31;
+								startPosition: 22;
+								stopPosition: 38;
 								yourself);
-						startPosition: 15;
-						stopPosition: 31;
+						startPosition: 22;
+						stopPosition: 38;
 						yourself);
 				eventWord: nil;
 				eventLong: nil;
 				startPosition: 1;
-				stopPosition: 32;
+				stopPosition: 39;
 				yourself)
 ]
 
@@ -15633,7 +15609,7 @@ PWBCommonParserTest >> testEventTriggeringOrPosting4 [
 	self
 		assert:
 			(self
-				parse: 'yo.TriggerEvent("cb_exit_request")'
+				parse: 'bla.PostEvent("cb_exit_request")'
 				rule: #eventTriggeringOrPosting)
 		equals:
 			(PWBASTEventTriggeringOrPosting new
@@ -15641,9 +15617,9 @@ PWBCommonParserTest >> testEventTriggeringOrPosting4 [
 					(OrderedCollection
 						withAll:
 							{(PWBASTIdentifier new
-								identifier: 'yo';
+								identifier: 'bla';
 								startPosition: 1;
-								stopPosition: 2;
+								stopPosition: 3;
 								yourself)});
 				arrayPositions: (OrderedCollection withAll: {nil});
 				eventName:
@@ -15651,16 +15627,16 @@ PWBCommonParserTest >> testEventTriggeringOrPosting4 [
 						eventName:
 							(PWBASTString new
 								string: '"cb_exit_request"';
-								startPosition: 17;
-								stopPosition: 33;
+								startPosition: 15;
+								stopPosition: 31;
 								yourself);
-						startPosition: 17;
-						stopPosition: 33;
+						startPosition: 15;
+						stopPosition: 31;
 						yourself);
 				eventWord: nil;
 				eventLong: nil;
 				startPosition: 1;
-				stopPosition: 34;
+				stopPosition: 32;
 				yourself)
 ]
 
@@ -15754,34 +15730,98 @@ PWBCommonParserTest >> testEventTriggeringOrPosting7 [
 	self
 		assert:
 			(self
-				parse: 'this.yo.TriggerEvent("cb_exit_request")'
+				parse: 'triggerEvent("tr_prp_val", 0, as_prp_cod)'
 				rule: #eventTriggeringOrPosting)
 		equals:
 			(PWBASTEventTriggeringOrPosting new
-				identifiers:
-					(OrderedCollection
-						withAll:
-							{(PWBASTIdentifier new
-								identifier: 'yo';
-								startPosition: 6;
-								stopPosition: 7;
-								yourself)});
-				arrayPositions: (OrderedCollection withAll: {nil});
+				identifiers: (OrderedCollection withAll: {});
+				arrayPositions: (OrderedCollection withAll: {});
 				eventName:
 					(PWBASTEventName new
 						eventName:
 							(PWBASTString new
-								string: '"cb_exit_request"';
-								startPosition: 22;
-								stopPosition: 38;
+								string: '"tr_prp_val"';
+								startPosition: 14;
+								stopPosition: 25;
 								yourself);
-						startPosition: 22;
-						stopPosition: 38;
+						startPosition: 14;
+						stopPosition: 25;
 						yourself);
-				eventWord: nil;
-				eventLong: nil;
+				eventWord:
+					(PWBASTEventWord new
+						functionArgument:
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNumber new
+														number: '0';
+														startPosition: 28;
+														stopPosition: 28;
+														yourself);
+												startPosition: 28;
+												stopPosition: 28;
+												yourself);
+										expressionAction: nil;
+										startPosition: 28;
+										stopPosition: 28;
+										yourself);
+								startPosition: 28;
+								stopPosition: 28;
+								yourself);
+						startPosition: 28;
+						stopPosition: 28;
+						yourself);
+				eventLong:
+					(PWBASTEventLong new
+						functionArgument:
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'as_prp_cod';
+																				startPosition: 31;
+																				stopPosition: 40;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 31;
+																		stopPosition: 40;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 31;
+																stopPosition: 40;
+																yourself);
+														startPosition: 31;
+														stopPosition: 40;
+														yourself);
+												startPosition: 31;
+												stopPosition: 40;
+												yourself);
+										expressionAction: nil;
+										startPosition: 31;
+										stopPosition: 40;
+										yourself);
+								startPosition: 31;
+								stopPosition: 40;
+								yourself);
+						startPosition: 30;
+						stopPosition: 40;
+						yourself);
 				startPosition: 1;
-				stopPosition: 39;
+				stopPosition: 41;
 				yourself)
 ]
 
@@ -15791,7 +15831,7 @@ PWBCommonParserTest >> testEventTriggeringOrPosting8 [
 	self
 		assert:
 			(self
-				parse: 'this.ya . yo.TriggerEvent(Click!)'
+				parse: 'yo.TriggerEvent("cb_exit_request")'
 				rule: #eventTriggeringOrPosting)
 		equals:
 			(PWBASTEventTriggeringOrPosting new
@@ -15799,31 +15839,26 @@ PWBCommonParserTest >> testEventTriggeringOrPosting8 [
 					(OrderedCollection
 						withAll:
 							{(PWBASTIdentifier new
-								identifier: 'ya';
-								startPosition: 6;
-								stopPosition: 7;
-								yourself).
-							(PWBASTIdentifier new
 								identifier: 'yo';
-								startPosition: 11;
-								stopPosition: 12;
+								startPosition: 1;
+								stopPosition: 2;
 								yourself)});
-				arrayPositions: (OrderedCollection withAll: {nil . nil});
+				arrayPositions: (OrderedCollection withAll: {nil});
 				eventName:
 					(PWBASTEventName new
 						eventName:
-							(PWBASTConstant new
-								constant: 'Click!';
-								startPosition: 27;
-								stopPosition: 32;
+							(PWBASTString new
+								string: '"cb_exit_request"';
+								startPosition: 17;
+								stopPosition: 33;
 								yourself);
-						startPosition: 27;
-						stopPosition: 32;
+						startPosition: 17;
+						stopPosition: 33;
 						yourself);
 				eventWord: nil;
 				eventLong: nil;
 				startPosition: 1;
-				stopPosition: 33;
+				stopPosition: 34;
 				yourself)
 ]
 
@@ -15847,6 +15882,26 @@ PWBCommonParserTest >> testEventType1 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testExecuteProcedure1 [
+	<generated>
+	self
+		assert: (self parse: 'execute CTRL_SOUSCRIPTION;' rule: #executeProcedure)
+		equals:
+			(PWBASTExecuteProcedure new
+				immediate: false;
+				procedureName:
+					(PWBASTIdentifier new
+						identifier: 'CTRL_SOUSCRIPTION';
+						startPosition: 9;
+						stopPosition: 25;
+						yourself);
+				usingClause: nil;
+				startPosition: 1;
+				stopPosition: 26;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExecuteProcedure2 [
 	<generated>
 	self
 		assert:
@@ -15884,30 +15939,10 @@ PWBCommonParserTest >> testExecuteProcedure1 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExecuteProcedure2 [
-	<generated>
-	self
-		assert: (self parse: 'execute CTRL_SOUSCRIPTION;' rule: #executeProcedure)
-		equals:
-			(PWBASTExecuteProcedure new
-				immediate: false;
-				procedureName:
-					(PWBASTIdentifier new
-						identifier: 'CTRL_SOUSCRIPTION';
-						startPosition: 9;
-						stopPosition: 25;
-						yourself);
-				usingClause: nil;
-				startPosition: 1;
-				stopPosition: 26;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testExpression1 [
 	<generated>
 	self
-		assert: (self parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]' rule: #expression)
+		assert: (self parse: 'ao_ole.range(as_champ).Select' rule: #expression)
 		equals:
 			(PWBASTExpression new
 				expression:
@@ -15920,244 +15955,115 @@ PWBCommonParserTest >> testExpression1 [
 											(PWBASTVariable new
 												identifier:
 													(PWBASTIdentifier new
-														identifier: 'istr_sig_cas';
+														identifier: 'ao_ole';
 														startPosition: 1;
-														stopPosition: 12;
+														stopPosition: 6;
 														yourself);
 												arrayDefinition: nil;
 												startPosition: 1;
-												stopPosition: 12;
+												stopPosition: 6;
 												yourself);
 										arrayPosition: nil;
 										startPosition: 1;
-										stopPosition: 12;
+										stopPosition: 6;
 										yourself);
 								startPosition: 1;
-								stopPosition: 12;
+								stopPosition: 6;
 								yourself);
 						startPosition: 1;
-						stopPosition: 12;
+						stopPosition: 6;
 						yourself);
 				expressionAction:
 					(PWBASTExpressionAction new
 						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'ld_rbo_cons_total';
-										startPosition: 14;
-										stopPosition: 30;
-										yourself);
-								arrayInformation:
-									(PWBASTArrayPosition new
-										expressions:
-											{(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '1';
-																startPosition: 33;
-																stopPosition: 33;
+							(PWBASTMethodInvocation new
+								methodInvocation:
+									(PWBASTRegularMethodInvocation new
+										uncheckedIdentifier:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'range';
+												startPosition: 8;
+												stopPosition: 12;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments:
+													{(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'as_champ';
+																										startPosition: 14;
+																										stopPosition: 21;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 14;
+																								stopPosition: 21;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 14;
+																						stopPosition: 21;
+																						yourself);
+																				startPosition: 14;
+																				stopPosition: 21;
+																				yourself);
+																		startPosition: 14;
+																		stopPosition: 21;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 14;
+																stopPosition: 21;
 																yourself);
-														startPosition: 33;
-														stopPosition: 33;
-														yourself);
-												expressionAction: nil;
-												startPosition: 33;
-												stopPosition: 33;
-												yourself)};
-										startPosition: 31;
-										stopPosition: 35;
+														startPosition: 14;
+														stopPosition: 21;
+														yourself)};
+												startPosition: 13;
+												stopPosition: 22;
+												yourself);
+										startPosition: 7;
+										stopPosition: 22;
 										yourself);
-								startPosition: 13;
-								stopPosition: 35;
+								startPosition: 7;
+								stopPosition: 22;
 								yourself);
-						expressionAction: nil;
-						startPosition: 13;
-						stopPosition: 35;
+						expressionAction:
+							(PWBASTExpressionAction new
+								action:
+									(PWBASTAttributeAccess new
+										uncheckedIdentifier:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'Select';
+												startPosition: 24;
+												stopPosition: 29;
+												yourself);
+										arrayInformation: nil;
+										startPosition: 23;
+										stopPosition: 29;
+										yourself);
+								expressionAction: nil;
+								startPosition: 23;
+								stopPosition: 29;
+								yourself);
+						startPosition: 7;
+						stopPosition: 29;
 						yourself);
 				startPosition: 1;
-				stopPosition: 35;
+				stopPosition: 29;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testExpression2 [
-	<generated>
-	self
-		assert: (self parse: 'uf_fichier_ent-c()' rule: #expression)
-		equals:
-			(PWBASTExpression new
-				expression:
-					(PWBASTExpressionTerm new
-						expressionTerm:
-							(PWBASTFunctionInvocation new
-								defaultVariable: nil;
-								functionName:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'uf_fichier_ent-c';
-										startPosition: 1;
-										stopPosition: 16;
-										yourself);
-								functionArguments:
-									(PWBASTFunctionArguments new
-										functionArguments: nil;
-										startPosition: 17;
-										stopPosition: 18;
-										yourself);
-								startPosition: 1;
-								stopPosition: 18;
-								yourself);
-						startPosition: 1;
-						stopPosition: 18;
-						yourself);
-				expressionAction: nil;
-				startPosition: 1;
-				stopPosition: 18;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression3 [
-	<generated>
-	self
-		assert: (self parse: 'this.dw_liste' rule: #expression)
-		equals:
-			(PWBASTExpression new
-				expression:
-					(PWBASTExpressionTerm new
-						expressionTerm:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTSpecialVariable new
-												this:
-													(PWBASTThis new
-														this: 'this';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						startPosition: 1;
-						stopPosition: 4;
-						yourself);
-				expressionAction:
-					(PWBASTExpressionAction new
-						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'dw_liste';
-										startPosition: 6;
-										stopPosition: 13;
-										yourself);
-								arrayInformation: nil;
-								startPosition: 5;
-								stopPosition: 13;
-								yourself);
-						expressionAction: nil;
-						startPosition: 5;
-						stopPosition: 13;
-						yourself);
-				startPosition: 1;
-				stopPosition: 13;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression4 [
-	<generated>
-	self
-		assert: (self parse: 'this. post' rule: #expression)
-		equals:
-			(PWBASTExpression new
-				expression:
-					(PWBASTExpressionTerm new
-						expressionTerm:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTSpecialVariable new
-												this:
-													(PWBASTThis new
-														this: 'this';
-														startPosition: 1;
-														stopPosition: 4;
-														yourself);
-												startPosition: 1;
-												stopPosition: 4;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 1;
-										stopPosition: 4;
-										yourself);
-								startPosition: 1;
-								stopPosition: 4;
-								yourself);
-						startPosition: 1;
-						stopPosition: 4;
-						yourself);
-				expressionAction:
-					(PWBASTExpressionAction new
-						action:
-							(PWBASTAttributeAccess new
-								uncheckedIdentifier:
-									(PWBASTUncheckedIdentifier new
-										uncheckedIdentifier: 'post';
-										startPosition: 7;
-										stopPosition: 10;
-										yourself);
-								arrayInformation: nil;
-								startPosition: 5;
-								stopPosition: 10;
-								yourself);
-						expressionAction: nil;
-						startPosition: 5;
-						stopPosition: 10;
-						yourself);
-				startPosition: 1;
-				stopPosition: 10;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression5 [
-	<generated>
-	self
-		assert: (self parse: 'KeyNumpad0!' rule: #expression)
-		equals:
-			(PWBASTExpression new
-				expression:
-					(PWBASTExpressionTerm new
-						expressionTerm:
-							(PWBASTConstant new
-								constant: 'KeyNumpad0!';
-								startPosition: 1;
-								stopPosition: 11;
-								yourself);
-						startPosition: 1;
-						stopPosition: 11;
-						yourself);
-				expressionAction: nil;
-				startPosition: 1;
-				stopPosition: 11;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression6 [
 	<generated>
 	self
 		assert:
@@ -16322,7 +16228,67 @@ PWBCommonParserTest >> testExpression6 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression7 [
+PWBCommonParserTest >> testExpression3 [
+	<generated>
+	self
+		assert: (self parse: 'uf_fichier_ent-c()' rule: #expression)
+		equals:
+			(PWBASTExpression new
+				expression:
+					(PWBASTExpressionTerm new
+						expressionTerm:
+							(PWBASTFunctionInvocation new
+								defaultVariable: nil;
+								functionName:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'uf_fichier_ent-c';
+										startPosition: 1;
+										stopPosition: 16;
+										yourself);
+								functionArguments:
+									(PWBASTFunctionArguments new
+										functionArguments: nil;
+										startPosition: 17;
+										stopPosition: 18;
+										yourself);
+								startPosition: 1;
+								stopPosition: 18;
+								yourself);
+						startPosition: 1;
+						stopPosition: 18;
+						yourself);
+				expressionAction: nil;
+				startPosition: 1;
+				stopPosition: 18;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExpression4 [
+	<generated>
+	self
+		assert: (self parse: 'KeyNumpad0!' rule: #expression)
+		equals:
+			(PWBASTExpression new
+				expression:
+					(PWBASTExpressionTerm new
+						expressionTerm:
+							(PWBASTConstant new
+								constant: 'KeyNumpad0!';
+								startPosition: 1;
+								stopPosition: 11;
+								yourself);
+						startPosition: 1;
+						stopPosition: 11;
+						yourself);
+				expressionAction: nil;
+				startPosition: 1;
+				stopPosition: 11;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExpression5 [
 	<generated>
 	self
 		assert:
@@ -16454,10 +16420,10 @@ PWBCommonParserTest >> testExpression7 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testExpression8 [
+PWBCommonParserTest >> testExpression6 [
 	<generated>
 	self
-		assert: (self parse: 'ao_ole.range(as_champ).Select' rule: #expression)
+		assert: (self parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]' rule: #expression)
 		equals:
 			(PWBASTExpression new
 				expression:
@@ -16470,1241 +16436,184 @@ PWBCommonParserTest >> testExpression8 [
 											(PWBASTVariable new
 												identifier:
 													(PWBASTIdentifier new
-														identifier: 'ao_ole';
+														identifier: 'istr_sig_cas';
 														startPosition: 1;
-														stopPosition: 6;
+														stopPosition: 12;
 														yourself);
 												arrayDefinition: nil;
 												startPosition: 1;
-												stopPosition: 6;
+												stopPosition: 12;
 												yourself);
 										arrayPosition: nil;
 										startPosition: 1;
-										stopPosition: 6;
+										stopPosition: 12;
 										yourself);
 								startPosition: 1;
-								stopPosition: 6;
+								stopPosition: 12;
 								yourself);
 						startPosition: 1;
-						stopPosition: 6;
+						stopPosition: 12;
 						yourself);
 				expressionAction:
 					(PWBASTExpressionAction new
 						action:
-							(PWBASTMethodInvocation new
-								methodInvocation:
-									(PWBASTRegularMethodInvocation new
-										uncheckedIdentifier:
-											(PWBASTUncheckedIdentifier new
-												uncheckedIdentifier: 'range';
-												startPosition: 8;
-												stopPosition: 12;
-												yourself);
-										functionArguments:
-											(PWBASTFunctionArguments new
-												functionArguments:
-													{(PWBASTFunctionArgument new
-														argumentOption: nil;
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'as_champ';
-																										startPosition: 14;
-																										stopPosition: 21;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 14;
-																								stopPosition: 21;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 14;
-																						stopPosition: 21;
-																						yourself);
-																				startPosition: 14;
-																				stopPosition: 21;
-																				yourself);
-																		startPosition: 14;
-																		stopPosition: 21;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 14;
-																stopPosition: 21;
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'ld_rbo_cons_total';
+										startPosition: 14;
+										stopPosition: 30;
+										yourself);
+								arrayInformation:
+									(PWBASTArrayPosition new
+										expressions:
+											{(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTNumber new
+																number: '1';
+																startPosition: 33;
+																stopPosition: 33;
 																yourself);
-														startPosition: 14;
-														stopPosition: 21;
-														yourself)};
-												startPosition: 13;
-												stopPosition: 22;
-												yourself);
-										startPosition: 7;
-										stopPosition: 22;
+														startPosition: 33;
+														stopPosition: 33;
+														yourself);
+												expressionAction: nil;
+												startPosition: 33;
+												stopPosition: 33;
+												yourself)};
+										startPosition: 31;
+										stopPosition: 35;
 										yourself);
-								startPosition: 7;
-								stopPosition: 22;
+								startPosition: 13;
+								stopPosition: 35;
 								yourself);
-						expressionAction:
-							(PWBASTExpressionAction new
-								action:
-									(PWBASTAttributeAccess new
-										uncheckedIdentifier:
-											(PWBASTUncheckedIdentifier new
-												uncheckedIdentifier: 'Select';
-												startPosition: 24;
-												stopPosition: 29;
-												yourself);
-										arrayInformation: nil;
-										startPosition: 23;
-										stopPosition: 29;
-										yourself);
-								expressionAction: nil;
-								startPosition: 23;
-								stopPosition: 29;
-								yourself);
-						startPosition: 7;
-						stopPosition: 29;
+						expressionAction: nil;
+						startPosition: 13;
+						stopPosition: 35;
 						yourself);
 				startPosition: 1;
-				stopPosition: 29;
+				stopPosition: 35;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExpression7 [
+	<generated>
+	self
+		assert: (self parse: 'this.dw_liste' rule: #expression)
+		equals:
+			(PWBASTExpression new
+				expression:
+					(PWBASTExpressionTerm new
+						expressionTerm:
+							(PWBASTAccessOrType new
+								accessOrType:
+									(PWBASTAccess new
+										accessed:
+											(PWBASTSpecialVariable new
+												this:
+													(PWBASTThis new
+														this: 'this';
+														startPosition: 1;
+														stopPosition: 4;
+														yourself);
+												startPosition: 1;
+												stopPosition: 4;
+												yourself);
+										arrayPosition: nil;
+										startPosition: 1;
+										stopPosition: 4;
+										yourself);
+								startPosition: 1;
+								stopPosition: 4;
+								yourself);
+						startPosition: 1;
+						stopPosition: 4;
+						yourself);
+				expressionAction:
+					(PWBASTExpressionAction new
+						action:
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'dw_liste';
+										startPosition: 6;
+										stopPosition: 13;
+										yourself);
+								arrayInformation: nil;
+								startPosition: 5;
+								stopPosition: 13;
+								yourself);
+						expressionAction: nil;
+						startPosition: 5;
+						stopPosition: 13;
+						yourself);
+				startPosition: 1;
+				stopPosition: 13;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testExpression8 [
+	<generated>
+	self
+		assert: (self parse: 'this. post' rule: #expression)
+		equals:
+			(PWBASTExpression new
+				expression:
+					(PWBASTExpressionTerm new
+						expressionTerm:
+							(PWBASTAccessOrType new
+								accessOrType:
+									(PWBASTAccess new
+										accessed:
+											(PWBASTSpecialVariable new
+												this:
+													(PWBASTThis new
+														this: 'this';
+														startPosition: 1;
+														stopPosition: 4;
+														yourself);
+												startPosition: 1;
+												stopPosition: 4;
+												yourself);
+										arrayPosition: nil;
+										startPosition: 1;
+										stopPosition: 4;
+										yourself);
+								startPosition: 1;
+								stopPosition: 4;
+								yourself);
+						startPosition: 1;
+						stopPosition: 4;
+						yourself);
+				expressionAction:
+					(PWBASTExpressionAction new
+						action:
+							(PWBASTAttributeAccess new
+								uncheckedIdentifier:
+									(PWBASTUncheckedIdentifier new
+										uncheckedIdentifier: 'post';
+										startPosition: 7;
+										stopPosition: 10;
+										yourself);
+								arrayInformation: nil;
+								startPosition: 5;
+								stopPosition: 10;
+								yourself);
+						expressionAction: nil;
+						startPosition: 5;
+						stopPosition: 10;
+						yourself);
+				startPosition: 1;
+				stopPosition: 10;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testForLoop1 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'For ll = 1 to 4
-			istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]
-	Next'
-				rule: #forLoop)
-		equals:
-			(PWBASTForLoop new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'll';
-														startPosition: 5;
-														stopPosition: 6;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 5;
-												stopPosition: 6;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 5;
-										stopPosition: 6;
-										yourself);
-								startPosition: 5;
-								stopPosition: 6;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNumber new
-														number: '1';
-														startPosition: 10;
-														stopPosition: 10;
-														yourself);
-												startPosition: 10;
-												stopPosition: 10;
-												yourself);
-										expressionAction: nil;
-										startPosition: 10;
-										stopPosition: 10;
-										yourself);
-								startPosition: 7;
-								stopPosition: 10;
-								yourself);
-						startPosition: 5;
-						stopPosition: 10;
-						yourself);
-				endExpression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTNumber new
-										number: '4';
-										startPosition: 15;
-										stopPosition: 15;
-										yourself);
-								startPosition: 15;
-								stopPosition: 15;
-								yourself);
-						expressionAction: nil;
-						startPosition: 15;
-						stopPosition: 15;
-						yourself);
-				stepExpression: nil;
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTAssignationStatement new
-										accessOrType:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'istr_sig_cas';
-																		startPosition: 20;
-																		stopPosition: 31;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 20;
-																stopPosition: 31;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 20;
-														stopPosition: 31;
-														yourself);
-												startPosition: 20;
-												stopPosition: 31;
-												yourself);
-										expressionAction:
-											(PWBASTExpressionAction new
-												action:
-													(PWBASTAttributeAccess new
-														uncheckedIdentifier:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'll_qte_cons_total';
-																startPosition: 33;
-																stopPosition: 49;
-																yourself);
-														arrayInformation:
-															(PWBASTArrayPosition new
-																expressions:
-																	{(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'll';
-																												startPosition: 51;
-																												stopPosition: 52;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 51;
-																										stopPosition: 52;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 51;
-																								stopPosition: 52;
-																								yourself);
-																						startPosition: 51;
-																						stopPosition: 52;
-																						yourself);
-																				startPosition: 51;
-																				stopPosition: 52;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 51;
-																		stopPosition: 52;
-																		yourself)};
-																startPosition: 50;
-																stopPosition: 53;
-																yourself);
-														startPosition: 32;
-														stopPosition: 53;
-														yourself);
-												expressionAction: nil;
-												startPosition: 32;
-												stopPosition: 53;
-												yourself);
-										assignation:
-											(PWBASTAssignation new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTOperatorExpression new
-																left:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'istr_sig_cas';
-																										startPosition: 56;
-																										stopPosition: 67;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 56;
-																								stopPosition: 67;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 56;
-																						stopPosition: 67;
-																						yourself);
-																				startPosition: 56;
-																				stopPosition: 67;
-																				yourself);
-																		startPosition: 56;
-																		stopPosition: 67;
-																		yourself);
-																expressionAction:
-																	(PWBASTExpressionAction new
-																		action:
-																			(PWBASTAttributeAccess new
-																				uncheckedIdentifier:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'll_qte_cons';
-																						startPosition: 69;
-																						stopPosition: 79;
-																						yourself);
-																				arrayInformation:
-																					(PWBASTArrayPosition new
-																						expressions:
-																							{(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'll';
-																																		startPosition: 81;
-																																		stopPosition: 82;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 81;
-																																stopPosition: 82;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 81;
-																														stopPosition: 82;
-																														yourself);
-																												startPosition: 81;
-																												stopPosition: 82;
-																												yourself);
-																										startPosition: 81;
-																										stopPosition: 82;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 81;
-																								stopPosition: 82;
-																								yourself)};
-																						startPosition: 80;
-																						stopPosition: 83;
-																						yourself);
-																				startPosition: 68;
-																				stopPosition: 83;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 68;
-																		stopPosition: 83;
-																		yourself);
-																right:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'istr_sig_cas';
-																												startPosition: 87;
-																												stopPosition: 98;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 87;
-																										stopPosition: 98;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 87;
-																								stopPosition: 98;
-																								yourself);
-																						startPosition: 87;
-																						stopPosition: 98;
-																						yourself);
-																				startPosition: 87;
-																				stopPosition: 98;
-																				yourself);
-																		expressionAction:
-																			(PWBASTExpressionAction new
-																				action:
-																					(PWBASTAttributeAccess new
-																						uncheckedIdentifier:
-																							(PWBASTUncheckedIdentifier new
-																								uncheckedIdentifier: 'll_qte_cons_encours';
-																								startPosition: 100;
-																								stopPosition: 118;
-																								yourself);
-																						arrayInformation:
-																							(PWBASTArrayPosition new
-																								expressions:
-																									{(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTAccessOrType new
-																														accessOrType:
-																															(PWBASTAccess new
-																																accessed:
-																																	(PWBASTVariable new
-																																		identifier:
-																																			(PWBASTIdentifier new
-																																				identifier: 'll';
-																																				startPosition: 120;
-																																				stopPosition: 121;
-																																				yourself);
-																																		arrayDefinition: nil;
-																																		startPosition: 120;
-																																		stopPosition: 121;
-																																		yourself);
-																																arrayPosition: nil;
-																																startPosition: 120;
-																																stopPosition: 121;
-																																yourself);
-																														startPosition: 120;
-																														stopPosition: 121;
-																														yourself);
-																												startPosition: 120;
-																												stopPosition: 121;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 120;
-																										stopPosition: 121;
-																										yourself)};
-																								startPosition: 119;
-																								stopPosition: 122;
-																								yourself);
-																						startPosition: 99;
-																						stopPosition: 122;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 99;
-																				stopPosition: 122;
-																				yourself);
-																		startPosition: 87;
-																		stopPosition: 122;
-																		yourself);
-																startPosition: 56;
-																stopPosition: 122;
-																yourself);
-														expressionAction: nil;
-														startPosition: 56;
-														stopPosition: 122;
-														yourself);
-												startPosition: 54;
-												stopPosition: 122;
-												yourself);
-										startPosition: 20;
-										stopPosition: 122;
-										yourself);
-								startPosition: 20;
-								stopPosition: 122;
-								yourself)};
-						startPosition: 20;
-						stopPosition: 122;
-						yourself);
-				startPosition: 1;
-				stopPosition: 128;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testForLoop2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'for li_ligne = 1 to dw_dlq.RowCount()
-									if isnull( dw_dlq.getItemNumber( li_ligne, "dlq_err" ) ) then
-										 
-									  
-									   
-									  iuo_liq_cal.is_dlp_spe = "N"
-									  li_ret = iuo_liq_cal.uf_calcul(dw_dlq,li_ligne,TRUE,TRUE,"PR"+ls_anc_cod_dossier,TRUE ) 
-									
-									   
-									end if
-								end for'
-				rule: #forLoop)
-		equals:
-			(PWBASTForLoop new
-				assignationStatement:
-					(PWBASTAssignationStatement new
-						accessOrType:
-							(PWBASTAccessOrType new
-								accessOrType:
-									(PWBASTAccess new
-										accessed:
-											(PWBASTVariable new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'li_ligne';
-														startPosition: 5;
-														stopPosition: 12;
-														yourself);
-												arrayDefinition: nil;
-												startPosition: 5;
-												stopPosition: 12;
-												yourself);
-										arrayPosition: nil;
-										startPosition: 5;
-										stopPosition: 12;
-										yourself);
-								startPosition: 5;
-								stopPosition: 12;
-								yourself);
-						expressionAction: nil;
-						assignation:
-							(PWBASTAssignation new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNumber new
-														number: '1';
-														startPosition: 16;
-														stopPosition: 16;
-														yourself);
-												startPosition: 16;
-												stopPosition: 16;
-												yourself);
-										expressionAction: nil;
-										startPosition: 16;
-										stopPosition: 16;
-										yourself);
-								startPosition: 13;
-								stopPosition: 16;
-								yourself);
-						startPosition: 5;
-						stopPosition: 16;
-						yourself);
-				endExpression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTAccessOrType new
-										accessOrType:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_dlq';
-																startPosition: 21;
-																stopPosition: 26;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 21;
-														stopPosition: 26;
-														yourself);
-												arrayPosition: nil;
-												startPosition: 21;
-												stopPosition: 26;
-												yourself);
-										startPosition: 21;
-										stopPosition: 26;
-										yourself);
-								startPosition: 21;
-								stopPosition: 26;
-								yourself);
-						expressionAction:
-							(PWBASTExpressionAction new
-								action:
-									(PWBASTMethodInvocation new
-										methodInvocation:
-											(PWBASTRegularMethodInvocation new
-												uncheckedIdentifier:
-													(PWBASTUncheckedIdentifier new
-														uncheckedIdentifier: 'RowCount';
-														startPosition: 28;
-														stopPosition: 35;
-														yourself);
-												functionArguments:
-													(PWBASTFunctionArguments new
-														functionArguments: nil;
-														startPosition: 36;
-														stopPosition: 37;
-														yourself);
-												startPosition: 27;
-												stopPosition: 37;
-												yourself);
-										startPosition: 27;
-										stopPosition: 37;
-										yourself);
-								expressionAction: nil;
-								startPosition: 27;
-								stopPosition: 37;
-								yourself);
-						startPosition: 21;
-						stopPosition: 37;
-						yourself);
-				stepExpression: nil;
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTIfStatement new
-										ifStatement:
-											(PWBASTIfMultiLine new
-												condition:
-													(PWBASTCondition new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'isnull';
-																						startPosition: 51;
-																						stopPosition: 56;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTAccessOrType new
-																														accessOrType:
-																															(PWBASTAccess new
-																																accessed:
-																																	(PWBASTVariable new
-																																		identifier:
-																																			(PWBASTIdentifier new
-																																				identifier: 'dw_dlq';
-																																				startPosition: 59;
-																																				stopPosition: 64;
-																																				yourself);
-																																		arrayDefinition: nil;
-																																		startPosition: 59;
-																																		stopPosition: 64;
-																																		yourself);
-																																arrayPosition: nil;
-																																startPosition: 59;
-																																stopPosition: 64;
-																																yourself);
-																														startPosition: 59;
-																														stopPosition: 64;
-																														yourself);
-																												startPosition: 59;
-																												stopPosition: 64;
-																												yourself);
-																										expressionAction:
-																											(PWBASTExpressionAction new
-																												action:
-																													(PWBASTMethodInvocation new
-																														methodInvocation:
-																															(PWBASTRegularMethodInvocation new
-																																uncheckedIdentifier:
-																																	(PWBASTUncheckedIdentifier new
-																																		uncheckedIdentifier: 'getItemNumber';
-																																		startPosition: 66;
-																																		stopPosition: 78;
-																																		yourself);
-																																functionArguments:
-																																	(PWBASTFunctionArguments new
-																																		functionArguments:
-																																			{(PWBASTFunctionArgument new
-																																				argumentOption: nil;
-																																				expression:
-																																					(PWBASTExpression new
-																																						expression:
-																																							(PWBASTExpressionTerm new
-																																								expressionTerm:
-																																									(PWBASTAccessOrType new
-																																										accessOrType:
-																																											(PWBASTAccess new
-																																												accessed:
-																																													(PWBASTVariable new
-																																														identifier:
-																																															(PWBASTIdentifier new
-																																																identifier: 'li_ligne';
-																																																startPosition: 81;
-																																																stopPosition: 88;
-																																																yourself);
-																																														arrayDefinition: nil;
-																																														startPosition: 81;
-																																														stopPosition: 88;
-																																														yourself);
-																																												arrayPosition: nil;
-																																												startPosition: 81;
-																																												stopPosition: 88;
-																																												yourself);
-																																										startPosition: 81;
-																																										stopPosition: 88;
-																																										yourself);
-																																								startPosition: 81;
-																																								stopPosition: 88;
-																																								yourself);
-																																						expressionAction: nil;
-																																						startPosition: 81;
-																																						stopPosition: 88;
-																																						yourself);
-																																				startPosition: 81;
-																																				stopPosition: 88;
-																																				yourself).
-																																			(PWBASTFunctionArgument new
-																																				argumentOption: nil;
-																																				expression:
-																																					(PWBASTExpression new
-																																						expression:
-																																							(PWBASTExpressionTerm new
-																																								expressionTerm:
-																																									(PWBASTString new
-																																										string: '"dlq_err"';
-																																										startPosition: 91;
-																																										stopPosition: 99;
-																																										yourself);
-																																								startPosition: 91;
-																																								stopPosition: 99;
-																																								yourself);
-																																						expressionAction: nil;
-																																						startPosition: 91;
-																																						stopPosition: 99;
-																																						yourself);
-																																				startPosition: 91;
-																																				stopPosition: 99;
-																																				yourself)};
-																																		startPosition: 79;
-																																		stopPosition: 101;
-																																		yourself);
-																																startPosition: 65;
-																																stopPosition: 101;
-																																yourself);
-																														startPosition: 65;
-																														stopPosition: 101;
-																														yourself);
-																												expressionAction: nil;
-																												startPosition: 65;
-																												stopPosition: 101;
-																												yourself);
-																										startPosition: 59;
-																										stopPosition: 101;
-																										yourself);
-																								startPosition: 59;
-																								stopPosition: 101;
-																								yourself)};
-																						startPosition: 57;
-																						stopPosition: 103;
-																						yourself);
-																				startPosition: 51;
-																				stopPosition: 103;
-																				yourself);
-																		startPosition: 51;
-																		stopPosition: 103;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 51;
-																stopPosition: 103;
-																yourself);
-														startPosition: 51;
-														stopPosition: 103;
-														yourself);
-												statements:
-													(PWBASTStatements new
-														statements:
-															{(PWBASTStatement new
-																statement:
-																	(PWBASTAssignationStatement new
-																		accessOrType:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'iuo_liq_cal';
-																										startPosition: 158;
-																										stopPosition: 168;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 158;
-																								stopPosition: 168;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 158;
-																						stopPosition: 168;
-																						yourself);
-																				startPosition: 158;
-																				stopPosition: 168;
-																				yourself);
-																		expressionAction:
-																			(PWBASTExpressionAction new
-																				action:
-																					(PWBASTAttributeAccess new
-																						uncheckedIdentifier:
-																							(PWBASTUncheckedIdentifier new
-																								uncheckedIdentifier: 'is_dlp_spe';
-																								startPosition: 170;
-																								stopPosition: 179;
-																								yourself);
-																						arrayInformation: nil;
-																						startPosition: 169;
-																						stopPosition: 179;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 169;
-																				stopPosition: 179;
-																				yourself);
-																		assignation:
-																			(PWBASTAssignation new
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTString new
-																										string: '"N"';
-																										startPosition: 183;
-																										stopPosition: 185;
-																										yourself);
-																								startPosition: 183;
-																								stopPosition: 185;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 183;
-																						stopPosition: 185;
-																						yourself);
-																				startPosition: 180;
-																				stopPosition: 185;
-																				yourself);
-																		startPosition: 158;
-																		stopPosition: 185;
-																		yourself);
-																startPosition: 158;
-																stopPosition: 185;
-																yourself).
-															(PWBASTStatement new
-																statement:
-																	(PWBASTAssignationStatement new
-																		accessOrType:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'li_ret';
-																										startPosition: 198;
-																										stopPosition: 203;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 198;
-																								stopPosition: 203;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 198;
-																						stopPosition: 203;
-																						yourself);
-																				startPosition: 198;
-																				stopPosition: 203;
-																				yourself);
-																		expressionAction: nil;
-																		assignation:
-																			(PWBASTAssignation new
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'iuo_liq_cal';
-																																startPosition: 207;
-																																stopPosition: 217;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 207;
-																														stopPosition: 217;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 207;
-																												stopPosition: 217;
-																												yourself);
-																										startPosition: 207;
-																										stopPosition: 217;
-																										yourself);
-																								startPosition: 207;
-																								stopPosition: 217;
-																								yourself);
-																						expressionAction:
-																							(PWBASTExpressionAction new
-																								action:
-																									(PWBASTMethodInvocation new
-																										methodInvocation:
-																											(PWBASTRegularMethodInvocation new
-																												uncheckedIdentifier:
-																													(PWBASTUncheckedIdentifier new
-																														uncheckedIdentifier: 'uf_calcul';
-																														startPosition: 219;
-																														stopPosition: 227;
-																														yourself);
-																												functionArguments:
-																													(PWBASTFunctionArguments new
-																														functionArguments:
-																															{(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTExpressionTerm new
-																																				expressionTerm:
-																																					(PWBASTAccessOrType new
-																																						accessOrType:
-																																							(PWBASTAccess new
-																																								accessed:
-																																									(PWBASTVariable new
-																																										identifier:
-																																											(PWBASTIdentifier new
-																																												identifier: 'dw_dlq';
-																																												startPosition: 229;
-																																												stopPosition: 234;
-																																												yourself);
-																																										arrayDefinition: nil;
-																																										startPosition: 229;
-																																										stopPosition: 234;
-																																										yourself);
-																																								arrayPosition: nil;
-																																								startPosition: 229;
-																																								stopPosition: 234;
-																																								yourself);
-																																						startPosition: 229;
-																																						stopPosition: 234;
-																																						yourself);
-																																				startPosition: 229;
-																																				stopPosition: 234;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 229;
-																																		stopPosition: 234;
-																																		yourself);
-																																startPosition: 229;
-																																stopPosition: 234;
-																																yourself).
-																															(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTExpressionTerm new
-																																				expressionTerm:
-																																					(PWBASTAccessOrType new
-																																						accessOrType:
-																																							(PWBASTAccess new
-																																								accessed:
-																																									(PWBASTVariable new
-																																										identifier:
-																																											(PWBASTIdentifier new
-																																												identifier: 'li_ligne';
-																																												startPosition: 236;
-																																												stopPosition: 243;
-																																												yourself);
-																																										arrayDefinition: nil;
-																																										startPosition: 236;
-																																										stopPosition: 243;
-																																										yourself);
-																																								arrayPosition: nil;
-																																								startPosition: 236;
-																																								stopPosition: 243;
-																																								yourself);
-																																						startPosition: 236;
-																																						stopPosition: 243;
-																																						yourself);
-																																				startPosition: 236;
-																																				stopPosition: 243;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 236;
-																																		stopPosition: 243;
-																																		yourself);
-																																startPosition: 236;
-																																stopPosition: 243;
-																																yourself).
-																															(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTExpressionTerm new
-																																				expressionTerm:
-																																					(PWBASTAccessOrType new
-																																						accessOrType:
-																																							(PWBASTAccess new
-																																								accessed:
-																																									(PWBASTVariable new
-																																										identifier:
-																																											(PWBASTIdentifier new
-																																												identifier: 'TRUE';
-																																												startPosition: 245;
-																																												stopPosition: 248;
-																																												yourself);
-																																										arrayDefinition: nil;
-																																										startPosition: 245;
-																																										stopPosition: 248;
-																																										yourself);
-																																								arrayPosition: nil;
-																																								startPosition: 245;
-																																								stopPosition: 248;
-																																								yourself);
-																																						startPosition: 245;
-																																						stopPosition: 248;
-																																						yourself);
-																																				startPosition: 245;
-																																				stopPosition: 248;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 245;
-																																		stopPosition: 248;
-																																		yourself);
-																																startPosition: 245;
-																																stopPosition: 248;
-																																yourself).
-																															(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTExpressionTerm new
-																																				expressionTerm:
-																																					(PWBASTAccessOrType new
-																																						accessOrType:
-																																							(PWBASTAccess new
-																																								accessed:
-																																									(PWBASTVariable new
-																																										identifier:
-																																											(PWBASTIdentifier new
-																																												identifier: 'TRUE';
-																																												startPosition: 250;
-																																												stopPosition: 253;
-																																												yourself);
-																																										arrayDefinition: nil;
-																																										startPosition: 250;
-																																										stopPosition: 253;
-																																										yourself);
-																																								arrayPosition: nil;
-																																								startPosition: 250;
-																																								stopPosition: 253;
-																																								yourself);
-																																						startPosition: 250;
-																																						stopPosition: 253;
-																																						yourself);
-																																				startPosition: 250;
-																																				stopPosition: 253;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 250;
-																																		stopPosition: 253;
-																																		yourself);
-																																startPosition: 250;
-																																stopPosition: 253;
-																																yourself).
-																															(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTOperatorExpression new
-																																				left:
-																																					(PWBASTExpressionTerm new
-																																						expressionTerm:
-																																							(PWBASTString new
-																																								string: '"PR"';
-																																								startPosition: 255;
-																																								stopPosition: 258;
-																																								yourself);
-																																						startPosition: 255;
-																																						stopPosition: 258;
-																																						yourself);
-																																				expressionAction: nil;
-																																				right:
-																																					(PWBASTExpression new
-																																						expression:
-																																							(PWBASTExpressionTerm new
-																																								expressionTerm:
-																																									(PWBASTAccessOrType new
-																																										accessOrType:
-																																											(PWBASTAccess new
-																																												accessed:
-																																													(PWBASTVariable new
-																																														identifier:
-																																															(PWBASTIdentifier new
-																																																identifier: 'ls_anc_cod_dossier';
-																																																startPosition: 260;
-																																																stopPosition: 277;
-																																																yourself);
-																																														arrayDefinition: nil;
-																																														startPosition: 260;
-																																														stopPosition: 277;
-																																														yourself);
-																																												arrayPosition: nil;
-																																												startPosition: 260;
-																																												stopPosition: 277;
-																																												yourself);
-																																										startPosition: 260;
-																																										stopPosition: 277;
-																																										yourself);
-																																								startPosition: 260;
-																																								stopPosition: 277;
-																																								yourself);
-																																						expressionAction: nil;
-																																						startPosition: 260;
-																																						stopPosition: 277;
-																																						yourself);
-																																				startPosition: 255;
-																																				stopPosition: 277;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 255;
-																																		stopPosition: 277;
-																																		yourself);
-																																startPosition: 255;
-																																stopPosition: 277;
-																																yourself).
-																															(PWBASTFunctionArgument new
-																																argumentOption: nil;
-																																expression:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTExpressionTerm new
-																																				expressionTerm:
-																																					(PWBASTAccessOrType new
-																																						accessOrType:
-																																							(PWBASTAccess new
-																																								accessed:
-																																									(PWBASTVariable new
-																																										identifier:
-																																											(PWBASTIdentifier new
-																																												identifier: 'TRUE';
-																																												startPosition: 279;
-																																												stopPosition: 282;
-																																												yourself);
-																																										arrayDefinition: nil;
-																																										startPosition: 279;
-																																										stopPosition: 282;
-																																										yourself);
-																																								arrayPosition: nil;
-																																								startPosition: 279;
-																																								stopPosition: 282;
-																																								yourself);
-																																						startPosition: 279;
-																																						stopPosition: 282;
-																																						yourself);
-																																				startPosition: 279;
-																																				stopPosition: 282;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 279;
-																																		stopPosition: 282;
-																																		yourself);
-																																startPosition: 279;
-																																stopPosition: 282;
-																																yourself)};
-																														startPosition: 228;
-																														stopPosition: 284;
-																														yourself);
-																												startPosition: 218;
-																												stopPosition: 284;
-																												yourself);
-																										startPosition: 218;
-																										stopPosition: 284;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 218;
-																								stopPosition: 284;
-																								yourself);
-																						startPosition: 207;
-																						stopPosition: 284;
-																						yourself);
-																				startPosition: 204;
-																				stopPosition: 284;
-																				yourself);
-																		startPosition: 198;
-																		stopPosition: 284;
-																		yourself);
-																startPosition: 198;
-																stopPosition: 284;
-																yourself)};
-														startPosition: 158;
-														stopPosition: 284;
-														yourself);
-												elseIfs: (OrderedCollection withAll: {});
-												else: nil;
-												startPosition: 48;
-												stopPosition: 324;
-												yourself);
-										startPosition: 48;
-										stopPosition: 324;
-										yourself);
-								startPosition: 48;
-								stopPosition: 324;
-								yourself)};
-						startPosition: 48;
-						stopPosition: 324;
-						yourself);
-				startPosition: 1;
-				stopPosition: 340;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testForLoop3 [
 	<generated>
 	self
 		assert:
@@ -18307,6 +17216,12 @@ next'
 																				expressionAction: nil;
 																				startPosition: 230;
 																				stopPosition: 236;
+																				yourself);
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 238;
+																				stopPosition: 238;
 																				yourself);
 																		right:
 																			(PWBASTExpression new
@@ -19439,7 +18354,383 @@ next'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testForLoop4 [
+PWBCommonParserTest >> testForLoop2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'For ll = 1 to 4
+			istr_sig_cas.ll_qte_cons_total[ll] =istr_sig_cas.ll_qte_cons[ll] + istr_sig_cas.ll_qte_cons_encours[ll]
+	Next'
+				rule: #forLoop)
+		equals:
+			(PWBASTForLoop new
+				assignationStatement:
+					(PWBASTAssignationStatement new
+						accessOrType:
+							(PWBASTAccessOrType new
+								accessOrType:
+									(PWBASTAccess new
+										accessed:
+											(PWBASTVariable new
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'll';
+														startPosition: 5;
+														stopPosition: 6;
+														yourself);
+												arrayDefinition: nil;
+												startPosition: 5;
+												stopPosition: 6;
+												yourself);
+										arrayPosition: nil;
+										startPosition: 5;
+										stopPosition: 6;
+										yourself);
+								startPosition: 5;
+								stopPosition: 6;
+								yourself);
+						expressionAction: nil;
+						assignation:
+							(PWBASTAssignation new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNumber new
+														number: '1';
+														startPosition: 10;
+														stopPosition: 10;
+														yourself);
+												startPosition: 10;
+												stopPosition: 10;
+												yourself);
+										expressionAction: nil;
+										startPosition: 10;
+										stopPosition: 10;
+										yourself);
+								startPosition: 7;
+								stopPosition: 10;
+								yourself);
+						startPosition: 5;
+						stopPosition: 10;
+						yourself);
+				endExpression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTNumber new
+										number: '4';
+										startPosition: 15;
+										stopPosition: 15;
+										yourself);
+								startPosition: 15;
+								stopPosition: 15;
+								yourself);
+						expressionAction: nil;
+						startPosition: 15;
+						stopPosition: 15;
+						yourself);
+				stepExpression: nil;
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'istr_sig_cas';
+																		startPosition: 20;
+																		stopPosition: 31;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 20;
+																stopPosition: 31;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 20;
+														stopPosition: 31;
+														yourself);
+												startPosition: 20;
+												stopPosition: 31;
+												yourself);
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTAttributeAccess new
+														uncheckedIdentifier:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'll_qte_cons_total';
+																startPosition: 33;
+																stopPosition: 49;
+																yourself);
+														arrayInformation:
+															(PWBASTArrayPosition new
+																expressions:
+																	{(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'll';
+																												startPosition: 51;
+																												stopPosition: 52;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 51;
+																										stopPosition: 52;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 51;
+																								stopPosition: 52;
+																								yourself);
+																						startPosition: 51;
+																						stopPosition: 52;
+																						yourself);
+																				startPosition: 51;
+																				stopPosition: 52;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 51;
+																		stopPosition: 52;
+																		yourself)};
+																startPosition: 50;
+																stopPosition: 53;
+																yourself);
+														startPosition: 32;
+														stopPosition: 53;
+														yourself);
+												expressionAction: nil;
+												startPosition: 32;
+												stopPosition: 53;
+												yourself);
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'istr_sig_cas';
+																										startPosition: 56;
+																										stopPosition: 67;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 56;
+																								stopPosition: 67;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 56;
+																						stopPosition: 67;
+																						yourself);
+																				startPosition: 56;
+																				stopPosition: 67;
+																				yourself);
+																		startPosition: 56;
+																		stopPosition: 67;
+																		yourself);
+																expressionAction:
+																	(PWBASTExpressionAction new
+																		action:
+																			(PWBASTAttributeAccess new
+																				uncheckedIdentifier:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'll_qte_cons';
+																						startPosition: 69;
+																						stopPosition: 79;
+																						yourself);
+																				arrayInformation:
+																					(PWBASTArrayPosition new
+																						expressions:
+																							{(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'll';
+																																		startPosition: 81;
+																																		stopPosition: 82;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 81;
+																																stopPosition: 82;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 81;
+																														stopPosition: 82;
+																														yourself);
+																												startPosition: 81;
+																												stopPosition: 82;
+																												yourself);
+																										startPosition: 81;
+																										stopPosition: 82;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 81;
+																								stopPosition: 82;
+																								yourself)};
+																						startPosition: 80;
+																						stopPosition: 83;
+																						yourself);
+																				startPosition: 68;
+																				stopPosition: 83;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 68;
+																		stopPosition: 83;
+																		yourself);
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: '+';
+																		startPosition: 85;
+																		stopPosition: 85;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'istr_sig_cas';
+																												startPosition: 87;
+																												stopPosition: 98;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 87;
+																										stopPosition: 98;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 87;
+																								stopPosition: 98;
+																								yourself);
+																						startPosition: 87;
+																						stopPosition: 98;
+																						yourself);
+																				startPosition: 87;
+																				stopPosition: 98;
+																				yourself);
+																		expressionAction:
+																			(PWBASTExpressionAction new
+																				action:
+																					(PWBASTAttributeAccess new
+																						uncheckedIdentifier:
+																							(PWBASTUncheckedIdentifier new
+																								uncheckedIdentifier: 'll_qte_cons_encours';
+																								startPosition: 100;
+																								stopPosition: 118;
+																								yourself);
+																						arrayInformation:
+																							(PWBASTArrayPosition new
+																								expressions:
+																									{(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTAccessOrType new
+																														accessOrType:
+																															(PWBASTAccess new
+																																accessed:
+																																	(PWBASTVariable new
+																																		identifier:
+																																			(PWBASTIdentifier new
+																																				identifier: 'll';
+																																				startPosition: 120;
+																																				stopPosition: 121;
+																																				yourself);
+																																		arrayDefinition: nil;
+																																		startPosition: 120;
+																																		stopPosition: 121;
+																																		yourself);
+																																arrayPosition: nil;
+																																startPosition: 120;
+																																stopPosition: 121;
+																																yourself);
+																														startPosition: 120;
+																														stopPosition: 121;
+																														yourself);
+																												startPosition: 120;
+																												stopPosition: 121;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 120;
+																										stopPosition: 121;
+																										yourself)};
+																								startPosition: 119;
+																								stopPosition: 122;
+																								yourself);
+																						startPosition: 99;
+																						stopPosition: 122;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 99;
+																				stopPosition: 122;
+																				yourself);
+																		startPosition: 87;
+																		stopPosition: 122;
+																		yourself);
+																startPosition: 56;
+																stopPosition: 122;
+																yourself);
+														expressionAction: nil;
+														startPosition: 56;
+														stopPosition: 122;
+														yourself);
+												startPosition: 54;
+												stopPosition: 122;
+												yourself);
+										startPosition: 20;
+										stopPosition: 122;
+										yourself);
+								startPosition: 20;
+								stopPosition: 122;
+								yourself)};
+						startPosition: 20;
+						stopPosition: 122;
+						yourself);
+				startPosition: 1;
+				stopPosition: 128;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testForLoop3 [
 	<generated>
 	self
 		assert:
@@ -19540,6 +18831,768 @@ PWBCommonParserTest >> testForLoop4 [
 				statements: nil;
 				startPosition: 1;
 				stopPosition: 34;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testForLoop4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'for li_ligne = 1 to dw_dlq.RowCount()
+									if isnull( dw_dlq.getItemNumber( li_ligne, "dlq_err" ) ) then
+										 
+									  
+									   
+									  iuo_liq_cal.is_dlp_spe = "N"
+									  li_ret = iuo_liq_cal.uf_calcul(dw_dlq,li_ligne,TRUE,TRUE,"PR"+ls_anc_cod_dossier,TRUE ) 
+									
+									   
+									end if
+								end for'
+				rule: #forLoop)
+		equals:
+			(PWBASTForLoop new
+				assignationStatement:
+					(PWBASTAssignationStatement new
+						accessOrType:
+							(PWBASTAccessOrType new
+								accessOrType:
+									(PWBASTAccess new
+										accessed:
+											(PWBASTVariable new
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'li_ligne';
+														startPosition: 5;
+														stopPosition: 12;
+														yourself);
+												arrayDefinition: nil;
+												startPosition: 5;
+												stopPosition: 12;
+												yourself);
+										arrayPosition: nil;
+										startPosition: 5;
+										stopPosition: 12;
+										yourself);
+								startPosition: 5;
+								stopPosition: 12;
+								yourself);
+						expressionAction: nil;
+						assignation:
+							(PWBASTAssignation new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNumber new
+														number: '1';
+														startPosition: 16;
+														stopPosition: 16;
+														yourself);
+												startPosition: 16;
+												stopPosition: 16;
+												yourself);
+										expressionAction: nil;
+										startPosition: 16;
+										stopPosition: 16;
+										yourself);
+								startPosition: 13;
+								stopPosition: 16;
+								yourself);
+						startPosition: 5;
+						stopPosition: 16;
+						yourself);
+				endExpression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTAccess new
+												accessed:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_dlq';
+																startPosition: 21;
+																stopPosition: 26;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 21;
+														stopPosition: 26;
+														yourself);
+												arrayPosition: nil;
+												startPosition: 21;
+												stopPosition: 26;
+												yourself);
+										startPosition: 21;
+										stopPosition: 26;
+										yourself);
+								startPosition: 21;
+								stopPosition: 26;
+								yourself);
+						expressionAction:
+							(PWBASTExpressionAction new
+								action:
+									(PWBASTMethodInvocation new
+										methodInvocation:
+											(PWBASTRegularMethodInvocation new
+												uncheckedIdentifier:
+													(PWBASTUncheckedIdentifier new
+														uncheckedIdentifier: 'RowCount';
+														startPosition: 28;
+														stopPosition: 35;
+														yourself);
+												functionArguments:
+													(PWBASTFunctionArguments new
+														functionArguments: nil;
+														startPosition: 36;
+														stopPosition: 37;
+														yourself);
+												startPosition: 27;
+												stopPosition: 37;
+												yourself);
+										startPosition: 27;
+										stopPosition: 37;
+										yourself);
+								expressionAction: nil;
+								startPosition: 27;
+								stopPosition: 37;
+								yourself);
+						startPosition: 21;
+						stopPosition: 37;
+						yourself);
+				stepExpression: nil;
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTIfStatement new
+										ifStatement:
+											(PWBASTIfMultiLine new
+												condition:
+													(PWBASTCondition new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTFunctionInvocation new
+																				defaultVariable: nil;
+																				functionName:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'isnull';
+																						startPosition: 51;
+																						stopPosition: 56;
+																						yourself);
+																				functionArguments:
+																					(PWBASTFunctionArguments new
+																						functionArguments:
+																							{(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTAccessOrType new
+																														accessOrType:
+																															(PWBASTAccess new
+																																accessed:
+																																	(PWBASTVariable new
+																																		identifier:
+																																			(PWBASTIdentifier new
+																																				identifier: 'dw_dlq';
+																																				startPosition: 59;
+																																				stopPosition: 64;
+																																				yourself);
+																																		arrayDefinition: nil;
+																																		startPosition: 59;
+																																		stopPosition: 64;
+																																		yourself);
+																																arrayPosition: nil;
+																																startPosition: 59;
+																																stopPosition: 64;
+																																yourself);
+																														startPosition: 59;
+																														stopPosition: 64;
+																														yourself);
+																												startPosition: 59;
+																												stopPosition: 64;
+																												yourself);
+																										expressionAction:
+																											(PWBASTExpressionAction new
+																												action:
+																													(PWBASTMethodInvocation new
+																														methodInvocation:
+																															(PWBASTRegularMethodInvocation new
+																																uncheckedIdentifier:
+																																	(PWBASTUncheckedIdentifier new
+																																		uncheckedIdentifier: 'getItemNumber';
+																																		startPosition: 66;
+																																		stopPosition: 78;
+																																		yourself);
+																																functionArguments:
+																																	(PWBASTFunctionArguments new
+																																		functionArguments:
+																																			{(PWBASTFunctionArgument new
+																																				argumentOption: nil;
+																																				expression:
+																																					(PWBASTExpression new
+																																						expression:
+																																							(PWBASTExpressionTerm new
+																																								expressionTerm:
+																																									(PWBASTAccessOrType new
+																																										accessOrType:
+																																											(PWBASTAccess new
+																																												accessed:
+																																													(PWBASTVariable new
+																																														identifier:
+																																															(PWBASTIdentifier new
+																																																identifier: 'li_ligne';
+																																																startPosition: 81;
+																																																stopPosition: 88;
+																																																yourself);
+																																														arrayDefinition: nil;
+																																														startPosition: 81;
+																																														stopPosition: 88;
+																																														yourself);
+																																												arrayPosition: nil;
+																																												startPosition: 81;
+																																												stopPosition: 88;
+																																												yourself);
+																																										startPosition: 81;
+																																										stopPosition: 88;
+																																										yourself);
+																																								startPosition: 81;
+																																								stopPosition: 88;
+																																								yourself);
+																																						expressionAction: nil;
+																																						startPosition: 81;
+																																						stopPosition: 88;
+																																						yourself);
+																																				startPosition: 81;
+																																				stopPosition: 88;
+																																				yourself).
+																																			(PWBASTFunctionArgument new
+																																				argumentOption: nil;
+																																				expression:
+																																					(PWBASTExpression new
+																																						expression:
+																																							(PWBASTExpressionTerm new
+																																								expressionTerm:
+																																									(PWBASTString new
+																																										string: '"dlq_err"';
+																																										startPosition: 91;
+																																										stopPosition: 99;
+																																										yourself);
+																																								startPosition: 91;
+																																								stopPosition: 99;
+																																								yourself);
+																																						expressionAction: nil;
+																																						startPosition: 91;
+																																						stopPosition: 99;
+																																						yourself);
+																																				startPosition: 91;
+																																				stopPosition: 99;
+																																				yourself)};
+																																		startPosition: 79;
+																																		stopPosition: 101;
+																																		yourself);
+																																startPosition: 65;
+																																stopPosition: 101;
+																																yourself);
+																														startPosition: 65;
+																														stopPosition: 101;
+																														yourself);
+																												expressionAction: nil;
+																												startPosition: 65;
+																												stopPosition: 101;
+																												yourself);
+																										startPosition: 59;
+																										stopPosition: 101;
+																										yourself);
+																								startPosition: 59;
+																								stopPosition: 101;
+																								yourself)};
+																						startPosition: 57;
+																						stopPosition: 103;
+																						yourself);
+																				startPosition: 51;
+																				stopPosition: 103;
+																				yourself);
+																		startPosition: 51;
+																		stopPosition: 103;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 51;
+																stopPosition: 103;
+																yourself);
+														startPosition: 51;
+														stopPosition: 103;
+														yourself);
+												statements:
+													(PWBASTStatements new
+														statements:
+															{(PWBASTStatement new
+																statement:
+																	(PWBASTAssignationStatement new
+																		accessOrType:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'iuo_liq_cal';
+																										startPosition: 158;
+																										stopPosition: 168;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 158;
+																								stopPosition: 168;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 158;
+																						stopPosition: 168;
+																						yourself);
+																				startPosition: 158;
+																				stopPosition: 168;
+																				yourself);
+																		expressionAction:
+																			(PWBASTExpressionAction new
+																				action:
+																					(PWBASTAttributeAccess new
+																						uncheckedIdentifier:
+																							(PWBASTUncheckedIdentifier new
+																								uncheckedIdentifier: 'is_dlp_spe';
+																								startPosition: 170;
+																								stopPosition: 179;
+																								yourself);
+																						arrayInformation: nil;
+																						startPosition: 169;
+																						stopPosition: 179;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 169;
+																				stopPosition: 179;
+																				yourself);
+																		assignation:
+																			(PWBASTAssignation new
+																				expression:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTString new
+																										string: '"N"';
+																										startPosition: 183;
+																										stopPosition: 185;
+																										yourself);
+																								startPosition: 183;
+																								stopPosition: 185;
+																								yourself);
+																						expressionAction: nil;
+																						startPosition: 183;
+																						stopPosition: 185;
+																						yourself);
+																				startPosition: 180;
+																				stopPosition: 185;
+																				yourself);
+																		startPosition: 158;
+																		stopPosition: 185;
+																		yourself);
+																startPosition: 158;
+																stopPosition: 185;
+																yourself).
+															(PWBASTStatement new
+																statement:
+																	(PWBASTAssignationStatement new
+																		accessOrType:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'li_ret';
+																										startPosition: 198;
+																										stopPosition: 203;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 198;
+																								stopPosition: 203;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 198;
+																						stopPosition: 203;
+																						yourself);
+																				startPosition: 198;
+																				stopPosition: 203;
+																				yourself);
+																		expressionAction: nil;
+																		assignation:
+																			(PWBASTAssignation new
+																				expression:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'iuo_liq_cal';
+																																startPosition: 207;
+																																stopPosition: 217;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 207;
+																														stopPosition: 217;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 207;
+																												stopPosition: 217;
+																												yourself);
+																										startPosition: 207;
+																										stopPosition: 217;
+																										yourself);
+																								startPosition: 207;
+																								stopPosition: 217;
+																								yourself);
+																						expressionAction:
+																							(PWBASTExpressionAction new
+																								action:
+																									(PWBASTMethodInvocation new
+																										methodInvocation:
+																											(PWBASTRegularMethodInvocation new
+																												uncheckedIdentifier:
+																													(PWBASTUncheckedIdentifier new
+																														uncheckedIdentifier: 'uf_calcul';
+																														startPosition: 219;
+																														stopPosition: 227;
+																														yourself);
+																												functionArguments:
+																													(PWBASTFunctionArguments new
+																														functionArguments:
+																															{(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTExpressionTerm new
+																																				expressionTerm:
+																																					(PWBASTAccessOrType new
+																																						accessOrType:
+																																							(PWBASTAccess new
+																																								accessed:
+																																									(PWBASTVariable new
+																																										identifier:
+																																											(PWBASTIdentifier new
+																																												identifier: 'dw_dlq';
+																																												startPosition: 229;
+																																												stopPosition: 234;
+																																												yourself);
+																																										arrayDefinition: nil;
+																																										startPosition: 229;
+																																										stopPosition: 234;
+																																										yourself);
+																																								arrayPosition: nil;
+																																								startPosition: 229;
+																																								stopPosition: 234;
+																																								yourself);
+																																						startPosition: 229;
+																																						stopPosition: 234;
+																																						yourself);
+																																				startPosition: 229;
+																																				stopPosition: 234;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 229;
+																																		stopPosition: 234;
+																																		yourself);
+																																startPosition: 229;
+																																stopPosition: 234;
+																																yourself).
+																															(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTExpressionTerm new
+																																				expressionTerm:
+																																					(PWBASTAccessOrType new
+																																						accessOrType:
+																																							(PWBASTAccess new
+																																								accessed:
+																																									(PWBASTVariable new
+																																										identifier:
+																																											(PWBASTIdentifier new
+																																												identifier: 'li_ligne';
+																																												startPosition: 236;
+																																												stopPosition: 243;
+																																												yourself);
+																																										arrayDefinition: nil;
+																																										startPosition: 236;
+																																										stopPosition: 243;
+																																										yourself);
+																																								arrayPosition: nil;
+																																								startPosition: 236;
+																																								stopPosition: 243;
+																																								yourself);
+																																						startPosition: 236;
+																																						stopPosition: 243;
+																																						yourself);
+																																				startPosition: 236;
+																																				stopPosition: 243;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 236;
+																																		stopPosition: 243;
+																																		yourself);
+																																startPosition: 236;
+																																stopPosition: 243;
+																																yourself).
+																															(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTExpressionTerm new
+																																				expressionTerm:
+																																					(PWBASTAccessOrType new
+																																						accessOrType:
+																																							(PWBASTAccess new
+																																								accessed:
+																																									(PWBASTVariable new
+																																										identifier:
+																																											(PWBASTIdentifier new
+																																												identifier: 'TRUE';
+																																												startPosition: 245;
+																																												stopPosition: 248;
+																																												yourself);
+																																										arrayDefinition: nil;
+																																										startPosition: 245;
+																																										stopPosition: 248;
+																																										yourself);
+																																								arrayPosition: nil;
+																																								startPosition: 245;
+																																								stopPosition: 248;
+																																								yourself);
+																																						startPosition: 245;
+																																						stopPosition: 248;
+																																						yourself);
+																																				startPosition: 245;
+																																				stopPosition: 248;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 245;
+																																		stopPosition: 248;
+																																		yourself);
+																																startPosition: 245;
+																																stopPosition: 248;
+																																yourself).
+																															(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTExpressionTerm new
+																																				expressionTerm:
+																																					(PWBASTAccessOrType new
+																																						accessOrType:
+																																							(PWBASTAccess new
+																																								accessed:
+																																									(PWBASTVariable new
+																																										identifier:
+																																											(PWBASTIdentifier new
+																																												identifier: 'TRUE';
+																																												startPosition: 250;
+																																												stopPosition: 253;
+																																												yourself);
+																																										arrayDefinition: nil;
+																																										startPosition: 250;
+																																										stopPosition: 253;
+																																										yourself);
+																																								arrayPosition: nil;
+																																								startPosition: 250;
+																																								stopPosition: 253;
+																																								yourself);
+																																						startPosition: 250;
+																																						stopPosition: 253;
+																																						yourself);
+																																				startPosition: 250;
+																																				stopPosition: 253;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 250;
+																																		stopPosition: 253;
+																																		yourself);
+																																startPosition: 250;
+																																stopPosition: 253;
+																																yourself).
+																															(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTOperatorExpression new
+																																				left:
+																																					(PWBASTExpressionTerm new
+																																						expressionTerm:
+																																							(PWBASTString new
+																																								string: '"PR"';
+																																								startPosition: 255;
+																																								stopPosition: 258;
+																																								yourself);
+																																						startPosition: 255;
+																																						stopPosition: 258;
+																																						yourself);
+																																				expressionAction: nil;
+																																				expressionOperator:
+																																					(PWBASTExpressionOperator new
+																																						expressionOperator: '+';
+																																						startPosition: 259;
+																																						stopPosition: 259;
+																																						yourself);
+																																				right:
+																																					(PWBASTExpression new
+																																						expression:
+																																							(PWBASTExpressionTerm new
+																																								expressionTerm:
+																																									(PWBASTAccessOrType new
+																																										accessOrType:
+																																											(PWBASTAccess new
+																																												accessed:
+																																													(PWBASTVariable new
+																																														identifier:
+																																															(PWBASTIdentifier new
+																																																identifier: 'ls_anc_cod_dossier';
+																																																startPosition: 260;
+																																																stopPosition: 277;
+																																																yourself);
+																																														arrayDefinition: nil;
+																																														startPosition: 260;
+																																														stopPosition: 277;
+																																														yourself);
+																																												arrayPosition: nil;
+																																												startPosition: 260;
+																																												stopPosition: 277;
+																																												yourself);
+																																										startPosition: 260;
+																																										stopPosition: 277;
+																																										yourself);
+																																								startPosition: 260;
+																																								stopPosition: 277;
+																																								yourself);
+																																						expressionAction: nil;
+																																						startPosition: 260;
+																																						stopPosition: 277;
+																																						yourself);
+																																				startPosition: 255;
+																																				stopPosition: 277;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 255;
+																																		stopPosition: 277;
+																																		yourself);
+																																startPosition: 255;
+																																stopPosition: 277;
+																																yourself).
+																															(PWBASTFunctionArgument new
+																																argumentOption: nil;
+																																expression:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTExpressionTerm new
+																																				expressionTerm:
+																																					(PWBASTAccessOrType new
+																																						accessOrType:
+																																							(PWBASTAccess new
+																																								accessed:
+																																									(PWBASTVariable new
+																																										identifier:
+																																											(PWBASTIdentifier new
+																																												identifier: 'TRUE';
+																																												startPosition: 279;
+																																												stopPosition: 282;
+																																												yourself);
+																																										arrayDefinition: nil;
+																																										startPosition: 279;
+																																										stopPosition: 282;
+																																										yourself);
+																																								arrayPosition: nil;
+																																								startPosition: 279;
+																																								stopPosition: 282;
+																																								yourself);
+																																						startPosition: 279;
+																																						stopPosition: 282;
+																																						yourself);
+																																				startPosition: 279;
+																																				stopPosition: 282;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 279;
+																																		stopPosition: 282;
+																																		yourself);
+																																startPosition: 279;
+																																stopPosition: 282;
+																																yourself)};
+																														startPosition: 228;
+																														stopPosition: 284;
+																														yourself);
+																												startPosition: 218;
+																												stopPosition: 284;
+																												yourself);
+																										startPosition: 218;
+																										stopPosition: 284;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 218;
+																								stopPosition: 284;
+																								yourself);
+																						startPosition: 207;
+																						stopPosition: 284;
+																						yourself);
+																				startPosition: 204;
+																				stopPosition: 284;
+																				yourself);
+																		startPosition: 198;
+																		stopPosition: 284;
+																		yourself);
+																startPosition: 198;
+																stopPosition: 284;
+																yourself)};
+														startPosition: 158;
+														stopPosition: 284;
+														yourself);
+												elseIfs: (OrderedCollection withAll: {});
+												else: nil;
+												startPosition: 48;
+												stopPosition: 324;
+												yourself);
+										startPosition: 48;
+										stopPosition: 324;
+										yourself);
+								startPosition: 48;
+								stopPosition: 324;
+								yourself)};
+						startPosition: 48;
+						stopPosition: 324;
+						yourself);
+				startPosition: 1;
+				stopPosition: 340;
 				yourself)
 ]
 
@@ -19712,58 +19765,6 @@ end forward'
 PWBCommonParserTest >> testFunctionArgument1 [
 	<generated>
 	self
-		assert: (self parse: 'ref coord' rule: #functionArgument)
-		equals:
-			(PWBASTFunctionArgument new
-				argumentOption:
-					(PWBASTArgumentOption new
-						argumentOption: 'ref';
-						startPosition: 1;
-						stopPosition: 3;
-						yourself);
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTAccessOrType new
-										accessOrType:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'coord';
-																startPosition: 5;
-																stopPosition: 9;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 5;
-														stopPosition: 9;
-														yourself);
-												arrayPosition: nil;
-												startPosition: 5;
-												stopPosition: 9;
-												yourself);
-										startPosition: 5;
-										stopPosition: 9;
-										yourself);
-								startPosition: 5;
-								stopPosition: 9;
-								yourself);
-						expressionAction: nil;
-						startPosition: 5;
-						stopPosition: 9;
-						yourself);
-				startPosition: 1;
-				stopPosition: 9;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionArgument2 [
-	<generated>
-	self
 		assert:
 			(self
 				parse: 'istr_sig_cas.ld_rbo_cons_total[ 1 ]'
@@ -19845,6 +19846,58 @@ PWBCommonParserTest >> testFunctionArgument2 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 35;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testFunctionArgument2 [
+	<generated>
+	self
+		assert: (self parse: 'ref coord' rule: #functionArgument)
+		equals:
+			(PWBASTFunctionArgument new
+				argumentOption:
+					(PWBASTArgumentOption new
+						argumentOption: 'ref';
+						startPosition: 1;
+						stopPosition: 3;
+						yourself);
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTAccess new
+												accessed:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'coord';
+																startPosition: 5;
+																stopPosition: 9;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 5;
+														stopPosition: 9;
+														yourself);
+												arrayPosition: nil;
+												startPosition: 5;
+												stopPosition: 9;
+												yourself);
+										startPosition: 5;
+										stopPosition: 9;
+										yourself);
+								startPosition: 5;
+								stopPosition: 9;
+								yourself);
+						expressionAction: nil;
+						startPosition: 5;
+						stopPosition: 9;
+						yourself);
+				startPosition: 1;
+				stopPosition: 9;
 				yourself)
 ]
 
@@ -20008,6 +20061,12 @@ PWBCommonParserTest >> testFunctionArguments1 [
 												expressionAction: nil;
 												startPosition: 48;
 												stopPosition: 70;
+												yourself);
+										expressionOperator:
+											(PWBASTExpressionOperator new
+												expressionOperator: '+';
+												startPosition: 72;
+												stopPosition: 72;
 												yourself);
 										right:
 											(PWBASTExpression new
@@ -22104,10 +22163,10 @@ PWBCommonParserTest >> testFunctionDefinition1 [
 		assert:
 			(self
 				parse:
-					'public function integer of_create_cell (long ai_x1, long ai_x2, long ai_y1, long ai_y2, double aa_value, long al_format, integer ai_units)
-long lul_cell
-lul_cell = addCellDouble(handle, aa_value, ai_x1, ai_x2, ai_y1, ai_y2, al_format, ai_units)
-Return 1
+					'private function integer uf_traitement_dossier (long al_lig);
+
+return 1
+
 end function'
 				rule: #functionDefinition)
 		equals:
@@ -22116,26 +22175,26 @@ end function'
 					(PWBASTFunctionSignature new
 						accessModifier:
 							(PWBASTAccessModifier new
-								accessModifier: 'public';
+								accessModifier: 'private';
 								startPosition: 1;
-								stopPosition: 6;
+								stopPosition: 7;
 								yourself);
 						type:
 							(PWBASTType new
 								type:
 									(PWBASTBasicType new
 										basicType: 'integer';
-										startPosition: 17;
-										stopPosition: 23;
+										startPosition: 18;
+										stopPosition: 24;
 										yourself);
-								startPosition: 17;
-								stopPosition: 23;
+								startPosition: 18;
+								stopPosition: 24;
 								yourself);
 						identifier:
 							(PWBASTIdentifier new
-								identifier: 'of_create_cell';
-								startPosition: 25;
-								stopPosition: 38;
+								identifier: 'uf_traitement_dossier';
+								startPosition: 26;
+								stopPosition: 46;
 								yourself);
 						arguments:
 							(PWBASTArguments new
@@ -22147,587 +22206,32 @@ end function'
 												type:
 													(PWBASTBasicType new
 														basicType: 'long';
-														startPosition: 41;
-														stopPosition: 44;
+														startPosition: 49;
+														stopPosition: 52;
 														yourself);
-												startPosition: 41;
-												stopPosition: 44;
+												startPosition: 49;
+												stopPosition: 52;
 												yourself);
 										identifier:
 											(PWBASTIdentifier new
-												identifier: 'ai_x1';
-												startPosition: 46;
-												stopPosition: 50;
+												identifier: 'al_lig';
+												startPosition: 54;
+												stopPosition: 59;
 												yourself);
 										arrayWithSize: nil;
-										startPosition: 41;
-										stopPosition: 50;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 53;
-														stopPosition: 56;
-														yourself);
-												startPosition: 53;
-												stopPosition: 56;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'ai_x2';
-												startPosition: 58;
-												stopPosition: 62;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 53;
-										stopPosition: 62;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 65;
-														stopPosition: 68;
-														yourself);
-												startPosition: 65;
-												stopPosition: 68;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'ai_y1';
-												startPosition: 70;
-												stopPosition: 74;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 65;
-										stopPosition: 74;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 77;
-														stopPosition: 80;
-														yourself);
-												startPosition: 77;
-												stopPosition: 80;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'ai_y2';
-												startPosition: 82;
-												stopPosition: 86;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 77;
-										stopPosition: 86;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'double';
-														startPosition: 89;
-														stopPosition: 94;
-														yourself);
-												startPosition: 89;
-												stopPosition: 94;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'aa_value';
-												startPosition: 96;
-												stopPosition: 103;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 89;
-										stopPosition: 103;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 106;
-														stopPosition: 109;
-														yourself);
-												startPosition: 106;
-												stopPosition: 109;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'al_format';
-												startPosition: 111;
-												stopPosition: 119;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 106;
-										stopPosition: 119;
-										yourself).
-									(PWBASTArgument new
-										argumentOption: nil;
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'integer';
-														startPosition: 122;
-														stopPosition: 128;
-														yourself);
-												startPosition: 122;
-												stopPosition: 128;
-												yourself);
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'ai_units';
-												startPosition: 130;
-												stopPosition: 137;
-												yourself);
-										arrayWithSize: nil;
-										startPosition: 122;
-										stopPosition: 137;
+										startPosition: 49;
+										stopPosition: 59;
 										yourself)};
-								startPosition: 40;
-								stopPosition: 138;
+								startPosition: 48;
+								stopPosition: 60;
 								yourself);
 						startPosition: 1;
-						stopPosition: 138;
+						stopPosition: 60;
 						yourself);
 				statements:
 					(PWBASTStatements new
 						statements:
 							{(PWBASTStatement new
-								statement:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 140;
-														stopPosition: 143;
-														yourself);
-												startPosition: 140;
-												stopPosition: 143;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'lul_cell';
-																startPosition: 145;
-																stopPosition: 152;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 145;
-														stopPosition: 152;
-														yourself);
-												assignation: nil;
-												startPosition: 145;
-												stopPosition: 152;
-												yourself)};
-										startPosition: 140;
-										stopPosition: 152;
-										yourself);
-								startPosition: 140;
-								stopPosition: 152;
-								yourself).
-							(PWBASTStatement new
-								statement:
-									(PWBASTAssignationStatement new
-										accessOrType:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'lul_cell';
-																		startPosition: 154;
-																		stopPosition: 161;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 154;
-																stopPosition: 161;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 154;
-														stopPosition: 161;
-														yourself);
-												startPosition: 154;
-												stopPosition: 161;
-												yourself);
-										expressionAction: nil;
-										assignation:
-											(PWBASTAssignation new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTFunctionInvocation new
-																		defaultVariable: nil;
-																		functionName:
-																			(PWBASTUncheckedIdentifier new
-																				uncheckedIdentifier: 'addCellDouble';
-																				startPosition: 165;
-																				stopPosition: 177;
-																				yourself);
-																		functionArguments:
-																			(PWBASTFunctionArguments new
-																				functionArguments:
-																					{(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'handle';
-																																		startPosition: 179;
-																																		stopPosition: 184;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 179;
-																																stopPosition: 184;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 179;
-																														stopPosition: 184;
-																														yourself);
-																												startPosition: 179;
-																												stopPosition: 184;
-																												yourself);
-																										startPosition: 179;
-																										stopPosition: 184;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 179;
-																								stopPosition: 184;
-																								yourself);
-																						startPosition: 179;
-																						stopPosition: 184;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'aa_value';
-																																		startPosition: 187;
-																																		stopPosition: 194;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 187;
-																																stopPosition: 194;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 187;
-																														stopPosition: 194;
-																														yourself);
-																												startPosition: 187;
-																												stopPosition: 194;
-																												yourself);
-																										startPosition: 187;
-																										stopPosition: 194;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 187;
-																								stopPosition: 194;
-																								yourself);
-																						startPosition: 187;
-																						stopPosition: 194;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ai_x1';
-																																		startPosition: 197;
-																																		stopPosition: 201;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 197;
-																																stopPosition: 201;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 197;
-																														stopPosition: 201;
-																														yourself);
-																												startPosition: 197;
-																												stopPosition: 201;
-																												yourself);
-																										startPosition: 197;
-																										stopPosition: 201;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 197;
-																								stopPosition: 201;
-																								yourself);
-																						startPosition: 197;
-																						stopPosition: 201;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ai_x2';
-																																		startPosition: 204;
-																																		stopPosition: 208;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 204;
-																																stopPosition: 208;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 204;
-																														stopPosition: 208;
-																														yourself);
-																												startPosition: 204;
-																												stopPosition: 208;
-																												yourself);
-																										startPosition: 204;
-																										stopPosition: 208;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 204;
-																								stopPosition: 208;
-																								yourself);
-																						startPosition: 204;
-																						stopPosition: 208;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ai_y1';
-																																		startPosition: 211;
-																																		stopPosition: 215;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 211;
-																																stopPosition: 215;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 211;
-																														stopPosition: 215;
-																														yourself);
-																												startPosition: 211;
-																												stopPosition: 215;
-																												yourself);
-																										startPosition: 211;
-																										stopPosition: 215;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 211;
-																								stopPosition: 215;
-																								yourself);
-																						startPosition: 211;
-																						stopPosition: 215;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ai_y2';
-																																		startPosition: 218;
-																																		stopPosition: 222;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 218;
-																																stopPosition: 222;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 218;
-																														stopPosition: 222;
-																														yourself);
-																												startPosition: 218;
-																												stopPosition: 222;
-																												yourself);
-																										startPosition: 218;
-																										stopPosition: 222;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 218;
-																								stopPosition: 222;
-																								yourself);
-																						startPosition: 218;
-																						stopPosition: 222;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'al_format';
-																																		startPosition: 225;
-																																		stopPosition: 233;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 225;
-																																stopPosition: 233;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 225;
-																														stopPosition: 233;
-																														yourself);
-																												startPosition: 225;
-																												stopPosition: 233;
-																												yourself);
-																										startPosition: 225;
-																										stopPosition: 233;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 225;
-																								stopPosition: 233;
-																								yourself);
-																						startPosition: 225;
-																						stopPosition: 233;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ai_units';
-																																		startPosition: 236;
-																																		stopPosition: 243;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 236;
-																																stopPosition: 243;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 236;
-																														stopPosition: 243;
-																														yourself);
-																												startPosition: 236;
-																												stopPosition: 243;
-																												yourself);
-																										startPosition: 236;
-																										stopPosition: 243;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 236;
-																								stopPosition: 243;
-																								yourself);
-																						startPosition: 236;
-																						stopPosition: 243;
-																						yourself)};
-																				startPosition: 178;
-																				stopPosition: 244;
-																				yourself);
-																		startPosition: 165;
-																		stopPosition: 244;
-																		yourself);
-																startPosition: 165;
-																stopPosition: 244;
-																yourself);
-														expressionAction: nil;
-														startPosition: 165;
-														stopPosition: 244;
-														yourself);
-												startPosition: 162;
-												stopPosition: 244;
-												yourself);
-										startPosition: 154;
-										stopPosition: 244;
-										yourself);
-								startPosition: 154;
-								stopPosition: 244;
-								yourself).
-							(PWBASTStatement new
 								statement:
 									(PWBASTSpecialStatement new
 										specialStatement:
@@ -22739,30 +22243,30 @@ end function'
 																expressionTerm:
 																	(PWBASTNumber new
 																		number: '1';
-																		startPosition: 253;
-																		stopPosition: 253;
+																		startPosition: 71;
+																		stopPosition: 71;
 																		yourself);
-																startPosition: 253;
-																stopPosition: 253;
+																startPosition: 71;
+																stopPosition: 71;
 																yourself);
 														expressionAction: nil;
-														startPosition: 253;
-														stopPosition: 253;
+														startPosition: 71;
+														stopPosition: 71;
 														yourself);
-												startPosition: 246;
-												stopPosition: 253;
+												startPosition: 64;
+												stopPosition: 71;
 												yourself);
-										startPosition: 246;
-										stopPosition: 253;
+										startPosition: 64;
+										stopPosition: 71;
 										yourself);
-								startPosition: 246;
-								stopPosition: 253;
+								startPosition: 64;
+								stopPosition: 71;
 								yourself)};
-						startPosition: 140;
-						stopPosition: 253;
+						startPosition: 64;
+						stopPosition: 71;
 						yourself);
 				startPosition: 1;
-				stopPosition: 266;
+				stopPosition: 85;
 				yourself)
 ]
 
@@ -23620,10 +23124,10 @@ PWBCommonParserTest >> testFunctionDefinition4 [
 		assert:
 			(self
 				parse:
-					'private function integer uf_traitement_dossier (long al_lig);
-
-return 1
-
+					'public function integer of_create_cell (long ai_x1, long ai_x2, long ai_y1, long ai_y2, double aa_value, long al_format, integer ai_units)
+long lul_cell
+lul_cell = addCellDouble(handle, aa_value, ai_x1, ai_x2, ai_y1, ai_y2, al_format, ai_units)
+Return 1
 end function'
 				rule: #functionDefinition)
 		equals:
@@ -23632,26 +23136,26 @@ end function'
 					(PWBASTFunctionSignature new
 						accessModifier:
 							(PWBASTAccessModifier new
-								accessModifier: 'private';
+								accessModifier: 'public';
 								startPosition: 1;
-								stopPosition: 7;
+								stopPosition: 6;
 								yourself);
 						type:
 							(PWBASTType new
 								type:
 									(PWBASTBasicType new
 										basicType: 'integer';
-										startPosition: 18;
-										stopPosition: 24;
+										startPosition: 17;
+										stopPosition: 23;
 										yourself);
-								startPosition: 18;
-								stopPosition: 24;
+								startPosition: 17;
+								stopPosition: 23;
 								yourself);
 						identifier:
 							(PWBASTIdentifier new
-								identifier: 'uf_traitement_dossier';
-								startPosition: 26;
-								stopPosition: 46;
+								identifier: 'of_create_cell';
+								startPosition: 25;
+								stopPosition: 38;
 								yourself);
 						arguments:
 							(PWBASTArguments new
@@ -23663,32 +23167,587 @@ end function'
 												type:
 													(PWBASTBasicType new
 														basicType: 'long';
-														startPosition: 49;
-														stopPosition: 52;
+														startPosition: 41;
+														stopPosition: 44;
 														yourself);
-												startPosition: 49;
-												stopPosition: 52;
+												startPosition: 41;
+												stopPosition: 44;
 												yourself);
 										identifier:
 											(PWBASTIdentifier new
-												identifier: 'al_lig';
-												startPosition: 54;
-												stopPosition: 59;
+												identifier: 'ai_x1';
+												startPosition: 46;
+												stopPosition: 50;
 												yourself);
 										arrayWithSize: nil;
-										startPosition: 49;
-										stopPosition: 59;
+										startPosition: 41;
+										stopPosition: 50;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 53;
+														stopPosition: 56;
+														yourself);
+												startPosition: 53;
+												stopPosition: 56;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'ai_x2';
+												startPosition: 58;
+												stopPosition: 62;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 53;
+										stopPosition: 62;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 65;
+														stopPosition: 68;
+														yourself);
+												startPosition: 65;
+												stopPosition: 68;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'ai_y1';
+												startPosition: 70;
+												stopPosition: 74;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 65;
+										stopPosition: 74;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 77;
+														stopPosition: 80;
+														yourself);
+												startPosition: 77;
+												stopPosition: 80;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'ai_y2';
+												startPosition: 82;
+												stopPosition: 86;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 77;
+										stopPosition: 86;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'double';
+														startPosition: 89;
+														stopPosition: 94;
+														yourself);
+												startPosition: 89;
+												stopPosition: 94;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'aa_value';
+												startPosition: 96;
+												stopPosition: 103;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 89;
+										stopPosition: 103;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 106;
+														stopPosition: 109;
+														yourself);
+												startPosition: 106;
+												stopPosition: 109;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'al_format';
+												startPosition: 111;
+												stopPosition: 119;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 106;
+										stopPosition: 119;
+										yourself).
+									(PWBASTArgument new
+										argumentOption: nil;
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'integer';
+														startPosition: 122;
+														stopPosition: 128;
+														yourself);
+												startPosition: 122;
+												stopPosition: 128;
+												yourself);
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'ai_units';
+												startPosition: 130;
+												stopPosition: 137;
+												yourself);
+										arrayWithSize: nil;
+										startPosition: 122;
+										stopPosition: 137;
 										yourself)};
-								startPosition: 48;
-								stopPosition: 60;
+								startPosition: 40;
+								stopPosition: 138;
 								yourself);
 						startPosition: 1;
-						stopPosition: 60;
+						stopPosition: 138;
 						yourself);
 				statements:
 					(PWBASTStatements new
 						statements:
 							{(PWBASTStatement new
+								statement:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 140;
+														stopPosition: 143;
+														yourself);
+												startPosition: 140;
+												stopPosition: 143;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'lul_cell';
+																startPosition: 145;
+																stopPosition: 152;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 145;
+														stopPosition: 152;
+														yourself);
+												assignation: nil;
+												startPosition: 145;
+												stopPosition: 152;
+												yourself)};
+										startPosition: 140;
+										stopPosition: 152;
+										yourself);
+								startPosition: 140;
+								stopPosition: 152;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'lul_cell';
+																		startPosition: 154;
+																		stopPosition: 161;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 154;
+																stopPosition: 161;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 154;
+														stopPosition: 161;
+														yourself);
+												startPosition: 154;
+												stopPosition: 161;
+												yourself);
+										expressionAction: nil;
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTFunctionInvocation new
+																		defaultVariable: nil;
+																		functionName:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'addCellDouble';
+																				startPosition: 165;
+																				stopPosition: 177;
+																				yourself);
+																		functionArguments:
+																			(PWBASTFunctionArguments new
+																				functionArguments:
+																					{(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'handle';
+																																		startPosition: 179;
+																																		stopPosition: 184;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 179;
+																																stopPosition: 184;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 179;
+																														stopPosition: 184;
+																														yourself);
+																												startPosition: 179;
+																												stopPosition: 184;
+																												yourself);
+																										startPosition: 179;
+																										stopPosition: 184;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 179;
+																								stopPosition: 184;
+																								yourself);
+																						startPosition: 179;
+																						stopPosition: 184;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'aa_value';
+																																		startPosition: 187;
+																																		stopPosition: 194;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 187;
+																																stopPosition: 194;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 187;
+																														stopPosition: 194;
+																														yourself);
+																												startPosition: 187;
+																												stopPosition: 194;
+																												yourself);
+																										startPosition: 187;
+																										stopPosition: 194;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 187;
+																								stopPosition: 194;
+																								yourself);
+																						startPosition: 187;
+																						stopPosition: 194;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ai_x1';
+																																		startPosition: 197;
+																																		stopPosition: 201;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 197;
+																																stopPosition: 201;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 197;
+																														stopPosition: 201;
+																														yourself);
+																												startPosition: 197;
+																												stopPosition: 201;
+																												yourself);
+																										startPosition: 197;
+																										stopPosition: 201;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 197;
+																								stopPosition: 201;
+																								yourself);
+																						startPosition: 197;
+																						stopPosition: 201;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ai_x2';
+																																		startPosition: 204;
+																																		stopPosition: 208;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 204;
+																																stopPosition: 208;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 204;
+																														stopPosition: 208;
+																														yourself);
+																												startPosition: 204;
+																												stopPosition: 208;
+																												yourself);
+																										startPosition: 204;
+																										stopPosition: 208;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 204;
+																								stopPosition: 208;
+																								yourself);
+																						startPosition: 204;
+																						stopPosition: 208;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ai_y1';
+																																		startPosition: 211;
+																																		stopPosition: 215;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 211;
+																																stopPosition: 215;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 211;
+																														stopPosition: 215;
+																														yourself);
+																												startPosition: 211;
+																												stopPosition: 215;
+																												yourself);
+																										startPosition: 211;
+																										stopPosition: 215;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 211;
+																								stopPosition: 215;
+																								yourself);
+																						startPosition: 211;
+																						stopPosition: 215;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ai_y2';
+																																		startPosition: 218;
+																																		stopPosition: 222;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 218;
+																																stopPosition: 222;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 218;
+																														stopPosition: 222;
+																														yourself);
+																												startPosition: 218;
+																												stopPosition: 222;
+																												yourself);
+																										startPosition: 218;
+																										stopPosition: 222;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 218;
+																								stopPosition: 222;
+																								yourself);
+																						startPosition: 218;
+																						stopPosition: 222;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'al_format';
+																																		startPosition: 225;
+																																		stopPosition: 233;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 225;
+																																stopPosition: 233;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 225;
+																														stopPosition: 233;
+																														yourself);
+																												startPosition: 225;
+																												stopPosition: 233;
+																												yourself);
+																										startPosition: 225;
+																										stopPosition: 233;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 225;
+																								stopPosition: 233;
+																								yourself);
+																						startPosition: 225;
+																						stopPosition: 233;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ai_units';
+																																		startPosition: 236;
+																																		stopPosition: 243;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 236;
+																																stopPosition: 243;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 236;
+																														stopPosition: 243;
+																														yourself);
+																												startPosition: 236;
+																												stopPosition: 243;
+																												yourself);
+																										startPosition: 236;
+																										stopPosition: 243;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 236;
+																								stopPosition: 243;
+																								yourself);
+																						startPosition: 236;
+																						stopPosition: 243;
+																						yourself)};
+																				startPosition: 178;
+																				stopPosition: 244;
+																				yourself);
+																		startPosition: 165;
+																		stopPosition: 244;
+																		yourself);
+																startPosition: 165;
+																stopPosition: 244;
+																yourself);
+														expressionAction: nil;
+														startPosition: 165;
+														stopPosition: 244;
+														yourself);
+												startPosition: 162;
+												stopPosition: 244;
+												yourself);
+										startPosition: 154;
+										stopPosition: 244;
+										yourself);
+								startPosition: 154;
+								stopPosition: 244;
+								yourself).
+							(PWBASTStatement new
 								statement:
 									(PWBASTSpecialStatement new
 										specialStatement:
@@ -23700,30 +23759,30 @@ end function'
 																expressionTerm:
 																	(PWBASTNumber new
 																		number: '1';
-																		startPosition: 71;
-																		stopPosition: 71;
+																		startPosition: 253;
+																		stopPosition: 253;
 																		yourself);
-																startPosition: 71;
-																stopPosition: 71;
+																startPosition: 253;
+																stopPosition: 253;
 																yourself);
 														expressionAction: nil;
-														startPosition: 71;
-														stopPosition: 71;
+														startPosition: 253;
+														stopPosition: 253;
 														yourself);
-												startPosition: 64;
-												stopPosition: 71;
+												startPosition: 246;
+												stopPosition: 253;
 												yourself);
-										startPosition: 64;
-										stopPosition: 71;
+										startPosition: 246;
+										stopPosition: 253;
 										yourself);
-								startPosition: 64;
-								stopPosition: 71;
+								startPosition: 246;
+								stopPosition: 253;
 								yourself)};
-						startPosition: 64;
-						stopPosition: 71;
+						startPosition: 140;
+						stopPosition: 253;
 						yourself);
 				startPosition: 1;
-				stopPosition: 85;
+				stopPosition: 266;
 				yourself)
 ]
 
@@ -23813,16 +23872,16 @@ PWBCommonParserTest >> testFunctionInvocation10 [
 	self
 		assert:
 			(self
-				parse: 'of_check_process_row ( ll_dw_row, ll_row_y, lb_newpage, ipo_progress)'
+				parse: 'string(this.Describe ("datawindow.visualobjects"))'
 				rule: #functionInvocation)
 		equals:
 			(PWBASTFunctionInvocation new
 				defaultVariable: nil;
 				functionName:
 					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'of_check_process_row';
+						uncheckedIdentifier: 'string';
 						startPosition: 1;
-						stopPosition: 20;
+						stopPosition: 6;
 						yourself);
 				functionArguments:
 					(PWBASTFunctionArguments new
@@ -23838,211 +23897,92 @@ PWBCommonParserTest >> testFunctionInvocation10 [
 														accessOrType:
 															(PWBASTAccess new
 																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'll_dw_row';
-																				startPosition: 24;
-																				stopPosition: 32;
+																	(PWBASTSpecialVariable new
+																		this:
+																			(PWBASTThis new
+																				this: 'this';
+																				startPosition: 8;
+																				stopPosition: 11;
 																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 24;
-																		stopPosition: 32;
+																		startPosition: 8;
+																		stopPosition: 11;
 																		yourself);
 																arrayPosition: nil;
-																startPosition: 24;
-																stopPosition: 32;
+																startPosition: 8;
+																stopPosition: 11;
 																yourself);
-														startPosition: 24;
-														stopPosition: 32;
+														startPosition: 8;
+														stopPosition: 11;
 														yourself);
-												startPosition: 24;
-												stopPosition: 32;
+												startPosition: 8;
+												stopPosition: 11;
 												yourself);
-										expressionAction: nil;
-										startPosition: 24;
-										stopPosition: 32;
-										yourself);
-								startPosition: 24;
-								stopPosition: 32;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'll_row_y';
-																				startPosition: 35;
-																				stopPosition: 42;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 35;
-																		stopPosition: 42;
+										expressionAction:
+											(PWBASTExpressionAction new
+												action:
+													(PWBASTMethodInvocation new
+														methodInvocation:
+															(PWBASTRegularMethodInvocation new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'Describe';
+																		startPosition: 13;
+																		stopPosition: 20;
 																		yourself);
-																arrayPosition: nil;
-																startPosition: 35;
-																stopPosition: 42;
-																yourself);
-														startPosition: 35;
-														stopPosition: 42;
-														yourself);
-												startPosition: 35;
-												stopPosition: 42;
-												yourself);
-										expressionAction: nil;
-										startPosition: 35;
-										stopPosition: 42;
-										yourself);
-								startPosition: 35;
-								stopPosition: 42;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'lb_newpage';
-																				startPosition: 45;
-																				stopPosition: 54;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 45;
-																		stopPosition: 54;
+																functionArguments:
+																	(PWBASTFunctionArguments new
+																		functionArguments:
+																			{(PWBASTFunctionArgument new
+																				argumentOption: nil;
+																				expression:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTString new
+																										string: '"datawindow.visualobjects"';
+																										startPosition: 23;
+																										stopPosition: 48;
+																										yourself);
+																								startPosition: 23;
+																								stopPosition: 48;
+																								yourself);
+																						expressionAction: nil;
+																						startPosition: 23;
+																						stopPosition: 48;
+																						yourself);
+																				startPosition: 23;
+																				stopPosition: 48;
+																				yourself)};
+																		startPosition: 22;
+																		stopPosition: 49;
 																		yourself);
-																arrayPosition: nil;
-																startPosition: 45;
-																stopPosition: 54;
+																startPosition: 12;
+																stopPosition: 49;
 																yourself);
-														startPosition: 45;
-														stopPosition: 54;
+														startPosition: 12;
+														stopPosition: 49;
 														yourself);
-												startPosition: 45;
-												stopPosition: 54;
+												expressionAction: nil;
+												startPosition: 12;
+												stopPosition: 49;
 												yourself);
-										expressionAction: nil;
-										startPosition: 45;
-										stopPosition: 54;
+										startPosition: 8;
+										stopPosition: 49;
 										yourself);
-								startPosition: 45;
-								stopPosition: 54;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'ipo_progress';
-																				startPosition: 57;
-																				stopPosition: 68;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 57;
-																		stopPosition: 68;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 57;
-																stopPosition: 68;
-																yourself);
-														startPosition: 57;
-														stopPosition: 68;
-														yourself);
-												startPosition: 57;
-												stopPosition: 68;
-												yourself);
-										expressionAction: nil;
-										startPosition: 57;
-										stopPosition: 68;
-										yourself);
-								startPosition: 57;
-								stopPosition: 68;
+								startPosition: 8;
+								stopPosition: 49;
 								yourself)};
-						startPosition: 22;
-						stopPosition: 69;
+						startPosition: 7;
+						stopPosition: 50;
 						yourself);
 				startPosition: 1;
-				stopPosition: 69;
+				stopPosition: 50;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testFunctionInvocation2 [
-	<generated>
-	self
-		assert: (self parse: 'printSetup()' rule: #functionInvocation)
-		equals:
-			(PWBASTFunctionInvocation new
-				defaultVariable: nil;
-				functionName:
-					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'printSetup';
-						startPosition: 1;
-						stopPosition: 10;
-						yourself);
-				functionArguments:
-					(PWBASTFunctionArguments new
-						functionArguments: nil;
-						startPosition: 11;
-						stopPosition: 12;
-						yourself);
-				startPosition: 1;
-				stopPosition: 12;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation3 [
-	<generated>
-	self
-		assert: (self parse: 'printSetup()' rule: #functionInvocation)
-		equals:
-			(PWBASTFunctionInvocation new
-				defaultVariable: nil;
-				functionName:
-					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'printSetup';
-						startPosition: 1;
-						stopPosition: 10;
-						yourself);
-				functionArguments:
-					(PWBASTFunctionArguments new
-						functionArguments: nil;
-						startPosition: 11;
-						stopPosition: 12;
-						yourself);
-				startPosition: 1;
-				stopPosition: 12;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation4 [
 	<generated>
 	self
 		assert:
@@ -24231,91 +24171,7 @@ PWBCommonParserTest >> testFunctionInvocation4 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation5 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'wf_sval_rdg(                   "TAU_CAF",                  today() )'
-				rule: #functionInvocation)
-		equals:
-			(PWBASTFunctionInvocation new
-				defaultVariable: nil;
-				functionName:
-					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'wf_sval_rdg';
-						startPosition: 1;
-						stopPosition: 11;
-						yourself);
-				functionArguments:
-					(PWBASTFunctionArguments new
-						functionArguments:
-							{(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '"TAU_CAF"';
-														startPosition: 32;
-														stopPosition: 40;
-														yourself);
-												startPosition: 32;
-												stopPosition: 40;
-												yourself);
-										expressionAction: nil;
-										startPosition: 32;
-										stopPosition: 40;
-										yourself);
-								startPosition: 32;
-								stopPosition: 40;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTFunctionInvocation new
-														defaultVariable: nil;
-														functionName:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'today';
-																startPosition: 60;
-																stopPosition: 64;
-																yourself);
-														functionArguments:
-															(PWBASTFunctionArguments new
-																functionArguments: nil;
-																startPosition: 65;
-																stopPosition: 66;
-																yourself);
-														startPosition: 60;
-														stopPosition: 66;
-														yourself);
-												startPosition: 60;
-												stopPosition: 66;
-												yourself);
-										expressionAction: nil;
-										startPosition: 60;
-										stopPosition: 66;
-										yourself);
-								startPosition: 60;
-								stopPosition: 66;
-								yourself)};
-						startPosition: 12;
-						stopPosition: 68;
-						yourself);
-				startPosition: 1;
-				stopPosition: 68;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation6 [
+PWBCommonParserTest >> testFunctionInvocation3 [
 	<generated>
 	self
 		assert:
@@ -24587,233 +24443,32 @@ PWBCommonParserTest >> testFunctionInvocation6 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation7 [
+PWBCommonParserTest >> testFunctionInvocation4 [
 	<generated>
 	self
-		assert:
-			(self
-				parse: 'string(this.Describe ("datawindow.visualobjects"))'
-				rule: #functionInvocation)
+		assert: (self parse: 'printSetup()' rule: #functionInvocation)
 		equals:
 			(PWBASTFunctionInvocation new
 				defaultVariable: nil;
 				functionName:
 					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'string';
+						uncheckedIdentifier: 'printSetup';
 						startPosition: 1;
-						stopPosition: 6;
+						stopPosition: 10;
 						yourself);
 				functionArguments:
 					(PWBASTFunctionArguments new
-						functionArguments:
-							{(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTSpecialVariable new
-																		this:
-																			(PWBASTThis new
-																				this: 'this';
-																				startPosition: 8;
-																				stopPosition: 11;
-																				yourself);
-																		startPosition: 8;
-																		stopPosition: 11;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 8;
-																stopPosition: 11;
-																yourself);
-														startPosition: 8;
-														stopPosition: 11;
-														yourself);
-												startPosition: 8;
-												stopPosition: 11;
-												yourself);
-										expressionAction:
-											(PWBASTExpressionAction new
-												action:
-													(PWBASTMethodInvocation new
-														methodInvocation:
-															(PWBASTRegularMethodInvocation new
-																uncheckedIdentifier:
-																	(PWBASTUncheckedIdentifier new
-																		uncheckedIdentifier: 'Describe';
-																		startPosition: 13;
-																		stopPosition: 20;
-																		yourself);
-																functionArguments:
-																	(PWBASTFunctionArguments new
-																		functionArguments:
-																			{(PWBASTFunctionArgument new
-																				argumentOption: nil;
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTString new
-																										string: '"datawindow.visualobjects"';
-																										startPosition: 23;
-																										stopPosition: 48;
-																										yourself);
-																								startPosition: 23;
-																								stopPosition: 48;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 23;
-																						stopPosition: 48;
-																						yourself);
-																				startPosition: 23;
-																				stopPosition: 48;
-																				yourself)};
-																		startPosition: 22;
-																		stopPosition: 49;
-																		yourself);
-																startPosition: 12;
-																stopPosition: 49;
-																yourself);
-														startPosition: 12;
-														stopPosition: 49;
-														yourself);
-												expressionAction: nil;
-												startPosition: 12;
-												stopPosition: 49;
-												yourself);
-										startPosition: 8;
-										stopPosition: 49;
-										yourself);
-								startPosition: 8;
-								stopPosition: 49;
-								yourself)};
-						startPosition: 7;
-						stopPosition: 50;
+						functionArguments: nil;
+						startPosition: 11;
+						stopPosition: 12;
 						yourself);
 				startPosition: 1;
-				stopPosition: 50;
+				stopPosition: 12;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation8 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'of_globalreplace ( a_str, "~~","~~~~~~~~" )'
-				rule: #functionInvocation)
-		equals:
-			(PWBASTFunctionInvocation new
-				defaultVariable: nil;
-				functionName:
-					(PWBASTUncheckedIdentifier new
-						uncheckedIdentifier: 'of_globalreplace';
-						startPosition: 1;
-						stopPosition: 16;
-						yourself);
-				functionArguments:
-					(PWBASTFunctionArguments new
-						functionArguments:
-							{(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'a_str';
-																				startPosition: 20;
-																				stopPosition: 24;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 20;
-																		stopPosition: 24;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 20;
-																stopPosition: 24;
-																yourself);
-														startPosition: 20;
-														stopPosition: 24;
-														yourself);
-												startPosition: 20;
-												stopPosition: 24;
-												yourself);
-										expressionAction: nil;
-										startPosition: 20;
-										stopPosition: 24;
-										yourself);
-								startPosition: 20;
-								stopPosition: 24;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '"~~"';
-														startPosition: 27;
-														stopPosition: 30;
-														yourself);
-												startPosition: 27;
-												stopPosition: 30;
-												yourself);
-										expressionAction: nil;
-										startPosition: 27;
-										stopPosition: 30;
-										yourself);
-								startPosition: 27;
-								stopPosition: 30;
-								yourself).
-							(PWBASTFunctionArgument new
-								argumentOption: nil;
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '"~~~~~~~~"';
-														startPosition: 32;
-														stopPosition: 41;
-														yourself);
-												startPosition: 32;
-												stopPosition: 41;
-												yourself);
-										expressionAction: nil;
-										startPosition: 32;
-										stopPosition: 41;
-										yourself);
-								startPosition: 32;
-								stopPosition: 41;
-								yourself)};
-						startPosition: 18;
-						stopPosition: 43;
-						yourself);
-				startPosition: 1;
-				stopPosition: 43;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testFunctionInvocation9 [
+PWBCommonParserTest >> testFunctionInvocation5 [
 	<generated>
 	self
 		assert:
@@ -24850,6 +24505,12 @@ PWBCommonParserTest >> testFunctionInvocation9 [
 														stopPosition: 39;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '+';
+														startPosition: 40;
+														stopPosition: 40;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -24987,6 +24648,496 @@ PWBCommonParserTest >> testFunctionInvocation9 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 89;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testFunctionInvocation6 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'wf_sval_rdg(                   "TAU_CAF",                  today() )'
+				rule: #functionInvocation)
+		equals:
+			(PWBASTFunctionInvocation new
+				defaultVariable: nil;
+				functionName:
+					(PWBASTUncheckedIdentifier new
+						uncheckedIdentifier: 'wf_sval_rdg';
+						startPosition: 1;
+						stopPosition: 11;
+						yourself);
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"TAU_CAF"';
+														startPosition: 32;
+														stopPosition: 40;
+														yourself);
+												startPosition: 32;
+												stopPosition: 40;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 40;
+										yourself);
+								startPosition: 32;
+								stopPosition: 40;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTFunctionInvocation new
+														defaultVariable: nil;
+														functionName:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'today';
+																startPosition: 60;
+																stopPosition: 64;
+																yourself);
+														functionArguments:
+															(PWBASTFunctionArguments new
+																functionArguments: nil;
+																startPosition: 65;
+																stopPosition: 66;
+																yourself);
+														startPosition: 60;
+														stopPosition: 66;
+														yourself);
+												startPosition: 60;
+												stopPosition: 66;
+												yourself);
+										expressionAction: nil;
+										startPosition: 60;
+										stopPosition: 66;
+										yourself);
+								startPosition: 60;
+								stopPosition: 66;
+								yourself)};
+						startPosition: 12;
+						stopPosition: 68;
+						yourself);
+				startPosition: 1;
+				stopPosition: 68;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testFunctionInvocation7 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'of_globalreplace ( a_str, "~~","~~~~~~~~" )'
+				rule: #functionInvocation)
+		equals:
+			(PWBASTFunctionInvocation new
+				defaultVariable: nil;
+				functionName:
+					(PWBASTUncheckedIdentifier new
+						uncheckedIdentifier: 'of_globalreplace';
+						startPosition: 1;
+						stopPosition: 16;
+						yourself);
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'a_str';
+																				startPosition: 20;
+																				stopPosition: 24;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 20;
+																		stopPosition: 24;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 20;
+																stopPosition: 24;
+																yourself);
+														startPosition: 20;
+														stopPosition: 24;
+														yourself);
+												startPosition: 20;
+												stopPosition: 24;
+												yourself);
+										expressionAction: nil;
+										startPosition: 20;
+										stopPosition: 24;
+										yourself);
+								startPosition: 20;
+								stopPosition: 24;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"~~"';
+														startPosition: 27;
+														stopPosition: 30;
+														yourself);
+												startPosition: 27;
+												stopPosition: 30;
+												yourself);
+										expressionAction: nil;
+										startPosition: 27;
+										stopPosition: 30;
+										yourself);
+								startPosition: 27;
+								stopPosition: 30;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"~~~~~~~~"';
+														startPosition: 32;
+														stopPosition: 41;
+														yourself);
+												startPosition: 32;
+												stopPosition: 41;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 41;
+										yourself);
+								startPosition: 32;
+								stopPosition: 41;
+								yourself)};
+						startPosition: 18;
+						stopPosition: 43;
+						yourself);
+				startPosition: 1;
+				stopPosition: 43;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testFunctionInvocation8 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'of_globalreplace ( a_str, "~~","~~~~~~~~" )'
+				rule: #functionInvocation)
+		equals:
+			(PWBASTFunctionInvocation new
+				defaultVariable: nil;
+				functionName:
+					(PWBASTUncheckedIdentifier new
+						uncheckedIdentifier: 'of_globalreplace';
+						startPosition: 1;
+						stopPosition: 16;
+						yourself);
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'a_str';
+																				startPosition: 20;
+																				stopPosition: 24;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 20;
+																		stopPosition: 24;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 20;
+																stopPosition: 24;
+																yourself);
+														startPosition: 20;
+														stopPosition: 24;
+														yourself);
+												startPosition: 20;
+												stopPosition: 24;
+												yourself);
+										expressionAction: nil;
+										startPosition: 20;
+										stopPosition: 24;
+										yourself);
+								startPosition: 20;
+								stopPosition: 24;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"~~"';
+														startPosition: 27;
+														stopPosition: 30;
+														yourself);
+												startPosition: 27;
+												stopPosition: 30;
+												yourself);
+										expressionAction: nil;
+										startPosition: 27;
+										stopPosition: 30;
+										yourself);
+								startPosition: 27;
+								stopPosition: 30;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"~~~~~~~~"';
+														startPosition: 32;
+														stopPosition: 41;
+														yourself);
+												startPosition: 32;
+												stopPosition: 41;
+												yourself);
+										expressionAction: nil;
+										startPosition: 32;
+										stopPosition: 41;
+										yourself);
+								startPosition: 32;
+								stopPosition: 41;
+								yourself)};
+						startPosition: 18;
+						stopPosition: 43;
+						yourself);
+				startPosition: 1;
+				stopPosition: 43;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testFunctionInvocation9 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'of_check_process_row ( ll_dw_row, ll_row_y, lb_newpage, ipo_progress)'
+				rule: #functionInvocation)
+		equals:
+			(PWBASTFunctionInvocation new
+				defaultVariable: nil;
+				functionName:
+					(PWBASTUncheckedIdentifier new
+						uncheckedIdentifier: 'of_check_process_row';
+						startPosition: 1;
+						stopPosition: 20;
+						yourself);
+				functionArguments:
+					(PWBASTFunctionArguments new
+						functionArguments:
+							{(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'll_dw_row';
+																				startPosition: 24;
+																				stopPosition: 32;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 24;
+																		stopPosition: 32;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 24;
+																stopPosition: 32;
+																yourself);
+														startPosition: 24;
+														stopPosition: 32;
+														yourself);
+												startPosition: 24;
+												stopPosition: 32;
+												yourself);
+										expressionAction: nil;
+										startPosition: 24;
+										stopPosition: 32;
+										yourself);
+								startPosition: 24;
+								stopPosition: 32;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'll_row_y';
+																				startPosition: 35;
+																				stopPosition: 42;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 35;
+																		stopPosition: 42;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 35;
+																stopPosition: 42;
+																yourself);
+														startPosition: 35;
+														stopPosition: 42;
+														yourself);
+												startPosition: 35;
+												stopPosition: 42;
+												yourself);
+										expressionAction: nil;
+										startPosition: 35;
+										stopPosition: 42;
+										yourself);
+								startPosition: 35;
+								stopPosition: 42;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'lb_newpage';
+																				startPosition: 45;
+																				stopPosition: 54;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 45;
+																		stopPosition: 54;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 45;
+																stopPosition: 54;
+																yourself);
+														startPosition: 45;
+														stopPosition: 54;
+														yourself);
+												startPosition: 45;
+												stopPosition: 54;
+												yourself);
+										expressionAction: nil;
+										startPosition: 45;
+										stopPosition: 54;
+										yourself);
+								startPosition: 45;
+								stopPosition: 54;
+								yourself).
+							(PWBASTFunctionArgument new
+								argumentOption: nil;
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'ipo_progress';
+																				startPosition: 57;
+																				stopPosition: 68;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 57;
+																		stopPosition: 68;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 57;
+																stopPosition: 68;
+																yourself);
+														startPosition: 57;
+														stopPosition: 68;
+														yourself);
+												startPosition: 57;
+												stopPosition: 68;
+												yourself);
+										expressionAction: nil;
+										startPosition: 57;
+										stopPosition: 68;
+										yourself);
+								startPosition: 57;
+								stopPosition: 68;
+								yourself)};
+						startPosition: 22;
+						stopPosition: 69;
+						yourself);
+				startPosition: 1;
+				stopPosition: 69;
 				yourself)
 ]
 
@@ -25178,841 +25329,6 @@ PWBCommonParserTest >> testIfStatement1 [
 	self
 		assert:
 			(self
-				parse:
-					'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
-	else
-		end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNotExpression new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTFunctionInvocation new
-																						defaultVariable: nil;
-																						functionName:
-																							(PWBASTUncheckedIdentifier new
-																								uncheckedIdentifier: 'isNull';
-																								startPosition: 8;
-																								stopPosition: 13;
-																								yourself);
-																						functionArguments:
-																							(PWBASTFunctionArguments new
-																								functionArguments:
-																									{(PWBASTFunctionArgument new
-																										argumentOption: nil;
-																										expression:
-																											(PWBASTExpression new
-																												expression:
-																													(PWBASTExpressionTerm new
-																														expressionTerm:
-																															(PWBASTAccessOrType new
-																																accessOrType:
-																																	(PWBASTAccess new
-																																		accessed:
-																																			(PWBASTVariable new
-																																				identifier:
-																																					(PWBASTIdentifier new
-																																						identifier: 'ld_dct_dtc';
-																																						startPosition: 15;
-																																						stopPosition: 24;
-																																						yourself);
-																																				arrayDefinition: nil;
-																																				startPosition: 15;
-																																				stopPosition: 24;
-																																				yourself);
-																																		arrayPosition: nil;
-																																		startPosition: 15;
-																																		stopPosition: 24;
-																																		yourself);
-																																startPosition: 15;
-																																stopPosition: 24;
-																																yourself);
-																														startPosition: 15;
-																														stopPosition: 24;
-																														yourself);
-																												expressionAction: nil;
-																												startPosition: 15;
-																												stopPosition: 24;
-																												yourself);
-																										startPosition: 15;
-																										stopPosition: 24;
-																										yourself)};
-																								startPosition: 14;
-																								stopPosition: 25;
-																								yourself);
-																						startPosition: 8;
-																						stopPosition: 25;
-																						yourself);
-																				startPosition: 8;
-																				stopPosition: 25;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'ld_dct_crt';
-																																startPosition: 30;
-																																stopPosition: 39;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 30;
-																														stopPosition: 39;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 30;
-																												stopPosition: 39;
-																												yourself);
-																										startPosition: 30;
-																										stopPosition: 39;
-																										yourself);
-																								startPosition: 30;
-																								stopPosition: 39;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '0';
-																												startPosition: 43;
-																												stopPosition: 43;
-																												yourself);
-																										startPosition: 43;
-																										stopPosition: 43;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 43;
-																								stopPosition: 43;
-																								yourself);
-																						startPosition: 30;
-																						stopPosition: 43;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 30;
-																				stopPosition: 43;
-																				yourself);
-																		startPosition: 8;
-																		stopPosition: 43;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 8;
-																stopPosition: 43;
-																yourself);
-														startPosition: 4;
-														stopPosition: 43;
-														yourself);
-												startPosition: 4;
-												stopPosition: 43;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 43;
-										yourself);
-								startPosition: 4;
-								stopPosition: 43;
-								yourself);
-						statements: nil;
-						elseIfs: (OrderedCollection withAll: {});
-						else:
-							(PWBASTElse new
-								statements: nil;
-								startPosition: 51;
-								stopPosition: 57;
-								yourself);
-						startPosition: 1;
-						stopPosition: 63;
-						yourself);
-				startPosition: 1;
-				stopPosition: 63;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement10 [
-	<generated>
-	self
-		assert: (self parse: 'if not isValid(gw_utile) then return' rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfSingleLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNotExpression new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'isValid';
-																						startPosition: 8;
-																						stopPosition: 14;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTAccessOrType new
-																														accessOrType:
-																															(PWBASTAccess new
-																																accessed:
-																																	(PWBASTVariable new
-																																		identifier:
-																																			(PWBASTIdentifier new
-																																				identifier: 'gw_utile';
-																																				startPosition: 16;
-																																				stopPosition: 23;
-																																				yourself);
-																																		arrayDefinition: nil;
-																																		startPosition: 16;
-																																		stopPosition: 23;
-																																		yourself);
-																																arrayPosition: nil;
-																																startPosition: 16;
-																																stopPosition: 23;
-																																yourself);
-																														startPosition: 16;
-																														stopPosition: 23;
-																														yourself);
-																												startPosition: 16;
-																												stopPosition: 23;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 16;
-																										stopPosition: 23;
-																										yourself);
-																								startPosition: 16;
-																								stopPosition: 23;
-																								yourself)};
-																						startPosition: 15;
-																						stopPosition: 24;
-																						yourself);
-																				startPosition: 8;
-																				stopPosition: 24;
-																				yourself);
-																		startPosition: 8;
-																		stopPosition: 24;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 8;
-																stopPosition: 24;
-																yourself);
-														startPosition: 4;
-														stopPosition: 24;
-														yourself);
-												startPosition: 4;
-												stopPosition: 24;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 24;
-										yourself);
-								startPosition: 4;
-								stopPosition: 24;
-								yourself);
-						statement:
-							(PWBASTStatement new
-								statement:
-									(PWBASTSpecialStatement new
-										specialStatement:
-											(PWBASTReturnStatement new
-												expression: nil;
-												startPosition: 31;
-												stopPosition: 36;
-												yourself);
-										startPosition: 31;
-										stopPosition: 36;
-										yourself);
-								startPosition: 31;
-								stopPosition: 36;
-								yourself);
-						elseOnLine: nil;
-						startPosition: 1;
-						stopPosition: 36;
-						yourself);
-				startPosition: 1;
-				stopPosition: 36;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement11 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'If ipo_requestor.Dynamic SaveAs(ls_tmpfile, PSReport!, True) <> 1 Then
-			Return -1
-		End If'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'ipo_requestor';
-																						startPosition: 4;
-																						stopPosition: 16;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 4;
-																				stopPosition: 16;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 4;
-																		stopPosition: 16;
-																		yourself);
-																startPosition: 4;
-																stopPosition: 16;
-																yourself);
-														startPosition: 4;
-														stopPosition: 16;
-														yourself);
-												expressionAction:
-													(PWBASTExpressionAction new
-														action:
-															(PWBASTMethodInvocation new
-																methodInvocation:
-																	(PWBASTDynamicMethodInvocation new
-																		uncheckedIdentifier:
-																			(PWBASTUncheckedIdentifier new
-																				uncheckedIdentifier: 'SaveAs';
-																				startPosition: 26;
-																				stopPosition: 31;
-																				yourself);
-																		functionArguments:
-																			(PWBASTFunctionArguments new
-																				functionArguments:
-																					{(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'ls_tmpfile';
-																																		startPosition: 33;
-																																		stopPosition: 42;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 33;
-																																stopPosition: 42;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 33;
-																														stopPosition: 42;
-																														yourself);
-																												startPosition: 33;
-																												stopPosition: 42;
-																												yourself);
-																										startPosition: 33;
-																										stopPosition: 42;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 33;
-																								stopPosition: 42;
-																								yourself);
-																						startPosition: 33;
-																						stopPosition: 42;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTConstant new
-																												constant: 'PSReport!';
-																												startPosition: 45;
-																												stopPosition: 53;
-																												yourself);
-																										startPosition: 45;
-																										stopPosition: 53;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 45;
-																								stopPosition: 53;
-																								yourself);
-																						startPosition: 45;
-																						stopPosition: 53;
-																						yourself).
-																					(PWBASTFunctionArgument new
-																						argumentOption: nil;
-																						expression:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTAccessOrType new
-																												accessOrType:
-																													(PWBASTAccess new
-																														accessed:
-																															(PWBASTVariable new
-																																identifier:
-																																	(PWBASTIdentifier new
-																																		identifier: 'True';
-																																		startPosition: 56;
-																																		stopPosition: 59;
-																																		yourself);
-																																arrayDefinition: nil;
-																																startPosition: 56;
-																																stopPosition: 59;
-																																yourself);
-																														arrayPosition: nil;
-																														startPosition: 56;
-																														stopPosition: 59;
-																														yourself);
-																												startPosition: 56;
-																												stopPosition: 59;
-																												yourself);
-																										startPosition: 56;
-																										stopPosition: 59;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 56;
-																								stopPosition: 59;
-																								yourself);
-																						startPosition: 56;
-																						stopPosition: 59;
-																						yourself)};
-																				startPosition: 32;
-																				stopPosition: 60;
-																				yourself);
-																		startPosition: 17;
-																		stopPosition: 60;
-																		yourself);
-																startPosition: 17;
-																stopPosition: 60;
-																yourself);
-														expressionAction: nil;
-														startPosition: 17;
-														stopPosition: 60;
-														yourself);
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTNumber new
-																		number: '1';
-																		startPosition: 65;
-																		stopPosition: 65;
-																		yourself);
-																startPosition: 65;
-																stopPosition: 65;
-																yourself);
-														expressionAction: nil;
-														startPosition: 65;
-														stopPosition: 65;
-														yourself);
-												startPosition: 4;
-												stopPosition: 65;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 65;
-										yourself);
-								startPosition: 4;
-								stopPosition: 65;
-								yourself);
-						statements:
-							(PWBASTStatements new
-								statements:
-									{(PWBASTStatement new
-										statement:
-											(PWBASTSpecialStatement new
-												specialStatement:
-													(PWBASTReturnStatement new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionWithSign new
-																		expressionSign:
-																			(PWBASTExpressionSign new
-																				expressionSign: '-';
-																				startPosition: 82;
-																				stopPosition: 82;
-																				yourself);
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTNumber new
-																								number: '1';
-																								startPosition: 83;
-																								stopPosition: 83;
-																								yourself);
-																						startPosition: 83;
-																						stopPosition: 83;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 83;
-																				stopPosition: 83;
-																				yourself);
-																		startPosition: 82;
-																		stopPosition: 83;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 82;
-																stopPosition: 83;
-																yourself);
-														startPosition: 75;
-														stopPosition: 83;
-														yourself);
-												startPosition: 75;
-												stopPosition: 83;
-												yourself);
-										startPosition: 75;
-										stopPosition: 83;
-										yourself)};
-								startPosition: 75;
-								stopPosition: 83;
-								yourself);
-						elseIfs: (OrderedCollection withAll: {});
-						else: nil;
-						startPosition: 1;
-						stopPosition: 92;
-						yourself);
-				startPosition: 1;
-				stopPosition: 92;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement12 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'if isnull(is_ctr_rej) then is_ctr_rej = "N" else is_ctr_rej = trim(is_ctr_rej)'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfSingleLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTFunctionInvocation new
-														defaultVariable: nil;
-														functionName:
-															(PWBASTUncheckedIdentifier new
-																uncheckedIdentifier: 'isnull';
-																startPosition: 4;
-																stopPosition: 9;
-																yourself);
-														functionArguments:
-															(PWBASTFunctionArguments new
-																functionArguments:
-																	{(PWBASTFunctionArgument new
-																		argumentOption: nil;
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTAccessOrType new
-																								accessOrType:
-																									(PWBASTAccess new
-																										accessed:
-																											(PWBASTVariable new
-																												identifier:
-																													(PWBASTIdentifier new
-																														identifier: 'is_ctr_rej';
-																														startPosition: 11;
-																														stopPosition: 20;
-																														yourself);
-																												arrayDefinition: nil;
-																												startPosition: 11;
-																												stopPosition: 20;
-																												yourself);
-																										arrayPosition: nil;
-																										startPosition: 11;
-																										stopPosition: 20;
-																										yourself);
-																								startPosition: 11;
-																								stopPosition: 20;
-																								yourself);
-																						startPosition: 11;
-																						stopPosition: 20;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 11;
-																				stopPosition: 20;
-																				yourself);
-																		startPosition: 11;
-																		stopPosition: 20;
-																		yourself)};
-																startPosition: 10;
-																stopPosition: 21;
-																yourself);
-														startPosition: 4;
-														stopPosition: 21;
-														yourself);
-												startPosition: 4;
-												stopPosition: 21;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 21;
-										yourself);
-								startPosition: 4;
-								stopPosition: 21;
-								yourself);
-						statement:
-							(PWBASTStatement new
-								statement:
-									(PWBASTAssignationStatement new
-										accessOrType:
-											(PWBASTAccessOrType new
-												accessOrType:
-													(PWBASTAccess new
-														accessed:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'is_ctr_rej';
-																		startPosition: 28;
-																		stopPosition: 37;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 28;
-																stopPosition: 37;
-																yourself);
-														arrayPosition: nil;
-														startPosition: 28;
-														stopPosition: 37;
-														yourself);
-												startPosition: 28;
-												stopPosition: 37;
-												yourself);
-										expressionAction: nil;
-										assignation:
-											(PWBASTAssignation new
-												expression:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTString new
-																		string: '"N"';
-																		startPosition: 41;
-																		stopPosition: 43;
-																		yourself);
-																startPosition: 41;
-																stopPosition: 43;
-																yourself);
-														expressionAction: nil;
-														startPosition: 41;
-														stopPosition: 43;
-														yourself);
-												startPosition: 38;
-												stopPosition: 43;
-												yourself);
-										startPosition: 28;
-										stopPosition: 43;
-										yourself);
-								startPosition: 28;
-								stopPosition: 43;
-								yourself);
-						elseOnLine:
-							(PWBASTElseOnLine new
-								statement:
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'is_ctr_rej';
-																				startPosition: 50;
-																				stopPosition: 59;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 50;
-																		stopPosition: 59;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 50;
-																stopPosition: 59;
-																yourself);
-														startPosition: 50;
-														stopPosition: 59;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTFunctionInvocation new
-																				defaultVariable: nil;
-																				functionName:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'trim';
-																						startPosition: 63;
-																						stopPosition: 66;
-																						yourself);
-																				functionArguments:
-																					(PWBASTFunctionArguments new
-																						functionArguments:
-																							{(PWBASTFunctionArgument new
-																								argumentOption: nil;
-																								expression:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTExpressionTerm new
-																												expressionTerm:
-																													(PWBASTAccessOrType new
-																														accessOrType:
-																															(PWBASTAccess new
-																																accessed:
-																																	(PWBASTVariable new
-																																		identifier:
-																																			(PWBASTIdentifier new
-																																				identifier: 'is_ctr_rej';
-																																				startPosition: 68;
-																																				stopPosition: 77;
-																																				yourself);
-																																		arrayDefinition: nil;
-																																		startPosition: 68;
-																																		stopPosition: 77;
-																																		yourself);
-																																arrayPosition: nil;
-																																startPosition: 68;
-																																stopPosition: 77;
-																																yourself);
-																														startPosition: 68;
-																														stopPosition: 77;
-																														yourself);
-																												startPosition: 68;
-																												stopPosition: 77;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 68;
-																										stopPosition: 77;
-																										yourself);
-																								startPosition: 68;
-																								stopPosition: 77;
-																								yourself)};
-																						startPosition: 67;
-																						stopPosition: 78;
-																						yourself);
-																				startPosition: 63;
-																				stopPosition: 78;
-																				yourself);
-																		startPosition: 63;
-																		stopPosition: 78;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 63;
-																stopPosition: 78;
-																yourself);
-														startPosition: 60;
-														stopPosition: 78;
-														yourself);
-												startPosition: 50;
-												stopPosition: 78;
-												yourself);
-										startPosition: 50;
-										stopPosition: 78;
-										yourself);
-								startPosition: 44;
-								stopPosition: 78;
-								yourself);
-						startPosition: 1;
-						stopPosition: 78;
-						yourself);
-				startPosition: 1;
-				stopPosition: 78;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement13 [
-	<generated>
-	self
-		assert:
-			(self
 				parse: 'if is_dossier > ''PP'' and is_dossier < ''PQ''then ls_prn_cod = "CPP"'
 				rule: #ifStatement)
 		equals:
@@ -26054,6 +25370,12 @@ PWBCommonParserTest >> testIfStatement13 [
 														stopPosition: 13;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '>';
+														startPosition: 15;
+														stopPosition: 15;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -26070,6 +25392,12 @@ PWBCommonParserTest >> testIfStatement13 [
 																		stopPosition: 20;
 																		yourself);
 																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: 'and';
+																		startPosition: 22;
+																		stopPosition: 24;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -26103,6 +25431,12 @@ PWBCommonParserTest >> testIfStatement13 [
 																						stopPosition: 35;
 																						yourself);
 																				expressionAction: nil;
+																				expressionOperator:
+																					(PWBASTExpressionOperator new
+																						expressionOperator: '<';
+																						startPosition: 37;
+																						stopPosition: 37;
+																						yourself);
 																				right:
 																					(PWBASTExpression new
 																						expression:
@@ -26210,7 +25544,629 @@ PWBCommonParserTest >> testIfStatement13 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement14 [
+PWBCommonParserTest >> testIfStatement10 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'if true then
+	if false then a = 2
+	else 
+end if'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'true';
+																				startPosition: 4;
+																				stopPosition: 7;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 4;
+																		stopPosition: 7;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 4;
+																stopPosition: 7;
+																yourself);
+														startPosition: 4;
+														stopPosition: 7;
+														yourself);
+												startPosition: 4;
+												stopPosition: 7;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 7;
+										yourself);
+								startPosition: 4;
+								stopPosition: 7;
+								yourself);
+						statements:
+							(PWBASTStatements new
+								statements:
+									{(PWBASTStatement new
+										statement:
+											(PWBASTIfStatement new
+												ifStatement:
+													(PWBASTIfSingleLine new
+														condition:
+															(PWBASTCondition new
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTAccessOrType new
+																						accessOrType:
+																							(PWBASTAccess new
+																								accessed:
+																									(PWBASTVariable new
+																										identifier:
+																											(PWBASTIdentifier new
+																												identifier: 'false';
+																												startPosition: 18;
+																												stopPosition: 22;
+																												yourself);
+																										arrayDefinition: nil;
+																										startPosition: 18;
+																										stopPosition: 22;
+																										yourself);
+																								arrayPosition: nil;
+																								startPosition: 18;
+																								stopPosition: 22;
+																								yourself);
+																						startPosition: 18;
+																						stopPosition: 22;
+																						yourself);
+																				startPosition: 18;
+																				stopPosition: 22;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 18;
+																		stopPosition: 22;
+																		yourself);
+																startPosition: 18;
+																stopPosition: 22;
+																yourself);
+														statement:
+															(PWBASTStatement new
+																statement:
+																	(PWBASTAssignationStatement new
+																		accessOrType:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTVariable new
+																								identifier:
+																									(PWBASTIdentifier new
+																										identifier: 'a';
+																										startPosition: 29;
+																										stopPosition: 29;
+																										yourself);
+																								arrayDefinition: nil;
+																								startPosition: 29;
+																								stopPosition: 29;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 29;
+																						stopPosition: 29;
+																						yourself);
+																				startPosition: 29;
+																				stopPosition: 29;
+																				yourself);
+																		expressionAction: nil;
+																		assignation:
+																			(PWBASTAssignation new
+																				expression:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTNumber new
+																										number: '2';
+																										startPosition: 33;
+																										stopPosition: 33;
+																										yourself);
+																								startPosition: 33;
+																								stopPosition: 33;
+																								yourself);
+																						expressionAction: nil;
+																						startPosition: 33;
+																						stopPosition: 33;
+																						yourself);
+																				startPosition: 30;
+																				stopPosition: 33;
+																				yourself);
+																		startPosition: 29;
+																		stopPosition: 33;
+																		yourself);
+																startPosition: 29;
+																stopPosition: 33;
+																yourself);
+														elseOnLine: nil;
+														startPosition: 15;
+														stopPosition: 33;
+														yourself);
+												startPosition: 15;
+												stopPosition: 33;
+												yourself);
+										startPosition: 15;
+										stopPosition: 33;
+										yourself)};
+								startPosition: 15;
+								stopPosition: 33;
+								yourself);
+						elseIfs: (OrderedCollection withAll: {});
+						else:
+							(PWBASTElse new
+								statements: nil;
+								startPosition: 36;
+								stopPosition: 41;
+								yourself);
+						startPosition: 1;
+						stopPosition: 47;
+						yourself);
+				startPosition: 1;
+				stopPosition: 47;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement11 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'if ls_gpp_ids = ''00405727'' 
+			or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
+			string ls
+			ls = ""
+		end if'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'ls_gpp_ids';
+																						startPosition: 4;
+																						stopPosition: 13;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 4;
+																				stopPosition: 13;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 4;
+																		stopPosition: 13;
+																		yourself);
+																startPosition: 4;
+																stopPosition: 13;
+																yourself);
+														startPosition: 4;
+														stopPosition: 13;
+														yourself);
+												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 15;
+														stopPosition: 15;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTOperatorExpression new
+																left:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '''00405727''';
+																				startPosition: 17;
+																				stopPosition: 26;
+																				yourself);
+																		startPosition: 17;
+																		stopPosition: 26;
+																		yourself);
+																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: 'or';
+																		startPosition: 32;
+																		stopPosition: 33;
+																		yourself);
+																right:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTOperatorExpression new
+																				left:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTAccessOrType new
+																								accessOrType:
+																									(PWBASTAccess new
+																										accessed:
+																											(PWBASTVariable new
+																												identifier:
+																													(PWBASTIdentifier new
+																														identifier: 'ls_gpp_ids';
+																														startPosition: 35;
+																														stopPosition: 44;
+																														yourself);
+																												arrayDefinition: nil;
+																												startPosition: 35;
+																												stopPosition: 44;
+																												yourself);
+																										arrayPosition: nil;
+																										startPosition: 35;
+																										stopPosition: 44;
+																										yourself);
+																								startPosition: 35;
+																								stopPosition: 44;
+																								yourself);
+																						startPosition: 35;
+																						stopPosition: 44;
+																						yourself);
+																				expressionAction: nil;
+																				expressionOperator:
+																					(PWBASTExpressionOperator new
+																						expressionOperator: '=';
+																						startPosition: 46;
+																						stopPosition: 46;
+																						yourself);
+																				right:
+																					(PWBASTExpression new
+																						expression:
+																							(PWBASTOperatorExpression new
+																								left:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTString new
+																												string: '''00096271''';
+																												startPosition: 48;
+																												stopPosition: 57;
+																												yourself);
+																										startPosition: 48;
+																										stopPosition: 57;
+																										yourself);
+																								expressionAction: nil;
+																								expressionOperator:
+																									(PWBASTExpressionOperator new
+																										expressionOperator: 'or';
+																										startPosition: 59;
+																										stopPosition: 60;
+																										yourself);
+																								right:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTOperatorExpression new
+																												left:
+																													(PWBASTExpressionTerm new
+																														expressionTerm:
+																															(PWBASTAccessOrType new
+																																accessOrType:
+																																	(PWBASTAccess new
+																																		accessed:
+																																			(PWBASTVariable new
+																																				identifier:
+																																					(PWBASTIdentifier new
+																																						identifier: 'ls_gpp_ids';
+																																						startPosition: 62;
+																																						stopPosition: 71;
+																																						yourself);
+																																				arrayDefinition: nil;
+																																				startPosition: 62;
+																																				stopPosition: 71;
+																																				yourself);
+																																		arrayPosition: nil;
+																																		startPosition: 62;
+																																		stopPosition: 71;
+																																		yourself);
+																																startPosition: 62;
+																																stopPosition: 71;
+																																yourself);
+																														startPosition: 62;
+																														stopPosition: 71;
+																														yourself);
+																												expressionAction: nil;
+																												expressionOperator:
+																													(PWBASTExpressionOperator new
+																														expressionOperator: '=';
+																														startPosition: 73;
+																														stopPosition: 73;
+																														yourself);
+																												right:
+																													(PWBASTExpression new
+																														expression:
+																															(PWBASTOperatorExpression new
+																																left:
+																																	(PWBASTExpressionTerm new
+																																		expressionTerm:
+																																			(PWBASTString new
+																																				string: '''00432677''';
+																																				startPosition: 75;
+																																				stopPosition: 84;
+																																				yourself);
+																																		startPosition: 75;
+																																		stopPosition: 84;
+																																		yourself);
+																																expressionAction: nil;
+																																expressionOperator:
+																																	(PWBASTExpressionOperator new
+																																		expressionOperator: 'or';
+																																		startPosition: 86;
+																																		stopPosition: 87;
+																																		yourself);
+																																right:
+																																	(PWBASTExpression new
+																																		expression:
+																																			(PWBASTOperatorExpression new
+																																				left:
+																																					(PWBASTExpressionTerm new
+																																						expressionTerm:
+																																							(PWBASTAccessOrType new
+																																								accessOrType:
+																																									(PWBASTAccess new
+																																										accessed:
+																																											(PWBASTVariable new
+																																												identifier:
+																																													(PWBASTIdentifier new
+																																														identifier: 'ls_gpp_ids';
+																																														startPosition: 89;
+																																														stopPosition: 98;
+																																														yourself);
+																																												arrayDefinition: nil;
+																																												startPosition: 89;
+																																												stopPosition: 98;
+																																												yourself);
+																																										arrayPosition: nil;
+																																										startPosition: 89;
+																																										stopPosition: 98;
+																																										yourself);
+																																								startPosition: 89;
+																																								stopPosition: 98;
+																																								yourself);
+																																						startPosition: 89;
+																																						stopPosition: 98;
+																																						yourself);
+																																				expressionAction: nil;
+																																				expressionOperator:
+																																					(PWBASTExpressionOperator new
+																																						expressionOperator: '=';
+																																						startPosition: 100;
+																																						stopPosition: 100;
+																																						yourself);
+																																				right:
+																																					(PWBASTExpression new
+																																						expression:
+																																							(PWBASTExpressionTerm new
+																																								expressionTerm:
+																																									(PWBASTAccessOrType new
+																																										accessOrType:
+																																											(PWBASTAccess new
+																																												accessed:
+																																													(PWBASTVariable new
+																																														identifier:
+																																															(PWBASTIdentifier new
+																																																identifier: 'ls_adherent_test';
+																																																startPosition: 102;
+																																																stopPosition: 117;
+																																																yourself);
+																																														arrayDefinition: nil;
+																																														startPosition: 102;
+																																														stopPosition: 117;
+																																														yourself);
+																																												arrayPosition: nil;
+																																												startPosition: 102;
+																																												stopPosition: 117;
+																																												yourself);
+																																										startPosition: 102;
+																																										stopPosition: 117;
+																																										yourself);
+																																								startPosition: 102;
+																																								stopPosition: 117;
+																																								yourself);
+																																						expressionAction: nil;
+																																						startPosition: 102;
+																																						stopPosition: 117;
+																																						yourself);
+																																				startPosition: 89;
+																																				stopPosition: 117;
+																																				yourself);
+																																		expressionAction: nil;
+																																		startPosition: 89;
+																																		stopPosition: 117;
+																																		yourself);
+																																startPosition: 75;
+																																stopPosition: 117;
+																																yourself);
+																														expressionAction: nil;
+																														startPosition: 75;
+																														stopPosition: 117;
+																														yourself);
+																												startPosition: 62;
+																												stopPosition: 117;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 62;
+																										stopPosition: 117;
+																										yourself);
+																								startPosition: 48;
+																								stopPosition: 117;
+																								yourself);
+																						expressionAction: nil;
+																						startPosition: 48;
+																						stopPosition: 117;
+																						yourself);
+																				startPosition: 35;
+																				stopPosition: 117;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 35;
+																		stopPosition: 117;
+																		yourself);
+																startPosition: 17;
+																stopPosition: 117;
+																yourself);
+														expressionAction: nil;
+														startPosition: 17;
+														stopPosition: 117;
+														yourself);
+												startPosition: 4;
+												stopPosition: 117;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 117;
+										yourself);
+								startPosition: 4;
+								stopPosition: 117;
+								yourself);
+						statements:
+							(PWBASTStatements new
+								statements:
+									{(PWBASTStatement new
+										statement:
+											(PWBASTVariableDeclarations new
+												type:
+													(PWBASTType new
+														type:
+															(PWBASTBasicType new
+																basicType: 'string';
+																startPosition: 127;
+																stopPosition: 132;
+																yourself);
+														startPosition: 127;
+														stopPosition: 132;
+														yourself);
+												variableAssignations:
+													{(PWBASTVariableAssignation new
+														variable:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'ls';
+																		startPosition: 134;
+																		stopPosition: 135;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 134;
+																stopPosition: 135;
+																yourself);
+														assignation: nil;
+														startPosition: 134;
+														stopPosition: 135;
+														yourself)};
+												startPosition: 127;
+												stopPosition: 135;
+												yourself);
+										startPosition: 127;
+										stopPosition: 135;
+										yourself).
+									(PWBASTStatement new
+										statement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'ls';
+																				startPosition: 140;
+																				stopPosition: 141;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 140;
+																		stopPosition: 141;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 140;
+																stopPosition: 141;
+																yourself);
+														startPosition: 140;
+														stopPosition: 141;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '""';
+																				startPosition: 145;
+																				stopPosition: 146;
+																				yourself);
+																		startPosition: 145;
+																		stopPosition: 146;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 145;
+																stopPosition: 146;
+																yourself);
+														startPosition: 142;
+														stopPosition: 146;
+														yourself);
+												startPosition: 140;
+												stopPosition: 146;
+												yourself);
+										startPosition: 140;
+										stopPosition: 146;
+										yourself)};
+								startPosition: 127;
+								stopPosition: 146;
+								yourself);
+						elseIfs: (OrderedCollection withAll: {});
+						else: nil;
+						startPosition: 1;
+						stopPosition: 155;
+						yourself);
+				startPosition: 1;
+				stopPosition: 155;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement12 [
 	<generated>
 	self
 		assert:
@@ -26261,6 +26217,12 @@ end if'
 														stopPosition: 9;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 11;
+														stopPosition: 11;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -26466,7 +26428,7 @@ end if'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement15 [
+PWBCommonParserTest >> testIfStatement13 [
 	<generated>
 	self
 		assert:
@@ -26517,6 +26479,12 @@ end if'
 														stopPosition: 8;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 9;
+														stopPosition: 9;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -26533,6 +26501,12 @@ end if'
 																		stopPosition: 23;
 																		yourself);
 																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: 'and';
+																		startPosition: 25;
+																		stopPosition: 27;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -26566,6 +26540,12 @@ end if'
 																						stopPosition: 33;
 																						yourself);
 																				expressionAction: nil;
+																				expressionOperator:
+																					(PWBASTExpressionOperator new
+																						expressionOperator: '=';
+																						startPosition: 34;
+																						stopPosition: 34;
+																						yourself);
 																				right:
 																					(PWBASTExpression new
 																						expression:
@@ -26582,6 +26562,12 @@ end if'
 																										stopPosition: 48;
 																										yourself);
 																								expressionAction: nil;
+																								expressionOperator:
+																									(PWBASTExpressionOperator new
+																										expressionOperator: 'and';
+																										startPosition: 50;
+																										stopPosition: 52;
+																										yourself);
 																								right:
 																									(PWBASTExpression new
 																										expression:
@@ -26615,6 +26601,12 @@ end if'
 																														stopPosition: 58;
 																														yourself);
 																												expressionAction: nil;
+																												expressionOperator:
+																													(PWBASTExpressionOperator new
+																														expressionOperator: '=';
+																														startPosition: 59;
+																														stopPosition: 59;
+																														yourself);
 																												right:
 																													(PWBASTExpression new
 																														expression:
@@ -26631,6 +26623,12 @@ end if'
 																																		stopPosition: 73;
 																																		yourself);
 																																expressionAction: nil;
+																																expressionOperator:
+																																	(PWBASTExpressionOperator new
+																																		expressionOperator: 'and';
+																																		startPosition: 75;
+																																		stopPosition: 77;
+																																		yourself);
 																																right:
 																																	(PWBASTExpression new
 																																		expression:
@@ -26664,6 +26662,12 @@ end if'
 																																						stopPosition: 83;
 																																						yourself);
 																																				expressionAction: nil;
+																																				expressionOperator:
+																																					(PWBASTExpressionOperator new
+																																						expressionOperator: '=';
+																																						startPosition: 84;
+																																						stopPosition: 84;
+																																						yourself);
 																																				right:
 																																					(PWBASTExpression new
 																																						expression:
@@ -26781,1044 +26785,7 @@ end if'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement16 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'if true then
-	if false then a = 2
-	else 
-end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'true';
-																				startPosition: 4;
-																				stopPosition: 7;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 4;
-																		stopPosition: 7;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 4;
-																stopPosition: 7;
-																yourself);
-														startPosition: 4;
-														stopPosition: 7;
-														yourself);
-												startPosition: 4;
-												stopPosition: 7;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 7;
-										yourself);
-								startPosition: 4;
-								stopPosition: 7;
-								yourself);
-						statements:
-							(PWBASTStatements new
-								statements:
-									{(PWBASTStatement new
-										statement:
-											(PWBASTIfStatement new
-												ifStatement:
-													(PWBASTIfSingleLine new
-														condition:
-															(PWBASTCondition new
-																expression:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'false';
-																												startPosition: 18;
-																												stopPosition: 22;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 18;
-																										stopPosition: 22;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 18;
-																								stopPosition: 22;
-																								yourself);
-																						startPosition: 18;
-																						stopPosition: 22;
-																						yourself);
-																				startPosition: 18;
-																				stopPosition: 22;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 18;
-																		stopPosition: 22;
-																		yourself);
-																startPosition: 18;
-																stopPosition: 22;
-																yourself);
-														statement:
-															(PWBASTStatement new
-																statement:
-																	(PWBASTAssignationStatement new
-																		accessOrType:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'a';
-																										startPosition: 29;
-																										stopPosition: 29;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 29;
-																								stopPosition: 29;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 29;
-																						stopPosition: 29;
-																						yourself);
-																				startPosition: 29;
-																				stopPosition: 29;
-																				yourself);
-																		expressionAction: nil;
-																		assignation:
-																			(PWBASTAssignation new
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTNumber new
-																										number: '2';
-																										startPosition: 33;
-																										stopPosition: 33;
-																										yourself);
-																								startPosition: 33;
-																								stopPosition: 33;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 33;
-																						stopPosition: 33;
-																						yourself);
-																				startPosition: 30;
-																				stopPosition: 33;
-																				yourself);
-																		startPosition: 29;
-																		stopPosition: 33;
-																		yourself);
-																startPosition: 29;
-																stopPosition: 33;
-																yourself);
-														elseOnLine: nil;
-														startPosition: 15;
-														stopPosition: 33;
-														yourself);
-												startPosition: 15;
-												stopPosition: 33;
-												yourself);
-										startPosition: 15;
-										stopPosition: 33;
-										yourself)};
-								startPosition: 15;
-								stopPosition: 33;
-								yourself);
-						elseIfs: (OrderedCollection withAll: {});
-						else:
-							(PWBASTElse new
-								statements: nil;
-								startPosition: 36;
-								stopPosition: 41;
-								yourself);
-						startPosition: 1;
-						stopPosition: 47;
-						yourself);
-				startPosition: 1;
-				stopPosition: 47;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement17 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
-	
-		end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTNotExpression new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTOperatorExpression new
-																		left:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTFunctionInvocation new
-																						defaultVariable: nil;
-																						functionName:
-																							(PWBASTUncheckedIdentifier new
-																								uncheckedIdentifier: 'isNull';
-																								startPosition: 8;
-																								stopPosition: 13;
-																								yourself);
-																						functionArguments:
-																							(PWBASTFunctionArguments new
-																								functionArguments:
-																									{(PWBASTFunctionArgument new
-																										argumentOption: nil;
-																										expression:
-																											(PWBASTExpression new
-																												expression:
-																													(PWBASTExpressionTerm new
-																														expressionTerm:
-																															(PWBASTAccessOrType new
-																																accessOrType:
-																																	(PWBASTAccess new
-																																		accessed:
-																																			(PWBASTVariable new
-																																				identifier:
-																																					(PWBASTIdentifier new
-																																						identifier: 'ld_dct_dtc';
-																																						startPosition: 15;
-																																						stopPosition: 24;
-																																						yourself);
-																																				arrayDefinition: nil;
-																																				startPosition: 15;
-																																				stopPosition: 24;
-																																				yourself);
-																																		arrayPosition: nil;
-																																		startPosition: 15;
-																																		stopPosition: 24;
-																																		yourself);
-																																startPosition: 15;
-																																stopPosition: 24;
-																																yourself);
-																														startPosition: 15;
-																														stopPosition: 24;
-																														yourself);
-																												expressionAction: nil;
-																												startPosition: 15;
-																												stopPosition: 24;
-																												yourself);
-																										startPosition: 15;
-																										stopPosition: 24;
-																										yourself)};
-																								startPosition: 14;
-																								stopPosition: 25;
-																								yourself);
-																						startPosition: 8;
-																						stopPosition: 25;
-																						yourself);
-																				startPosition: 8;
-																				stopPosition: 25;
-																				yourself);
-																		expressionAction: nil;
-																		right:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'ld_dct_crt';
-																																startPosition: 30;
-																																stopPosition: 39;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 30;
-																														stopPosition: 39;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 30;
-																												stopPosition: 39;
-																												yourself);
-																										startPosition: 30;
-																										stopPosition: 39;
-																										yourself);
-																								startPosition: 30;
-																								stopPosition: 39;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '0';
-																												startPosition: 43;
-																												stopPosition: 43;
-																												yourself);
-																										startPosition: 43;
-																										stopPosition: 43;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 43;
-																								stopPosition: 43;
-																								yourself);
-																						startPosition: 30;
-																						stopPosition: 43;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 30;
-																				stopPosition: 43;
-																				yourself);
-																		startPosition: 8;
-																		stopPosition: 43;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 8;
-																stopPosition: 43;
-																yourself);
-														startPosition: 4;
-														stopPosition: 43;
-														yourself);
-												startPosition: 4;
-												stopPosition: 43;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 43;
-										yourself);
-								startPosition: 4;
-								stopPosition: 43;
-								yourself);
-						statements: nil;
-						elseIfs: (OrderedCollection withAll: {});
-						else: nil;
-						startPosition: 1;
-						stopPosition: 59;
-						yourself);
-				startPosition: 1;
-				stopPosition: 59;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'if ls_gpp_ids = ''00405727'' 
-			or ls_gpp_ids = ''00096271'' or ls_gpp_ids = ''00432677'' or ls_gpp_ids = ls_adherent_test then
-			string ls
-			ls = ""
-		end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'ls_gpp_ids';
-																						startPosition: 4;
-																						stopPosition: 13;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 4;
-																				stopPosition: 13;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 4;
-																		stopPosition: 13;
-																		yourself);
-																startPosition: 4;
-																stopPosition: 13;
-																yourself);
-														startPosition: 4;
-														stopPosition: 13;
-														yourself);
-												expressionAction: nil;
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTOperatorExpression new
-																left:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '''00405727''';
-																				startPosition: 17;
-																				stopPosition: 26;
-																				yourself);
-																		startPosition: 17;
-																		stopPosition: 26;
-																		yourself);
-																expressionAction: nil;
-																right:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTOperatorExpression new
-																				left:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTAccessOrType new
-																								accessOrType:
-																									(PWBASTAccess new
-																										accessed:
-																											(PWBASTVariable new
-																												identifier:
-																													(PWBASTIdentifier new
-																														identifier: 'ls_gpp_ids';
-																														startPosition: 35;
-																														stopPosition: 44;
-																														yourself);
-																												arrayDefinition: nil;
-																												startPosition: 35;
-																												stopPosition: 44;
-																												yourself);
-																										arrayPosition: nil;
-																										startPosition: 35;
-																										stopPosition: 44;
-																										yourself);
-																								startPosition: 35;
-																								stopPosition: 44;
-																								yourself);
-																						startPosition: 35;
-																						stopPosition: 44;
-																						yourself);
-																				expressionAction: nil;
-																				right:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTOperatorExpression new
-																								left:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTString new
-																												string: '''00096271''';
-																												startPosition: 48;
-																												stopPosition: 57;
-																												yourself);
-																										startPosition: 48;
-																										stopPosition: 57;
-																										yourself);
-																								expressionAction: nil;
-																								right:
-																									(PWBASTExpression new
-																										expression:
-																											(PWBASTOperatorExpression new
-																												left:
-																													(PWBASTExpressionTerm new
-																														expressionTerm:
-																															(PWBASTAccessOrType new
-																																accessOrType:
-																																	(PWBASTAccess new
-																																		accessed:
-																																			(PWBASTVariable new
-																																				identifier:
-																																					(PWBASTIdentifier new
-																																						identifier: 'ls_gpp_ids';
-																																						startPosition: 62;
-																																						stopPosition: 71;
-																																						yourself);
-																																				arrayDefinition: nil;
-																																				startPosition: 62;
-																																				stopPosition: 71;
-																																				yourself);
-																																		arrayPosition: nil;
-																																		startPosition: 62;
-																																		stopPosition: 71;
-																																		yourself);
-																																startPosition: 62;
-																																stopPosition: 71;
-																																yourself);
-																														startPosition: 62;
-																														stopPosition: 71;
-																														yourself);
-																												expressionAction: nil;
-																												right:
-																													(PWBASTExpression new
-																														expression:
-																															(PWBASTOperatorExpression new
-																																left:
-																																	(PWBASTExpressionTerm new
-																																		expressionTerm:
-																																			(PWBASTString new
-																																				string: '''00432677''';
-																																				startPosition: 75;
-																																				stopPosition: 84;
-																																				yourself);
-																																		startPosition: 75;
-																																		stopPosition: 84;
-																																		yourself);
-																																expressionAction: nil;
-																																right:
-																																	(PWBASTExpression new
-																																		expression:
-																																			(PWBASTOperatorExpression new
-																																				left:
-																																					(PWBASTExpressionTerm new
-																																						expressionTerm:
-																																							(PWBASTAccessOrType new
-																																								accessOrType:
-																																									(PWBASTAccess new
-																																										accessed:
-																																											(PWBASTVariable new
-																																												identifier:
-																																													(PWBASTIdentifier new
-																																														identifier: 'ls_gpp_ids';
-																																														startPosition: 89;
-																																														stopPosition: 98;
-																																														yourself);
-																																												arrayDefinition: nil;
-																																												startPosition: 89;
-																																												stopPosition: 98;
-																																												yourself);
-																																										arrayPosition: nil;
-																																										startPosition: 89;
-																																										stopPosition: 98;
-																																										yourself);
-																																								startPosition: 89;
-																																								stopPosition: 98;
-																																								yourself);
-																																						startPosition: 89;
-																																						stopPosition: 98;
-																																						yourself);
-																																				expressionAction: nil;
-																																				right:
-																																					(PWBASTExpression new
-																																						expression:
-																																							(PWBASTExpressionTerm new
-																																								expressionTerm:
-																																									(PWBASTAccessOrType new
-																																										accessOrType:
-																																											(PWBASTAccess new
-																																												accessed:
-																																													(PWBASTVariable new
-																																														identifier:
-																																															(PWBASTIdentifier new
-																																																identifier: 'ls_adherent_test';
-																																																startPosition: 102;
-																																																stopPosition: 117;
-																																																yourself);
-																																														arrayDefinition: nil;
-																																														startPosition: 102;
-																																														stopPosition: 117;
-																																														yourself);
-																																												arrayPosition: nil;
-																																												startPosition: 102;
-																																												stopPosition: 117;
-																																												yourself);
-																																										startPosition: 102;
-																																										stopPosition: 117;
-																																										yourself);
-																																								startPosition: 102;
-																																								stopPosition: 117;
-																																								yourself);
-																																						expressionAction: nil;
-																																						startPosition: 102;
-																																						stopPosition: 117;
-																																						yourself);
-																																				startPosition: 89;
-																																				stopPosition: 117;
-																																				yourself);
-																																		expressionAction: nil;
-																																		startPosition: 89;
-																																		stopPosition: 117;
-																																		yourself);
-																																startPosition: 75;
-																																stopPosition: 117;
-																																yourself);
-																														expressionAction: nil;
-																														startPosition: 75;
-																														stopPosition: 117;
-																														yourself);
-																												startPosition: 62;
-																												stopPosition: 117;
-																												yourself);
-																										expressionAction: nil;
-																										startPosition: 62;
-																										stopPosition: 117;
-																										yourself);
-																								startPosition: 48;
-																								stopPosition: 117;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 48;
-																						stopPosition: 117;
-																						yourself);
-																				startPosition: 35;
-																				stopPosition: 117;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 35;
-																		stopPosition: 117;
-																		yourself);
-																startPosition: 17;
-																stopPosition: 117;
-																yourself);
-														expressionAction: nil;
-														startPosition: 17;
-														stopPosition: 117;
-														yourself);
-												startPosition: 4;
-												stopPosition: 117;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 117;
-										yourself);
-								startPosition: 4;
-								stopPosition: 117;
-								yourself);
-						statements:
-							(PWBASTStatements new
-								statements:
-									{(PWBASTStatement new
-										statement:
-											(PWBASTVariableDeclarations new
-												type:
-													(PWBASTType new
-														type:
-															(PWBASTBasicType new
-																basicType: 'string';
-																startPosition: 127;
-																stopPosition: 132;
-																yourself);
-														startPosition: 127;
-														stopPosition: 132;
-														yourself);
-												variableAssignations:
-													{(PWBASTVariableAssignation new
-														variable:
-															(PWBASTVariable new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'ls';
-																		startPosition: 134;
-																		stopPosition: 135;
-																		yourself);
-																arrayDefinition: nil;
-																startPosition: 134;
-																stopPosition: 135;
-																yourself);
-														assignation: nil;
-														startPosition: 134;
-														stopPosition: 135;
-														yourself)};
-												startPosition: 127;
-												stopPosition: 135;
-												yourself);
-										startPosition: 127;
-										stopPosition: 135;
-										yourself).
-									(PWBASTStatement new
-										statement:
-											(PWBASTAssignationStatement new
-												accessOrType:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'ls';
-																				startPosition: 140;
-																				stopPosition: 141;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 140;
-																		stopPosition: 141;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 140;
-																stopPosition: 141;
-																yourself);
-														startPosition: 140;
-														stopPosition: 141;
-														yourself);
-												expressionAction: nil;
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '""';
-																				startPosition: 145;
-																				stopPosition: 146;
-																				yourself);
-																		startPosition: 145;
-																		stopPosition: 146;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 145;
-																stopPosition: 146;
-																yourself);
-														startPosition: 142;
-														stopPosition: 146;
-														yourself);
-												startPosition: 140;
-												stopPosition: 146;
-												yourself);
-										startPosition: 140;
-										stopPosition: 146;
-										yourself)};
-								startPosition: 127;
-								stopPosition: 146;
-								yourself);
-						elseIfs: (OrderedCollection withAll: {});
-						else: nil;
-						startPosition: 1;
-						stopPosition: 155;
-						yourself);
-				startPosition: 1;
-				stopPosition: 155;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement3 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'if this.ib_exe_cascade = TRUE then
-	this.postEvent(rowFocusChanged!)
-	return
-end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTSpecialVariable new
-																				this:
-																					(PWBASTThis new
-																						this: 'this';
-																						startPosition: 4;
-																						stopPosition: 7;
-																						yourself);
-																				startPosition: 4;
-																				stopPosition: 7;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 4;
-																		stopPosition: 7;
-																		yourself);
-																startPosition: 4;
-																stopPosition: 7;
-																yourself);
-														startPosition: 4;
-														stopPosition: 7;
-														yourself);
-												expressionAction:
-													(PWBASTExpressionAction new
-														action:
-															(PWBASTAttributeAccess new
-																uncheckedIdentifier:
-																	(PWBASTUncheckedIdentifier new
-																		uncheckedIdentifier: 'ib_exe_cascade';
-																		startPosition: 9;
-																		stopPosition: 22;
-																		yourself);
-																arrayInformation: nil;
-																startPosition: 8;
-																stopPosition: 22;
-																yourself);
-														expressionAction: nil;
-														startPosition: 8;
-														stopPosition: 22;
-														yourself);
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTAccessOrType new
-																		accessOrType:
-																			(PWBASTAccess new
-																				accessed:
-																					(PWBASTVariable new
-																						identifier:
-																							(PWBASTIdentifier new
-																								identifier: 'TRUE';
-																								startPosition: 26;
-																								stopPosition: 29;
-																								yourself);
-																						arrayDefinition: nil;
-																						startPosition: 26;
-																						stopPosition: 29;
-																						yourself);
-																				arrayPosition: nil;
-																				startPosition: 26;
-																				stopPosition: 29;
-																				yourself);
-																		startPosition: 26;
-																		stopPosition: 29;
-																		yourself);
-																startPosition: 26;
-																stopPosition: 29;
-																yourself);
-														expressionAction: nil;
-														startPosition: 26;
-														stopPosition: 29;
-														yourself);
-												startPosition: 4;
-												stopPosition: 29;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 29;
-										yourself);
-								startPosition: 4;
-								stopPosition: 29;
-								yourself);
-						statements:
-							(PWBASTStatements new
-								statements:
-									{(PWBASTStatement new
-										statement:
-											(PWBASTEventTriggeringOrPosting new
-												identifiers: (OrderedCollection withAll: {});
-												arrayPositions: (OrderedCollection withAll: {});
-												eventName:
-													(PWBASTEventName new
-														eventName:
-															(PWBASTConstant new
-																constant: 'rowFocusChanged!';
-																startPosition: 52;
-																stopPosition: 67;
-																yourself);
-														startPosition: 52;
-														stopPosition: 67;
-														yourself);
-												eventWord: nil;
-												eventLong: nil;
-												startPosition: 37;
-												stopPosition: 68;
-												yourself);
-										startPosition: 37;
-										stopPosition: 68;
-										yourself).
-									(PWBASTStatement new
-										statement:
-											(PWBASTSpecialStatement new
-												specialStatement:
-													(PWBASTReturnStatement new
-														expression: nil;
-														startPosition: 71;
-														stopPosition: 76;
-														yourself);
-												startPosition: 71;
-												stopPosition: 76;
-												yourself);
-										startPosition: 71;
-										stopPosition: 76;
-										yourself)};
-								startPosition: 37;
-								stopPosition: 76;
-								yourself);
-						elseIfs: (OrderedCollection withAll: {});
-						else: nil;
-						startPosition: 1;
-						stopPosition: 83;
-						yourself);
-				startPosition: 1;
-				stopPosition: 83;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement4 [
-	<generated>
-	self
-		assert: (self parse: 'if ll_wz = -1 then exit' rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfSingleLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTOperatorExpression new
-												left:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTAccessOrType new
-																accessOrType:
-																	(PWBASTAccess new
-																		accessed:
-																			(PWBASTVariable new
-																				identifier:
-																					(PWBASTIdentifier new
-																						identifier: 'll_wz';
-																						startPosition: 4;
-																						stopPosition: 8;
-																						yourself);
-																				arrayDefinition: nil;
-																				startPosition: 4;
-																				stopPosition: 8;
-																				yourself);
-																		arrayPosition: nil;
-																		startPosition: 4;
-																		stopPosition: 8;
-																		yourself);
-																startPosition: 4;
-																stopPosition: 8;
-																yourself);
-														startPosition: 4;
-														stopPosition: 8;
-														yourself);
-												expressionAction: nil;
-												right:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionWithSign new
-																expressionSign:
-																	(PWBASTExpressionSign new
-																		expressionSign: '-';
-																		startPosition: 12;
-																		stopPosition: 12;
-																		yourself);
-																expression:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTNumber new
-																						number: '1';
-																						startPosition: 13;
-																						stopPosition: 13;
-																						yourself);
-																				startPosition: 13;
-																				stopPosition: 13;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 13;
-																		stopPosition: 13;
-																		yourself);
-																startPosition: 12;
-																stopPosition: 13;
-																yourself);
-														expressionAction: nil;
-														startPosition: 12;
-														stopPosition: 13;
-														yourself);
-												startPosition: 4;
-												stopPosition: 13;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 13;
-										yourself);
-								startPosition: 4;
-								stopPosition: 13;
-								yourself);
-						statement:
-							(PWBASTStatement new
-								statement:
-									(PWBASTSpecialStatement new
-										specialStatement:
-											(PWBASTExitStatement new
-												exitStatement: 'exit';
-												startPosition: 20;
-												stopPosition: 23;
-												yourself);
-										startPosition: 20;
-										stopPosition: 23;
-										yourself);
-								startPosition: 20;
-								stopPosition: 23;
-								yourself);
-						elseOnLine: nil;
-						startPosition: 1;
-						stopPosition: 23;
-						yourself);
-				startPosition: 1;
-				stopPosition: 23;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement5 [
+PWBCommonParserTest >> testIfStatement14 [
 	<generated>
 	self
 		assert:
@@ -27871,6 +26838,12 @@ PWBCommonParserTest >> testIfStatement5 [
 														stopPosition: 18;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 20;
+														stopPosition: 20;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -28145,6 +27118,12 @@ PWBCommonParserTest >> testIfStatement5 [
 																stopPosition: 136;
 																yourself);
 														expressionAction: nil;
+														expressionOperator:
+															(PWBASTExpressionOperator new
+																expressionOperator: '=';
+																startPosition: 138;
+																stopPosition: 138;
+																yourself);
 														right:
 															(PWBASTExpression new
 																expression:
@@ -28589,7 +27568,776 @@ PWBCommonParserTest >> testIfStatement5 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement6 [
+PWBCommonParserTest >> testIfStatement15 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'if isnull(is_ctr_rej) then is_ctr_rej = "N" else is_ctr_rej = trim(is_ctr_rej)'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfSingleLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTFunctionInvocation new
+														defaultVariable: nil;
+														functionName:
+															(PWBASTUncheckedIdentifier new
+																uncheckedIdentifier: 'isnull';
+																startPosition: 4;
+																stopPosition: 9;
+																yourself);
+														functionArguments:
+															(PWBASTFunctionArguments new
+																functionArguments:
+																	{(PWBASTFunctionArgument new
+																		argumentOption: nil;
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTAccessOrType new
+																								accessOrType:
+																									(PWBASTAccess new
+																										accessed:
+																											(PWBASTVariable new
+																												identifier:
+																													(PWBASTIdentifier new
+																														identifier: 'is_ctr_rej';
+																														startPosition: 11;
+																														stopPosition: 20;
+																														yourself);
+																												arrayDefinition: nil;
+																												startPosition: 11;
+																												stopPosition: 20;
+																												yourself);
+																										arrayPosition: nil;
+																										startPosition: 11;
+																										stopPosition: 20;
+																										yourself);
+																								startPosition: 11;
+																								stopPosition: 20;
+																								yourself);
+																						startPosition: 11;
+																						stopPosition: 20;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 11;
+																				stopPosition: 20;
+																				yourself);
+																		startPosition: 11;
+																		stopPosition: 20;
+																		yourself)};
+																startPosition: 10;
+																stopPosition: 21;
+																yourself);
+														startPosition: 4;
+														stopPosition: 21;
+														yourself);
+												startPosition: 4;
+												stopPosition: 21;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 21;
+										yourself);
+								startPosition: 4;
+								stopPosition: 21;
+								yourself);
+						statement:
+							(PWBASTStatement new
+								statement:
+									(PWBASTAssignationStatement new
+										accessOrType:
+											(PWBASTAccessOrType new
+												accessOrType:
+													(PWBASTAccess new
+														accessed:
+															(PWBASTVariable new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'is_ctr_rej';
+																		startPosition: 28;
+																		stopPosition: 37;
+																		yourself);
+																arrayDefinition: nil;
+																startPosition: 28;
+																stopPosition: 37;
+																yourself);
+														arrayPosition: nil;
+														startPosition: 28;
+														stopPosition: 37;
+														yourself);
+												startPosition: 28;
+												stopPosition: 37;
+												yourself);
+										expressionAction: nil;
+										assignation:
+											(PWBASTAssignation new
+												expression:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTString new
+																		string: '"N"';
+																		startPosition: 41;
+																		stopPosition: 43;
+																		yourself);
+																startPosition: 41;
+																stopPosition: 43;
+																yourself);
+														expressionAction: nil;
+														startPosition: 41;
+														stopPosition: 43;
+														yourself);
+												startPosition: 38;
+												stopPosition: 43;
+												yourself);
+										startPosition: 28;
+										stopPosition: 43;
+										yourself);
+								startPosition: 28;
+								stopPosition: 43;
+								yourself);
+						elseOnLine:
+							(PWBASTElseOnLine new
+								statement:
+									(PWBASTStatement new
+										statement:
+											(PWBASTAssignationStatement new
+												accessOrType:
+													(PWBASTAccessOrType new
+														accessOrType:
+															(PWBASTAccess new
+																accessed:
+																	(PWBASTVariable new
+																		identifier:
+																			(PWBASTIdentifier new
+																				identifier: 'is_ctr_rej';
+																				startPosition: 50;
+																				stopPosition: 59;
+																				yourself);
+																		arrayDefinition: nil;
+																		startPosition: 50;
+																		stopPosition: 59;
+																		yourself);
+																arrayPosition: nil;
+																startPosition: 50;
+																stopPosition: 59;
+																yourself);
+														startPosition: 50;
+														stopPosition: 59;
+														yourself);
+												expressionAction: nil;
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTFunctionInvocation new
+																				defaultVariable: nil;
+																				functionName:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'trim';
+																						startPosition: 63;
+																						stopPosition: 66;
+																						yourself);
+																				functionArguments:
+																					(PWBASTFunctionArguments new
+																						functionArguments:
+																							{(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTAccessOrType new
+																														accessOrType:
+																															(PWBASTAccess new
+																																accessed:
+																																	(PWBASTVariable new
+																																		identifier:
+																																			(PWBASTIdentifier new
+																																				identifier: 'is_ctr_rej';
+																																				startPosition: 68;
+																																				stopPosition: 77;
+																																				yourself);
+																																		arrayDefinition: nil;
+																																		startPosition: 68;
+																																		stopPosition: 77;
+																																		yourself);
+																																arrayPosition: nil;
+																																startPosition: 68;
+																																stopPosition: 77;
+																																yourself);
+																														startPosition: 68;
+																														stopPosition: 77;
+																														yourself);
+																												startPosition: 68;
+																												stopPosition: 77;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 68;
+																										stopPosition: 77;
+																										yourself);
+																								startPosition: 68;
+																								stopPosition: 77;
+																								yourself)};
+																						startPosition: 67;
+																						stopPosition: 78;
+																						yourself);
+																				startPosition: 63;
+																				stopPosition: 78;
+																				yourself);
+																		startPosition: 63;
+																		stopPosition: 78;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 63;
+																stopPosition: 78;
+																yourself);
+														startPosition: 60;
+														stopPosition: 78;
+														yourself);
+												startPosition: 50;
+												stopPosition: 78;
+												yourself);
+										startPosition: 50;
+										stopPosition: 78;
+										yourself);
+								startPosition: 44;
+								stopPosition: 78;
+								yourself);
+						startPosition: 1;
+						stopPosition: 78;
+						yourself);
+				startPosition: 1;
+				stopPosition: 78;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement16 [
+	<generated>
+	self
+		assert: (self parse: 'if not isValid(gw_utile) then return' rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfSingleLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNotExpression new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTFunctionInvocation new
+																				defaultVariable: nil;
+																				functionName:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'isValid';
+																						startPosition: 8;
+																						stopPosition: 14;
+																						yourself);
+																				functionArguments:
+																					(PWBASTFunctionArguments new
+																						functionArguments:
+																							{(PWBASTFunctionArgument new
+																								argumentOption: nil;
+																								expression:
+																									(PWBASTExpression new
+																										expression:
+																											(PWBASTExpressionTerm new
+																												expressionTerm:
+																													(PWBASTAccessOrType new
+																														accessOrType:
+																															(PWBASTAccess new
+																																accessed:
+																																	(PWBASTVariable new
+																																		identifier:
+																																			(PWBASTIdentifier new
+																																				identifier: 'gw_utile';
+																																				startPosition: 16;
+																																				stopPosition: 23;
+																																				yourself);
+																																		arrayDefinition: nil;
+																																		startPosition: 16;
+																																		stopPosition: 23;
+																																		yourself);
+																																arrayPosition: nil;
+																																startPosition: 16;
+																																stopPosition: 23;
+																																yourself);
+																														startPosition: 16;
+																														stopPosition: 23;
+																														yourself);
+																												startPosition: 16;
+																												stopPosition: 23;
+																												yourself);
+																										expressionAction: nil;
+																										startPosition: 16;
+																										stopPosition: 23;
+																										yourself);
+																								startPosition: 16;
+																								stopPosition: 23;
+																								yourself)};
+																						startPosition: 15;
+																						stopPosition: 24;
+																						yourself);
+																				startPosition: 8;
+																				stopPosition: 24;
+																				yourself);
+																		startPosition: 8;
+																		stopPosition: 24;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 8;
+																stopPosition: 24;
+																yourself);
+														startPosition: 4;
+														stopPosition: 24;
+														yourself);
+												startPosition: 4;
+												stopPosition: 24;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 24;
+										yourself);
+								startPosition: 4;
+								stopPosition: 24;
+								yourself);
+						statement:
+							(PWBASTStatement new
+								statement:
+									(PWBASTSpecialStatement new
+										specialStatement:
+											(PWBASTReturnStatement new
+												expression: nil;
+												startPosition: 31;
+												stopPosition: 36;
+												yourself);
+										startPosition: 31;
+										stopPosition: 36;
+										yourself);
+								startPosition: 31;
+								stopPosition: 36;
+								yourself);
+						elseOnLine: nil;
+						startPosition: 1;
+						stopPosition: 36;
+						yourself);
+				startPosition: 1;
+				stopPosition: 36;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement17 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
+	else
+		end if'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNotExpression new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTOperatorExpression new
+																		left:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTFunctionInvocation new
+																						defaultVariable: nil;
+																						functionName:
+																							(PWBASTUncheckedIdentifier new
+																								uncheckedIdentifier: 'isNull';
+																								startPosition: 8;
+																								stopPosition: 13;
+																								yourself);
+																						functionArguments:
+																							(PWBASTFunctionArguments new
+																								functionArguments:
+																									{(PWBASTFunctionArgument new
+																										argumentOption: nil;
+																										expression:
+																											(PWBASTExpression new
+																												expression:
+																													(PWBASTExpressionTerm new
+																														expressionTerm:
+																															(PWBASTAccessOrType new
+																																accessOrType:
+																																	(PWBASTAccess new
+																																		accessed:
+																																			(PWBASTVariable new
+																																				identifier:
+																																					(PWBASTIdentifier new
+																																						identifier: 'ld_dct_dtc';
+																																						startPosition: 15;
+																																						stopPosition: 24;
+																																						yourself);
+																																				arrayDefinition: nil;
+																																				startPosition: 15;
+																																				stopPosition: 24;
+																																				yourself);
+																																		arrayPosition: nil;
+																																		startPosition: 15;
+																																		stopPosition: 24;
+																																		yourself);
+																																startPosition: 15;
+																																stopPosition: 24;
+																																yourself);
+																														startPosition: 15;
+																														stopPosition: 24;
+																														yourself);
+																												expressionAction: nil;
+																												startPosition: 15;
+																												stopPosition: 24;
+																												yourself);
+																										startPosition: 15;
+																										stopPosition: 24;
+																										yourself)};
+																								startPosition: 14;
+																								stopPosition: 25;
+																								yourself);
+																						startPosition: 8;
+																						stopPosition: 25;
+																						yourself);
+																				startPosition: 8;
+																				stopPosition: 25;
+																				yourself);
+																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: 'or';
+																				startPosition: 27;
+																				stopPosition: 28;
+																				yourself);
+																		right:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'ld_dct_crt';
+																																startPosition: 30;
+																																stopPosition: 39;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 30;
+																														stopPosition: 39;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 30;
+																												stopPosition: 39;
+																												yourself);
+																										startPosition: 30;
+																										stopPosition: 39;
+																										yourself);
+																								startPosition: 30;
+																								stopPosition: 39;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '>';
+																								startPosition: 41;
+																								stopPosition: 41;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '0';
+																												startPosition: 43;
+																												stopPosition: 43;
+																												yourself);
+																										startPosition: 43;
+																										stopPosition: 43;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 43;
+																								stopPosition: 43;
+																								yourself);
+																						startPosition: 30;
+																						stopPosition: 43;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 30;
+																				stopPosition: 43;
+																				yourself);
+																		startPosition: 8;
+																		stopPosition: 43;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 8;
+																stopPosition: 43;
+																yourself);
+														startPosition: 4;
+														stopPosition: 43;
+														yourself);
+												startPosition: 4;
+												stopPosition: 43;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 43;
+										yourself);
+								startPosition: 4;
+								stopPosition: 43;
+								yourself);
+						statements: nil;
+						elseIfs: (OrderedCollection withAll: {});
+						else:
+							(PWBASTElse new
+								statements: nil;
+								startPosition: 51;
+								stopPosition: 57;
+								yourself);
+						startPosition: 1;
+						stopPosition: 63;
+						yourself);
+				startPosition: 1;
+				stopPosition: 63;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'if not isNull(ld_dct_dtc) or ld_dct_crt > 0 then
+	
+		end if'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTNotExpression new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTOperatorExpression new
+																		left:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTFunctionInvocation new
+																						defaultVariable: nil;
+																						functionName:
+																							(PWBASTUncheckedIdentifier new
+																								uncheckedIdentifier: 'isNull';
+																								startPosition: 8;
+																								stopPosition: 13;
+																								yourself);
+																						functionArguments:
+																							(PWBASTFunctionArguments new
+																								functionArguments:
+																									{(PWBASTFunctionArgument new
+																										argumentOption: nil;
+																										expression:
+																											(PWBASTExpression new
+																												expression:
+																													(PWBASTExpressionTerm new
+																														expressionTerm:
+																															(PWBASTAccessOrType new
+																																accessOrType:
+																																	(PWBASTAccess new
+																																		accessed:
+																																			(PWBASTVariable new
+																																				identifier:
+																																					(PWBASTIdentifier new
+																																						identifier: 'ld_dct_dtc';
+																																						startPosition: 15;
+																																						stopPosition: 24;
+																																						yourself);
+																																				arrayDefinition: nil;
+																																				startPosition: 15;
+																																				stopPosition: 24;
+																																				yourself);
+																																		arrayPosition: nil;
+																																		startPosition: 15;
+																																		stopPosition: 24;
+																																		yourself);
+																																startPosition: 15;
+																																stopPosition: 24;
+																																yourself);
+																														startPosition: 15;
+																														stopPosition: 24;
+																														yourself);
+																												expressionAction: nil;
+																												startPosition: 15;
+																												stopPosition: 24;
+																												yourself);
+																										startPosition: 15;
+																										stopPosition: 24;
+																										yourself)};
+																								startPosition: 14;
+																								stopPosition: 25;
+																								yourself);
+																						startPosition: 8;
+																						stopPosition: 25;
+																						yourself);
+																				startPosition: 8;
+																				stopPosition: 25;
+																				yourself);
+																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: 'or';
+																				startPosition: 27;
+																				stopPosition: 28;
+																				yourself);
+																		right:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'ld_dct_crt';
+																																startPosition: 30;
+																																stopPosition: 39;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 30;
+																														stopPosition: 39;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 30;
+																												stopPosition: 39;
+																												yourself);
+																										startPosition: 30;
+																										stopPosition: 39;
+																										yourself);
+																								startPosition: 30;
+																								stopPosition: 39;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '>';
+																								startPosition: 41;
+																								stopPosition: 41;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '0';
+																												startPosition: 43;
+																												stopPosition: 43;
+																												yourself);
+																										startPosition: 43;
+																										stopPosition: 43;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 43;
+																								stopPosition: 43;
+																								yourself);
+																						startPosition: 30;
+																						stopPosition: 43;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 30;
+																				stopPosition: 43;
+																				yourself);
+																		startPosition: 8;
+																		stopPosition: 43;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 8;
+																stopPosition: 43;
+																yourself);
+														startPosition: 4;
+														stopPosition: 43;
+														yourself);
+												startPosition: 4;
+												stopPosition: 43;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 43;
+										yourself);
+								startPosition: 4;
+								stopPosition: 43;
+								yourself);
+						statements: nil;
+						elseIfs: (OrderedCollection withAll: {});
+						else: nil;
+						startPosition: 1;
+						stopPosition: 59;
+						yourself);
+				startPosition: 1;
+				stopPosition: 59;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement3 [
 	<generated>
 	self
 		assert:
@@ -28640,6 +28388,12 @@ PWBCommonParserTest >> testIfStatement6 [
 														stopPosition: 12;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 14;
+														stopPosition: 14;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -29078,6 +28832,12 @@ PWBCommonParserTest >> testIfStatement6 [
 																						startPosition: 68;
 																						stopPosition: 173;
 																						yourself);
+																				expressionOperator:
+																					(PWBASTExpressionOperator new
+																						expressionOperator: '=';
+																						startPosition: 175;
+																						stopPosition: 175;
+																						yourself);
 																				right:
 																					(PWBASTExpression new
 																						expression:
@@ -29208,7 +28968,394 @@ PWBCommonParserTest >> testIfStatement6 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement7 [
+PWBCommonParserTest >> testIfStatement4 [
+	<generated>
+	self
+		assert: (self parse: 'if ll_wz = -1 then exit' rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfSingleLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_wz';
+																						startPosition: 4;
+																						stopPosition: 8;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 4;
+																				stopPosition: 8;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 4;
+																		stopPosition: 8;
+																		yourself);
+																startPosition: 4;
+																stopPosition: 8;
+																yourself);
+														startPosition: 4;
+														stopPosition: 8;
+														yourself);
+												expressionAction: nil;
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionWithSign new
+																expressionSign:
+																	(PWBASTExpressionSign new
+																		expressionSign: '-';
+																		startPosition: 12;
+																		stopPosition: 12;
+																		yourself);
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '1';
+																						startPosition: 13;
+																						stopPosition: 13;
+																						yourself);
+																				startPosition: 13;
+																				stopPosition: 13;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 13;
+																		stopPosition: 13;
+																		yourself);
+																startPosition: 12;
+																stopPosition: 13;
+																yourself);
+														expressionAction: nil;
+														startPosition: 12;
+														stopPosition: 13;
+														yourself);
+												startPosition: 4;
+												stopPosition: 13;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 13;
+										yourself);
+								startPosition: 4;
+								stopPosition: 13;
+								yourself);
+						statement:
+							(PWBASTStatement new
+								statement:
+									(PWBASTSpecialStatement new
+										specialStatement:
+											(PWBASTExitStatement new
+												exitStatement: 'exit';
+												startPosition: 20;
+												stopPosition: 23;
+												yourself);
+										startPosition: 20;
+										stopPosition: 23;
+										yourself);
+								startPosition: 20;
+								stopPosition: 23;
+								yourself);
+						elseOnLine: nil;
+						startPosition: 1;
+						stopPosition: 23;
+						yourself);
+				startPosition: 1;
+				stopPosition: 23;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement5 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'If ipo_requestor.Dynamic SaveAs(ls_tmpfile, PSReport!, True) <> 1 Then
+			Return -1
+		End If'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'ipo_requestor';
+																						startPosition: 4;
+																						stopPosition: 16;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 4;
+																				stopPosition: 16;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 4;
+																		stopPosition: 16;
+																		yourself);
+																startPosition: 4;
+																stopPosition: 16;
+																yourself);
+														startPosition: 4;
+														stopPosition: 16;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTMethodInvocation new
+																methodInvocation:
+																	(PWBASTDynamicMethodInvocation new
+																		uncheckedIdentifier:
+																			(PWBASTUncheckedIdentifier new
+																				uncheckedIdentifier: 'SaveAs';
+																				startPosition: 26;
+																				stopPosition: 31;
+																				yourself);
+																		functionArguments:
+																			(PWBASTFunctionArguments new
+																				functionArguments:
+																					{(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'ls_tmpfile';
+																																		startPosition: 33;
+																																		stopPosition: 42;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 33;
+																																stopPosition: 42;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 33;
+																														stopPosition: 42;
+																														yourself);
+																												startPosition: 33;
+																												stopPosition: 42;
+																												yourself);
+																										startPosition: 33;
+																										stopPosition: 42;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 33;
+																								stopPosition: 42;
+																								yourself);
+																						startPosition: 33;
+																						stopPosition: 42;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTConstant new
+																												constant: 'PSReport!';
+																												startPosition: 45;
+																												stopPosition: 53;
+																												yourself);
+																										startPosition: 45;
+																										stopPosition: 53;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 45;
+																								stopPosition: 53;
+																								yourself);
+																						startPosition: 45;
+																						stopPosition: 53;
+																						yourself).
+																					(PWBASTFunctionArgument new
+																						argumentOption: nil;
+																						expression:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTAccessOrType new
+																												accessOrType:
+																													(PWBASTAccess new
+																														accessed:
+																															(PWBASTVariable new
+																																identifier:
+																																	(PWBASTIdentifier new
+																																		identifier: 'True';
+																																		startPosition: 56;
+																																		stopPosition: 59;
+																																		yourself);
+																																arrayDefinition: nil;
+																																startPosition: 56;
+																																stopPosition: 59;
+																																yourself);
+																														arrayPosition: nil;
+																														startPosition: 56;
+																														stopPosition: 59;
+																														yourself);
+																												startPosition: 56;
+																												stopPosition: 59;
+																												yourself);
+																										startPosition: 56;
+																										stopPosition: 59;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 56;
+																								stopPosition: 59;
+																								yourself);
+																						startPosition: 56;
+																						stopPosition: 59;
+																						yourself)};
+																				startPosition: 32;
+																				stopPosition: 60;
+																				yourself);
+																		startPosition: 17;
+																		stopPosition: 60;
+																		yourself);
+																startPosition: 17;
+																stopPosition: 60;
+																yourself);
+														expressionAction: nil;
+														startPosition: 17;
+														stopPosition: 60;
+														yourself);
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '<>';
+														startPosition: 62;
+														stopPosition: 63;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTNumber new
+																		number: '1';
+																		startPosition: 65;
+																		stopPosition: 65;
+																		yourself);
+																startPosition: 65;
+																stopPosition: 65;
+																yourself);
+														expressionAction: nil;
+														startPosition: 65;
+														stopPosition: 65;
+														yourself);
+												startPosition: 4;
+												stopPosition: 65;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 65;
+										yourself);
+								startPosition: 4;
+								stopPosition: 65;
+								yourself);
+						statements:
+							(PWBASTStatements new
+								statements:
+									{(PWBASTStatement new
+										statement:
+											(PWBASTSpecialStatement new
+												specialStatement:
+													(PWBASTReturnStatement new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionWithSign new
+																		expressionSign:
+																			(PWBASTExpressionSign new
+																				expressionSign: '-';
+																				startPosition: 82;
+																				stopPosition: 82;
+																				yourself);
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTNumber new
+																								number: '1';
+																								startPosition: 83;
+																								stopPosition: 83;
+																								yourself);
+																						startPosition: 83;
+																						stopPosition: 83;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 83;
+																				stopPosition: 83;
+																				yourself);
+																		startPosition: 82;
+																		stopPosition: 83;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 82;
+																stopPosition: 83;
+																yourself);
+														startPosition: 75;
+														stopPosition: 83;
+														yourself);
+												startPosition: 75;
+												stopPosition: 83;
+												yourself);
+										startPosition: 75;
+										stopPosition: 83;
+										yourself)};
+								startPosition: 75;
+								stopPosition: 83;
+								yourself);
+						elseIfs: (OrderedCollection withAll: {});
+						else: nil;
+						startPosition: 1;
+						stopPosition: 92;
+						yourself);
+				startPosition: 1;
+				stopPosition: 92;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement6 [
 	<generated>
 	self
 		assert:
@@ -29264,6 +29411,12 @@ PWBCommonParserTest >> testIfStatement7 [
 														stopPosition: 12;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '>=';
+														startPosition: 14;
+														stopPosition: 15;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -29436,6 +29589,12 @@ PWBCommonParserTest >> testIfStatement7 [
 																				stopPosition: 86;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 88;
+																				stopPosition: 88;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -29784,6 +29943,12 @@ PWBCommonParserTest >> testIfStatement7 [
 																				stopPosition: 205;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '>';
+																				startPosition: 207;
+																				stopPosition: 207;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -29877,7 +30042,298 @@ PWBCommonParserTest >> testIfStatement7 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement7 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'if this.ib_exe_cascade = TRUE then
+	this.postEvent(rowFocusChanged!)
+	return
+end if'
+				rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfMultiLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTSpecialVariable new
+																				this:
+																					(PWBASTThis new
+																						this: 'this';
+																						startPosition: 4;
+																						stopPosition: 7;
+																						yourself);
+																				startPosition: 4;
+																				stopPosition: 7;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 4;
+																		stopPosition: 7;
+																		yourself);
+																startPosition: 4;
+																stopPosition: 7;
+																yourself);
+														startPosition: 4;
+														stopPosition: 7;
+														yourself);
+												expressionAction:
+													(PWBASTExpressionAction new
+														action:
+															(PWBASTAttributeAccess new
+																uncheckedIdentifier:
+																	(PWBASTUncheckedIdentifier new
+																		uncheckedIdentifier: 'ib_exe_cascade';
+																		startPosition: 9;
+																		stopPosition: 22;
+																		yourself);
+																arrayInformation: nil;
+																startPosition: 8;
+																stopPosition: 22;
+																yourself);
+														expressionAction: nil;
+														startPosition: 8;
+														stopPosition: 22;
+														yourself);
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 24;
+														stopPosition: 24;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTAccessOrType new
+																		accessOrType:
+																			(PWBASTAccess new
+																				accessed:
+																					(PWBASTVariable new
+																						identifier:
+																							(PWBASTIdentifier new
+																								identifier: 'TRUE';
+																								startPosition: 26;
+																								stopPosition: 29;
+																								yourself);
+																						arrayDefinition: nil;
+																						startPosition: 26;
+																						stopPosition: 29;
+																						yourself);
+																				arrayPosition: nil;
+																				startPosition: 26;
+																				stopPosition: 29;
+																				yourself);
+																		startPosition: 26;
+																		stopPosition: 29;
+																		yourself);
+																startPosition: 26;
+																stopPosition: 29;
+																yourself);
+														expressionAction: nil;
+														startPosition: 26;
+														stopPosition: 29;
+														yourself);
+												startPosition: 4;
+												stopPosition: 29;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 29;
+										yourself);
+								startPosition: 4;
+								stopPosition: 29;
+								yourself);
+						statements:
+							(PWBASTStatements new
+								statements:
+									{(PWBASTStatement new
+										statement:
+											(PWBASTEventTriggeringOrPosting new
+												identifiers: (OrderedCollection withAll: {});
+												arrayPositions: (OrderedCollection withAll: {});
+												eventName:
+													(PWBASTEventName new
+														eventName:
+															(PWBASTConstant new
+																constant: 'rowFocusChanged!';
+																startPosition: 52;
+																stopPosition: 67;
+																yourself);
+														startPosition: 52;
+														stopPosition: 67;
+														yourself);
+												eventWord: nil;
+												eventLong: nil;
+												startPosition: 37;
+												stopPosition: 68;
+												yourself);
+										startPosition: 37;
+										stopPosition: 68;
+										yourself).
+									(PWBASTStatement new
+										statement:
+											(PWBASTSpecialStatement new
+												specialStatement:
+													(PWBASTReturnStatement new
+														expression: nil;
+														startPosition: 71;
+														stopPosition: 76;
+														yourself);
+												startPosition: 71;
+												stopPosition: 76;
+												yourself);
+										startPosition: 71;
+										stopPosition: 76;
+										yourself)};
+								startPosition: 37;
+								stopPosition: 76;
+								yourself);
+						elseIfs: (OrderedCollection withAll: {});
+						else: nil;
+						startPosition: 1;
+						stopPosition: 83;
+						yourself);
+				startPosition: 1;
+				stopPosition: 83;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testIfStatement8 [
+	<generated>
+	self
+		assert: (self parse: 'if ll_wz = -1 then exit' rule: #ifStatement)
+		equals:
+			(PWBASTIfStatement new
+				ifStatement:
+					(PWBASTIfSingleLine new
+						condition:
+							(PWBASTCondition new
+								expression:
+									(PWBASTExpression new
+										expression:
+											(PWBASTOperatorExpression new
+												left:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTAccessOrType new
+																accessOrType:
+																	(PWBASTAccess new
+																		accessed:
+																			(PWBASTVariable new
+																				identifier:
+																					(PWBASTIdentifier new
+																						identifier: 'll_wz';
+																						startPosition: 4;
+																						stopPosition: 8;
+																						yourself);
+																				arrayDefinition: nil;
+																				startPosition: 4;
+																				stopPosition: 8;
+																				yourself);
+																		arrayPosition: nil;
+																		startPosition: 4;
+																		stopPosition: 8;
+																		yourself);
+																startPosition: 4;
+																stopPosition: 8;
+																yourself);
+														startPosition: 4;
+														stopPosition: 8;
+														yourself);
+												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 10;
+														stopPosition: 10;
+														yourself);
+												right:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionWithSign new
+																expressionSign:
+																	(PWBASTExpressionSign new
+																		expressionSign: '-';
+																		startPosition: 12;
+																		stopPosition: 12;
+																		yourself);
+																expression:
+																	(PWBASTExpression new
+																		expression:
+																			(PWBASTExpressionTerm new
+																				expressionTerm:
+																					(PWBASTNumber new
+																						number: '1';
+																						startPosition: 13;
+																						stopPosition: 13;
+																						yourself);
+																				startPosition: 13;
+																				stopPosition: 13;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 13;
+																		stopPosition: 13;
+																		yourself);
+																startPosition: 12;
+																stopPosition: 13;
+																yourself);
+														expressionAction: nil;
+														startPosition: 12;
+														stopPosition: 13;
+														yourself);
+												startPosition: 4;
+												stopPosition: 13;
+												yourself);
+										expressionAction: nil;
+										startPosition: 4;
+										stopPosition: 13;
+										yourself);
+								startPosition: 4;
+								stopPosition: 13;
+								yourself);
+						statement:
+							(PWBASTStatement new
+								statement:
+									(PWBASTSpecialStatement new
+										specialStatement:
+											(PWBASTExitStatement new
+												exitStatement: 'exit';
+												startPosition: 20;
+												stopPosition: 23;
+												yourself);
+										startPosition: 20;
+										stopPosition: 23;
+										yourself);
+								startPosition: 20;
+								stopPosition: 23;
+								yourself);
+						elseOnLine: nil;
+						startPosition: 1;
+						stopPosition: 23;
+						yourself);
+				startPosition: 1;
+				stopPosition: 23;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testIfStatement9 [
 	<generated>
 	self
 		assert:
@@ -29936,6 +30392,12 @@ END IF'
 														stopPosition: 13;
 														yourself);
 												expressionAction: nil;
+												expressionOperator:
+													(PWBASTExpressionOperator new
+														expressionOperator: '=';
+														startPosition: 15;
+														stopPosition: 15;
+														yourself);
 												right:
 													(PWBASTExpression new
 														expression:
@@ -29952,6 +30414,12 @@ END IF'
 																		stopPosition: 17;
 																		yourself);
 																expressionAction: nil;
+																expressionOperator:
+																	(PWBASTExpressionOperator new
+																		expressionOperator: 'OR';
+																		startPosition: 19;
+																		stopPosition: 20;
+																		yourself);
 																right:
 																	(PWBASTExpression new
 																		expression:
@@ -31039,192 +31507,6 @@ END IF'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testIfStatement9 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'if true then
-	if false then a = 2
-	else 
-end if'
-				rule: #ifStatement)
-		equals:
-			(PWBASTIfStatement new
-				ifStatement:
-					(PWBASTIfMultiLine new
-						condition:
-							(PWBASTCondition new
-								expression:
-									(PWBASTExpression new
-										expression:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTAccessOrType new
-														accessOrType:
-															(PWBASTAccess new
-																accessed:
-																	(PWBASTVariable new
-																		identifier:
-																			(PWBASTIdentifier new
-																				identifier: 'true';
-																				startPosition: 4;
-																				stopPosition: 7;
-																				yourself);
-																		arrayDefinition: nil;
-																		startPosition: 4;
-																		stopPosition: 7;
-																		yourself);
-																arrayPosition: nil;
-																startPosition: 4;
-																stopPosition: 7;
-																yourself);
-														startPosition: 4;
-														stopPosition: 7;
-														yourself);
-												startPosition: 4;
-												stopPosition: 7;
-												yourself);
-										expressionAction: nil;
-										startPosition: 4;
-										stopPosition: 7;
-										yourself);
-								startPosition: 4;
-								stopPosition: 7;
-								yourself);
-						statements:
-							(PWBASTStatements new
-								statements:
-									{(PWBASTStatement new
-										statement:
-											(PWBASTIfStatement new
-												ifStatement:
-													(PWBASTIfSingleLine new
-														condition:
-															(PWBASTCondition new
-																expression:
-																	(PWBASTExpression new
-																		expression:
-																			(PWBASTExpressionTerm new
-																				expressionTerm:
-																					(PWBASTAccessOrType new
-																						accessOrType:
-																							(PWBASTAccess new
-																								accessed:
-																									(PWBASTVariable new
-																										identifier:
-																											(PWBASTIdentifier new
-																												identifier: 'false';
-																												startPosition: 18;
-																												stopPosition: 22;
-																												yourself);
-																										arrayDefinition: nil;
-																										startPosition: 18;
-																										stopPosition: 22;
-																										yourself);
-																								arrayPosition: nil;
-																								startPosition: 18;
-																								stopPosition: 22;
-																								yourself);
-																						startPosition: 18;
-																						stopPosition: 22;
-																						yourself);
-																				startPosition: 18;
-																				stopPosition: 22;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 18;
-																		stopPosition: 22;
-																		yourself);
-																startPosition: 18;
-																stopPosition: 22;
-																yourself);
-														statement:
-															(PWBASTStatement new
-																statement:
-																	(PWBASTAssignationStatement new
-																		accessOrType:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTVariable new
-																								identifier:
-																									(PWBASTIdentifier new
-																										identifier: 'a';
-																										startPosition: 29;
-																										stopPosition: 29;
-																										yourself);
-																								arrayDefinition: nil;
-																								startPosition: 29;
-																								stopPosition: 29;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 29;
-																						stopPosition: 29;
-																						yourself);
-																				startPosition: 29;
-																				stopPosition: 29;
-																				yourself);
-																		expressionAction: nil;
-																		assignation:
-																			(PWBASTAssignation new
-																				expression:
-																					(PWBASTExpression new
-																						expression:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTNumber new
-																										number: '2';
-																										startPosition: 33;
-																										stopPosition: 33;
-																										yourself);
-																								startPosition: 33;
-																								stopPosition: 33;
-																								yourself);
-																						expressionAction: nil;
-																						startPosition: 33;
-																						stopPosition: 33;
-																						yourself);
-																				startPosition: 30;
-																				stopPosition: 33;
-																				yourself);
-																		startPosition: 29;
-																		stopPosition: 33;
-																		yourself);
-																startPosition: 29;
-																stopPosition: 33;
-																yourself);
-														elseOnLine: nil;
-														startPosition: 15;
-														stopPosition: 33;
-														yourself);
-												startPosition: 15;
-												stopPosition: 33;
-												yourself);
-										startPosition: 15;
-										stopPosition: 33;
-										yourself)};
-								startPosition: 15;
-								stopPosition: 33;
-								yourself);
-						elseIfs: (OrderedCollection withAll: {});
-						else:
-							(PWBASTElse new
-								statements: nil;
-								startPosition: 36;
-								stopPosition: 41;
-								yourself);
-						startPosition: 1;
-						stopPosition: 47;
-						yourself);
-				startPosition: 1;
-				stopPosition: 47;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testMethodInvocation1 [
 	<generated>
 	self
@@ -31700,25 +31982,6 @@ PWBCommonParserTest >> testOpenSqlCursor1 [
 PWBCommonParserTest >> testOpenSqlCursor2 [
 	<generated>
 	self
-		assert: (self parse: 'open dynamic c_sin ;' rule: #openSqlCursor)
-		equals:
-			(PWBASTOpenSqlCursor new
-				identifier:
-					(PWBASTIdentifier new
-						identifier: 'c_sin';
-						startPosition: 14;
-						stopPosition: 18;
-						yourself);
-				descriptor: nil;
-				startPosition: 1;
-				stopPosition: 20;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testOpenSqlCursor3 [
-	<generated>
-	self
 		assert: (self parse: 'Open C_column_ave ;' rule: #openSqlCursor)
 		equals:
 			(PWBASTOpenSqlCursor new
@@ -31731,6 +31994,25 @@ PWBCommonParserTest >> testOpenSqlCursor3 [
 				descriptor: nil;
 				startPosition: 1;
 				stopPosition: 19;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testOpenSqlCursor3 [
+	<generated>
+	self
+		assert: (self parse: 'open dynamic c_sin ;' rule: #openSqlCursor)
+		equals:
+			(PWBASTOpenSqlCursor new
+				identifier:
+					(PWBASTIdentifier new
+						identifier: 'c_sin';
+						startPosition: 14;
+						stopPosition: 18;
+						yourself);
+				descriptor: nil;
+				startPosition: 1;
+				stopPosition: 20;
 				yourself)
 ]
 
@@ -31844,14 +32126,14 @@ PWBCommonParserTest >> testPrepareSQL1 [
 PWBCommonParserTest >> testProgramStep1 [
 	<generated>
 	self
-		assert: (self parse: 'Fin :' rule: #programStep)
+		assert: (self parse: 'blaa:' rule: #programStep)
 		equals:
 			(PWBASTProgramStep new
 				identifier:
 					(PWBASTIdentifier new
-						identifier: 'Fin';
+						identifier: 'blaa';
 						startPosition: 1;
-						stopPosition: 3;
+						stopPosition: 4;
 						yourself);
 				startPosition: 1;
 				stopPosition: 5;
@@ -31862,14 +32144,14 @@ PWBCommonParserTest >> testProgramStep1 [
 PWBCommonParserTest >> testProgramStep2 [
 	<generated>
 	self
-		assert: (self parse: 'blaa:' rule: #programStep)
+		assert: (self parse: 'Fin :' rule: #programStep)
 		equals:
 			(PWBASTProgramStep new
 				identifier:
 					(PWBASTIdentifier new
-						identifier: 'blaa';
+						identifier: 'Fin';
 						startPosition: 1;
-						stopPosition: 4;
+						stopPosition: 3;
 						yourself);
 				startPosition: 1;
 				stopPosition: 5;
@@ -31938,87 +32220,6 @@ end prototypes'
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testPrototypesDeclaration2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'forward prototypes
-global function integer uf_complement_forfait (double ad_num_fic)
-end prototypes'
-				rule: #prototypesDeclaration)
-		equals:
-			(PWBASTPrototypesDeclaration new
-				declarations:
-					{(PWBASTFunctionDeclaration new
-						functionSignature:
-							(PWBASTFunctionSignature new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'global';
-										startPosition: 20;
-										stopPosition: 25;
-										yourself);
-								type:
-									(PWBASTType new
-										type:
-											(PWBASTBasicType new
-												basicType: 'integer';
-												startPosition: 36;
-												stopPosition: 42;
-												yourself);
-										startPosition: 36;
-										stopPosition: 42;
-										yourself);
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uf_complement_forfait';
-										startPosition: 44;
-										stopPosition: 64;
-										yourself);
-								arguments:
-									(PWBASTArguments new
-										arguments:
-											{(PWBASTArgument new
-												argumentOption: nil;
-												type:
-													(PWBASTType new
-														type:
-															(PWBASTBasicType new
-																basicType: 'double';
-																startPosition: 67;
-																stopPosition: 72;
-																yourself);
-														startPosition: 67;
-														stopPosition: 72;
-														yourself);
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'ad_num_fic';
-														startPosition: 74;
-														stopPosition: 83;
-														yourself);
-												arrayWithSize: nil;
-												startPosition: 67;
-												stopPosition: 83;
-												yourself)};
-										startPosition: 66;
-										stopPosition: 84;
-										yourself);
-								startPosition: 20;
-								stopPosition: 84;
-								yourself);
-						behaviouralOptions: {};
-						startPosition: 20;
-						stopPosition: 84;
-						yourself)};
-				startPosition: 1;
-				stopPosition: 99;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testPrototypesDeclaration3 [
 	<generated>
 	self
 		assert:
@@ -32483,7 +32684,7 @@ end prototypes'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testPrototypesDeclaration4 [
+PWBCommonParserTest >> testPrototypesDeclaration3 [
 	<generated>
 	self
 		assert:
@@ -32543,6 +32744,87 @@ end prototypes'
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testPrototypesDeclaration4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'forward prototypes
+global function integer uf_complement_forfait (double ad_num_fic)
+end prototypes'
+				rule: #prototypesDeclaration)
+		equals:
+			(PWBASTPrototypesDeclaration new
+				declarations:
+					{(PWBASTFunctionDeclaration new
+						functionSignature:
+							(PWBASTFunctionSignature new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'global';
+										startPosition: 20;
+										stopPosition: 25;
+										yourself);
+								type:
+									(PWBASTType new
+										type:
+											(PWBASTBasicType new
+												basicType: 'integer';
+												startPosition: 36;
+												stopPosition: 42;
+												yourself);
+										startPosition: 36;
+										stopPosition: 42;
+										yourself);
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'uf_complement_forfait';
+										startPosition: 44;
+										stopPosition: 64;
+										yourself);
+								arguments:
+									(PWBASTArguments new
+										arguments:
+											{(PWBASTArgument new
+												argumentOption: nil;
+												type:
+													(PWBASTType new
+														type:
+															(PWBASTBasicType new
+																basicType: 'double';
+																startPosition: 67;
+																stopPosition: 72;
+																yourself);
+														startPosition: 67;
+														stopPosition: 72;
+														yourself);
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'ad_num_fic';
+														startPosition: 74;
+														stopPosition: 83;
+														yourself);
+												arrayWithSize: nil;
+												startPosition: 67;
+												stopPosition: 83;
+												yourself)};
+										startPosition: 66;
+										stopPosition: 84;
+										yourself);
+								startPosition: 20;
+								stopPosition: 84;
+								yourself);
+						behaviouralOptions: {};
+						startPosition: 20;
+						stopPosition: 84;
+						yourself)};
+				startPosition: 1;
+				stopPosition: 99;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testPrototypesDeclaration5 [
 	<generated>
 	self
@@ -32573,52 +32855,6 @@ PWBCommonParserTest >> testReservedKeyword1 [
 PWBCommonParserTest >> testReturnStatement1 [
 	<generated>
 	self
-		assert: (self parse: 'Return EncodingUTF16LE!' rule: #returnStatement)
-		equals:
-			(PWBASTReturnStatement new
-				expression:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTAccessOrType new
-										accessOrType:
-											(PWBASTAccess new
-												accessed:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'EncodingUTF16LE';
-																startPosition: 8;
-																stopPosition: 22;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 8;
-														stopPosition: 22;
-														yourself);
-												arrayPosition: nil;
-												startPosition: 8;
-												stopPosition: 22;
-												yourself);
-										startPosition: 8;
-										stopPosition: 22;
-										yourself);
-								startPosition: 8;
-								stopPosition: 22;
-								yourself);
-						expressionAction: nil;
-						startPosition: 8;
-						stopPosition: 22;
-						yourself);
-				startPosition: 1;
-				stopPosition: 23;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testReturnStatement2 [
-	<generated>
-	self
 		assert: (self parse: 'return 0' rule: #returnStatement)
 		equals:
 			(PWBASTReturnStatement new
@@ -32645,7 +32881,7 @@ PWBCommonParserTest >> testReturnStatement2 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testReturnStatement3 [
+PWBCommonParserTest >> testReturnStatement2 [
 	<generated>
 	self
 		assert: (self parse: 'return' rule: #returnStatement)
@@ -32658,7 +32894,7 @@ PWBCommonParserTest >> testReturnStatement3 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testReturnStatement4 [
+PWBCommonParserTest >> testReturnStatement3 [
 	<generated>
 	self
 		assert: (self parse: 'RETURN FALSE' rule: #returnStatement)
@@ -32700,6 +32936,52 @@ PWBCommonParserTest >> testReturnStatement4 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 12;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testReturnStatement4 [
+	<generated>
+	self
+		assert: (self parse: 'Return EncodingUTF16LE!' rule: #returnStatement)
+		equals:
+			(PWBASTReturnStatement new
+				expression:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTAccessOrType new
+										accessOrType:
+											(PWBASTAccess new
+												accessed:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'EncodingUTF16LE';
+																startPosition: 8;
+																stopPosition: 22;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 8;
+														stopPosition: 22;
+														yourself);
+												arrayPosition: nil;
+												startPosition: 8;
+												stopPosition: 22;
+												yourself);
+										startPosition: 8;
+										stopPosition: 22;
+										yourself);
+								startPosition: 8;
+								stopPosition: 22;
+								yourself);
+						expressionAction: nil;
+						startPosition: 8;
+						stopPosition: 22;
+						yourself);
+				startPosition: 1;
+				stopPosition: 23;
 				yourself)
 ]
 
@@ -32769,6 +33051,22 @@ PWBCommonParserTest >> testSqlQuery1 [
 	self
 		assert:
 			(self
+				parse: 'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;'
+				rule: #sqlQuery)
+		equals:
+			(PWBASTSqlQuery new
+				sqlQuery: 'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;';
+				startPosition: 1;
+				stopPosition: 113;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testSqlQuery2 [
+	<generated>
+	self
+		assert:
+			(self
 				parse:
 					'insert into paa (paa_aoc, paa_dac, paa_uti, sou_no, par_no, gpp_no, rdg_cod, paa_deb, paa_val, paa_fin, adh_ctr, paa_ddw, paa_no) values
 			(''N'', current timestamp, :gs_cre_uti, :ll_sou_no, :il_par_no, :il_gpp_no, :ls_rdg_cod, :ld_paa_deb, :ls_paa_val, :ld_paa_fin, :is_adh_ctr, :ls_paa_ddw, :ll_paa_no) ;'
@@ -32784,7 +33082,36 @@ PWBCommonParserTest >> testSqlQuery1 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery2 [
+PWBCommonParserTest >> testSqlQuery3 [
+	<generated>
+	self
+		assert: (self parse: 'fetch C_column_ave into :ls_col_name;' rule: #sqlQuery)
+		equals:
+			(PWBASTSqlQuery new
+				sqlQuery: 'fetch C_column_ave into :ls_col_name;';
+				startPosition: 1;
+				stopPosition: 37;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testSqlQuery4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;'
+				rule: #sqlQuery)
+		equals:
+			(PWBASTSqlQuery new
+				sqlQuery: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;';
+				startPosition: 1;
+				stopPosition: 65;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testSqlQuery5 [
 	<generated>
 	self
 		assert:
@@ -32806,68 +33133,7 @@ PWBCommonParserTest >> testSqlQuery2 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery3 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;'
-				rule: #sqlQuery)
-		equals:
-			(PWBASTSqlQuery new
-				sqlQuery: 'delete from dct where dct_dss = :al_dss and (obi_no = :ll_ide_no or chq_no = :ll_ide_no or esp_no = :ll_ide_no) ;';
-				startPosition: 1;
-				stopPosition: 113;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery4 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;'
-				rule: #sqlQuery)
-		equals:
-			(PWBASTSqlQuery new
-				sqlQuery: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;';
-				startPosition: 1;
-				stopPosition: 64;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery5 [
-	<generated>
-	self
-		assert: (self parse: 'fetch C_column_ave into :ls_col_name;' rule: #sqlQuery)
-		equals:
-			(PWBASTSqlQuery new
-				sqlQuery: 'fetch C_column_ave into :ls_col_name;';
-				startPosition: 1;
-				stopPosition: 37;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testSqlQuery6 [
-	<generated>
-	self
-		assert:
-			(self
-				parse: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;'
-				rule: #sqlQuery)
-		equals:
-			(PWBASTSqlQuery new
-				sqlQuery: 'SELECTBLOB REQ_SQL INTO :lb_sql FROM REQ WHERE REQ_LIB = :ls_lib;';
-				startPosition: 1;
-				stopPosition: 65;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery7 [
 	<generated>
 	self
 		assert:
@@ -32891,7 +33157,7 @@ PWBCommonParserTest >> testSqlQuery7 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testSqlQuery8 [
+PWBCommonParserTest >> testSqlQuery7 [
 	<generated>
 	self
 		assert:
@@ -32981,6 +33247,22 @@ PWBCommonParserTest >> testSqlQuery8 [
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testSqlQuery8 [
+	<generated>
+	self
+		assert:
+			(self
+				parse: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;'
+				rule: #sqlQuery)
+		equals:
+			(PWBASTSqlQuery new
+				sqlQuery: 'UPDATEBLOB REQ_HIS SET HIS_NEW = :lb_sql WHERE HIS_ID = :ll_sno;';
+				startPosition: 1;
+				stopPosition: 64;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testSqlRollbackStatement1 [
 	<generated>
 	self
@@ -33023,6 +33305,46 @@ PWBCommonParserTest >> testSqlRollbackStatement2 [
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testStatement1 [
+	<generated>
+	self
+		assert: (self parse: 'EVENT Edw_pre_insertion()' rule: #statement)
+		equals:
+			(PWBASTStatement new
+				statement:
+					(PWBASTExpression new
+						expression:
+							(PWBASTExpressionTerm new
+								expressionTerm:
+									(PWBASTEventInvocation new
+										identifier:
+											(PWBASTIdentifier new
+												identifier: 'Edw_pre_insertion';
+												startPosition: 7;
+												stopPosition: 23;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments: nil;
+												startPosition: 24;
+												stopPosition: 25;
+												yourself);
+										startPosition: 1;
+										stopPosition: 25;
+										yourself);
+								startPosition: 1;
+								stopPosition: 25;
+								yourself);
+						expressionAction: nil;
+						startPosition: 1;
+						stopPosition: 25;
+						yourself);
+				startPosition: 1;
+				stopPosition: 25;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testStatement2 [
 	<generated>
 	self
 		assert: (self parse: 'dw_detail.setFocus()' rule: #statement)
@@ -33095,7 +33417,7 @@ PWBCommonParserTest >> testStatement1 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement2 [
+PWBCommonParserTest >> testStatement3 [
 	<generated>
 	self
 		assert: (self parse: 'return' rule: #statement)
@@ -33118,7 +33440,7 @@ PWBCommonParserTest >> testStatement2 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement3 [
+PWBCommonParserTest >> testStatement4 [
 	<generated>
 	self
 		assert: (self parse: 'long ll_par_no' rule: #statement)
@@ -33164,7 +33486,7 @@ PWBCommonParserTest >> testStatement3 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement4 [
+PWBCommonParserTest >> testStatement5 [
 	<generated>
 	self
 		assert: (self parse: 'il_nbs_gpp_trt ++' rule: #statement)
@@ -33215,7 +33537,7 @@ PWBCommonParserTest >> testStatement4 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement5 [
+PWBCommonParserTest >> testStatement6 [
 	<generated>
 	self
 		assert: (self parse: 'printSetup()' rule: #statement)
@@ -33245,7 +33567,7 @@ PWBCommonParserTest >> testStatement5 [
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement6 [
+PWBCommonParserTest >> testStatement7 [
 	<generated>
 	self
 		assert: (self parse: 'al_julian --' rule: #statement)
@@ -33292,46 +33614,6 @@ PWBCommonParserTest >> testStatement6 [
 						yourself);
 				startPosition: 1;
 				stopPosition: 12;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testStatement7 [
-	<generated>
-	self
-		assert: (self parse: 'EVENT Edw_pre_insertion()' rule: #statement)
-		equals:
-			(PWBASTStatement new
-				statement:
-					(PWBASTExpression new
-						expression:
-							(PWBASTExpressionTerm new
-								expressionTerm:
-									(PWBASTEventInvocation new
-										identifier:
-											(PWBASTIdentifier new
-												identifier: 'Edw_pre_insertion';
-												startPosition: 7;
-												stopPosition: 23;
-												yourself);
-										functionArguments:
-											(PWBASTFunctionArguments new
-												functionArguments: nil;
-												startPosition: 24;
-												stopPosition: 25;
-												yourself);
-										startPosition: 1;
-										stopPosition: 25;
-										yourself);
-								startPosition: 1;
-								stopPosition: 25;
-								yourself);
-						expressionAction: nil;
-						startPosition: 1;
-						stopPosition: 25;
-						yourself);
-				startPosition: 1;
-				stopPosition: 25;
 				yourself)
 ]
 
@@ -34049,202 +34331,6 @@ PWBCommonParserTest >> testTriggerDefinition1 [
 		assert:
 			(self
 				parse:
-					'on uo_consultation_histo_suppression_ech.destroy
-destroy(this.dw_liste)
-destroy(this.dw_detail)
-end on'
-				rule: #triggerDefinition)
-		equals:
-			(PWBASTTriggerDefinition new
-				identifier:
-					(PWBASTIdentifier new
-						identifier: 'uo_consultation_histo_suppression_ech';
-						startPosition: 4;
-						stopPosition: 40;
-						yourself);
-				eventType:
-					(PWBASTEventType new
-						eventType:
-							(PWBASTDefaultEventType new
-								defaultEventType: 'destroy';
-								startPosition: 42;
-								stopPosition: 48;
-								yourself);
-						startPosition: 42;
-						stopPosition: 48;
-						yourself);
-				statements:
-					(PWBASTStatements new
-						statements:
-							{(PWBASTStatement new
-								statement:
-									(PWBASTFunctionInvocation new
-										defaultVariable: nil;
-										functionName:
-											(PWBASTUncheckedIdentifier new
-												uncheckedIdentifier: 'destroy';
-												startPosition: 50;
-												stopPosition: 56;
-												yourself);
-										functionArguments:
-											(PWBASTFunctionArguments new
-												functionArguments:
-													{(PWBASTFunctionArgument new
-														argumentOption: nil;
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTSpecialVariable new
-																								this:
-																									(PWBASTThis new
-																										this: 'this';
-																										startPosition: 58;
-																										stopPosition: 61;
-																										yourself);
-																								startPosition: 58;
-																								stopPosition: 61;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 58;
-																						stopPosition: 61;
-																						yourself);
-																				startPosition: 58;
-																				stopPosition: 61;
-																				yourself);
-																		startPosition: 58;
-																		stopPosition: 61;
-																		yourself);
-																expressionAction:
-																	(PWBASTExpressionAction new
-																		action:
-																			(PWBASTAttributeAccess new
-																				uncheckedIdentifier:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'dw_liste';
-																						startPosition: 63;
-																						stopPosition: 70;
-																						yourself);
-																				arrayInformation: nil;
-																				startPosition: 62;
-																				stopPosition: 70;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 62;
-																		stopPosition: 70;
-																		yourself);
-																startPosition: 58;
-																stopPosition: 70;
-																yourself);
-														startPosition: 58;
-														stopPosition: 70;
-														yourself)};
-												startPosition: 57;
-												stopPosition: 71;
-												yourself);
-										startPosition: 50;
-										stopPosition: 71;
-										yourself);
-								startPosition: 50;
-								stopPosition: 71;
-								yourself).
-							(PWBASTStatement new
-								statement:
-									(PWBASTFunctionInvocation new
-										defaultVariable: nil;
-										functionName:
-											(PWBASTUncheckedIdentifier new
-												uncheckedIdentifier: 'destroy';
-												startPosition: 73;
-												stopPosition: 79;
-												yourself);
-										functionArguments:
-											(PWBASTFunctionArguments new
-												functionArguments:
-													{(PWBASTFunctionArgument new
-														argumentOption: nil;
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTAccessOrType new
-																				accessOrType:
-																					(PWBASTAccess new
-																						accessed:
-																							(PWBASTSpecialVariable new
-																								this:
-																									(PWBASTThis new
-																										this: 'this';
-																										startPosition: 81;
-																										stopPosition: 84;
-																										yourself);
-																								startPosition: 81;
-																								stopPosition: 84;
-																								yourself);
-																						arrayPosition: nil;
-																						startPosition: 81;
-																						stopPosition: 84;
-																						yourself);
-																				startPosition: 81;
-																				stopPosition: 84;
-																				yourself);
-																		startPosition: 81;
-																		stopPosition: 84;
-																		yourself);
-																expressionAction:
-																	(PWBASTExpressionAction new
-																		action:
-																			(PWBASTAttributeAccess new
-																				uncheckedIdentifier:
-																					(PWBASTUncheckedIdentifier new
-																						uncheckedIdentifier: 'dw_detail';
-																						startPosition: 86;
-																						stopPosition: 94;
-																						yourself);
-																				arrayInformation: nil;
-																				startPosition: 85;
-																				stopPosition: 94;
-																				yourself);
-																		expressionAction: nil;
-																		startPosition: 85;
-																		stopPosition: 94;
-																		yourself);
-																startPosition: 81;
-																stopPosition: 94;
-																yourself);
-														startPosition: 81;
-														stopPosition: 94;
-														yourself)};
-												startPosition: 80;
-												stopPosition: 95;
-												yourself);
-										startPosition: 73;
-										stopPosition: 95;
-										yourself);
-								startPosition: 73;
-								stopPosition: 95;
-								yourself)};
-						startPosition: 50;
-						stopPosition: 95;
-						yourself);
-				startPosition: 1;
-				stopPosition: 102;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTriggerDefinition2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
 					'on uo_consultation_histo_suppression_ech.create
 this.dw_liste=create dw_liste
 this.dw_detail=create dw_detail
@@ -34620,6 +34706,202 @@ end on'
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTriggerDefinition2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'on uo_consultation_histo_suppression_ech.destroy
+destroy(this.dw_liste)
+destroy(this.dw_detail)
+end on'
+				rule: #triggerDefinition)
+		equals:
+			(PWBASTTriggerDefinition new
+				identifier:
+					(PWBASTIdentifier new
+						identifier: 'uo_consultation_histo_suppression_ech';
+						startPosition: 4;
+						stopPosition: 40;
+						yourself);
+				eventType:
+					(PWBASTEventType new
+						eventType:
+							(PWBASTDefaultEventType new
+								defaultEventType: 'destroy';
+								startPosition: 42;
+								stopPosition: 48;
+								yourself);
+						startPosition: 42;
+						stopPosition: 48;
+						yourself);
+				statements:
+					(PWBASTStatements new
+						statements:
+							{(PWBASTStatement new
+								statement:
+									(PWBASTFunctionInvocation new
+										defaultVariable: nil;
+										functionName:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'destroy';
+												startPosition: 50;
+												stopPosition: 56;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments:
+													{(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTSpecialVariable new
+																								this:
+																									(PWBASTThis new
+																										this: 'this';
+																										startPosition: 58;
+																										stopPosition: 61;
+																										yourself);
+																								startPosition: 58;
+																								stopPosition: 61;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 58;
+																						stopPosition: 61;
+																						yourself);
+																				startPosition: 58;
+																				stopPosition: 61;
+																				yourself);
+																		startPosition: 58;
+																		stopPosition: 61;
+																		yourself);
+																expressionAction:
+																	(PWBASTExpressionAction new
+																		action:
+																			(PWBASTAttributeAccess new
+																				uncheckedIdentifier:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'dw_liste';
+																						startPosition: 63;
+																						stopPosition: 70;
+																						yourself);
+																				arrayInformation: nil;
+																				startPosition: 62;
+																				stopPosition: 70;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 62;
+																		stopPosition: 70;
+																		yourself);
+																startPosition: 58;
+																stopPosition: 70;
+																yourself);
+														startPosition: 58;
+														stopPosition: 70;
+														yourself)};
+												startPosition: 57;
+												stopPosition: 71;
+												yourself);
+										startPosition: 50;
+										stopPosition: 71;
+										yourself);
+								startPosition: 50;
+								stopPosition: 71;
+								yourself).
+							(PWBASTStatement new
+								statement:
+									(PWBASTFunctionInvocation new
+										defaultVariable: nil;
+										functionName:
+											(PWBASTUncheckedIdentifier new
+												uncheckedIdentifier: 'destroy';
+												startPosition: 73;
+												stopPosition: 79;
+												yourself);
+										functionArguments:
+											(PWBASTFunctionArguments new
+												functionArguments:
+													{(PWBASTFunctionArgument new
+														argumentOption: nil;
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTAccessOrType new
+																				accessOrType:
+																					(PWBASTAccess new
+																						accessed:
+																							(PWBASTSpecialVariable new
+																								this:
+																									(PWBASTThis new
+																										this: 'this';
+																										startPosition: 81;
+																										stopPosition: 84;
+																										yourself);
+																								startPosition: 81;
+																								stopPosition: 84;
+																								yourself);
+																						arrayPosition: nil;
+																						startPosition: 81;
+																						stopPosition: 84;
+																						yourself);
+																				startPosition: 81;
+																				stopPosition: 84;
+																				yourself);
+																		startPosition: 81;
+																		stopPosition: 84;
+																		yourself);
+																expressionAction:
+																	(PWBASTExpressionAction new
+																		action:
+																			(PWBASTAttributeAccess new
+																				uncheckedIdentifier:
+																					(PWBASTUncheckedIdentifier new
+																						uncheckedIdentifier: 'dw_detail';
+																						startPosition: 86;
+																						stopPosition: 94;
+																						yourself);
+																				arrayInformation: nil;
+																				startPosition: 85;
+																				stopPosition: 94;
+																				yourself);
+																		expressionAction: nil;
+																		startPosition: 85;
+																		stopPosition: 94;
+																		yourself);
+																startPosition: 81;
+																stopPosition: 94;
+																yourself);
+														startPosition: 81;
+														stopPosition: 94;
+														yourself)};
+												startPosition: 80;
+												stopPosition: 95;
+												yourself);
+										startPosition: 73;
+										stopPosition: 95;
+										yourself);
+								startPosition: 73;
+								stopPosition: 95;
+								yourself)};
+						startPosition: 50;
+						stopPosition: 95;
+						yourself);
+				startPosition: 1;
+				stopPosition: 102;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testTriggerDefinition3 [
 	<generated>
 	self
@@ -34820,6 +35102,12 @@ PWBCommonParserTest >> testTryCatch1 [
 																				stopPosition: 29;
 																				yourself);
 																		expressionAction: nil;
+																		expressionOperator:
+																			(PWBASTExpressionOperator new
+																				expressionOperator: '=';
+																				startPosition: 31;
+																				stopPosition: 31;
+																				yourself);
 																		right:
 																			(PWBASTExpression new
 																				expression:
@@ -35732,508 +36020,7 @@ PWBCommonParserTest >> testTypeDeclaration1 [
 		assert:
 			(self
 				parse:
-					'type st_titre from uo_traitement`st_titre within uo_traitement_cot_prb
-int Width=819
-string Text="COT_PRB"
-end type'
-				rule: #typeDeclaration)
-		equals:
-			(PWBASTTypeDeclaration new
-				type:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'st_titre';
-								startPosition: 6;
-								stopPosition: 13;
-								yourself);
-						startPosition: 6;
-						stopPosition: 13;
-						yourself);
-				fromClause:
-					(PWBASTFromClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uo_traitement';
-										startPosition: 20;
-										stopPosition: 32;
-										yourself);
-								startPosition: 20;
-								stopPosition: 32;
-								yourself);
-						startPosition: 15;
-						stopPosition: 32;
-						yourself);
-				eventType:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'st_titre';
-								startPosition: 34;
-								stopPosition: 41;
-								yourself);
-						startPosition: 34;
-						stopPosition: 41;
-						yourself);
-				withinClause:
-					(PWBASTWithinClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uo_traitement_cot_prb';
-										startPosition: 50;
-										stopPosition: 70;
-										yourself);
-								startPosition: 50;
-								stopPosition: 70;
-								yourself);
-						startPosition: 43;
-						stopPosition: 70;
-						yourself);
-				descriptor: nil;
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'int';
-																startPosition: 72;
-																stopPosition: 74;
-																yourself);
-														startPosition: 72;
-														stopPosition: 74;
-														yourself);
-												startPosition: 72;
-												stopPosition: 74;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'Width';
-																startPosition: 76;
-																stopPosition: 80;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 76;
-														stopPosition: 80;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '819';
-																				startPosition: 82;
-																				stopPosition: 84;
-																				yourself);
-																		startPosition: 82;
-																		stopPosition: 84;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 82;
-																stopPosition: 84;
-																yourself);
-														startPosition: 81;
-														stopPosition: 84;
-														yourself);
-												startPosition: 76;
-												stopPosition: 84;
-												yourself)};
-										startPosition: 72;
-										stopPosition: 84;
-										yourself);
-								descriptor: nil;
-								startPosition: 72;
-								stopPosition: 84;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 86;
-														stopPosition: 91;
-														yourself);
-												startPosition: 86;
-												stopPosition: 91;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'Text';
-																startPosition: 93;
-																stopPosition: 96;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 93;
-														stopPosition: 96;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"COT_PRB"';
-																				startPosition: 98;
-																				stopPosition: 106;
-																				yourself);
-																		startPosition: 98;
-																		stopPosition: 106;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 98;
-																stopPosition: 106;
-																yourself);
-														startPosition: 97;
-														stopPosition: 106;
-														yourself);
-												startPosition: 93;
-												stopPosition: 106;
-												yourself)};
-										startPosition: 86;
-										stopPosition: 106;
-										yourself);
-								descriptor: nil;
-								startPosition: 86;
-								stopPosition: 106;
-								yourself)};
-						startPosition: 72;
-						stopPosition: 107;
-						yourself);
-				startPosition: 1;
-				stopPosition: 115;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration10 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'global type n_cst_unicode from nonvisualobject autoinstantiate
-end type'
-				rule: #typeDeclaration)
-		equals:
-			(PWBASTTypeDeclaration new
-				type:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'n_cst_unicode';
-								startPosition: 13;
-								stopPosition: 25;
-								yourself);
-						startPosition: 13;
-						stopPosition: 25;
-						yourself);
-				fromClause:
-					(PWBASTFromClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'nonvisualobject';
-										startPosition: 32;
-										stopPosition: 46;
-										yourself);
-								startPosition: 32;
-								stopPosition: 46;
-								yourself);
-						startPosition: 27;
-						stopPosition: 46;
-						yourself);
-				eventType: nil;
-				withinClause: nil;
-				descriptor: nil;
-				attributes: nil;
-				startPosition: 1;
-				stopPosition: 71;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
-string dataobject = "dw_zonier"
-end type'
-				rule: #typeDeclaration)
-		equals:
-			(PWBASTTypeDeclaration new
-				type:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'ds_zon';
-								startPosition: 6;
-								stopPosition: 11;
-								yourself);
-						startPosition: 6;
-						stopPosition: 11;
-						yourself);
-				fromClause:
-					(PWBASTFromClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'nvo_datastore';
-										startPosition: 18;
-										stopPosition: 30;
-										yourself);
-								startPosition: 18;
-								stopPosition: 30;
-								yourself);
-						startPosition: 13;
-						stopPosition: 30;
-						yourself);
-				eventType: nil;
-				withinClause:
-					(PWBASTWithinClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uo_traitement_cot_app';
-										startPosition: 39;
-										stopPosition: 59;
-										yourself);
-								startPosition: 39;
-								stopPosition: 59;
-								yourself);
-						startPosition: 32;
-						stopPosition: 59;
-						yourself);
-				descriptor:
-					(PWBASTDescriptor new
-						expression:
-							(PWBASTExpression new
-								expression:
-									(PWBASTOperatorExpression new
-										left:
-											(PWBASTExpressionTerm new
-												expressionTerm:
-													(PWBASTString new
-														string: '"pb_nvo"';
-														startPosition: 72;
-														stopPosition: 79;
-														yourself);
-												startPosition: 72;
-												stopPosition: 79;
-												yourself);
-										expressionAction: nil;
-										right:
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTString new
-																string: '"true"';
-																startPosition: 83;
-																stopPosition: 88;
-																yourself);
-														startPosition: 83;
-														stopPosition: 88;
-														yourself);
-												expressionAction: nil;
-												startPosition: 83;
-												stopPosition: 88;
-												yourself);
-										startPosition: 72;
-										stopPosition: 88;
-										yourself);
-								expressionAction: nil;
-								startPosition: 72;
-								stopPosition: 88;
-								yourself);
-						startPosition: 61;
-						stopPosition: 88;
-						yourself);
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 91;
-														stopPosition: 96;
-														yourself);
-												startPosition: 91;
-												stopPosition: 96;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dataobject';
-																startPosition: 98;
-																stopPosition: 107;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 98;
-														stopPosition: 107;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"dw_zonier"';
-																				startPosition: 111;
-																				stopPosition: 121;
-																				yourself);
-																		startPosition: 111;
-																		stopPosition: 121;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 111;
-																stopPosition: 121;
-																yourself);
-														startPosition: 108;
-														stopPosition: 121;
-														yourself);
-												startPosition: 98;
-												stopPosition: 121;
-												yourself)};
-										startPosition: 91;
-										stopPosition: 121;
-										yourself);
-								descriptor: nil;
-								startPosition: 91;
-								stopPosition: 121;
-								yourself)};
-						startPosition: 91;
-						stopPosition: 122;
-						yourself);
-				startPosition: 1;
-				stopPosition: 130;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration3 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
-end type'
-				rule: #typeDeclaration)
-		equals:
-			(PWBASTTypeDeclaration new
-				type:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'dw_liste';
-								startPosition: 6;
-								stopPosition: 13;
-								yourself);
-						startPosition: 6;
-						stopPosition: 13;
-						yourself);
-				fromClause:
-					(PWBASTFromClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uo_dw_detail';
-										startPosition: 20;
-										stopPosition: 31;
-										yourself);
-								startPosition: 20;
-								stopPosition: 31;
-								yourself);
-						startPosition: 15;
-						stopPosition: 31;
-						yourself);
-				eventType: nil;
-				withinClause:
-					(PWBASTWithinClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'uo_consultation_histo_suppression_ech';
-										startPosition: 40;
-										stopPosition: 76;
-										yourself);
-								startPosition: 40;
-								stopPosition: 76;
-								yourself);
-						startPosition: 33;
-						stopPosition: 76;
-						yourself);
-				descriptor: nil;
-				attributes: nil;
-				startPosition: 1;
-				stopPosition: 85;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration4 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
 					'global type uo_consultation_histo_suppression_ech from userobject
-string tag = "uo_liste_detail_en_partage"
-integer width = 2944
-integer height = 1268
-long backcolor = 79741120
-long tabtextcolor = 33554432
-long tabbackcolor = 16777215
-long picturemaskcolor = 536870912
-dw_liste dw_liste
-dw_detail dw_detail
 end type'
 				rule: #typeDeclaration)
 		equals:
@@ -36268,536 +36055,14 @@ end type'
 				eventType: nil;
 				withinClause: nil;
 				descriptor: nil;
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 67;
-														stopPosition: 72;
-														yourself);
-												startPosition: 67;
-												stopPosition: 72;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'tag';
-																startPosition: 74;
-																stopPosition: 76;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 74;
-														stopPosition: 76;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"uo_liste_detail_en_partage"';
-																				startPosition: 80;
-																				stopPosition: 107;
-																				yourself);
-																		startPosition: 80;
-																		stopPosition: 107;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 80;
-																stopPosition: 107;
-																yourself);
-														startPosition: 77;
-														stopPosition: 107;
-														yourself);
-												startPosition: 74;
-												stopPosition: 107;
-												yourself)};
-										startPosition: 67;
-										stopPosition: 107;
-										yourself);
-								descriptor: nil;
-								startPosition: 67;
-								stopPosition: 107;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'integer';
-														startPosition: 109;
-														stopPosition: 115;
-														yourself);
-												startPosition: 109;
-												stopPosition: 115;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'width';
-																startPosition: 117;
-																stopPosition: 121;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 117;
-														stopPosition: 121;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '2944';
-																				startPosition: 125;
-																				stopPosition: 128;
-																				yourself);
-																		startPosition: 125;
-																		stopPosition: 128;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 125;
-																stopPosition: 128;
-																yourself);
-														startPosition: 122;
-														stopPosition: 128;
-														yourself);
-												startPosition: 117;
-												stopPosition: 128;
-												yourself)};
-										startPosition: 109;
-										stopPosition: 128;
-										yourself);
-								descriptor: nil;
-								startPosition: 109;
-								stopPosition: 128;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'integer';
-														startPosition: 130;
-														stopPosition: 136;
-														yourself);
-												startPosition: 130;
-												stopPosition: 136;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'height';
-																startPosition: 138;
-																stopPosition: 143;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 138;
-														stopPosition: 143;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '1268';
-																				startPosition: 147;
-																				stopPosition: 150;
-																				yourself);
-																		startPosition: 147;
-																		stopPosition: 150;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 147;
-																stopPosition: 150;
-																yourself);
-														startPosition: 144;
-														stopPosition: 150;
-														yourself);
-												startPosition: 138;
-												stopPosition: 150;
-												yourself)};
-										startPosition: 130;
-										stopPosition: 150;
-										yourself);
-								descriptor: nil;
-								startPosition: 130;
-								stopPosition: 150;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 152;
-														stopPosition: 155;
-														yourself);
-												startPosition: 152;
-												stopPosition: 155;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'backcolor';
-																startPosition: 157;
-																stopPosition: 165;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 157;
-														stopPosition: 165;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '79741120';
-																				startPosition: 169;
-																				stopPosition: 176;
-																				yourself);
-																		startPosition: 169;
-																		stopPosition: 176;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 169;
-																stopPosition: 176;
-																yourself);
-														startPosition: 166;
-														stopPosition: 176;
-														yourself);
-												startPosition: 157;
-												stopPosition: 176;
-												yourself)};
-										startPosition: 152;
-										stopPosition: 176;
-										yourself);
-								descriptor: nil;
-								startPosition: 152;
-								stopPosition: 176;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 178;
-														stopPosition: 181;
-														yourself);
-												startPosition: 178;
-												stopPosition: 181;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'tabtextcolor';
-																startPosition: 183;
-																stopPosition: 194;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 183;
-														stopPosition: 194;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '33554432';
-																				startPosition: 198;
-																				stopPosition: 205;
-																				yourself);
-																		startPosition: 198;
-																		stopPosition: 205;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 198;
-																stopPosition: 205;
-																yourself);
-														startPosition: 195;
-														stopPosition: 205;
-														yourself);
-												startPosition: 183;
-												stopPosition: 205;
-												yourself)};
-										startPosition: 178;
-										stopPosition: 205;
-										yourself);
-								descriptor: nil;
-								startPosition: 178;
-								stopPosition: 205;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 207;
-														stopPosition: 210;
-														yourself);
-												startPosition: 207;
-												stopPosition: 210;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'tabbackcolor';
-																startPosition: 212;
-																stopPosition: 223;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 212;
-														stopPosition: 223;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '16777215';
-																				startPosition: 227;
-																				stopPosition: 234;
-																				yourself);
-																		startPosition: 227;
-																		stopPosition: 234;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 227;
-																stopPosition: 234;
-																yourself);
-														startPosition: 224;
-														stopPosition: 234;
-														yourself);
-												startPosition: 212;
-												stopPosition: 234;
-												yourself)};
-										startPosition: 207;
-										stopPosition: 234;
-										yourself);
-								descriptor: nil;
-								startPosition: 207;
-								stopPosition: 234;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 236;
-														stopPosition: 239;
-														yourself);
-												startPosition: 236;
-												stopPosition: 239;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'picturemaskcolor';
-																startPosition: 241;
-																stopPosition: 256;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 241;
-														stopPosition: 256;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '536870912';
-																				startPosition: 260;
-																				stopPosition: 268;
-																				yourself);
-																		startPosition: 260;
-																		stopPosition: 268;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 260;
-																stopPosition: 268;
-																yourself);
-														startPosition: 257;
-														stopPosition: 268;
-														yourself);
-												startPosition: 241;
-												stopPosition: 268;
-												yourself)};
-										startPosition: 236;
-										stopPosition: 268;
-										yourself);
-								descriptor: nil;
-								startPosition: 236;
-								stopPosition: 268;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_liste';
-																startPosition: 270;
-																stopPosition: 277;
-																yourself);
-														startPosition: 270;
-														stopPosition: 277;
-														yourself);
-												startPosition: 270;
-												stopPosition: 277;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_liste';
-																startPosition: 279;
-																stopPosition: 286;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 279;
-														stopPosition: 286;
-														yourself);
-												assignation: nil;
-												startPosition: 279;
-												stopPosition: 286;
-												yourself)};
-										startPosition: 270;
-										stopPosition: 286;
-										yourself);
-								descriptor: nil;
-								startPosition: 270;
-								stopPosition: 286;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_detail';
-																startPosition: 288;
-																stopPosition: 296;
-																yourself);
-														startPosition: 288;
-														stopPosition: 296;
-														yourself);
-												startPosition: 288;
-												stopPosition: 296;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'dw_detail';
-																startPosition: 298;
-																stopPosition: 306;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 298;
-														stopPosition: 306;
-														yourself);
-												assignation: nil;
-												startPosition: 298;
-												stopPosition: 306;
-												yourself)};
-										startPosition: 288;
-										stopPosition: 306;
-										yourself);
-								descriptor: nil;
-								startPosition: 288;
-								stopPosition: 306;
-								yourself)};
-						startPosition: 67;
-						stopPosition: 307;
-						yourself);
+				attributes: nil;
 				startPosition: 1;
-				stopPosition: 315;
+				stopPosition: 74;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration5 [
+PWBCommonParserTest >> testTypeDeclaration10 [
 	<generated>
 	self
 		assert:
@@ -38133,7 +37398,940 @@ end type'
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeDeclaration2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type dw_liste from uo_dw_detail within uo_consultation_histo_suppression_ech
+end type'
+				rule: #typeDeclaration)
+		equals:
+			(PWBASTTypeDeclaration new
+				type:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'dw_liste';
+								startPosition: 6;
+								stopPosition: 13;
+								yourself);
+						startPosition: 6;
+						stopPosition: 13;
+						yourself);
+				fromClause:
+					(PWBASTFromClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'uo_dw_detail';
+										startPosition: 20;
+										stopPosition: 31;
+										yourself);
+								startPosition: 20;
+								stopPosition: 31;
+								yourself);
+						startPosition: 15;
+						stopPosition: 31;
+						yourself);
+				eventType: nil;
+				withinClause:
+					(PWBASTWithinClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'uo_consultation_histo_suppression_ech';
+										startPosition: 40;
+										stopPosition: 76;
+										yourself);
+								startPosition: 40;
+								stopPosition: 76;
+								yourself);
+						startPosition: 33;
+						stopPosition: 76;
+						yourself);
+				descriptor: nil;
+				attributes: nil;
+				startPosition: 1;
+				stopPosition: 85;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeDeclaration3 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type m_-1 from menu within m_fichier
+end type'
+				rule: #typeDeclaration)
+		equals:
+			(PWBASTTypeDeclaration new
+				type:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'm_-1';
+								startPosition: 6;
+								stopPosition: 9;
+								yourself);
+						startPosition: 6;
+						stopPosition: 9;
+						yourself);
+				fromClause:
+					(PWBASTFromClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'menu';
+										startPosition: 16;
+										stopPosition: 19;
+										yourself);
+								startPosition: 16;
+								stopPosition: 19;
+								yourself);
+						startPosition: 11;
+						stopPosition: 19;
+						yourself);
+				eventType: nil;
+				withinClause:
+					(PWBASTWithinClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'm_fichier';
+										startPosition: 28;
+										stopPosition: 36;
+										yourself);
+								startPosition: 28;
+								stopPosition: 36;
+								yourself);
+						startPosition: 21;
+						stopPosition: 36;
+						yourself);
+				descriptor: nil;
+				attributes: nil;
+				startPosition: 1;
+				stopPosition: 45;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeDeclaration4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'global type n_cst_unicode from nonvisualobject autoinstantiate
+end type'
+				rule: #typeDeclaration)
+		equals:
+			(PWBASTTypeDeclaration new
+				type:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'n_cst_unicode';
+								startPosition: 13;
+								stopPosition: 25;
+								yourself);
+						startPosition: 13;
+						stopPosition: 25;
+						yourself);
+				fromClause:
+					(PWBASTFromClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'nonvisualobject';
+										startPosition: 32;
+										stopPosition: 46;
+										yourself);
+								startPosition: 32;
+								stopPosition: 46;
+								yourself);
+						startPosition: 27;
+						stopPosition: 46;
+						yourself);
+				eventType: nil;
+				withinClause: nil;
+				descriptor: nil;
+				attributes: nil;
+				startPosition: 1;
+				stopPosition: 71;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeDeclaration5 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type ds_zon from nvo_datastore within uo_traitement_cot_app descriptor "pb_nvo" = "true" 
+string dataobject = "dw_zonier"
+end type'
+				rule: #typeDeclaration)
+		equals:
+			(PWBASTTypeDeclaration new
+				type:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'ds_zon';
+								startPosition: 6;
+								stopPosition: 11;
+								yourself);
+						startPosition: 6;
+						stopPosition: 11;
+						yourself);
+				fromClause:
+					(PWBASTFromClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'nvo_datastore';
+										startPosition: 18;
+										stopPosition: 30;
+										yourself);
+								startPosition: 18;
+								stopPosition: 30;
+								yourself);
+						startPosition: 13;
+						stopPosition: 30;
+						yourself);
+				eventType: nil;
+				withinClause:
+					(PWBASTWithinClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'uo_traitement_cot_app';
+										startPosition: 39;
+										stopPosition: 59;
+										yourself);
+								startPosition: 39;
+								stopPosition: 59;
+								yourself);
+						startPosition: 32;
+						stopPosition: 59;
+						yourself);
+				descriptor:
+					(PWBASTDescriptor new
+						expression:
+							(PWBASTExpression new
+								expression:
+									(PWBASTOperatorExpression new
+										left:
+											(PWBASTExpressionTerm new
+												expressionTerm:
+													(PWBASTString new
+														string: '"pb_nvo"';
+														startPosition: 72;
+														stopPosition: 79;
+														yourself);
+												startPosition: 72;
+												stopPosition: 79;
+												yourself);
+										expressionAction: nil;
+										expressionOperator:
+											(PWBASTExpressionOperator new
+												expressionOperator: '=';
+												startPosition: 81;
+												stopPosition: 81;
+												yourself);
+										right:
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTString new
+																string: '"true"';
+																startPosition: 83;
+																stopPosition: 88;
+																yourself);
+														startPosition: 83;
+														stopPosition: 88;
+														yourself);
+												expressionAction: nil;
+												startPosition: 83;
+												stopPosition: 88;
+												yourself);
+										startPosition: 72;
+										stopPosition: 88;
+										yourself);
+								expressionAction: nil;
+								startPosition: 72;
+								stopPosition: 88;
+								yourself);
+						startPosition: 61;
+						stopPosition: 88;
+						yourself);
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 91;
+														stopPosition: 96;
+														yourself);
+												startPosition: 91;
+												stopPosition: 96;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dataobject';
+																startPosition: 98;
+																stopPosition: 107;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 98;
+														stopPosition: 107;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"dw_zonier"';
+																				startPosition: 111;
+																				stopPosition: 121;
+																				yourself);
+																		startPosition: 111;
+																		stopPosition: 121;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 111;
+																stopPosition: 121;
+																yourself);
+														startPosition: 108;
+														stopPosition: 121;
+														yourself);
+												startPosition: 98;
+												stopPosition: 121;
+												yourself)};
+										startPosition: 91;
+										stopPosition: 121;
+										yourself);
+								descriptor: nil;
+								startPosition: 91;
+								stopPosition: 121;
+								yourself)};
+						startPosition: 91;
+						stopPosition: 122;
+						yourself);
+				startPosition: 1;
+				stopPosition: 130;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testTypeDeclaration6 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'global type uo_consultation_histo_suppression_ech from userobject
+string tag = "uo_liste_detail_en_partage"
+integer width = 2944
+integer height = 1268
+long backcolor = 79741120
+long tabtextcolor = 33554432
+long tabbackcolor = 16777215
+long picturemaskcolor = 536870912
+dw_liste dw_liste
+dw_detail dw_detail
+end type'
+				rule: #typeDeclaration)
+		equals:
+			(PWBASTTypeDeclaration new
+				type:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'uo_consultation_histo_suppression_ech';
+								startPosition: 13;
+								stopPosition: 49;
+								yourself);
+						startPosition: 13;
+						stopPosition: 49;
+						yourself);
+				fromClause:
+					(PWBASTFromClause new
+						customType:
+							(PWBASTCustomType new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'userobject';
+										startPosition: 56;
+										stopPosition: 65;
+										yourself);
+								startPosition: 56;
+								stopPosition: 65;
+								yourself);
+						startPosition: 51;
+						stopPosition: 65;
+						yourself);
+				eventType: nil;
+				withinClause: nil;
+				descriptor: nil;
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 67;
+														stopPosition: 72;
+														yourself);
+												startPosition: 67;
+												stopPosition: 72;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'tag';
+																startPosition: 74;
+																stopPosition: 76;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 74;
+														stopPosition: 76;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"uo_liste_detail_en_partage"';
+																				startPosition: 80;
+																				stopPosition: 107;
+																				yourself);
+																		startPosition: 80;
+																		stopPosition: 107;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 80;
+																stopPosition: 107;
+																yourself);
+														startPosition: 77;
+														stopPosition: 107;
+														yourself);
+												startPosition: 74;
+												stopPosition: 107;
+												yourself)};
+										startPosition: 67;
+										stopPosition: 107;
+										yourself);
+								descriptor: nil;
+								startPosition: 67;
+								stopPosition: 107;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'integer';
+														startPosition: 109;
+														stopPosition: 115;
+														yourself);
+												startPosition: 109;
+												stopPosition: 115;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'width';
+																startPosition: 117;
+																stopPosition: 121;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 117;
+														stopPosition: 121;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '2944';
+																				startPosition: 125;
+																				stopPosition: 128;
+																				yourself);
+																		startPosition: 125;
+																		stopPosition: 128;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 125;
+																stopPosition: 128;
+																yourself);
+														startPosition: 122;
+														stopPosition: 128;
+														yourself);
+												startPosition: 117;
+												stopPosition: 128;
+												yourself)};
+										startPosition: 109;
+										stopPosition: 128;
+										yourself);
+								descriptor: nil;
+								startPosition: 109;
+								stopPosition: 128;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'integer';
+														startPosition: 130;
+														stopPosition: 136;
+														yourself);
+												startPosition: 130;
+												stopPosition: 136;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'height';
+																startPosition: 138;
+																stopPosition: 143;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 138;
+														stopPosition: 143;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '1268';
+																				startPosition: 147;
+																				stopPosition: 150;
+																				yourself);
+																		startPosition: 147;
+																		stopPosition: 150;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 147;
+																stopPosition: 150;
+																yourself);
+														startPosition: 144;
+														stopPosition: 150;
+														yourself);
+												startPosition: 138;
+												stopPosition: 150;
+												yourself)};
+										startPosition: 130;
+										stopPosition: 150;
+										yourself);
+								descriptor: nil;
+								startPosition: 130;
+								stopPosition: 150;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 152;
+														stopPosition: 155;
+														yourself);
+												startPosition: 152;
+												stopPosition: 155;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'backcolor';
+																startPosition: 157;
+																stopPosition: 165;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 157;
+														stopPosition: 165;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '79741120';
+																				startPosition: 169;
+																				stopPosition: 176;
+																				yourself);
+																		startPosition: 169;
+																		stopPosition: 176;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 169;
+																stopPosition: 176;
+																yourself);
+														startPosition: 166;
+														stopPosition: 176;
+														yourself);
+												startPosition: 157;
+												stopPosition: 176;
+												yourself)};
+										startPosition: 152;
+										stopPosition: 176;
+										yourself);
+								descriptor: nil;
+								startPosition: 152;
+								stopPosition: 176;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 178;
+														stopPosition: 181;
+														yourself);
+												startPosition: 178;
+												stopPosition: 181;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'tabtextcolor';
+																startPosition: 183;
+																stopPosition: 194;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 183;
+														stopPosition: 194;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '33554432';
+																				startPosition: 198;
+																				stopPosition: 205;
+																				yourself);
+																		startPosition: 198;
+																		stopPosition: 205;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 198;
+																stopPosition: 205;
+																yourself);
+														startPosition: 195;
+														stopPosition: 205;
+														yourself);
+												startPosition: 183;
+												stopPosition: 205;
+												yourself)};
+										startPosition: 178;
+										stopPosition: 205;
+										yourself);
+								descriptor: nil;
+								startPosition: 178;
+								stopPosition: 205;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 207;
+														stopPosition: 210;
+														yourself);
+												startPosition: 207;
+												stopPosition: 210;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'tabbackcolor';
+																startPosition: 212;
+																stopPosition: 223;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 212;
+														stopPosition: 223;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '16777215';
+																				startPosition: 227;
+																				stopPosition: 234;
+																				yourself);
+																		startPosition: 227;
+																		stopPosition: 234;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 227;
+																stopPosition: 234;
+																yourself);
+														startPosition: 224;
+														stopPosition: 234;
+														yourself);
+												startPosition: 212;
+												stopPosition: 234;
+												yourself)};
+										startPosition: 207;
+										stopPosition: 234;
+										yourself);
+								descriptor: nil;
+								startPosition: 207;
+								stopPosition: 234;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 236;
+														stopPosition: 239;
+														yourself);
+												startPosition: 236;
+												stopPosition: 239;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'picturemaskcolor';
+																startPosition: 241;
+																stopPosition: 256;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 241;
+														stopPosition: 256;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '536870912';
+																				startPosition: 260;
+																				stopPosition: 268;
+																				yourself);
+																		startPosition: 260;
+																		stopPosition: 268;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 260;
+																stopPosition: 268;
+																yourself);
+														startPosition: 257;
+														stopPosition: 268;
+														yourself);
+												startPosition: 241;
+												stopPosition: 268;
+												yourself)};
+										startPosition: 236;
+										stopPosition: 268;
+										yourself);
+								descriptor: nil;
+								startPosition: 236;
+								stopPosition: 268;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_liste';
+																startPosition: 270;
+																stopPosition: 277;
+																yourself);
+														startPosition: 270;
+														stopPosition: 277;
+														yourself);
+												startPosition: 270;
+												stopPosition: 277;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_liste';
+																startPosition: 279;
+																stopPosition: 286;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 279;
+														stopPosition: 286;
+														yourself);
+												assignation: nil;
+												startPosition: 279;
+												stopPosition: 286;
+												yourself)};
+										startPosition: 270;
+										stopPosition: 286;
+										yourself);
+								descriptor: nil;
+								startPosition: 270;
+								stopPosition: 286;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_detail';
+																startPosition: 288;
+																stopPosition: 296;
+																yourself);
+														startPosition: 288;
+														stopPosition: 296;
+														yourself);
+												startPosition: 288;
+												stopPosition: 296;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'dw_detail';
+																startPosition: 298;
+																stopPosition: 306;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 298;
+														stopPosition: 306;
+														yourself);
+												assignation: nil;
+												startPosition: 298;
+												stopPosition: 306;
+												yourself)};
+										startPosition: 288;
+										stopPosition: 306;
+										yourself);
+								descriptor: nil;
+								startPosition: 288;
+								stopPosition: 306;
+								yourself)};
+						startPosition: 67;
+						stopPosition: 307;
+						yourself);
+				startPosition: 1;
+				stopPosition: 315;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeDeclaration7 [
 	<generated>
 	self
 		assert:
@@ -38949,54 +39147,6 @@ end type'
 ]
 
 { #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeDeclaration7 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'global type uo_consultation_histo_suppression_ech from userobject
-end type'
-				rule: #typeDeclaration)
-		equals:
-			(PWBASTTypeDeclaration new
-				type:
-					(PWBASTCustomType new
-						identifier:
-							(PWBASTIdentifier new
-								identifier: 'uo_consultation_histo_suppression_ech';
-								startPosition: 13;
-								stopPosition: 49;
-								yourself);
-						startPosition: 13;
-						stopPosition: 49;
-						yourself);
-				fromClause:
-					(PWBASTFromClause new
-						customType:
-							(PWBASTCustomType new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'userobject';
-										startPosition: 56;
-										stopPosition: 65;
-										yourself);
-								startPosition: 56;
-								stopPosition: 65;
-								yourself);
-						startPosition: 51;
-						stopPosition: 65;
-						yourself);
-				eventType: nil;
-				withinClause: nil;
-				descriptor: nil;
-				attributes: nil;
-				startPosition: 1;
-				stopPosition: 74;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testTypeDeclaration8 [
 	<generated>
 	self
@@ -39066,7 +39216,9 @@ PWBCommonParserTest >> testTypeDeclaration9 [
 		assert:
 			(self
 				parse:
-					'type m_-1 from menu within m_fichier
+					'type st_titre from uo_traitement`st_titre within uo_traitement_cot_prb
+int Width=819
+string Text="COT_PRB"
 end type'
 				rule: #typeDeclaration)
 		equals:
@@ -39075,12 +39227,12 @@ end type'
 					(PWBASTCustomType new
 						identifier:
 							(PWBASTIdentifier new
-								identifier: 'm_-1';
+								identifier: 'st_titre';
 								startPosition: 6;
-								stopPosition: 9;
+								stopPosition: 13;
 								yourself);
 						startPosition: 6;
-						stopPosition: 9;
+						stopPosition: 13;
 						yourself);
 				fromClause:
 					(PWBASTFromClause new
@@ -39088,271 +39240,184 @@ end type'
 							(PWBASTCustomType new
 								identifier:
 									(PWBASTIdentifier new
-										identifier: 'menu';
-										startPosition: 16;
-										stopPosition: 19;
+										identifier: 'uo_traitement';
+										startPosition: 20;
+										stopPosition: 32;
 										yourself);
-								startPosition: 16;
-								stopPosition: 19;
+								startPosition: 20;
+								stopPosition: 32;
 								yourself);
-						startPosition: 11;
-						stopPosition: 19;
+						startPosition: 15;
+						stopPosition: 32;
 						yourself);
-				eventType: nil;
+				eventType:
+					(PWBASTCustomType new
+						identifier:
+							(PWBASTIdentifier new
+								identifier: 'st_titre';
+								startPosition: 34;
+								stopPosition: 41;
+								yourself);
+						startPosition: 34;
+						stopPosition: 41;
+						yourself);
 				withinClause:
 					(PWBASTWithinClause new
 						customType:
 							(PWBASTCustomType new
 								identifier:
 									(PWBASTIdentifier new
-										identifier: 'm_fichier';
-										startPosition: 28;
-										stopPosition: 36;
+										identifier: 'uo_traitement_cot_prb';
+										startPosition: 50;
+										stopPosition: 70;
 										yourself);
-								startPosition: 28;
-								stopPosition: 36;
+								startPosition: 50;
+								stopPosition: 70;
 								yourself);
-						startPosition: 21;
-						stopPosition: 36;
+						startPosition: 43;
+						stopPosition: 70;
 						yourself);
 				descriptor: nil;
-				attributes: nil;
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'int';
+																startPosition: 72;
+																stopPosition: 74;
+																yourself);
+														startPosition: 72;
+														stopPosition: 74;
+														yourself);
+												startPosition: 72;
+												stopPosition: 74;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'Width';
+																startPosition: 76;
+																stopPosition: 80;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 76;
+														stopPosition: 80;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '819';
+																				startPosition: 82;
+																				stopPosition: 84;
+																				yourself);
+																		startPosition: 82;
+																		stopPosition: 84;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 82;
+																stopPosition: 84;
+																yourself);
+														startPosition: 81;
+														stopPosition: 84;
+														yourself);
+												startPosition: 76;
+												stopPosition: 84;
+												yourself)};
+										startPosition: 72;
+										stopPosition: 84;
+										yourself);
+								descriptor: nil;
+								startPosition: 72;
+								stopPosition: 84;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 86;
+														stopPosition: 91;
+														yourself);
+												startPosition: 86;
+												stopPosition: 91;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'Text';
+																startPosition: 93;
+																stopPosition: 96;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 93;
+														stopPosition: 96;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"COT_PRB"';
+																				startPosition: 98;
+																				stopPosition: 106;
+																				yourself);
+																		startPosition: 98;
+																		stopPosition: 106;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 98;
+																stopPosition: 106;
+																yourself);
+														startPosition: 97;
+														stopPosition: 106;
+														yourself);
+												startPosition: 93;
+												stopPosition: 106;
+												yourself)};
+										startPosition: 86;
+										stopPosition: 106;
+										yourself);
+								descriptor: nil;
+								startPosition: 86;
+								stopPosition: 106;
+								yourself)};
+						startPosition: 72;
+						stopPosition: 107;
+						yourself);
 				startPosition: 1;
-				stopPosition: 45;
+				stopPosition: 115;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testTypePrototypes1 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type prototypes
-protected:
-Function Long addOverlappedObject(uLong inst, ref ST_RECT c) library "pb2xls"  Alias For "oo_addObject;Ansi"
-Function uLong createOverlappedStorage() library "pb2xls" Alias For "g_createOverlappedObjects"
-end prototypes'
-				rule: #typePrototypes)
-		equals:
-			(PWBASTTypePrototypes new
-				declarations:
-					{(PWBASTAccessModifierDefiner new
-						accessModifier:
-							(PWBASTAccessModifier new
-								accessModifier: 'protected';
-								startPosition: 17;
-								stopPosition: 25;
-								yourself);
-						startPosition: 17;
-						stopPosition: 26;
-						yourself).
-					(PWBASTFunctionDeclaration new
-						functionSignature:
-							(PWBASTFunctionSignature new
-								accessModifier: nil;
-								type:
-									(PWBASTType new
-										type:
-											(PWBASTBasicType new
-												basicType: 'Long';
-												startPosition: 37;
-												stopPosition: 40;
-												yourself);
-										startPosition: 37;
-										stopPosition: 40;
-										yourself);
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'addOverlappedObject';
-										startPosition: 42;
-										stopPosition: 60;
-										yourself);
-								arguments:
-									(PWBASTArguments new
-										arguments:
-											{(PWBASTArgument new
-												argumentOption: nil;
-												type:
-													(PWBASTType new
-														type:
-															(PWBASTCustomType new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'uLong';
-																		startPosition: 62;
-																		stopPosition: 66;
-																		yourself);
-																startPosition: 62;
-																stopPosition: 66;
-																yourself);
-														startPosition: 62;
-														stopPosition: 66;
-														yourself);
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'inst';
-														startPosition: 68;
-														stopPosition: 71;
-														yourself);
-												arrayWithSize: nil;
-												startPosition: 62;
-												stopPosition: 71;
-												yourself).
-											(PWBASTArgument new
-												argumentOption:
-													(PWBASTArgumentOption new
-														argumentOption: 'ref';
-														startPosition: 74;
-														stopPosition: 76;
-														yourself);
-												type:
-													(PWBASTType new
-														type:
-															(PWBASTCustomType new
-																identifier:
-																	(PWBASTIdentifier new
-																		identifier: 'ST_RECT';
-																		startPosition: 78;
-																		stopPosition: 84;
-																		yourself);
-																startPosition: 78;
-																stopPosition: 84;
-																yourself);
-														startPosition: 78;
-														stopPosition: 84;
-														yourself);
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'c';
-														startPosition: 86;
-														stopPosition: 86;
-														yourself);
-												arrayWithSize: nil;
-												startPosition: 74;
-												stopPosition: 86;
-												yourself)};
-										startPosition: 61;
-										stopPosition: 87;
-										yourself);
-								startPosition: 28;
-								stopPosition: 87;
-								yourself);
-						behaviouralOptions:
-							(OrderedCollection
-								withAll:
-									{(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralLibrary new
-												libraryFile:
-													(PWBASTString new
-														string: '"pb2xls"';
-														startPosition: 97;
-														stopPosition: 104;
-														yourself);
-												startPosition: 89;
-												stopPosition: 104;
-												yourself);
-										startPosition: 89;
-										stopPosition: 104;
-										yourself).
-									(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralAlias new
-												alias:
-													(PWBASTString new
-														string: '"oo_addObject;Ansi"';
-														startPosition: 117;
-														stopPosition: 135;
-														yourself);
-												startPosition: 107;
-												stopPosition: 135;
-												yourself);
-										startPosition: 107;
-										stopPosition: 135;
-										yourself)});
-						startPosition: 28;
-						stopPosition: 135;
-						yourself).
-					(PWBASTFunctionDeclaration new
-						functionSignature:
-							(PWBASTFunctionSignature new
-								accessModifier: nil;
-								type:
-									(PWBASTType new
-										type:
-											(PWBASTCustomType new
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'uLong';
-														startPosition: 146;
-														stopPosition: 150;
-														yourself);
-												startPosition: 146;
-												stopPosition: 150;
-												yourself);
-										startPosition: 146;
-										stopPosition: 150;
-										yourself);
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'createOverlappedStorage';
-										startPosition: 152;
-										stopPosition: 174;
-										yourself);
-								arguments:
-									(PWBASTArguments new
-										arguments: nil;
-										startPosition: 175;
-										stopPosition: 176;
-										yourself);
-								startPosition: 137;
-								stopPosition: 176;
-								yourself);
-						behaviouralOptions:
-							(OrderedCollection
-								withAll:
-									{(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralLibrary new
-												libraryFile:
-													(PWBASTString new
-														string: '"pb2xls"';
-														startPosition: 186;
-														stopPosition: 193;
-														yourself);
-												startPosition: 178;
-												stopPosition: 193;
-												yourself);
-										startPosition: 178;
-										stopPosition: 193;
-										yourself).
-									(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralAlias new
-												alias:
-													(PWBASTString new
-														string: '"g_createOverlappedObjects"';
-														startPosition: 205;
-														stopPosition: 231;
-														yourself);
-												startPosition: 195;
-												stopPosition: 231;
-												yourself);
-										startPosition: 195;
-										stopPosition: 231;
-										yourself)});
-						startPosition: 137;
-						stopPosition: 231;
-						yourself)};
-				startPosition: 1;
-				stopPosition: 246;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypePrototypes2 [
 	<generated>
 	self
 		assert:
@@ -39590,6 +39655,241 @@ end prototypes'
 						yourself)};
 				startPosition: 1;
 				stopPosition: 258;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypePrototypes2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type prototypes
+
+private subroutine OutputDebugString (String lpszOutputString) library ''kernel32.dll'' alias for ''OutputDebugStringA;Ansi'' ;
+
+private function long FindWindow(ref string lpClassName, ref string lpWindowName) library ''user32.dll'' alias for ''FindWindowA;Ansi'' ; 
+
+
+
+end prototypes'
+				rule: #typePrototypes)
+		equals:
+			(PWBASTTypePrototypes new
+				declarations:
+					{(PWBASTSubroutineDeclaration new
+						subroutineSignature:
+							(PWBASTSubroutineSignature new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'private';
+										startPosition: 18;
+										stopPosition: 24;
+										yourself);
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'OutputDebugString';
+										startPosition: 37;
+										stopPosition: 53;
+										yourself);
+								arguments:
+									(PWBASTArguments new
+										arguments:
+											{(PWBASTArgument new
+												argumentOption: nil;
+												type:
+													(PWBASTType new
+														type:
+															(PWBASTBasicType new
+																basicType: 'String';
+																startPosition: 56;
+																stopPosition: 61;
+																yourself);
+														startPosition: 56;
+														stopPosition: 61;
+														yourself);
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'lpszOutputString';
+														startPosition: 63;
+														stopPosition: 78;
+														yourself);
+												arrayWithSize: nil;
+												startPosition: 56;
+												stopPosition: 78;
+												yourself)};
+										startPosition: 55;
+										stopPosition: 79;
+										yourself);
+								startPosition: 18;
+								stopPosition: 79;
+								yourself);
+						behaviouralOptions:
+							(OrderedCollection
+								withAll:
+									{(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralLibrary new
+												libraryFile:
+													(PWBASTString new
+														string: '''kernel32.dll''';
+														startPosition: 89;
+														stopPosition: 102;
+														yourself);
+												startPosition: 81;
+												stopPosition: 102;
+												yourself);
+										startPosition: 81;
+										stopPosition: 102;
+										yourself).
+									(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralAlias new
+												alias:
+													(PWBASTString new
+														string: '''OutputDebugStringA;Ansi''';
+														startPosition: 114;
+														stopPosition: 138;
+														yourself);
+												startPosition: 104;
+												stopPosition: 138;
+												yourself);
+										startPosition: 104;
+										stopPosition: 138;
+										yourself)});
+						startPosition: 18;
+						stopPosition: 138;
+						yourself).
+					(PWBASTFunctionDeclaration new
+						functionSignature:
+							(PWBASTFunctionSignature new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'private';
+										startPosition: 143;
+										stopPosition: 149;
+										yourself);
+								type:
+									(PWBASTType new
+										type:
+											(PWBASTBasicType new
+												basicType: 'long';
+												startPosition: 160;
+												stopPosition: 163;
+												yourself);
+										startPosition: 160;
+										stopPosition: 163;
+										yourself);
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'FindWindow';
+										startPosition: 165;
+										stopPosition: 174;
+										yourself);
+								arguments:
+									(PWBASTArguments new
+										arguments:
+											{(PWBASTArgument new
+												argumentOption:
+													(PWBASTArgumentOption new
+														argumentOption: 'ref';
+														startPosition: 176;
+														stopPosition: 178;
+														yourself);
+												type:
+													(PWBASTType new
+														type:
+															(PWBASTBasicType new
+																basicType: 'string';
+																startPosition: 180;
+																stopPosition: 185;
+																yourself);
+														startPosition: 180;
+														stopPosition: 185;
+														yourself);
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'lpClassName';
+														startPosition: 187;
+														stopPosition: 197;
+														yourself);
+												arrayWithSize: nil;
+												startPosition: 176;
+												stopPosition: 197;
+												yourself).
+											(PWBASTArgument new
+												argumentOption:
+													(PWBASTArgumentOption new
+														argumentOption: 'ref';
+														startPosition: 200;
+														stopPosition: 202;
+														yourself);
+												type:
+													(PWBASTType new
+														type:
+															(PWBASTBasicType new
+																basicType: 'string';
+																startPosition: 204;
+																stopPosition: 209;
+																yourself);
+														startPosition: 204;
+														stopPosition: 209;
+														yourself);
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'lpWindowName';
+														startPosition: 211;
+														stopPosition: 222;
+														yourself);
+												arrayWithSize: nil;
+												startPosition: 200;
+												stopPosition: 222;
+												yourself)};
+										startPosition: 175;
+										stopPosition: 223;
+										yourself);
+								startPosition: 143;
+								stopPosition: 223;
+								yourself);
+						behaviouralOptions:
+							(OrderedCollection
+								withAll:
+									{(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralLibrary new
+												libraryFile:
+													(PWBASTString new
+														string: '''user32.dll''';
+														startPosition: 233;
+														stopPosition: 244;
+														yourself);
+												startPosition: 225;
+												stopPosition: 244;
+												yourself);
+										startPosition: 225;
+										stopPosition: 244;
+										yourself).
+									(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralAlias new
+												alias:
+													(PWBASTString new
+														string: '''FindWindowA;Ansi''';
+														startPosition: 256;
+														stopPosition: 273;
+														yourself);
+												startPosition: 246;
+												stopPosition: 273;
+												yourself);
+										startPosition: 246;
+										stopPosition: 273;
+										yourself)});
+						startPosition: 143;
+						stopPosition: 273;
+						yourself)};
+				startPosition: 1;
+				stopPosition: 294;
 				yourself)
 ]
 
@@ -40063,32 +40363,44 @@ PWBCommonParserTest >> testTypePrototypes5 [
 			(self
 				parse:
 					'type prototypes
-
-private subroutine OutputDebugString (String lpszOutputString) library ''kernel32.dll'' alias for ''OutputDebugStringA;Ansi'' ;
-
-private function long FindWindow(ref string lpClassName, ref string lpWindowName) library ''user32.dll'' alias for ''FindWindowA;Ansi'' ; 
-
-
-
+protected:
+Function Long addOverlappedObject(uLong inst, ref ST_RECT c) library "pb2xls"  Alias For "oo_addObject;Ansi"
+Function uLong createOverlappedStorage() library "pb2xls" Alias For "g_createOverlappedObjects"
 end prototypes'
 				rule: #typePrototypes)
 		equals:
 			(PWBASTTypePrototypes new
 				declarations:
-					{(PWBASTSubroutineDeclaration new
-						subroutineSignature:
-							(PWBASTSubroutineSignature new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'private';
-										startPosition: 18;
-										stopPosition: 24;
+					{(PWBASTAccessModifierDefiner new
+						accessModifier:
+							(PWBASTAccessModifier new
+								accessModifier: 'protected';
+								startPosition: 17;
+								stopPosition: 25;
+								yourself);
+						startPosition: 17;
+						stopPosition: 26;
+						yourself).
+					(PWBASTFunctionDeclaration new
+						functionSignature:
+							(PWBASTFunctionSignature new
+								accessModifier: nil;
+								type:
+									(PWBASTType new
+										type:
+											(PWBASTBasicType new
+												basicType: 'Long';
+												startPosition: 37;
+												stopPosition: 40;
+												yourself);
+										startPosition: 37;
+										stopPosition: 40;
 										yourself);
 								identifier:
 									(PWBASTIdentifier new
-										identifier: 'OutputDebugString';
-										startPosition: 37;
-										stopPosition: 53;
+										identifier: 'addOverlappedObject';
+										startPosition: 42;
+										stopPosition: 60;
 										yourself);
 								arguments:
 									(PWBASTArguments new
@@ -40098,156 +40410,67 @@ end prototypes'
 												type:
 													(PWBASTType new
 														type:
-															(PWBASTBasicType new
-																basicType: 'String';
-																startPosition: 56;
-																stopPosition: 61;
+															(PWBASTCustomType new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'uLong';
+																		startPosition: 62;
+																		stopPosition: 66;
+																		yourself);
+																startPosition: 62;
+																stopPosition: 66;
 																yourself);
-														startPosition: 56;
-														stopPosition: 61;
+														startPosition: 62;
+														stopPosition: 66;
 														yourself);
 												identifier:
 													(PWBASTIdentifier new
-														identifier: 'lpszOutputString';
-														startPosition: 63;
-														stopPosition: 78;
+														identifier: 'inst';
+														startPosition: 68;
+														stopPosition: 71;
 														yourself);
 												arrayWithSize: nil;
-												startPosition: 56;
-												stopPosition: 78;
-												yourself)};
-										startPosition: 55;
-										stopPosition: 79;
-										yourself);
-								startPosition: 18;
-								stopPosition: 79;
-								yourself);
-						behaviouralOptions:
-							(OrderedCollection
-								withAll:
-									{(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralLibrary new
-												libraryFile:
-													(PWBASTString new
-														string: '''kernel32.dll''';
-														startPosition: 89;
-														stopPosition: 102;
-														yourself);
-												startPosition: 81;
-												stopPosition: 102;
-												yourself);
-										startPosition: 81;
-										stopPosition: 102;
-										yourself).
-									(PWBASTBehaviouralOption new
-										behaviouralOption:
-											(PWBASTBehaviouralAlias new
-												alias:
-													(PWBASTString new
-														string: '''OutputDebugStringA;Ansi''';
-														startPosition: 114;
-														stopPosition: 138;
-														yourself);
-												startPosition: 104;
-												stopPosition: 138;
-												yourself);
-										startPosition: 104;
-										stopPosition: 138;
-										yourself)});
-						startPosition: 18;
-						stopPosition: 138;
-						yourself).
-					(PWBASTFunctionDeclaration new
-						functionSignature:
-							(PWBASTFunctionSignature new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'private';
-										startPosition: 143;
-										stopPosition: 149;
-										yourself);
-								type:
-									(PWBASTType new
-										type:
-											(PWBASTBasicType new
-												basicType: 'long';
-												startPosition: 160;
-												stopPosition: 163;
-												yourself);
-										startPosition: 160;
-										stopPosition: 163;
-										yourself);
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'FindWindow';
-										startPosition: 165;
-										stopPosition: 174;
-										yourself);
-								arguments:
-									(PWBASTArguments new
-										arguments:
-											{(PWBASTArgument new
-												argumentOption:
-													(PWBASTArgumentOption new
-														argumentOption: 'ref';
-														startPosition: 176;
-														stopPosition: 178;
-														yourself);
-												type:
-													(PWBASTType new
-														type:
-															(PWBASTBasicType new
-																basicType: 'string';
-																startPosition: 180;
-																stopPosition: 185;
-																yourself);
-														startPosition: 180;
-														stopPosition: 185;
-														yourself);
-												identifier:
-													(PWBASTIdentifier new
-														identifier: 'lpClassName';
-														startPosition: 187;
-														stopPosition: 197;
-														yourself);
-												arrayWithSize: nil;
-												startPosition: 176;
-												stopPosition: 197;
+												startPosition: 62;
+												stopPosition: 71;
 												yourself).
 											(PWBASTArgument new
 												argumentOption:
 													(PWBASTArgumentOption new
 														argumentOption: 'ref';
-														startPosition: 200;
-														stopPosition: 202;
+														startPosition: 74;
+														stopPosition: 76;
 														yourself);
 												type:
 													(PWBASTType new
 														type:
-															(PWBASTBasicType new
-																basicType: 'string';
-																startPosition: 204;
-																stopPosition: 209;
+															(PWBASTCustomType new
+																identifier:
+																	(PWBASTIdentifier new
+																		identifier: 'ST_RECT';
+																		startPosition: 78;
+																		stopPosition: 84;
+																		yourself);
+																startPosition: 78;
+																stopPosition: 84;
 																yourself);
-														startPosition: 204;
-														stopPosition: 209;
+														startPosition: 78;
+														stopPosition: 84;
 														yourself);
 												identifier:
 													(PWBASTIdentifier new
-														identifier: 'lpWindowName';
-														startPosition: 211;
-														stopPosition: 222;
+														identifier: 'c';
+														startPosition: 86;
+														stopPosition: 86;
 														yourself);
 												arrayWithSize: nil;
-												startPosition: 200;
-												stopPosition: 222;
+												startPosition: 74;
+												stopPosition: 86;
 												yourself)};
-										startPosition: 175;
-										stopPosition: 223;
+										startPosition: 61;
+										stopPosition: 87;
 										yourself);
-								startPosition: 143;
-								stopPosition: 223;
+								startPosition: 28;
+								stopPosition: 87;
 								yourself);
 						behaviouralOptions:
 							(OrderedCollection
@@ -40257,2696 +40480,112 @@ end prototypes'
 											(PWBASTBehaviouralLibrary new
 												libraryFile:
 													(PWBASTString new
-														string: '''user32.dll''';
-														startPosition: 233;
-														stopPosition: 244;
+														string: '"pb2xls"';
+														startPosition: 97;
+														stopPosition: 104;
 														yourself);
-												startPosition: 225;
-												stopPosition: 244;
+												startPosition: 89;
+												stopPosition: 104;
 												yourself);
-										startPosition: 225;
-										stopPosition: 244;
+										startPosition: 89;
+										stopPosition: 104;
 										yourself).
 									(PWBASTBehaviouralOption new
 										behaviouralOption:
 											(PWBASTBehaviouralAlias new
 												alias:
 													(PWBASTString new
-														string: '''FindWindowA;Ansi''';
-														startPosition: 256;
-														stopPosition: 273;
+														string: '"oo_addObject;Ansi"';
+														startPosition: 117;
+														stopPosition: 135;
 														yourself);
-												startPosition: 246;
-												stopPosition: 273;
+												startPosition: 107;
+												stopPosition: 135;
 												yourself);
-										startPosition: 246;
-										stopPosition: 273;
+										startPosition: 107;
+										stopPosition: 135;
 										yourself)});
-						startPosition: 143;
-						stopPosition: 273;
+						startPosition: 28;
+						stopPosition: 135;
+						yourself).
+					(PWBASTFunctionDeclaration new
+						functionSignature:
+							(PWBASTFunctionSignature new
+								accessModifier: nil;
+								type:
+									(PWBASTType new
+										type:
+											(PWBASTCustomType new
+												identifier:
+													(PWBASTIdentifier new
+														identifier: 'uLong';
+														startPosition: 146;
+														stopPosition: 150;
+														yourself);
+												startPosition: 146;
+												stopPosition: 150;
+												yourself);
+										startPosition: 146;
+										stopPosition: 150;
+										yourself);
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'createOverlappedStorage';
+										startPosition: 152;
+										stopPosition: 174;
+										yourself);
+								arguments:
+									(PWBASTArguments new
+										arguments: nil;
+										startPosition: 175;
+										stopPosition: 176;
+										yourself);
+								startPosition: 137;
+								stopPosition: 176;
+								yourself);
+						behaviouralOptions:
+							(OrderedCollection
+								withAll:
+									{(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralLibrary new
+												libraryFile:
+													(PWBASTString new
+														string: '"pb2xls"';
+														startPosition: 186;
+														stopPosition: 193;
+														yourself);
+												startPosition: 178;
+												stopPosition: 193;
+												yourself);
+										startPosition: 178;
+										stopPosition: 193;
+										yourself).
+									(PWBASTBehaviouralOption new
+										behaviouralOption:
+											(PWBASTBehaviouralAlias new
+												alias:
+													(PWBASTString new
+														string: '"g_createOverlappedObjects"';
+														startPosition: 205;
+														stopPosition: 231;
+														yourself);
+												startPosition: 195;
+												stopPosition: 231;
+												yourself);
+										startPosition: 195;
+										stopPosition: 231;
+										yourself)});
+						startPosition: 137;
+						stopPosition: 231;
 						yourself)};
 				startPosition: 1;
-				stopPosition: 294;
+				stopPosition: 246;
 				yourself)
 ]
 
 { #category : #'as yet unclassified' }
 PWBCommonParserTest >> testTypeVariable1 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type variables
-private: 
-n_cst_hash_blob_entry invo_fields[]
-long  il_field_max_value = 7
-long  il_field_count = 0
-long  il_max_capacity = -1
-
-end variables'
-				rule: #typeVariable)
-		equals:
-			(PWBASTTypeVariable new
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAccessModifierDefiner new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'private';
-										startPosition: 16;
-										stopPosition: 22;
-										yourself);
-								startPosition: 16;
-								stopPosition: 23;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'n_cst_hash_blob_entry';
-																startPosition: 26;
-																stopPosition: 46;
-																yourself);
-														startPosition: 26;
-														stopPosition: 46;
-														yourself);
-												startPosition: 26;
-												stopPosition: 46;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'invo_fields';
-																startPosition: 48;
-																stopPosition: 58;
-																yourself);
-														arrayDefinition:
-															(PWBASTArrayWithSize new
-																expressions: nil;
-																startPosition: 59;
-																stopPosition: 60;
-																yourself);
-														startPosition: 48;
-														stopPosition: 60;
-														yourself);
-												assignation: nil;
-												startPosition: 48;
-												stopPosition: 60;
-												yourself)};
-										startPosition: 26;
-										stopPosition: 60;
-										yourself);
-								descriptor: nil;
-								startPosition: 26;
-								stopPosition: 60;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 62;
-														stopPosition: 65;
-														yourself);
-												startPosition: 62;
-												stopPosition: 65;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_field_max_value';
-																startPosition: 68;
-																stopPosition: 85;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 68;
-														stopPosition: 85;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '7';
-																				startPosition: 89;
-																				stopPosition: 89;
-																				yourself);
-																		startPosition: 89;
-																		stopPosition: 89;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 89;
-																stopPosition: 89;
-																yourself);
-														startPosition: 86;
-														stopPosition: 89;
-														yourself);
-												startPosition: 68;
-												stopPosition: 89;
-												yourself)};
-										startPosition: 62;
-										stopPosition: 89;
-										yourself);
-								descriptor: nil;
-								startPosition: 62;
-								stopPosition: 89;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 91;
-														stopPosition: 94;
-														yourself);
-												startPosition: 91;
-												stopPosition: 94;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_field_count';
-																startPosition: 97;
-																stopPosition: 110;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 97;
-														stopPosition: 110;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 114;
-																				stopPosition: 114;
-																				yourself);
-																		startPosition: 114;
-																		stopPosition: 114;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 114;
-																stopPosition: 114;
-																yourself);
-														startPosition: 111;
-														stopPosition: 114;
-														yourself);
-												startPosition: 97;
-												stopPosition: 114;
-												yourself)};
-										startPosition: 91;
-										stopPosition: 114;
-										yourself);
-								descriptor: nil;
-								startPosition: 91;
-								stopPosition: 114;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 116;
-														stopPosition: 119;
-														yourself);
-												startPosition: 116;
-												stopPosition: 119;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_max_capacity';
-																startPosition: 122;
-																stopPosition: 136;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 122;
-														stopPosition: 136;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionWithSign new
-																		expressionSign:
-																			(PWBASTExpressionSign new
-																				expressionSign: '-';
-																				startPosition: 140;
-																				stopPosition: 140;
-																				yourself);
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTExpressionTerm new
-																						expressionTerm:
-																							(PWBASTNumber new
-																								number: '1';
-																								startPosition: 141;
-																								stopPosition: 141;
-																								yourself);
-																						startPosition: 141;
-																						stopPosition: 141;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 141;
-																				stopPosition: 141;
-																				yourself);
-																		startPosition: 140;
-																		stopPosition: 141;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 140;
-																stopPosition: 141;
-																yourself);
-														startPosition: 137;
-														stopPosition: 141;
-														yourself);
-												startPosition: 122;
-												stopPosition: 141;
-												yourself)};
-										startPosition: 116;
-										stopPosition: 141;
-										yourself);
-								descriptor: nil;
-								startPosition: 116;
-								stopPosition: 141;
-								yourself)};
-						startPosition: 16;
-						stopPosition: 143;
-						yourself);
-				startPosition: 1;
-				stopPosition: 156;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeVariable2 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type variables
-n_cst_unicode_hash_long invo_hash
-n_cst_unicode invo_unicode
-n_xls_subroutines_v97 invo_sub
-ulong il_total_in_doc = 0
-ulong il_total_unique = 0
-ulong il_limit = 8224
-blob ib_st[]
-blob ib_extsst
-integer ii_string_per_extsst = 8
-private st_extsst_item i_extsst_items[]
-integer ii_extsst_count = 0
-
-
-end variables'
-				rule: #typeVariable)
-		equals:
-			(PWBASTTypeVariable new
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'n_cst_unicode_hash_long';
-																startPosition: 16;
-																stopPosition: 38;
-																yourself);
-														startPosition: 16;
-														stopPosition: 38;
-														yourself);
-												startPosition: 16;
-												stopPosition: 38;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'invo_hash';
-																startPosition: 40;
-																stopPosition: 48;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 40;
-														stopPosition: 48;
-														yourself);
-												assignation: nil;
-												startPosition: 40;
-												stopPosition: 48;
-												yourself)};
-										startPosition: 16;
-										stopPosition: 48;
-										yourself);
-								descriptor: nil;
-								startPosition: 16;
-								stopPosition: 48;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'n_cst_unicode';
-																startPosition: 50;
-																stopPosition: 62;
-																yourself);
-														startPosition: 50;
-														stopPosition: 62;
-														yourself);
-												startPosition: 50;
-												stopPosition: 62;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'invo_unicode';
-																startPosition: 64;
-																stopPosition: 75;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 64;
-														stopPosition: 75;
-														yourself);
-												assignation: nil;
-												startPosition: 64;
-												stopPosition: 75;
-												yourself)};
-										startPosition: 50;
-										stopPosition: 75;
-										yourself);
-								descriptor: nil;
-								startPosition: 50;
-								stopPosition: 75;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'n_xls_subroutines_v97';
-																startPosition: 77;
-																stopPosition: 97;
-																yourself);
-														startPosition: 77;
-														stopPosition: 97;
-														yourself);
-												startPosition: 77;
-												stopPosition: 97;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'invo_sub';
-																startPosition: 99;
-																stopPosition: 106;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 99;
-														stopPosition: 106;
-														yourself);
-												assignation: nil;
-												startPosition: 99;
-												stopPosition: 106;
-												yourself)};
-										startPosition: 77;
-										stopPosition: 106;
-										yourself);
-								descriptor: nil;
-								startPosition: 77;
-								stopPosition: 106;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ulong';
-																startPosition: 108;
-																stopPosition: 112;
-																yourself);
-														startPosition: 108;
-														stopPosition: 112;
-														yourself);
-												startPosition: 108;
-												stopPosition: 112;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_total_in_doc';
-																startPosition: 114;
-																stopPosition: 128;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 114;
-														stopPosition: 128;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 132;
-																				stopPosition: 132;
-																				yourself);
-																		startPosition: 132;
-																		stopPosition: 132;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 132;
-																stopPosition: 132;
-																yourself);
-														startPosition: 129;
-														stopPosition: 132;
-														yourself);
-												startPosition: 114;
-												stopPosition: 132;
-												yourself)};
-										startPosition: 108;
-										stopPosition: 132;
-										yourself);
-								descriptor: nil;
-								startPosition: 108;
-								stopPosition: 132;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ulong';
-																startPosition: 134;
-																stopPosition: 138;
-																yourself);
-														startPosition: 134;
-														stopPosition: 138;
-														yourself);
-												startPosition: 134;
-												stopPosition: 138;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_total_unique';
-																startPosition: 140;
-																stopPosition: 154;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 140;
-														stopPosition: 154;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 158;
-																				stopPosition: 158;
-																				yourself);
-																		startPosition: 158;
-																		stopPosition: 158;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 158;
-																stopPosition: 158;
-																yourself);
-														startPosition: 155;
-														stopPosition: 158;
-														yourself);
-												startPosition: 140;
-												stopPosition: 158;
-												yourself)};
-										startPosition: 134;
-										stopPosition: 158;
-										yourself);
-								descriptor: nil;
-								startPosition: 134;
-								stopPosition: 158;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ulong';
-																startPosition: 160;
-																stopPosition: 164;
-																yourself);
-														startPosition: 160;
-														stopPosition: 164;
-														yourself);
-												startPosition: 160;
-												stopPosition: 164;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_limit';
-																startPosition: 166;
-																stopPosition: 173;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 166;
-														stopPosition: 173;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '8224';
-																				startPosition: 177;
-																				stopPosition: 180;
-																				yourself);
-																		startPosition: 177;
-																		stopPosition: 180;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 177;
-																stopPosition: 180;
-																yourself);
-														startPosition: 174;
-														stopPosition: 180;
-														yourself);
-												startPosition: 166;
-												stopPosition: 180;
-												yourself)};
-										startPosition: 160;
-										stopPosition: 180;
-										yourself);
-								descriptor: nil;
-								startPosition: 160;
-								stopPosition: 180;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'blob';
-																startPosition: 182;
-																stopPosition: 185;
-																yourself);
-														startPosition: 182;
-														stopPosition: 185;
-														yourself);
-												startPosition: 182;
-												stopPosition: 185;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ib_st';
-																startPosition: 187;
-																stopPosition: 191;
-																yourself);
-														arrayDefinition:
-															(PWBASTArrayWithSize new
-																expressions: nil;
-																startPosition: 192;
-																stopPosition: 193;
-																yourself);
-														startPosition: 187;
-														stopPosition: 193;
-														yourself);
-												assignation: nil;
-												startPosition: 187;
-												stopPosition: 193;
-												yourself)};
-										startPosition: 182;
-										stopPosition: 193;
-										yourself);
-								descriptor: nil;
-								startPosition: 182;
-								stopPosition: 193;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'blob';
-																startPosition: 195;
-																stopPosition: 198;
-																yourself);
-														startPosition: 195;
-														stopPosition: 198;
-														yourself);
-												startPosition: 195;
-												stopPosition: 198;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ib_extsst';
-																startPosition: 200;
-																stopPosition: 208;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 200;
-														stopPosition: 208;
-														yourself);
-												assignation: nil;
-												startPosition: 200;
-												stopPosition: 208;
-												yourself)};
-										startPosition: 195;
-										stopPosition: 208;
-										yourself);
-								descriptor: nil;
-								startPosition: 195;
-								stopPosition: 208;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'integer';
-														startPosition: 210;
-														stopPosition: 216;
-														yourself);
-												startPosition: 210;
-												stopPosition: 216;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ii_string_per_extsst';
-																startPosition: 218;
-																stopPosition: 237;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 218;
-														stopPosition: 237;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '8';
-																				startPosition: 241;
-																				stopPosition: 241;
-																				yourself);
-																		startPosition: 241;
-																		stopPosition: 241;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 241;
-																stopPosition: 241;
-																yourself);
-														startPosition: 238;
-														stopPosition: 241;
-														yourself);
-												startPosition: 218;
-												stopPosition: 241;
-												yourself)};
-										startPosition: 210;
-										stopPosition: 241;
-										yourself);
-								descriptor: nil;
-								startPosition: 210;
-								stopPosition: 241;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'private';
-										startPosition: 243;
-										stopPosition: 249;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'st_extsst_item';
-																startPosition: 251;
-																stopPosition: 264;
-																yourself);
-														startPosition: 251;
-														stopPosition: 264;
-														yourself);
-												startPosition: 251;
-												stopPosition: 264;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'i_extsst_items';
-																startPosition: 266;
-																stopPosition: 279;
-																yourself);
-														arrayDefinition:
-															(PWBASTArrayWithSize new
-																expressions: nil;
-																startPosition: 280;
-																stopPosition: 281;
-																yourself);
-														startPosition: 266;
-														stopPosition: 281;
-														yourself);
-												assignation: nil;
-												startPosition: 266;
-												stopPosition: 281;
-												yourself)};
-										startPosition: 251;
-										stopPosition: 281;
-										yourself);
-								descriptor: nil;
-								startPosition: 243;
-								stopPosition: 281;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'integer';
-														startPosition: 283;
-														stopPosition: 289;
-														yourself);
-												startPosition: 283;
-												stopPosition: 289;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'ii_extsst_count';
-																startPosition: 291;
-																stopPosition: 305;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 291;
-														stopPosition: 305;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 309;
-																				stopPosition: 309;
-																				yourself);
-																		startPosition: 309;
-																		stopPosition: 309;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 309;
-																stopPosition: 309;
-																yourself);
-														startPosition: 306;
-														stopPosition: 309;
-														yourself);
-												startPosition: 291;
-												stopPosition: 309;
-												yourself)};
-										startPosition: 283;
-										stopPosition: 309;
-										yourself);
-								descriptor: nil;
-								startPosition: 283;
-								stopPosition: 309;
-								yourself)};
-						startPosition: 16;
-						stopPosition: 312;
-						yourself);
-				startPosition: 1;
-				stopPosition: 325;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeVariable3 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type variables
-
-Constant Private Long WM_USER		= 1024
-Constant Private Long PBM_SETRANGE	= (WM_USER+1)
-Constant Private Long PBM_SETPOS		= (WM_USER+2)
-Constant Private Long PBM_DELTAPOS	= (WM_USER+3)
-Constant Private Long PBM_SETSTEP		= (WM_USER+4)
-Constant Private Long PBM_STEPIT		= (WM_USER+5)
-Constant Private Long PBM_GETRANGE	= (WM_USER+7)
-Constant Private Long PBM_GETPOS		= (WM_USER+8)
-
-end variables'
-				rule: #typeVariable)
-		equals:
-			(PWBASTTypeVariable new
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 26;
-										stopPosition: 32;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 34;
-														stopPosition: 37;
-														yourself);
-												startPosition: 34;
-												stopPosition: 37;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'WM_USER';
-																startPosition: 39;
-																stopPosition: 45;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 39;
-														stopPosition: 45;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '1024';
-																				startPosition: 50;
-																				stopPosition: 53;
-																				yourself);
-																		startPosition: 50;
-																		stopPosition: 53;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 50;
-																stopPosition: 53;
-																yourself);
-														startPosition: 46;
-														stopPosition: 53;
-														yourself);
-												startPosition: 39;
-												stopPosition: 53;
-												yourself)};
-										startPosition: 34;
-										stopPosition: 53;
-										yourself);
-								descriptor: nil;
-								startPosition: 17;
-								stopPosition: 53;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 64;
-										stopPosition: 70;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 72;
-														stopPosition: 75;
-														yourself);
-												startPosition: 72;
-												stopPosition: 75;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_SETRANGE';
-																startPosition: 77;
-																stopPosition: 88;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 77;
-														stopPosition: 88;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 93;
-																																stopPosition: 99;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 93;
-																														stopPosition: 99;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 93;
-																												stopPosition: 99;
-																												yourself);
-																										startPosition: 93;
-																										stopPosition: 99;
-																										yourself);
-																								startPosition: 93;
-																								stopPosition: 99;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '1';
-																												startPosition: 101;
-																												stopPosition: 101;
-																												yourself);
-																										startPosition: 101;
-																										stopPosition: 101;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 101;
-																								stopPosition: 101;
-																								yourself);
-																						startPosition: 93;
-																						stopPosition: 101;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 93;
-																				stopPosition: 101;
-																				yourself);
-																		startPosition: 92;
-																		stopPosition: 102;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 92;
-																stopPosition: 102;
-																yourself);
-														startPosition: 89;
-														stopPosition: 102;
-														yourself);
-												startPosition: 77;
-												stopPosition: 102;
-												yourself)};
-										startPosition: 72;
-										stopPosition: 102;
-										yourself);
-								descriptor: nil;
-								startPosition: 55;
-								stopPosition: 102;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 113;
-										stopPosition: 119;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 121;
-														stopPosition: 124;
-														yourself);
-												startPosition: 121;
-												stopPosition: 124;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_SETPOS';
-																startPosition: 126;
-																stopPosition: 135;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 126;
-														stopPosition: 135;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 141;
-																																stopPosition: 147;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 141;
-																														stopPosition: 147;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 141;
-																												stopPosition: 147;
-																												yourself);
-																										startPosition: 141;
-																										stopPosition: 147;
-																										yourself);
-																								startPosition: 141;
-																								stopPosition: 147;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '2';
-																												startPosition: 149;
-																												stopPosition: 149;
-																												yourself);
-																										startPosition: 149;
-																										stopPosition: 149;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 149;
-																								stopPosition: 149;
-																								yourself);
-																						startPosition: 141;
-																						stopPosition: 149;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 141;
-																				stopPosition: 149;
-																				yourself);
-																		startPosition: 140;
-																		stopPosition: 150;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 140;
-																stopPosition: 150;
-																yourself);
-														startPosition: 136;
-														stopPosition: 150;
-														yourself);
-												startPosition: 126;
-												stopPosition: 150;
-												yourself)};
-										startPosition: 121;
-										stopPosition: 150;
-										yourself);
-								descriptor: nil;
-								startPosition: 104;
-								stopPosition: 150;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 161;
-										stopPosition: 167;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 169;
-														stopPosition: 172;
-														yourself);
-												startPosition: 169;
-												stopPosition: 172;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_DELTAPOS';
-																startPosition: 174;
-																stopPosition: 185;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 174;
-														stopPosition: 185;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 190;
-																																stopPosition: 196;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 190;
-																														stopPosition: 196;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 190;
-																												stopPosition: 196;
-																												yourself);
-																										startPosition: 190;
-																										stopPosition: 196;
-																										yourself);
-																								startPosition: 190;
-																								stopPosition: 196;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '3';
-																												startPosition: 198;
-																												stopPosition: 198;
-																												yourself);
-																										startPosition: 198;
-																										stopPosition: 198;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 198;
-																								stopPosition: 198;
-																								yourself);
-																						startPosition: 190;
-																						stopPosition: 198;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 190;
-																				stopPosition: 198;
-																				yourself);
-																		startPosition: 189;
-																		stopPosition: 199;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 189;
-																stopPosition: 199;
-																yourself);
-														startPosition: 186;
-														stopPosition: 199;
-														yourself);
-												startPosition: 174;
-												stopPosition: 199;
-												yourself)};
-										startPosition: 169;
-										stopPosition: 199;
-										yourself);
-								descriptor: nil;
-								startPosition: 152;
-								stopPosition: 199;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 210;
-										stopPosition: 216;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 218;
-														stopPosition: 221;
-														yourself);
-												startPosition: 218;
-												stopPosition: 221;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_SETSTEP';
-																startPosition: 223;
-																stopPosition: 233;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 223;
-														stopPosition: 233;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 239;
-																																stopPosition: 245;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 239;
-																														stopPosition: 245;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 239;
-																												stopPosition: 245;
-																												yourself);
-																										startPosition: 239;
-																										stopPosition: 245;
-																										yourself);
-																								startPosition: 239;
-																								stopPosition: 245;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '4';
-																												startPosition: 247;
-																												stopPosition: 247;
-																												yourself);
-																										startPosition: 247;
-																										stopPosition: 247;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 247;
-																								stopPosition: 247;
-																								yourself);
-																						startPosition: 239;
-																						stopPosition: 247;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 239;
-																				stopPosition: 247;
-																				yourself);
-																		startPosition: 238;
-																		stopPosition: 248;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 238;
-																stopPosition: 248;
-																yourself);
-														startPosition: 234;
-														stopPosition: 248;
-														yourself);
-												startPosition: 223;
-												stopPosition: 248;
-												yourself)};
-										startPosition: 218;
-										stopPosition: 248;
-										yourself);
-								descriptor: nil;
-								startPosition: 201;
-								stopPosition: 248;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 259;
-										stopPosition: 265;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 267;
-														stopPosition: 270;
-														yourself);
-												startPosition: 267;
-												stopPosition: 270;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_STEPIT';
-																startPosition: 272;
-																stopPosition: 281;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 272;
-														stopPosition: 281;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 287;
-																																stopPosition: 293;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 287;
-																														stopPosition: 293;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 287;
-																												stopPosition: 293;
-																												yourself);
-																										startPosition: 287;
-																										stopPosition: 293;
-																										yourself);
-																								startPosition: 287;
-																								stopPosition: 293;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '5';
-																												startPosition: 295;
-																												stopPosition: 295;
-																												yourself);
-																										startPosition: 295;
-																										stopPosition: 295;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 295;
-																								stopPosition: 295;
-																								yourself);
-																						startPosition: 287;
-																						stopPosition: 295;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 287;
-																				stopPosition: 295;
-																				yourself);
-																		startPosition: 286;
-																		stopPosition: 296;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 286;
-																stopPosition: 296;
-																yourself);
-														startPosition: 282;
-														stopPosition: 296;
-														yourself);
-												startPosition: 272;
-												stopPosition: 296;
-												yourself)};
-										startPosition: 267;
-										stopPosition: 296;
-										yourself);
-								descriptor: nil;
-								startPosition: 250;
-								stopPosition: 296;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 307;
-										stopPosition: 313;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 315;
-														stopPosition: 318;
-														yourself);
-												startPosition: 315;
-												stopPosition: 318;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_GETRANGE';
-																startPosition: 320;
-																stopPosition: 331;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 320;
-														stopPosition: 331;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 336;
-																																stopPosition: 342;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 336;
-																														stopPosition: 342;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 336;
-																												stopPosition: 342;
-																												yourself);
-																										startPosition: 336;
-																										stopPosition: 342;
-																										yourself);
-																								startPosition: 336;
-																								stopPosition: 342;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '7';
-																												startPosition: 344;
-																												stopPosition: 344;
-																												yourself);
-																										startPosition: 344;
-																										stopPosition: 344;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 344;
-																								stopPosition: 344;
-																								yourself);
-																						startPosition: 336;
-																						stopPosition: 344;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 336;
-																				stopPosition: 344;
-																				yourself);
-																		startPosition: 335;
-																		stopPosition: 345;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 335;
-																stopPosition: 345;
-																yourself);
-														startPosition: 332;
-														stopPosition: 345;
-														yourself);
-												startPosition: 320;
-												stopPosition: 345;
-												yourself)};
-										startPosition: 315;
-										stopPosition: 345;
-										yourself);
-								descriptor: nil;
-								startPosition: 298;
-								stopPosition: 345;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 356;
-										stopPosition: 362;
-										yourself);
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'Long';
-														startPosition: 364;
-														stopPosition: 367;
-														yourself);
-												startPosition: 364;
-												stopPosition: 367;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'PBM_GETPOS';
-																startPosition: 369;
-																stopPosition: 378;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 369;
-														stopPosition: 378;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTParenthesedExpression new
-																		expression:
-																			(PWBASTExpression new
-																				expression:
-																					(PWBASTOperatorExpression new
-																						left:
-																							(PWBASTExpressionTerm new
-																								expressionTerm:
-																									(PWBASTAccessOrType new
-																										accessOrType:
-																											(PWBASTAccess new
-																												accessed:
-																													(PWBASTVariable new
-																														identifier:
-																															(PWBASTIdentifier new
-																																identifier: 'WM_USER';
-																																startPosition: 384;
-																																stopPosition: 390;
-																																yourself);
-																														arrayDefinition: nil;
-																														startPosition: 384;
-																														stopPosition: 390;
-																														yourself);
-																												arrayPosition: nil;
-																												startPosition: 384;
-																												stopPosition: 390;
-																												yourself);
-																										startPosition: 384;
-																										stopPosition: 390;
-																										yourself);
-																								startPosition: 384;
-																								stopPosition: 390;
-																								yourself);
-																						expressionAction: nil;
-																						right:
-																							(PWBASTExpression new
-																								expression:
-																									(PWBASTExpressionTerm new
-																										expressionTerm:
-																											(PWBASTNumber new
-																												number: '8';
-																												startPosition: 392;
-																												stopPosition: 392;
-																												yourself);
-																										startPosition: 392;
-																										stopPosition: 392;
-																										yourself);
-																								expressionAction: nil;
-																								startPosition: 392;
-																								stopPosition: 392;
-																								yourself);
-																						startPosition: 384;
-																						stopPosition: 392;
-																						yourself);
-																				expressionAction: nil;
-																				startPosition: 384;
-																				stopPosition: 392;
-																				yourself);
-																		startPosition: 383;
-																		stopPosition: 393;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 383;
-																stopPosition: 393;
-																yourself);
-														startPosition: 379;
-														stopPosition: 393;
-														yourself);
-												startPosition: 369;
-												stopPosition: 393;
-												yourself)};
-										startPosition: 364;
-										stopPosition: 393;
-										yourself);
-								descriptor: nil;
-								startPosition: 347;
-								stopPosition: 393;
-								yourself)};
-						startPosition: 17;
-						stopPosition: 395;
-						yourself);
-				startPosition: 1;
-				stopPosition: 408;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeVariable4 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type variables
-Private:
-
-
-Constant string TOOLTIPS_CLASS		= ''tooltips_class32''
-end variables'
-				rule: #typeVariable)
-		equals:
-			(PWBASTTypeVariable new
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAccessModifierDefiner new
-								accessModifier:
-									(PWBASTAccessModifier new
-										accessModifier: 'Private';
-										startPosition: 16;
-										stopPosition: 22;
-										yourself);
-								startPosition: 16;
-								stopPosition: 23;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 36;
-														stopPosition: 41;
-														yourself);
-												startPosition: 36;
-												stopPosition: 41;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'TOOLTIPS_CLASS';
-																startPosition: 43;
-																stopPosition: 56;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 43;
-														stopPosition: 56;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '''tooltips_class32''';
-																				startPosition: 61;
-																				stopPosition: 78;
-																				yourself);
-																		startPosition: 61;
-																		stopPosition: 78;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 61;
-																stopPosition: 78;
-																yourself);
-														startPosition: 57;
-														stopPosition: 78;
-														yourself);
-												startPosition: 43;
-												stopPosition: 78;
-												yourself)};
-										startPosition: 36;
-										stopPosition: 78;
-										yourself);
-								descriptor: nil;
-								startPosition: 27;
-								stopPosition: 78;
-								yourself)};
-						startPosition: 16;
-						stopPosition: 79;
-						yourself);
-				startPosition: 1;
-				stopPosition: 92;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeVariable5 [
-	<generated>
-	self
-		assert:
-			(self
-				parse:
-					'type variables
-date id_aujourd_hui
-string is_lst_rdg_capital = ""
-decimal id_montant_plafond = 0
-decimal id_montant_indexation = 0
-long id_nbs_annee_index = 0
-long il_nbs_gpp_trt = 0
-long il_nbs_plafond_atteint = 0
-long il_nbs_gpp_err = 0
-string is_guid = ""
-string is_uti_trt = "IDXAD"
-string is_sql_ave
-datastore lds_ave
-end variables'
-				rule: #typeVariable)
-		equals:
-			(PWBASTTypeVariable new
-				attributes:
-					(PWBASTAttributes new
-						attributes:
-							{(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'date';
-														startPosition: 16;
-														stopPosition: 19;
-														yourself);
-												startPosition: 16;
-												stopPosition: 19;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'id_aujourd_hui';
-																startPosition: 21;
-																stopPosition: 34;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 21;
-														stopPosition: 34;
-														yourself);
-												assignation: nil;
-												startPosition: 21;
-												stopPosition: 34;
-												yourself)};
-										startPosition: 16;
-										stopPosition: 34;
-										yourself);
-								descriptor: nil;
-								startPosition: 16;
-								stopPosition: 34;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 36;
-														stopPosition: 41;
-														yourself);
-												startPosition: 36;
-												stopPosition: 41;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'is_lst_rdg_capital';
-																startPosition: 43;
-																stopPosition: 60;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 43;
-														stopPosition: 60;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '""';
-																				startPosition: 64;
-																				stopPosition: 65;
-																				yourself);
-																		startPosition: 64;
-																		stopPosition: 65;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 64;
-																stopPosition: 65;
-																yourself);
-														startPosition: 61;
-														stopPosition: 65;
-														yourself);
-												startPosition: 43;
-												stopPosition: 65;
-												yourself)};
-										startPosition: 36;
-										stopPosition: 65;
-										yourself);
-								descriptor: nil;
-								startPosition: 36;
-								stopPosition: 65;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'decimal';
-														startPosition: 67;
-														stopPosition: 73;
-														yourself);
-												startPosition: 67;
-												stopPosition: 73;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'id_montant_plafond';
-																startPosition: 75;
-																stopPosition: 92;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 75;
-														stopPosition: 92;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 96;
-																				stopPosition: 96;
-																				yourself);
-																		startPosition: 96;
-																		stopPosition: 96;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 96;
-																stopPosition: 96;
-																yourself);
-														startPosition: 93;
-														stopPosition: 96;
-														yourself);
-												startPosition: 75;
-												stopPosition: 96;
-												yourself)};
-										startPosition: 67;
-										stopPosition: 96;
-										yourself);
-								descriptor: nil;
-								startPosition: 67;
-								stopPosition: 96;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'decimal';
-														startPosition: 98;
-														stopPosition: 104;
-														yourself);
-												startPosition: 98;
-												stopPosition: 104;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'id_montant_indexation';
-																startPosition: 106;
-																stopPosition: 126;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 106;
-														stopPosition: 126;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 130;
-																				stopPosition: 130;
-																				yourself);
-																		startPosition: 130;
-																		stopPosition: 130;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 130;
-																stopPosition: 130;
-																yourself);
-														startPosition: 127;
-														stopPosition: 130;
-														yourself);
-												startPosition: 106;
-												stopPosition: 130;
-												yourself)};
-										startPosition: 98;
-										stopPosition: 130;
-										yourself);
-								descriptor: nil;
-								startPosition: 98;
-								stopPosition: 130;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 132;
-														stopPosition: 135;
-														yourself);
-												startPosition: 132;
-												stopPosition: 135;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'id_nbs_annee_index';
-																startPosition: 137;
-																stopPosition: 154;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 137;
-														stopPosition: 154;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 158;
-																				stopPosition: 158;
-																				yourself);
-																		startPosition: 158;
-																		stopPosition: 158;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 158;
-																stopPosition: 158;
-																yourself);
-														startPosition: 155;
-														stopPosition: 158;
-														yourself);
-												startPosition: 137;
-												stopPosition: 158;
-												yourself)};
-										startPosition: 132;
-										stopPosition: 158;
-										yourself);
-								descriptor: nil;
-								startPosition: 132;
-								stopPosition: 158;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 160;
-														stopPosition: 163;
-														yourself);
-												startPosition: 160;
-												stopPosition: 163;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_nbs_gpp_trt';
-																startPosition: 165;
-																stopPosition: 178;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 165;
-														stopPosition: 178;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 182;
-																				stopPosition: 182;
-																				yourself);
-																		startPosition: 182;
-																		stopPosition: 182;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 182;
-																stopPosition: 182;
-																yourself);
-														startPosition: 179;
-														stopPosition: 182;
-														yourself);
-												startPosition: 165;
-												stopPosition: 182;
-												yourself)};
-										startPosition: 160;
-										stopPosition: 182;
-										yourself);
-								descriptor: nil;
-								startPosition: 160;
-								stopPosition: 182;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 184;
-														stopPosition: 187;
-														yourself);
-												startPosition: 184;
-												stopPosition: 187;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_nbs_plafond_atteint';
-																startPosition: 189;
-																stopPosition: 210;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 189;
-														stopPosition: 210;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 214;
-																				stopPosition: 214;
-																				yourself);
-																		startPosition: 214;
-																		stopPosition: 214;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 214;
-																stopPosition: 214;
-																yourself);
-														startPosition: 211;
-														stopPosition: 214;
-														yourself);
-												startPosition: 189;
-												stopPosition: 214;
-												yourself)};
-										startPosition: 184;
-										stopPosition: 214;
-										yourself);
-								descriptor: nil;
-								startPosition: 184;
-								stopPosition: 214;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'long';
-														startPosition: 216;
-														stopPosition: 219;
-														yourself);
-												startPosition: 216;
-												stopPosition: 219;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'il_nbs_gpp_err';
-																startPosition: 221;
-																stopPosition: 234;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 221;
-														stopPosition: 234;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTNumber new
-																				number: '0';
-																				startPosition: 238;
-																				stopPosition: 238;
-																				yourself);
-																		startPosition: 238;
-																		stopPosition: 238;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 238;
-																stopPosition: 238;
-																yourself);
-														startPosition: 235;
-														stopPosition: 238;
-														yourself);
-												startPosition: 221;
-												stopPosition: 238;
-												yourself)};
-										startPosition: 216;
-										stopPosition: 238;
-										yourself);
-								descriptor: nil;
-								startPosition: 216;
-								stopPosition: 238;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 240;
-														stopPosition: 245;
-														yourself);
-												startPosition: 240;
-												stopPosition: 245;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'is_guid';
-																startPosition: 247;
-																stopPosition: 253;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 247;
-														stopPosition: 253;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '""';
-																				startPosition: 257;
-																				stopPosition: 258;
-																				yourself);
-																		startPosition: 257;
-																		stopPosition: 258;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 257;
-																stopPosition: 258;
-																yourself);
-														startPosition: 254;
-														stopPosition: 258;
-														yourself);
-												startPosition: 247;
-												stopPosition: 258;
-												yourself)};
-										startPosition: 240;
-										stopPosition: 258;
-										yourself);
-								descriptor: nil;
-								startPosition: 240;
-								stopPosition: 258;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 260;
-														stopPosition: 265;
-														yourself);
-												startPosition: 260;
-												stopPosition: 265;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'is_uti_trt';
-																startPosition: 267;
-																stopPosition: 276;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 267;
-														stopPosition: 276;
-														yourself);
-												assignation:
-													(PWBASTAssignation new
-														expression:
-															(PWBASTExpression new
-																expression:
-																	(PWBASTExpressionTerm new
-																		expressionTerm:
-																			(PWBASTString new
-																				string: '"IDXAD"';
-																				startPosition: 280;
-																				stopPosition: 286;
-																				yourself);
-																		startPosition: 280;
-																		stopPosition: 286;
-																		yourself);
-																expressionAction: nil;
-																startPosition: 280;
-																stopPosition: 286;
-																yourself);
-														startPosition: 277;
-														stopPosition: 286;
-														yourself);
-												startPosition: 267;
-												stopPosition: 286;
-												yourself)};
-										startPosition: 260;
-										stopPosition: 286;
-										yourself);
-								descriptor: nil;
-								startPosition: 260;
-								stopPosition: 286;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTBasicType new
-														basicType: 'string';
-														startPosition: 288;
-														stopPosition: 293;
-														yourself);
-												startPosition: 288;
-												stopPosition: 293;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'is_sql_ave';
-																startPosition: 295;
-																stopPosition: 304;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 295;
-														stopPosition: 304;
-														yourself);
-												assignation: nil;
-												startPosition: 295;
-												stopPosition: 304;
-												yourself)};
-										startPosition: 288;
-										stopPosition: 304;
-										yourself);
-								descriptor: nil;
-								startPosition: 288;
-								stopPosition: 304;
-								yourself).
-							(PWBASTAttribute new
-								accessModifier: nil;
-								variableDeclarations:
-									(PWBASTVariableDeclarations new
-										type:
-											(PWBASTType new
-												type:
-													(PWBASTCustomType new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'datastore';
-																startPosition: 306;
-																stopPosition: 314;
-																yourself);
-														startPosition: 306;
-														stopPosition: 314;
-														yourself);
-												startPosition: 306;
-												stopPosition: 314;
-												yourself);
-										variableAssignations:
-											{(PWBASTVariableAssignation new
-												variable:
-													(PWBASTVariable new
-														identifier:
-															(PWBASTIdentifier new
-																identifier: 'lds_ave';
-																startPosition: 316;
-																stopPosition: 322;
-																yourself);
-														arrayDefinition: nil;
-														startPosition: 316;
-														stopPosition: 322;
-														yourself);
-												assignation: nil;
-												startPosition: 316;
-												stopPosition: 322;
-												yourself)};
-										startPosition: 306;
-										stopPosition: 322;
-										yourself);
-								descriptor: nil;
-								startPosition: 306;
-								stopPosition: 322;
-								yourself)};
-						startPosition: 16;
-						stopPosition: 323;
-						yourself);
-				startPosition: 1;
-				stopPosition: 336;
-				yourself)
-]
-
-{ #category : #'as yet unclassified' }
-PWBCommonParserTest >> testTypeVariable6 [
 	<generated>
 	self
 		assert:
@@ -43657,12 +41296,2709 @@ end variables'
 ]
 
 { #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeVariable2 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type variables
+date id_aujourd_hui
+string is_lst_rdg_capital = ""
+decimal id_montant_plafond = 0
+decimal id_montant_indexation = 0
+long id_nbs_annee_index = 0
+long il_nbs_gpp_trt = 0
+long il_nbs_plafond_atteint = 0
+long il_nbs_gpp_err = 0
+string is_guid = ""
+string is_uti_trt = "IDXAD"
+string is_sql_ave
+datastore lds_ave
+end variables'
+				rule: #typeVariable)
+		equals:
+			(PWBASTTypeVariable new
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'date';
+														startPosition: 16;
+														stopPosition: 19;
+														yourself);
+												startPosition: 16;
+												stopPosition: 19;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'id_aujourd_hui';
+																startPosition: 21;
+																stopPosition: 34;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 21;
+														stopPosition: 34;
+														yourself);
+												assignation: nil;
+												startPosition: 21;
+												stopPosition: 34;
+												yourself)};
+										startPosition: 16;
+										stopPosition: 34;
+										yourself);
+								descriptor: nil;
+								startPosition: 16;
+								stopPosition: 34;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 36;
+														stopPosition: 41;
+														yourself);
+												startPosition: 36;
+												stopPosition: 41;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'is_lst_rdg_capital';
+																startPosition: 43;
+																stopPosition: 60;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 43;
+														stopPosition: 60;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '""';
+																				startPosition: 64;
+																				stopPosition: 65;
+																				yourself);
+																		startPosition: 64;
+																		stopPosition: 65;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 64;
+																stopPosition: 65;
+																yourself);
+														startPosition: 61;
+														stopPosition: 65;
+														yourself);
+												startPosition: 43;
+												stopPosition: 65;
+												yourself)};
+										startPosition: 36;
+										stopPosition: 65;
+										yourself);
+								descriptor: nil;
+								startPosition: 36;
+								stopPosition: 65;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'decimal';
+														startPosition: 67;
+														stopPosition: 73;
+														yourself);
+												startPosition: 67;
+												stopPosition: 73;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'id_montant_plafond';
+																startPosition: 75;
+																stopPosition: 92;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 75;
+														stopPosition: 92;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 96;
+																				stopPosition: 96;
+																				yourself);
+																		startPosition: 96;
+																		stopPosition: 96;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 96;
+																stopPosition: 96;
+																yourself);
+														startPosition: 93;
+														stopPosition: 96;
+														yourself);
+												startPosition: 75;
+												stopPosition: 96;
+												yourself)};
+										startPosition: 67;
+										stopPosition: 96;
+										yourself);
+								descriptor: nil;
+								startPosition: 67;
+								stopPosition: 96;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'decimal';
+														startPosition: 98;
+														stopPosition: 104;
+														yourself);
+												startPosition: 98;
+												stopPosition: 104;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'id_montant_indexation';
+																startPosition: 106;
+																stopPosition: 126;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 106;
+														stopPosition: 126;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 130;
+																				stopPosition: 130;
+																				yourself);
+																		startPosition: 130;
+																		stopPosition: 130;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 130;
+																stopPosition: 130;
+																yourself);
+														startPosition: 127;
+														stopPosition: 130;
+														yourself);
+												startPosition: 106;
+												stopPosition: 130;
+												yourself)};
+										startPosition: 98;
+										stopPosition: 130;
+										yourself);
+								descriptor: nil;
+								startPosition: 98;
+								stopPosition: 130;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 132;
+														stopPosition: 135;
+														yourself);
+												startPosition: 132;
+												stopPosition: 135;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'id_nbs_annee_index';
+																startPosition: 137;
+																stopPosition: 154;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 137;
+														stopPosition: 154;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 158;
+																				stopPosition: 158;
+																				yourself);
+																		startPosition: 158;
+																		stopPosition: 158;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 158;
+																stopPosition: 158;
+																yourself);
+														startPosition: 155;
+														stopPosition: 158;
+														yourself);
+												startPosition: 137;
+												stopPosition: 158;
+												yourself)};
+										startPosition: 132;
+										stopPosition: 158;
+										yourself);
+								descriptor: nil;
+								startPosition: 132;
+								stopPosition: 158;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 160;
+														stopPosition: 163;
+														yourself);
+												startPosition: 160;
+												stopPosition: 163;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_nbs_gpp_trt';
+																startPosition: 165;
+																stopPosition: 178;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 165;
+														stopPosition: 178;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 182;
+																				stopPosition: 182;
+																				yourself);
+																		startPosition: 182;
+																		stopPosition: 182;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 182;
+																stopPosition: 182;
+																yourself);
+														startPosition: 179;
+														stopPosition: 182;
+														yourself);
+												startPosition: 165;
+												stopPosition: 182;
+												yourself)};
+										startPosition: 160;
+										stopPosition: 182;
+										yourself);
+								descriptor: nil;
+								startPosition: 160;
+								stopPosition: 182;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 184;
+														stopPosition: 187;
+														yourself);
+												startPosition: 184;
+												stopPosition: 187;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_nbs_plafond_atteint';
+																startPosition: 189;
+																stopPosition: 210;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 189;
+														stopPosition: 210;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 214;
+																				stopPosition: 214;
+																				yourself);
+																		startPosition: 214;
+																		stopPosition: 214;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 214;
+																stopPosition: 214;
+																yourself);
+														startPosition: 211;
+														stopPosition: 214;
+														yourself);
+												startPosition: 189;
+												stopPosition: 214;
+												yourself)};
+										startPosition: 184;
+										stopPosition: 214;
+										yourself);
+								descriptor: nil;
+								startPosition: 184;
+								stopPosition: 214;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 216;
+														stopPosition: 219;
+														yourself);
+												startPosition: 216;
+												stopPosition: 219;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_nbs_gpp_err';
+																startPosition: 221;
+																stopPosition: 234;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 221;
+														stopPosition: 234;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 238;
+																				stopPosition: 238;
+																				yourself);
+																		startPosition: 238;
+																		stopPosition: 238;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 238;
+																stopPosition: 238;
+																yourself);
+														startPosition: 235;
+														stopPosition: 238;
+														yourself);
+												startPosition: 221;
+												stopPosition: 238;
+												yourself)};
+										startPosition: 216;
+										stopPosition: 238;
+										yourself);
+								descriptor: nil;
+								startPosition: 216;
+								stopPosition: 238;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 240;
+														stopPosition: 245;
+														yourself);
+												startPosition: 240;
+												stopPosition: 245;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'is_guid';
+																startPosition: 247;
+																stopPosition: 253;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 247;
+														stopPosition: 253;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '""';
+																				startPosition: 257;
+																				stopPosition: 258;
+																				yourself);
+																		startPosition: 257;
+																		stopPosition: 258;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 257;
+																stopPosition: 258;
+																yourself);
+														startPosition: 254;
+														stopPosition: 258;
+														yourself);
+												startPosition: 247;
+												stopPosition: 258;
+												yourself)};
+										startPosition: 240;
+										stopPosition: 258;
+										yourself);
+								descriptor: nil;
+								startPosition: 240;
+								stopPosition: 258;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 260;
+														stopPosition: 265;
+														yourself);
+												startPosition: 260;
+												stopPosition: 265;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'is_uti_trt';
+																startPosition: 267;
+																stopPosition: 276;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 267;
+														stopPosition: 276;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '"IDXAD"';
+																				startPosition: 280;
+																				stopPosition: 286;
+																				yourself);
+																		startPosition: 280;
+																		stopPosition: 286;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 280;
+																stopPosition: 286;
+																yourself);
+														startPosition: 277;
+														stopPosition: 286;
+														yourself);
+												startPosition: 267;
+												stopPosition: 286;
+												yourself)};
+										startPosition: 260;
+										stopPosition: 286;
+										yourself);
+								descriptor: nil;
+								startPosition: 260;
+								stopPosition: 286;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 288;
+														stopPosition: 293;
+														yourself);
+												startPosition: 288;
+												stopPosition: 293;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'is_sql_ave';
+																startPosition: 295;
+																stopPosition: 304;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 295;
+														stopPosition: 304;
+														yourself);
+												assignation: nil;
+												startPosition: 295;
+												stopPosition: 304;
+												yourself)};
+										startPosition: 288;
+										stopPosition: 304;
+										yourself);
+								descriptor: nil;
+								startPosition: 288;
+								stopPosition: 304;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'datastore';
+																startPosition: 306;
+																stopPosition: 314;
+																yourself);
+														startPosition: 306;
+														stopPosition: 314;
+														yourself);
+												startPosition: 306;
+												stopPosition: 314;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'lds_ave';
+																startPosition: 316;
+																stopPosition: 322;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 316;
+														stopPosition: 322;
+														yourself);
+												assignation: nil;
+												startPosition: 316;
+												stopPosition: 322;
+												yourself)};
+										startPosition: 306;
+										stopPosition: 322;
+										yourself);
+								descriptor: nil;
+								startPosition: 306;
+								stopPosition: 322;
+								yourself)};
+						startPosition: 16;
+						stopPosition: 323;
+						yourself);
+				startPosition: 1;
+				stopPosition: 336;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeVariable3 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type variables
+n_cst_unicode_hash_long invo_hash
+n_cst_unicode invo_unicode
+n_xls_subroutines_v97 invo_sub
+ulong il_total_in_doc = 0
+ulong il_total_unique = 0
+ulong il_limit = 8224
+blob ib_st[]
+blob ib_extsst
+integer ii_string_per_extsst = 8
+private st_extsst_item i_extsst_items[]
+integer ii_extsst_count = 0
+
+
+end variables'
+				rule: #typeVariable)
+		equals:
+			(PWBASTTypeVariable new
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'n_cst_unicode_hash_long';
+																startPosition: 16;
+																stopPosition: 38;
+																yourself);
+														startPosition: 16;
+														stopPosition: 38;
+														yourself);
+												startPosition: 16;
+												stopPosition: 38;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'invo_hash';
+																startPosition: 40;
+																stopPosition: 48;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 40;
+														stopPosition: 48;
+														yourself);
+												assignation: nil;
+												startPosition: 40;
+												stopPosition: 48;
+												yourself)};
+										startPosition: 16;
+										stopPosition: 48;
+										yourself);
+								descriptor: nil;
+								startPosition: 16;
+								stopPosition: 48;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'n_cst_unicode';
+																startPosition: 50;
+																stopPosition: 62;
+																yourself);
+														startPosition: 50;
+														stopPosition: 62;
+														yourself);
+												startPosition: 50;
+												stopPosition: 62;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'invo_unicode';
+																startPosition: 64;
+																stopPosition: 75;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 64;
+														stopPosition: 75;
+														yourself);
+												assignation: nil;
+												startPosition: 64;
+												stopPosition: 75;
+												yourself)};
+										startPosition: 50;
+										stopPosition: 75;
+										yourself);
+								descriptor: nil;
+								startPosition: 50;
+								stopPosition: 75;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'n_xls_subroutines_v97';
+																startPosition: 77;
+																stopPosition: 97;
+																yourself);
+														startPosition: 77;
+														stopPosition: 97;
+														yourself);
+												startPosition: 77;
+												stopPosition: 97;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'invo_sub';
+																startPosition: 99;
+																stopPosition: 106;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 99;
+														stopPosition: 106;
+														yourself);
+												assignation: nil;
+												startPosition: 99;
+												stopPosition: 106;
+												yourself)};
+										startPosition: 77;
+										stopPosition: 106;
+										yourself);
+								descriptor: nil;
+								startPosition: 77;
+								stopPosition: 106;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ulong';
+																startPosition: 108;
+																stopPosition: 112;
+																yourself);
+														startPosition: 108;
+														stopPosition: 112;
+														yourself);
+												startPosition: 108;
+												stopPosition: 112;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_total_in_doc';
+																startPosition: 114;
+																stopPosition: 128;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 114;
+														stopPosition: 128;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 132;
+																				stopPosition: 132;
+																				yourself);
+																		startPosition: 132;
+																		stopPosition: 132;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 132;
+																stopPosition: 132;
+																yourself);
+														startPosition: 129;
+														stopPosition: 132;
+														yourself);
+												startPosition: 114;
+												stopPosition: 132;
+												yourself)};
+										startPosition: 108;
+										stopPosition: 132;
+										yourself);
+								descriptor: nil;
+								startPosition: 108;
+								stopPosition: 132;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ulong';
+																startPosition: 134;
+																stopPosition: 138;
+																yourself);
+														startPosition: 134;
+														stopPosition: 138;
+														yourself);
+												startPosition: 134;
+												stopPosition: 138;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_total_unique';
+																startPosition: 140;
+																stopPosition: 154;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 140;
+														stopPosition: 154;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 158;
+																				stopPosition: 158;
+																				yourself);
+																		startPosition: 158;
+																		stopPosition: 158;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 158;
+																stopPosition: 158;
+																yourself);
+														startPosition: 155;
+														stopPosition: 158;
+														yourself);
+												startPosition: 140;
+												stopPosition: 158;
+												yourself)};
+										startPosition: 134;
+										stopPosition: 158;
+										yourself);
+								descriptor: nil;
+								startPosition: 134;
+								stopPosition: 158;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ulong';
+																startPosition: 160;
+																stopPosition: 164;
+																yourself);
+														startPosition: 160;
+														stopPosition: 164;
+														yourself);
+												startPosition: 160;
+												stopPosition: 164;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_limit';
+																startPosition: 166;
+																stopPosition: 173;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 166;
+														stopPosition: 173;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '8224';
+																				startPosition: 177;
+																				stopPosition: 180;
+																				yourself);
+																		startPosition: 177;
+																		stopPosition: 180;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 177;
+																stopPosition: 180;
+																yourself);
+														startPosition: 174;
+														stopPosition: 180;
+														yourself);
+												startPosition: 166;
+												stopPosition: 180;
+												yourself)};
+										startPosition: 160;
+										stopPosition: 180;
+										yourself);
+								descriptor: nil;
+								startPosition: 160;
+								stopPosition: 180;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'blob';
+																startPosition: 182;
+																stopPosition: 185;
+																yourself);
+														startPosition: 182;
+														stopPosition: 185;
+														yourself);
+												startPosition: 182;
+												stopPosition: 185;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ib_st';
+																startPosition: 187;
+																stopPosition: 191;
+																yourself);
+														arrayDefinition:
+															(PWBASTArrayWithSize new
+																expressions: nil;
+																startPosition: 192;
+																stopPosition: 193;
+																yourself);
+														startPosition: 187;
+														stopPosition: 193;
+														yourself);
+												assignation: nil;
+												startPosition: 187;
+												stopPosition: 193;
+												yourself)};
+										startPosition: 182;
+										stopPosition: 193;
+										yourself);
+								descriptor: nil;
+								startPosition: 182;
+								stopPosition: 193;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'blob';
+																startPosition: 195;
+																stopPosition: 198;
+																yourself);
+														startPosition: 195;
+														stopPosition: 198;
+														yourself);
+												startPosition: 195;
+												stopPosition: 198;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ib_extsst';
+																startPosition: 200;
+																stopPosition: 208;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 200;
+														stopPosition: 208;
+														yourself);
+												assignation: nil;
+												startPosition: 200;
+												stopPosition: 208;
+												yourself)};
+										startPosition: 195;
+										stopPosition: 208;
+										yourself);
+								descriptor: nil;
+								startPosition: 195;
+								stopPosition: 208;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'integer';
+														startPosition: 210;
+														stopPosition: 216;
+														yourself);
+												startPosition: 210;
+												stopPosition: 216;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ii_string_per_extsst';
+																startPosition: 218;
+																stopPosition: 237;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 218;
+														stopPosition: 237;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '8';
+																				startPosition: 241;
+																				stopPosition: 241;
+																				yourself);
+																		startPosition: 241;
+																		stopPosition: 241;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 241;
+																stopPosition: 241;
+																yourself);
+														startPosition: 238;
+														stopPosition: 241;
+														yourself);
+												startPosition: 218;
+												stopPosition: 241;
+												yourself)};
+										startPosition: 210;
+										stopPosition: 241;
+										yourself);
+								descriptor: nil;
+								startPosition: 210;
+								stopPosition: 241;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'private';
+										startPosition: 243;
+										stopPosition: 249;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'st_extsst_item';
+																startPosition: 251;
+																stopPosition: 264;
+																yourself);
+														startPosition: 251;
+														stopPosition: 264;
+														yourself);
+												startPosition: 251;
+												stopPosition: 264;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'i_extsst_items';
+																startPosition: 266;
+																stopPosition: 279;
+																yourself);
+														arrayDefinition:
+															(PWBASTArrayWithSize new
+																expressions: nil;
+																startPosition: 280;
+																stopPosition: 281;
+																yourself);
+														startPosition: 266;
+														stopPosition: 281;
+														yourself);
+												assignation: nil;
+												startPosition: 266;
+												stopPosition: 281;
+												yourself)};
+										startPosition: 251;
+										stopPosition: 281;
+										yourself);
+								descriptor: nil;
+								startPosition: 243;
+								stopPosition: 281;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'integer';
+														startPosition: 283;
+														stopPosition: 289;
+														yourself);
+												startPosition: 283;
+												stopPosition: 289;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'ii_extsst_count';
+																startPosition: 291;
+																stopPosition: 305;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 291;
+														stopPosition: 305;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 309;
+																				stopPosition: 309;
+																				yourself);
+																		startPosition: 309;
+																		stopPosition: 309;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 309;
+																stopPosition: 309;
+																yourself);
+														startPosition: 306;
+														stopPosition: 309;
+														yourself);
+												startPosition: 291;
+												stopPosition: 309;
+												yourself)};
+										startPosition: 283;
+										stopPosition: 309;
+										yourself);
+								descriptor: nil;
+								startPosition: 283;
+								stopPosition: 309;
+								yourself)};
+						startPosition: 16;
+						stopPosition: 312;
+						yourself);
+				startPosition: 1;
+				stopPosition: 325;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeVariable4 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type variables
+Private:
+
+
+Constant string TOOLTIPS_CLASS		= ''tooltips_class32''
+end variables'
+				rule: #typeVariable)
+		equals:
+			(PWBASTTypeVariable new
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAccessModifierDefiner new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 16;
+										stopPosition: 22;
+										yourself);
+								startPosition: 16;
+								stopPosition: 23;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'string';
+														startPosition: 36;
+														stopPosition: 41;
+														yourself);
+												startPosition: 36;
+												stopPosition: 41;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'TOOLTIPS_CLASS';
+																startPosition: 43;
+																stopPosition: 56;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 43;
+														stopPosition: 56;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTString new
+																				string: '''tooltips_class32''';
+																				startPosition: 61;
+																				stopPosition: 78;
+																				yourself);
+																		startPosition: 61;
+																		stopPosition: 78;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 61;
+																stopPosition: 78;
+																yourself);
+														startPosition: 57;
+														stopPosition: 78;
+														yourself);
+												startPosition: 43;
+												stopPosition: 78;
+												yourself)};
+										startPosition: 36;
+										stopPosition: 78;
+										yourself);
+								descriptor: nil;
+								startPosition: 27;
+								stopPosition: 78;
+								yourself)};
+						startPosition: 16;
+						stopPosition: 79;
+						yourself);
+				startPosition: 1;
+				stopPosition: 92;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeVariable5 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type variables
+private: 
+n_cst_hash_blob_entry invo_fields[]
+long  il_field_max_value = 7
+long  il_field_count = 0
+long  il_max_capacity = -1
+
+end variables'
+				rule: #typeVariable)
+		equals:
+			(PWBASTTypeVariable new
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAccessModifierDefiner new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'private';
+										startPosition: 16;
+										stopPosition: 22;
+										yourself);
+								startPosition: 16;
+								stopPosition: 23;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTCustomType new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'n_cst_hash_blob_entry';
+																startPosition: 26;
+																stopPosition: 46;
+																yourself);
+														startPosition: 26;
+														stopPosition: 46;
+														yourself);
+												startPosition: 26;
+												stopPosition: 46;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'invo_fields';
+																startPosition: 48;
+																stopPosition: 58;
+																yourself);
+														arrayDefinition:
+															(PWBASTArrayWithSize new
+																expressions: nil;
+																startPosition: 59;
+																stopPosition: 60;
+																yourself);
+														startPosition: 48;
+														stopPosition: 60;
+														yourself);
+												assignation: nil;
+												startPosition: 48;
+												stopPosition: 60;
+												yourself)};
+										startPosition: 26;
+										stopPosition: 60;
+										yourself);
+								descriptor: nil;
+								startPosition: 26;
+								stopPosition: 60;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 62;
+														stopPosition: 65;
+														yourself);
+												startPosition: 62;
+												stopPosition: 65;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_field_max_value';
+																startPosition: 68;
+																stopPosition: 85;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 68;
+														stopPosition: 85;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '7';
+																				startPosition: 89;
+																				stopPosition: 89;
+																				yourself);
+																		startPosition: 89;
+																		stopPosition: 89;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 89;
+																stopPosition: 89;
+																yourself);
+														startPosition: 86;
+														stopPosition: 89;
+														yourself);
+												startPosition: 68;
+												stopPosition: 89;
+												yourself)};
+										startPosition: 62;
+										stopPosition: 89;
+										yourself);
+								descriptor: nil;
+								startPosition: 62;
+								stopPosition: 89;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 91;
+														stopPosition: 94;
+														yourself);
+												startPosition: 91;
+												stopPosition: 94;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_field_count';
+																startPosition: 97;
+																stopPosition: 110;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 97;
+														stopPosition: 110;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '0';
+																				startPosition: 114;
+																				stopPosition: 114;
+																				yourself);
+																		startPosition: 114;
+																		stopPosition: 114;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 114;
+																stopPosition: 114;
+																yourself);
+														startPosition: 111;
+														stopPosition: 114;
+														yourself);
+												startPosition: 97;
+												stopPosition: 114;
+												yourself)};
+										startPosition: 91;
+										stopPosition: 114;
+										yourself);
+								descriptor: nil;
+								startPosition: 91;
+								stopPosition: 114;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier: nil;
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'long';
+														startPosition: 116;
+														stopPosition: 119;
+														yourself);
+												startPosition: 116;
+												stopPosition: 119;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'il_max_capacity';
+																startPosition: 122;
+																stopPosition: 136;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 122;
+														stopPosition: 136;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionWithSign new
+																		expressionSign:
+																			(PWBASTExpressionSign new
+																				expressionSign: '-';
+																				startPosition: 140;
+																				stopPosition: 140;
+																				yourself);
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTExpressionTerm new
+																						expressionTerm:
+																							(PWBASTNumber new
+																								number: '1';
+																								startPosition: 141;
+																								stopPosition: 141;
+																								yourself);
+																						startPosition: 141;
+																						stopPosition: 141;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 141;
+																				stopPosition: 141;
+																				yourself);
+																		startPosition: 140;
+																		stopPosition: 141;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 140;
+																stopPosition: 141;
+																yourself);
+														startPosition: 137;
+														stopPosition: 141;
+														yourself);
+												startPosition: 122;
+												stopPosition: 141;
+												yourself)};
+										startPosition: 116;
+										stopPosition: 141;
+										yourself);
+								descriptor: nil;
+								startPosition: 116;
+								stopPosition: 141;
+								yourself)};
+						startPosition: 16;
+						stopPosition: 143;
+						yourself);
+				startPosition: 1;
+				stopPosition: 156;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
+PWBCommonParserTest >> testTypeVariable6 [
+	<generated>
+	self
+		assert:
+			(self
+				parse:
+					'type variables
+
+Constant Private Long WM_USER		= 1024
+Constant Private Long PBM_SETRANGE	= (WM_USER+1)
+Constant Private Long PBM_SETPOS		= (WM_USER+2)
+Constant Private Long PBM_DELTAPOS	= (WM_USER+3)
+Constant Private Long PBM_SETSTEP		= (WM_USER+4)
+Constant Private Long PBM_STEPIT		= (WM_USER+5)
+Constant Private Long PBM_GETRANGE	= (WM_USER+7)
+Constant Private Long PBM_GETPOS		= (WM_USER+8)
+
+end variables'
+				rule: #typeVariable)
+		equals:
+			(PWBASTTypeVariable new
+				attributes:
+					(PWBASTAttributes new
+						attributes:
+							{(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 26;
+										stopPosition: 32;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 34;
+														stopPosition: 37;
+														yourself);
+												startPosition: 34;
+												stopPosition: 37;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'WM_USER';
+																startPosition: 39;
+																stopPosition: 45;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 39;
+														stopPosition: 45;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTExpressionTerm new
+																		expressionTerm:
+																			(PWBASTNumber new
+																				number: '1024';
+																				startPosition: 50;
+																				stopPosition: 53;
+																				yourself);
+																		startPosition: 50;
+																		stopPosition: 53;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 50;
+																stopPosition: 53;
+																yourself);
+														startPosition: 46;
+														stopPosition: 53;
+														yourself);
+												startPosition: 39;
+												stopPosition: 53;
+												yourself)};
+										startPosition: 34;
+										stopPosition: 53;
+										yourself);
+								descriptor: nil;
+								startPosition: 17;
+								stopPosition: 53;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 64;
+										stopPosition: 70;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 72;
+														stopPosition: 75;
+														yourself);
+												startPosition: 72;
+												stopPosition: 75;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_SETRANGE';
+																startPosition: 77;
+																stopPosition: 88;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 77;
+														stopPosition: 88;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 93;
+																																stopPosition: 99;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 93;
+																														stopPosition: 99;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 93;
+																												stopPosition: 99;
+																												yourself);
+																										startPosition: 93;
+																										stopPosition: 99;
+																										yourself);
+																								startPosition: 93;
+																								stopPosition: 99;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 100;
+																								stopPosition: 100;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '1';
+																												startPosition: 101;
+																												stopPosition: 101;
+																												yourself);
+																										startPosition: 101;
+																										stopPosition: 101;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 101;
+																								stopPosition: 101;
+																								yourself);
+																						startPosition: 93;
+																						stopPosition: 101;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 93;
+																				stopPosition: 101;
+																				yourself);
+																		startPosition: 92;
+																		stopPosition: 102;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 92;
+																stopPosition: 102;
+																yourself);
+														startPosition: 89;
+														stopPosition: 102;
+														yourself);
+												startPosition: 77;
+												stopPosition: 102;
+												yourself)};
+										startPosition: 72;
+										stopPosition: 102;
+										yourself);
+								descriptor: nil;
+								startPosition: 55;
+								stopPosition: 102;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 113;
+										stopPosition: 119;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 121;
+														stopPosition: 124;
+														yourself);
+												startPosition: 121;
+												stopPosition: 124;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_SETPOS';
+																startPosition: 126;
+																stopPosition: 135;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 126;
+														stopPosition: 135;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 141;
+																																stopPosition: 147;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 141;
+																														stopPosition: 147;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 141;
+																												stopPosition: 147;
+																												yourself);
+																										startPosition: 141;
+																										stopPosition: 147;
+																										yourself);
+																								startPosition: 141;
+																								stopPosition: 147;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 148;
+																								stopPosition: 148;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '2';
+																												startPosition: 149;
+																												stopPosition: 149;
+																												yourself);
+																										startPosition: 149;
+																										stopPosition: 149;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 149;
+																								stopPosition: 149;
+																								yourself);
+																						startPosition: 141;
+																						stopPosition: 149;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 141;
+																				stopPosition: 149;
+																				yourself);
+																		startPosition: 140;
+																		stopPosition: 150;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 140;
+																stopPosition: 150;
+																yourself);
+														startPosition: 136;
+														stopPosition: 150;
+														yourself);
+												startPosition: 126;
+												stopPosition: 150;
+												yourself)};
+										startPosition: 121;
+										stopPosition: 150;
+										yourself);
+								descriptor: nil;
+								startPosition: 104;
+								stopPosition: 150;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 161;
+										stopPosition: 167;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 169;
+														stopPosition: 172;
+														yourself);
+												startPosition: 169;
+												stopPosition: 172;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_DELTAPOS';
+																startPosition: 174;
+																stopPosition: 185;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 174;
+														stopPosition: 185;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 190;
+																																stopPosition: 196;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 190;
+																														stopPosition: 196;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 190;
+																												stopPosition: 196;
+																												yourself);
+																										startPosition: 190;
+																										stopPosition: 196;
+																										yourself);
+																								startPosition: 190;
+																								stopPosition: 196;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 197;
+																								stopPosition: 197;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '3';
+																												startPosition: 198;
+																												stopPosition: 198;
+																												yourself);
+																										startPosition: 198;
+																										stopPosition: 198;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 198;
+																								stopPosition: 198;
+																								yourself);
+																						startPosition: 190;
+																						stopPosition: 198;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 190;
+																				stopPosition: 198;
+																				yourself);
+																		startPosition: 189;
+																		stopPosition: 199;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 189;
+																stopPosition: 199;
+																yourself);
+														startPosition: 186;
+														stopPosition: 199;
+														yourself);
+												startPosition: 174;
+												stopPosition: 199;
+												yourself)};
+										startPosition: 169;
+										stopPosition: 199;
+										yourself);
+								descriptor: nil;
+								startPosition: 152;
+								stopPosition: 199;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 210;
+										stopPosition: 216;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 218;
+														stopPosition: 221;
+														yourself);
+												startPosition: 218;
+												stopPosition: 221;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_SETSTEP';
+																startPosition: 223;
+																stopPosition: 233;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 223;
+														stopPosition: 233;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 239;
+																																stopPosition: 245;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 239;
+																														stopPosition: 245;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 239;
+																												stopPosition: 245;
+																												yourself);
+																										startPosition: 239;
+																										stopPosition: 245;
+																										yourself);
+																								startPosition: 239;
+																								stopPosition: 245;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 246;
+																								stopPosition: 246;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '4';
+																												startPosition: 247;
+																												stopPosition: 247;
+																												yourself);
+																										startPosition: 247;
+																										stopPosition: 247;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 247;
+																								stopPosition: 247;
+																								yourself);
+																						startPosition: 239;
+																						stopPosition: 247;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 239;
+																				stopPosition: 247;
+																				yourself);
+																		startPosition: 238;
+																		stopPosition: 248;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 238;
+																stopPosition: 248;
+																yourself);
+														startPosition: 234;
+														stopPosition: 248;
+														yourself);
+												startPosition: 223;
+												stopPosition: 248;
+												yourself)};
+										startPosition: 218;
+										stopPosition: 248;
+										yourself);
+								descriptor: nil;
+								startPosition: 201;
+								stopPosition: 248;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 259;
+										stopPosition: 265;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 267;
+														stopPosition: 270;
+														yourself);
+												startPosition: 267;
+												stopPosition: 270;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_STEPIT';
+																startPosition: 272;
+																stopPosition: 281;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 272;
+														stopPosition: 281;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 287;
+																																stopPosition: 293;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 287;
+																														stopPosition: 293;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 287;
+																												stopPosition: 293;
+																												yourself);
+																										startPosition: 287;
+																										stopPosition: 293;
+																										yourself);
+																								startPosition: 287;
+																								stopPosition: 293;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 294;
+																								stopPosition: 294;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '5';
+																												startPosition: 295;
+																												stopPosition: 295;
+																												yourself);
+																										startPosition: 295;
+																										stopPosition: 295;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 295;
+																								stopPosition: 295;
+																								yourself);
+																						startPosition: 287;
+																						stopPosition: 295;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 287;
+																				stopPosition: 295;
+																				yourself);
+																		startPosition: 286;
+																		stopPosition: 296;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 286;
+																stopPosition: 296;
+																yourself);
+														startPosition: 282;
+														stopPosition: 296;
+														yourself);
+												startPosition: 272;
+												stopPosition: 296;
+												yourself)};
+										startPosition: 267;
+										stopPosition: 296;
+										yourself);
+								descriptor: nil;
+								startPosition: 250;
+								stopPosition: 296;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 307;
+										stopPosition: 313;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 315;
+														stopPosition: 318;
+														yourself);
+												startPosition: 315;
+												stopPosition: 318;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_GETRANGE';
+																startPosition: 320;
+																stopPosition: 331;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 320;
+														stopPosition: 331;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 336;
+																																stopPosition: 342;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 336;
+																														stopPosition: 342;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 336;
+																												stopPosition: 342;
+																												yourself);
+																										startPosition: 336;
+																										stopPosition: 342;
+																										yourself);
+																								startPosition: 336;
+																								stopPosition: 342;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 343;
+																								stopPosition: 343;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '7';
+																												startPosition: 344;
+																												stopPosition: 344;
+																												yourself);
+																										startPosition: 344;
+																										stopPosition: 344;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 344;
+																								stopPosition: 344;
+																								yourself);
+																						startPosition: 336;
+																						stopPosition: 344;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 336;
+																				stopPosition: 344;
+																				yourself);
+																		startPosition: 335;
+																		stopPosition: 345;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 335;
+																stopPosition: 345;
+																yourself);
+														startPosition: 332;
+														stopPosition: 345;
+														yourself);
+												startPosition: 320;
+												stopPosition: 345;
+												yourself)};
+										startPosition: 315;
+										stopPosition: 345;
+										yourself);
+								descriptor: nil;
+								startPosition: 298;
+								stopPosition: 345;
+								yourself).
+							(PWBASTAttribute new
+								accessModifier:
+									(PWBASTAccessModifier new
+										accessModifier: 'Private';
+										startPosition: 356;
+										stopPosition: 362;
+										yourself);
+								variableDeclarations:
+									(PWBASTVariableDeclarations new
+										type:
+											(PWBASTType new
+												type:
+													(PWBASTBasicType new
+														basicType: 'Long';
+														startPosition: 364;
+														stopPosition: 367;
+														yourself);
+												startPosition: 364;
+												stopPosition: 367;
+												yourself);
+										variableAssignations:
+											{(PWBASTVariableAssignation new
+												variable:
+													(PWBASTVariable new
+														identifier:
+															(PWBASTIdentifier new
+																identifier: 'PBM_GETPOS';
+																startPosition: 369;
+																stopPosition: 378;
+																yourself);
+														arrayDefinition: nil;
+														startPosition: 369;
+														stopPosition: 378;
+														yourself);
+												assignation:
+													(PWBASTAssignation new
+														expression:
+															(PWBASTExpression new
+																expression:
+																	(PWBASTParenthesedExpression new
+																		expression:
+																			(PWBASTExpression new
+																				expression:
+																					(PWBASTOperatorExpression new
+																						left:
+																							(PWBASTExpressionTerm new
+																								expressionTerm:
+																									(PWBASTAccessOrType new
+																										accessOrType:
+																											(PWBASTAccess new
+																												accessed:
+																													(PWBASTVariable new
+																														identifier:
+																															(PWBASTIdentifier new
+																																identifier: 'WM_USER';
+																																startPosition: 384;
+																																stopPosition: 390;
+																																yourself);
+																														arrayDefinition: nil;
+																														startPosition: 384;
+																														stopPosition: 390;
+																														yourself);
+																												arrayPosition: nil;
+																												startPosition: 384;
+																												stopPosition: 390;
+																												yourself);
+																										startPosition: 384;
+																										stopPosition: 390;
+																										yourself);
+																								startPosition: 384;
+																								stopPosition: 390;
+																								yourself);
+																						expressionAction: nil;
+																						expressionOperator:
+																							(PWBASTExpressionOperator new
+																								expressionOperator: '+';
+																								startPosition: 391;
+																								stopPosition: 391;
+																								yourself);
+																						right:
+																							(PWBASTExpression new
+																								expression:
+																									(PWBASTExpressionTerm new
+																										expressionTerm:
+																											(PWBASTNumber new
+																												number: '8';
+																												startPosition: 392;
+																												stopPosition: 392;
+																												yourself);
+																										startPosition: 392;
+																										stopPosition: 392;
+																										yourself);
+																								expressionAction: nil;
+																								startPosition: 392;
+																								stopPosition: 392;
+																								yourself);
+																						startPosition: 384;
+																						stopPosition: 392;
+																						yourself);
+																				expressionAction: nil;
+																				startPosition: 384;
+																				stopPosition: 392;
+																				yourself);
+																		startPosition: 383;
+																		stopPosition: 393;
+																		yourself);
+																expressionAction: nil;
+																startPosition: 383;
+																stopPosition: 393;
+																yourself);
+														startPosition: 379;
+														stopPosition: 393;
+														yourself);
+												startPosition: 369;
+												stopPosition: 393;
+												yourself)};
+										startPosition: 364;
+										stopPosition: 393;
+										yourself);
+								descriptor: nil;
+								startPosition: 347;
+								stopPosition: 393;
+								yourself)};
+						startPosition: 17;
+						stopPosition: 395;
+						yourself);
+				startPosition: 1;
+				stopPosition: 408;
+				yourself)
+]
+
+{ #category : #'as yet unclassified' }
 PWBCommonParserTest >> testVariableDeclarations1 [
 	<generated>
 	self
 		assert:
 			(self
-				parse: 'string Ls_dlp_liq_cod, Ls_dlp_liq_cod% , Ls_prt_adn, Ls_adh, Ls_Etat_Sinistre'
+				parse: 'string as_tab_err[1 to 50,2]'
 				rule: #variableDeclarations)
 		equals:
 			(PWBASTVariableDeclarations new
@@ -43683,88 +44019,79 @@ PWBCommonParserTest >> testVariableDeclarations1 [
 							(PWBASTVariable new
 								identifier:
 									(PWBASTIdentifier new
-										identifier: 'Ls_dlp_liq_cod';
+										identifier: 'as_tab_err';
 										startPosition: 8;
-										stopPosition: 21;
+										stopPosition: 17;
 										yourself);
-								arrayDefinition: nil;
+								arrayDefinition:
+									(PWBASTArrayWithSize new
+										expressions:
+											{(PWBASTIntervalExpression new
+												from:
+													(PWBASTExpression new
+														expression:
+															(PWBASTExpressionTerm new
+																expressionTerm:
+																	(PWBASTNumber new
+																		number: '1';
+																		startPosition: 19;
+																		stopPosition: 19;
+																		yourself);
+																startPosition: 19;
+																stopPosition: 19;
+																yourself);
+														expressionAction: nil;
+														startPosition: 19;
+														stopPosition: 19;
+														yourself);
+												to:
+													(PWBASTExpression new
+															expression:
+																(PWBASTExpressionTerm new
+																	expressionTerm:
+																		(PWBASTNumber new
+																			number: '50';
+																			startPosition: 24;
+																			stopPosition: 25;
+																			yourself);
+																	startPosition: 24;
+																	stopPosition: 25;
+																	yourself);
+															expressionAction: nil;
+															startPosition: 24;
+															stopPosition: 25;
+															yourself);
+												startPosition: 19;
+												stopPosition: 25;
+												yourself).
+											(PWBASTExpression new
+												expression:
+													(PWBASTExpressionTerm new
+														expressionTerm:
+															(PWBASTNumber new
+																number: '2';
+																startPosition: 27;
+																stopPosition: 27;
+																yourself);
+														startPosition: 27;
+														stopPosition: 27;
+														yourself);
+												expressionAction: nil;
+												startPosition: 27;
+												stopPosition: 27;
+												yourself)};
+										startPosition: 18;
+										stopPosition: 28;
+										yourself);
 								startPosition: 8;
-								stopPosition: 21;
+								stopPosition: 28;
 								yourself);
 						assignation: nil;
 						startPosition: 8;
-						stopPosition: 21;
-						yourself).
-					(PWBASTVariableAssignation new
-						variable:
-							(PWBASTVariable new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'Ls_dlp_liq_cod';
-										startPosition: 24;
-										stopPosition: 37;
-										yourself);
-								arrayDefinition: nil;
-								startPosition: 24;
-								stopPosition: 38;
-								yourself);
-						assignation: nil;
-						startPosition: 24;
-						stopPosition: 38;
-						yourself).
-					(PWBASTVariableAssignation new
-						variable:
-							(PWBASTVariable new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'Ls_prt_adn';
-										startPosition: 42;
-										stopPosition: 51;
-										yourself);
-								arrayDefinition: nil;
-								startPosition: 42;
-								stopPosition: 51;
-								yourself);
-						assignation: nil;
-						startPosition: 42;
-						stopPosition: 51;
-						yourself).
-					(PWBASTVariableAssignation new
-						variable:
-							(PWBASTVariable new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'Ls_adh';
-										startPosition: 54;
-										stopPosition: 59;
-										yourself);
-								arrayDefinition: nil;
-								startPosition: 54;
-								stopPosition: 59;
-								yourself);
-						assignation: nil;
-						startPosition: 54;
-						stopPosition: 59;
-						yourself).
-					(PWBASTVariableAssignation new
-						variable:
-							(PWBASTVariable new
-								identifier:
-									(PWBASTIdentifier new
-										identifier: 'Ls_Etat_Sinistre';
-										startPosition: 62;
-										stopPosition: 77;
-										yourself);
-								arrayDefinition: nil;
-								startPosition: 62;
-								stopPosition: 77;
-								yourself);
-						assignation: nil;
-						startPosition: 62;
-						stopPosition: 77;
+						stopPosition: 28;
 						yourself)};
 				startPosition: 1;
-				stopPosition: 77;
+				stopPosition: 28;
 				yourself)
 ]
 
@@ -43980,7 +44307,7 @@ PWBCommonParserTest >> testVariableDeclarations3 [
 	self
 		assert:
 			(self
-				parse: 'string as_tab_err[1 to 50,2]'
+				parse: 'string Ls_dlp_liq_cod, Ls_dlp_liq_cod% , Ls_prt_adn, Ls_adh, Ls_Etat_Sinistre'
 				rule: #variableDeclarations)
 		equals:
 			(PWBASTVariableDeclarations new
@@ -44001,79 +44328,88 @@ PWBCommonParserTest >> testVariableDeclarations3 [
 							(PWBASTVariable new
 								identifier:
 									(PWBASTIdentifier new
-										identifier: 'as_tab_err';
+										identifier: 'Ls_dlp_liq_cod';
 										startPosition: 8;
-										stopPosition: 17;
+										stopPosition: 21;
 										yourself);
-								arrayDefinition:
-									(PWBASTArrayWithSize new
-										expressions:
-											{(PWBASTIntervalExpression new
-												from:
-													(PWBASTExpression new
-														expression:
-															(PWBASTExpressionTerm new
-																expressionTerm:
-																	(PWBASTNumber new
-																		number: '1';
-																		startPosition: 19;
-																		stopPosition: 19;
-																		yourself);
-																startPosition: 19;
-																stopPosition: 19;
-																yourself);
-														expressionAction: nil;
-														startPosition: 19;
-														stopPosition: 19;
-														yourself);
-												to:
-													(PWBASTExpression new
-															expression:
-																(PWBASTExpressionTerm new
-																	expressionTerm:
-																		(PWBASTNumber new
-																			number: '50';
-																			startPosition: 24;
-																			stopPosition: 25;
-																			yourself);
-																	startPosition: 24;
-																	stopPosition: 25;
-																	yourself);
-															expressionAction: nil;
-															startPosition: 24;
-															stopPosition: 25;
-															yourself);
-												startPosition: 19;
-												stopPosition: 25;
-												yourself).
-											(PWBASTExpression new
-												expression:
-													(PWBASTExpressionTerm new
-														expressionTerm:
-															(PWBASTNumber new
-																number: '2';
-																startPosition: 27;
-																stopPosition: 27;
-																yourself);
-														startPosition: 27;
-														stopPosition: 27;
-														yourself);
-												expressionAction: nil;
-												startPosition: 27;
-												stopPosition: 27;
-												yourself)};
-										startPosition: 18;
-										stopPosition: 28;
-										yourself);
+								arrayDefinition: nil;
 								startPosition: 8;
-								stopPosition: 28;
+								stopPosition: 21;
 								yourself);
 						assignation: nil;
 						startPosition: 8;
-						stopPosition: 28;
+						stopPosition: 21;
+						yourself).
+					(PWBASTVariableAssignation new
+						variable:
+							(PWBASTVariable new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'Ls_dlp_liq_cod';
+										startPosition: 24;
+										stopPosition: 37;
+										yourself);
+								arrayDefinition: nil;
+								startPosition: 24;
+								stopPosition: 38;
+								yourself);
+						assignation: nil;
+						startPosition: 24;
+						stopPosition: 38;
+						yourself).
+					(PWBASTVariableAssignation new
+						variable:
+							(PWBASTVariable new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'Ls_prt_adn';
+										startPosition: 42;
+										stopPosition: 51;
+										yourself);
+								arrayDefinition: nil;
+								startPosition: 42;
+								stopPosition: 51;
+								yourself);
+						assignation: nil;
+						startPosition: 42;
+						stopPosition: 51;
+						yourself).
+					(PWBASTVariableAssignation new
+						variable:
+							(PWBASTVariable new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'Ls_adh';
+										startPosition: 54;
+										stopPosition: 59;
+										yourself);
+								arrayDefinition: nil;
+								startPosition: 54;
+								stopPosition: 59;
+								yourself);
+						assignation: nil;
+						startPosition: 54;
+						stopPosition: 59;
+						yourself).
+					(PWBASTVariableAssignation new
+						variable:
+							(PWBASTVariable new
+								identifier:
+									(PWBASTIdentifier new
+										identifier: 'Ls_Etat_Sinistre';
+										startPosition: 62;
+										stopPosition: 77;
+										yourself);
+								arrayDefinition: nil;
+								startPosition: 62;
+								stopPosition: 77;
+								yourself);
+						assignation: nil;
+						startPosition: 62;
+						stopPosition: 77;
 						yourself)};
 				startPosition: 1;
-				stopPosition: 28;
+				stopPosition: 77;
 				yourself)
 ]
 

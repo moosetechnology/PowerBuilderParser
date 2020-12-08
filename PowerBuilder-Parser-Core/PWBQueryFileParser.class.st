@@ -521,6 +521,18 @@ PWBQueryFileParser >> expressionAction [
 ]
 
 { #category : #rules }
+PWBQueryFileParser >> expressionOperator [
+	<generated>
+	^ super expressionOperator flatten withPositions
+		==> [ :production | 
+			PWBASTExpressionOperator new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionOperator: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBQueryFileParser >> expressionSign [
 	<generated>
 	^ super expressionSign flatten withPositions
@@ -755,6 +767,7 @@ PWBQueryFileParser >> operatorExpression [
 				stopPosition: production stop;
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
+				expressionOperator: (production content at: 4);
 				right: (production content at: 6);
 				yourself ]
 ]

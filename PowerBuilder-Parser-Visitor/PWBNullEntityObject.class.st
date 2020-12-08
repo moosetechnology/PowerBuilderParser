@@ -17,13 +17,6 @@ PWBNullEntityObject >> accessModifier: anObject [
 	accessModifier := anObject
 ]
 
-{ #category : #converting }
-PWBNullEntityObject >> asSREntityScope [
-	^ SREntityScope new
-		entity: self;
-		yourself
-]
-
 { #category : #testing }
 PWBNullEntityObject >> isNullPatternObject [
 	^ true
