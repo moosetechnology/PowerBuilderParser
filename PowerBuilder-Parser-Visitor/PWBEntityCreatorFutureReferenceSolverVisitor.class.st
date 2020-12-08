@@ -401,8 +401,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionTerm: aPWBA
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
-	^ (self visit: aPWBASTExpressionWithSign expressionSign)
-		, (self visit: aPWBASTExpressionWithSign expression)
+	self visit: aPWBASTExpressionWithSign expressionSign.
+	^ self visit: aPWBASTExpressionWithSign expression
 ]
 
 { #category : #visiting }
@@ -640,9 +640,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	"A signature always and with a $; charater at definition"
-
 	| arguments signature |
+		self currentEntity isNullPatternObject
+		ifTrue: [ ^ self ].
 	arguments := aPWBASTSubroutineSignature arguments arguments.
 	arguments ifNotNil: [ self createPWBParameters: arguments ].
 	signature := self
@@ -651,6 +651,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 	signature
 		name: self currentEntity name;
 		behavioral: self currentEntity.
+			"A signature always and with a $; charater at definition"
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	self currentEntity
 		name: (self visit: aPWBASTSubroutineSignature identifier);
