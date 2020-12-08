@@ -24,3 +24,8 @@ FamixPWBCustomType >> isBasic [
 FamixPWBCustomType >> isPWBDataWindow [
 	^ {'uo_datawindow' . 'datawindow'} includes: self name
 ]
+
+{ #category : #api }
+FamixPWBCustomType >> reachableEntities [
+	^ #()
+]
