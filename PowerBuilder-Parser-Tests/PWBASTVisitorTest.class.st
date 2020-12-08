@@ -127,7 +127,7 @@ PWBASTVisitorTest >> testParameter [
 { #category : #tests }
 PWBASTVisitorTest >> testParserAttributeAccess [
 	| acc |
-	self assert: model allAccesses size equals: 5.
+	self assert: model allAccesses size equals: 6.
 	acc := model allAccesses
 		select: [ :a | a variable name asLowercase = 'il_long1' ].
 	self assert: acc anyOne accessor name equals: 'anotherFunction'.
@@ -151,7 +151,7 @@ PWBASTVisitorTest >> testParserEventInvocation [
 { #category : #tests }
 PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 	| invok |
-	self assert: model allInvocations size equals: 5.
+	self assert: model allInvocations size equals: 6.
 	invok := model allInvocations select: [ :i |
 		(i source name asLowercase = 'afunction')
 		and: [ i target anyOne name asLowercase ~= 'isnull' ] ].
@@ -159,18 +159,20 @@ PWBASTVisitorTest >> testParserFunctionInvocationCorrectCase [
 	self
 		assert: invok anyOne target anyOne name
 		equals: 'anotherFunction'.
-	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 0
+	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 1
 ]
 
 { #category : #tests }
 PWBASTVisitorTest >> testParserFunctionInvocationWrongCase [
 	| invok |
-	self assert: model allInvocations size equals: 5.
+	self assert: model allInvocations size equals: 6.
 	invok := model allInvocations
 		select: [ :i | i source name asLowercase = 'anotherfunction' ].
-	self assert: invok size equals: 1.
-	self assert: invok anyOne target anyOne name equals: 'aFunction'.
-	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 0
+	self assert: invok size equals: 2.
+	self
+		assertCollection: (invok flatCollect: [ :invk | invk target collect: #name ])
+		hasSameElements: {'trim' . 'aFunction'}.
+	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 1
 ]
 
 { #category : #tests }
@@ -203,10 +205,11 @@ PWBASTVisitorTest >> testParserReturnArithmeticExpression [
 PWBASTVisitorTest >> testParserReturnArrayWithSize [
 	| return |
 	return := (model allWithType: FamixPWBFunctionReturn)
-		detect: [ :r | r name = 'anotherFunction' ]
-		ifNone: [ nil ].
-	self assert: return isNotNil.
-	self assert: return returnValue equals: 'il_long1[1]'
+		select: [ :r | r name = 'anotherFunction' ].
+	self assert: return isNotEmpty.
+	self
+		assert: (return detect: [ :e | e returnValue beginsWith: 'il' ]) returnValue
+		equals: 'il_long1[1]'
 ]
 
 { #category : #tests }
@@ -234,7 +237,7 @@ PWBASTVisitorTest >> testParserReturnVariable [
 { #category : #tests }
 PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 	| acc |
-	self assert: model allAccesses size equals: 5.
+	self assert: model allAccesses size equals: 6.
 	acc := model allAccesses select: [ :a | a variable name asLowercase = 'along' ].
 	self assert: acc size equals: 1.
 	self
@@ -245,7 +248,7 @@ PWBASTVisitorTest >> testParserVariableAccessCorrectCase [
 { #category : #tests }
 PWBASTVisitorTest >> testParserVariableAccessWrongCase [
 	| accs |
-	self assert: model allAccesses size equals: 5.
+	self assert: model allAccesses size equals: 6.
 	accs := model allAccesses
 		select: [ :a | a accessor name asLowercase = 'afunction' ].
 	self assert: accs size equals: 2.
@@ -282,12 +285,4 @@ PWBASTVisitorTest >> testSourceTestSettings [
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
 end function'
-]
-
-{ #category : #'as yet unclassified' }
-PWBASTVisitorTest >> testVisitorShouldNotCreateParametersIfCurrentIsaNullObjectPattern [
-	visitor currentEntity: PWBNullEntityObject new.
-	self assert: (visitor createPWBParameters: {}) equals: visitor.
-	visitor currentEntity: FamixPWBFunction new.
-	self assert: (visitor createPWBParameters: {}) equals: {}
 ]

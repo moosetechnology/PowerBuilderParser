@@ -594,7 +594,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	| famixFunctionReturn codeRewriteVisitor |
-	1 halt.
 	famixFunctionReturn := self
 		createEntity: FamixPWBFunctionReturn
 		withAnchorFrom: aPWBASTReturnStatement.
