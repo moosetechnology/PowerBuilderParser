@@ -546,17 +546,6 @@ end event' rule: #eventDeclaration
 ]
 
 { #category : #tests }
-PWBUserObjectGrammarTest >> testEventDeclaration2 [
-	self parse: 'event ue_rdc();
-if il_cot = 1 then
-	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
-else
-	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
-end if
-end event' rule: #eventDeclaration
-]
-
-{ #category : #tests }
 PWBUserObjectGrammarTest >> testEventDeclaration3 [
 	self parse: 'event dw_liste::edw_dct_ou_dct_int();if is_dct_ou_dct_int = "dct_int" then
 	is_dct_ou_dct_int = "dct"
@@ -653,6 +642,17 @@ else
 	is_dct_ou_dct_int = "dct_int"
 end if
 dw_liste.triggerEvent("edw_lecture", 0, "")
+end event' rule: #eventDeclaration
+]
+
+{ #category : #tests }
+PWBUserObjectGrammarTest >> testEventDeclaration8 [
+	self parse: 'event ue_rdc();
+if il_cot = 1 then
+	dw_liste.postevent("ue_menu",1,"m_edt_rdc")
+else
+	messagebox("Attention","Vous ne vous trouvez pas sur les cotisations de l''adhérent")
+end if
 end event' rule: #eventDeclaration
 ]
 
