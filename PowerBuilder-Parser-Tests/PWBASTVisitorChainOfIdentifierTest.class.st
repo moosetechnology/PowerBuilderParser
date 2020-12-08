@@ -24,9 +24,9 @@ PWBASTVisitorChainOfIdentifierTest >> sourceExample [
 end variables
 
 private function integer aFunction ();
-  my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
+  my_uo
   return 0
 end function'
 ]
