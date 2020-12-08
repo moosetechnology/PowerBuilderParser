@@ -147,10 +147,3 @@ FamixPWBEntity >> isType [
 	<generated>
 	^ false
 ]
-
-{ #category : #testing }
-FamixPWBEntity >> postResolveActionWith: aSRResolver [
-	"By default do nothing"
-
-	
-]
