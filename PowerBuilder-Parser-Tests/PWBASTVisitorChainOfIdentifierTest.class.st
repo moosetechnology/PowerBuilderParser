@@ -11,19 +11,36 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 		attributeType: (FamixPWBBasicType named: 'string');
 		parentType: (model entityNamed: 'test_uo');
 		mooseModel: model.
+	(FamixPWBInstanceVariable named: 'var1')
+		attributeType: (FamixPWBBasicType named: 'integer');
+		parentType: (model entityNamed: 'test_uo');
+		mooseModel: model.
 	(FamixPWBFunction named: 'myFunc')
 		returnType: (FamixPWBFunctionReturn new type: (model entityNamed: 'test_uo'));
 		parentType: (model entityNamed: 'test_uo');
+		mooseModel: model.
+	(FamixPWBUserObject named: 'test1_uo') mooseModel: model.
+	(FamixPWBInstanceVariable named: 'att1')
+		attributeType: (model entityNamed: 'test_uo');
+		parentType: (model entityNamed: 'test1_uo');
 		mooseModel: model
 ]
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> sourceExample [
-	^ 'type variables
+	^ 'forward
+   global type testFile from userobject
+   end type
+   type tp_val from userobject end type
+    type attTest1_uo from test1_uo end type
+	end forward
+
+	type variables
   test_uo my_uo;
 end variables
 
 private function integer aFunction ();
+  this.attTest1_uo.att1.var1 = 3
   my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
@@ -32,9 +49,21 @@ end function'
 ]
 
 { #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
+	"| accVar |
+	self assert: model allAccesses size equals: 3.
+	accVar := model allAccesses
+		detect: [ :access | access variable name = 'var1' ].
+	self assert: accVar variable class equals: FamixPWBInstanceVariable.
+	self assert: accVar variable name equals: 'var1'.
+	self assert: accVar variable attributeType name equals: 'integer'.
+	self assert: accVar variable parentType name equals: 'test_uo'"
+]
+
+{ #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
-	self assert: model allAccesses size equals: 2.
+	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
