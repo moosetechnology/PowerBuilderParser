@@ -20,7 +20,7 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> sourceExample [
 	^ 'type variables
-  test_uo my_uo;
+  test_uo my_uo; 
 end variables
 
 private function integer aFunction ();

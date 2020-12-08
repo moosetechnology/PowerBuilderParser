@@ -22,6 +22,7 @@ PWBASTVisitorTest >> setUp [
 	result
 		fileName: 'testFile';
 		fileExtension: 'sru'.
+	self halt.
 	visitor
 		visit: result;
 		resolveUnresolvedReferences

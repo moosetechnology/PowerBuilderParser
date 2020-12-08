@@ -52,7 +52,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createResolvableIdentifier: aPWB
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 	| sRIdentifierWithNode |
-	sRIdentifierWithNode := SRIdentifierWithNode
+	sRIdentifierWithNode := SRTypeIdentifierWithNode
 		identifier: (self visit: aPWBASTExpressionAction action)
 		expectedKind:
 			{FamixPWBVariable.
@@ -92,15 +92,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	super initialize.
 	self initialiseFutureSolver.
 	expressionIsLeftHandSide := false
-]
-
-{ #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> invocationStringFrom: aPWBASTFunctionInvocation [
-	| defaultVariable functionName arguments |
-	defaultVariable := self
-		visit: aPWBASTFunctionInvocation defaultVariable.
-	functionName := self visit: aPWBASTFunctionInvocation functionName.
-	arguments := self visit: aPWBASTFunctionInvocation functionArguments
 ]
 
 { #category : #resolution }
