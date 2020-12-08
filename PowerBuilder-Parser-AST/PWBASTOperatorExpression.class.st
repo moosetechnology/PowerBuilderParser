@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'left',
 		'expressionAction',
+		'expressionOperator',
 		'right',
 		'startPosition',
 		'stopPosition'
@@ -21,9 +22,10 @@ PWBASTOperatorExpression >> = anObject [
 		ifFalse: [ ^ false ].
 	^ left = anObject left
 		and: [ expressionAction = anObject expressionAction
-				and: [ right = anObject right
-						and: [ startPosition = anObject startPosition
-								and: [ stopPosition = anObject stopPosition ] ] ] ]
+				and: [ expressionOperator = anObject expressionOperator
+						and: [ right = anObject right
+								and: [ startPosition = anObject startPosition
+										and: [ stopPosition = anObject stopPosition ] ] ] ] ]
 ]
 
 { #category : #visiting }
@@ -42,6 +44,16 @@ PWBASTOperatorExpression >> expressionAction: anObject [
 	expressionAction := anObject
 ]
 
+{ #category : #accessing }
+PWBASTOperatorExpression >> expressionOperator [
+	^ expressionOperator
+]
+
+{ #category : #accessing }
+PWBASTOperatorExpression >> expressionOperator: anObject [
+	expressionOperator := anObject
+]
+
 { #category : #comparing }
 PWBASTOperatorExpression >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
@@ -49,7 +61,9 @@ PWBASTOperatorExpression >> hash [
 	^ left hash
 		bitXor:
 			(expressionAction hash
-				bitXor: (right hash bitXor: (startPosition hash bitXor: stopPosition hash)))
+				bitXor:
+					(expressionOperator hash
+						bitXor: (right hash bitXor: (startPosition hash bitXor: stopPosition hash))))
 ]
 
 { #category : #accessing }

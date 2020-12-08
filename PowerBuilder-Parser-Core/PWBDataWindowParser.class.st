@@ -585,6 +585,18 @@ PWBDataWindowParser >> expressionAction [
 ]
 
 { #category : #rules }
+PWBDataWindowParser >> expressionOperator [
+	<generated>
+	^ super expressionOperator flatten withPositions
+		==> [ :production | 
+			PWBASTExpressionOperator new
+				startPosition: production start;
+				stopPosition: production stop;
+				expressionOperator: production content;
+				yourself ]
+]
+
+{ #category : #rules }
 PWBDataWindowParser >> expressionSign [
 	<generated>
 	^ super expressionSign flatten withPositions
@@ -894,6 +906,7 @@ PWBDataWindowParser >> operatorExpression [
 				stopPosition: production stop;
 				left: (production content at: 1);
 				expressionAction: (production content at: 2);
+				expressionOperator: (production content at: 4);
 				right: (production content at: 6);
 				yourself ]
 ]
