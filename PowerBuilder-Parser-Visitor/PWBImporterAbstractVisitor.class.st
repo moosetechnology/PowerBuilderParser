@@ -46,21 +46,18 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 	^ created
 ]
 
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createAccessTo: aFamixPWBAccessible writing: aBoolean from: anASTNode source: aFamixPWBEntity [
-	^ aFamixPWBAccessible accessAssociation new
-		source: aFamixPWBEntity;
-		target: aFamixPWBAccessible;
-		isWrite: aBoolean;
-		mooseModel: self model;
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess from: sRIdentifierWithNode [
+	^ (currentEntity
+		createAccessTo: sRIdentifierWithNode entity
+		writing: writeAccess)
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				mooseModel: self model;
-				startPos: (self unpreprocessedPosition: anASTNode startPosition);
+				startPos: (self unpreprocessedPosition: sRIdentifierWithNode startPosition);
 				fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
-				endPos: (self unpreprocessedPosition: anASTNode stopPosition);
-				yourself);
-		yourself
+				endPos: (self unpreprocessedPosition: sRIdentifierWithNode stopPosition);
+				yourself)
 ]
 
 { #category : #'entities creation' }

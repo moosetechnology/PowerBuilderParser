@@ -35,8 +35,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 			identifiers
 				foundAction: [ :identifier :currentEntity | 
 					(identifier entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse:
-							[ currentEntity createAccessTo: identifier entity writing: writeAccess ] ];
+						ifFalse: [ self
+								createAccessTo: currentEntity
+								writing: writeAccess
+								from: identifier ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -118,9 +120,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity | 
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [ currentEntity
-								createAccessTo: sRIdentifierWithNode entity
-								writing: writeAccess ] ];
+						ifFalse: [ self
+								createAccessTo: currentEntity
+								writing: writeAccess
+								from: sRIdentifierWithNode ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].

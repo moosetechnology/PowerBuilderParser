@@ -57,3 +57,8 @@ FamixPWBVariable >> behavioralGroup [
 FamixPWBVariable >> isInstanceVariable [
 	^ false
 ]
+
+{ #category : #api }
+FamixPWBVariable >> reachableEntities [
+	^ {}
+]
