@@ -695,7 +695,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 				withType: FamixPWBInstanceVariable.
 			var attributeType: type.
 			type isResolvable
-				ifTrue: [ type addTypedVariable: var ] ]
+				ifTrue: [type addTypedVariable: var ] ]
 ]
 
 { #category : #visiting }
