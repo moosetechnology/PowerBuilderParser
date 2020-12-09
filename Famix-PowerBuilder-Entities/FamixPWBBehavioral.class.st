@@ -152,15 +152,6 @@ FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 	cyclomaticComplexity := anObject
 ]
 
-{ #category : #accessing }
-FamixPWBBehavioral >> getBusinessRuleFunctions [
-	businessRulePath
-		ifNil: [ businessRulePath := self invokedBehaviours
-				reject: [ :method | method parentType isNil ] ].
-	^ businessRulePath asOrderedCollection
-		sortDescending: [ :method | method invokedBehaviours size ]
-]
-
 { #category : #api }
 FamixPWBBehavioral >> incomingInvocationsSenders [
 	^ (self incomingInvocations collectAsSet: #sender)
@@ -174,7 +165,8 @@ FamixPWBBehavioral >> increaseCyclomaticComplexity [
 
 { #category : #accessing }
 FamixPWBBehavioral >> instanceVariableAccesses [
-	^ self accesses select: [ :acc | acc isInstanceVariableAccess ]
+	^ self accesses
+		select: [ :acc | acc isInstanceVariableAccess and: [ acc isWrite ] ]
 ]
 
 { #category : #'Famix-Extensions' }

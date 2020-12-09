@@ -66,7 +66,7 @@ private function integer aFunction ();
   return -1
 end function
 
-private function integer anotherFunction (long aLong, string aString);  
+private function integer anotherFunction (long aLong, uo_datawindow dw_param);  
   AFUNCTION(aLong)
   this.il_long1 = 5
   return trim("bla")
@@ -121,7 +121,15 @@ PWBASTVisitorTest >> testInstanceVariables [
 PWBASTVisitorTest >> testParameter [
 	self
 		assertCollection: ((model allWithType: FamixPWBParameter) collect: #name)
-		hasSameElements: {'aLong' . 'aString'}
+		hasSameElements: {'aLong' . 'dw_param'}
+]
+
+{ #category : #tests }
+PWBASTVisitorTest >> testParameterType [
+	| param |
+	param := (model allWithType: FamixPWBParameter)
+		detect: [ :each | each name = 'dw_param' ].
+	self assert: param parameterType class equals: FamixPWBCustomType
 ]
 
 { #category : #tests }

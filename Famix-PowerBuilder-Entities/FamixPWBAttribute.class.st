@@ -52,15 +52,6 @@ FamixPWBAttribute >> deadLocalVariables [
 	^ {}
 ]
 
-{ #category : #accessing }
-FamixPWBAttribute >> getBusinessRuleFunctions [
-	businessRulePath
-		ifNil: [ businessRulePath := self accessingMethods
-				reject:
-					[ :method | (method isKindOf: FamixPWBmajorObject) or: [ method parentType isNil ] ] ].
-	^ businessRulePath asOrderedCollection
-]
-
 { #category : #testing }
 FamixPWBAttribute >> isInstanceVariable [
 	^ true
@@ -84,4 +75,9 @@ FamixPWBAttribute >> postResolveActionWith: aSRReferenceToResolve [
 { #category : #accessor }
 FamixPWBAttribute >> typeName [
 	^ attributeType name
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBAttribute >> updateType: anEntity [
+	self attributeType: anEntity
 ]

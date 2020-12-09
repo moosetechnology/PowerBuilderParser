@@ -106,3 +106,8 @@ FamixPWBParameter >> startPos: anObject [
 	<generated>
 	startPos := anObject
 ]
+
+{ #category : #accessing }
+FamixPWBParameter >> updateType: aFamixPWBCustomType [
+	self parameterType: aFamixPWBCustomType
+]

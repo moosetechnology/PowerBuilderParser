@@ -83,18 +83,21 @@ PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 	^ aCollection
 		collect: [ :arg | 
-			(self currentEntity
+			| param |
+			param := (self currentEntity
 				createValueHolderNamed: (self visit: arg)
 				withType: FamixPWBParameter)
-				parameterType: (self visit: arg type);
 				parameterOption: (self visit: arg argumentOption);
+				parameterType: (self visit: arg type);
 				sourceAnchor:
 					(FamixPWBIndexedFileAnchor new
 						mooseModel: self model;
 						startPos: (self unpreprocessedPosition: arg startPosition);
 						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
 						endPos: (self unpreprocessedPosition: arg stopPosition);
-						yourself) ]
+						yourself).
+			param parameterType isResolvable
+				ifTrue: [ param parameterType addTypedVariable: param ] ]
 ]
 
 { #category : #helpers }
