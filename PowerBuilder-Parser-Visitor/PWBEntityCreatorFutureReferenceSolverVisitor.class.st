@@ -665,21 +665,22 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
+	typeDeclarationType := Dictionary new.
 	self visit: aPWBASTTypeDeclaration type.
 	self visit: aPWBASTTypeDeclaration fromClause.
 	self visit: aPWBASTTypeDeclaration eventType.
 	self visit: aPWBASTTypeDeclaration withinClause.
 	self visit: aPWBASTTypeDeclaration descriptor.
-	(self visit: aPWBASTTypeDeclaration attributes)
-		ifNotNil: [ :attributeStrings | 
-			attributeStrings flatten
-				do: [ :attString | 
-					| var |
-					
-					var := self currentEntity
-						createValueHolderNamed: attString
-						withType: FamixPWBInstanceVariable.
-					var attributeType: (self typeDeclarationType at: attString) ] ]
+	self visit: aPWBASTTypeDeclaration attributes.
+	typeDeclarationType
+		keysAndValuesDo: [ :attString :type | 
+			| var |
+			var := self currentEntity
+				createValueHolderNamed: attString
+				withType: FamixPWBInstanceVariable.
+			var attributeType: type.
+			type isResolvable
+				ifTrue: [ type addTypedVariable: var ] ]
 ]
 
 { #category : #visiting }
@@ -694,7 +695,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 				withType: FamixPWBInstanceVariable.
 			var attributeType: type.
 			type isResolvable
-				ifTrue: [ type addTypedVariable: var ] ]
+				ifTrue: [type addTypedVariable: var ] ]
 ]
 
 { #category : #visiting }
