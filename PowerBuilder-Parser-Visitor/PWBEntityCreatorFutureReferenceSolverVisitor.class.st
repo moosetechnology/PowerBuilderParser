@@ -162,7 +162,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement:
 	accessOrType := self visit: aPWBASTAssignationStatement accessOrType.
 	expressionIsLeftHandSide := true.
 	variable := self visit: aPWBASTAssignationStatement expressionAction.
-	variable ifNotNil: [ variable previous: accessOrType ].
+	(variable isNotNil and: [ variable isResolvable ])
+		ifTrue: [ variable previous: accessOrType ].
 	expressionIsLeftHandSide := false.
 	self visit: aPWBASTAssignationStatement assignation
 ]
