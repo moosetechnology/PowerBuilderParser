@@ -59,14 +59,15 @@ end function'
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
-	"| accVar |
+	| accVar |
+	self skip.
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var1' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
 	self assert: accVar variable name equals: 'var1'.
 	self assert: accVar variable attributeType name equals: 'integer'.
-	self assert: accVar variable parentType name equals: 'test_uo'"
+	self assert: accVar variable parentType name equals: 'test_uo'
 ]
 
 { #category : #running }
@@ -90,6 +91,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
 	accMy_uo := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ].
+		"Because my_uo is not write so it not in an assignation statement"
 	self assert: (self sourceCode: accMy_uo) equals: '.my_uo'
 ]
 
