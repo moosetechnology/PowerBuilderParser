@@ -227,10 +227,11 @@ PWBImporterAbstractVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutine
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
-	^ self resolvable: 
-		 (SRThisWithNode
-		node: anPWBASTThis
-		validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
+	^ self
+		resolvable:
+			(SRThisWithNode
+				node: anPWBASTThis
+				validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
 ]
 
 { #category : #visiting }

@@ -87,7 +87,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
-	self assert: (self sourceCode: accVar) equals: '.my_uo.var'.
+	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
 	accMy_uo := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ].
 	self assert: (self sourceCode: accMy_uo) equals: '.my_uo'

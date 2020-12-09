@@ -26,7 +26,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
-	(self currentEntity class = FamixPWBDataWindow
+	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
 		ifFalse: [ | identifiers writeAccess |
 			identifiers := self
@@ -158,9 +158,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBAS
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
-	self visit: aPWBASTAssignationStatement accessOrType.
+	| accessOrType variable |
+	accessOrType := self visit: aPWBASTAssignationStatement accessOrType.
 	expressionIsLeftHandSide := true.
-	self visit: aPWBASTAssignationStatement expressionAction.
+	variable := self visit: aPWBASTAssignationStatement expressionAction.
+	variable ifNotNil: [ variable previous: accessOrType ].
 	expressionIsLeftHandSide := false.
 	self visit: aPWBASTAssignationStatement assignation
 ]
