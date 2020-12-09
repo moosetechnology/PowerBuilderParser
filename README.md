@@ -13,7 +13,7 @@ You can download the project in your image by doing:
 ```smalltalk
 Metacello new
   baseline: 'PowerBuilderParser';
-  repository: 'github://moosetechnology/PowerBuilderParser';
+  repository: 'github://moosetechnology/PowerBuilderParser:main';
   onWarningLog;
   load.
 ```
