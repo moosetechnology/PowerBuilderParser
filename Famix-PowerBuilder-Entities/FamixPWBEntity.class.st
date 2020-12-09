@@ -125,11 +125,6 @@ FamixPWBEntity >> isReference [
 ]
 
 { #category : #testing }
-FamixPWBEntity >> isResolvable [
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBEntity >> isStructuralEntity [
 
 	<generated>

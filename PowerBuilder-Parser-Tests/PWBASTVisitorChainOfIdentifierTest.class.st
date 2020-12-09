@@ -27,6 +27,15 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 ]
 
 { #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> sourceCode: accVar [
+	| sourceText |
+	sourceText := self sourceExample
+		copyFrom: accVar sourceAnchor startPos
+		to: accVar sourceAnchor endPos.
+	^ sourceText
+]
+
+{ #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> sourceExample [
 	^ 'forward
    global type testFile from userobject
@@ -41,7 +50,7 @@ end variables
 
 private function integer aFunction ();
   this.attTest1_uo.att1.var1 = 3
-  my_uo
+  this.my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
   return 0
@@ -70,6 +79,18 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	self assert: accVar variable name equals: 'var'.
 	self assert: accVar variable attributeType name equals: 'string'.
 	self assert: accVar variable parentType name equals: 'test_uo'
+]
+
+{ #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
+	| accVar accMy_uo |
+	self assert: model allAccesses size equals: 3.
+	accVar := model allAccesses
+		detect: [ :access | access variable name = 'var' ].
+	self assert: (self sourceCode: accVar) equals: '.my_uo.var'.
+	accMy_uo := model allAccesses
+		detect: [ :acc | acc variable name = 'my_uo' ].
+	self assert: (self sourceCode: accMy_uo) equals: '.my_uo'
 ]
 
 { #category : #running }

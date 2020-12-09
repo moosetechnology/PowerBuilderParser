@@ -23,11 +23,6 @@ FamixPWBAttribute >> accessAssociation [
 	^ FamixPWBAccess
 ]
 
-{ #category : #converting }
-FamixPWBAttribute >> asSREntityScope [
-	^ attributeType asSREntityScope
-]
-
 { #category : #accessing }
 FamixPWBAttribute >> attributeType [
 
@@ -60,16 +55,6 @@ FamixPWBAttribute >> isInstanceVariable [
 { #category : #'as yet unclassified' }
 FamixPWBAttribute >> isResolvable [
 	^ false
-]
-
-{ #category : #'as yet unclassified' }
-FamixPWBAttribute >> postResolveActionWith: aSRReferenceToResolve [
-	attributeType isResolvable
-		ifTrue: [ | toResolve |
-			toResolve := SRReferenceToResolve
-				newFromScopes: aSRReferenceToResolve scopes
-				identifiers: attributeType.
-			attributeType := toResolve resolve ]
 ]
 
 { #category : #accessor }
