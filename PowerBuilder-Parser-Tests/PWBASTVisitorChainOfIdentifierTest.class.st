@@ -53,7 +53,8 @@ private function integer aFunction ();
   this.my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
-  return 0
+  return this.my_uo.myFunc()
+  return this.my_uo.myFunc(5,"allo")
 end function'
 ]
 
@@ -104,4 +105,15 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	access := model allAccesses
 		detect: [ :acc | acc variable name = 'var' ].
 	self assert: access isWrite
+]
+
+{ #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
+	| returnValues |
+	returnValues := (model allModelMethods
+		detect: [ :uf | uf name = 'aFunction' ]) returns
+		collect: #returnValue.
+	self
+		assertCollection: returnValues
+		hasSameElements: {'my_uo.myFunc(5,"allo")' . 'my_uo.myFunc()'}
 ]

@@ -29,9 +29,7 @@ FamixPWBFunction >> mooseNameOn: stream [
 		ifNotNil: [ :parent | 
 			parent mooseNameOn: stream.
 			stream nextPut: $. ].
-	self signature
-		ifNotNil: [ :aSignature | aSignature mooseNameOn: stream ]
-		ifNil: [ self name ifNotNil: [ :aName | stream nextPutAll: aName ] ]
+	self name ifNotNil: [ :aName | stream nextPutAll: aName ]
 ]
 
 { #category : #accessing }
