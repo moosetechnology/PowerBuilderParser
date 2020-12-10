@@ -73,7 +73,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwar
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
-	self assert: model allAccesses size equals: 3.
+	self assert: model allAccesses size equals: 4.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
@@ -85,7 +85,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	| accVar accMy_uo |
-	self assert: model allAccesses size equals: 3.
+	self assert: model allAccesses size equals: 4.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
 	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
