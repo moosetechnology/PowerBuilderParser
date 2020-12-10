@@ -2,6 +2,7 @@ Class {
 	#name : #PWBASTRegularMethodInvocation,
 	#superclass : #Object,
 	#instVars : [
+		'dot',
 		'uncheckedIdentifier',
 		'functionArguments',
 		'startPosition',
@@ -18,16 +19,27 @@ PWBASTRegularMethodInvocation >> = anObject [
 		ifTrue: [ ^ true ].
 	self class = anObject class
 		ifFalse: [ ^ false ].
-	^ uncheckedIdentifier = anObject uncheckedIdentifier
-		and: [ functionArguments = anObject functionArguments
-				and: [ startPosition = anObject startPosition
-						and: [ stopPosition = anObject stopPosition ] ] ]
+	^ dot = anObject dot
+		and: [ uncheckedIdentifier = anObject uncheckedIdentifier
+				and: [ functionArguments = anObject functionArguments
+						and: [ startPosition = anObject startPosition
+								and: [ stopPosition = anObject stopPosition ] ] ] ]
 ]
 
 { #category : #visiting }
 PWBASTRegularMethodInvocation >> acceptVisitor: aVisitor [
 	<generated>
 	^ aVisitor visitPWBASTRegularMethodInvocation: self
+]
+
+{ #category : #accessing }
+PWBASTRegularMethodInvocation >> dot [
+	^ dot
+]
+
+{ #category : #accessing }
+PWBASTRegularMethodInvocation >> dot: anObject [
+	dot := anObject
 ]
 
 { #category : #accessing }
@@ -44,10 +56,12 @@ PWBASTRegularMethodInvocation >> functionArguments: anObject [
 PWBASTRegularMethodInvocation >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ uncheckedIdentifier hash
+	^ dot hash
 		bitXor:
-			(functionArguments hash
-				bitXor: (startPosition hash bitXor: stopPosition hash))
+			(uncheckedIdentifier hash
+				bitXor:
+					(functionArguments hash
+						bitXor: (startPosition hash bitXor: stopPosition hash)))
 ]
 
 { #category : #accessing }

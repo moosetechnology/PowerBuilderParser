@@ -28,6 +28,11 @@ PWBCodeRewriteVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 ]
 
 { #category : #visiting }
+PWBCodeRewriteVisitor >> visitPWBASTDot: aPWBASTDot [
+	stream << aPWBASTDot dot
+]
+
+{ #category : #visiting }
 PWBCodeRewriteVisitor >> visitPWBASTExpressionOperator: aPWBASTExpressionOperator [
 	stream
 		space;

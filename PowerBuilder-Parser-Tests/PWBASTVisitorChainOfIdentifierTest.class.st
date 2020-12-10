@@ -53,7 +53,7 @@ private function integer aFunction ();
   this.my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
-  return 0
+  return dw_prs.getitemstring(5, "act_fds")
 end function'
 ]
 
@@ -104,4 +104,14 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	access := model allAccesses
 		detect: [ :acc | acc variable name = 'var' ].
 	self assert: access isWrite
+]
+
+{ #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
+	| return |
+	return := (model allModelMethods
+		detect: [ :uf | uf name = 'aFunction' ]) returns anyOne.
+	self
+		assert: return returnValue
+		equals: 'dw_prs.getitemstring(5,"act_fds")'
 ]
