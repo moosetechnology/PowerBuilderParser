@@ -48,10 +48,10 @@ PWBCodeRewriteVisitor >> visitPWBASTExpressionSign: aPWBASTExpressionSign [
 { #category : #visiting }
 PWBCodeRewriteVisitor >> visitPWBASTFunctionArguments: aPWBASTFunctionArguments [
 	stream << '('.
-	aPWBASTFunctionArguments functionArguments ifNil: [ ^ self ].
 	aPWBASTFunctionArguments functionArguments
-		do: [ :argument | self visit: argument ]
-		separatedBy: [ stream << ',' ].
+		ifNotNil: [ aPWBASTFunctionArguments functionArguments
+				do: [ :argument | self visit: argument ]
+				separatedBy: [ stream << ',' ] ].
 	stream << ')'
 ]
 

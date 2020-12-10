@@ -53,7 +53,8 @@ private function integer aFunction ();
   this.my_uo
   this.my_uo.var = 5
   this.my_uo.myFunc()
-  return dw_prs.getitemstring(5, "act_fds")
+  return this.my_uo.myFunc()
+  return this.my_uo.myFunc(5,"allo")
 end function'
 ]
 
@@ -73,7 +74,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwar
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
-	self assert: model allAccesses size equals: 4.
+	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
@@ -85,7 +86,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	| accVar accMy_uo |
-	self assert: model allAccesses size equals: 4.
+	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'var' ].
 	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
@@ -108,10 +109,11 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
-	| return |
-	return := (model allModelMethods
-		detect: [ :uf | uf name = 'aFunction' ]) returns anyOne.
+	| returnValues |
+	returnValues := (model allModelMethods
+		detect: [ :uf | uf name = 'aFunction' ]) returns
+		collect: #returnValue.
 	self
-		assert: return returnValue
-		equals: 'dw_prs.getitemstring(5,"act_fds")'
+		assertCollection: returnValues
+		hasSameElements: {'my_uo.myFunc(5,"allo")' . 'my_uo.myFunc()'}
 ]
