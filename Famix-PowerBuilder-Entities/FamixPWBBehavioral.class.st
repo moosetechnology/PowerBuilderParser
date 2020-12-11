@@ -152,6 +152,17 @@ FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 	cyclomaticComplexity := anObject
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> getOneAccessPerInsVarAccessed [
+	| instVarAccesses |
+	instVarAccesses := OrderedCollection new.
+	((self accesses
+		select: [ :acc | acc isInstanceVariableAccess and: [ acc isWrite ] ])
+		groupedBy: [ :acc | acc sourceText ])
+		keysAndValuesDo: [ :k :v | instVarAccesses add: v anyOne ].
+	^ instVarAccesses
+]
+
 { #category : #api }
 FamixPWBBehavioral >> incomingInvocationsSenders [
 	^ (self incomingInvocations collectAsSet: #sender)
@@ -161,12 +172,6 @@ FamixPWBBehavioral >> incomingInvocationsSenders [
 { #category : #'as yet unclassified' }
 FamixPWBBehavioral >> increaseCyclomaticComplexity [
 	self cyclomaticComplexity: self cyclomaticComplexity + 1
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> instanceVariableAccesses [
-	^ self accesses
-		select: [ :acc | acc isInstanceVariableAccess and: [ acc isWrite ] ]
 ]
 
 { #category : #'Famix-Extensions' }
@@ -216,6 +221,15 @@ FamixPWBBehavioral >> isPredefinedMethod [
 FamixPWBBehavioral >> isPrivate [
 	^ self accessModifier isNotNil
 		and: [ self accessModifier asLowercase = 'private' ]
+]
+
+{ #category : #printing }
+FamixPWBBehavioral >> mooseNameOn: stream [
+	self parentType
+		ifNotNil: [ :parent | 
+			parent mooseNameOn: stream.
+			stream nextPut: $. ].
+	self name ifNotNil: [ :aName | stream nextPutAll: aName ]
 ]
 
 { #category : #api }
