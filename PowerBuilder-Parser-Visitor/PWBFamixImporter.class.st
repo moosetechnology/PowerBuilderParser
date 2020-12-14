@@ -1,3 +1,17 @@
+"
+A class to manage importation of PowerBuilder source code
+
+It:
+- creates a references solver
+- creates a model
+- creates an importing context
+- search for PowerBuilder files in a directory
+- preprocess PowerBuilder code to remove comments and join lines
+- parse the files to get at AST
+- visit the AST to populate the model
+- resolves names after parsing
+
+"
 Class {
 	#name : #PWBFamixImporter,
 	#superclass : #MooseAbstractImporter,
@@ -115,12 +129,12 @@ PWBFamixImporter >> createModelFor: aFile [
 	^ model
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 PWBFamixImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
 	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
@@ -178,9 +192,7 @@ PWBFamixImporter >> importInOnePass [
 				fillModelUsing: library
 				visitor: visitor
 				fromFolder: dir / 'cleaned')
-				ifNotEmpty: [ :failures | 
-					failures inspect.
-					Halt now ] ]
+				ifNotEmpty: [ :failures | failures inspect. ] ]
 		displayingProgress: [ :dir | dir asString ].
 	visitor resolveUnresolvedReferences.
 	^ self targetModel

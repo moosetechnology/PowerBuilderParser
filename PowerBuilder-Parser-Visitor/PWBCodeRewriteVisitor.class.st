@@ -1,3 +1,8 @@
+"
+A visitor that rewrites the AST as PowerBuilder code on a stream.
+
+The first goal is to get ""chain of identifiers"" expressions (""a.b.c()"") in source code format without resorting to source anchors which imply reading a file (slow))
+"
 Class {
 	#name : #PWBCodeRewriteVisitor,
 	#superclass : #PWBASTAbstractVisitor,
