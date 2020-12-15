@@ -12,8 +12,7 @@ Class {
 { #category : #private }
 PWBFASTImporter >> basicRun [ 
 	| result |
-	result := PWBCommonParser new
-		parse: self sourceCode rule: #functionDeclaration.
+	result := self parse: self sourceCode rule: #functionDeclaration.
 	^result isPetit2Failure
 		ifFalse: [ result acceptVisitor: visitor ] 
 		ifTrue: [ nil ]
@@ -28,7 +27,6 @@ PWBFASTImporter >> description [
 { #category : #accessing }
 PWBFASTImporter >> initialize [
 	super initialize.
-	visitor := nil.
 	sourceCode := ''
 ]
 
@@ -48,10 +46,16 @@ PWBFASTImporter >> mooseModel: aModel [
 	mooseModel := aModel 
 ]
 
+{ #category : #parsing }
+PWBFASTImporter >> parse: aString rule: aSymbol [
+	^(PWBCommonParser new productionAt: aSymbol)
+		parse: aString
+]
+
 { #category : #private }
 PWBFASTImporter >> setUp [ 
 	super setUp.
-	visitor ifNil: [ visitor := PWBFASTVisitor new ]
+	visitor := PWBFASTVisitor new
 ]
 
 { #category : #accessing }

@@ -6,3 +6,8 @@ Class {
 	#superclass : #PWBImporterAbstractVisitor,
 	#category : #'PowerBuilder-Parser-Visitor'
 }
+
+{ #category : #visiting }
+PWBFASTVisitor >> visitPWBASTAccess: aPWBASTAccess [
+	1halt
+]
