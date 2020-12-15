@@ -85,3 +85,8 @@ FamixPWBFunctionReturn >> type: anObject [
 	<generated>
 	type := anObject
 ]
+
+{ #category : #accessing }
+FamixPWBFunctionReturn >> updateType [
+	type := self behavioral returnType
+]

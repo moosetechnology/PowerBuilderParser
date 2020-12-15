@@ -53,3 +53,9 @@ FamixPWBFunction >> returnType: anObject [
 	<generated>
 	returnType := anObject
 ]
+
+{ #category : #accessing }
+FamixPWBFunction >> updateType: anEntity [
+	self returnType: anEntity.
+	self returns do: #updateType
+]

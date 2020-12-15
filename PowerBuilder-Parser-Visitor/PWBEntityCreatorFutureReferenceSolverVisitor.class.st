@@ -7,8 +7,7 @@ Class {
 	#instVars : [
 		'currentLibrary',
 		'typeDeclarationType',
-		'expressionIsLeftHandSide',
-		'functionRetunTypeHolder'
+		'expressionIsLeftHandSide'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -446,7 +445,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 	self
 		useCurrentEntity: famixFunction
 		during: [ super visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition ].
-	famixFunction returnType: functionRetunTypeHolder.
 	^ self currentEntity
 ]
 
@@ -492,7 +490,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
-	| signature arguments |
+	| signature arguments retunTypeHolder |
 	self currentEntity isNullPatternObject
 		ifTrue: [ ^ self ].
 	arguments := aPWBASTFunctionSignature arguments arguments.
@@ -505,7 +503,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 		behavioral: self currentEntity.
 	"A signature always ends with a $; charater at definition"
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
-	functionRetunTypeHolder := self visit: aPWBASTFunctionSignature type.
+	retunTypeHolder := self visit: aPWBASTFunctionSignature type.
+	retunTypeHolder isResolvable
+		ifTrue: [ retunTypeHolder addTypedVariable: self currentEntity ].
+	self currentEntity returnType: retunTypeHolder.
 	self currentEntity
 		name: (self visit: aPWBASTFunctionSignature identifier);
 		accessModifier: (self visit: aPWBASTFunctionSignature accessModifier).
@@ -601,7 +602,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWB
 		withAnchorFrom: aPWBASTReturnStatement.
 	famixFunctionReturn
 		behavioral: self currentEntity;
-		type: functionRetunTypeHolder;
+		type: self currentEntity returnType;
 		name: self currentEntity name.
 	self visit: aPWBASTReturnStatement expression.
 	codeRewriteVisitor := PWBCodeRewriteVisitor new.
