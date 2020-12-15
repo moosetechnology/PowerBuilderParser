@@ -37,7 +37,6 @@ PWBFASTVisitorTest >> setupModel [
 		name: 'aFunction' ;
 		parentType: entity ;
 		mooseModel: model.
-	^ model
 ]
 
 { #category : #tests }
