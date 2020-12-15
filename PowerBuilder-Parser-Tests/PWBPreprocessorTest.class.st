@@ -194,8 +194,10 @@ end function
 end function
 ' ].
 
-	importer := PWBFamixImporter new.
-	importer importInOnePassFromFolder: parentDirectory.
+	importer := PWBFamixImporter new
+		folder: parentDirectory ;
+		yourself.
+	importer run.
 
 	self assert: importer preprocessedMap size equals: 2.
 

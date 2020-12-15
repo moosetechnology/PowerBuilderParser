@@ -5,6 +5,9 @@ Class {
 	#name : #PWBFASTVisitorTest,
 	#superclass : #TestCase,
 	#instVars : [
+		'visitor',
+		'model',
+		'function',
 		'importer'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
@@ -14,16 +17,25 @@ Class {
 PWBFASTVisitorTest >> setUp [
 	importer := PWBFASTImporter new
 			mooseModel: (self setupModel) ;
+			pwbFunction: function ;
 			yourself.
 
 ]
 
 { #category : #running }
 PWBFASTVisitorTest >> setupModel [
-	| model |
+	| entity |
 	model := FamixPWBModel new.
 	FamixPWBUserObject new
 		name: 'test_uo' ;
+		mooseModel: model.
+	entity := FamixPWBUserObject new
+		name: 'testFile' ;
+		mooseModel: model ;
+		yourself.
+	function := FamixPWBFunction new
+		name: 'aFunction' ;
+		parentType: entity ;
 		mooseModel: model.
 	^ model
 ]
@@ -31,7 +43,9 @@ PWBFASTVisitorTest >> setupModel [
 { #category : #tests }
 PWBFASTVisitorTest >> testParseEmptyFunction [
 	| result |
-	importer sourceCode: 'function integer aFunction ();
+	importer
+		sourceCode: 'function integer aFunction ();
+	long aVar
 end function'.
 	result := importer run.
 	self assert: result notNil.

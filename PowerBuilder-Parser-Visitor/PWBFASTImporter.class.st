@@ -4,15 +4,19 @@ Class {
 	#instVars : [
 		'mooseModel',
 		'sourceCode',
-		'visitor'
+		'visitor',
+		'pwbFunction'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
 { #category : #private }
 PWBFASTImporter >> basicRun [ 
-	| result |
-	result := self parse: self sourceCode rule: #functionDeclaration.
+	| parser result |
+	parser := PWBCommonParser new
+		productionAt: #functionDefinition.
+	visitor currentEntity: pwbFunction.
+	result := parser parse: self sourceCode.
 	^result isPetit2Failure
 		ifFalse: [ result acceptVisitor: visitor ] 
 		ifTrue: [ nil ]
@@ -50,6 +54,16 @@ PWBFASTImporter >> mooseModel: aModel [
 PWBFASTImporter >> parse: aString rule: aSymbol [
 	^(PWBCommonParser new productionAt: aSymbol)
 		parse: aString
+]
+
+{ #category : #accessing }
+PWBFASTImporter >> pwbFunction [
+	^pwbFunction
+]
+
+{ #category : #accessing }
+PWBFASTImporter >> pwbFunction: aPWBFunction [
+	pwbFunction := aPWBFunction
 ]
 
 { #category : #private }
