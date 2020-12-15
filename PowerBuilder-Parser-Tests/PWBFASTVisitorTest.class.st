@@ -14,6 +14,25 @@ Class {
 }
 
 { #category : #running }
+PWBFASTVisitorTest >> create: aFamixPWBClass named: aString [
+	^aFamixPWBClass new
+		name: aString ;
+		mooseModel: model ;
+		yourself
+
+]
+
+{ #category : #running }
+PWBFASTVisitorTest >> createAnchor: aPoint [
+	^FamixPWBIndexedFileAnchor new
+		mooseModel: model ;
+		fileName: 'testFile.sru' ;
+		startPos: aPoint x ;
+		endPos: aPoint y ;
+		yourself
+]
+
+{ #category : #running }
 PWBFASTVisitorTest >> setUp [
 	importer := PWBFASTImporter new
 			mooseModel: (self setupModel) ;
@@ -24,19 +43,23 @@ PWBFASTVisitorTest >> setUp [
 
 { #category : #running }
 PWBFASTVisitorTest >> setupModel [
-	| entity |
+	| uo att tmp |
 	model := FamixPWBModel new.
-	FamixPWBUserObject new
-		name: 'test_uo' ;
-		mooseModel: model.
-	entity := FamixPWBUserObject new
-		name: 'testFile' ;
+
+	tmp := self create: FamixPWBUserObject named: 'test_uo'.
+	uo := self create: FamixPWBUserObject named: 'testFile'.
+	
+	function := self create: FamixPWBFunction named: 'aFunction'.
+	function parentType: uo.
+
+	att := self create: FamixPWBInstanceVariable named: 'my_uo'.
+	att parentType: uo.
+	att attributeType: tmp.
+	FamixPWBAccess new
 		mooseModel: model ;
-		yourself.
-	function := FamixPWBFunction new
-		name: 'aFunction' ;
-		parentType: entity ;
-		mooseModel: model.
+		accessor: function ;
+		variable: att ;
+		sourceAnchor: (self createAnchor: 285@290).
 ]
 
 { #category : #tests }
@@ -66,4 +89,16 @@ PWBFASTVisitorTest >> testParseIncorrectFunction [
 	result := importer run.
 	self assert:
 		result isNil
+]
+
+{ #category : #tests }
+PWBFASTVisitorTest >> testParseSimpleAccessFunction [
+	| result |
+	importer
+		sourceCode: 'function integer aFunction ();
+	testFile.my_uo
+end function'.
+	result := importer run.
+	self assert: result notNil.
+
 ]
