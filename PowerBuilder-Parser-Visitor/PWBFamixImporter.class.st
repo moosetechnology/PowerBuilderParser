@@ -17,7 +17,8 @@ Class {
 	#superclass : #MooseAbstractImporter,
 	#instVars : [
 		'folder',
-		'preprocessedMap'
+		'preprocessedMap',
+		'visitor'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -61,7 +62,9 @@ PWBFamixImporter class >> grammarGenerationScripts [
 
 { #category : #'as yet unclassified' }
 PWBFamixImporter class >> importFromFolder: aFolder [
-	^ self new importInOnePassFromFolder: aFolder
+	^ self new
+		folder: aFolder ;
+		run
 ]
 
 { #category : #'as yet unclassified' }
@@ -80,8 +83,28 @@ PWBFamixImporter class >> updateData: aBuilder [
 						install ] ]
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
+{ #category : #private }
+PWBFamixImporter >> basicRun [
+	| library |
+	folder directories
+		do: [ :dir | 
+			library := FamixPWBLibrary new.
+			library
+				name: dir basename;
+				mooseModel: self targetModel.
+			self cleanFilesFromFolder: dir toTemp: dir / 'cleaned'.
+			visitor preprocessingMap: preprocessedMap.
+			(self
+				fillModelUsing: library
+				fromFolder: dir / 'cleaned')
+				ifNotEmpty: [ :failures | failures inspect ].
+			self increment ].
+	visitor resolveUnresolvedReferences.
+	^ self targetModel
+]
+
+{ #category : #running }
+PWBFamixImporter >> cleanFilesFromFolder: aFolder toTemp: anotherFolder [
 	anotherFolder ensureCreateDirectory.
 	"preprocessedMap := Dictionary new: aFolder visibleFiles size."
 	aFolder visibleFiles
@@ -99,7 +122,7 @@ PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 				put: parser characterIgnored ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 PWBFamixImporter >> createModelFor: aFile [
 	| library visitor model parser cleanFileContents result |
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
@@ -134,14 +157,21 @@ PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
 
+{ #category : #accessing }
+PWBFamixImporter >> description [ 
+	^('Importing <1p> directories from ' , self folder) 
+		expandMacrosWith: self length
+
+]
+
 { #category : #'initialize-release' }
 PWBFamixImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
 	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> fillModelUsing: aLibrary visitor: visitor fromFolder: aFolder [
+{ #category : #running }
+PWBFamixImporter >> fillModelUsing: aLibrary fromFolder: aFolder [
 	| debugObjects |
 	debugObjects := OrderedCollection new.
 	(aFolder files
@@ -173,39 +203,6 @@ PWBFamixImporter >> folder: anObject [
 	self targetModel rootFolder: folder.
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> importInOnePass [
-	| library visitor |
-	preprocessedMap := Dictionary new.
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
-	visitor model: self targetModel.
-	visitor importingContext: self importingContext.
-	folder directories
-		do: [ :dir | 
-			library := FamixPWBLibrary new.
-			library
-				name: dir basename;
-				mooseModel: self targetModel.
-			self createCleanFilesFrom: dir into: dir / 'cleaned'.
-			visitor preprocessingMap: preprocessedMap.
-			(self
-				fillModelUsing: library
-				visitor: visitor
-				fromFolder: dir / 'cleaned')
-				ifNotEmpty: [ :failures | failures inspect. ] ]
-		displayingProgress: [ :dir | dir asString ].
-	visitor resolveUnresolvedReferences.
-	^ self targetModel
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> importInOnePassFromFolder: aFolder [
-	self folder: aFolder.
-	self importInOnePass.
-	self removeCleanFilesFoldersFrom: aFolder.
-	^ self targetModel
-]
-
 { #category : #'initialize-release' }
 PWBFamixImporter >> initialize [
   super initialize.
@@ -214,13 +211,26 @@ PWBFamixImporter >> initialize [
 ]
 
 { #category : #accessing }
+PWBFamixImporter >> length [ 
+	^folder directories size
+]
+
+{ #category : #accessing }
 PWBFamixImporter >> preprocessedMap [
 	^ preprocessedMap
 ]
 
-{ #category : #removing }
-PWBFamixImporter >> removeCleanFilesFoldersFrom: aFolder [
-	aFolder asFileReference allDirectories
+{ #category : #private }
+PWBFamixImporter >> setUp [
+	preprocessedMap := Dictionary new.
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
+	visitor model: self targetModel.
+	visitor importingContext: self importingContext.
+]
+
+{ #category : #private }
+PWBFamixImporter >> tearDown [
+	folder asFileReference allDirectories
 		select: [ :dir | dir basename = 'cleaned' ]
 		thenDo: #deleteAll
 ]
