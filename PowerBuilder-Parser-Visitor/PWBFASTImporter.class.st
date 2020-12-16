@@ -17,9 +17,10 @@ PWBFASTImporter >> basicRun [
 		productionAt: #functionDefinition.
 	visitor currentEntity: pwbFunction.
 	result := parser parse: self sourceCode.
-	^result isPetit2Failure
-		ifFalse: [ result acceptVisitor: visitor ] 
-		ifTrue: [ nil ]
+	result isPetit2Failure
+		ifTrue: [ ^nil ].
+	result acceptVisitor: visitor.
+	^visitor fastEntities
 ]
 
 { #category : #accessing }
@@ -69,7 +70,7 @@ PWBFASTImporter >> pwbFunction: aPWBFunction [
 { #category : #private }
 PWBFASTImporter >> setUp [ 
 	super setUp.
-	visitor := PWBFASTVisitor new
+	visitor := PWBFASTCreatorVisitor new
 ]
 
 { #category : #accessing }

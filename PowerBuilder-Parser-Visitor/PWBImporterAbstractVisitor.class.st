@@ -127,7 +127,7 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 	importingContext := anObject
 ]
 
-{ #category : #'entities creation' }
+{ #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver
