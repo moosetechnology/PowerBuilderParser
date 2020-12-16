@@ -23,6 +23,17 @@ PWBFASTCreatorVisitor >> createNode: anASTPWBNodeClass [
 	^fastNode
 ]
 
+{ #category : #'entities creation' }
+PWBFASTCreatorVisitor >> createNode: anASTPWBNodeClass fromPPNode: aPPASTNode [
+	fastNode := anASTPWBNodeClass new.
+	fastNode
+		startPos: aPPASTNode startPosition ;
+		endPos: aPPASTNode stopPosition.
+
+	self addEntity: fastNode.
+	^fastNode
+]
+
 { #category : #accessing }
 PWBFASTCreatorVisitor >> fastEntities [
 	^fastEntities
@@ -52,7 +63,7 @@ PWBFASTCreatorVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	self visit: aPWBASTReturnStatement expression.
 	expressionNode := fastNode.
 	
-	(self createNode: FASTPWBReturnStatement) 
+	(self createNode: FASTPWBReturnStatement fromPPNode: aPWBASTReturnStatement ) 
 		expression: expressionNode.
 
 	^fastNode

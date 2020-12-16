@@ -83,6 +83,25 @@ end function"
 ]
 
 { #category : #tests }
+PWBFASTVisitorTest >> testParseFunctionReturnAnchor [
+	| result |
+	importer
+		sourceCode: 'function integer aFunction ();
+	return 1
+end function'.
+	result := importer run.
+
+	result := result
+		detect: [ :each | each  class = FASTPWBReturnStatement ]
+		ifNone: [ nil ].
+
+	self assert: result isNotNil.
+	self assert: result startPos equals: 33.
+	self assert: result endPos equals: 40.
+
+]
+
+{ #category : #tests }
 PWBFASTVisitorTest >> testParseFunctionReturnsLiteral [
 	| result |
 	importer

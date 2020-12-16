@@ -2,7 +2,6 @@ Class {
 	#name : #PWBFASTMetamodelGenerator,
 	#superclass : #FamixMetamodelGenerator,
 	#instVars : [
-		'entity',
 		'characterLiteral',
 		'literal',
 		'stringLiteral',
@@ -52,7 +51,6 @@ PWBFASTMetamodelGenerator >> defineClasses [
 	pwbReturnStatement := builder newClassNamed: #ReturnStatement comment: 'Node representing a return statement in PWB'.
 
 	"Remotes from FAST"
-	entity := self remoteEntity: #Entity withPrefix: #FAST. 
 	characterLiteral := self remoteEntity: #CharacterLiteral withPrefix: #FAST.
 	literal := self remoteEntity: #Literal withPrefix: #FAST.
 	stringLiteral := self remoteEntity: #StringLiteral withPrefix: #FAST.
@@ -69,5 +67,5 @@ PWBFASTMetamodelGenerator >> defineHierarchy [
 	pwbIntegerLiteral --|> literal.
 	pwbStringLiteral --|> stringLiteral.
 
-	pwbReturnStatement --|> returnStatement
+	pwbReturnStatement --|> returnStatement.
 ]
