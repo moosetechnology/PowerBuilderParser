@@ -83,22 +83,32 @@ end function"
 ]
 
 { #category : #tests }
+PWBFASTVisitorTest >> testParseFunctionReturnsLiteral [
+	| result |
+	importer
+		sourceCode: 'function integer aFunction ();
+	return 1
+end function'.
+	result := importer run.
+
+	self assert: result size equals: 2.
+	
+	result := result
+		detect: [ :each | each  class = FASTPWBReturnStatement ]
+		ifNone: [ nil ].
+
+	self assert: result notNil.
+	self assert: result expression class equals: FASTPWBIntegerLiteral.
+	self assert: result expression value equals: '1'
+	
+
+]
+
+{ #category : #tests }
 PWBFASTVisitorTest >> testParseIncorrectFunction [
 	| result |
 	importer sourceCode: 'end function'.
 	result := importer run.
 	self assert:
 		result isNil
-]
-
-{ #category : #tests }
-PWBFASTVisitorTest >> testParseSimpleAccessFunction [
-	| result |
-	importer
-		sourceCode: 'function integer aFunction ();
-	testFile.my_uo
-end function'.
-	result := importer run.
-	self assert: result notNil.
-
 ]
