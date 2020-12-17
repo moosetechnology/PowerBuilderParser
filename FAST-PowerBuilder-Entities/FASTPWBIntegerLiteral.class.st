@@ -15,3 +15,8 @@ FASTPWBIntegerLiteral class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #visiting }
+FASTPWBIntegerLiteral >> accept: aVisitor [
+	^aVisitor visitIntegerLiteral: self
+]

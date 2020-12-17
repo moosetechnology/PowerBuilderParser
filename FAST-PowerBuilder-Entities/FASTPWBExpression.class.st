@@ -20,6 +20,11 @@ FASTPWBExpression class >> annotation [
 	^self
 ]
 
+{ #category : #visiting }
+FASTPWBExpression >> accept: aVisitor [
+	^aVisitor visitExpression: self
+]
+
 { #category : #accessing }
 FASTPWBExpression >> expression [
 	"Relation named: #expression type: #FASTPWBExpression opposite: #parentExpression"

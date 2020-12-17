@@ -15,3 +15,8 @@ FASTPWBFloatLiteral class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #visiting }
+FASTPWBFloatLiteral >> accept: aVisitor [
+	^aVisitor visitFloatLiteral: self
+]

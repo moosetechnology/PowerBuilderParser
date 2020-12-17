@@ -15,3 +15,8 @@ FASTPWBStringLiteral class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #visiting }
+FASTPWBStringLiteral >> accept: aVisitor [
+	^aVisitor visitStringLiteral: self
+]

@@ -21,6 +21,11 @@ FASTPWBIdentifier class >> annotation [
 	^self
 ]
 
+{ #category : #visiting }
+FASTPWBIdentifier >> accept: aVisitor [
+	^aVisitor visitIdentifier: self
+]
+
 { #category : #accessing }
 FASTPWBIdentifier >> name [
 

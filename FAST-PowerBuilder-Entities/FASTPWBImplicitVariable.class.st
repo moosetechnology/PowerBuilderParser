@@ -15,3 +15,8 @@ FASTPWBImplicitVariable class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #visiting }
+FASTPWBImplicitVariable >> accept: aVisitor [
+	^aVisitor visitImplicitVariable: self
+]

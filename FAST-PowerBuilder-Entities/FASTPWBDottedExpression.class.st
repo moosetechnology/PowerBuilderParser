@@ -21,6 +21,11 @@ FASTPWBDottedExpression class >> annotation [
 	^self
 ]
 
+{ #category : #visiting }
+FASTPWBDottedExpression >> accept: aVisitor [
+	^aVisitor visitDottedExpression: self
+]
+
 { #category : #accessing }
 FASTPWBDottedExpression >> majorObject [
 	"Relation named: #majorObject type: #FASTPWBExpression opposite: #parentExpression"

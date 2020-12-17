@@ -19,3 +19,8 @@ FASTPWBEntity class >> metamodel [
 	<generated>
 	^ FASTPWBModel metamodel
 ]
+
+{ #category : #visiting }
+FASTPWBEntity >> accept: aVisitor [
+	^aVisitor visitEntity: self
+]

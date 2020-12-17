@@ -19,6 +19,11 @@ FASTPWBAccess class >> annotation [
 	^self
 ]
 
+{ #category : #visiting }
+FASTPWBAccess >> accept: aVisitor [
+	^aVisitor visitAccess: self
+]
+
 { #category : #accessing }
 FASTPWBAccess >> identifier [
 	"Relation named: #identifier type: #FASTPWBIdentifier opposite: #parentAccess"

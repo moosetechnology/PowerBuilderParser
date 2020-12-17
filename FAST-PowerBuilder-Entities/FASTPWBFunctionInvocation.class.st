@@ -20,6 +20,11 @@ FASTPWBFunctionInvocation class >> annotation [
 	^self
 ]
 
+{ #category : #visiting }
+FASTPWBFunctionInvocation >> accept: aVisitor [
+	^aVisitor visitFunctionInvocation: self
+]
+
 { #category : #accessing }
 FASTPWBFunctionInvocation >> arguments [
 	"Relation named: #arguments type: #FASTPWBExpression opposite: #parentExpression"

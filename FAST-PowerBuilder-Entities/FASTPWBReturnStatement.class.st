@@ -15,3 +15,8 @@ FASTPWBReturnStatement class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #visiting }
+FASTPWBReturnStatement >> accept: aVisitor [
+	^aVisitor visitReturnStatement: self
+]
