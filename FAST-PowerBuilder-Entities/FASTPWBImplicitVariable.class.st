@@ -3,14 +3,14 @@ Represents the use of ""this"" in PowerBuilder
 "
 Class {
 	#name : #FASTPWBImplicitVariable,
-	#superclass : #FASTEntity,
+	#superclass : #FASTPWBIdentifier,
 	#category : #'FAST-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FASTPWBImplicitVariable class >> annotation [
 
-	<FMClass: #ImplicitVariable super: #FASTEntity>
+	<FMClass: #ImplicitVariable super: #FASTPWBIdentifier>
 	<package: #'FAST-PowerBuilder-Entities'>
 	<generated>
 	^self

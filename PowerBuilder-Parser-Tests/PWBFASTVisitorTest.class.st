@@ -83,19 +83,85 @@ end function"
 ]
 
 { #category : #tests }
+PWBFASTVisitorTest >> testParseFunctionAccessesAnchor [
+	| result node |
+	importer
+		sourceCode: 'function integer aFunction ();
+	this.my_uo
+end function'.
+	result := importer run.
+
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBDottedExpression ]).
+	
+	node := result detect: [ :n | n class = FASTPWBDottedExpression ].
+	self assert: node startPos equals: 33.
+	self assert: node endPos equals: 42.
+
+	self assert: (result select: [ :n | n class = FASTPWBAccess ]) size equals: 2.
+
+	node := (result select: [ :n | n class = FASTPWBAccess ])
+				first.
+	(node startPos = 33)
+	ifTrue: [ self assert: node endPos equals: 36 ]
+	ifFalse: [ 
+		self assert: node startPos equals: 37.
+		self assert: node endPos equals: 42.
+	].
+
+	node := (result select: [ :n | n class = FASTPWBAccess ])
+				second.
+	(node startPos = 33)
+	ifTrue: [ self assert: node endPos equals: 36 ]
+	ifFalse: [ 
+		self assert: node startPos equals: 37.
+		self assert: node endPos equals: 42.
+	].
+
+]
+
+{ #category : #tests }
+PWBFASTVisitorTest >> testParseFunctionAccessesInstanceVariable [
+	| result node |
+	importer
+		sourceCode: 'function integer aFunction ();
+	this.my_uo
+end function'.
+	result := importer run.
+
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBDottedExpression ]).
+	
+	node := result detect: [ :n | n class = FASTPWBDottedExpression ].
+	
+	self assert: node majorObject isNotNil.
+	self assert: node majorObject class equals: FASTPWBAccess.
+	self assert: node majorObject identifier class equals: FASTPWBImplicitVariable.
+
+	self assert: node member isNotNil.
+	self assert: node member class equals: FASTPWBAccess.
+	self assert: node member identifier class equals: FASTPWBIdentifier.
+	self assert: node member identifier name equals: 'my_uo'.
+	
+]
+
+{ #category : #tests }
 PWBFASTVisitorTest >> testParseFunctionAccessesThis [
-	| result |
+	| node result |
 	importer
 		sourceCode: 'function integer aFunction ();
 	this
 end function'.
 	result := importer run.
 
-	self assert: result size equals: 1.
+	self assert: result size equals: 2.
 
-	self assert: result first class equals: FASTPWBImplicitVariable.
-	self assert: result first startPos equals: 33.
-	self assert: result first endPos equals: 36.
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBAccess ]).
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBImplicitVariable ]).
+
+	node := result detect: [ :n | n class = FASTPWBAccess ].
+	self assert: node identifier isNotNil.
+	self assert: node identifier class equals: FASTPWBImplicitVariable.
+	self assert: node startPos equals: 33.
+	self assert: node endPos equals: 36.
 	
 
 ]

@@ -17,14 +17,14 @@ PWBFASTCreatorVisitor >> addEntity: aFastEntity [
 ]
 
 { #category : #'entities creation' }
-PWBFASTCreatorVisitor >> createNode: anASTPWBNodeClass [
+PWBFASTCreatorVisitor >> createFASTNode: anASTPWBNodeClass [
 	fastNode := anASTPWBNodeClass new.
 	self addEntity: fastNode.
 	^fastNode
 ]
 
 { #category : #'entities creation' }
-PWBFASTCreatorVisitor >> createNode: anASTPWBNodeClass fromPPNode: aPPASTNode [
+PWBFASTCreatorVisitor >> createFASTNode: anASTPWBNodeClass fromPPNode: aPPASTNode [
 	fastNode := anASTPWBNodeClass new.
 	fastNode
 		startPos: aPPASTNode startPosition ;
@@ -46,8 +46,50 @@ PWBFASTCreatorVisitor >> initialize [
 ]
 
 { #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTAccess: aPWBASTAccess [
+	| subNode |
+	self visit: aPWBASTAccess accessed.
+	subNode := fastNode.
+	
+	self createFASTNode: FASTPWBAccess fromPPNode: aPWBASTAccess.
+	fastNode identifier: subNode.
+	
+	^fastNode
+]
+
+{ #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
+	| subNode |
+	self visit: aPWBASTAttributeAccess uncheckedIdentifier.
+	subNode := fastNode.
+	
+	self createFASTNode: FASTPWBAccess fromPPNode: aPWBASTAttributeAccess.
+	fastNode identifier: subNode.
+	
+	^fastNode
+]
+
+{ #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTExpression: aPWBASTExpression [
+	| subNode |
+	self visit: aPWBASTExpression expression.
+	aPWBASTExpression expressionAction
+	ifNil: [ ^ fastNode ].
+
+	subNode := fastNode.
+	self createFASTNode: FASTPWBDottedExpression fromPPNode: aPWBASTExpression.
+	fastNode majorObject: subNode.
+
+	subNode := fastNode.
+	self visit: aPWBASTExpression expressionAction.
+	subNode member: fastNode.
+	
+	^fastNode := subNode
+]
+
+{ #category : #visiting }
 PWBFASTCreatorVisitor >> visitPWBASTNumber: aPWBASTNumber [
-	self createNode: ((aPWBASTNumber number asString includes: $.)
+	self createFASTNode: ((aPWBASTNumber number asString includes: $.)
 		ifTrue: [ FASTPWBFloatLiteral ]
 		ifFalse: [ FASTPWBIntegerLiteral ]).
 		
@@ -59,19 +101,19 @@ PWBFASTCreatorVisitor >> visitPWBASTNumber: aPWBASTNumber [
 
 { #category : #visiting }
 PWBFASTCreatorVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
-	| expressionNode |
+	| subNode |
 	self visit: aPWBASTReturnStatement expression.
-	expressionNode := fastNode.
+	subNode := fastNode.
 	
-	(self createNode: FASTPWBReturnStatement fromPPNode: aPWBASTReturnStatement ) 
-		expression: expressionNode.
+	(self createFASTNode: FASTPWBReturnStatement fromPPNode: aPWBASTReturnStatement ) 
+		expression: subNode.
 
 	^fastNode
 ]
 
 { #category : #visiting }
 PWBFASTCreatorVisitor >> visitPWBASTString: aPWBASTString [
-	self createNode: FASTPWBStringLiteral.
+	self createFASTNode: FASTPWBStringLiteral.
 	fastNode value: aPWBASTString number.
 	
 	^fastNode 
@@ -79,7 +121,15 @@ PWBFASTCreatorVisitor >> visitPWBASTString: aPWBASTString [
 ]
 
 { #category : #visiting }
-PWBFASTCreatorVisitor >> visitPWBASTThis: anPWBASTThis [
-	^self createNode: FASTPWBImplicitVariable fromPPNode: anPWBASTThis
+PWBFASTCreatorVisitor >> visitPWBASTThis: aPWBASTThis [
+	^self createFASTNode: FASTPWBImplicitVariable
+
+]
+
+{ #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTUncheckedIdentifier: aPWBASTUncheckedIdentifier [
+	self createFASTNode: FASTPWBIdentifier.
+	fastNode name: aPWBASTUncheckedIdentifier uncheckedIdentifier.
+	^fastNode 
 
 ]
