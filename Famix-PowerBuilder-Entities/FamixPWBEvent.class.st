@@ -19,3 +19,8 @@ FamixPWBEvent class >> annotation [
 FamixPWBEvent >> isEvent [
 	^ true
 ]
+
+{ #category : #accessing }
+FamixPWBEvent >> returnType [
+	^ nil
+]
