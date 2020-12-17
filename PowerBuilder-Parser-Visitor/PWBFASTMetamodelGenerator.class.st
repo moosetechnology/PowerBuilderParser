@@ -2,16 +2,18 @@ Class {
 	#name : #PWBFASTMetamodelGenerator,
 	#superclass : #FamixMetamodelGenerator,
 	#instVars : [
-		'characterLiteral',
-		'literal',
-		'stringLiteral',
-		'returnStatement',
 		'pwbCharacterLiteral',
 		'pwbFieldAccess',
 		'pwbFloatLiteral',
 		'pwbIntegerLiteral',
 		'pwbStringLiteral',
-		'pwbReturnStatement'
+		'pwbReturnStatement',
+		'pwbImplicitVariable',
+		'fastReturnStatement',
+		'fastLiteral',
+		'fastCharacterLiteral',
+		'fastStringLiteral',
+		'fastEntity'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -50,11 +52,14 @@ PWBFASTMetamodelGenerator >> defineClasses [
 
 	pwbReturnStatement := builder newClassNamed: #ReturnStatement comment: 'Node representing a return statement in PWB'.
 
+	pwbImplicitVariable := builder newClassNamed: #ImplicitVariable comment: 'Represents the use of "this" in PowerBuilder'.
+
 	"Remotes from FAST"
-	characterLiteral := self remoteEntity: #CharacterLiteral withPrefix: #FAST.
-	literal := self remoteEntity: #Literal withPrefix: #FAST.
-	stringLiteral := self remoteEntity: #StringLiteral withPrefix: #FAST.
-	returnStatement := self remoteEntity: #ReturnStatement withPrefix: #FAST.
+	fastEntity := self remoteEntity: #Entity withPrefix: #FAST.
+	fastCharacterLiteral := self remoteEntity: #CharacterLiteral withPrefix: #FAST.
+	fastLiteral := self remoteEntity: #Literal withPrefix: #FAST.
+	fastStringLiteral := self remoteEntity: #StringLiteral withPrefix: #FAST.
+	fastReturnStatement := self remoteEntity: #ReturnStatement withPrefix: #FAST.
 ]
 
 { #category : #definition }
@@ -62,10 +67,11 @@ PWBFASTMetamodelGenerator >> defineHierarchy [
 	super defineHierarchy.
 	
 	
-	pwbCharacterLiteral --|> characterLiteral.
-	pwbFloatLiteral --|> literal.
-	pwbIntegerLiteral --|> literal.
-	pwbStringLiteral --|> stringLiteral.
+	pwbCharacterLiteral --|> fastCharacterLiteral.
+	pwbFloatLiteral --|> fastLiteral.
+	pwbIntegerLiteral --|> fastLiteral.
+	pwbStringLiteral --|> fastStringLiteral.
 
-	pwbReturnStatement --|> returnStatement.
+	pwbReturnStatement --|> fastReturnStatement.
+	pwbImplicitVariable --|> fastEntity
 ]

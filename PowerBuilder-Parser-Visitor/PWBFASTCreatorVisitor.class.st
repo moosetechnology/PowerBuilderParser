@@ -77,3 +77,9 @@ PWBFASTCreatorVisitor >> visitPWBASTString: aPWBASTString [
 	^fastNode 
 
 ]
+
+{ #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTThis: anPWBASTThis [
+	^self createNode: FASTPWBImplicitVariable fromPPNode: anPWBASTThis
+
+]

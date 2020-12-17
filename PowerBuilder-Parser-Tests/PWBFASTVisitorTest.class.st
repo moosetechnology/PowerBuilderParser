@@ -83,6 +83,24 @@ end function"
 ]
 
 { #category : #tests }
+PWBFASTVisitorTest >> testParseFunctionAccessesThis [
+	| result |
+	importer
+		sourceCode: 'function integer aFunction ();
+	this
+end function'.
+	result := importer run.
+
+	self assert: result size equals: 1.
+
+	self assert: result first class equals: FASTPWBImplicitVariable.
+	self assert: result first startPos equals: 33.
+	self assert: result first endPos equals: 36.
+	
+
+]
+
+{ #category : #tests }
 PWBFASTVisitorTest >> testParseFunctionReturnAnchor [
 	| result |
 	importer
