@@ -150,6 +150,39 @@ end function'.
 ]
 
 { #category : #tests }
+PWBFASTCreationTest >> testParseFunctionWithInvocation [
+	| result node |
+	importer
+		sourceCode: 'function integer aFunction ();
+	this.my_uo.funcNoArg()
+end function'.
+	result := importer run.
+
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBFunctionInvocation ]).
+	
+	node := result detect: [ :n | n class = FASTPWBFunctionInvocation ].
+	
+	self assert: node identifier name equals: 'funcNoArg'
+]
+
+{ #category : #tests }
+PWBFASTCreationTest >> testParseFunctionWithInvocationAnchor [
+	| result node |
+	importer
+		sourceCode: 'function integer aFunction ();
+	this.my_uo.funcNoArg()
+end function'.
+	result := importer run.
+
+	self assert: (result anySatisfy: [ :n | n class = FASTPWBFunctionInvocation ]).
+	
+	node := result detect: [ :n | n class = FASTPWBFunctionInvocation ].
+
+	self assert: node startPos equals: 44.
+	self assert: node endPos equals: 54.
+]
+
+{ #category : #tests }
 PWBFASTCreationTest >> testParseIncorrectFunction [
 	| result |
 	importer sourceCode: 'end function'.

@@ -88,6 +88,16 @@ PWBFASTCreatorVisitor >> visitPWBASTExpression: aPWBASTExpression [
 ]
 
 { #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
+	self visit: aPWBASTFunctionInvocation defaultVariable.
+	(self createFASTNode: FASTPWBFunctionInvocation fromPPNode: aPWBASTFunctionInvocation) 
+		identifier: aPWBASTFunctionInvocation functionName.
+	self visit: aPWBASTFunctionInvocation functionArguments.
+
+	^fastNode
+]
+
+{ #category : #visiting }
 PWBFASTCreatorVisitor >> visitPWBASTNumber: aPWBASTNumber [
 	self createFASTNode: ((aPWBASTNumber number asString includes: $.)
 		ifTrue: [ FASTPWBFloatLiteral ]
@@ -97,6 +107,20 @@ PWBFASTCreatorVisitor >> visitPWBASTNumber: aPWBASTNumber [
 	
 	^fastNode 
 
+]
+
+{ #category : #visiting }
+PWBFASTCreatorVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	| subNode |
+	self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier.
+	subNode := fastNode.
+
+	(self createFASTNode: FASTPWBFunctionInvocation fromPPNode: aPWBASTRegularMethodInvocation) 
+		identifier: subNode.
+	fastNode startPos: (fastNode startPos + 1).  "remove '.' from the FunctionInvocation"
+
+	self visit: aPWBASTRegularMethodInvocation functionArguments.
+	^fastNode
 ]
 
 { #category : #visiting }
@@ -114,7 +138,7 @@ PWBFASTCreatorVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 { #category : #visiting }
 PWBFASTCreatorVisitor >> visitPWBASTString: aPWBASTString [
 	self createFASTNode: FASTPWBStringLiteral.
-	fastNode value: aPWBASTString number.
+	fastNode value: aPWBASTString string.
 	
 	^fastNode 
 

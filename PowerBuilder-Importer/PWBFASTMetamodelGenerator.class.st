@@ -9,16 +9,14 @@ Class {
 		'pwbReturnStatement',
 		'pwbImplicitVariable',
 		'fastReturnStatement',
-		'fastLiteral',
-		'fastCharacterLiteral',
-		'fastStringLiteral',
 		'fastEntity',
 		'pwbDottedExpression',
 		'pwbFunctionInvocation',
 		'pwbAccess',
 		'pwbExpression',
 		'fastExpression',
-		'pwbIdentifier'
+		'pwbIdentifier',
+		'pwbLiteral'
 	],
 	#category : #'PowerBuilder-Importer-Metamodels'
 }
@@ -49,6 +47,7 @@ PWBFASTMetamodelGenerator class >> submetamodels [
 PWBFASTMetamodelGenerator >> defineClasses [
 	super defineClasses.
 
+	pwbLiteral := builder newClassNamed: #Literal comment: 'A literal in PWB code'.
 	pwbCharacterLiteral := builder newClassNamed: #CharacterLiteral comment: 'A character in PWB code'.
 	pwbFloatLiteral := builder newClassNamed: #FloatLiteral comment: 'a Float Literal, ex: 12.3'.
 	pwbIntegerLiteral := builder newClassNamed: #IntegerLiteral comment: 'An integer literal'.
@@ -67,9 +66,6 @@ Member can be an attribute access or a function invocation'.
 	"Remotes from FAST"
 	fastEntity := self remoteEntity: #Entity withPrefix: #FAST.
 	fastExpression := self remoteEntity: #Expression withPrefix: #FAST.
-	fastCharacterLiteral := self remoteEntity: #CharacterLiteral withPrefix: #FAST.
-	fastLiteral := self remoteEntity: #Literal withPrefix: #FAST.
-	fastStringLiteral := self remoteEntity: #StringLiteral withPrefix: #FAST.
 	fastReturnStatement := self remoteEntity: #ReturnStatement withPrefix: #FAST.
 ]
 
@@ -79,10 +75,11 @@ PWBFASTMetamodelGenerator >> defineHierarchy [
 
 	pwbExpression --|> fastExpression.
 	
-	pwbCharacterLiteral --|> fastCharacterLiteral.
-	pwbFloatLiteral --|> fastLiteral.
-	pwbIntegerLiteral --|> fastLiteral.
-	pwbStringLiteral --|> fastStringLiteral.
+	pwbLiteral --|> pwbExpression.
+	pwbCharacterLiteral --|> pwbLiteral.
+	pwbFloatLiteral --|> pwbLiteral.
+	pwbIntegerLiteral --|> pwbLiteral.
+	pwbStringLiteral --|> pwbLiteral.
 
 	pwbAccess --|> pwbExpression .
 	pwbFunctionInvocation  --|> pwbExpression.
@@ -100,6 +97,8 @@ PWBFASTMetamodelGenerator >> defineProperties [
 	super defineProperties.
 
 	pwbIdentifier property: #name type: #String.
+	
+	pwbLiteral property: #value type: #String
 ]
 
 { #category : #definition }
