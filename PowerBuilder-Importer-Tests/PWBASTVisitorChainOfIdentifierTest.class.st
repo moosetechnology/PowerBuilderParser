@@ -124,6 +124,15 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 ]
 
 { #category : #running }
+PWBASTVisitorChainOfIdentifierTest >> testFunctionInvocation [
+	self skip.
+	self assert: model allInvocations size equals: 2.
+
+	self assert: (model allInvocations anySatisfy: [:invok | invok candidates anyOne name = 'funcNoArg']).
+	self assert: (model allInvocations anySatisfy: [:invok | invok candidates anyOne name = 'funcTwoArgs']).
+]
+
+{ #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
 	| returnValues |
 	returnValues := (model allModelMethods

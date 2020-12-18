@@ -13,3 +13,16 @@ PWBFamixFASTBinder >> visitAccess: aFASTAccess [
 	(famixCandidate variable name = aFASTAccess identifier name)
 		ifTrue: [ self bindFast: aFASTAccess toFamix: famixCandidate ]
 ]
+
+{ #category : #visiting }
+PWBFamixFASTBinder >> visitFunctionInvocation: aFASTFunctionInvocation [
+	| famixCandidate |
+	famixCandidate := self
+		chooseCandidate: famixEntity outgoingInvocations
+		for: aFASTFunctionInvocation.
+
+	(famixCandidate candidates anyOne name = aFASTFunctionInvocation identifier name)
+		ifTrue: [ self bindFast: aFASTFunctionInvocation toFamix: famixCandidate ].
+
+	self visit: aFASTFunctionInvocation arguments
+]

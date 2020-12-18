@@ -68,12 +68,12 @@ PWBFASTFamixBindingTest >> setupModel [
 	FamixPWBInvocation new
 		mooseModel: model ;
 		sender: function ;
-		candidates: { FamixPWBFunction new name: 'testFile.funcNoArg' ; yourself } ;
+		candidates: { FamixPWBFunction new name: 'funcNoArg' ; yourself } ;
 		sourceAnchor: (self createAnchor: 419@430). 
 	FamixPWBInvocation new
 		mooseModel: model ;
 		sender: function ;
-		candidates: { FamixPWBFunction new name: 'testFile.funcTwoArgs' ; yourself } ;
+		candidates: { FamixPWBFunction new name: 'funcTwoArgs' ; yourself } ;
 		sourceAnchor: (self createAnchor: 451@472). 
 
 ]
