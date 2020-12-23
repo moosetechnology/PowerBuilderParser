@@ -115,5 +115,5 @@ PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect
 		collect: #returnValue.
 	self
 		assertCollection: returnValues
-		hasSameElements: {'my_uo.myFunc(5,"allo")' . 'my_uo.myFunc()'}
+		hasSameElements: {'this.my_uo.myFunc(5,"allo")' . 'this.my_uo.myFunc()'}
 ]

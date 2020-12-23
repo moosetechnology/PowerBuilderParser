@@ -331,7 +331,6 @@ PWBQueryFileParser >> dynamicMethodInvocation [
 			PWBASTDynamicMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
-				dot: (production content at: 2);
 				uncheckedIdentifier: (production content at: 5);
 				functionArguments: (production content at: 7);
 				yourself ]
@@ -868,7 +867,6 @@ PWBQueryFileParser >> regularMethodInvocation [
 			PWBASTRegularMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
-				dot: (production content at: 2);
 				uncheckedIdentifier: (production content at: 4);
 				functionArguments: (production content at: 6);
 				yourself ]

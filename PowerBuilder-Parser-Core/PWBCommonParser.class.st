@@ -583,18 +583,6 @@ PWBCommonParser >> doWhileLoop [
 ]
 
 { #category : #rules }
-PWBCommonParser >> dot [
-	<generated>
-	^ super dot flatten withPositions
-		==> [ :production | 
-			PWBASTDot new
-				startPosition: production start;
-				stopPosition: production stop;
-				dot: production content;
-				yourself ]
-]
-
-{ #category : #rules }
 PWBCommonParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions
@@ -602,7 +590,6 @@ PWBCommonParser >> dynamicMethodInvocation [
 			PWBASTDynamicMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
-				dot: (production content at: 2);
 				uncheckedIdentifier: (production content at: 5);
 				functionArguments: (production content at: 7);
 				yourself ]
@@ -1386,7 +1373,6 @@ PWBCommonParser >> regularMethodInvocation [
 			PWBASTRegularMethodInvocation new
 				startPosition: production start;
 				stopPosition: production stop;
-				dot: (production content at: 2);
 				uncheckedIdentifier: (production content at: 4);
 				functionArguments: (production content at: 6);
 				yourself ]

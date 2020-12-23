@@ -28,8 +28,17 @@ PWBCodeRewriteVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
 ]
 
 { #category : #visiting }
-PWBCodeRewriteVisitor >> visitPWBASTDot: aPWBASTDot [
-	stream << aPWBASTDot dot
+PWBCodeRewriteVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
+	stream nextPut: $..
+	self visit: aPWBASTAttributeAccess uncheckedIdentifier.
+	self visit: aPWBASTAttributeAccess arrayInformation
+]
+
+{ #category : #visiting }
+PWBCodeRewriteVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTDynamicMethodInvocation [
+	stream nextPut: $..
+	super
+		visitPWBASTDynamicMethodInvocation: aPWBASTDynamicMethodInvocation
 ]
 
 { #category : #visiting }
@@ -66,8 +75,20 @@ PWBCodeRewriteVisitor >> visitPWBASTNumber: aPWBASTNumber [
 ]
 
 { #category : #visiting }
+PWBCodeRewriteVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	stream nextPut: $..
+	super
+		visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation
+]
+
+{ #category : #visiting }
 PWBCodeRewriteVisitor >> visitPWBASTString: aPWBASTString [
 	stream << aPWBASTString string
+]
+
+{ #category : #visiting }
+PWBCodeRewriteVisitor >> visitPWBASTThis: anPWBASTThis [
+	stream << anPWBASTThis this
 ]
 
 { #category : #visiting }
