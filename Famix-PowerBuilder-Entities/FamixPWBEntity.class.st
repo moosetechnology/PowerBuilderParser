@@ -58,6 +58,11 @@ FamixPWBEntity >> getBusinessRuleFunctions [
 	^ self mooseModel getBusinessRuleFunctions at: self ifAbsent: {}
 ]
 
+{ #category : #printing }
+FamixPWBEntity >> gtDisplayOn: aStream [ 
+	self printOn: aStream
+]
+
 { #category : #testing }
 FamixPWBEntity >> isAccess [
 
