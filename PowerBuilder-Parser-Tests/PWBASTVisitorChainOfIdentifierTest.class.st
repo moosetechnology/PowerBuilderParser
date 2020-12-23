@@ -6,23 +6,30 @@ Class {
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> setupModel [
+	| uo |
 	super setupModel.
-	(FamixPWBInstanceVariable named: 'var')
-		attributeType: (FamixPWBBasicType named: 'string');
-		parentType: (model entityNamed: 'test_uo');
-		mooseModel: model.
-	(FamixPWBInstanceVariable named: 'var1')
-		attributeType: (FamixPWBBasicType named: 'integer');
-		parentType: (model entityNamed: 'test_uo');
-		mooseModel: model.
+
+	uo := model entityNamed: 'test_uo'.
+
+	(FamixPWBUserObject named: 'other_uo') mooseModel: model.
+
 	(FamixPWBFunction named: 'myFunc')
-		returnType: (FamixPWBFunctionReturn new type: (model entityNamed: 'test_uo'));
-		parentType: (model entityNamed: 'test_uo');
+		returnType: uo;
+		parentType: uo;
 		mooseModel: model.
-	(FamixPWBUserObject named: 'test1_uo') mooseModel: model.
-	(FamixPWBInstanceVariable named: 'att1')
-		attributeType: (model entityNamed: 'test_uo');
-		parentType: (model entityNamed: 'test1_uo');
+		
+	(FamixPWBInstanceVariable named: 'uo_var_string')
+		attributeType: (FamixPWBBasicType named: 'string');
+		parentType: uo;
+		mooseModel: model.
+	(FamixPWBInstanceVariable named: 'uo_var_integer')
+		attributeType: (FamixPWBBasicType named: 'integer');
+		parentType: uo;
+		mooseModel: model.
+
+	(FamixPWBInstanceVariable named: 'other_att')
+		attributeType: uo;
+		parentType: (model entityNamed: 'other_uo');
 		mooseModel: model
 ]
 
@@ -37,22 +44,27 @@ PWBASTVisitorChainOfIdentifierTest >> sourceCode: accVar [
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> sourceExample [
-	^ 'forward
-   global type testFile from userobject
-   end type
-   type tp_val from userobject end type
-    type attTest1_uo from test1_uo end type
-	end forward
+	^ 
+'forward
+  global type testFile from userobject
+  end type
+  type local_uo from other_uo within testFile
+  end type
+end forward
 
-	type variables
-  test_uo my_uo;
+global type testFile from userobject
+  local_uo local_uo
+end type
+global testFile testFile
+
+type variables
+  test_uo my_uo
 end variables
 
 private function integer aFunction ();
-  this.attTest1_uo.att1.var1 = 3
   this.my_uo
-  this.my_uo.var = 5
-  this.my_uo.myFunc()
+  this.my_uo.uo_var_integer = 5
+  this.local_uo.other_att.uo_var_string = "blah"
   return this.my_uo.myFunc()
   return this.my_uo.myFunc(5,"allo")
 end function'
@@ -61,13 +73,11 @@ end function'
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
 	| accVar |
-	self skip.
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var1' ].
+		detect: [ :access | access variable name = 'uo_var_string' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable name equals: 'var1'.
-	self assert: accVar variable attributeType name equals: 'integer'.
+	self assert: accVar variable attributeType name equals: 'string'.
 	self assert: accVar variable parentType name equals: 'test_uo'
 ]
 
@@ -76,10 +86,9 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var' ].
+		detect: [ :access | access variable name = 'uo_var_integer' ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable name equals: 'var'.
-	self assert: accVar variable attributeType name equals: 'string'.
+	self assert: accVar variable attributeType name equals: 'integer'.
 	self assert: accVar variable parentType name equals: 'test_uo'
 ]
 
@@ -88,8 +97,8 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	| accVar accMy_uo |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var' ].
-	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
+		detect: [ :access | access variable name = 'uo_var_integer' ].
+	self assert: (self sourceCode: accVar) equals: 'this.my_uo.uo_var_integer'.
 	accMy_uo := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ].
 		"Because my_uo is not write so it not in an assignation statement"
@@ -103,7 +112,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 		detect: [ :acc | acc variable name = 'my_uo' ].
 	self deny: access isWrite.
 	access := model allAccesses
-		detect: [ :acc | acc variable name = 'var' ].
+		detect: [ :acc | acc variable name = 'uo_var_integer' ].
 	self assert: access isWrite
 ]
 
