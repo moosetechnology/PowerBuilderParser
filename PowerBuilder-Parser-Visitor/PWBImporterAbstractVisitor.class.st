@@ -60,6 +60,13 @@ PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess
 				yourself)
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> createAuxiliaryVisitor: aPWBVisitorClass [
+	^aPWBVisitorClass new
+		solver: self solver ;
+		yourself
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	| created |
@@ -97,7 +104,35 @@ PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 				ifTrue: [ param parameterType addTypedVariable: param ] ]
 ]
 
-{ #category : #helpers }
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
+	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
+]
+
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
+	| sRIdentifierWithNode |
+	sRIdentifierWithNode := SRTypeIdentifierWithNode
+		identifier: (self visit: aPWBASTExpressionAction action)
+		expectedKind:
+			{FamixPWBVariable.
+			FamixPWBAttribute.
+			FamixPWBParameter.
+			FamixPWBGlobalVariable.
+			FamixPWBSharedVariable.
+			FamixPWBInstanceVariable.
+			FamixPWBLocalVariable}
+		node: aPWBASTExpressionAction.
+	aPWBASTExpressionAction expressionAction
+		ifNotNil: [ :subExprAction | 
+			subExprAction isAttributeAccess
+				ifTrue:
+					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
+				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
+	^ sRIdentifierWithNode
+]
+
+{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createStub: aClass [
 	| entity |
 	self flag: #TODO.	"Put the created entity in a stub module"
@@ -105,6 +140,16 @@ PWBImporterAbstractVisitor >> createStub: aClass [
 		mooseModel: self model;
 		yourself.
 	^ entity
+]
+
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
+	^ (model entityStorage selectAllWithType: aType)
+		detect: [ :entity | entity name = aName ]
+		ifNone: [ aType new
+				name: aName;
+				mooseModel: model;
+				yourself ]
 ]
 
 { #category : #accessing }
@@ -127,7 +172,7 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 	importingContext := anObject
 ]
 
-{ #category : #'entities creation' }
+{ #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver
@@ -159,7 +204,7 @@ PWBImporterAbstractVisitor >> model: anObject [
 	self pushAsScopeAll: FamixPWBUserObject ofModel: model
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> preprocessedFile: aFile [
 	self
 		file:
@@ -178,7 +223,12 @@ PWBImporterAbstractVisitor >> resolve: identifiers [
 	^ self solver resolve: identifiers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolveUnresolvedReferences [
+	self solver resolveUnresolvedReferences
+]
+
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
 	| separator |
 	separator := Smalltalk os filePathSeparator.
@@ -186,7 +236,7 @@ PWBImporterAbstractVisitor >> unpreprocessedFile [
 		asFileReference
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 	^ preprocessingMap
 		at: file fullName
@@ -194,14 +244,14 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifAbsent: [ anInteger ]
 ]
 
-{ #category : #helpers }
+{ #category : #visiting }
 PWBImporterAbstractVisitor >> visitAll: childrenNodes [
 	^ childrenNodes
 		ifNotNil: [ childrenNodes
 				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
 ]
 
-{ #category : #'entities creation' }
+{ #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 	^ self visit: aPWBASTEventType eventType
 ]
