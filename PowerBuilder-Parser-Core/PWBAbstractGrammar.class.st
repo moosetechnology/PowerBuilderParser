@@ -75,8 +75,7 @@ Class {
 		'eventWord',
 		'eventLong',
 		'expressionSign',
-		'expressionOperator',
-		'dot'
+		'expressionOperator'
 	],
 	#category : #'PowerBuilder-Parser-Core'
 }
@@ -271,7 +270,7 @@ PWBAbstractGrammar >> dot [
 
 { #category : #accessing }
 PWBAbstractGrammar >> dynamicMethodInvocation [
-	^ spaces optional ,dot , 'dynamic' token, spaces , uncheckedIdentifier
+	^ spaces optional , $. parser , 'dynamic' token, spaces , uncheckedIdentifier
 		, blank , functionArguments
 ]
 
@@ -522,8 +521,7 @@ PWBAbstractGrammar >> postFixOperator [
 { #category : #accessing }
 PWBAbstractGrammar >> regularMethodInvocation [
 	"in opposition to dynamicMethodInvocation"
-
-	^ spaces optional , dot , spaces optional , uncheckedIdentifier
+	^ spaces optional , $. parser , spaces optional , uncheckedIdentifier
 		, blank , functionArguments
 ]
 

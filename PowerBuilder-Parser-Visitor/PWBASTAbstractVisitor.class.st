@@ -355,15 +355,8 @@ PWBASTAbstractVisitor >> visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop [
 ]
 
 { #category : #visiting }
-PWBASTAbstractVisitor >> visitPWBASTDot: anPWBASTDot [
-	<generated>
-	^ anPWBASTDot dot
-]
-
-{ #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTDynamicMethodInvocation [
 	<generated>
-	self visit: aPWBASTDynamicMethodInvocation dot.
 	self visit: aPWBASTDynamicMethodInvocation uncheckedIdentifier.
 	self visit: aPWBASTDynamicMethodInvocation functionArguments.
 ]
@@ -826,7 +819,6 @@ PWBASTAbstractVisitor >> visitPWBASTPrototypesDeclaration: aPWBASTPrototypesDecl
 { #category : #visiting }
 PWBASTAbstractVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
 	<generated>
-	self visit: aPWBASTRegularMethodInvocation dot.
 	self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier.
 	self visit: aPWBASTRegularMethodInvocation functionArguments.
 ]
