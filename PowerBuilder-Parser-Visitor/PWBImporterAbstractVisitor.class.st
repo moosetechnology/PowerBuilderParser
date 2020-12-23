@@ -207,6 +207,14 @@ PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
 ]
 
 { #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	^ aPWBASTExpressionAction expressionAction
+		ifNil: [ self visit: aPWBASTExpressionAction action ]
+		ifNotNil: [ self visit: aPWBASTExpressionAction action.
+			self visit: aPWBASTExpressionAction expressionAction ]
+]
+
+{ #category : #visiting }
 PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	self visit: aPWBASTFunctionDefinition functionSignature.
 	self visit: aPWBASTFunctionDefinition statements.

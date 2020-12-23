@@ -95,11 +95,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	expressionIsLeftHandSide := false
 ]
 
-{ #category : #testing }
-PWBEntityCreatorFutureReferenceSolverVisitor >> isResolvable [
-	^ false
-]
-
 { #category : #resolution }
 PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
