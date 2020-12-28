@@ -6,31 +6,35 @@ Class {
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> setupModel [
-	| uo |
+	| testuo otheruo |
 	super setupModel.
 
-	uo := model entityNamed: 'test_uo'.
+	testuo := model entityNamed: 'test_uo'.
 
-	(FamixPWBUserObject named: 'other_uo') mooseModel: model.
+	otheruo := (FamixPWBUserObject named: 'other_uo')
+		mooseModel: model ;
+		yourself.
 
 	(FamixPWBFunction named: 'myFunc')
-		returnType: uo;
-		parentType: uo;
-		mooseModel: model.
-		
-	(FamixPWBInstanceVariable named: 'uo_var_string')
-		attributeType: (FamixPWBBasicType named: 'string');
-		parentType: uo;
+		returnType: testuo ;
+		parentType: testuo ;
 		mooseModel: model.
 	(FamixPWBInstanceVariable named: 'uo_var_integer')
-		attributeType: (FamixPWBBasicType named: 'integer');
-		parentType: uo;
+		attributeType: (FamixPWBBasicType named: 'integer') ;
+		parentType: testuo ;
 		mooseModel: model.
 
+	"we need to be able to use:
+	 <test_uo variable>.other_att.uo_var_string"
 	(FamixPWBInstanceVariable named: 'other_att')
-		attributeType: uo;
-		parentType: (model entityNamed: 'other_uo');
-		mooseModel: model
+		attributeType: otheruo ;
+		parentType: testuo ;
+		mooseModel: model.
+	(FamixPWBInstanceVariable named: 'uo_var_string')
+		attributeType: (FamixPWBBasicType named: 'string') ;
+		parentType: otheruo ;
+		mooseModel: model.
+
 ]
 
 { #category : #running }
