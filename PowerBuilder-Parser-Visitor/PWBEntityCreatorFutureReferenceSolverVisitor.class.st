@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'currentLibrary',
 		'typeDeclarationType',
-		'expressionIsLeftHandSide'
+		'expressionIsLeftHandSide',
+		'multiple'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -21,6 +22,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 			subExprAction isAttributeAccess
 				ifTrue: [ name := name , '.' , (self attributeAccessName: subExprAction ) ] ].
 	^name
+]
+
+{ #category : #accessing }
+PWBEntityCreatorFutureReferenceSolverVisitor >> beMultiple [
+	multiple := true
 ]
 
 { #category : #'entities creation' }
@@ -54,7 +60,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> currentLibrary: aFamixPWBLibrary
 PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	super initialize.
 	self initialiseFutureSolver.
-	expressionIsLeftHandSide := false
+	expressionIsLeftHandSide := false.
+	multiple := false
 ]
 
 { #category : #accessing }
@@ -184,6 +191,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	| typeToResolve |
+	
+	multiple ifTrue: [ ^super visitPWBASTCustomType: aPWBASTCustomType ].
+
 	typeToResolve := (self
 		resolvable:
 		(SRTypeIdentifierWithNode
@@ -672,6 +682,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
+
+	multiple ifTrue: [	^(self createAuxiliaryVisitor: PWBTypeDeclarationVisitor) visit: aPWBASTTypeDeclaration ].
+
 	typeDeclarationType := Dictionary new.
 	self visit: aPWBASTTypeDeclaration type.
 	self visit: aPWBASTTypeDeclaration fromClause.

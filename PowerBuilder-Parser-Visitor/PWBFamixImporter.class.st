@@ -143,7 +143,7 @@ PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
 
 { #category : #running }
 PWBFamixImporter >> createModelFor: aFile [
-	| library visitor model parser cleanFileContents result |
+	| library model parser cleanFileContents result |
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor importingContext: self importingContext.
 	parser := PWBPreprocessor new.
@@ -156,10 +156,10 @@ PWBFamixImporter >> createModelFor: aFile [
 	preprocessedMap := OrderedDictionary new.
 	preprocessedMap at: aFile fullName put: parser characterIgnored.
 	visitor
-		file: aFile;
-		preprocessingMap: self preprocessedMap;
-		model: model.
-	visitor currentLibrary: library.
+		file: aFile ;
+		preprocessingMap: self preprocessedMap ;
+		initContextStackFromModel: model ;
+		currentLibrary: library.
 	result := PWBAbstractGrammar
 		obtainASTFrom: cleanFileContents
 		fileExtension: aFile extension.
@@ -307,7 +307,7 @@ PWBFamixImporter >> removeCleanFilesFoldersFrom: aFolder [
 PWBFamixImporter >> setUp [
 	preprocessedMap := Dictionary new.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
-	visitor model: self targetModel.
+	visitor initContextStackFromModel: self targetModel.
 	visitor importingContext: self importingContext.
 ]
 

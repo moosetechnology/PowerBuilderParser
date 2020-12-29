@@ -11,17 +11,12 @@ Class {
 
 { #category : #running }
 PWBASTVisitorTest >> setUp [
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
-	visitor importingContext: PWBFamixImporter new importingContext.
 	self setupModel.
-	visitor
-		file: 'testFile.sru' asFileReference;
-		preprocessingMap: OrderedDictionary new;
-		model: model.
 	result := PWBCommonParser new parse: self sourceExample.
 	result
 		fileName: 'testFile';
 		fileExtension: 'sru'.
+	self setupVisitor.
 	visitor
 		visit: result;
 		resolveUnresolvedReferences
@@ -35,12 +30,21 @@ PWBASTVisitorTest >> setupModel [
 		name: 'TestLib';
 		mooseModel: model;
 		yourself.
-	visitor currentLibrary: library.
 
 	FamixPWBUserObject new
 		name: 'test_uo' ;
 		mooseModel: model ;
 		yourself.
+]
+
+{ #category : #running }
+PWBASTVisitorTest >> setupVisitor [
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
+		importingContext: PWBFamixImporter new importingContext;
+		currentLibrary: (model entityNamed: 'TestLib');
+		file: 'testFile.sru' asFileReference;
+		preprocessingMap: OrderedDictionary new;
+		initContextStackFromModel: model
 ]
 
 { #category : #running }

@@ -60,6 +60,16 @@ PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess
 				yourself)
 ]
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> createAuxiliaryVisitor: aPWBVisitorClass [
+	^aPWBVisitorClass new
+		solver: self solver ;
+		importingContext: self importingContext ;
+		model: self model ;
+		preprocessingMap: self preprocessingMap ;
+		yourself
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	| created |
@@ -166,6 +176,15 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 ]
 
 { #category : #initialization }
+PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
+	self model: aModel.
+	self pushAsScopeAll: FamixPWBFunction ofModel: aModel.
+	self pushAsScopeAll: FamixPWBEvent ofModel: aModel.
+	self pushAsScopeAll: FamixPWBSubRoutine ofModel: aModel.
+	self pushAsScopeAll: FamixPWBUserObject ofModel: aModel
+]
+
+{ #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver
@@ -191,10 +210,6 @@ PWBImporterAbstractVisitor >> model [
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model: anObject [
 	model := anObject.
-	self pushAsScopeAll: FamixPWBFunction ofModel: model.
-	self pushAsScopeAll: FamixPWBEvent ofModel: model.
-	self pushAsScopeAll: FamixPWBSubRoutine ofModel: model.
-	self pushAsScopeAll: FamixPWBUserObject ofModel: model
 ]
 
 { #category : #helpers }
@@ -204,6 +219,11 @@ PWBImporterAbstractVisitor >> preprocessedFile: aFile [
 			(aFile pathString
 				copyReplaceAll: aFile basename
 				with: 'cleaned/' , aFile basename) asFileReference
+]
+
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> preprocessingMap [
+	^preprocessingMap
 ]
 
 { #category : #accessing }
