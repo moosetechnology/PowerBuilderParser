@@ -239,7 +239,6 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 
 { #category : #visiting }
 PWBImporterAbstractVisitor >> visitAll: childrenNodes [
-	^ childrenNodes
-		ifNotNil: [ childrenNodes
-				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+	childrenNodes
+		ifNotNil: [ childrenNodes do: [ :aChildNode | self visit: aChildNode ] ]
 ]
