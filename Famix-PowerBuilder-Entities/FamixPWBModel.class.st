@@ -20,12 +20,12 @@ FamixPWBModel class >> annotation [
 	<generated>
 ]
 
-{ #category : #acccessing }
+{ #category : #accessing }
 FamixPWBModel >> allModelPWBObjects [
 	^ MooseGroup withAll: (self entities select: #isPWBClass)
 ]
 
-{ #category : #acccessing }
+{ #category : #accessing }
 FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]

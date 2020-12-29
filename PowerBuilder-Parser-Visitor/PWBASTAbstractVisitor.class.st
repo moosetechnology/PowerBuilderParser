@@ -12,7 +12,7 @@ PWBASTAbstractVisitor >> visit: aChildNode [
 { #category : #helpers }
 PWBASTAbstractVisitor >> visitAll: childrenNodes [
 	childrenNodes
-		ifNotNil: [ childrenNodes do: [ :aChildNode | aChildNode acceptVisitor: self ] ]
+		ifNotNil: [ childrenNodes do: [ :aChildNode | self visit: aChildNode ] ]
 ]
 
 { #category : #visiting }
