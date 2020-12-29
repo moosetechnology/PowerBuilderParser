@@ -191,9 +191,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	| typeToResolve |
-	
-	multiple ifTrue: [ ^super visitPWBASTCustomType: aPWBASTCustomType ].
-
 	typeToResolve := (self
 		resolvable:
 		(SRTypeIdentifierWithNode

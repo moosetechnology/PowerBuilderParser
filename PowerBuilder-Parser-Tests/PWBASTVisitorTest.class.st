@@ -1,51 +1,8 @@
 Class {
 	#name : #PWBASTVisitorTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'visitor',
-		'result',
-		'model'
-	],
+	#superclass : #PWBAbstractASTVisitorTest,
 	#category : #'PowerBuilder-Parser-Tests'
 }
-
-{ #category : #running }
-PWBASTVisitorTest >> setUp [
-	self setupModel.
-	result := PWBCommonParser new parse: self sourceExample.
-	result
-		fileName: 'testFile';
-		fileExtension: 'sru'.
-	self setupVisitor.
-	visitor
-		visit: result;
-		resolveUnresolvedReferences
-]
-
-{ #category : #running }
-PWBASTVisitorTest >> setupModel [
-	| library |
-	model := FamixPWBModel new.
-	library := FamixPWBLibrary new
-		name: 'TestLib';
-		mooseModel: model;
-		yourself.
-
-	FamixPWBUserObject new
-		name: 'test_uo' ;
-		mooseModel: model ;
-		yourself.
-]
-
-{ #category : #running }
-PWBASTVisitorTest >> setupVisitor [
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
-		importingContext: PWBFamixImporter new importingContext;
-		currentLibrary: (model entityNamed: 'TestLib');
-		file: 'testFile.sru' asFileReference;
-		preprocessingMap: OrderedDictionary new;
-		initContextStackFromModel: model
-]
 
 { #category : #running }
 PWBASTVisitorTest >> sourceExample [
@@ -86,21 +43,16 @@ end function
 '
 ]
 
-{ #category : #accessing }
-PWBASTVisitorTest >> sourceText: anEntity [
-	^ self sourceExample
-		copyFrom: anEntity sourceAnchor startPos
-		to: anEntity sourceAnchor endPos
-]
-
 { #category : #tests }
 PWBASTVisitorTest >> testFunctionInvocationSourceText [
 	| invocation1 invocation2 |
 	invocation1 := ((model allWithType: FamixPWBFunction)
-		detect: [ :function | function name = 'anotherFunction' ])
+		detect: [ :function | function name = 'anotherFunction' ]
+		ifNone: [self fail])
 		incomingInvocations anyOne.
 	invocation2 := model allInvocations
-		detect: [ :inv | inv candidates anyOne name = 'isNull' ].
+		detect: [ :inv | inv candidates anyOne name = 'isNull' ]
+		ifNone: [self fail].
 	self
 		assert: (self sourceText: invocation1)
 		equals: 'anotherFunction(2, "blah")'.
@@ -132,7 +84,8 @@ PWBASTVisitorTest >> testParameter [
 PWBASTVisitorTest >> testParameterType [
 	| param |
 	param := (model allWithType: FamixPWBParameter)
-		detect: [ :each | each name = 'dw_param' ].
+		detect: [ :each | each name = 'dw_param' ]
+		ifNone: [self fail].
 	self assert: param parameterType class equals: FamixPWBCustomType
 ]
 
@@ -231,7 +184,9 @@ PWBASTVisitorTest >> testParserReturnConstant [
 		select: [ :r | r name = 'aFunction' ].
 	self assert: returns isNotEmpty.
 	self
-		assert: (returns detect: [ :r | r returnValue endsWith: '1' ]) returnValue
+		assert: (returns
+			detect: [ :r | r returnValue endsWith: '1' ]
+			ifNone: [self fail]) returnValue
 		equals: '-1'
 ]
 
@@ -242,7 +197,9 @@ PWBASTVisitorTest >> testParserReturnVariable [
 		select: [ :r | r name = 'aFunction' ].
 	self assert: returns isNotEmpty.
 	self
-		assert: (returns detect: [ :r | r returnValue beginsWith: 'LL' ]) returnValue
+		assert: (returns
+			detect: [ :r | r returnValue beginsWith: 'LL' ]
+			ifNone: [self fail]) returnValue
 		equals: 'LL_RETURN'
 ]
 
@@ -288,7 +245,8 @@ PWBASTVisitorTest >> testSharedVariables [
 PWBASTVisitorTest >> testSourceTestSettings [
 	| eventTestingFunction |
 	eventTestingFunction := (model allWithType: FamixPWBFunction)
-		detect: [ :function | function name = 'eventTestingFunction' ].
+		detect: [ :function | function name = 'eventTestingFunction' ]
+		ifNone: [self fail].
 	self
 		assert: (self sourceText: eventTestingFunction)
 		equals:

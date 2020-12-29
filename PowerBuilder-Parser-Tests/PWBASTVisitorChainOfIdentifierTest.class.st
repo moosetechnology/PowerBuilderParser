@@ -1,6 +1,6 @@
 Class {
 	#name : #PWBASTVisitorChainOfIdentifierTest,
-	#superclass : #PWBASTVisitorTest,
+	#superclass : #PWBAbstractASTVisitorTest,
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
@@ -35,15 +35,6 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 		parentType: otheruo ;
 		mooseModel: model.
 
-]
-
-{ #category : #running }
-PWBASTVisitorChainOfIdentifierTest >> sourceCode: accVar [
-	| sourceText |
-	sourceText := self sourceExample
-		copyFrom: accVar sourceAnchor startPos
-		to: accVar sourceAnchor endPos.
-	^ sourceText
 ]
 
 { #category : #running }
@@ -108,12 +99,12 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'uo_var_integer' ]
 		ifNone: [ self fail ].
-	self assert: (self sourceCode: accVar) equals: 'this.my_uo.uo_var_integer'.
+	self assert: (self sourceText: accVar) equals: 'this.my_uo.uo_var_integer'.
 	accMy_uo := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ]
 		ifNone: [ self fail ].
 		"Because my_uo is not write so it not in an assignation statement"
-	self assert: (self sourceCode: accMy_uo) equals: '.my_uo'
+	self assert: (self sourceText: accMy_uo) equals: '.my_uo'
 ]
 
 { #category : #tests }
