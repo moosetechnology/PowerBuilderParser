@@ -23,11 +23,6 @@ FamixPWBAttribute >> accessAssociation [
 	^ FamixPWBAccess
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBAttribute >> asSREntityScope [
-	^ attributeType asSREntityScope
-]
-
 { #category : #accessing }
 FamixPWBAttribute >> attributeType [
 

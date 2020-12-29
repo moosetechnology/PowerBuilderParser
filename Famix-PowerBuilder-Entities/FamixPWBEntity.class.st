@@ -119,11 +119,6 @@ FamixPWBEntity >> isReference [
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBEntity >> isResolvable [
-	^ false
-]
-
 { #category : #testing }
 FamixPWBEntity >> isStructuralEntity [
 
