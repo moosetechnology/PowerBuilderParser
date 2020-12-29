@@ -20,17 +20,17 @@ FamixPWBModel class >> annotation [
 	<generated>
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #acccessing }
 FamixPWBModel >> allModelPWBObjects [
 	^ MooseGroup withAll: (self entities select: #isPWBClass)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #acccessing }
 FamixPWBModel >> allModelPWBUserObjects [
 	^ self allWithType: FamixPWBUserObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 FamixPWBModel >> cleanRootFolder [
 	self rootFolder allDirectories
 		select: [ :dir | dir basename = 'cleaned' ]
@@ -46,51 +46,22 @@ FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
 	^ variables
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBModel >> getBusinessRuleFunctions [
-	businessRuleFunctions ifNil: [ self getRuntimeBehaviors ].
-	businessRuleFunctions ifEmpty: [ self getRuntimeBehaviors ].
-	^ businessRuleFunctions
+{ #category : #initialization }
+FamixPWBModel >> initDefaultPWBEntities [
+	(FamixPWBUserObject named: 'userobject')
+		mooseModel: self.
+
+	(FamixPWBDataWindow named: 'datawindow')
+		mooseModel: self.
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBModel >> getBusinessRuleFunctionsFromToscaSenarios [
-	| famixBehaviors |
-	famixBehaviors := (self allWithType: FamixPWBFunction)
-		, (self allWithType: FamixPWBSubRoutine)
-		select: [ :each | each parentType isNotNil ].
-	businessRuleFunctions
-		ifNil: [ self
-				setBusinessRuleFunctions:
-					((MrlBehavior loadAll
-						flatCollectAsSet: [ :aBehavior | 
-							famixBehaviors
-								select: [ :each | 
-									each parentType name = aBehavior pwb_object
-										and: [ each name = aBehavior behavior_name ] ] ])
-						groupedBy: #parentType) ].
-	^ businessRuleFunctions
+{ #category : #initialization }
+FamixPWBModel >> initialize [
+	super initialize.
+	self initDefaultPWBEntities
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBModel >> getRuntimeBehaviors [
-	businessRuleFunctions := OrderedDictionary new.
-	MrlBehavior loadAll
-		do: [ :each | 
-			self allModelMethods
-				detect: [ :m | 
-					m parentType isNotNil
-						and: [ m parentType name = each pwb_object
-								and: [ each behavior_name = m name ] ] ]
-				ifFound: [ :founded | 
-					businessRuleFunctions
-						at: founded parentType
-						ifAbsentPut: [ OrderedCollection new ].
-					(businessRuleFunctions at: founded parentType) add: founded ]
-				ifNone: [  ] ]
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 FamixPWBModel >> install [
 	super install.
 	self cleanRootFolder.
@@ -111,9 +82,4 @@ FamixPWBModel >> selectIncomingInvocationMethodsUntilConvergence: aCollection [
 	^ methods
 		select:
 			[ :behavioral | behavioral parentType isNotNil and: [ behavioral isFunction ] ]
-]
-
-{ #category : #'as yet unclassified' }
-FamixPWBModel >> setBusinessRuleFunctions: aDictionary [
-	businessRuleFunctions := aDictionary
 ]
