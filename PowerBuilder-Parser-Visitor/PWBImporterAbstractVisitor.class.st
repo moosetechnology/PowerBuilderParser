@@ -236,9 +236,3 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifPresent: [ :found | anInteger + found ]
 		ifAbsent: [ anInteger ]
 ]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitAll: childrenNodes [
-	childrenNodes
-		ifNotNil: [ childrenNodes do: [ :aChildNode | self visit: aChildNode ] ]
-]

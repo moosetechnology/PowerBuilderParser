@@ -65,6 +65,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
+	^childrenNodes
+		ifNotNil: [ childrenNodes collect: [ :aChildNode | self visit: aChildNode ] ]
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	| sRIdentifierWithNode |
 	self visit: aPWBASTAccess arrayPosition.
