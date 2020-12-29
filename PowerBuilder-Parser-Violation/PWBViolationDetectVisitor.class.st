@@ -35,7 +35,7 @@ PWBViolationDetectVisitor >> file: anObject [
 { #category : #initialization }
 PWBViolationDetectVisitor >> initialize [
 	super initialize.
-	limit := '99999'.
+	limit := '9999'.
 	violations := OrderedCollection new
 ]
 
@@ -56,11 +56,6 @@ PWBViolationDetectVisitor >> preprocessingMap [
 { #category : #accessing }
 PWBViolationDetectVisitor >> preprocessingMap: anObject [
 	preprocessingMap := anObject
-]
-
-{ #category : #resolution }
-PWBViolationDetectVisitor >> resolveUnresolvedReferences [
-
 ]
 
 { #category : #helpers }
@@ -92,9 +87,9 @@ PWBViolationDetectVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefin
 	currentBehavior := (FamixPWBFunction named: functionName)
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
-				startPos:
-					(self unpreprocessedPosition: aPWBASTFunctionDefinition startPosition);
-				endPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition stopPosition))
+				startPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition startPosition);
+				endPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition stopPosition)).
+	self visit: aPWBASTFunctionDefinition statements
 ]
 
 { #category : #visiting }
@@ -128,7 +123,8 @@ PWBViolationDetectVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineD
 					(self
 						unpreprocessedPosition: aPWBASTSubroutineDefinition startPosition);
 				endPos:
-					(self unpreprocessedPosition: aPWBASTSubroutineDefinition stopPosition))
+					(self unpreprocessedPosition: aPWBASTSubroutineDefinition stopPosition)).
+	self visit: aPWBASTSubroutineDefinition statements
 ]
 
 { #category : #visiting }

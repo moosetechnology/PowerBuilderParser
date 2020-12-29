@@ -236,3 +236,11 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifPresent: [ :found | anInteger + found ]
 		ifAbsent: [ anInteger ]
 ]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	^ aPWBASTExpressionAction expressionAction
+		ifNil: [ self visit: aPWBASTExpressionAction action ]
+		ifNotNil: [ self visit: aPWBASTExpressionAction action.
+			self visit: aPWBASTExpressionAction expressionAction ]
+]

@@ -48,8 +48,12 @@ PWBQueryLimitRuleViolation >> objectName [
 
 { #category : #accessing }
 PWBQueryLimitRuleViolation >> relativeLine [
-	^ self file contents
-		lineCorrespondingToIndex: self startPosition - self behavior sourceAnchor startPos
+	| contents |
+	contents := self file contents.
+	^ (contents lineNumberCorrespondingToIndex: self startPosition)
+		-
+			(contents
+				lineNumberCorrespondingToIndex: self behavior sourceAnchor startPos)
 ]
 
 { #category : #accessing }
