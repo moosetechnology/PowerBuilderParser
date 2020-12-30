@@ -52,7 +52,7 @@ PWBAbstractASTVisitorTest >> sourceExample [
 	self subclassResponsibility 
 ]
 
-{ #category : #accessing }
+{ #category : #running }
 PWBAbstractASTVisitorTest >> sourceText: anEntity [
 	^ self sourceExample
 		copyFrom: anEntity sourceAnchor startPos

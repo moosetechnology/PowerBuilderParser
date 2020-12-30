@@ -176,31 +176,32 @@ PWBPreprocessorTest >> testProssessingMapKeepAllPreprocessedFiles [
 	parentDirectory := 'pwbLibs/'.
 	subDirectoryA := 'pwbLibs/pwbLibA/'.
 	subDirectoryB := 'pwbLibs/pwbLibB/'.
-
 	self createDirectory: subDirectoryA.
 	self createDirectory: subDirectoryB.
 	self
 		createFileNamed: subDirectoryA , 'fileLibA.sru'
-		content: [ :stream | stream nextPutAll: 
-'private function integer aFunction ();
+		content: [ :stream | 
+			stream
+				nextPutAll:
+					'private function integer aFunction ();
   return 0
 end function
-'  ].
+' ].
 	self
 		createFileNamed: subDirectoryB , 'fileLibB.sru'
-		content: [ :stream | stream nextPutAll: 
-'private function integer otherFunction ();
+		content: [ :stream | 
+			stream
+				nextPutAll:
+					'private function integer otherFunction ();
   return 1
 end function
 ' ].
-
 	importer := PWBFamixImporter new.
-	importer importInOnePassFromFolder: parentDirectory.
-
+	importer
+		folder: parentDirectory;
+		run.
 	self assert: importer preprocessedMap size equals: 2.
-
-	parentDirectory asFileReference deleteAll.
-
+	parentDirectory asFileReference deleteAll
 ]
 
 { #category : #tests }

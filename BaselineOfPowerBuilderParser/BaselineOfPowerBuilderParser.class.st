@@ -23,12 +23,14 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 					with: [ spec requires: #('PetitParser2' 'PetitParserTooling') ];
 				package: 'PowerBuilder-Parser-AST';
 				package: 'Famix-PowerBuilder-Entities';
+			
 				package: 'PowerBuilder-Parser-Visitor'
 					with: [ "with: [ spec requires: #('Famix') ]"
 					spec
 						requires:
 							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ]	"
-					with: [ spec requires: #('Famix') ]" ]
+					with: [ spec requires: #('Famix') ]" ];
+					package: 'PowerBuilder-Parser-Violation'
 ]
 
 { #category : #baselines }

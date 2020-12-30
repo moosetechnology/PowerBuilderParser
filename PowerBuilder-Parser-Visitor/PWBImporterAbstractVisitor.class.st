@@ -47,10 +47,10 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 ]
 
 { #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess from: sRIdentifierWithNode [
+PWBImporterAbstractVisitor >> createAccessFrom: currentEntity to: sRIdentifierWithNode isWrite: aBoolean [
 	^ (currentEntity
 		createAccessTo: sRIdentifierWithNode entity
-		writing: writeAccess)
+		writing: aBoolean)
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				mooseModel: self model;
@@ -242,6 +242,11 @@ PWBImporterAbstractVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
 ]
 
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolveUnresolvedReferencesWithProgress [
+	self solver resolveUnresolvedReferencesWithProgress
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
 	| separator |
@@ -256,4 +261,12 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		at: file fullName
 		ifPresent: [ :found | anInteger + found ]
 		ifAbsent: [ anInteger ]
+]
+
+{ #category : #visiting }
+PWBImporterAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	^ aPWBASTExpressionAction expressionAction
+		ifNil: [ self visit: aPWBASTExpressionAction action ]
+		ifNotNil: [ self visit: aPWBASTExpressionAction action.
+			self visit: aPWBASTExpressionAction expressionAction ]
 ]

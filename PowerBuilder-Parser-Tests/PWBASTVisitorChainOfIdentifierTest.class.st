@@ -86,7 +86,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'uo_var_integer' ]
-		ifNone: [ self fail ].
+		ifNone: [self fail].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
 	self assert: accVar variable attributeType name equals: 'integer'.
 	self assert: accVar variable parentType name equals: 'test_uo'
@@ -98,11 +98,11 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
 		detect: [ :access | access variable name = 'uo_var_integer' ]
-		ifNone: [ self fail ].
+		ifNone: [self fail].
 	self assert: (self sourceText: accVar) equals: 'this.my_uo.uo_var_integer'.
 	accMy_uo := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ]
-		ifNone: [ self fail ].
+		ifNone: [self fail].
 		"Because my_uo is not write so it not in an assignation statement"
 	self assert: (self sourceText: accMy_uo) equals: '.my_uo'
 ]
@@ -112,11 +112,11 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	| access |
 	access := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ]
-		ifNone: [ self fail ].
+		ifNone: [self fail].
 	self deny: access isWrite.
 	access := model allAccesses
 		detect: [ :acc | acc variable name = 'uo_var_integer' ]
-		ifNone: [ self fail ].
+		ifNone: [self fail].
 	self assert: access isWrite
 ]
 
@@ -125,8 +125,9 @@ PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect
 	| returnValues |
 	returnValues := (model allModelMethods
 		detect: [ :uf | uf name = 'aFunction' ]
-		ifNone: [ self fail ]) returns
-		collect: #returnValue.
+		ifNone: [self fail])
+		returns
+			collect: #returnValue.
 	self
 		assertCollection: returnValues
 		hasSameElements: {'this.my_uo.myFunc(5,"allo")' . 'this.my_uo.myFunc()'}

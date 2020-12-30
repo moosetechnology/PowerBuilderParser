@@ -186,7 +186,8 @@ PWBASTVisitorTest >> testParserReturnConstant [
 	self
 		assert: (returns
 			detect: [ :r | r returnValue endsWith: '1' ]
-			ifNone: [self fail]) returnValue
+			ifNone: [self fail])
+			returnValue
 		equals: '-1'
 ]
 
@@ -199,7 +200,8 @@ PWBASTVisitorTest >> testParserReturnVariable [
 	self
 		assert: (returns
 			detect: [ :r | r returnValue beginsWith: 'LL' ]
-			ifNone: [self fail]) returnValue
+			ifNone: [self fail])
+			returnValue
 		equals: 'LL_RETURN'
 ]
 
