@@ -69,7 +69,7 @@ PWBFamixImporter class >> updateData: aBuilder [
 { #category : #running }
 PWBFamixImporter >> basicRun [
 	super basicRun.
-	visitor resolveUnresolvedReferences.
+	visitor resolveUnresolvedReferencesWithProgress.
 	^ self targetModel
 ]
 

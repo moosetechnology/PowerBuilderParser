@@ -221,6 +221,11 @@ PWBImporterAbstractVisitor >> resolveUnresolvedReferences [
 	self solver resolveUnresolvedReferences
 ]
 
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolveUnresolvedReferencesWithProgress [
+	self solver resolveUnresolvedReferencesWithProgress
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
 	| separator |
