@@ -401,6 +401,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTForwardDeclaration: aPWBASTForwardDeclaration [
+	multiple ifTrue: [
+		^(self createAuxiliaryVisitor: PWBTypeDeclarationVisitor) visit: aPWBASTForwardDeclaration ].
+
+	^super visitPWBASTForwardDeclaration: aPWBASTForwardDeclaration
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionArguments: aPWBASTFunctionArguments [
 	super visitPWBASTFunctionArguments: aPWBASTFunctionArguments.
 	^ SRArgumentsOnlyNumber

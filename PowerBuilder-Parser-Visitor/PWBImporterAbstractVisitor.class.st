@@ -7,7 +7,8 @@ Class {
 		'model',
 		'file',
 		'importingContext',
-		'preprocessingMap'
+		'preprocessingMap',
+		'intermediateEntities'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -188,7 +189,8 @@ PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 { #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
-	self initialiseSolver
+	self initialiseSolver.
+	intermediateEntities := Dictionary new
 ]
 
 { #category : #helpers }
@@ -261,6 +263,22 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		at: file fullName
 		ifPresent: [ :found | anInteger + found ]
 		ifAbsent: [ anInteger ]
+]
+
+{ #category : #scope }
+PWBImporterAbstractVisitor >> useCurrentEntity: anEntity during: aBlock [
+	self useScope: (SREntityScope currentEntity: anEntity) during: aBlock.
+	"backward compatibility with old return"
+	^anEntity
+]
+
+{ #category : #scope }
+PWBImporterAbstractVisitor >> useEntityNamed: aName ofType: aType during: aBlock [
+	^ self
+		useCurrentEntity:
+			((self model entityStorage selectAllWithType: aType)
+				detect: [ :entity | entity name = aName ])
+		during: aBlock
 ]
 
 { #category : #visiting }

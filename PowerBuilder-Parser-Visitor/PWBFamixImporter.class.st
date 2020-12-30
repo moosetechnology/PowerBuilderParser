@@ -15,6 +15,9 @@ It:
 Class {
 	#name : #PWBFamixImporter,
 	#superclass : #PWBSimpleImporter,
+	#instVars : [
+		'multipleVisitors'
+	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
@@ -74,6 +77,11 @@ PWBFamixImporter >> basicRun [
 ]
 
 { #category : #accessing }
+PWBFamixImporter >> beMultiple [
+	multipleVisitors := true
+]
+
+{ #category : #accessing }
 PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
@@ -82,7 +90,8 @@ PWBFamixImporter >> defaultImportingContext [
 PWBFamixImporter >> initialize [
   super initialize.
   targetModel := FamixPWBModel new.
-  importingContext := self defaultImportingContext
+  importingContext := self defaultImportingContext.
+	multipleVisitors := false
 ]
 
 { #category : #private }
@@ -91,4 +100,5 @@ PWBFamixImporter >> setUp [
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor initContextStackFromModel: self targetModel.
 	visitor importingContext: self importingContext.
+	multipleVisitors ifTrue: [ visitor beMultiple ]
 ]
