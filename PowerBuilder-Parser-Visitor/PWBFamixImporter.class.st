@@ -66,7 +66,7 @@ PWBFamixImporter class >> updateData: aBuilder [
 						install ] ]
 ]
 
-{ #category : #running }
+{ #category : #private }
 PWBFamixImporter >> basicRun [
 	super basicRun.
 	visitor resolveUnresolvedReferencesWithProgress.
@@ -85,21 +85,16 @@ PWBFamixImporter >> description [
 
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 PWBFamixImporter >> initialize [
   super initialize.
   targetModel := FamixPWBModel new.
   importingContext := self defaultImportingContext
 ]
 
-{ #category : #accessing }
-PWBFamixImporter >> preprocessedMap [
-	^ preprocessedMap
-]
-
-{ #category : #running }
+{ #category : #private }
 PWBFamixImporter >> setUp [
-	preprocessedMap := Dictionary new.
+	super setUp.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor initContextStackFromModel: self targetModel.
 	visitor importingContext: self importingContext.

@@ -54,7 +54,7 @@ PWBSimpleImporter >> cleanFilesFromFolder: aFolder toTemp: anotherFolder [
 				put: parser characterIgnored ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #accessing }
 PWBSimpleImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
 	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
@@ -98,14 +98,17 @@ PWBSimpleImporter >> length [
 	^folder directories size
 ]
 
-{ #category : #running }
-PWBSimpleImporter >> setUp [
-	preprocessedMap := Dictionary new.
-	visitor := PWBViolationDetectVisitor  new.
-
+{ #category : #accessing }
+PWBSimpleImporter >> preprocessedMap [
+	^ preprocessedMap
 ]
 
-{ #category : #running }
+{ #category : #private }
+PWBSimpleImporter >> setUp [
+	preprocessedMap := Dictionary new.
+]
+
+{ #category : #private }
 PWBSimpleImporter >> tearDown [
 	folder asFileReference allDirectories
 		select: [ :dir | dir basename = 'cleaned' ]
