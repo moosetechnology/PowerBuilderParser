@@ -66,7 +66,7 @@ PWBFamixImporter class >> updateData: aBuilder [
 						install ] ]
 ]
 
-{ #category : #running }
+{ #category : #private }
 PWBFamixImporter >> basicRun [
 	super basicRun.
 	visitor resolveUnresolvedReferencesWithProgress.
@@ -78,28 +78,16 @@ PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
 
-{ #category : #accessing }
-PWBFamixImporter >> description [ 
-	^('Importing <1p> directories from ' , self folder) 
-		expandMacrosWith: self length
-
-]
-
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 PWBFamixImporter >> initialize [
   super initialize.
   targetModel := FamixPWBModel new.
   importingContext := self defaultImportingContext
 ]
 
-{ #category : #accessing }
-PWBFamixImporter >> preprocessedMap [
-	^ preprocessedMap
-]
-
-{ #category : #running }
+{ #category : #private }
 PWBFamixImporter >> setUp [
-	preprocessedMap := Dictionary new.
+	super setUp.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
 	visitor model: self targetModel.
 	visitor importingContext: self importingContext.

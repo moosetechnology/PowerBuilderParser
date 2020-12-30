@@ -1,16 +1,20 @@
 Class {
 	#name : #ViolationRunner,
-	#superclass : #Object,
+	#superclass : #PWBSimpleImporter,
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
 { #category : #running }
-ViolationRunner >> runOn: aFolder [
-	| violationsFile violations |
-	violations := (PWBSimpleImporter importFromFolder: aFolder)
-		violations.
-	violationsFile := aFolder asFileReference / 'violations.csv'.
-	violationsFile
+ViolationRunner >> basicRun [
+	| violations |
+	violations := super basicRun violations.
+	self exportToCSV: violations.
+	^visitor
+]
+
+{ #category : #running }
+ViolationRunner >> exportToCSV: violations [
+	(folder asFileReference / 'violations.csv')
 		writeStreamDo: [ :stream | 
 			stream
 				<< 'objet,behavior,line,value';
@@ -26,4 +30,10 @@ ViolationRunner >> runOn: aFolder [
 						nextPut: $,;
 						<< violation value;
 						cr ] ]
+]
+
+{ #category : #initialization }
+ViolationRunner >> setUp [ 
+	super setUp.
+	self visitor: PWBViolationDetectVisitor new
 ]
