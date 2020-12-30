@@ -207,6 +207,11 @@ FamixPWBBehavioral >> isBehavioural [
 	^ true
 ]
 
+{ #category : #testing }
+FamixPWBBehavioral >> isGlobal [
+	^ self accessModifier asLowercase = 'global'
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> isNotPWBDead [
 	^ self isPWBDead not

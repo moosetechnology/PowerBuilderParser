@@ -20,7 +20,12 @@ FamixPWBFunction class >> annotation [
 
 { #category : #testing }
 FamixPWBFunction >> isFunction [
-	^ true
+	^ self isGlobal not
+]
+
+{ #category : #testing }
+FamixPWBFunction >> isGlobal [
+	^ self accessModifier asLowercase = 'global'
 ]
 
 { #category : #accessing }
