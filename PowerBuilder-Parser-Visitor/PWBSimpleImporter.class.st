@@ -55,6 +55,13 @@ PWBSimpleImporter >> cleanFilesFromFolder: aFolder toTemp: anotherFolder [
 ]
 
 { #category : #accessing }
+PWBSimpleImporter >> description [ 
+	^('Importing <1p> directories from ' , self folder) 
+		expandMacrosWith: self length
+
+]
+
+{ #category : #accessing }
 PWBSimpleImporter >> fileToSkipForNow [
 	self flag: 'To be remove'.
 	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
@@ -106,6 +113,7 @@ PWBSimpleImporter >> preprocessedMap [
 { #category : #private }
 PWBSimpleImporter >> setUp [
 	preprocessedMap := Dictionary new.
+
 ]
 
 { #category : #private }
@@ -113,4 +121,9 @@ PWBSimpleImporter >> tearDown [
 	folder asFileReference allDirectories
 		select: [ :dir | dir basename = 'cleaned' ]
 		thenDo: #deleteAll
+]
+
+{ #category : #accessing }
+PWBSimpleImporter >> visitor: aVisitor [
+	visitor := aVisitor
 ]

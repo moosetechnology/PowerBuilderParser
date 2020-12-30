@@ -78,13 +78,6 @@ PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
 
-{ #category : #accessing }
-PWBFamixImporter >> description [ 
-	^('Importing <1p> directories from ' , self folder) 
-		expandMacrosWith: self length
-
-]
-
 { #category : #initialization }
 PWBFamixImporter >> initialize [
   super initialize.
