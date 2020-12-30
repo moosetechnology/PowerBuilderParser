@@ -1,8 +1,9 @@
 Class {
 	#name : #PWBCodeRewriteVisitorTest,
-	#superclass : #PWBASTVisitorTest,
+	#superclass : #TestCase,
 	#instVars : [
-		'parser'
+		'parser',
+		'visitor'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
