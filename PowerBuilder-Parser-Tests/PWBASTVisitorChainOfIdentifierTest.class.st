@@ -6,114 +6,129 @@ Class {
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> setupModel [
+	| testuo otheruo |
 	super setupModel.
-	(FamixPWBInstanceVariable named: 'var')
-		attributeType: (FamixPWBBasicType named: 'string');
-		parentType: (model entityNamed: 'test_uo');
-		mooseModel: model.
-	(FamixPWBInstanceVariable named: 'var1')
-		attributeType: (FamixPWBBasicType named: 'integer');
-		parentType: (model entityNamed: 'test_uo');
-		mooseModel: model.
-	(FamixPWBFunction named: 'myFunc')
-		returnType: (FamixPWBFunctionReturn new type: (model entityNamed: 'test_uo'));
-		parentType: (model entityNamed: 'test_uo');
-		mooseModel: model.
-	(FamixPWBUserObject named: 'test1_uo') mooseModel: model.
-	(FamixPWBInstanceVariable named: 'att1')
-		attributeType: (model entityNamed: 'test_uo');
-		parentType: (model entityNamed: 'test1_uo');
-		mooseModel: model
-]
 
-{ #category : #running }
-PWBASTVisitorChainOfIdentifierTest >> sourceCode: accVar [
-	| sourceText |
-	sourceText := self sourceExample
-		copyFrom: accVar sourceAnchor startPos
-		to: accVar sourceAnchor endPos.
-	^ sourceText
+	testuo := model entityNamed: 'test_uo'.
+
+	otheruo := (FamixPWBUserObject named: 'other_uo')
+		mooseModel: model ;
+		yourself.
+
+	(FamixPWBFunction named: 'myFunc')
+		returnType: testuo ;
+		parentType: testuo ;
+		mooseModel: model.
+	(FamixPWBInstanceVariable named: 'uo_var_integer')
+		attributeType: (FamixPWBBasicType named: 'integer') ;
+		parentType: testuo ;
+		mooseModel: model.
+
+	"we need to be able to use:
+	 <test_uo variable>.other_att.uo_var_string"
+	(FamixPWBInstanceVariable named: 'other_att')
+		attributeType: otheruo ;
+		parentType: testuo ;
+		mooseModel: model.
+	(FamixPWBInstanceVariable named: 'uo_var_string')
+		attributeType: (FamixPWBBasicType named: 'string') ;
+		parentType: otheruo ;
+		mooseModel: model.
+
 ]
 
 { #category : #running }
 PWBASTVisitorChainOfIdentifierTest >> sourceExample [
-	^ 'forward
-   global type testFile from userobject
-   end type
-   type tp_val from userobject end type
-    type attTest1_uo from test1_uo end type
-	end forward
+	^ 
+'forward
+  global type testFile from userobject
+  end type
+  type local_uo from other_uo within testFile
+  end type
+end forward
 
-	type variables
-  test_uo my_uo;
+global type testFile from userobject
+  local_uo local_uo
+end type
+global testFile testFile
+
+type variables
+  test_uo my_uo
 end variables
 
 private function integer aFunction ();
-  this.attTest1_uo.att1.var1 = 3
   this.my_uo
-  this.my_uo.var = 5
-  this.my_uo.myFunc()
+  this.my_uo.uo_var_integer = 5
+  this.local_uo.other_att.uo_var_string = "blah"
   return this.my_uo.myFunc()
   return this.my_uo.myFunc(5,"allo")
 end function'
 ]
 
-{ #category : #running }
+{ #category : #tests }
 PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
 	| accVar |
+	
 	self skip.
-	self assert: model allAccesses size equals: 3.
-	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var1' ].
-	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable name equals: 'var1'.
-	self assert: accVar variable attributeType name equals: 'integer'.
-	self assert: accVar variable parentType name equals: 'test_uo'
-]
 
-{ #category : #running }
-PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
-	| accVar |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var' ].
+		detect: [ :access | access variable name = 'uo_var_string' ]
+		ifNone: [ self fail ].
 	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable name equals: 'var'.
 	self assert: accVar variable attributeType name equals: 'string'.
 	self assert: accVar variable parentType name equals: 'test_uo'
 ]
 
-{ #category : #running }
+{ #category : #tests }
+PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
+	| accVar |
+	self assert: model allAccesses size equals: 3.
+	accVar := model allAccesses
+		detect: [ :access | access variable name = 'uo_var_integer' ]
+		ifNone: [self fail].
+	self assert: accVar variable class equals: FamixPWBInstanceVariable.
+	self assert: accVar variable attributeType name equals: 'integer'.
+	self assert: accVar variable parentType name equals: 'test_uo'
+]
+
+{ #category : #tests }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	| accVar accMy_uo |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
-		detect: [ :access | access variable name = 'var' ].
-	self assert: (self sourceCode: accVar) equals: 'this.my_uo.var'.
+		detect: [ :access | access variable name = 'uo_var_integer' ]
+		ifNone: [self fail].
+	self assert: (self sourceText: accVar) equals: 'this.my_uo.uo_var_integer'.
 	accMy_uo := model allAccesses
-		detect: [ :acc | acc variable name = 'my_uo' ].
+		detect: [ :acc | acc variable name = 'my_uo' ]
+		ifNone: [self fail].
 		"Because my_uo is not write so it not in an assignation statement"
-	self assert: (self sourceCode: accMy_uo) equals: '.my_uo'
+	self assert: (self sourceText: accMy_uo) equals: '.my_uo'
 ]
 
-{ #category : #running }
+{ #category : #tests }
 PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	| access |
 	access := model allAccesses
-		detect: [ :acc | acc variable name = 'my_uo' ].
+		detect: [ :acc | acc variable name = 'my_uo' ]
+		ifNone: [self fail].
 	self deny: access isWrite.
 	access := model allAccesses
-		detect: [ :acc | acc variable name = 'var' ].
+		detect: [ :acc | acc variable name = 'uo_var_integer' ]
+		ifNone: [self fail].
 	self assert: access isWrite
 ]
 
-{ #category : #running }
+{ #category : #tests }
 PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
 	| returnValues |
 	returnValues := (model allModelMethods
-		detect: [ :uf | uf name = 'aFunction' ]) returns
-		collect: #returnValue.
+		detect: [ :uf | uf name = 'aFunction' ]
+		ifNone: [self fail])
+		returns
+			collect: #returnValue.
 	self
 		assertCollection: returnValues
-		hasSameElements: {'my_uo.myFunc(5,"allo")' . 'my_uo.myFunc()'}
+		hasSameElements: {'this.my_uo.myFunc(5,"allo")' . 'this.my_uo.myFunc()'}
 ]

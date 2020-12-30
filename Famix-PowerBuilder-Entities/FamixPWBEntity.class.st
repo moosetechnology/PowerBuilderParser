@@ -53,11 +53,6 @@ FamixPWBEntity >> duplicationRate [
 				, self sourceText lineCount asString ]
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBEntity >> getBusinessRuleFunctions [
-	^ self mooseModel getBusinessRuleFunctions at: self ifAbsent: {}
-]
-
 { #category : #testing }
 FamixPWBEntity >> isAccess [
 
@@ -124,7 +119,7 @@ FamixPWBEntity >> isReference [
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 FamixPWBEntity >> isResolvable [
 	^ false
 ]

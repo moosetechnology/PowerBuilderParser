@@ -46,11 +46,11 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 	^ created
 ]
 
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess from: sRIdentifierWithNode [
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createAccessFrom: currentEntity to: sRIdentifierWithNode isWrite: aBoolean [
 	^ (currentEntity
 		createAccessTo: sRIdentifierWithNode entity
-		writing: writeAccess)
+		writing: aBoolean)
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				mooseModel: self model;
@@ -76,7 +76,7 @@ PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	^ created
 ]
 
-{ #category : #visiting }
+{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 	^ aCollection
 		collect: [ :arg | 
@@ -97,7 +97,35 @@ PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 				ifTrue: [ param parameterType addTypedVariable: param ] ]
 ]
 
-{ #category : #helpers }
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
+	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
+]
+
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
+	| sRIdentifierWithNode |
+	sRIdentifierWithNode := SRTypeIdentifierWithNode
+		identifier: (self visit: aPWBASTExpressionAction action)
+		expectedKind:
+			{FamixPWBVariable.
+			FamixPWBAttribute.
+			FamixPWBParameter.
+			FamixPWBGlobalVariable.
+			FamixPWBSharedVariable.
+			FamixPWBInstanceVariable.
+			FamixPWBLocalVariable}
+		node: aPWBASTExpressionAction.
+	aPWBASTExpressionAction expressionAction
+		ifNotNil: [ :subExprAction | 
+			subExprAction isAttributeAccess
+				ifTrue:
+					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
+				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
+	^ sRIdentifierWithNode
+]
+
+{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createStub: aClass [
 	| entity |
 	self flag: #TODO.	"Put the created entity in a stub module"
@@ -105,6 +133,16 @@ PWBImporterAbstractVisitor >> createStub: aClass [
 		mooseModel: self model;
 		yourself.
 	^ entity
+]
+
+{ #category : #'entities creation' }
+PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
+	^ (model entityStorage selectAllWithType: aType)
+		detect: [ :entity | entity name = aName ]
+		ifNone: [ aType new
+				name: aName;
+				mooseModel: model;
+				yourself ]
 ]
 
 { #category : #accessing }
@@ -127,7 +165,7 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 	importingContext := anObject
 ]
 
-{ #category : #'entities creation' }
+{ #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver
@@ -159,7 +197,7 @@ PWBImporterAbstractVisitor >> model: anObject [
 	self pushAsScopeAll: FamixPWBUserObject ofModel: model
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> preprocessedFile: aFile [
 	self
 		file:
@@ -178,7 +216,17 @@ PWBImporterAbstractVisitor >> resolve: identifiers [
 	^ self solver resolve: identifiers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolveUnresolvedReferences [
+	self solver resolveUnresolvedReferences
+]
+
+{ #category : #resolution }
+PWBImporterAbstractVisitor >> resolveUnresolvedReferencesWithProgress [
+	self solver resolveUnresolvedReferencesWithProgress
+]
+
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedFile [
 	| separator |
 	separator := Smalltalk os filePathSeparator.
@@ -186,7 +234,7 @@ PWBImporterAbstractVisitor >> unpreprocessedFile [
 		asFileReference
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 	^ preprocessingMap
 		at: file fullName
@@ -194,66 +242,10 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 		ifAbsent: [ anInteger ]
 ]
 
-{ #category : #helpers }
-PWBImporterAbstractVisitor >> visitAll: childrenNodes [
-	^ childrenNodes
-		ifNotNil: [ childrenNodes
-				collect: [ :aChildNode | aChildNode acceptVisitor: self ] ]
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> visitPWBASTEventType: aPWBASTEventType [
-	^ self visit: aPWBASTEventType eventType
-]
-
 { #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
-	self visit: aPWBASTFunctionDefinition functionSignature.
-	self visit: aPWBASTFunctionDefinition statements.
-	^ self currentEntity
-]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
-	^ self visit: aPWBASTSpecialVariable this
-]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
-	self visit: aPWBASTSubroutineDefinition subroutineSignature.
-	self visit: aPWBASTSubroutineDefinition statements.
-	^ self currentEntity
-]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTThis: anPWBASTThis [
-	^ self
-		resolvable:
-			(SRThisWithNode
-				node: anPWBASTThis
-				validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
-]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTType: aPWBASTType [
-	^ self visit: aPWBASTType type
-]
-
-{ #category : #visiting }
-PWBImporterAbstractVisitor >> visitPWBASTVariable: aPWBASTVariable [
-	| resolvable arrayWithSize |
-	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
-	resolvable := SRIdentifierWithNode
-		identifier: (self visit: aPWBASTVariable identifier)
-		expectedKind:
-			{FamixPWBVariable.
-			FamixPWBAttribute.
-			FamixPWBParameter.
-			FamixPWBGlobalVariable.
-			FamixPWBSharedVariable.
-			FamixPWBInstanceVariable.
-			FamixPWBLocalVariable}
-		node: aPWBASTVariable identifier.
-	resolvable arrayDefinition: arrayWithSize.
-	^ self resolvable: resolvable
+PWBImporterAbstractVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+	^ aPWBASTExpressionAction expressionAction
+		ifNil: [ self visit: aPWBASTExpressionAction action ]
+		ifNotNil: [ self visit: aPWBASTExpressionAction action.
+			self visit: aPWBASTExpressionAction expressionAction ]
 ]

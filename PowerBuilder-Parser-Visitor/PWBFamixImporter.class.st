@@ -1,10 +1,20 @@
+"
+A class to manage importation of PowerBuilder source code
+
+It:
+- creates a references solver
+- creates a model
+- creates an importing context
+- search for PowerBuilder files in a directory
+- preprocess PowerBuilder code to remove comments and join lines
+- parse the files to get at AST
+- visit the AST to populate the model
+- resolves names after parsing
+
+"
 Class {
 	#name : #PWBFamixImporter,
-	#superclass : #MooseAbstractImporter,
-	#instVars : [
-		'folder',
-		'preprocessedMap'
-	],
+	#superclass : #PWBSimpleImporter,
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
@@ -19,11 +29,6 @@ PWBFamixImporter class >> astTestGenerationScript [
 		generateAllTestsFor: PWBCommonParser
 		inPackage: 'PowerBuilder-Parser-Tests'
 		fromTestClass: PWBUserObjectGrammarTest
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter class >> createModelFor: aFile [
-	^ self new createModelFor: aFile
 ]
 
 { #category : #'as yet unclassified' }
@@ -46,11 +51,6 @@ PWBFamixImporter class >> grammarGenerationScripts [
 ]
 
 { #category : #'as yet unclassified' }
-PWBFamixImporter class >> importFromFolder: aFolder [
-	^ self new importInOnePassFromFolder: aFolder
-]
-
-{ #category : #'as yet unclassified' }
 PWBFamixImporter class >> updateData: aBuilder [
 	<worldMenu>
 	(aBuilder item: #CreatePWBModel)
@@ -66,149 +66,29 @@ PWBFamixImporter class >> updateData: aBuilder [
 						install ] ]
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> createCleanFilesFrom: aFolder into: anotherFolder [
-	anotherFolder ensureCreateDirectory.
-	"preprocessedMap := Dictionary new: aFolder visibleFiles size."
-	aFolder visibleFiles
-		do: [ :aFile | 
-			| parser outputFile stream |
-			outputFile := (anotherFolder / aFile basename) asFileReference.
-			outputFile ensureDelete.
-			stream := aFile readStream.
-			"stream encoder: ZnUTF16Encoder new."
-			parser := PWBPreprocessor new.
-			outputFile
-				writeStreamDo: [ :ws | ws nextPutAll: (parser parse: stream upToEnd) ].
-			preprocessedMap
-				at: outputFile fullName
-				put: parser characterIgnored ]
+{ #category : #private }
+PWBFamixImporter >> basicRun [
+	super basicRun.
+	visitor resolveUnresolvedReferencesWithProgress.
+	^ self targetModel
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> createModelFor: aFile [
-	| library visitor model parser cleanFileContents result |
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
-	visitor importingContext: self importingContext.
-	parser := PWBPreprocessor new.
-	model := FamixPWBModel new.
-	library := FamixPWBLibrary new
-		name: '';
-		mooseModel: model;
-		yourself.
-	cleanFileContents := parser parse: aFile contents.
-	preprocessedMap := OrderedDictionary new.
-	preprocessedMap at: aFile fullName put: parser characterIgnored.
-	visitor
-		file: aFile;
-		preprocessingMap: self preprocessedMap;
-		model: model.
-	visitor currentLibrary: library.
-	result := PWBAbstractGrammar
-		obtainASTFrom: cleanFileContents
-		fileExtension: aFile extension.
-	result
-		fileName: aFile base;
-		fileExtension: aFile extension.
-	result acceptVisitor: visitor.
-	visitor resolveUnresolvedReferences.
-	^ model
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PWBFamixImporter >> defaultImportingContext [
 	^ FamixPWBImportingContext new importMaximum
 ]
 
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> fileToSkipForNow [
-	self flag: 'To be remove'.
-	^ #("'uo_correpondant_pop.sru' 'u_web_browser.sru' 'w_affichage_site_externe.srw' 'dw_org.srd'" 'cwm.sra')
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> fillModelUsing: aLibrary visitor: visitor fromFolder: aFolder [
-	| debugObjects |
-	debugObjects := OrderedCollection new.
-	(aFolder files
-		reject: [ :aFile | 
-			(#(pbg srj DS_Store) includes: aFile extension)
-				or: (self fileToSkipForNow includes: aFile basename) ])
-		do: [ :aFile | 
-			| result |
-			aFile size = 0
-				ifFalse: [ result := PWBAbstractGrammar obtainASTFromFile: aFile.
-					result isPetit2Failure
-						ifTrue: [ debugObjects add: (result debugObject file: aFile) ]
-						ifFalse: [ visitor
-								file: aFile;
-								currentLibrary: aLibrary.
-							result acceptVisitor: visitor ] ] ]
-		displayingProgress: [ :aFile | aFile asString ].
-	^ debugObjects
-]
-
-{ #category : #accessing }
-PWBFamixImporter >> folder [
-	^ folder
-]
-
-{ #category : #accessing }
-PWBFamixImporter >> folder: anObject [
-	folder := anObject asFileReference.
-	self targetModel rootFolder: folder.
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> importInOnePass [
-	| library visitor |
-	preprocessedMap := Dictionary new.
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
-	visitor model: self targetModel.
-	visitor importingContext: self importingContext.
-	folder directories
-		do: [ :dir | 
-			library := FamixPWBLibrary new.
-			library
-				name: dir basename;
-				mooseModel: self targetModel.
-			self createCleanFilesFrom: dir into: dir / 'cleaned'.
-			visitor preprocessingMap: preprocessedMap.
-			(self
-				fillModelUsing: library
-				visitor: visitor
-				fromFolder: dir / 'cleaned')
-				ifNotEmpty: [ :failures | 
-					failures inspect.
-					Halt now ] ]
-		displayingProgress: [ :dir | dir asString ].
-	visitor resolveUnresolvedReferences.
-	^ self targetModel
-]
-
-{ #category : #'as yet unclassified' }
-PWBFamixImporter >> importInOnePassFromFolder: aFolder [
-	self folder: aFolder.
-	self importInOnePass.
-	self removeCleanFilesFoldersFrom: aFolder.
-	^ self targetModel
-]
-
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 PWBFamixImporter >> initialize [
   super initialize.
   targetModel := FamixPWBModel new.
   importingContext := self defaultImportingContext
 ]
 
-{ #category : #accessing }
-PWBFamixImporter >> preprocessedMap [
-	^ preprocessedMap
-]
-
-{ #category : #removing }
-PWBFamixImporter >> removeCleanFilesFoldersFrom: aFolder [
-	aFolder asFileReference allDirectories
-		select: [ :dir | dir basename = 'cleaned' ]
-		thenDo: #deleteAll
+{ #category : #private }
+PWBFamixImporter >> setUp [
+	super setUp.
+	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
+	visitor model: self targetModel.
+	visitor importingContext: self importingContext.
 ]

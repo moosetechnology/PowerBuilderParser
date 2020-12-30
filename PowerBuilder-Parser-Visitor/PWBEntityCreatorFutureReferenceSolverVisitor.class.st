@@ -35,9 +35,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 				foundAction: [ :identifier :currentEntity | 
 					(identifier entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [ self
-								createAccessTo: currentEntity
-								writing: writeAccess
-								from: identifier ] ];
+								createAccessFrom: currentEntity
+								to: identifier
+								isWrite: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -45,47 +45,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 ]
 
-{ #category : #'entities creation' }
-PWBEntityCreatorFutureReferenceSolverVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
-	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
-]
-
-{ #category : #'entities creation' }
-PWBEntityCreatorFutureReferenceSolverVisitor >> createSRIdentifier: aPWBASTExpressionAction [
-	| sRIdentifierWithNode |
-	sRIdentifierWithNode := SRTypeIdentifierWithNode
-		identifier: (self visit: aPWBASTExpressionAction action)
-		expectedKind:
-			{FamixPWBVariable.
-			FamixPWBAttribute.
-			FamixPWBParameter.
-			FamixPWBGlobalVariable.
-			FamixPWBSharedVariable.
-			FamixPWBInstanceVariable.
-			FamixPWBLocalVariable}
-		node: aPWBASTExpressionAction.
-	aPWBASTExpressionAction expressionAction
-		ifNotNil: [ :subExprAction | 
-			subExprAction isAttributeAccess
-				ifTrue:
-					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
-				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
-	^ sRIdentifierWithNode
-]
-
 { #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> currentLibrary: aFamixPWBLibrary [
 	currentLibrary := aFamixPWBLibrary
-]
-
-{ #category : #'entities creation' }
-PWBEntityCreatorFutureReferenceSolverVisitor >> ensureEntityWithType: aType named: aName [
-	^ (model entityStorage selectAllWithType: aType)
-		detect: [ :entity | entity name = aName ]
-		ifNone: [ aType new
-				name: aName;
-				mooseModel: model;
-				yourself ]
 ]
 
 { #category : #'entities creation' }
@@ -95,21 +57,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	expressionIsLeftHandSide := false
 ]
 
-{ #category : #testing }
-PWBEntityCreatorFutureReferenceSolverVisitor >> isResolvable [
-	^ false
-]
-
-{ #category : #resolution }
-PWBEntityCreatorFutureReferenceSolverVisitor >> resolveUnresolvedReferences [
-	self solver resolveUnresolvedReferences
-]
-
 { #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 	typeDeclarationType
 		ifNil: [ typeDeclarationType := OrderedDictionary new ].
 	^ typeDeclarationType
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
+	^childrenNodes
+		ifNotNil: [ childrenNodes collect: [ :aChildNode | self visit: aChildNode ] ]
 ]
 
 { #category : #visiting }
@@ -125,9 +83,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 				foundAction: [ :identifier :currentEntity | 
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [ self
-								createAccessTo: currentEntity
-								writing: writeAccess
-								from: sRIdentifierWithNode ] ];
+								createAccessFrom: currentEntity
+								to: sRIdentifierWithNode
+								isWrite: writeAccess ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					currentEntity
 						createStubValueHolderNamed: identifier representationString ].
@@ -137,11 +95,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
+	self flag: 'should not override visit methods just to add return ?'.
 	^ self visit: aPWBASTAccessOrType accessOrType
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgument [
+	self flag: 'should not override visit methods just to add return ?'.
 	self visit: aPWBASTArgument argumentOption.
 	self visit: aPWBASTArgument type.
 	self visit: aPWBASTArgument arrayWithSize.
@@ -150,6 +110,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgu
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
+	self flag: 'should not override visit methods just to add return ?'.
 	^ aPWBASTArguments arguments
 		ifNil: [ nil ]
 		ifNotNil: [ self visitAll: aPWBASTArguments arguments ]
@@ -157,12 +118,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArg
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
+	self flag: 'should not override visit methods just to add return ?'.
 	^ self visitAll: aPWBASTArrayWithSize expressions
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	| accessOrType variable |
+	self flag: 'should not override visit methods just to add return ?'.
 	accessOrType := self visit: aPWBASTAssignationStatement accessOrType.
 	expressionIsLeftHandSide := true.
 	variable := self visit: aPWBASTAssignationStatement expressionAction.
@@ -174,6 +137,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
+	self flag: 'should not override visit methods just to add return ?'.
 	self visit: aPWBASTAttribute accessModifier.
 	self visit: aPWBASTAttribute descriptor.
 	^ self visit: aPWBASTAttribute variableDeclarations
@@ -181,12 +145,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAtt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
+	self flag: 'should not override visit methods just to add return ?'.
 	self visit: aPWBASTAttributeAccess arrayInformation.
 	^ self visit: aPWBASTAttributeAccess uncheckedIdentifier
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
+	self flag: 'should not override visit methods just to add return ?'.
 	self
 		visitAll:
 			(aPWBASTAttributes attributes
@@ -203,8 +169,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: anPWBASTBasicType [
+	self flag: 'should not override visit methods just to add return ?'.
 	^ self
-		ensureEntityWithType: FamixPWBBasicType
+		ensureFamixEntity: FamixPWBBasicType
 		named: anPWBASTBasicType basicType
 ]
 
@@ -235,7 +202,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				target: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
 			self
-				ensureEntityWithType: FamixPWBCustomType
+				ensureFamixEntity: FamixPWBCustomType
 				named: (self visit: aPWBASTCustomType identifier) ].
 	^ self resolve: typeToResolve
 ]
@@ -310,6 +277,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTElseIf: aPWBASTElseIf
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
+	self flag: 'missing visit to returnType'.
 	self
 		useCurrentEntity: (self create: FamixPWBEvent from: aPWBASTEventDeclaration)
 		during: [ self visit: aPWBASTEventDeclaration eventReferenceName.
@@ -377,6 +345,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPost
 		stopPosition: aPWBASTEventTriggeringOrPosting stopPosition;
 		yourself.
 	self visitPWBASTEventInvocation: eventInvocation
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventType: aPWBASTEventType [
+	self flag: 'should not override visit methods just to add return ?'.
+	^ self visit: aPWBASTEventType eventType
 ]
 
 { #category : #visiting }
@@ -561,7 +535,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPW
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 	^ self
-		ensureEntityWithType: FamixPWBBasicType
+		ensureFamixEntity: FamixPWBBasicType
 		named:
 			(anPWBASTParametrizedType parametrizedType
 				copyWithRegex: '{.*}'
@@ -623,6 +597,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWB
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
+	self flag: 'should not override visit methods just to add return ?'.
+	^ self visit: aPWBASTSpecialVariable this
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTStatement: aPWBASTStatement [
 	^ self visit: aPWBASTStatement statement
 ]
@@ -663,6 +643,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 ]
 
 { #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: anPWBASTThis [
+	^ self
+		resolvable:
+			(SRThisWithNode
+				node: anPWBASTThis
+				validationAsTypeBlock: [ :entity | entity class inheritsFrom: FamixPWBmajorObject ])
+]
+
+{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
 	| trigger |
 	trigger := self
@@ -673,6 +662,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 	self
 		useCurrentEntity: trigger
 		during: [ self visit: aPWBASTTriggerDefinition statements ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
+	self flag: 'should not override visit methods just to add return ?'.
+	^ self visit: aPWBASTType type
 ]
 
 { #category : #visiting }
@@ -708,6 +703,25 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 			var attributeType: type.
 			type isResolvable
 				ifTrue: [type addTypedVariable: var ] ]
+]
+
+{ #category : #visiting }
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVariable [
+	| resolvable arrayWithSize |
+	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
+	resolvable := SRIdentifierWithNode
+		identifier: (self visit: aPWBASTVariable identifier)
+		expectedKind:
+			{FamixPWBVariable.
+			FamixPWBAttribute.
+			FamixPWBParameter.
+			FamixPWBGlobalVariable.
+			FamixPWBSharedVariable.
+			FamixPWBInstanceVariable.
+			FamixPWBLocalVariable}
+		node: aPWBASTVariable identifier.
+	resolvable arrayDefinition: arrayWithSize.
+	^ self resolvable: resolvable
 ]
 
 { #category : #visiting }
