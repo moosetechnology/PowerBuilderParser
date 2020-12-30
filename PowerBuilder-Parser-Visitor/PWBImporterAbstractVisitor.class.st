@@ -67,6 +67,7 @@ PWBImporterAbstractVisitor >> createAuxiliaryVisitor: aPWBVisitorClass [
 		importingContext: self importingContext ;
 		model: self model ;
 		preprocessingMap: self preprocessingMap ;
+		file: self file ;
 		yourself
 ]
 
