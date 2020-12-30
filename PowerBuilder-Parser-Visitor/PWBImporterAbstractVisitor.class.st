@@ -47,10 +47,10 @@ PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 ]
 
 { #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createAccessTo: currentEntity writing: writeAccess from: sRIdentifierWithNode [
+PWBImporterAbstractVisitor >> createAccessFrom: currentEntity to: sRIdentifierWithNode isWrite: aBoolean [
 	^ (currentEntity
 		createAccessTo: sRIdentifierWithNode entity
-		writing: writeAccess)
+		writing: aBoolean)
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				mooseModel: self model;
