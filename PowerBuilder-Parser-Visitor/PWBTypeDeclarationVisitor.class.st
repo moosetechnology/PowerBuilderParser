@@ -5,97 +5,45 @@ Class {
 }
 
 { #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> createIREntity: aName withKind: anIRKind [
-	^anIRKind new
-		name: aName ;
-		owner: self currentEntity ;
-		yourself
-]
-
-{ #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> createIREntity: aName withKind: anIRKind currentEntity: currentEntity [
-	^anIRKind new
-		name: aName ;
-		owner: currentEntity ;
-		yourself
-]
-
-{ #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> declaredType: typeIdentifier forIrAttribute: irAttribute [
 	| resolvable |
-	self currentEntity.
-	resolvable := self resolvable:
-		(SRTypeIdentifierWithNode
-			identifier: typeIdentifier identifier
-			expectedKind: self defaultFamixTypeKinds
-			node: typeIdentifier).
-
+	resolvable := self
+		resolvable:
+			(SRTypeIdentifierWithNode
+				identifier: typeIdentifier identifier
+				expectedKind: self defaultFamixTypeKinds
+				node: typeIdentifier).
 	resolvable
-		foundAction: [ :identifier :currentEntity |
-			irAttribute declaredType: identifier entity ] ;
-
+		foundAction:
+				[ :identifier :currentEntity | irAttribute declaredType: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self ensureIREntity: typeIdentifier withKind: PWBIRType)
-				expectedFamixKinds: self defaultFamixTypeKinds ;
+			(self
+				ensureIR: PWBIRType
+				named: typeIdentifier identifier
+				owner: currentEntity)
+				expectedFamixKinds: self defaultFamixTypeKinds;
 				yourself ].
-
 	self resolve: resolvable
 ]
 
 { #category : #'famix kind' }
 PWBTypeDeclarationVisitor >> defaultFamixTypeKinds [
-	^{ FamixPWBCustomType .
-		FamixPWBUserObject .
-		FamixPWBDataWindow .
-		FamixPWBStructure .
-		FamixPWBBasicType }
-]
-
-{ #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> ensureIREntity: aName withKind: anIRKind [
-	| irEntities |
-	irEntities := intermediateEntities at: anIRKind ifAbsent: [OrderedCollection new].
-
-	^irEntities
-		detect: [ :irEntity | irEntity name = aName ]
-		"ifOne: [ should test whether the owner is actually 'currentEntity' ? ]"
-		ifNone: [ |irEntity |
-			irEntity := self createIREntity: aName withKind: anIRKind.
-			irEntities add: irEntity.
-			intermediateEntities at: anIRKind put: irEntities.
-			irEntity ]
-]
-
-{ #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> ensureIREntity: aName withKind: anIRKind currentEntity: currentEntity [
-	| irEntities |
-	irEntities := intermediateEntities at: anIRKind ifAbsent: [OrderedCollection new].
-
-	^irEntities
-		detect: [ :irEntity | irEntity name = aName ]
-		"ifOne: [ should test whether the owner is actually 'currentEntity' ? ]"
-		ifNone: [ |irEntity |
-			irEntity := self createIREntity: aName withKind: anIRKind currentEntity: currentEntity.
-			irEntities add: irEntity.
-			intermediateEntities at: anIRKind put: irEntities.
-			irEntity ]
+	^PWBIRType mappingFamixClasses
 ]
 
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier [
 	| irType |
 	(self isMainTypeOfFile: typeIdentifier)
-	ifTrue: [ ^self currentEntity ].
-
+		ifTrue: [ ^ self currentEntity ].
 	irType := self
-		ensureIREntity: typeIdentifier identifier
-		withKind: PWBIRType.
-
+		ensureIR: PWBIRType
+		named: typeIdentifier identifier
+		owner: self currentEntity.
 	self expectedFamixKindsForType: irType from: superIdentifier.
-	superIdentifier ifNotNil: [ self superType: superIdentifier forIrType: irType ].
-
-	^irType
-
+	superIdentifier
+		ifNotNil: [ self superType: superIdentifier forIrType: irType ].
+	^ irType
 ]
 
 { #category : #'famix kind' }
@@ -104,55 +52,35 @@ PWBTypeDeclarationVisitor >> expectedFamixKindsForType: irType from: superIdenti
 	 - if type is main type of the file, then derived from the file extension
 	 - if superType is knowm, then type and subtype have the same
 	 - all possible FamixKinds for types"
+
 	| expectedFamixKinds |
 	expectedFamixKinds := irType expectedFamixKinds
 		ifNil: [ self defaultFamixTypeKinds ].
-
-	(irType name = file basenameWithoutExtension)
-	ifTrue: [
-		self expectedFamixTypeKindsFromFileExtension
-		ifNotNil: [ :expectedKindFromFileName |
-			^irType expectedFamixKinds:
-				(expectedFamixKinds intersection: {expectedKindFromFileName})
-		]].
-
-	superIdentifier ifNotNil: [
-		(self irEntity: superIdentifier identifier withKind: PWBIRType)
-		ifNotNil: [ :irSuper || newExpectedFamixKinds |
-			newExpectedFamixKinds := expectedFamixKinds intersection: irSuper expectedFamixKinds.
-			irSuper expectedFamixKinds: newExpectedFamixKinds.
-			^irType expectedFamixKinds: newExpectedFamixKinds ]].
-	
+	irType name = file basenameWithoutExtension
+		ifTrue: [ self famixTypeKindFromFileExtension
+				ifNotNil: [ :expectedKindFromFileName | 
+					^ irType
+						expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ] ].
+	superIdentifier
+		ifNotNil: [ (self getAllIR: PWBIRType named: superIdentifier identifier)
+				ifNotNil: [ :irSuper | 
+					| newExpectedFamixKinds |
+					newExpectedFamixKinds := expectedFamixKinds
+						intersection: irSuper expectedFamixKinds.
+					irSuper expectedFamixKinds: newExpectedFamixKinds.
+					^ irType expectedFamixKinds: newExpectedFamixKinds ] ].
 	irType expectedFamixKinds: expectedFamixKinds
-
 ]
 
 { #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> expectedFamixTypeKindsFromFileExtension [
-	"expected famix kind of a PWB type with the same name as its containing file"
-	| fileExtension |
-	fileExtension := file extension.
-
-	^{ 'sru' -> FamixPWBUserObject .
-		'srd' -> FamixPWBDataWindow .
-		'srs' -> FamixPWBStructure
-		}
-		detect: [ :assoc | assoc key = fileExtension ]
-		ifNone: [ nil ]
-
-]
-
-{ #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> irEntity: aName withKind: anIRKind [
-	"ideally there should be only one entity of the given IR-kind with the given name"
-	| irEntities |
-	irEntities := (intermediateEntities at: anIRKind ifAbsent: [#()])
-		select: [ :irEntity | irEntity name = aName ].
-
-	irEntities ifEmpty: [ ^ nil ].
-	(irEntities size = 1) ifTrue: [ ^ irEntities anyOne ].
-	^Error signal: 'Multiple ' , anIRKind asString , ' named ' , aName
-
+PWBTypeDeclarationVisitor >> famixTypeKindFromFileExtension [
+	"expected famix kind of a PWB type with the same name as its containing file
+	We get the famix class associated to the extension, then check it corresponds to a PWB type"
+	| famixKind |
+	famixKind := self famixClassForFileExtension: file extension.
+	^(self defaultFamixTypeKinds includes: famixKind) 
+	ifTrue: [ famixKind ]
+	ifFalse: [ nil ]
 ]
 
 { #category : #testing }
@@ -173,27 +101,33 @@ PWBTypeDeclarationVisitor >> redefinesAttributesValuesOfKnownType: aPWBASTTypeDe
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	| resolvable |
-	resolvable := self resolvable:
-		(SRTypeIdentifierWithNode
-			identifier: typeIdentifier identifier
-			expectedKind: irType expectedFamixKinds
-			node: typeIdentifier).
-
+	resolvable := self
+		resolvable:
+			(SRTypeIdentifierWithNode
+				identifier: typeIdentifier identifier
+				expectedKind: irType expectedFamixKinds
+				node: typeIdentifier).
 	resolvable
-		foundAction: [ :identifier :currentEntity |
-			irType superType: identifier entity ] ;
-
+		foundAction:
+				[ :identifier :currentEntity | irType superType: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self ensureIREntity: typeIdentifier withKind: PWBIRType)
-				expectedFamixKinds: (irType expectedFamixKinds) ;
+			(self
+				ensureIR: PWBIRType
+				named: typeIdentifier identifier
+				owner: currentEntity)
+				expectedFamixKinds: irType expectedFamixKinds;
 				yourself ].
-
 	self resolve: resolvable
 ]
 
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	"translates the ASTBasicType into an ASTIdentifier"
+	"ensures the basicType as a Famix entity
+	+ translates the ASTBasicType into an ASTIdentifier
+	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
+	self
+		ensureFamixEntity: FamixPWBBasicType
+		named: aPWBASTBasicType basicType.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
 		stopPosition: aPWBASTBasicType stopPosition ;
@@ -212,6 +146,16 @@ PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 ]
 
 { #category : #visiting }
+PWBTypeDeclarationVisitor >> visitPWBASTParametrizedType: aPWBASTParametrizedType [
+	"translates the ASTParameterizedType into an ASTIdentifier"
+	^PWBASTIdentifier new
+		startPosition: aPWBASTParametrizedType startPosition ;
+		stopPosition: aPWBASTParametrizedType stopPosition ;
+		identifier: aPWBASTParametrizedType parametrizedType ;
+		yourself
+]
+
+{ #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
 	| irType |
 	(self redefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration)
@@ -227,13 +171,15 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 	"does not seem to be used ...
 	self visit: aPWBASTTypeDeclaration descriptor."
 
-	(irType = self currentEntity)
+	"we do not visit attributes either because it seems they are only used
+	 to give value to predefined PowerBilder attributes"
+	"(irType = self currentEntity)
 	ifTrue: [ self visit: aPWBASTTypeDeclaration attributes ]
 	ifFalse: [
 		self
 			useCurrentEntity: irType
 			during: [ self visit: aPWBASTTypeDeclaration attributes ]
-	]
+	]"
 
 ]
 
@@ -242,16 +188,16 @@ PWBTypeDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDec
 	"aPWBASTVariableDeclarations type is either a ASTBasicType or ASTCustomType
 	in both case we want an ASTIdentifier to simplify processing
 	see #visitPWBASTBasicType: "
+
 	| typeIdentifier |
 	typeIdentifier := self visit: aPWBASTVariableDeclarations type type.
-
-	aPWBASTVariableDeclarations variableAssignations do: [ :anASTVariableAssignation |
-		self
-			declaredType: typeIdentifier
-			forIrAttribute: 
-				(self
-					createIREntity: anASTVariableAssignation variable identifier identifier
-					withKind: PWBIRAttribute)
-	]
-	
+	aPWBASTVariableDeclarations variableAssignations
+		do: [ :anASTVariableAssignation | 
+			self
+				declaredType: typeIdentifier
+				forIrAttribute:
+					(self
+						createIR: PWBIRAttribute
+						named: anASTVariableAssignation variable identifier identifier
+						owner: self currentEntity) ]
 ]

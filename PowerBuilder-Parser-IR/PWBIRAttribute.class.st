@@ -7,6 +7,11 @@ Class {
 	#category : #'PowerBuilder-Parser-IR'
 }
 
+{ #category : #mapping }
+PWBIRAttribute class >> mappingFamixClasses [
+	^{ FamixPWBAttribute . FamixPWBInstanceVariable }
+]
+
 { #category : #accessing }
 PWBIRAttribute >> declaredType [
 	^ declaredType

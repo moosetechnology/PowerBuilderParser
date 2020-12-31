@@ -381,10 +381,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: a
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
 	majorEntity := self
-		create: (self majorEntityClassForExtension: aPWBASTFile fileExtension)
-		from: aPWBASTFile.
-	majorEntity name: aPWBASTFile fileName.
-	majorEntity library: currentLibrary.
+		ensureIRForFamixClass: (self famixClassForFileExtension: aPWBASTFile fileExtension)
+		named: aPWBASTFile fileName
+		owner: self currentEntityIfAny.
+	self flag: 'will need to deal with source anchor (here from aPWBASTFile node)'.
+	self flag: 'will need to deal with libraries "majorEntity library: currentLibrary"'.
+
 	self
 		useCurrentEntity: majorEntity
 		during: [ super visitPWBASTFile: aPWBASTFile ]

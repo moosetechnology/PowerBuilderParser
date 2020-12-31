@@ -9,6 +9,25 @@ Class {
 	#category : #'PowerBuilder-Parser-IR'
 }
 
+{ #category : #'instance creation' }
+PWBIRNamedEntity class >> forFamixClass: aFamixClass [
+	^(self irClassForFamixClass: aFamixClass)
+		new
+]
+
+{ #category : #mapping }
+PWBIRNamedEntity class >> irClassForFamixClass: aFamixClass [
+	^(self subclasses
+		detect: [ :sub | sub mappingFamixClasses includes: aFamixClass ]
+		ifNone: [  self ]
+	)
+]
+
+{ #category : #mapping }
+PWBIRNamedEntity class >> mappingFamixClasses [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 PWBIRNamedEntity >> name [
 	^ name

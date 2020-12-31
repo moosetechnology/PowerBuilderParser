@@ -10,6 +10,11 @@ Class {
 	#category : #'PowerBuilder-Parser-IR'
 }
 
+{ #category : #mapping }
+PWBIRType class >> mappingFamixClasses [
+	^{ FamixPWBCustomType . FamixPWBBasicType . FamixPWBDataWindow . FamixPWBUserObject . FamixPWBStructure }
+]
+
 { #category : #accessing }
 PWBIRType >> addSubType: anIRType [
 	subTypes

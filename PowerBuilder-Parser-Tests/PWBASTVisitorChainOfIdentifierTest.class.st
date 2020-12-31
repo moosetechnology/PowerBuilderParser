@@ -49,6 +49,7 @@ end forward
 
 global type testFile from userobject
   local_uo local_uo
+  boolean toto
 end type
 global testFile testFile
 

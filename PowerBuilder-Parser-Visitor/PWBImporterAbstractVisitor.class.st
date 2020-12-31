@@ -8,7 +8,7 @@ Class {
 		'file',
 		'importingContext',
 		'preprocessingMap',
-		'intermediateEntities'
+		'irModel'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -89,6 +89,14 @@ PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	^ created
 ]
 
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> createIR: anIRKind named: aName owner: owner [
+	^anIRKind new
+		name: aName ;
+		owner: owner ;
+		yourself
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 	^ aCollection
@@ -148,6 +156,13 @@ PWBImporterAbstractVisitor >> createStub: aClass [
 	^ entity
 ]
 
+{ #category : #accessing }
+PWBImporterAbstractVisitor >> currentEntityIfAny [
+	^ [ self currentEntity ]
+		on: SRNoCurrentEntityAvailable
+		do: [ nil ]
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
 	^ (model entityStorage selectAllWithType: aType)
@@ -158,6 +173,41 @@ PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
 				yourself ]
 ]
 
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> ensureIR: anIRKind named: aName owner: owner [
+	| irEntities |
+	irEntities := self getAllIR: anIRKind.
+	^ irEntities
+		detect: [ :irEntity | "ifOne: [ should test whether the owner is actually 'currentEntity' ? ]" irEntity name = aName ]
+		ifNone: [ | irEntity |
+			irEntity := self createIR: anIRKind named: aName owner: owner.
+			irEntities add: irEntity.
+			irModel at: anIRKind put: irEntities.
+			irEntity ]
+]
+
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> ensureIRForFamixClass: aFamixClass named: aName owner: owner [
+	^self
+		ensureIR: (PWBIRNamedEntity irClassForFamixClass: aFamixClass)
+		named: aName
+		owner: owner
+]
+
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> famixClassForFileExtension: anExtension [
+	^ {('srd' -> FamixPWBDataWindow).
+	('sru' -> FamixPWBUserObject).
+	('srw' -> FamixPWBWindow).
+	('srs' -> FamixPWBStructure).
+	('srf' -> FamixPWBGlobalFunction).
+	('srm' -> FamixPWBMenuObject).
+	('sra' -> FamixPWBApplication).
+	('srq' -> FamixPWBQuery)}
+	detect: [ :assoc | assoc key = anExtension ]
+	ifOne: [ :assoc | assoc value ]
+]
+
 { #category : #accessing }
 PWBImporterAbstractVisitor >> file [
 	^ file
@@ -166,6 +216,17 @@ PWBImporterAbstractVisitor >> file [
 { #category : #accessing }
 PWBImporterAbstractVisitor >> file: anObject [
 	file := anObject
+]
+
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> getAllIR: anIRKind [
+	^irModel at: anIRKind ifAbsent: [ OrderedCollection new ]
+]
+
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> getAllIR: anIRKind named: aName [
+	^(self getAllIR: anIRKind)
+		select: [ :irEntity | irEntity name = aName ].
 ]
 
 { #category : #accessing }
@@ -181,29 +242,20 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 { #category : #initialization }
 PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 	self model: aModel.
-	self pushAsScopeAll: FamixPWBFunction ofModel: aModel.
+	
+	self pushIRModelAsScope: irModel
+	"self pushAsScopeAll: FamixPWBFunction ofModel: aModel.
 	self pushAsScopeAll: FamixPWBEvent ofModel: aModel.
 	self pushAsScopeAll: FamixPWBSubRoutine ofModel: aModel.
-	self pushAsScopeAll: FamixPWBUserObject ofModel: aModel
+	self pushAsScopeAll: FamixPWBUserObject ofModel: aModel.
+	self pushAsScopeAll: FamixPWBBasicType ofModel: aModel"
 ]
 
 { #category : #initialization }
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver.
-	intermediateEntities := Dictionary new
-]
-
-{ #category : #helpers }
-PWBImporterAbstractVisitor >> majorEntityClassForExtension: anExtension [
-	^ {('srd' -> FamixPWBDataWindow).
-	('sru' -> FamixPWBUserObject).
-	('srw' -> FamixPWBWindow).
-	('srs' -> FamixPWBStructure).
-	('srf' -> FamixPWBGlobalFunction).
-	('srm' -> FamixPWBMenuObject).
-	('sra' -> FamixPWBApplication).
-	('srq' -> FamixPWBQuery)} asDictionary at: anExtension
+	irModel := Dictionary new
 ]
 
 { #category : #accessing }
