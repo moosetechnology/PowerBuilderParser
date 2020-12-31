@@ -25,7 +25,7 @@ PWBTypeDeclarationVisitor >> defaultFamixTypeKinds [
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureIREntity: aName withKind: anIRKind [
 	| irEntities |
-	irEntities := intermediateEntities at: anIRKind ifAbsent: [#()].
+	irEntities := intermediateEntities at: anIRKind ifAbsent: [OrderedCollection new].
 
 	^irEntities
 		detect: [ :irEntity | irEntity name = aName ]
@@ -37,55 +37,61 @@ PWBTypeDeclarationVisitor >> ensureIREntity: aName withKind: anIRKind [
 ]
 
 { #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> ensureTypeNamed: typeName from: superName [
-	| irType irSuper retrievedFamixKinds expectedFamixKinds |
+PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier eventType: eventTypeIdentifier [
+	| irType |
 	irType := self
-		ensureIREntity: typeName
+		ensureIREntity: typeIdentifier identifier
 		withKind: PWBIRType.
 
-	retrievedFamixKinds := irType expectedFamixKinds.
-	expectedFamixKinds := self expectedFamixKindsFor: typeName from: superName.
-	retrievedFamixKinds
-	ifNil: [ irType expectedFamixKinds: expectedFamixKinds ]
-	ifNotNil: [ irType expectedFamixKinds: (retrievedFamixKinds intersection: expectedFamixKinds) ].
-
+	self expectedFamixKindsForType: irType from: superIdentifier.
 	irType owner: self currentEntity.
-	
-	irSuper := self ensureIREntity: superName withKind: PWBIRType.
-	irSuper expectedFamixKinds: irType expectedFamixKinds.
-	irType superType: irSuper.
-	irSuper addSubType: irType.
+	superIdentifier ifNotNil: [ self superType: superIdentifier forIrType: irType ].
 
 	^irType
 
 ]
 
 { #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> expectedFamixKindsFor: typeName from: superName [
+PWBTypeDeclarationVisitor >> expectedFamixKindsForType: irType from: superIdentifier [
+	"expectedFamixKind may be already known, otherwise, it can be found:
+	 - if type is main type of the file, then derived from the file extension
+	 - if superType is knowm, then type and subtype have the same
+	 - all possible FamixKinds for types"
+	| expectedFamixKinds |
+	expectedFamixKinds := irType expectedFamixKinds
+		ifNil: [ self defaultFamixTypeKinds ].
 
-	(typeName = file basenameWithoutExtension)
-	ifTrue: [ ^ {self expectedFamixKindsFromFileExtension}].
+	(irType name = file basenameWithoutExtension)
+	ifTrue: [
+		self expectedFamixTypeKindsFromFileExtension
+		ifNotNil: [ :expectedKindFromFileName |
+			^irType expectedFamixKinds:
+				(expectedFamixKinds intersection: {expectedKindFromFileName})
+		]].
 
-	(self retrieveExpectedFamixKindsFrom: superName)
-	ifEmpty: [ ^self defaultFamixTypeKinds ]
-	ifNotEmpty: [ :expectedFamixKinds | ^ expectedFamixKinds ].
-
+	superIdentifier ifNotNil: [
+		(self irEntity: superIdentifier identifier withKind: PWBIRType)
+		ifNotNil: [ :irSuper || newExpectedFamixKinds |
+			newExpectedFamixKinds := expectedFamixKinds intersection: irSuper expectedFamixKinds.
+			irSuper expectedFamixKinds: newExpectedFamixKinds.
+			^irType expectedFamixKinds: newExpectedFamixKinds ]].
 	
+	irType expectedFamixKinds: expectedFamixKinds
+
 ]
 
 { #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> expectedFamixKindsFromFileExtension [
-	"expected famix kind of a type with the same name as its containing file"
+PWBTypeDeclarationVisitor >> expectedFamixTypeKindsFromFileExtension [
+	"expected famix kind of a PWB type with the same name as its containing file"
 	| fileExtension |
 	fileExtension := file extension.
 
-	{ 'sru' -> FamixPWBUserObject .
+	^{ 'sru' -> FamixPWBUserObject .
 		'srd' -> FamixPWBDataWindow .
 		'srs' -> FamixPWBStructure
-	}
-	detect: [ :assoc | assoc key = fileExtension ]
-	ifFound: [ :found | ^found value ]
-	ifNone: [ Error signal: 'Unknown file extension not allowing to deduce an expected FamixType kind: ' , fileExtension ]
+		}
+		detect: [ :assoc | assoc key = fileExtension ]
+		ifNone: [ nil ]
 
 ]
 
@@ -102,13 +108,23 @@ PWBTypeDeclarationVisitor >> irEntity: aName withKind: anIRKind [
 
 ]
 
-{ #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> retrieveExpectedFamixKindsFrom: aName [
-	"gets expectedFamixKinds of already existing IRType with the given name (if any)"
-	^(self irEntity: aName withKind: PWBIRType)
-	ifNil: [ #() ]
-	ifNotNil: [ :irEntity | irEntity expectedFamixKinds ].
+{ #category : #'ir entities' }
+PWBTypeDeclarationVisitor >> superType: superIdentifier forIrType: irType [
+	^(self resolvable:
+		(SRTypeIdentifierWithNode
+			identifier: superIdentifier
+			expectedKind: irType expectedFamixKinds
+			node: superIdentifier)
+		)
 
+		foundAction: [ :identifier :currentEntity |
+			irType superType: identifier entity.
+			identifier entity addSubType: irType ] ;
+
+		notFoundReplacementEntity: [ :identifier :currentEntity | 
+			(self ensureIREntity: superIdentifier withKind: PWBIRType)
+				expectedFamixKinds: (irType expectedFamixKinds) ;
+				yourself ].
 
 ]
 
@@ -118,14 +134,19 @@ PWBTypeDeclarationVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 ]
 
 { #category : #visiting }
+PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
+	^self visit: aPWBASTFromClause customType.
+]
+
+{ #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
 	| irType |
-	1halt.
+	1haltIf: [aPWBASTTypeDeclaration descriptor isNotNil].
 	irType := self
-		ensureTypeNamed: (self visit: aPWBASTTypeDeclaration type) identifier
-		from: (self visit: aPWBASTTypeDeclaration fromClause) identifier.
-	"self visit: aPWBASTTypeDeclaration eventType.
-	self visit: aPWBASTTypeDeclaration withinClause.
+		ensureTypeNamed: (self visit: aPWBASTTypeDeclaration type)
+		from: (self visit: aPWBASTTypeDeclaration fromClause)
+		eventType: (self visit: aPWBASTTypeDeclaration eventType).
+	"self visit: aPWBASTTypeDeclaration withinClause.
 	self visit: aPWBASTTypeDeclaration descriptor."
 	self
 		useCurrentEntity: irType
