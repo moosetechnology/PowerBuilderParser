@@ -1,12 +1,10 @@
 Class {
 	#name : #PWBIRType,
-	#superclass : #Object,
+	#superclass : #PWBIRNamedEntity,
 	#instVars : [
-		'name',
 		'members',
 		'superType',
 		'subTypes',
-		'owner',
 		'expectedFamixKinds'
 	],
 	#category : #'PowerBuilder-Parser-IR'
@@ -37,35 +35,6 @@ PWBIRType >> members [
 { #category : #accessing }
 PWBIRType >> members: anObject [
 	members := anObject
-]
-
-{ #category : #accessing }
-PWBIRType >> name [
-	^ name
-]
-
-{ #category : #accessing }
-PWBIRType >> name: anObject [
-	name := anObject
-]
-
-{ #category : #accessing }
-PWBIRType >> owner [
-	^ owner
-]
-
-{ #category : #accessing }
-PWBIRType >> owner: anObject [
-	owner := anObject
-]
-
-{ #category : #printing }
-PWBIRType >> printOn: aStream [
-	super printOn: aStream.
-	aStream
-		nextPut: $( ;
-		nextPutAll: name ;
-		nextPut: $)
 ]
 
 { #category : #accessing }

@@ -13,6 +13,18 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
+	^aPWBVisitorClass new
+		solver: self solver ;
+		importingContext: self importingContext ;
+		model: self model ;
+		preprocessingMap: self preprocessingMap ;
+		file: self file ;
+
+		visit: aNode
+]
+
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> create: aClass [
 	| entity |
@@ -59,17 +71,6 @@ PWBImporterAbstractVisitor >> createAccessFrom: currentEntity to: sRIdentifierWi
 				fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
 				endPos: (self unpreprocessedPosition: sRIdentifierWithNode stopPosition);
 				yourself)
-]
-
-{ #category : #helpers }
-PWBImporterAbstractVisitor >> createAuxiliaryVisitor: aPWBVisitorClass [
-	^aPWBVisitorClass new
-		solver: self solver ;
-		importingContext: self importingContext ;
-		model: self model ;
-		preprocessingMap: self preprocessingMap ;
-		file: self file ;
-		yourself
 ]
 
 { #category : #'entities creation' }
