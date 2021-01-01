@@ -122,12 +122,11 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	"ensures the basicType as a Famix entity
+	"ensures the basicType as a top level entity
 	+ translates the ASTBasicType into an ASTIdentifier
 	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
 	self
-		ensureFamixEntity: FamixPWBBasicType
-		named: aPWBASTBasicType basicType.
+		ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
 		stopPosition: aPWBASTBasicType stopPosition ;
@@ -197,7 +196,7 @@ PWBTypeDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDec
 				declaredType: typeIdentifier
 				forIrAttribute:
 					(self
-						createIR: PWBIRValueHolder
+						ensureIRForFamixClass: FamixPWBInstanceVariable
 						named: anASTVariableAssignation variable identifier identifier
 						owner: self currentEntity) ]
 ]

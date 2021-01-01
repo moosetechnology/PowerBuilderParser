@@ -7,7 +7,7 @@ Class {
 		'famixEntity',
 		'expectedFamixKinds'
 	],
-	#category : #'PowerBuilder-Parser-IR'
+	#category : #'PowerBuilder-Parser-IR-Core'
 }
 
 { #category : #'instance creation' }

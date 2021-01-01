@@ -178,9 +178,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	^ self
-		ensureFamixEntity: FamixPWBBasicType
-		named: aPWBASTBasicType basicType
+	^ self ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
 ]
 
 { #category : #visiting }
@@ -212,8 +210,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				target: identifier entity" ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
 			self
-				ensureFamixEntity: FamixPWBCustomType
-				named: (self visit: aPWBASTCustomType identifier) ].
+				ensureIRForFamixClass: FamixPWBCustomType
+				named: (self visit: aPWBASTCustomType identifier)
+				owner: currentEntity ].
 	^ self resolve: typeToResolve
 ]
 
@@ -590,11 +589,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPW
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 	^ self
-		ensureFamixEntity: FamixPWBBasicType
-		named:
-			(anPWBASTParametrizedType parametrizedType
-				copyWithRegex: '{.*}'
-				matchesReplacedWith: '')
+		ensureIRForFamixClass: FamixPWBBasicType
+		named: (anPWBASTParametrizedType parametrizedType
+			copyWithRegex: '{.*}'
+			matchesReplacedWith: '')
+		owner: nil
 ]
 
 { #category : #visiting }

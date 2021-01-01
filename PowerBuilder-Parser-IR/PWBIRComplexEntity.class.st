@@ -5,7 +5,7 @@ Class {
 		'dependencies',
 		'members'
 	],
-	#category : #'PowerBuilder-Parser-IR'
+	#category : #'PowerBuilder-Parser-IR-Core'
 }
 
 { #category : #mapping }

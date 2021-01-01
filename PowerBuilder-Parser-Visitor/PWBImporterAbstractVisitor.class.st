@@ -102,14 +102,6 @@ PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 	^ created
 ]
 
-{ #category : #'ir entities' }
-PWBImporterAbstractVisitor >> createIR: anIRKind named: aName owner: owner [
-	^anIRKind new
-		name: aName ;
-		owner: owner ;
-		yourself
-]
-
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 	^ aCollection
@@ -192,25 +184,12 @@ PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
 
 { #category : #'ir entities' }
 PWBImporterAbstractVisitor >> ensureIR: anIRKind named: aName owner: owner [
-	| irEntities |
-	irEntities := self getAllIR: anIRKind.
-	^ irEntities
-		detect: [ :irEntity | "ifOne: [ should test whether the owner is actually 'currentEntity' ? ]" irEntity name = aName ]
-		ifNone: [ | irEntity |
-			irEntity := self createIR: anIRKind named: aName owner: owner.
-			irEntities add: irEntity.
-			irModel at: anIRKind put: irEntities.
-			irEntity ]
+	^ irModel ensureIR: anIRKind named: aName owner: owner
 ]
 
 { #category : #'ir entities' }
 PWBImporterAbstractVisitor >> ensureIRForFamixClass: aFamixClass named: aName owner: owner [
-	^(self
-		ensureIR: (PWBIRNamedEntity irClassForFamixClass: aFamixClass)
-		named: aName
-		owner: owner)
-		expectedFamixKinds: { aFamixClass } ;
-		yourself
+	^irModel ensureIRForFamixClass: aFamixClass named: aName owner: owner
 ]
 
 { #category : #helpers }
@@ -232,13 +211,12 @@ PWBImporterAbstractVisitor >> file: anObject [
 
 { #category : #'ir entities' }
 PWBImporterAbstractVisitor >> getAllIR: anIRKind [
-	^irModel at: anIRKind ifAbsent: [ OrderedCollection new ]
+	^irModel getAllIR: anIRKind
 ]
 
 { #category : #'ir entities' }
 PWBImporterAbstractVisitor >> getAllIR: anIRKind named: aName [
-	^(self getAllIR: anIRKind)
-		select: [ :irEntity | irEntity name = aName ].
+	^irModel getAllIR: anIRKind named: aName
 ]
 
 { #category : #accessing }
@@ -267,7 +245,7 @@ PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver.
-	irModel := Dictionary new
+	irModel := PWBIRModel new
 ]
 
 { #category : #helpers }
@@ -278,12 +256,12 @@ PWBImporterAbstractVisitor >> majorObjectFamixClasses [
 
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model [
-	^ model
+	^ irModel
 ]
 
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model: anObject [
-	model := anObject.
+	irModel := anObject.
 ]
 
 { #category : #helpers }

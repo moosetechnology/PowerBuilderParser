@@ -5,7 +5,7 @@ Class {
 		'superType',
 		'subTypes'
 	],
-	#category : #'PowerBuilder-Parser-IR'
+	#category : #'PowerBuilder-Parser-IR-Core'
 }
 
 { #category : #mapping }
