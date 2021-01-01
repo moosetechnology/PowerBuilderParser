@@ -197,7 +197,7 @@ PWBTypeDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDec
 				declaredType: typeIdentifier
 				forIrAttribute:
 					(self
-						createIR: PWBIRAttribute
+						createIR: PWBIRValueHolder
 						named: anASTVariableAssignation variable identifier identifier
 						owner: self currentEntity) ]
 ]

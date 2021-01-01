@@ -312,18 +312,6 @@ PWBQueryFileParser >> destroyStatement [
 ]
 
 { #category : #rules }
-PWBQueryFileParser >> dot [
-	<generated>
-	^ super dot flatten withPositions
-		==> [ :production | 
-			PWBASTDot new
-				startPosition: production start;
-				stopPosition: production stop;
-				dot: production content;
-				yourself ]
-]
-
-{ #category : #rules }
 PWBQueryFileParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions

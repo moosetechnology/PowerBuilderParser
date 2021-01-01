@@ -1,11 +1,9 @@
 Class {
 	#name : #PWBIRType,
-	#superclass : #PWBIRNamedEntity,
+	#superclass : #PWBIRComplexEntity,
 	#instVars : [
-		'members',
 		'superType',
-		'subTypes',
-		'expectedFamixKinds'
+		'subTypes'
 	],
 	#category : #'PowerBuilder-Parser-IR'
 }
@@ -20,26 +18,6 @@ PWBIRType >> addSubType: anIRType [
 	subTypes
 		ifNil: [ subTypes := { anIRType } ]
 		ifNotNil: [ subTypes add: anIRType ]
-]
-
-{ #category : #accessing }
-PWBIRType >> expectedFamixKinds [
-	^ expectedFamixKinds
-]
-
-{ #category : #accessing }
-PWBIRType >> expectedFamixKinds: aCollection [
-	expectedFamixKinds := aCollection
-]
-
-{ #category : #accessing }
-PWBIRType >> members [
-	^ members
-]
-
-{ #category : #accessing }
-PWBIRType >> members: anObject [
-	members := anObject
 ]
 
 { #category : #accessing }

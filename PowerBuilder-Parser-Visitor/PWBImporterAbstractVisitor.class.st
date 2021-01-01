@@ -13,6 +13,18 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #'as yet unclassified' }
+PWBImporterAbstractVisitor class >> mappingFileExtensionFamixClass [
+	^{('srd' -> FamixPWBDataWindow).
+	('sru' -> FamixPWBUserObject).
+	('srw' -> FamixPWBWindow).
+	('srs' -> FamixPWBStructure).
+	('srf' -> FamixPWBGlobalFunction).
+	('srm' -> FamixPWBMenuObject).
+	('sra' -> FamixPWBApplication).
+	('srq' -> FamixPWBQuery)}
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 	^aPWBVisitorClass new
@@ -47,6 +59,7 @@ PWBImporterAbstractVisitor >> create: aClass [
 PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
 	| created |
 	created := self create: aClass.
+	self flag: #TODOSourceAnchor.
 	(self importingContext shouldImport: FamixPWBIndexedFileAnchor)
 		ifTrue: [ created
 				sourceAnchor:
@@ -102,20 +115,24 @@ PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
 	^ aCollection
 		collect: [ :arg | 
 			| param |
-			param := (self currentEntity
-				createValueHolderNamed: (self visit: arg)
-				withType: FamixPWBParameter)
-				parameterOption: (self visit: arg argumentOption);
-				parameterType: (self visit: arg type);
+			param := (self
+				ensureIRForFamixClass: FamixPWBParameter
+				named: (self visit: arg)
+				owner:  self currentEntity)
+				declaredType: (self visit: arg type).
+			self flag:
+				'parameterOption: (self visit: arg argumentOption);
 				sourceAnchor:
 					(FamixPWBIndexedFileAnchor new
 						mooseModel: self model;
 						startPos: (self unpreprocessedPosition: arg startPosition);
 						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
 						endPos: (self unpreprocessedPosition: arg stopPosition);
-						yourself).
-			param parameterType isResolvable
-				ifTrue: [ param parameterType addTypedVariable: param ] ]
+						yourself)'.
+			self flag:
+				'param parameterType isResolvable
+				ifTrue: [ param parameterType addTypedVariable: param ]'
+		]
 ]
 
 { #category : #'entities creation' }
@@ -149,7 +166,7 @@ PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createStub: aClass [
 	| entity |
-	self flag: #TODO.	"Put the created entity in a stub module"
+	self flag: 'Put the created entity in a stub module?'.
 	entity := aClass new
 		mooseModel: self model;
 		yourself.
@@ -188,22 +205,17 @@ PWBImporterAbstractVisitor >> ensureIR: anIRKind named: aName owner: owner [
 
 { #category : #'ir entities' }
 PWBImporterAbstractVisitor >> ensureIRForFamixClass: aFamixClass named: aName owner: owner [
-	^self
+	^(self
 		ensureIR: (PWBIRNamedEntity irClassForFamixClass: aFamixClass)
 		named: aName
-		owner: owner
+		owner: owner)
+		expectedFamixKinds: { aFamixClass } ;
+		yourself
 ]
 
 { #category : #helpers }
 PWBImporterAbstractVisitor >> famixClassForFileExtension: anExtension [
-	^ {('srd' -> FamixPWBDataWindow).
-	('sru' -> FamixPWBUserObject).
-	('srw' -> FamixPWBWindow).
-	('srs' -> FamixPWBStructure).
-	('srf' -> FamixPWBGlobalFunction).
-	('srm' -> FamixPWBMenuObject).
-	('sra' -> FamixPWBApplication).
-	('srq' -> FamixPWBQuery)}
+	^ self class mappingFileExtensionFamixClass
 	detect: [ :assoc | assoc key = anExtension ]
 	ifOne: [ :assoc | assoc value ]
 ]
@@ -256,6 +268,12 @@ PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver.
 	irModel := Dictionary new
+]
+
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> majorObjectFamixClasses [
+	^ self class mappingFileExtensionFamixClass
+	collect: [ :assoc | assoc value ]
 ]
 
 { #category : #accessing }

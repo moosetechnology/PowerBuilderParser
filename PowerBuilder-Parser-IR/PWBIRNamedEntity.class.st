@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'owner',
-		'famixEntity'
+		'famixEntity',
+		'expectedFamixKinds'
 	],
 	#category : #'PowerBuilder-Parser-IR'
 }
@@ -17,7 +18,7 @@ PWBIRNamedEntity class >> forFamixClass: aFamixClass [
 
 { #category : #mapping }
 PWBIRNamedEntity class >> irClassForFamixClass: aFamixClass [
-	^(self subclasses
+	^(self allSubclasses
 		detect: [ :sub | sub mappingFamixClasses includes: aFamixClass ]
 		ifNone: [  self ]
 	)
@@ -26,6 +27,27 @@ PWBIRNamedEntity class >> irClassForFamixClass: aFamixClass [
 { #category : #mapping }
 PWBIRNamedEntity class >> mappingFamixClasses [
 	self subclassResponsibility
+
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> addDependency: anIREntity [
+	self subclassResponsibility 
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> expectedFamixKinds [
+	^ expectedFamixKinds ifNil: [ expectedFamixKinds:= OrderedCollection new ]
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> expectedFamixKinds: aCollection [
+	expectedFamixKinds := aCollection
+]
+
+{ #category : #testing }
+PWBIRNamedEntity >> isBehavioural [
+	^false
 ]
 
 { #category : #accessing }
