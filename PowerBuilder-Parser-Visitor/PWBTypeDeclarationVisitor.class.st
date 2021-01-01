@@ -1,35 +1,8 @@
 Class {
 	#name : #PWBTypeDeclarationVisitor,
-	#superclass : #PWBImporterAbstractVisitor,
+	#superclass : #PWBAbstractAuxiliaryVisitor,
 	#category : #'PowerBuilder-Parser-Visitor'
 }
-
-{ #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> declaredType: typeIdentifier forIrAttribute: irAttribute [
-	| resolvable |
-	resolvable := self
-		resolvable:
-			(SRTypeIdentifierWithNode
-				identifier: typeIdentifier identifier
-				expectedKind: self defaultFamixTypeKinds
-				node: typeIdentifier).
-	resolvable
-		foundAction:
-				[ :identifier :currentEntity | irAttribute declaredType: identifier entity ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self
-				ensureIR: PWBIRType
-				named: typeIdentifier identifier
-				owner: currentEntity)
-				expectedFamixKinds: self defaultFamixTypeKinds;
-				yourself ].
-	self resolve: resolvable
-]
-
-{ #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> defaultFamixTypeKinds [
-	^PWBIRType mappingFamixClasses
-]
 
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier [
@@ -121,37 +94,8 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 ]
 
 { #category : #visiting }
-PWBTypeDeclarationVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	"ensures the basicType as a top level entity
-	+ translates the ASTBasicType into an ASTIdentifier
-	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
-	self
-		ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
-	^PWBASTIdentifier new
-		startPosition: aPWBASTBasicType startPosition ;
-		stopPosition: aPWBASTBasicType stopPosition ;
-		identifier: aPWBASTBasicType basicType ;
-		yourself
-]
-
-{ #category : #visiting }
-PWBTypeDeclarationVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
-	^aPWBASTCustomType identifier
-]
-
-{ #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
-	^self visit: aPWBASTFromClause customType.
-]
-
-{ #category : #visiting }
-PWBTypeDeclarationVisitor >> visitPWBASTParametrizedType: aPWBASTParametrizedType [
-	"translates the ASTParameterizedType into an ASTIdentifier"
-	^PWBASTIdentifier new
-		startPosition: aPWBASTParametrizedType startPosition ;
-		stopPosition: aPWBASTParametrizedType stopPosition ;
-		identifier: aPWBASTParametrizedType parametrizedType ;
-		yourself
+	^self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTFromClause customType.
 ]
 
 { #category : #visiting }
@@ -161,7 +105,7 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 	ifTrue: [ ^self ].
 
 	irType := self
-		ensureTypeNamed: (self visit: aPWBASTTypeDeclaration type)
+		ensureTypeNamed: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTTypeDeclaration type)
 		from: (self visit: aPWBASTTypeDeclaration fromClause).
 
 	"presumably it is always 'within <currentEntity>' or 'nil' for the currentEntity itself
@@ -180,23 +124,4 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 			during: [ self visit: aPWBASTTypeDeclaration attributes ]
 	]"
 
-]
-
-{ #category : #visiting }
-PWBTypeDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
-	"aPWBASTVariableDeclarations type is either a ASTBasicType or ASTCustomType
-	in both case we want an ASTIdentifier to simplify processing
-	see #visitPWBASTBasicType: "
-
-	| typeIdentifier |
-	typeIdentifier := self visit: aPWBASTVariableDeclarations type type.
-	aPWBASTVariableDeclarations variableAssignations
-		do: [ :anASTVariableAssignation | 
-			self
-				declaredType: typeIdentifier
-				forIrAttribute:
-					(self
-						ensureIRForFamixClass: FamixPWBInstanceVariable
-						named: anASTVariableAssignation variable identifier identifier
-						owner: self currentEntity) ]
 ]

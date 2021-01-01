@@ -87,7 +87,9 @@ PWBIRModelVisitorTest >> testParameterType [
 	param := (model getAllFamixType: FamixPWBParameter)
 		detect: [ :each | each name = 'dw_param' ]
 		ifNone: [self fail].
-	self assert: param parameterType class equals: FamixPWBCustomType
+	self
+		assertCollection: param declaredType expectedFamixKinds
+		hasSameElements: {FamixPWBCustomType}
 ]
 
 { #category : #tests }
@@ -169,7 +171,9 @@ PWBIRModelVisitorTest >> testResolveUserObjectType [
 	| uoTests|
 	uoTests := model getAllEntities select: [ : e | e name = 'test_uo' ].
 	self assert: uoTests size equals: 1.
-	self assert: uoTests anyOne class equals: FamixPWBUserObject 
+	self
+		assertCollection: uoTests anyOne expectedFamixKinds
+		hasSameElements: { FamixPWBUserObject }
 ]
 
 { #category : #tests }

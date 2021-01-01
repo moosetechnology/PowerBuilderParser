@@ -56,8 +56,9 @@ PWBIRNamedEntity >> name [
 ]
 
 { #category : #accessing }
-PWBIRNamedEntity >> name: anObject [
-	name := anObject
+PWBIRNamedEntity >> name: aString [
+1haltIf: [ aString = 'test_uo' ].
+	name := aString
 ]
 
 { #category : #accessing }

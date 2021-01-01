@@ -29,9 +29,9 @@ PWBImporterAbstractVisitor class >> mappingFileExtensionFamixClass [
 PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 	^aPWBVisitorClass new
 		solver: self solver ;
-		importingContext: self importingContext ;
+		"importingContext: self importingContext ;"
 		model: self model ;
-		preprocessingMap: self preprocessingMap ;
+		"preprocessingMap: self preprocessingMap ;"
 		file: self file ;
 
 		visit: aNode
@@ -170,6 +170,11 @@ PWBImporterAbstractVisitor >> currentEntityIfAny [
 	^ [ self currentEntity ]
 		on: SRNoCurrentEntityAvailable
 		do: [ nil ]
+]
+
+{ #category : #'famix kind' }
+PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
+	^PWBIRType mappingFamixClasses
 ]
 
 { #category : #'entities creation' }

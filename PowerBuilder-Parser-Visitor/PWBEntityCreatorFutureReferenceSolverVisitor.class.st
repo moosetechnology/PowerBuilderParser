@@ -116,18 +116,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccessOrType: aPWBAST
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArgument: aPWBASTArgument [
-	self visit: aPWBASTArgument argumentOption.
-	self visit: aPWBASTArgument type.
-	self visit: aPWBASTArgument arrayWithSize.
-	^ self visit: aPWBASTArgument identifier
-]
-
-{ #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
-	^ aPWBASTArguments arguments
-		ifNil: [ nil ]
-		ifNotNil: [ self visitAll: aPWBASTArguments arguments ]
+	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTArguments
 ]
 
 { #category : #visiting }
@@ -178,7 +168,16 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	^ self ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
+	"ensures the basicType as a top level entity
+	+ translates the ASTBasicType into an ASTIdentifier
+	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
+	self
+		ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
+	^PWBASTIdentifier new
+		startPosition: aPWBASTBasicType startPosition ;
+		stopPosition: aPWBASTBasicType stopPosition ;
+		identifier: aPWBASTBasicType basicType ;
+		yourself
 ]
 
 { #category : #visiting }
@@ -190,6 +189,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	| typeToResolve |
+	1haltIf: [ aPWBASTCustomType identifier identifier = 'test_uo' ].
 	typeToResolve := (self
 		resolvable:
 		(SRTypeIdentifierWithNode
@@ -509,8 +509,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	self visit: aPWBASTFunctionSignature accessModifier.
 	self visit: aPWBASTFunctionSignature type.
-	self currentEntity
-		name: (self visit: aPWBASTFunctionSignature identifier).
 	self visit: aPWBASTFunctionSignature arguments.
 
 	self flag: #TODOArgumentInFAST.
@@ -646,14 +644,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
-	(self visit: aPWBASTSharedVariables attributes)
-		ifNotNil: [ :attributeStrings | 
-			attributeStrings flatten
-				do: [ :attString | 
-					self
-						ensureIRForFamixClass: FamixPWBSharedVariable
-						named: attString
-						owner:  self currentEntity ] ]
+	"definition of shared instance variables of a UserObject,
+	PWBTypeDeclarationVisitor can handle that"
+	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTSharedVariables
 ]
 
 { #category : #visiting }
@@ -742,9 +735,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
-	"definition of instance variables of a UserObject,
-	PWBTypeDeclarationVisitor can handle that"
-	^self auxiliaryVisitor: PWBTypeDeclarationVisitor visit: aPWBASTTypeVariable
+	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTTypeVariable
 ]
 
 { #category : #visiting }
