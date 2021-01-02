@@ -1,15 +1,13 @@
 Class {
-	#name : #PWBASTVisitorChainOfIdentifierTest,
-	#superclass : #PWBAbstractASTToIRVisitorTest,
+	#name : #PWBChainOfIdentifierTest,
+	#superclass : #PWBAbstractASTVisitorTest,
 	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
 
 { #category : #running }
-PWBASTVisitorChainOfIdentifierTest >> setupModel [
+PWBChainOfIdentifierTest >> setupModel [
 	| testuo otheruo |
 	super setupModel.
-
-	self flag: 'create IR entities'.
 
 	testuo := model entityNamed: 'test_uo'.
 
@@ -40,7 +38,7 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 ]
 
 { #category : #running }
-PWBASTVisitorChainOfIdentifierTest >> sourceExample [
+PWBChainOfIdentifierTest >> sourceExample [
 	^ 
 'forward
   global type testFile from userobject
@@ -69,7 +67,7 @@ end function'
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
+PWBChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
 	| accVar |
 	
 	self skip.
@@ -84,7 +82,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwar
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
+PWBChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
@@ -96,7 +94,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
+PWBChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 	| accVar accMy_uo |
 	self assert: model allAccesses size equals: 3.
 	accVar := model allAccesses
@@ -111,7 +109,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariableSourceText [
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
+PWBChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 	| access |
 	access := model allAccesses
 		detect: [ :acc | acc variable name = 'my_uo' ]
@@ -124,7 +122,7 @@ PWBASTVisitorChainOfIdentifierTest >> testAccessReadOrWriteIsConsistent [
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
+PWBChainOfIdentifierTest >> testReturnFunctionInvocationValueIsCorrect [
 	| returnValues |
 	returnValues := (model allModelMethods
 		detect: [ :uf | uf name = 'aFunction' ]

@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBIRModelVisitorTest,
 	#superclass : #PWBAbstractASTToIRVisitorTest,
-	#category : #'PowerBuilder-Parser-Tests'
+	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
 
 { #category : #running }
@@ -82,7 +82,20 @@ PWBIRModelVisitorTest >> testGlobalVariables [
 PWBIRModelVisitorTest >> testInstanceVariables [
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBInstanceVariable) collect: #name)
-		hasSameElements: {'il_long1'}
+		hasSameElements: { 'il_long1' }
+]
+
+{ #category : #tests }
+PWBIRModelVisitorTest >> testLocalVariables [
+	| locals fct |
+	locals := model getAllFamixType: FamixPWBLocalVariable.
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+		anyOne.
+	
+	self assert: locals size equals: 1.
+	self assert: locals anyOne name equals: 'lL_return'.
+	self assert: locals anyOne owner equals: fct.
+
 ]
 
 { #category : #tests }
@@ -178,9 +191,16 @@ PWBIRModelVisitorTest >> testResolveUserObjectType [
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testSharedVariables [
+	| shared |
+	shared := model getAllFamixType: FamixPWBSharedVariable.
+
+	self assert: shared size equals: 1.
+	self assert: shared anyOne name equals: 'uo_var'.
 	self
-		assertCollection: ((model getAllFamixType: FamixPWBSharedVariable) collect: #name)
-		hasSameElements: {'uo_var'}
+		assert: shared anyOne owner
+		equals: ((model getAllIR: PWBIRType named: 'testFile')
+			anyOne)
+
 ]
 
 { #category : #tests }

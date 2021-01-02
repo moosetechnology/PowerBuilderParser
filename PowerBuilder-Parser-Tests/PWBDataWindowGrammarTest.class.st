@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBDataWindowGrammarTest,
 	#superclass : #PP2CompositeNodeTest,
-	#category : #'PowerBuilder-Parser-Tests'
+	#category : #'PowerBuilder-Parser-Tests-Core'
 }
 
 { #category : #accessing }

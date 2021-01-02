@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBPreprocessorTest,
 	#superclass : #PP2CompositeNodeTest,
-	#category : #'PowerBuilder-Parser-Tests'
+	#category : #'PowerBuilder-Parser-Tests-Core'
 }
 
 { #category : #public }
@@ -173,6 +173,10 @@ datawindow')
 { #category : #tests }
 PWBPreprocessorTest >> testProssessingMapKeepAllPreprocessedFiles [
 	| importer parentDirectory subDirectoryA subDirectoryB |
+	
+	self flag: #TODOSourceAnchor.
+	self skip.
+	
 	parentDirectory := 'pwbLibs/'.
 	subDirectoryA := 'pwbLibs/pwbLibA/'.
 	subDirectoryB := 'pwbLibs/pwbLibB/'.

@@ -7,7 +7,7 @@ Class {
 		'failure',
 		'file'
 	],
-	#category : #'PowerBuilder-Parser-Tests'
+	#category : #'PowerBuilder-Parser-Tests-Core'
 }
 
 { #category : #accessing }
