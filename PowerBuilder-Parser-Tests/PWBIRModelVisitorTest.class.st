@@ -89,7 +89,7 @@ PWBIRModelVisitorTest >> testParameterType [
 		ifNone: [self fail].
 	self
 		assertCollection: param declaredType expectedFamixKinds
-		hasSameElements: {FamixPWBCustomType}
+		hasSameElements: PWBIRType mappingFamixClasses
 ]
 
 { #category : #tests }
