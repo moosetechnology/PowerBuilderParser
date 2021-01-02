@@ -13,28 +13,6 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
-{ #category : #'ir entities' }
-PWBVariableDeclarationVisitor >> declaredType: typeIdentifier forIRValueHolder: irValueHolder [
-	| resolvable |
-	resolvable := self
-		resolvable:
-			(SRTypeIdentifierWithNode
-				identifier: typeIdentifier identifier
-				expectedKind: self defaultFamixTypeKinds
-				node: typeIdentifier).
-	resolvable
-		foundAction: [ :identifier :currentEntity |
-			irValueHolder declaredType: identifier entity ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self
-				ensureIR: PWBIRType
-				named: typeIdentifier identifier
-				owner: currentEntity)
-				expectedFamixKinds: self defaultFamixTypeKinds;
-				yourself ].
-	self resolve: resolvable
-]
-
 { #category : #initialization }
 PWBVariableDeclarationVisitor >> initialize [
 	super initialize.
@@ -45,7 +23,7 @@ PWBVariableDeclarationVisitor >> initialize [
 PWBVariableDeclarationVisitor >> visitPWBASTArgument: aPWBASTArgument [
 	self
 		declaredType: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTArgument type)
-		forIRValueHolder:
+		forIR:
 			(self
 				ensureIRForFamixClass: defaultFamixClass
 				named: (self visit: aPWBASTArgument identifier)
@@ -72,7 +50,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariabl
 		do: [ :anASTVariableAssignation | 
 			self
 				declaredType: typeIdentifier
-				forIRValueHolder:
+				forIR:
 					(self
 						ensureIRForFamixClass: defaultFamixClass
 						named: anASTVariableAssignation variable identifier identifier

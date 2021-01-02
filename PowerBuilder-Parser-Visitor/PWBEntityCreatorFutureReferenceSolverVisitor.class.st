@@ -441,6 +441,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionArguments: aP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
+	self flag: 'why this "empty" scope ?'.
 	self
 		useCurrentEntity: PWBNullEntityObject new
 		during: [ super visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration ]
@@ -457,7 +458,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 		useCurrentEntity: famixFunction
 		during: [
 			self visit: aPWBASTFunctionDefinition functionSignature.
-			self visit: aPWBASTFunctionDefinition statements. ].
+			self visit: aPWBASTFunctionDefinition statements ].
 	^ self currentEntity
 ]
 
@@ -512,7 +513,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	self visit: aPWBASTFunctionSignature accessModifier.
-	self visit: aPWBASTFunctionSignature type.
+
+	self
+		declaredType: (self
+			auxiliaryVisitor: PWBTypeReferenceVisitor
+			visit: aPWBASTFunctionSignature type)
+		forIR: self currentEntity.
+
 	self visit: aPWBASTFunctionSignature arguments.
 
 	self flag: #TODOArgumentInFAST.

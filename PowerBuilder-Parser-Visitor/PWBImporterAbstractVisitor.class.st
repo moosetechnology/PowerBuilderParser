@@ -172,6 +172,28 @@ PWBImporterAbstractVisitor >> currentEntityIfAny [
 		do: [ nil ]
 ]
 
+{ #category : #'ir entities' }
+PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity [
+	| resolvable |
+	resolvable := self
+		resolvable:
+			(SRTypeIdentifierWithNode
+				identifier: typeIdentifier identifier
+				expectedKind: self defaultFamixTypeKinds
+				node: typeIdentifier).
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			irTypedEntity declaredType: identifier entity ];
+		notFoundReplacementEntity: [ :identifier :currentEntity | 
+			(self
+				ensureIR: PWBIRType
+				named: typeIdentifier identifier
+				owner: currentEntity)
+				expectedFamixKinds: self defaultFamixTypeKinds;
+				yourself ].
+	self resolve: resolvable
+]
+
 { #category : #'famix kind' }
 PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
 	^PWBIRType mappingFamixClasses

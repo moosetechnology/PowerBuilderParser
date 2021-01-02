@@ -28,7 +28,7 @@ private function integer aFunction ();
   return -1
 end function
 
-private function integer anotherFunction (long aLong, uo_datawindow dw_param);  
+private function long anotherFunction (long aLong, uo_datawindow dw_param);  
   AFUNCTION(aLong)
   this.il_long1 = 5
   return trim("bla")
@@ -46,9 +46,18 @@ end function
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testFunction [
+	| fct |
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBFunction) collect: #name)
-		hasSameElements: { 'aFunction' . 'isNull' . 'anotherFunction' . 'trim' . 'eventTestingFunction' }
+		hasSameElements: { 'aFunction' . 'isNull' . 'anotherFunction' . 'trim' . 'eventTestingFunction' }.
+
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+		anyOne.
+	self assert: fct declaredType name equals: 'integer'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+		anyOne.
+	self assert: fct declaredType name equals: 'long'.
 ]
 
 { #category : #tests }

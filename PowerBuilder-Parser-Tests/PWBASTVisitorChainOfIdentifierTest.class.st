@@ -11,11 +11,8 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 
 	self flag: 'create IR entities'.
 
-	testuo := model entityNamed: 'test_uo'.
-
-	otheruo := (FamixPWBUserObject named: 'other_uo')
-		mooseModel: model ;
-		yourself.
+	testuo := model ensureIRForFamixClass: FamixPWBUserObject named: 'test_uo' owner: nil.
+	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: nil.
 
 	(FamixPWBFunction named: 'myFunc')
 		returnType: testuo ;
