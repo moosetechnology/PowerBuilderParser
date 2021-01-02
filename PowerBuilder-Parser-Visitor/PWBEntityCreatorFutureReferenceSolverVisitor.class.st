@@ -352,7 +352,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
-	| customIdentifier eventInvocation eventName |
+	"converting it to a PWBASTEventInvocation"
+	| customIdentifier eventName |
 	[ eventName := aPWBASTEventTriggeringOrPosting eventName toString ]
 		on: Error
 		do: [ ^ self ].
@@ -360,12 +361,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPost
 		identifier:
 			((eventName copyReplaceAll: '"' with: '') copyReplaceAll: '!' with: '');
 		yourself.
-	eventInvocation := PWBASTEventInvocation new
-		identifier: customIdentifier;
-		startPosition: aPWBASTEventTriggeringOrPosting startPosition;
-		stopPosition: aPWBASTEventTriggeringOrPosting stopPosition;
-		yourself.
-	self visitPWBASTEventInvocation: eventInvocation
+
+	^self visitPWBASTEventInvocation:
+		(PWBASTEventInvocation new
+			identifier: customIdentifier;
+			startPosition: aPWBASTEventTriggeringOrPosting startPosition;
+			stopPosition: aPWBASTEventTriggeringOrPosting stopPosition;
+			yourself)
 ]
 
 { #category : #visiting }
@@ -462,21 +464,24 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
-	| argumentASTs |
-	argumentASTs := aPWBASTFunctionInvocation functionArguments.
+	"| argumentASTs |
+	argumentASTs := aPWBASTFunctionInvocation functionArguments."
 	self
 		resolve:
 			((self
 				resolvable:
 				(SRInvocationWithNode
 				identifier: (self visit: aPWBASTFunctionInvocation functionName)
-				expectedKind:
-					{FamixPWBSubRoutine.
-					FamixPWBFunction}
+				expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
 				node: aPWBASTFunctionInvocation
-				arguments: (self visit: argumentASTs)))
+				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
-					{ self ensureIRForFamixClass: FamixPWBSubRoutine named: aResolvable identifier owner: nil
+					{ (self
+						ensureIR: PWBIRFunction
+						named: aResolvable identifier
+						owner: nil)
+						expectedFamixKinds: { FamixPWBSubRoutine . FamixPWBFunction } ;
+						yourself
 					"((self createStub: FamixPWBSubRoutine)
 						name: aResolvable identifier;
 						yourself)"} ];
@@ -625,6 +630,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
 	self flag: 'Don t do anything, return statement should be treated in FAST'.
+	^super visitPWBASTReturnStatement: aPWBASTReturnStatement
 "
 	| famixFunctionReturn codeRewriteVisitor |
 	famixFunctionReturn := self

@@ -45,6 +45,13 @@ end function
 ]
 
 { #category : #tests }
+PWBIRModelVisitorTest >> testFunction [
+	self
+		assertCollection: ((model getAllFamixType: FamixPWBFunction) collect: #name)
+		hasSameElements: { 'aFunction' . 'isNull' . 'anotherFunction' . 'trim' . 'eventTestingFunction' }
+]
+
+{ #category : #tests }
 PWBIRModelVisitorTest >> testFunctionInvocationSourceText [
 	| invocation1 invocation2 |
 	invocation1 := ((model getAllFamixType: FamixPWBFunction)
