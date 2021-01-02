@@ -189,7 +189,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	| typeToResolve |
-	1haltIf: [ aPWBASTCustomType identifier identifier = 'test_uo' ].
 	typeToResolve := (self
 		resolvable:
 		(SRTypeIdentifierWithNode

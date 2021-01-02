@@ -54,6 +54,10 @@ PWBIRModelVisitorTest >> testFunction [
 { #category : #tests }
 PWBIRModelVisitorTest >> testFunctionInvocationSourceText [
 	| invocation1 invocation2 |
+	
+	self flag: #TODOSourceAnchor.
+	self skip.
+
 	invocation1 := ((model getAllFamixType: FamixPWBFunction)
 		detect: [ :function | function name = 'anotherFunction' ]
 		ifNone: [self fail])
@@ -101,76 +105,65 @@ PWBIRModelVisitorTest >> testParameterType [
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testParserAttributeAccess [
-	| acc |
-	self assert: model allAccesses size equals: 6.
-	acc := model allAccesses
-		select: [ :a | a variable name asLowercase = 'il_long1' ].
-	self assert: acc anyOne accessor name equals: 'anotherFunction'.
-	self assert: (acc select: #isWrite) isNotEmpty
+	| accesses fct |
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	self assert: accesses size equals: 4.
+	self
+		assertCollection: (accesses collect: #name)
+		hasSameElements: {'aLong' . 'il_long1' . 'll_pos'}
 ]
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testParserEventInvocation [
-	| modelTriggerEvent |
-	self assert: (model getAllFamixType: FamixPWBEvent) size equals: 2.
-	modelTriggerEvent := (model getAllFamixType: FamixPWBEvent) anyOne.
-	self assert: modelTriggerEvent incomingInvocations size equals: 1.
-	self
-		assert: modelTriggerEvent incomingInvocations anyOne sender name
-		equals: 'eventTestingFunction'.
-	self
-		assert: (self sourceText: modelTriggerEvent incomingInvocations anyOne)
-		equals: 'this.triggerEvent("evt_trigger", 0, "")'
+	| events fct |
+	fct := (model getAllIR: PWBIRFunction named: 'eventTestingFunction')
+				anyOne.
+
+	events := model getAllFamixType: FamixPWBEvent.
+	self assert: events size equals: 2.
+
+	events do: [ :evt |
+		self assert: (fct dependencies includes: evt)
+	]
+
 ]
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testParserFunctionInvocationCorrectCase [
-	| invok |
-	self assert: model allInvocations size equals: 6.
-	invok := model allInvocations select: [ :i |
-		(i source name asLowercase = 'afunction')
-		and: [ i target anyOne name asLowercase ~= 'isnull' ] ].
-	self assert: invok size equals: 1.
-	self
-		assert: invok anyOne target anyOne name
-		equals: 'anotherFunction'.
-	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 1
+	| caller callee |
+	caller := (model getAllIR: PWBIRFunction named: 'aFunction')
+				anyOne.
+	callee := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	self assert: (caller dependencies includes: callee)
 ]
 
 { #category : #tests }
 PWBIRModelVisitorTest >> testParserFunctionInvocationWrongCase [
-	| invok |
-	self assert: model allInvocations size equals: 6.
-	invok := model allInvocations
-		select: [ :i | i source name asLowercase = 'anotherfunction' ].
-	self assert: invok size equals: 2.
-	self
-		assertCollection: (invok flatCollect: [ :invk | invk target collect: #name ])
-		hasSameElements: {'trim' . 'aFunction'}.
-	self assert: (model allWithType: FamixPWBSubRoutine) size equals: 1
+	| caller callee |
+	caller := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+	callee := (model getAllIR: PWBIRFunction named: 'aFunction')
+				anyOne.
+
+	self assert: (caller dependencies includes: callee)
 ]
 
 { #category : #tests }
-PWBIRModelVisitorTest >> testParserVariableAccessCorrectCase [
-	| acc |
-	self assert: model allAccesses size equals: 6.
-	acc := model allAccesses select: [ :a | a variable name asLowercase = 'along' ].
-	self assert: acc size equals: 1.
-	self
-		assert: acc anyOne accessor name asLowercase
-		equals: 'anotherfunction'.
-]
+PWBIRModelVisitorTest >> testParserVariableAccessMixedCase [
+	| accesses fct |
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+				anyOne.
 
-{ #category : #tests }
-PWBIRModelVisitorTest >> testParserVariableAccessWrongCase [
-	| accs |
-	self assert: model allAccesses size equals: 6.
-	accs := model allAccesses
-		select: [ :a | a accessor name asLowercase = 'afunction' ].
-	self assert: accs size equals: 2.
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	self assert: accesses size equals: 2.
 	self
-		assertCollection: (accs collect: [ :acc | acc variable name asLowercase ])
-		hasSameElements: {'ll_return' . 'var'}
+		assertCollection: (accesses collect: #name)
+		hasSameElements: {'lL_return' . 'var'}
 ]
 
 { #category : #tests }
@@ -193,6 +186,10 @@ PWBIRModelVisitorTest >> testSharedVariables [
 { #category : #tests }
 PWBIRModelVisitorTest >> testSourceTestSettings [
 	| eventTestingFunction |
+
+	self flag: #TODOSourceAnchor.
+	self skip.
+
 	eventTestingFunction := (model getAllFamixType: FamixPWBFunction)
 		detect: [ :function | function name = 'eventTestingFunction' ]
 		ifNone: [self fail].
