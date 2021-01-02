@@ -48,10 +48,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 								to: identifier representationString
 								isWrite: writeAccess" ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity |
-					self
-						ensureIR: PWBIRValueHolder
-						named: identifier
-						representationString owner: currentEntity ].
+					model irStub: PWBIRValueHolder named: identifier representationString ].
 			self resolve: identifiers ]
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 ]
@@ -102,10 +99,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 								to: sRIdentifierWithNode
 								isWrite: writeAccess" ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
-					self
-						ensureIR: PWBIRValueHolder
-						named: identifier representationString
-						owner: currentEntity ].
+					model irStub: PWBIRValueHolder named: identifier representationString ].
 			self resolve: sRIdentifierWithNode ]
 		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
@@ -171,8 +165,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBas
 	"ensures the basicType as a top level entity
 	+ translates the ASTBasicType into an ASTIdentifier
 	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
-	self
-		ensureIRForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType owner: nil.
+	model
+		irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
 		stopPosition: aPWBASTBasicType stopPosition ;
@@ -208,10 +202,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				source: currentEntity;
 				target: identifier entity" ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			self
-				ensureIRForFamixClass: FamixPWBCustomType
-				named: (self visit: aPWBASTCustomType identifier)
-				owner: currentEntity ].
+			model irStubForFamixClass: FamixPWBCustomType	named: (self visit: aPWBASTCustomType identifier) ].
 	^ self resolve: typeToResolve
 ]
 
@@ -255,7 +246,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 				node: aPWBASTMethodInvocation
 				arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
-					{ self ensureIRForFamixClass: FamixPWBFunction named: aResolvable owner: nil
+					{ model irStubForFamixClass: FamixPWBFunction named: aResolvable
 					"((self createStub: FamixPWBFunction)
 						name: aResolvable identifier;
 						yourself)"} ];
@@ -292,7 +283,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 	self flag: 'missing visit to returnType'.
 	self
 		useCurrentEntity:
-			(self
+			(model
 				ensureIRForFamixClass: FamixPWBEvent
 				named: (self visit: aPWBASTEventDeclaration eventReferenceName)
 				owner: self currentEntity)
@@ -314,7 +305,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 				expectedKind: FamixPWBEvent
 				node: aPWBASTEventInvocation))
 				notFoundReplacementEntity: [ :aResolvable | 
-					{ self ensureIRForFamixClass: FamixPWBEvent named: aResolvable identifier owner: nil
+					{ model irStubForFamixClass: FamixPWBEvent named: aResolvable identifier
 					"((self createStub: FamixPWBEvent)
 						name: aResolvable identifier;
 						yourself)"} ];
@@ -404,15 +395,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
-	majorEntity := self
+	majorEntity := model
 		ensureIRForFamixClass: (self famixClassForFileExtension: aPWBASTFile fileExtension)
 		named: aPWBASTFile fileName
 		owner: self currentEntityIfAny.
 	self flag: #TODOSourceAnchor.
 	"self
-		ensureIRForFamixClass: (self famixClassForFileExtension: aPWBASTFile fileExtension)
-		named: aPWBASTFile fileName
-		owner: self currentEntityIfAny."
+		create: (self majorEntityClassForExtension: aPWBASTFile fileExtension)
+		from: aPWBASTFile."
 	self flag: 'will need to deal with libraries'.
 	"majorEntity library: currentLibrary"
 
@@ -450,7 +440,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	| famixFunction |
-	famixFunction := self
+	famixFunction := model
 		ensureIRForFamixClass: FamixPWBFunction
 		named: (self visit: aPWBASTFunctionDefinition functionSignature identifier)
 		owner: self currentEntity.
@@ -476,12 +466,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 				node: aPWBASTFunctionInvocation
 				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
 				notFoundReplacementEntity: [ :aResolvable | 
-					{ (self
-						ensureIR: PWBIRFunction
-						named: aResolvable identifier
-						owner: nil)
-						expectedFamixKinds: { FamixPWBSubRoutine . FamixPWBFunction } ;
-						yourself
+					{ (model irStub: PWBIRFunction named: aResolvable identifier)
+							expectedFamixKinds: { FamixPWBSubRoutine . FamixPWBFunction } ;
+							yourself
 					"((self createStub: FamixPWBSubRoutine)
 						name: aResolvable identifier;
 						yourself)"} ];
@@ -550,11 +537,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	self visit: aPWBASTGlobalVariableDeclaration type.
-	self
+	model
 		ensureIRForFamixClass: FamixPWBGlobalVariable
 		named: ((self visit: aPWBASTGlobalVariableDeclaration variable)
 					representationString)
-		owner:  self currentEntity
+		owner: self currentEntity
 
 ]
 
@@ -564,10 +551,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariables: aPWB
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
 				do: [ :attString | 
-					self
+					model
 						ensureIRForFamixClass: FamixPWBGlobalVariable
 						named: attString
-						owner:  self currentEntity ] ]
+						owner: self currentEntity ] ]
 ]
 
 { #category : #visiting }
@@ -597,12 +584,13 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPW
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
-	^ self
-		ensureIRForFamixClass: FamixPWBBasicType
+	self flag: 'not sure what a parameterized type is?'.
+	^ model
+		irStubForFamixClass: FamixPWBBasicType
 		named: (anPWBASTParametrizedType parametrizedType
 			copyWithRegex: '{.*}'
 			matchesReplacedWith: '')
-		owner: nil
+
 ]
 
 { #category : #visiting }
@@ -620,10 +608,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 		arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
 		notFoundReplacementEntity: [ :aResolvable | 
 			{
-			self ensureIRForFamixClass: FamixPWBFunction named: aResolvable identifier owner: nil
-			"((self createStub: FamixPWBFunction)
-				name: aResolvable identifier;
-				yourself)"} ];
+				model irStubForFamixClass: FamixPWBFunction named: aResolvable identifier
+				"((self createStub: FamixPWBFunction)
+					name: aResolvable identifier;
+					yourself)"} ];
 		foundAction: [ :identifier :currentEntity | 
 			self flag: #TODOSourceAnchor.
 			"self preprocessedFile: currentEntity sourceAnchor fileReference."
@@ -681,7 +669,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDeclaration
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
 	self
-		useCurrentEntity: (self
+		useCurrentEntity: (model
 			ensureIRForFamixClass: FamixPWBSubRoutine
 			named: (self visit: aPWBASTSubroutineDefinition subroutineSignature identifier)
 			owner: self currentEntity)
@@ -724,7 +712,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: anPWBASTThis [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
 	| trigger |
-	trigger := self
+	trigger := model
 		ensureIRForFamixClass: FamixPWBTrigger
 		named: (self visit: aPWBASTTriggerDefinition eventType)
 		owner: self currentEntity.
@@ -776,10 +764,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
 	^ self currentEntity isBehavioural
-		ifTrue: [ self
+		ifTrue: [ model
 						ensureIRForFamixClass: FamixPWBLocalVariable
 						named: variable
-						owner:  self currentEntity ]
+						owner: self currentEntity ]
 		ifFalse: [ variable ]
 ]
 

@@ -67,3 +67,13 @@ PWBIRModel >> getAllIR: anIRKind named: aName [
 PWBIRModel >> initialize [
 	irEntities := Dictionary new: (PWBIRNamedEntity allSubclasses size)
 ]
+
+{ #category : #creating }
+PWBIRModel >> irStub: anIRKind named: aName [
+	^self ensureIR: anIRKind named: aName owner: nil
+]
+
+{ #category : #creating }
+PWBIRModel >> irStubForFamixClass: aFamixClass named: aName [
+	^self ensureIRForFamixClass: aFamixClass named: aName owner: nil
+]

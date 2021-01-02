@@ -9,7 +9,7 @@ PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifi
 	| irType |
 	(self isMainTypeOfFile: typeIdentifier)
 		ifTrue: [ ^ self currentEntity ].
-	irType := self
+	irType := model
 		ensureIR: PWBIRType
 		named: typeIdentifier identifier
 		owner: self currentEntity.
@@ -31,17 +31,20 @@ PWBTypeDeclarationVisitor >> expectedFamixKindsForType: irType from: superIdenti
 		ifNil: [ self defaultFamixTypeKinds ].
 	irType name = file basenameWithoutExtension
 		ifTrue: [ self famixTypeKindFromFileExtension
-				ifNotNil: [ :expectedKindFromFileName | 
-					^ irType
-						expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ] ].
+			ifNotNil: [ :expectedKindFromFileName | 
+				^irType
+					expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ]
+		].
 	superIdentifier
-		ifNotNil: [ (self getAllIR: PWBIRType named: superIdentifier identifier)
-				ifNotNil: [ :irSuper | 
-					| newExpectedFamixKinds |
-					newExpectedFamixKinds := expectedFamixKinds
-						intersection: irSuper expectedFamixKinds.
-					irSuper expectedFamixKinds: newExpectedFamixKinds.
-					^ irType expectedFamixKinds: newExpectedFamixKinds ] ].
+		ifNotNil: [ | irSuper newExpectedFamixKinds |
+			irSuper := self getSuperType: superIdentifier identifier.
+			newExpectedFamixKinds := expectedFamixKinds
+					intersection: irSuper expectedFamixKinds.
+
+			irSuper expectedFamixKinds: newExpectedFamixKinds.
+			^irType expectedFamixKinds: newExpectedFamixKinds
+		].
+
 	irType expectedFamixKinds: expectedFamixKinds
 ]
 
@@ -54,6 +57,20 @@ PWBTypeDeclarationVisitor >> famixTypeKindFromFileExtension [
 	^(self defaultFamixTypeKinds includes: famixKind) 
 	ifTrue: [ famixKind ]
 	ifFalse: [ nil ]
+]
+
+{ #category : #'famix kind' }
+PWBTypeDeclarationVisitor >> getSuperType: superName [
+	(model getAllIR: PWBIRType named: superName)
+		ifEmpty: [
+			^(model irStub: PWBIRType named: superName)
+				expectedFamixKinds: (self defaultFamixTypeKinds) ;
+				yourself.
+		]
+		ifNotEmpty: [ :superCandidates |
+			"hopefully there is only one ..."
+			^superCandidates anyOne
+		]
 ]
 
 { #category : #testing }
@@ -84,11 +101,8 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 		foundAction:
 				[ :identifier :currentEntity | irType superType: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self
-				ensureIR: PWBIRType
-				named: typeIdentifier identifier
-				owner: currentEntity)
-				expectedFamixKinds: irType expectedFamixKinds;
+			(model irStub: PWBIRType named: typeIdentifier identifier)
+				expectedFamixKinds: irType expectedFamixKinds ;
 				yourself ].
 	self resolve: resolvable
 ]

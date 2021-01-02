@@ -7,8 +7,7 @@ Class {
 		'model',
 		'file',
 		'importingContext',
-		'preprocessingMap',
-		'irModel'
+		'preprocessingMap'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -104,23 +103,23 @@ PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
 
 { #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
-	^ aCollection
+	^aCollection
 		collect: [ :arg | 
 			| param |
-			param := (self
+			param := (model
 				ensureIRForFamixClass: FamixPWBParameter
 				named: (self visit: arg)
 				owner:  self currentEntity)
 				declaredType: (self visit: arg type).
-			self flag:
-				'parameterOption: (self visit: arg argumentOption);
+			self flag: #TODOSourceAnchor.
+			"parameterOption: (self visit: arg argumentOption);
 				sourceAnchor:
 					(FamixPWBIndexedFileAnchor new
 						mooseModel: self model;
 						startPos: (self unpreprocessedPosition: arg startPosition);
 						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
 						endPos: (self unpreprocessedPosition: arg stopPosition);
-						yourself)'.
+						yourself)".
 			self flag:
 				'param parameterType isResolvable
 				ifTrue: [ param parameterType addTypedVariable: param ]'
@@ -172,7 +171,7 @@ PWBImporterAbstractVisitor >> currentEntityIfAny [
 		do: [ nil ]
 ]
 
-{ #category : #'ir entities' }
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity [
 	| resolvable |
 	resolvable := self
@@ -185,10 +184,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(self
-				ensureIR: PWBIRType
-				named: typeIdentifier identifier
-				owner: currentEntity)
+			(model irStub: PWBIRType named: typeIdentifier identifier)
 				expectedFamixKinds: self defaultFamixTypeKinds;
 				yourself ].
 	self resolve: resolvable
@@ -209,16 +205,6 @@ PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
 				yourself ]
 ]
 
-{ #category : #'ir entities' }
-PWBImporterAbstractVisitor >> ensureIR: anIRKind named: aName owner: owner [
-	^ irModel ensureIR: anIRKind named: aName owner: owner
-]
-
-{ #category : #'ir entities' }
-PWBImporterAbstractVisitor >> ensureIRForFamixClass: aFamixClass named: aName owner: owner [
-	^irModel ensureIRForFamixClass: aFamixClass named: aName owner: owner
-]
-
 { #category : #helpers }
 PWBImporterAbstractVisitor >> famixClassForFileExtension: anExtension [
 	^ self class mappingFileExtensionFamixClass
@@ -236,16 +222,6 @@ PWBImporterAbstractVisitor >> file: anObject [
 	file := anObject
 ]
 
-{ #category : #'ir entities' }
-PWBImporterAbstractVisitor >> getAllIR: anIRKind [
-	^irModel getAllIR: anIRKind
-]
-
-{ #category : #'ir entities' }
-PWBImporterAbstractVisitor >> getAllIR: anIRKind named: aName [
-	^irModel getAllIR: anIRKind named: aName
-]
-
 { #category : #accessing }
 PWBImporterAbstractVisitor >> importingContext [
 	^ importingContext
@@ -260,7 +236,7 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 	self model: aModel.
 	
-	self pushIRModelAsScope: irModel
+	self pushIRModelAsScope: model
 	"self pushAsScopeAll: FamixPWBFunction ofModel: aModel.
 	self pushAsScopeAll: FamixPWBEvent ofModel: aModel.
 	self pushAsScopeAll: FamixPWBSubRoutine ofModel: aModel.
@@ -272,7 +248,7 @@ PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 PWBImporterAbstractVisitor >> initialize [
 	super initialize.
 	self initialiseSolver.
-	irModel := PWBIRModel new
+	model := PWBIRModel new
 ]
 
 { #category : #helpers }
@@ -283,12 +259,12 @@ PWBImporterAbstractVisitor >> majorObjectFamixClasses [
 
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model [
-	^ irModel
+	^ model
 ]
 
 { #category : #accessing }
 PWBImporterAbstractVisitor >> model: anObject [
-	irModel := anObject.
+	model := anObject.
 ]
 
 { #category : #helpers }

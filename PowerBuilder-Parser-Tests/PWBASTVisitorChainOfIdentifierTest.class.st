@@ -1,6 +1,6 @@
 Class {
 	#name : #PWBASTVisitorChainOfIdentifierTest,
-	#superclass : #PWBAbstractASTToIRVisitorTest,
+	#superclass : #PWBAbstractASTVisitorTest,
 	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
 
@@ -9,10 +9,11 @@ PWBASTVisitorChainOfIdentifierTest >> setupModel [
 	| testuo otheruo |
 	super setupModel.
 
-	self flag: 'create IR entities'.
+	testuo := model entityNamed: 'test_uo'.
 
-	testuo := model ensureIRForFamixClass: FamixPWBUserObject named: 'test_uo' owner: nil.
-	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: nil.
+	otheruo := (FamixPWBUserObject named: 'other_uo')
+		mooseModel: model ;
+		yourself.
 
 	(FamixPWBFunction named: 'myFunc')
 		returnType: testuo ;

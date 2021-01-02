@@ -39,10 +39,10 @@ PWBAbstractASTToIRVisitorTest >> setupModel [
 PWBAbstractASTToIRVisitorTest >> setupVisitor [
 	self flag: 'TODO: deal with libraries'.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
-		importingContext: PWBFamixImporter new importingContext;
+		"importingContext: PWBFamixImporter new importingContext;"
 		"currentLibrary: (model entityNamed: 'TestLib');"
 		file: 'testFile.sru' asFileReference;
-		preprocessingMap: OrderedDictionary new;
+		"preprocessingMap: OrderedDictionary new;"
 		initContextStackFromModel: model
 ]
 

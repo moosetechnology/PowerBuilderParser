@@ -20,10 +20,10 @@ PWBIRModelTest >> testCreateIREntity [
 
 { #category : #tests }
 PWBIRModelTest >> testEnsureIREntity [
-	model createIR: PWBIRFunction named: 'fct' owner: nil.
+	model irStub: PWBIRFunction named: 'fct'.
 	self assert: (model getAllIR: PWBIRFunction) size equals: 1.
 
-	model ensureIR: PWBIRFunction named: 'fct' owner: nil.
+	model irStub: PWBIRFunction named: 'fct'.
 	self assert: (model getAllIR: PWBIRFunction) size equals: 1
 ]
 

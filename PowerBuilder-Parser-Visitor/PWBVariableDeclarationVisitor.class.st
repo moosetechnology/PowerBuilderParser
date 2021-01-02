@@ -24,7 +24,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTArgument: aPWBASTArgument [
 	self
 		declaredType: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTArgument type)
 		forIR:
-			(self
+			(model
 				ensureIRForFamixClass: defaultFamixClass
 				named: (self visit: aPWBASTArgument identifier)
 				owner: self currentEntity)
@@ -51,7 +51,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariabl
 			self
 				declaredType: typeIdentifier
 				forIR:
-					(self
+					(model
 						ensureIRForFamixClass: defaultFamixClass
 						named: anASTVariableAssignation variable identifier identifier
 						owner: self currentEntity) ]
