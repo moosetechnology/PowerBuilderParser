@@ -24,11 +24,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 	^name
 ]
 
-{ #category : #accessing }
-PWBEntityCreatorFutureReferenceSolverVisitor >> beMultiple [
-	multiple := true
-]
-
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
 	^ (self currentEntity class = FamixPWBDataWindow
@@ -63,7 +58,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	super initialize.
 	self initialiseFutureSolver.
 	expressionIsLeftHandSide := false.
-	multiple := false
 ]
 
 { #category : #accessing }
@@ -413,10 +407,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTForwardDeclaration: aPWBASTForwardDeclaration [
-	multiple ifTrue: [
-		^self auxiliaryVisitor: PWBTypeDeclarationVisitor visit: aPWBASTForwardDeclaration ].
-
-	^super visitPWBASTForwardDeclaration: aPWBASTForwardDeclaration
+	^self auxiliaryVisitor: PWBTypeDeclarationVisitor visit: aPWBASTForwardDeclaration
 ]
 
 { #category : #visiting }
