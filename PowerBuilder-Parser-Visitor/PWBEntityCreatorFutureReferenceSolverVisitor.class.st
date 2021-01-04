@@ -60,6 +60,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	expressionIsLeftHandSide := false.
 ]
 
+{ #category : #testing }
+PWBEntityCreatorFutureReferenceSolverVisitor >> isMajorObjectKind: aClass [
+	^self majorObjectFamixClasses includes: aClass
+]
+
 { #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
 	typeDeclarationType
@@ -83,7 +88,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := expressionIsLeftHandSide.
 			sRIdentifierWithNode
-				foundAction: [ :identifier :currentEntity | 
+				foundAction: [ :identifier :currentEntity |
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [
 							currentEntity addDependency: identifier entity.
@@ -274,13 +279,19 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTElseIf: aPWBASTElseIf
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
-	self flag: 'missing visit to returnType'.
+	| irEntity |
+	irEntity := self visit: aPWBASTEventDeclaration eventReferenceName.
+
+	aPWBASTEventDeclaration returnType
+	ifNotNil: [
+		self
+			declaredType: (self
+				auxiliaryVisitor: PWBTypeReferenceVisitor
+				visit: aPWBASTEventDeclaration returnType)
+			forIR: irEntity].
+
 	self
-		useCurrentEntity:
-			(model
-				ensureIRForFamixClass: FamixPWBEvent
-				named: (self visit: aPWBASTEventDeclaration eventReferenceName)
-				owner: self currentEntity)
+		useCurrentEntity: irEntity
 		during: [
 			self visit: aPWBASTEventDeclaration customCallStatement.
 			self visit: aPWBASTEventDeclaration statements ]
@@ -329,9 +340,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
 	self flag: 'Manage object class correctly'.
 	self visit: aPWBASTEventReferenceName objectClass.
-	self currentEntity
-		name: (self visit: aPWBASTEventReferenceName eventName).
-	self visit: aPWBASTEventReferenceName arguments
+	self visit: aPWBASTEventReferenceName arguments.
+	^model
+		ensureIRForFamixClass: FamixPWBEvent
+		named: (self visit: aPWBASTEventReferenceName eventName)
+		owner: self currentEntity.
 ]
 
 { #category : #visiting }
@@ -430,15 +443,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: 
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
-	| famixFunction |
-	famixFunction := model
-		ensureIRForFamixClass: FamixPWBFunction
-		named: (self visit: aPWBASTFunctionDefinition functionSignature identifier)
-		owner: self currentEntity.
+
 	self
-		useCurrentEntity: famixFunction
+		useCurrentEntity:
+			(self visit: aPWBASTFunctionDefinition functionSignature)
 		during: [
-			self visit: aPWBASTFunctionDefinition functionSignature.
 			self visit: aPWBASTFunctionDefinition statements ].
 	^ self currentEntity
 ]
@@ -490,17 +499,21 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
+	| irFunction |
 	self visit: aPWBASTFunctionSignature accessModifier.
 
+	irFunction := model
+		ensureIRForFamixClass: FamixPWBFunction
+		named: (self visit: aPWBASTFunctionSignature identifier)
+		owner: self currentEntity.
 	self
 		declaredType: (self
 			auxiliaryVisitor: PWBTypeReferenceVisitor
 			visit: aPWBASTFunctionSignature type)
-		forIR: self currentEntity.
-
-	self visit: aPWBASTFunctionSignature arguments.
+		forIR: irFunction.
 
 	self flag: #TODOArgumentInFAST.
+	self visit: aPWBASTFunctionSignature arguments.
 "	| signature arguments retunTypeHolder |
 	self currentEntity isNullPatternObject
 		ifTrue: [ ^ self ].
@@ -523,6 +536,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 		accessModifier: (self visit: aPWBASTFunctionSignature accessModifier).
 	^ signature
 "
+	^irFunction
 ]
 
 { #category : #visiting }
@@ -669,35 +683,35 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	| arguments signature |
-		self currentEntity isNullPatternObject
-		ifTrue: [ ^ self ].
+	super visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature.
+
+	self flag: #TODOArgumentInFAST.
+	"| arguments signature |
 	arguments := aPWBASTSubroutineSignature arguments arguments.
 	arguments ifNotNil: [ self createPWBParameters: arguments ].
-	signature := self
+	signature := model
 		createEntity: FamixPWBBehaviorSignature
 		withAnchorFrom: aPWBASTSubroutineSignature.
 	signature
 		name: self currentEntity name;
 		behavioral: self currentEntity.
-			"A signature always and with a $; charater at definition"
+			""A signature always and with a $; charater at definition""
 	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
 	self currentEntity
 		name: (self visit: aPWBASTSubroutineSignature identifier);
 		accessModifier: (self visit: aPWBASTSubroutineSignature accessModifier).
-	^ signature
+	^ signature"
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: anPWBASTThis [
-	^ self
-		resolvable:
-			(SRThisWithNode
-				node: anPWBASTThis
-				validationAsTypeBlock: [ :entity || majorObjectKinds |
-					majorObjectKinds := self majorObjectFamixClasses.
-					entity expectedFamixKinds anySatisfy: [ :kind | majorObjectKinds includes: kind ]
-					"entity class inheritsFrom: FamixPWBmajorObject" ])
+	^self resolvable:
+		(SRThisWithNode
+			node: anPWBASTThis
+			validationAsTypeBlock: [ :entity |
+				entity expectedFamixKinds anySatisfy: [ :kind | self isMajorObjectKind: kind ]
+				"entity class inheritsFrom: FamixPWBmajorObject" ]).
+
 ]
 
 { #category : #visiting }

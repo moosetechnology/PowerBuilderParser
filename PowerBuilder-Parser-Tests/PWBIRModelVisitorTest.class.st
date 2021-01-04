@@ -47,6 +47,7 @@ end function
 { #category : #tests }
 PWBIRModelVisitorTest >> testFunction [
 	| fct |
+	self assert: (model getAllFamixType: FamixPWBFunction) size equals: 5.
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBFunction) collect: #name)
 		hasSameElements: { 'aFunction' . 'isNull' . 'anotherFunction' . 'trim' . 'eventTestingFunction' }.
