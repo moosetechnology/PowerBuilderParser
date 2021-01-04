@@ -87,6 +87,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 		ifFalse: [ | writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := expressionIsLeftHandSide.
+
 			sRIdentifierWithNode
 				foundAction: [ :identifier :currentEntity |
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
@@ -734,6 +735,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
+
+1haltIf:[aPWBASTTypeDeclaration type identifier identifier = 'f_montant_autre' ].
+
 	^self auxiliaryVisitor: PWBTypeDeclarationVisitor visit: aPWBASTTypeDeclaration
 
 ]

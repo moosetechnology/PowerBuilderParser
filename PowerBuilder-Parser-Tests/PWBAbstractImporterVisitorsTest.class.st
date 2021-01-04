@@ -1,5 +1,5 @@
 Class {
-	#name : #PWBAbstractASTToIRVisitorTest,
+	#name : #PWBAbstractImporterVisitorsTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'visitor',
@@ -10,12 +10,18 @@ Class {
 }
 
 { #category : #running }
-PWBAbstractASTToIRVisitorTest >> setUp [
-	self setupModel.
-	result := PWBCommonParser new parse: self sourceExample.
+PWBAbstractImporterVisitorsTest >> fileExtension [
+	self subclassResponsibility 
+]
+
+{ #category : #running }
+PWBAbstractImporterVisitorsTest >> importCode: aString [
+	result := PWBCommonParser new
+		parse: aString.
 	result
 		fileName: 'testFile';
-		fileExtension: 'sru'.
+		fileExtension: self fileExtension.
+
 	self setupVisitor.
 	visitor
 		visit: result;
@@ -23,7 +29,12 @@ PWBAbstractASTToIRVisitorTest >> setUp [
 ]
 
 { #category : #running }
-PWBAbstractASTToIRVisitorTest >> setupModel [
+PWBAbstractImporterVisitorsTest >> setUp [
+	model := PWBIRModel new.
+]
+
+{ #category : #running }
+PWBAbstractImporterVisitorsTest >> setupModel [
 	| library |
 	model := PWBIRModel new.
 	self flag: 'TODO: deal with libraries'.
@@ -36,7 +47,7 @@ PWBAbstractASTToIRVisitorTest >> setupModel [
 ]
 
 { #category : #running }
-PWBAbstractASTToIRVisitorTest >> setupVisitor [
+PWBAbstractImporterVisitorsTest >> setupVisitor [
 	self flag: 'TODO: deal with libraries'.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
 		"importingContext: PWBFamixImporter new importingContext;"
@@ -47,12 +58,7 @@ PWBAbstractASTToIRVisitorTest >> setupVisitor [
 ]
 
 { #category : #running }
-PWBAbstractASTToIRVisitorTest >> sourceExample [
-	self subclassResponsibility 
-]
-
-{ #category : #running }
-PWBAbstractASTToIRVisitorTest >> sourceText: anEntity [
+PWBAbstractImporterVisitorsTest >> sourceText: anEntity [
 	^ self sourceExample
 		copyFrom: anEntity sourceAnchor startPos
 		to: anEntity sourceAnchor endPos

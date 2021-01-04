@@ -7,7 +7,7 @@ Class {
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier [
 	| irType |
-	(self isMainTypeOfFile: typeIdentifier)
+	(self isMainEntityOfCurrentFile: typeIdentifier)
 		ifTrue: [ ^ self currentEntity ].
 	irType := model
 		ensureIR: PWBIRType
@@ -74,18 +74,9 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 ]
 
 { #category : #testing }
-PWBTypeDeclarationVisitor >> isMainTypeOfFile: typeIdentifier [
-	^(typeIdentifier identifier = self currentEntity name) and:
-		[ self defaultFamixTypeKinds includes: self currentEntity class ]
-]
-
-{ #category : #testing }
-PWBTypeDeclarationVisitor >> redefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration [
-	"syntax: 'type <aType> from <superType>`<innerType> ...'
-	indicates a redefinition of some attributes value in innerType member of superType
-	This is marked in the AST by the #eventType member"
-	^aPWBASTTypeDeclaration eventType isNotNil
-
+PWBTypeDeclarationVisitor >> isMainEntityOfCurrentFile: typeIdentifier [
+	^((typeIdentifier identifier) = (file basename allButLast: 4)) and:
+	[ (typeIdentifier identifier) = (self currentEntity name) ] "i.e. we are in top scope of this file"
 ]
 
 { #category : #'ir entities' }
@@ -107,6 +98,15 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	self resolve: resolvable
 ]
 
+{ #category : #testing }
+PWBTypeDeclarationVisitor >> testRedefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration [
+	"syntax: 'type <aType> from <superType>`<innerType> ...'
+	indicates a redefinition of some attributes value in innerType member of superType
+	This is marked in the AST by the #eventType member"
+	^aPWBASTTypeDeclaration eventType isNotNil
+
+]
+
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 	^self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTFromClause customType.
@@ -115,7 +115,7 @@ PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
 	| irType |
-	(self redefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration)
+	(self testRedefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration)
 	ifTrue: [ ^self ].
 
 	irType := self
