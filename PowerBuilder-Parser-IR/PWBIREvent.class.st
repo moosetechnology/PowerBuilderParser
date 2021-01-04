@@ -8,3 +8,8 @@ Class {
 PWBIREvent class >> mappingFamixClasses [
 	^{ FamixPWBEvent }
 ]
+
+{ #category : #'as yet unclassified' }
+PWBIREvent >> increaseCyclomaticComplexity [
+	self flag: #TODO
+]

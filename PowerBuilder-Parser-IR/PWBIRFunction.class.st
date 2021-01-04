@@ -22,6 +22,11 @@ PWBIRFunction >> declaredType: anObject [
 	declaredType := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PWBIRFunction >> increaseCyclomaticComplexity [
+	self flag: #TODO
+]
+
 { #category : #testing }
 PWBIRFunction >> isBehavioural [
 	^true
