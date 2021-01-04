@@ -7,7 +7,7 @@ Class {
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier [
 	| irType |
-	(self isMainEntityOfCurrentFile: typeIdentifier)
+	(self isMainEntityOfCurrentFile: typeIdentifier identifier)
 		ifTrue: [ ^ self currentEntity ].
 	irType := model
 		ensureIR: PWBIRType
@@ -29,7 +29,8 @@ PWBTypeDeclarationVisitor >> expectedFamixKindsForType: irType from: superIdenti
 	| expectedFamixKinds |
 	expectedFamixKinds := irType expectedFamixKinds
 		ifNil: [ self defaultFamixTypeKinds ].
-	irType name = file basenameWithoutExtension
+		
+	(self isMainEntityOfCurrentFile: irType name)
 		ifTrue: [ self famixTypeKindFromFileExtension
 			ifNotNil: [ :expectedKindFromFileName | 
 				^irType
@@ -74,9 +75,9 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 ]
 
 { #category : #testing }
-PWBTypeDeclarationVisitor >> isMainEntityOfCurrentFile: typeIdentifier [
-	^((typeIdentifier identifier) = (file basename allButLast: 4)) and:
-	[ (typeIdentifier identifier) = (self currentEntity name) ] "i.e. we are in top scope of this file"
+PWBTypeDeclarationVisitor >> isMainEntityOfCurrentFile: typeName [
+	^(typeName = (file basename allButLast: 4)) and:
+	[ typeName = (self currentEntity name) ] "i.e. we are in top scope of this file"
 ]
 
 { #category : #'ir entities' }

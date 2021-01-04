@@ -21,11 +21,6 @@ PWBIRType >> addSubType: anIRType [
 ]
 
 { #category : #accessing }
-PWBIRType >> expectedFamixKinds: aCollection [
-	expectedFamixKinds := aCollection
-]
-
-{ #category : #accessing }
 PWBIRType >> subTypes [
 	^ subTypes
 ]

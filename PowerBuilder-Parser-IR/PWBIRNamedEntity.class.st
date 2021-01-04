@@ -37,7 +37,7 @@ PWBIRNamedEntity >> addDependency: anIREntity [
 
 { #category : #accessing }
 PWBIRNamedEntity >> expectedFamixKinds [
-	^ expectedFamixKinds ifNil: [ expectedFamixKinds:= OrderedCollection new ]
+	^ expectedFamixKinds
 ]
 
 { #category : #accessing }

@@ -735,9 +735,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration [
-
-1haltIf:[aPWBASTTypeDeclaration type identifier identifier = 'f_montant_autre' ].
-
 	^self auxiliaryVisitor: PWBTypeDeclarationVisitor visit: aPWBASTTypeDeclaration
 
 ]
