@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'visitor',
 		'result',
-		'model'
+		'model',
+		'sourceExample'
 	],
 	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
@@ -15,11 +16,11 @@ PWBAbstractImporterVisitorsTest >> fileExtension [
 ]
 
 { #category : #running }
-PWBAbstractImporterVisitorsTest >> importCode: aString [
+PWBAbstractImporterVisitorsTest >> importCode [
 	result := PWBCommonParser new
-		parse: aString.
+		parse: sourceExample.
 	result
-		fileName: 'testFile';
+		fileName: 'majorObjectTest';
 		fileExtension: self fileExtension.
 
 	self setupVisitor.
@@ -34,32 +35,19 @@ PWBAbstractImporterVisitorsTest >> setUp [
 ]
 
 { #category : #running }
-PWBAbstractImporterVisitorsTest >> setupModel [
-	| library |
-	model := PWBIRModel new.
-	self flag: 'TODO: deal with libraries'.
-	"library := FamixPWBLibrary new
-		name: 'TestLib';
-		mooseModel: model;
-		yourself."
-
-	model ensureIRForFamixClass: FamixPWBUserObject named: 'test_uo' owner: nil.
-]
-
-{ #category : #running }
 PWBAbstractImporterVisitorsTest >> setupVisitor [
 	self flag: 'TODO: deal with libraries'.
 	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
 		"importingContext: PWBFamixImporter new importingContext;"
 		"currentLibrary: (model entityNamed: 'TestLib');"
-		file: 'testFile.sru' asFileReference;
+		file: ('majorObjectTest.' , self fileExtension) asFileReference;
 		"preprocessingMap: OrderedDictionary new;"
 		initContextStackFromModel: model
 ]
 
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> sourceText: anEntity [
-	^ self sourceExample
+	^sourceExample
 		copyFrom: anEntity sourceAnchor startPos
 		to: anEntity sourceAnchor endPos
 ]

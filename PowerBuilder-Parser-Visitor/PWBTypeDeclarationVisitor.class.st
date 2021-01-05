@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #visiting }
-PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: externalOwnerIdentifier [
+PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 	| irAlias resolvable |
 	irAlias :=
 		model
@@ -15,9 +15,9 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: externalOwnerIden
 	resolvable := self
 		resolvable:
 			(SRTypeIdentifierWithNode
-				identifier: externalOwnerIdentifier
+				identifier: ownerIdentifier
 				expectedKind: self defaultFamixTypeKinds
-				node: externalOwnerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
+				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irAlias aliasedEntity: identifier entity
@@ -48,27 +48,6 @@ PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIde
 			self superType: superIdentifier forIrType: irType.
 		].
 	^ irType
-]
-
-{ #category : #visiting }
-PWBTypeDeclarationVisitor >> externalTypeOwner: aPWBASTTypeDeclaration [
-	| externalTypeName externalOwnerIdentifier resolvable |
-	externalTypeName := aPWBASTTypeDeclaration type identifier identifier.
-	externalOwnerIdentifier := aPWBASTTypeDeclaration withinClause customType identifier identifier.
-
-	resolvable := self
-		resolvable:
-			(SRTypeIdentifierWithNode
-				identifier: externalOwnerIdentifier
-				expectedKind: self defaultFamixTypeKinds
-				node: aPWBASTTypeDeclaration).
-	resolvable
-		foundAction: [ :identifier :currentEntity |
-			1halt.
-			identifier entity reachableEntities detect: [ :ir | ir name = externalTypeName ]
-		].
-	self resolve: resolvable.
-
 ]
 
 { #category : #'famix kind' }

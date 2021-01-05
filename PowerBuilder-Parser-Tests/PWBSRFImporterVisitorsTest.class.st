@@ -11,12 +11,13 @@ PWBSRFImporterVisitorsTest >> fileExtension [
 
 { #category : #tests }
 PWBSRFImporterVisitorsTest >> testGlobalTypeDeclaration [
-	self importCode: 
-'global type testFile from function_object
+	sourceExample := 
+'global type majorObjectTest from function_object
 end type
 '.
+	self importCode.
 
 	self assert: (model getAllFamixType: FamixPWBGlobalFunction) size equals: 1.
-	self assert: (model getAllFamixType: FamixPWBGlobalFunction) anyOne name equals: 'testFile'
+	self assert: (model getAllFamixType: FamixPWBGlobalFunction) anyOne name equals: 'majorObjectTest'
 
 ]
