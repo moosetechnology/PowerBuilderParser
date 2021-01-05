@@ -20,6 +20,13 @@ FamixPWBEntity class >> metamodel [
 	^ FamixPWBModel metamodel
 ]
 
+{ #category : #converting }
+FamixPWBEntity >> asSREntityScope [
+	^SREntityScope new
+		entity: self ;
+		yourself
+]
+
 { #category : #'as yet unclassified' }
 FamixPWBEntity >> duplicationRate [
 	<MSEProperty: #duplicationRate type: #Number>
@@ -51,6 +58,16 @@ FamixPWBEntity >> duplicationRate [
 								ifFalse: [ aLocation length ]) ].
 			(accumulator + usefulCloneLocations anyOne length) asString , '/'
 				, self sourceText lineCount asString ]
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBEntity >> hasMatchingType: aClass [
+	^self isKindOf: aClass
+]
+
+{ #category : #'as yet unclassified' }
+FamixPWBEntity >> increaseCyclomaticComplexity [
+	self cyclomaticComplexity: self cyclomaticComplexity + 1 
 ]
 
 { #category : #testing }

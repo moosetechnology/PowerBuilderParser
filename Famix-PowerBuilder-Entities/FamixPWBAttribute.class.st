@@ -57,6 +57,13 @@ FamixPWBAttribute >> isResolvable [
 	^ false
 ]
 
+{ #category : #accessing }
+FamixPWBAttribute >> reachableEntities [
+	^self attributeType
+		ifNotNil: [ self attributeType reachableEntities ]
+		
+]
+
 { #category : #accessor }
 FamixPWBAttribute >> typeName [
 	^ attributeType name
