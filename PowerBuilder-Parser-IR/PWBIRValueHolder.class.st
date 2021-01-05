@@ -17,6 +17,13 @@ PWBIRValueHolder >> addDependency: anIREntity [
 	self shouldNotImplement 
 ]
 
+{ #category : #converting }
+PWBIRValueHolder >> asSREntityScope [
+	^declaredType
+		ifNil: [ SRNullScope new ]
+		ifNotNil: [ ^SREntityScope entity: declaredType ]
+]
+
 { #category : #accessing }
 PWBIRValueHolder >> declaredType [
 	^ declaredType

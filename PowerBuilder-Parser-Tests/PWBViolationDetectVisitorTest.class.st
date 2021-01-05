@@ -5,7 +5,7 @@ Class {
 		'parser',
 		'visitor'
 	],
-	#category : #'PowerBuilder-Parser-Tests'
+	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
 
 { #category : #running }

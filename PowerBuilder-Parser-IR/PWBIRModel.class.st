@@ -77,3 +77,8 @@ PWBIRModel >> irStub: anIRKind named: aName [
 PWBIRModel >> irStubForFamixClass: aFamixClass named: aName [
 	^self ensureIRForFamixClass: aFamixClass named: aName owner: nil
 ]
+
+{ #category : #accessing }
+PWBIRModel >> reachableEntitiesOwned [
+	^ self getAllEntities
+]

@@ -45,3 +45,19 @@ PWBIRModelTest >> testGetAllIRNamed [
 	self assert: (model getAllIR: PWBIRFunction) size equals: 2.
 	self assert: (model getAllIR: PWBIRFunction named: 'fct1') size equals: 1
 ]
+
+{ #category : #tests }
+PWBIRModelTest >> testIRModelScope [
+	| irModel referencesSolver |
+	irModel := PWBIRModel new.
+	irModel createIR: PWBIRType named: 'typ1' owner: nil.
+	irModel createIR: PWBIRType named: 'typ2' owner: #anything.
+
+	referencesSolver := SRReferencesSolver new.
+	referencesSolver pushIRModelAsScope: irModel.
+
+	self should: [ referencesSolver currentEntity ] raise: SRNoCurrentEntityAvailable.
+	self assert: referencesSolver topScopeReachableEntities size equals: 2.
+	self assert: (referencesSolver topScopeReachableEntities anyOne name beginsWith: 'typ')
+
+]

@@ -46,6 +46,11 @@ PWBIRNamedEntity >> expectedFamixKinds: aCollection [
 ]
 
 { #category : #testing }
+PWBIRNamedEntity >> hasMatchingType: aClass [ 
+	^self expectedFamixKinds isNotNil and: [self expectedFamixKinds includes: aClass]
+]
+
+{ #category : #testing }
 PWBIRNamedEntity >> isBehavioural [
 	^false
 ]

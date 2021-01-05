@@ -24,6 +24,13 @@ PWBIRComplexEntity >> addDependency: anIREntity [
 	self dependencies add: anIREntity 
 ]
 
+{ #category : #converting }
+PWBIRComplexEntity >> asSREntityScope [
+	^SREntityScope new
+		entity: self ;
+		yourself
+]
+
 { #category : #accessing }
 PWBIRComplexEntity >> dependencies [ 
 	^dependencies ifNil: [ dependencies := OrderedCollection new ]
@@ -42,4 +49,9 @@ PWBIRComplexEntity >> members [
 { #category : #accessing }
 PWBIRComplexEntity >> members: anObject [
 	members := anObject
+]
+
+{ #category : #accessing }
+PWBIRComplexEntity >> reachableEntities [
+	^self members
 ]
