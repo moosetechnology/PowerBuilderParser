@@ -135,7 +135,7 @@ PWBImporterAbstractVisitor >> createResolvableIdentifier: aPWBASTExpressionActio
 PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 	| sRIdentifierWithNode |
 	sRIdentifierWithNode := SRTypeIdentifierWithNode
-		identifier: (self visit: aPWBASTExpressionAction action)
+		name: (self visit: aPWBASTExpressionAction action)
 		expectedKind:
 			{FamixPWBVariable.
 			FamixPWBAttribute.
@@ -177,7 +177,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 	resolvable := self
 		resolvable:
 			(SRTypeIdentifierWithNode
-				identifier: typeIdentifier identifier
+				name: typeIdentifier identifier
 				expectedKind: self defaultFamixTypeKinds
 				node: typeIdentifier).
 	resolvable

@@ -186,7 +186,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	typeToResolve := (self
 		resolvable:
 		(SRTypeIdentifierWithNode
-		identifier: (self visit: aPWBASTCustomType identifier)
+		name: (self visit: aPWBASTCustomType identifier)
 		expectedKind:
 			{FamixPWBCustomType.
 			FamixPWBGlobalFunction.
@@ -307,7 +307,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 			((self
 				resolvable:
 				(SRInvocationWithNode
-				identifier: (self visit: aPWBASTEventInvocation identifier)
+				name: (self visit: aPWBASTEventInvocation identifier)
 				expectedKind: FamixPWBEvent
 				node: aPWBASTEventInvocation))
 				notFoundReplacementEntity: [ :aResolvable | 
@@ -749,7 +749,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVari
 	| resolvable arrayWithSize |
 	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
 	resolvable := SRIdentifierWithNode
-		identifier: (self visit: aPWBASTVariable identifier)
+		name: (self visit: aPWBASTVariable identifier)
 		expectedKind:
 			{FamixPWBVariable.
 			FamixPWBAttribute.
