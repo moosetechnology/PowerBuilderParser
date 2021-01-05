@@ -4,8 +4,34 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #visiting }
+PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: externalOwnerIdentifier [
+	| irAlias resolvable |
+	irAlias :=
+		model
+			ensureIR: PWBIRAliasEntity
+			named: aliasName
+			owner: self currentEntity.
+	resolvable := self
+		resolvable:
+			(SRTypeIdentifierWithNode
+				identifier: externalOwnerIdentifier
+				expectedKind: self defaultFamixTypeKinds
+				node: externalOwnerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			irAlias aliasedEntity: identifier entity
+		] ;
+		notFoundReplacementEntity:  [ :identifier :currentEntity |
+			model irStub: PWBIRType named: aliasName
+		].
+	
+	self resolve: resolvable.
+
+]
+
 { #category : #'ir entities' }
-PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifier [
+PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIdentifier [
 	| irType |
 	(self isMainEntityOfCurrentFile: typeIdentifier identifier)
 		ifTrue: [ ^ self currentEntity ].
@@ -13,40 +39,36 @@ PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier from: superIdentifi
 		ensureIR: PWBIRType
 		named: typeIdentifier identifier
 		owner: self currentEntity.
-	self expectedFamixKindsForType: irType from: superIdentifier.
+	irType expectedFamixKinds
+		ifNil: [ irType expectedFamixKinds: self defaultFamixTypeKinds ].
+
 	superIdentifier
-		ifNotNil: [ self superType: superIdentifier forIrType: irType ].
+		ifNotNil: [
+			self irType: irType inheritsExpectedFamixKindsFrom: superIdentifier.
+			self superType: superIdentifier forIrType: irType.
+		].
 	^ irType
 ]
 
-{ #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> expectedFamixKindsForType: irType from: superIdentifier [
-	"expectedFamixKind may be already known, otherwise, it can be found:
-	 - if type is main type of the file, then derived from the file extension
-	 - if superType is knowm, then type and subtype have the same
-	 - all possible FamixKinds for types"
+{ #category : #visiting }
+PWBTypeDeclarationVisitor >> externalTypeOwner: aPWBASTTypeDeclaration [
+	| externalTypeName externalOwnerIdentifier resolvable |
+	externalTypeName := aPWBASTTypeDeclaration type identifier identifier.
+	externalOwnerIdentifier := aPWBASTTypeDeclaration withinClause customType identifier identifier.
 
-	| expectedFamixKinds |
-	expectedFamixKinds := irType expectedFamixKinds
-		ifNil: [ self defaultFamixTypeKinds ].
-		
-	(self isMainEntityOfCurrentFile: irType name)
-		ifTrue: [ self famixTypeKindFromFileExtension
-			ifNotNil: [ :expectedKindFromFileName | 
-				^irType
-					expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ]
+	resolvable := self
+		resolvable:
+			(SRTypeIdentifierWithNode
+				identifier: externalOwnerIdentifier
+				expectedKind: self defaultFamixTypeKinds
+				node: aPWBASTTypeDeclaration).
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			1halt.
+			identifier entity reachableEntities detect: [ :ir | ir name = externalTypeName ]
 		].
-	superIdentifier
-		ifNotNil: [ | irSuper newExpectedFamixKinds |
-			irSuper := self getSuperType: superIdentifier identifier.
-			newExpectedFamixKinds := expectedFamixKinds
-					intersection: irSuper expectedFamixKinds.
+	self resolve: resolvable.
 
-			irSuper expectedFamixKinds: newExpectedFamixKinds.
-			^irType expectedFamixKinds: newExpectedFamixKinds
-		].
-
-	irType expectedFamixKinds: expectedFamixKinds
 ]
 
 { #category : #'famix kind' }
@@ -71,6 +93,42 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 		ifNotEmpty: [ :superCandidates |
 			"hopefully there is only one ..."
 			^superCandidates anyOne
+		]
+]
+
+{ #category : #'famix kind' }
+PWBTypeDeclarationVisitor >> irType: irType inheritsExpectedFamixKindsFrom: superIdentifier [
+	"expectedFamixKind may be already known, otherwise, it can be found:
+	 - if type is main type of the file, then derived from the file extension
+	 - if superType is knowm, then type and subtype have the same
+	 - all possible FamixKinds for types"
+
+	| expectedFamixKinds irSuper newExpectedFamixKinds |
+	expectedFamixKinds := irType expectedFamixKinds.
+		
+	(self isMainEntityOfCurrentFile: irType name)
+		ifTrue: [ self famixTypeKindFromFileExtension
+			ifNotNil: [ :expectedKindFromFileName | 
+				^irType
+					expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ]
+		].
+
+	irSuper := self getSuperType: superIdentifier identifier.
+	newExpectedFamixKinds := expectedFamixKinds
+		intersection: irSuper expectedFamixKinds.
+
+	irSuper expectedFamixKinds: newExpectedFamixKinds.
+	irType expectedFamixKinds: newExpectedFamixKinds
+
+]
+
+{ #category : #testing }
+PWBTypeDeclarationVisitor >> isExternallyDefinedType: aPWBASTWithinClause [
+	^ aPWBASTWithinClause
+		ifNil: [ false ]
+		ifNotNil: [
+			(self isMainEntityOfCurrentFile: aPWBASTWithinClause customType identifier identifier)
+				not
 		]
 ]
 
@@ -119,24 +177,26 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 	(self testRedefinesAttributesValuesOfKnownType: aPWBASTTypeDeclaration)
 	ifTrue: [ ^self ].
 
-	irType := self
-		ensureTypeNamed: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTTypeDeclaration type)
-		from: (self visit: aPWBASTTypeDeclaration fromClause).
+	irType :=
+	(self isExternallyDefinedType: aPWBASTTypeDeclaration withinClause)
+		ifTrue: [
+			self
+				ensureAlias: aPWBASTTypeDeclaration type identifier identifier
+				fromOwner: aPWBASTTypeDeclaration withinClause identifier ]
+		ifFalse: [
+			self
+				ensureTypeNamed: (aPWBASTTypeDeclaration type identifier)
+				withSuper: aPWBASTTypeDeclaration fromClause customType identifier.
+		].
 
-	"presumably it is always 'within <currentEntity>' or 'nil' for the currentEntity itself
-	self visit: aPWBASTTypeDeclaration withinClause."	
+	self visit: aPWBASTTypeDeclaration descriptor.
 
-	"does not seem to be used ...
-	self visit: aPWBASTTypeDeclaration descriptor."
-
-	"we do not visit attributes either because it seems they are only used
-	 to give value to predefined PowerBilder attributes"
-	"(irType = self currentEntity)
+	(irType = self currentEntity)
 	ifTrue: [ self visit: aPWBASTTypeDeclaration attributes ]
 	ifFalse: [
 		self
 			useCurrentEntity: irType
 			during: [ self visit: aPWBASTTypeDeclaration attributes ]
-	]"
+	]
 
 ]
