@@ -41,7 +41,10 @@ end function
 	self assert: events size equals: 2.
 
 	events do: [ :evt |
-		self assert: (fct dependencies includes: evt)
+		self assert:
+			(fct dependencies
+				contains: [:dep |
+					dep isCollection and: [dep anyOne = evt]])
 	]
 
 ]
@@ -93,8 +96,8 @@ PWBSRUImporterVisitorsTest >> testFunctionInvocationCorrectCase [
 end function
 
 private function long anotherFunction (long aLong, uo_datawindow dw_param); 
-  AFUNCTION(aLong)
-  return il_long1[1]
+  AFUNCTION(1)
+  return 1
 end function
 '.
 	self importCode.
@@ -104,7 +107,10 @@ end function
 	callee := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 				anyOne.
 
-	self assert: (caller dependencies includes: callee)
+	self assert: caller dependencies size equals: 1.
+	self assert: caller dependencies anyOne isCollection.
+	self assert: caller dependencies anyOne size equals: 1.
+	self assert: caller dependencies anyOne anyOne equals: callee.
 ]
 
 { #category : #tests }
@@ -117,23 +123,21 @@ PWBSRUImporterVisitorsTest >> testFunctionInvocationMixedCase [
 end function
 
 private function long anotherFunction (long aLong, uo_datawindow dw_param); 
-  AFUNCTION(aLong)
-  return il_long1[1]
+  AFUNCTION(1)
+  return 1
 end function
 '.
 	self importCode.
-
-	caller := (model getAllIR: PWBIRFunction named: 'aFunction')
-				anyOne.
-	callee := (model getAllIR: PWBIRFunction named: 'anotherFunction')
-				anyOne.
 
 	caller := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 				anyOne.
 	callee := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
 
-	self assert: (caller dependencies includes: callee)
+	self assert: caller dependencies size equals: 1.
+	self assert: caller dependencies anyOne isCollection.
+	self assert: caller dependencies anyOne size equals: 1.
+	self assert: caller dependencies anyOne anyOne equals: callee.
 ]
 
 { #category : #tests }
@@ -420,8 +424,11 @@ end function
 '.
 	self importCode.
 
-	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
-		anyOne dependencies detect: [ :dep | dep class = PWBIRFunction].
+	fct := ((model getAllIR: PWBIRFunction named: 'aFunction')
+		anyOne
+		dependencies
+			detect: [ :dep | dep isCollection])
+				anyOne.
 
 	self assert: fct isNotNil.
 	self assert: fct name equals: 'anotherFunction'.
@@ -454,10 +461,10 @@ end function
 				anyOne.
 
 	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
-	self assert: accesses size equals: 4.
+	self assert: accesses size equals: 5.
 	self
 		assertCollection: (accesses collect: #name)
-		hasSameElements: {'aLong' . 'il_long1' . 'll_pos'}
+		hasSameElements: { 'this' . 'aLong' . 'il_long1' . 'll_pos' }
 ]
 
 { #category : #tests }

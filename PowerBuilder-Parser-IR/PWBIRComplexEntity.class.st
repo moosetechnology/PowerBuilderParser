@@ -15,8 +15,8 @@ PWBIRComplexEntity class >> mappingFamixClasses [
 
 { #category : #accessing }
 PWBIRComplexEntity >> addDependencies: aCollection [
-	self flag: 'was introduced for invocation candidates, but actually needs to be kept together as one invocation'.
-	aCollection do: [ :irEntity | self dependencies add: irEntity ]
+	"for invocation candidates, but actually needs to be kept together as one invocation"
+	self addDependency: aCollection
 ]
 
 { #category : #accessing }
