@@ -190,6 +190,29 @@ end function
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testImplicitVariable [
+	| local |
+	sourceExample :=
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
+  return this
+end function
+'.
+	self importCode.
+
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+	local := (model getAllIR: PWBIRValueHolder)
+		anyOne.
+	self assert: local name equals: 'this'.
+	self assert: local declaredType name equals: 'majorObjectTest'.
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testInstanceVariables [
 	sourceExample :=
 'forward
@@ -385,6 +408,24 @@ end function
 	self
 		assert: (self sourceText: eventTestingFunction)
 		equals: sourceExample.
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testThisFunction [
+	| fct |
+	sourceExample :=
+'private function integer aFunction ();
+  this.anotherFunction(2)
+end function
+'.
+	self importCode.
+
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+		anyOne dependencies detect: [ :dep | dep class = PWBIRFunction].
+
+	self assert: fct isNotNil.
+	self assert: fct name equals: 'anotherFunction'.
+
 ]
 
 { #category : #tests }

@@ -71,8 +71,7 @@ end function'.
 { #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessInstanceVariable [
 	| accesses fct |
-
-	self importCode:
+	sourceExample :=
 'forward
   global type testFile from userobject
   end type
@@ -97,6 +96,7 @@ private function integer aFunction ();
   return this.my_uo.myFunc()
   return this.my_uo.myFunc(5,"allo")
 end function'.
+	self importCode.
 
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.

@@ -88,8 +88,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := expressionIsLeftHandSide.
 
-			sRIdentifierWithNode
-				foundAction: [ :identifier :currentEntity |
+			sRIdentifierWithNode foundAction ifNil: [
+				"Special variable THIS already has a foundAction"
+				sRIdentifierWithNode foundAction: [ :identifier :currentEntity |
 					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [
 							currentEntity addDependency: identifier entity.
@@ -99,7 +100,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 								to: sRIdentifierWithNode
 								isWrite: writeAccess" ] ];
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
-					model irStub: PWBIRValueHolder named: identifier representationString ].
+					model irStub: PWBIRValueHolder named: identifier representationString ]].
 			self resolve: sRIdentifierWithNode ]
 		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
@@ -705,13 +706,27 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: anPWBASTThis [
-	^self resolvable:
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
+	| resolvable thisVariable |
+	thisVariable := model
+		irStub: PWBIRValueHolder
+		named: 'this'.
+	self currentEntity
+		addDependency: thisVariable.
+	resolvable :=
 		(SRThisWithNode
-			node: anPWBASTThis
-			validationAsTypeBlock: [ :entity |
-				entity expectedFamixKinds anySatisfy: [ :kind | self isMajorObjectKind: kind ]
-				"entity class inheritsFrom: FamixPWBmajorObject" ]).
+			node: aPWBASTThis
+			validationBlock: [ :entity |
+				entity expectedFamixKinds anySatisfy: [ :kind | self isMajorObjectKind: kind ] ]).
+
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			thisVariable declaredType: identifier entity
+		];
+		notFoundReplacementEntity: [ :identifier :currentEntity | 
+			self shouldNotImplement ].
+
+	^self resolvable: resolvable
 
 ]
 
