@@ -9,7 +9,7 @@ PWBChainOfIdentifiersImportTest >> setUp [
 	| testuo otheruo |
 	super setUp.
 
-	testuo := model getAllIR: PWBIRType named: 'majorObjectTest'.
+	testuo := (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
 	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: nil.
 
 	(model ensureIRForFamixClass: FamixPWBFunction named: 'myFunc' owner: testuo)
@@ -35,17 +35,17 @@ PWBChainOfIdentifiersImportTest >> testAccessChainOfIdentifierDefinedInForwardIs
 
 	self importCode:
 'forward
-  global type testFile from userobject
+  global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within testFile
+  type local_uo from other_uo within majorObjectTest
   end type
 end forward
 
-global type testFile from userobject
+global type majorObjectTest from userobject
   local_uo local_uo
   boolean toto
 end type
-global testFile testFile
+global majorObjectTest majorObjectTest
 
 type variables
   test_uo my_uo
@@ -71,19 +71,19 @@ end function'.
 { #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessInstanceVariable [
 	| accesses fct |
-	sourceExample :=
+	self importCode:
 'forward
-  global type testFile from userobject
+  global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within testFile
+  type local_uo from other_uo within majorObjectTest
   end type
 end forward
 
-global type testFile from userobject
+global type majorObjectTest from userobject
   local_uo local_uo
   boolean toto
 end type
-global testFile testFile
+global majorObjectTest majorObjectTest
 
 type variables
   test_uo my_uo
@@ -96,7 +96,6 @@ private function integer aFunction ();
   return this.my_uo.myFunc()
   return this.my_uo.myFunc(5,"allo")
 end function'.
-	self importCode.
 
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
@@ -120,17 +119,17 @@ PWBChainOfIdentifiersImportTest >> testAccessInstanceVariableSourceText [
 
 	self importCode:
 'forward
-  global type testFile from userobject
+  global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within testFile
+  type local_uo from other_uo within majorObjectTest
   end type
 end forward
 
-global type testFile from userobject
+global type majorObjectTest from userobject
   local_uo local_uo
   boolean toto
 end type
-global testFile testFile
+global majorObjectTest majorObjectTest
 
 type variables
   test_uo my_uo
@@ -162,20 +161,19 @@ PWBChainOfIdentifiersImportTest >> testAccessReadOrWriteIsConsistent [
 	self skip.
 	self flag: 'TODO read/write accesses'.
 
-
 	self importCode:
 'forward
-  global type testFile from userobject
+  global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within testFile
+  type local_uo from other_uo within majorObjectTest
   end type
 end forward
 
-global type testFile from userobject
+global type majorObjectTest from userobject
   local_uo local_uo
   boolean toto
 end type
-global testFile testFile
+global majorObjectTest majorObjectTest
 
 type variables
   test_uo my_uo
@@ -200,6 +198,49 @@ end function'.
 ]
 
 { #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariable [
+	| accesses fct nbType nbFunc nbVar |
+
+	nbType := (model getAllIR: PWBIRType) size.
+	nbFunc := (model getAllIR: PWBIRFunction) size.
+	nbVar  := (model getAllIR: PWBIRValueHolder) size.
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+type variables
+  other_uo my_uo
+end variables
+
+private function integer myFunc ();
+  this.my_uo
+end function'.
+
+	self assert: (model getAllIR: PWBIRType) size equals: nbType.
+	self assert: (model getAllIR: PWBIRFunction) size equals: nbFunc.
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: nbVar + 2. "my_uo, this"
+
+	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	self assert: accesses size equals: 2.
+	self
+		assertCollection: (accesses collect: #name)
+		hasSameElements: #( this my_uo ).
+
+	self assert: (accesses detect: [:ir | ir name = 'this']) declaredType isNotNil.
+	self assert: (accesses detect: [:ir | ir name = 'this']) declaredType name equals: 'majorObjectTest'.
+
+	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType isNotNil.
+	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType name equals: 'other_uo'.
+
+]
+
+{ #category : #tests }
 PWBChainOfIdentifiersImportTest >> testReturnFunctionInvocationValueIsCorrect [
 	| returnValues |
 	self skip.
@@ -207,17 +248,17 @@ PWBChainOfIdentifiersImportTest >> testReturnFunctionInvocationValueIsCorrect [
 
 	self importCode:
 'forward
-  global type testFile from userobject
+  global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within testFile
+  type local_uo from other_uo within majorObjectTest
   end type
 end forward
 
-global type testFile from userobject
+global type majorObjectTest from userobject
   local_uo local_uo
   boolean toto
 end type
-global testFile testFile
+global majorObjectTest majorObjectTest
 
 type variables
   test_uo my_uo

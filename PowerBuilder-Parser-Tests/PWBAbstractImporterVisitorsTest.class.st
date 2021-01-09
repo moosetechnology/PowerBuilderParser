@@ -16,7 +16,9 @@ PWBAbstractImporterVisitorsTest >> fileExtension [
 ]
 
 { #category : #running }
-PWBAbstractImporterVisitorsTest >> importCode [
+PWBAbstractImporterVisitorsTest >> importCode: aString [
+	sourceExample := aString.
+
 	result := PWBCommonParser new
 		parse: sourceExample.
 	result

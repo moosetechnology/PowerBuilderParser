@@ -30,7 +30,7 @@ PWBAliasedTypemportTest >> setUp [
 { #category : #tests }
 PWBAliasedTypemportTest >> testAliasedTypeInExternalObject [
 	| alias |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -38,7 +38,6 @@ PWBAliasedTypemportTest >> testAliasedTypeInExternalObject [
   end type
 end forward
 '.
-	self importCode.
 
 	self assert: (model getAllIR: PWBIRType) size equals: 5.
 	self
@@ -63,7 +62,10 @@ end forward
 
 { #category : #tests }
 PWBAliasedTypemportTest >> testAliasedTypeInMainObject [
-	sourceExample :=
+	(model getAllIR: PWBIRType named: 'other_uo')
+		anyOne
+		owner: (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -73,10 +75,6 @@ PWBAliasedTypemportTest >> testAliasedTypeInMainObject [
   end type
 end forward
 '.
-	(model getAllIR: PWBIRType named: 'other_uo')
-		anyOne
-		owner: (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
-	self importCode.
 
 	self assert: (model getAllIR: PWBIRType) size equals: 6.
 	self

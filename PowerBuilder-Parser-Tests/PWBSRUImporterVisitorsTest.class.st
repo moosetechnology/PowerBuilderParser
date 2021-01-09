@@ -25,14 +25,13 @@ PWBSRUImporterVisitorsTest >> setUp [
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventInvocation [
 	| events fct |
-	sourceExample :=
+	self importCode:
 'private function integer eventTestingFunction()
   this.triggerEvent("evt_trigger", 0, "")
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
 end function
 '.
-	self importCode.
 
 	fct := (model getAllIR: PWBIRFunction named: 'eventTestingFunction')
 				anyOne.
@@ -52,7 +51,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testFunction [
 	| fct |
-	sourceExample :=
+	self importCode:
 'private function integer aFunction ();
   var.isNull()
   anotherFunction(2, "blah")
@@ -70,7 +69,6 @@ private function integer eventTestingFunction()
   TriggerEvent( this, "destructor" )
 end function
 '.
-	self importCode.
 
 	self assert: (model getAllFamixType: FamixPWBFunction) size equals: 5.
 	self
@@ -89,7 +87,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testFunctionInvocationCorrectCase [
 	| caller callee |
-	sourceExample :=
+	self importCode:
 'private function integer aFunction ();
   anotherFunction(2, "blah")
   return -1
@@ -100,7 +98,6 @@ private function long anotherFunction (long aLong, uo_datawindow dw_param);
   return 1
 end function
 '.
-	self importCode.
 
 	caller := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
@@ -116,7 +113,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testFunctionInvocationMixedCase [
 	| caller callee |
-	sourceExample :=
+	self importCode:
 'private function integer aFunction ();
   anotherFunction(2, "blah")
   return -1
@@ -127,7 +124,6 @@ private function long anotherFunction (long aLong, uo_datawindow dw_param);
   return 1
 end function
 '.
-	self importCode.
 
 	caller := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 				anyOne.
@@ -162,7 +158,7 @@ PWBSRUImporterVisitorsTest >> testFunctionInvocationSourceText [
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testGlobalVariables [
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -186,7 +182,6 @@ private function integer aFunction ();
   return -1
 end function
 '.
-	self importCode.
 
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBGlobalVariable) collect: #name)
@@ -196,7 +191,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testImplicitVariable [
 	| local |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -206,7 +201,6 @@ private function integer aFunction ();
   return this
 end function
 '.
-	self importCode.
 
 	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
 	local := (model getAllIR: PWBIRValueHolder)
@@ -218,7 +212,7 @@ end function
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testInstanceVariables [
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -242,7 +236,6 @@ private function integer aFunction ();
   return -1
 end function
 '.
-	self importCode.
 
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBInstanceVariable) collect: #name)
@@ -252,7 +245,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testLocalVariables [
 	| locals fct |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -276,7 +269,6 @@ private function integer aFunction ();
   return -1
 end function
 '.
-	self importCode.
 
 	locals := model getAllFamixType: FamixPWBLocalVariable.
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
@@ -290,7 +282,7 @@ end function
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testParameter [
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -305,7 +297,6 @@ private function long anotherFunction (long aLong, uo_datawindow dw_param);
   return 5
 end function
 '.
-	self importCode.
 
 	self
 		assertCollection: ((model getAllFamixType: FamixPWBParameter) collect: #name)
@@ -315,7 +306,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testParameterType [
 	| param |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -330,7 +321,6 @@ private function long anotherFunction (long aLong, uo_datawindow dw_param);
   return 5
 end function
 '.
-	self importCode.
 
 	param := (model getAllFamixType: FamixPWBParameter)
 		detect: [ :each | each name = 'dw_param' ]
@@ -353,7 +343,7 @@ PWBSRUImporterVisitorsTest >> testResolveUserObjectType [
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testSharedVariables [
 	| shared |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -377,7 +367,6 @@ private function integer aFunction ();
   return -1
 end function
 '.
-	self importCode.
 
 	shared := model getAllFamixType: FamixPWBSharedVariable.
 
@@ -397,14 +386,13 @@ PWBSRUImporterVisitorsTest >> testSourceTestSettings [
 	self flag: #TODOSourceAnchor.
 	self skip.
 
-	sourceExample :=
+	self importCode:
 'private function integer eventTestingFunction()
   this.triggerEvent("evt_trigger", 0, "")
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
 end function
 '.
-	self importCode.
 
 	eventTestingFunction := (model getAllFamixType: FamixPWBFunction)
 		detect: [ :function | function name = 'eventTestingFunction' ]
@@ -417,12 +405,11 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testThisFunction [
 	| fct |
-	sourceExample :=
+	self importCode:
 'private function integer aFunction ();
   this.anotherFunction(2)
 end function
 '.
-	self importCode.
 
 	fct := ((model getAllIR: PWBIRFunction named: 'aFunction')
 		anyOne
@@ -438,7 +425,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testVariableAccesses [
 	| accesses fct |
-	sourceExample :=
+	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
@@ -455,7 +442,6 @@ private function long anotherFunction (long aLong, uo_datawindow dw_param);
   return il_long1[1]
 end function
 '.
-	self importCode.
 
 	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 				anyOne.
@@ -470,7 +456,7 @@ end function
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testVariableAccessesMixedCase [
 	| accesses fct |
-	sourceExample :=
+	self importCode:
 'private function integer aFunction ();
   long lL_return
   var.isNull()
@@ -478,7 +464,6 @@ PWBSRUImporterVisitorsTest >> testVariableAccessesMixedCase [
 
 end function
 '.
-	self importCode.
 
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
