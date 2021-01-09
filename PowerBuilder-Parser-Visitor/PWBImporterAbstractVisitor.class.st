@@ -37,96 +37,6 @@ PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 ]
 
 { #category : #'entities creation' }
-PWBImporterAbstractVisitor >> create: aClass [
-	| entity |
-	(self importingContext shouldImport: aClass)
-		ifFalse: [ ^ PWBAbsentFromImportingContextNullPatternObject new ].
-	entity := aClass new
-		mooseModel: self model;
-		yourself.
-	[ entity parentType: self currentEntity ]
-		on: SRNoCurrentEntityAvailable
-		do: [ "Here we handle the first level of created entities" ].
-	[ entity cyclomaticComplexity: 1 ]
-		on: MessageNotUnderstood
-		do:
-			[ "By default we set the cyclomatic complexity at 1; it will be increased by each visit of a control structure" ].
-	^ entity
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> create: aClass from: anASTNode [
-	| created |
-	created := self create: aClass.
-	self flag: #TODOSourceAnchor.
-	(self importingContext shouldImport: FamixPWBIndexedFileAnchor)
-		ifTrue: [ created
-				sourceAnchor:
-					(FamixPWBIndexedFileAnchor new
-						mooseModel: self model;
-						startPos: (self unpreprocessedPosition: anASTNode startPosition);
-						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
-						endPos: (self unpreprocessedPosition: anASTNode stopPosition);
-						yourself) ].
-	^ created
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createAccessFrom: currentEntity to: sRIdentifierWithNode isWrite: aBoolean [
-	^ (currentEntity
-		createAccessTo: sRIdentifierWithNode entity
-		writing: aBoolean)
-		sourceAnchor:
-			(FamixPWBIndexedFileAnchor new
-				mooseModel: self model;
-				startPos: (self unpreprocessedPosition: sRIdentifierWithNode startPosition);
-				fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
-				endPos: (self unpreprocessedPosition: sRIdentifierWithNode stopPosition);
-				yourself)
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createEntity: aClass withAnchorFrom: anASTNode [
-	| created |
-	"self haltIf: aClass = FamixPWBInvocation."
-	created := self createModelEntity: aClass.
-	created
-		sourceAnchor:
-			(FamixPWBIndexedFileAnchor new
-				mooseModel: self model;
-				startPos: (self unpreprocessedPosition: anASTNode startPosition);
-				fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
-				endPos: (self unpreprocessedPosition: anASTNode stopPosition);
-				yourself).
-	^ created
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createPWBParameters: aCollection [
-	^aCollection
-		collect: [ :arg | 
-			| param |
-			param := (model
-				ensureIRForFamixClass: FamixPWBParameter
-				named: (self visit: arg)
-				owner:  self currentEntity)
-				declaredType: (self visit: arg type).
-			self flag: #TODOSourceAnchor.
-			"parameterOption: (self visit: arg argumentOption);
-				sourceAnchor:
-					(FamixPWBIndexedFileAnchor new
-						mooseModel: self model;
-						startPos: (self unpreprocessedPosition: arg startPosition);
-						fileName: (self unpreprocessedFile relativeTo: self model rootFolder) pathString;
-						endPos: (self unpreprocessedPosition: arg stopPosition);
-						yourself)".
-			self flag:
-				'param parameterType isResolvable
-				ifTrue: [ param parameterType addTypedVariable: param ]'
-		]
-]
-
-{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
 	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
 ]
@@ -152,16 +62,6 @@ PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
 				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
 	^ sRIdentifierWithNode
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createStub: aClass [
-	| entity |
-	self flag: 'Put the created entity in a stub module?'.
-	entity := aClass new
-		mooseModel: self model;
-		yourself.
-	^ entity
 ]
 
 { #category : #accessing }
@@ -193,16 +93,6 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 { #category : #'famix kind' }
 PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
 	^PWBIRType mappingFamixClasses
-]
-
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> ensureFamixEntity: aType named: aName [
-	^ (model entityStorage selectAllWithType: aType)
-		detect: [ :entity | entity name = aName ]
-		ifNone: [ aType new
-				name: aName;
-				mooseModel: model;
-				yourself ]
 ]
 
 { #category : #helpers }
