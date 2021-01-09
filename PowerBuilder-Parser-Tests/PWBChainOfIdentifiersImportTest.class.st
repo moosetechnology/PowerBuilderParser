@@ -6,21 +6,21 @@ Class {
 
 { #category : #running }
 PWBChainOfIdentifiersImportTest >> setUp [
-	| testuo otheruo |
+	| mainuo otheruo |
 	super setUp.
 
-	testuo := (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
+	mainuo := (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
 	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: nil.
 
-	(model ensureIRForFamixClass: FamixPWBFunction named: 'myFunc' owner: testuo)
-		declaredType: testuo.
+	(model ensureIRForFamixClass: FamixPWBFunction named: 'myFunc' owner: mainuo)
+		declaredType: mainuo.
 
-	(model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'uo_var_integer' owner: testuo)
+	(model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'uo_var_integer' owner: mainuo)
 		declaredType: (model ensureIRForFamixClass: FamixPWBBasicType named: 'integer' owner: nil).
 
 	"we need to be able to use:
 	 <test_uo variable>.other_att.uo_var_string"
-	(model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'other_att' owner: testuo)
+	(model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'other_att' owner: mainuo)
 		declaredType: otheruo.
 	(model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'uo_var_string' owner: otheruo)
 		declaredType: (model ensureIRForFamixClass: FamixPWBBasicType named: 'string' owner: nil).
@@ -237,6 +237,46 @@ end function'.
 
 	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType isNotNil.
 	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType name equals: 'other_uo'.
+
+]
+
+{ #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableInstanceVariable [
+	| accesses fct nbType nbFunc nbVar |
+
+	nbType := (model getAllIR: PWBIRType) size.
+	nbFunc := (model getAllIR: PWBIRFunction) size.
+	nbVar  := (model getAllIR: PWBIRValueHolder) size.
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+type variables
+  other_uo my_uo
+end variables
+
+private function integer myFunc ();
+  this.my_uo.uo_var_integer = 5
+end function'.
+
+	self assert: (model getAllIR: PWBIRType) size equals: nbType.
+	self assert: (model getAllIR: PWBIRFunction) size equals: nbFunc.
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: nbVar + 2. "my_uo, this"
+
+	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	self assert: accesses size equals: 3.
+	self
+		assertCollection: (accesses collect: #name)
+		hasSameElements: #( this my_uo uo_var_integer ).
+
+	self assert: (accesses detect: [:ir | ir name = 'uo_var_integer']) declaredType isNotNil.
+	self assert: (accesses detect: [:ir | ir name = 'uo_var_integer']) declaredType name equals: 'integer'.
 
 ]
 
