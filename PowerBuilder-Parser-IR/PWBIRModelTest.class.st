@@ -13,6 +13,15 @@ PWBIRModelTest >> setUp [
 ]
 
 { #category : #tests }
+PWBIRModelTest >> testAnyOne [
+	self should: [ model anyOne ] raise: Error.
+
+	model createIR: PWBIRType named: 'typ1' owner: nil.
+	self assert: model anyOne name equals: 'typ1'.
+
+]
+
+{ #category : #tests }
 PWBIRModelTest >> testCreateIREntity [
 	model createIR: PWBIRFunction named: 'fct' owner: nil.
 	self assert: (model getAllIR: PWBIRFunction) size equals: 1
@@ -25,6 +34,22 @@ PWBIRModelTest >> testEnsureIREntity [
 
 	model irStub: PWBIRFunction named: 'fct'.
 	self assert: (model getAllIR: PWBIRFunction) size equals: 1
+]
+
+{ #category : #tests }
+PWBIRModelTest >> testEntityMembers [
+	| ir |
+	ir := model createIR: PWBIRType named: 'typ1' owner: nil.
+	
+	self assert: (model getAllIR: PWBIRType) size equals: 1.
+	self assert: (ir members getAllIR: PWBIRType) size equals: 0.
+	
+	
+	model createIR: PWBIRType named: 'typ2' owner: ir.
+
+	self assert: (model getAllIR: PWBIRType) size equals: 1.
+	self assert: (ir members getAllIR: PWBIRType) size equals: 1.
+
 ]
 
 { #category : #tests }
@@ -48,16 +73,36 @@ PWBIRModelTest >> testGetAllIRNamed [
 
 { #category : #tests }
 PWBIRModelTest >> testIRModelScope [
-	| irModel referencesSolver |
-	irModel := PWBIRModel new.
-	irModel createIR: PWBIRType named: 'typ1' owner: nil.
-	irModel createIR: PWBIRType named: 'typ2' owner: #anything.
+	| ir referencesSolver |
+	ir := model createIR: PWBIRType named: 'typ1' owner: nil.
+	model createIR: PWBIRType named: 'typ2' owner: ir.
 
 	referencesSolver := SRReferencesSolver new.
-	referencesSolver pushIRModelAsScope: irModel.
 
+	referencesSolver pushIRModelAsScope: model.
 	self should: [ referencesSolver currentEntity ] raise: SRNoCurrentEntityAvailable.
-	self assert: referencesSolver topScopeReachableEntities size equals: 2.
-	self assert: (referencesSolver topScopeReachableEntities anyOne name beginsWith: 'typ')
+	self assert: referencesSolver topScopeReachableEntities size equals: 1.
+	self assert: referencesSolver topScopeReachableEntities anyOne name equals: 'typ1'.
+
+	referencesSolver pushEntityAsScope: ir.
+
+	self assert: referencesSolver topScopeReachableEntities size equals: 1.
+	self assert: referencesSolver topScopeReachableEntities anyOne name equals: 'typ2'
+
+]
+
+{ #category : #tests }
+PWBIRModelTest >> testSize [
+	self assert: model size equals: 0.
+
+	model createIR: PWBIRType named: 'typ1' owner: nil.
+	self assert: model size equals: 1.
+
+	model createIR: PWBIRType named: 'typ2' owner: nil.
+	self assert: model size equals: 2.
+
+	model createIR: PWBIRFunction named: 'fct' owner: nil.
+	model createIR: PWBIRValueHolder named: 'var' owner: nil.
+	self assert: model size equals: 4.
 
 ]

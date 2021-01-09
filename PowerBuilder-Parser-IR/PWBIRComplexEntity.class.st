@@ -36,14 +36,14 @@ PWBIRComplexEntity >> dependencies [
 	^dependencies ifNil: [ dependencies := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
-PWBIRComplexEntity >> dependencies: aCollection [
-	dependencies := aCollection 
+{ #category : #testing }
+PWBIRComplexEntity >> isIRComplexEntity [
+	^true
 ]
 
 { #category : #accessing }
 PWBIRComplexEntity >> members [
-	^ members ifNil: [ members := OrderedCollection new ]
+	^ members ifNil: [ members := PWBIRModel new ]
 ]
 
 { #category : #accessing }
