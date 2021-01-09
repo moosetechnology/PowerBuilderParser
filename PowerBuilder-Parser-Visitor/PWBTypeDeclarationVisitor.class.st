@@ -52,7 +52,6 @@ PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIde
 
 	superIdentifier
 		ifNotNil: [
-			self irType: irType inheritsExpectedFamixKindsFrom: superIdentifier.
 			self superType: superIdentifier forIrType: irType.
 		].
 	^ irType
@@ -81,32 +80,6 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 			"hopefully there is only one ..."
 			^superCandidates anyOne
 		]
-]
-
-{ #category : #'famix kind' }
-PWBTypeDeclarationVisitor >> irType: irType inheritsExpectedFamixKindsFrom: superIdentifier [
-	"expectedFamixKind may be already known, otherwise, it can be found:
-	 - if type is main type of the file, then derived from the file extension
-	 - if superType is knowm, then type and subtype have the same
-	 - all possible FamixKinds for types"
-
-	| expectedFamixKinds irSuper newExpectedFamixKinds |
-	expectedFamixKinds := irType expectedFamixKinds.
-		
-	(self isMainEntityOfCurrentFile: irType name)
-		ifTrue: [ self famixTypeKindFromFileExtension
-			ifNotNil: [ :expectedKindFromFileName | 
-				^irType
-					expectedFamixKinds: (expectedFamixKinds intersection: {expectedKindFromFileName}) ]
-		].
-
-	irSuper := self getSuperType: superIdentifier identifier.
-	newExpectedFamixKinds := expectedFamixKinds
-		intersection: irSuper expectedFamixKinds.
-
-	irSuper expectedFamixKinds: newExpectedFamixKinds.
-	irType expectedFamixKinds: newExpectedFamixKinds
-
 ]
 
 { #category : #testing }
