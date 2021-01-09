@@ -24,6 +24,11 @@ PWBIRComplexEntity >> addDependency: anIREntity [
 	self dependencies add: anIREntity 
 ]
 
+{ #category : #accessing }
+PWBIRComplexEntity >> addMember: anIREntity [
+	self members add: anIREntity 
+]
+
 { #category : #converting }
 PWBIRComplexEntity >> asSREntityScope [
 	^SREntityScope new
@@ -43,7 +48,7 @@ PWBIRComplexEntity >> isIRComplexEntity [
 
 { #category : #accessing }
 PWBIRComplexEntity >> members [
-	^ members ifNil: [ members := PWBIRModel new ]
+	^ members ifNil: [ members := OrderedCollection new ]
 ]
 
 { #category : #accessing }

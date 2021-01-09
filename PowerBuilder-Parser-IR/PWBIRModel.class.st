@@ -16,18 +16,15 @@ PWBIRModel >> anyOne [
 { #category : #private }
 PWBIRModel >> createIR: anIRKind named: aName owner: owner [
 	| ofKind irEntity |
-	(self isNilOrSelf: owner)
-	ifFalse: [
-		^owner members
-			createIR: anIRKind named: aName owner: owner
-	].
-
 	ofKind := self getAllIR: anIRKind.
 	irEntity := 	anIRKind new
 		name: aName ;
 		owner: owner ;
 		yourself.
 	ofKind add: irEntity.
+
+	owner ifNotNil: [ owner addMember: irEntity ].
+
 	^irEntity
 
 ]
@@ -35,12 +32,6 @@ PWBIRModel >> createIR: anIRKind named: aName owner: owner [
 { #category : #creating }
 PWBIRModel >> ensureIR: anIRKind named: aName owner: owner [
 	| ofKind |
-	(self isNilOrSelf: owner)
-	ifFalse: [
-		^owner members
-			ensureIR: anIRKind named: aName owner: owner
-	].
-
 	ofKind := self getAllIR: anIRKind.
 	^ ofKind
 		detect: [ :irEntity |
@@ -96,15 +87,9 @@ PWBIRModel >> irStubForFamixClass: aFamixClass named: aName [
 	^self ensureIRForFamixClass: aFamixClass named: aName owner: nil
 ]
 
-{ #category : #private }
-PWBIRModel >> isNilOrSelf: anIREntity [
-	anIREntity ifNil: [ ^true ].
-	^anIREntity members = self
-]
-
 { #category : #accessing }
 PWBIRModel >> reachableEntitiesOwned [
-	^ self getAllEntities
+	^ irEntities flatCollect: [ :kindEntities | kindEntities select: [ :ir | ir owner isNil ] ]
 ]
 
 { #category : #enumerating }

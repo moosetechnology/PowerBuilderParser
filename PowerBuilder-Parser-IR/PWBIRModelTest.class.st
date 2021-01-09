@@ -42,13 +42,13 @@ PWBIRModelTest >> testEntityMembers [
 	ir := model createIR: PWBIRType named: 'typ1' owner: nil.
 	
 	self assert: (model getAllIR: PWBIRType) size equals: 1.
-	self assert: (ir members getAllIR: PWBIRType) size equals: 0.
+	self assert: ir members size equals: 0.
 	
 	
 	model createIR: PWBIRType named: 'typ2' owner: ir.
 
-	self assert: (model getAllIR: PWBIRType) size equals: 1.
-	self assert: (ir members getAllIR: PWBIRType) size equals: 1.
+	self assert: (model getAllIR: PWBIRType) size equals: 2.
+	self assert: ir members size equals: 1.
 
 ]
 
