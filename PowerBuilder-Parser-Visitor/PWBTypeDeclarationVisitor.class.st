@@ -16,7 +16,7 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 		resolvable:
 			(SRTypeIdentifierWithNode
 				name: ownerIdentifier identifier
-				expectedKind: PWBIRType mappingFamixClasses
+				expectedKind: PWBIRType defaultFamixClasses
 				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
 	resolvable
 		foundAction: [ :identifier :currentEntity |
@@ -63,7 +63,7 @@ PWBTypeDeclarationVisitor >> famixTypeKindFromFileExtension [
 	We get the famix class associated to the extension, then check it corresponds to a PWB type"
 	| famixKind |
 	famixKind := self famixClassForFileExtension: file extension.
-	^(PWBIRType mappingFamixClasses includes: famixKind) 
+	^(PWBIRType defaultFamixClasses includes: famixKind) 
 	ifTrue: [ famixKind ]
 	ifFalse: [ nil ]
 ]

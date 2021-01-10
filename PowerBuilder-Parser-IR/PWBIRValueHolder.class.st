@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #mapping }
-PWBIRValueHolder class >> mappingFamixClasses [
+PWBIRValueHolder class >> defaultFamixClasses [
 	^{ FamixPWBAttribute . FamixPWBInstanceVariable . FamixPWBGlobalVariable . FamixPWBLocalVariable . FamixPWBSharedVariable . FamixPWBParameter . FamixPWBVariable }
 ]
 

@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #mapping }
-PWBIRTrigger class >> mappingFamixClasses [
+PWBIRTrigger class >> defaultFamixClasses [
 	^{ FamixPWBTrigger }
 ]

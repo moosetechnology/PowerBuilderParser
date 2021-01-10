@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #mapping }
-PWBIREvent class >> mappingFamixClasses [
+PWBIREvent class >> defaultFamixClasses [
 	^{ FamixPWBEvent }
 ]
 

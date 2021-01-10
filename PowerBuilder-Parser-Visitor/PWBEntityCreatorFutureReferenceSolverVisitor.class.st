@@ -770,7 +770,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVari
 	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
 	resolvable := SRIdentifierWithNode
 		name: (self visit: aPWBASTVariable identifier)
-		expectedKind: PWBIRValueHolder mappingFamixClasses
+		expectedKind: PWBIRValueHolder defaultFamixClasses
 		node: aPWBASTVariable identifier.
 	resolvable arrayDefinition: arrayWithSize.
 	^ self resolvable: resolvable

@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #mapping }
-PWBIRComplexEntity class >> mappingFamixClasses [
+PWBIRComplexEntity class >> defaultFamixClasses [
 	^#()
 ]
 

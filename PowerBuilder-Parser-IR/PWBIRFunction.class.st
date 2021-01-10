@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #mapping }
-PWBIRFunction class >> mappingFamixClasses [
+PWBIRFunction class >> defaultFamixClasses [
 	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBSubRoutine }
 ]
 

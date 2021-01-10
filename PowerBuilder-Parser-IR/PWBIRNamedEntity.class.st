@@ -10,6 +10,12 @@ Class {
 	#category : #'PowerBuilder-Parser-IR-Core'
 }
 
+{ #category : #mapping }
+PWBIRNamedEntity class >> defaultFamixClasses [
+	self subclassResponsibility
+
+]
+
 { #category : #'instance creation' }
 PWBIRNamedEntity class >> forFamixClass: aFamixClass [
 	^(self irClassForFamixClass: aFamixClass)
@@ -19,15 +25,9 @@ PWBIRNamedEntity class >> forFamixClass: aFamixClass [
 { #category : #mapping }
 PWBIRNamedEntity class >> irClassForFamixClass: aFamixClass [
 	^(self allSubclasses
-		detect: [ :sub | sub mappingFamixClasses includes: aFamixClass ]
+		detect: [ :sub | sub defaultFamixClasses includes: aFamixClass ]
 		ifNone: [  self ]
 	)
-]
-
-{ #category : #mapping }
-PWBIRNamedEntity class >> mappingFamixClasses [
-	self subclassResponsibility
-
 ]
 
 { #category : #accessing }
@@ -86,5 +86,5 @@ PWBIRNamedEntity >> printOn: aStream [
 
 { #category : #accessing }
 PWBIRNamedEntity >> setExpectedFamixKindsToDefault [
-	expectedFamixKinds := self class mappingFamixClasses
+	expectedFamixKinds := self class defaultFamixClasses
 ]

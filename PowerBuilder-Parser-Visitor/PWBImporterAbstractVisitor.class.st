@@ -41,7 +41,7 @@ PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 	| sRIdentifierWithNode |
 	sRIdentifierWithNode := SRTypeIdentifierWithNode
 		name: (self visit: aPWBASTExpressionAction action)
-		expectedKind: PWBIRValueHolder mappingFamixClasses
+		expectedKind: PWBIRValueHolder defaultFamixClasses
 		node: aPWBASTExpressionAction.
 	aPWBASTExpressionAction expressionAction
 		ifNotNil: [ :subExprAction | 
@@ -66,7 +66,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 		resolvable:
 			(SRTypeIdentifierWithNode
 				name: typeIdentifier identifier
-				expectedKind: PWBIRType mappingFamixClasses
+				expectedKind: PWBIRType defaultFamixClasses
 				node: typeIdentifier).
 	resolvable
 		foundAction: [ :identifier :currentEntity |
@@ -80,7 +80,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 
 { #category : #'famix kind' }
 PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
-	^PWBIRType mappingFamixClasses
+	^PWBIRType defaultFamixClasses
 ]
 
 { #category : #helpers }

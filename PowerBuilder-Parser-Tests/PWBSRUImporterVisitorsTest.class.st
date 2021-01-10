@@ -327,7 +327,7 @@ end function
 		ifNone: [self fail].
 	self
 		assertCollection: param declaredType expectedFamixKinds
-		hasSameElements: PWBIRType mappingFamixClasses
+		hasSameElements: PWBIRType defaultFamixClasses
 ]
 
 { #category : #tests }
