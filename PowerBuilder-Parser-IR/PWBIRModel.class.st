@@ -2,7 +2,8 @@ Class {
 	#name : #PWBIRModel,
 	#superclass : #Object,
 	#instVars : [
-		'irEntities'
+		'irEntities',
+		'famixModel'
 	],
 	#category : #'PowerBuilder-Parser-IR-Core'
 }
@@ -29,6 +30,13 @@ PWBIRModel >> createIR: anIRKind named: aName owner: owner [
 
 ]
 
+{ #category : #enumerating }
+PWBIRModel >> do: aBlock [
+	"a #do: that does not need to create new collection(s)"
+	irEntities values do: [ :entitiesByKind |
+		entitiesByKind do: aBlock ]
+]
+
 { #category : #creating }
 PWBIRModel >> ensureIR: anIRKind named: aName owner: owner [
 	| ofKind |
@@ -48,6 +56,16 @@ PWBIRModel >> ensureIRForFamixClass: aFamixClass named: aName owner: owner [
 		owner: owner)
 		expectedFamixKinds: { aFamixClass } ;
 		yourself
+]
+
+{ #category : #accessing }
+PWBIRModel >> famixModel [
+	^famixModel
+]
+
+{ #category : #accessing }
+PWBIRModel >> famixModel: aModel [
+	famixModel := aModel
 ]
 
 { #category : #enumerating }
@@ -95,4 +113,12 @@ PWBIRModel >> reachableEntitiesOwned [
 { #category : #enumerating }
 PWBIRModel >> size [
 	^irEntities inject: 0 into: [ :sum :coll | sum + coll size ]
+]
+
+{ #category : #converting }
+PWBIRModel >> toFamix [
+	famixModel ifNil: [ famixModel := FamixPWBModel new ].
+	self do: [ :irEntity |
+			famixModel add: irEntity toFamix ].
+	^famixModel
 ]

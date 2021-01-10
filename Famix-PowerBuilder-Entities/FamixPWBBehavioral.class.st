@@ -124,20 +124,6 @@ FamixPWBBehavioral >> createParameter: argAST [
 		startPos: argAST startPosition
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBBehavioral >> createStubValueHolderNamed: aString [ 
-	^ self createValueHolderNamed: aString
-]
-
-{ #category : #'as yet unclassified' }
-FamixPWBBehavioral >> createValueHolderNamed: aString [ 
-	^ FamixPWBVariable new
-		behavioral: self;
-		mooseModel: self mooseModel;
-		name: aString;
-		yourself
-]
-
 { #category : #accessing }
 FamixPWBBehavioral >> cyclomaticComplexity [
 
@@ -167,11 +153,6 @@ FamixPWBBehavioral >> getOneAccessPerInsVarAccessed [
 FamixPWBBehavioral >> incomingInvocationsSenders [
 	^ (self incomingInvocations collectAsSet: #sender)
 		reject: [ :m | (m isKindOf: FamixPWBmajorObject) or: [ m isPredefinedMethod ] ]
-]
-
-{ #category : #'as yet unclassified' }
-FamixPWBBehavioral >> increaseCyclomaticComplexity [
-	self cyclomaticComplexity: self cyclomaticComplexity + 1
 ]
 
 { #category : #'Famix-Extensions' }

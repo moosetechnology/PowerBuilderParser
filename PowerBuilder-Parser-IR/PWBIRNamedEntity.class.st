@@ -88,3 +88,13 @@ PWBIRNamedEntity >> printOn: aStream [
 PWBIRNamedEntity >> setExpectedFamixKindsToDefault [
 	expectedFamixKinds := self class defaultFamixClasses
 ]
+
+{ #category : #converting }
+PWBIRNamedEntity >> toFamix [
+	famixEntity ifNotNil: [ ^famixEntity ].
+
+	^famixEntity := expectedFamixKinds anyOne new
+		name: name ;
+		isStub: (owner isNil) ;
+		yourself.
+]

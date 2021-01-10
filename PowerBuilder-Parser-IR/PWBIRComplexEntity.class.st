@@ -60,3 +60,17 @@ PWBIRComplexEntity >> members: anObject [
 PWBIRComplexEntity >> reachableEntities [
 	^self members
 ]
+
+{ #category : #converting }
+PWBIRComplexEntity >> toFamix [
+	famixEntity ifNotNil: [ ^famixEntity ].
+
+	super toFamix.
+	
+	members ifNotNil: [
+		members do: [ :irEntity | famixEntity addMemberIR: irEntity ] ].
+	dependencies ifNotNil: [
+		dependencies do: [ :irEntity | famixEntity addDependencyToIR: irEntity ] ].
+
+	^famixEntity
+]
