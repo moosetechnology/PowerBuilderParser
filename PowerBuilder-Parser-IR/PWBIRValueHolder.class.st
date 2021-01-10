@@ -36,6 +36,5 @@ PWBIRValueHolder >> declaredType: anObject [
 
 { #category : #accessing }
 PWBIRValueHolder >> name: aString [
-1haltIf:[aString includes: $.].
 	name := aString
 ]

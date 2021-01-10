@@ -26,11 +26,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 
 { #category : #'entities creation' }
 PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
+	self flag: 'Clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess: ?'.
 	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
+
+		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
+		
 		ifFalse: [ | identifiers writeAccess |
-			identifiers := self
-				createResolvableIdentifier: aPWBASTExpressionAction.
+			identifiers := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction).
 			writeAccess := expressionIsLeftHandSide.
 			identifiers
 				foundAction: [ :identifier :currentEntity | 
@@ -45,7 +48,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExp
 				notFoundReplacementEntity: [ :identifier :currentEntity |
 					model irStub: PWBIRValueHolder named: identifier representationString ].
 			self resolve: identifiers ]
-		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 ]
 
 { #category : #accessing }
@@ -81,6 +83,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	| sRIdentifierWithNode |
+	self flag: 'Clone of PWBEntityCreatorFutureReferenceSolverVisitor>>createAttributeAcces: ?'.
 	self visit: aPWBASTAccess arrayPosition.
 	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
@@ -385,9 +388,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPW
 	^ aPWBASTExpressionAction isAttributeAccess
 		ifTrue: [ self createAttributeAcces: aPWBASTExpressionAction ]
 		ifFalse: [ aPWBASTExpressionAction expressionAction
-				ifNil: [ self visit: aPWBASTExpressionAction action ]
-				ifNotNil: [ self visit: aPWBASTExpressionAction action.
-					self visit: aPWBASTExpressionAction expressionAction ] ]
+			ifNil: [ self visit: aPWBASTExpressionAction action ]
+			ifNotNil: [
+				self visit: aPWBASTExpressionAction action.
+				self visit: aPWBASTExpressionAction expressionAction
+		] ]
 ]
 
 { #category : #visiting }
@@ -765,14 +770,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVari
 	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
 	resolvable := SRIdentifierWithNode
 		name: (self visit: aPWBASTVariable identifier)
-		expectedKind:
-			{FamixPWBVariable.
-			FamixPWBAttribute.
-			FamixPWBParameter.
-			FamixPWBGlobalVariable.
-			FamixPWBSharedVariable.
-			FamixPWBInstanceVariable.
-			FamixPWBLocalVariable}
+		expectedKind: PWBIRValueHolder mappingFamixClasses
 		node: aPWBASTVariable identifier.
 	resolvable arrayDefinition: arrayWithSize.
 	^ self resolvable: resolvable

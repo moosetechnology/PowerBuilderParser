@@ -83,3 +83,8 @@ PWBIRNamedEntity >> printOn: aStream [
 		nextPutAll: name ;
 		nextPut: $)
 ]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> setExpectedFamixKindsToDefault [
+	expectedFamixKinds := self class mappingFamixClasses
+]

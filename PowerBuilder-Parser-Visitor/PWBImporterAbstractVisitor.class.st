@@ -37,23 +37,11 @@ PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 ]
 
 { #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createResolvableIdentifier: aPWBASTExpressionAction [
-	^self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)
-]
-
-{ #category : #'entities creation' }
 PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
 	| sRIdentifierWithNode |
 	sRIdentifierWithNode := SRTypeIdentifierWithNode
 		name: (self visit: aPWBASTExpressionAction action)
-		expectedKind:
-			{FamixPWBVariable.
-			FamixPWBAttribute.
-			FamixPWBParameter.
-			FamixPWBGlobalVariable.
-			FamixPWBSharedVariable.
-			FamixPWBInstanceVariable.
-			FamixPWBLocalVariable}
+		expectedKind: PWBIRValueHolder mappingFamixClasses
 		node: aPWBASTExpressionAction.
 	aPWBASTExpressionAction expressionAction
 		ifNotNil: [ :subExprAction | 
@@ -78,14 +66,14 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 		resolvable:
 			(SRTypeIdentifierWithNode
 				name: typeIdentifier identifier
-				expectedKind: self defaultFamixTypeKinds
+				expectedKind: PWBIRType mappingFamixClasses
 				node: typeIdentifier).
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
 			(model irStub: PWBIRType named: typeIdentifier identifier)
-				expectedFamixKinds: self defaultFamixTypeKinds;
+				setExpectedFamixKindsToDefault ;
 				yourself ].
 	self resolve: resolvable
 ]
