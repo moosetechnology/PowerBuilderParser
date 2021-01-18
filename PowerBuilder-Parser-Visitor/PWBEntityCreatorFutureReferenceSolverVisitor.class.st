@@ -6,9 +6,7 @@ Class {
 	#superclass : #PWBImporterAbstractVisitor,
 	#instVars : [
 		'currentLibrary',
-		'typeDeclarationType',
-		'expressionIsLeftHandSide',
-		'multiple'
+		'expressionIsLeftHandSide'
 	],
 	#category : #'PowerBuilder-Parser-Visitor'
 }
@@ -65,13 +63,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 { #category : #testing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> isMajorObjectKind: aClass [
 	^self majorObjectFamixClasses includes: aClass
-]
-
-{ #category : #accessing }
-PWBEntityCreatorFutureReferenceSolverVisitor >> typeDeclarationType [
-	typeDeclarationType
-		ifNil: [ typeDeclarationType := OrderedDictionary new ].
-	^ typeDeclarationType
 ]
 
 { #category : #visiting }
@@ -796,7 +787,5 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations:
 	varNames := self
 		visitAll: aPWBASTVariableDeclarations variableAssignations.
 	vartype := self visit: aPWBASTVariableDeclarations type.
-	varNames
-		do: [ :varName | self typeDeclarationType at: varName put: vartype ].
 	^ varNames
 ]
