@@ -56,7 +56,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
-		defaultNotFoundReplacementBlockInModel: model.
+		ifNotFoundCreateStubInModel: model.
 	self resolve: resolvable
 ]
 

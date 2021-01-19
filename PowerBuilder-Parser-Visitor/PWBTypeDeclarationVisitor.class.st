@@ -30,7 +30,7 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 								owner: (identifier entity) ;
 								yourself ])
 			] ;
-		defaultNotFoundReplacementBlockInModel: model.	
+		ifNotFoundCreateStubInModel: model.	
 	self resolve: resolvable.
 	^irAlias
 
@@ -108,7 +108,7 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	resolvable
 		foundAction:
 				[ :identifier :currentEntity | irType superType: identifier entity ];
-		defaultNotFoundReplacementBlockInModel: model.
+		ifNotFoundCreateStubInModel: model.
 	self resolve: resolvable
 ]
 

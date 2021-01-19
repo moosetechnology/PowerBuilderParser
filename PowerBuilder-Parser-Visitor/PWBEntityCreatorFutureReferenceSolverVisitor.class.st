@@ -60,16 +60,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 
 			sRIdentifierWithNode foundAction ifNil: [
 				"Special variable THIS already has a foundAction"
-				sRIdentifierWithNode foundAction: [ :identifier :currentEntity |
-					(identifier entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [
-							currentEntity addDependency: identifier entity.
-							self flag: #TODO.   "'will need to deal with read/write accesses'"
-							"self
-								createAccessFrom: currentEntity
-								to: sRIdentifierWithNode
-								isWrite: writeAccess" ] ];
-				defaultNotFoundReplacementBlockInModel: model ].
+				sRIdentifierWithNode
+					ifNotFoundCreateStubInModel: model ;
+					ifFoundCreateDependencyWhen: [ :identifier :currentEntity |
+						(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
+
 			self resolve: sRIdentifierWithNode ]
 ]
 
@@ -163,14 +158,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				FamixPWBQuery.
 				FamixPWBUserObject}
 			node: aPWBASTCustomType identifier))
-		foundAction: [ :identifier :currentEntity | 
-			self flag: #TODOSourceAnchor.
-			"self preprocessedFile: currentEntity sourceAnchor fileReference."
-			currentEntity addDependency: identifier entity
-			"(self create: FamixPWBReference from: identifier node)
-				source: currentEntity;
-				target: identifier entity" ];
-		defaultNotFoundReplacementBlockInModel: model.
+		ifFoundCreateDependency ;
+		ifNotFoundCreateStubInModel: model.
 	^ self resolve: typeToResolve
 ]
 
@@ -211,27 +200,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 					expectedKind: { FamixPWBFunction . FamixPWBEvent }
 					node: aPWBASTMethodInvocation
 					arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-				defaultNotFoundReplacementBlockInModel: model ;
-				foundAction: [ :identifier :currentEntity | 
-					| invocation |
-					self flag: #TODOSourceAnchor.
-					"self preprocessedFile: currentEntity sourceAnchor fileReference."
-					currentEntity addDependencies: identifier candidates.
-					"invocation := (self
-						createEntity: FamixPWBInvocation
-						withAnchorFrom: identifier node)
-						sender: currentEntity;
-						candidates: identifier candidates."
-					self flag: #TODOArgumentInFAST.
-					"argumentASTs
-						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
-								ifFalse: [ argumentASTs functionArguments
-										do: [ :argAST | 
-											| famixPWBArgument |					
-											famixPWBArgument := self
-												create: FamixPWBArgument
-												from: argAST.
-											famixPWBArgument invocation: invocation ] ] ]" ])
+
+				ifNotFoundCreateStubInModel: model ;
+				ifFoundCreateDependency )
 ]
 
 { #category : #visiting }
@@ -272,27 +243,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 					name: (self visit: aPWBASTEventInvocation identifier)
 					expectedKind: FamixPWBEvent
 					node: aPWBASTEventInvocation))
-				defaultNotFoundReplacementBlockInModel: model ;
-				foundAction: [ :identifier :currentEntity | 
-					| invocation |
-					self flag: #TODOSourceAnchor.
-					"self preprocessedFile: currentEntity sourceAnchor fileReference."
-					currentEntity addDependencies: identifier candidates.
-					"invocation := (self
-						createEntity: FamixPWBInvocation
-						withAnchorFrom: identifier node)
-						sender: currentEntity;
-						candidates: identifier candidates."
-					self flag: #TODOArgumentInFAST.
-					"argumentASTs
-						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
-								ifFalse: [ argumentASTs functionArguments
-										do: [ :argAST | 
-											| famixPWBArgument |
-											famixPWBArgument := self
-												create: FamixPWBArgument
-												from: argAST.
-											famixPWBArgument invocation: invocation ] ] ]" ])
+
+				ifNotFoundCreateStubInModel: model ;
+				ifFoundCreateDependency )
 ]
 
 { #category : #visiting }
@@ -427,29 +380,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 					expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
 					node: aPWBASTFunctionInvocation
 					arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
-				defaultNotFoundReplacementBlockInModel: model ;
-				foundAction: [ :identifier :currentEntity | 
-					| invocation |
-					self flag: #TODOSourceAnchor.
-					"self preprocessedFile: currentEntity sourceAnchor fileReference."
-					currentEntity addDependencies: identifier candidates.
-					"invocation := (self
-						createEntity: FamixPWBInvocation
-						withAnchorFrom: identifier node)
-						sender: currentEntity;
-						candidates: identifier candidates."
-					self flag: #TODOArgumentInFAST.
-					"argumentASTs
-						ifNotNil: [ argumentASTs functionArguments isEmptyOrNil
-								ifFalse: [ argumentASTs functionArguments
-										do: [ :argAST | 
-											| famixPWBArgument |
-											famixPWBArgument := self
-												create: FamixPWBArgument
-												from: argAST.
-											famixPWBArgument invocation: invocation ] ] ]."
-					self flag: 'why returning invocation?'.
-					"invocation" ]).
+
+				ifNotFoundCreateStubInModel: model ;
+				ifFoundCreateDependency ).
 	self visit: aPWBASTFunctionInvocation defaultVariable
 ]
 
@@ -567,12 +500,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 			FamixPWBSubRoutine}
 		node: aPWBASTMethodInvocation
 		arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-		defaultNotFoundReplacementBlockInModel: model ;
-		foundAction: [ :identifier :currentEntity | 
-			self flag: #TODOSourceAnchor.
-			"self preprocessedFile: currentEntity sourceAnchor fileReference."
-			currentEntity addDependencies: identifier candidates
-		].
+		
+		ifNotFoundCreateStubInModel: model ;
+		ifFoundCreateDependency .
+
 	self resolve: toResolve.
 	^ toResolve
 ]

@@ -49,15 +49,9 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 			sRIdentifierWithNode := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction).
 			"writeAccess := expressionIsLeftHandSide."
 			sRIdentifierWithNode
-				foundAction: [ :identifier :currentEntity | 
-					(identifier entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [
-							currentEntity addDependency: identifier entity.
-							self flag: #TODO.   "will need to deal with read/write accesses"
-							"self
-								createAccessFrom: currentEntity
-								to: identifier representationString
-								isWrite: writeAccess" ] ];
-				defaultNotFoundReplacementBlockInModel: model.
+				ifNotFoundCreateStubInModel: model ;
+				ifFoundCreateDependencyWhen: [ :identifier :currentEntity | 
+					(identifier entity class inheritsFrom: FamixPWBmajorObject) not ].
+
 			self resolve: sRIdentifierWithNode ]
 ]
