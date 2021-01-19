@@ -22,32 +22,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> attributeAccessName: aPWBASTExpr
 	^name
 ]
 
-{ #category : #'entities creation' }
-PWBEntityCreatorFutureReferenceSolverVisitor >> createAttributeAcces: aPWBASTExpressionAction [
-	self flag: 'Clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess: ?'.
-	^ (self currentEntity class = FamixPWBDataWindow
-		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-
-		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
-		
-		ifFalse: [ | identifiers writeAccess |
-			identifiers := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction).
-			writeAccess := expressionIsLeftHandSide.
-			identifiers
-				foundAction: [ :identifier :currentEntity | 
-					(identifier entity class inheritsFrom: FamixPWBmajorObject)
-						ifFalse: [
-							currentEntity addDependency: identifier entity.
-							self flag: 'will need to deal with read/write accesses'
-							"self
-								createAccessFrom: currentEntity
-								to: identifier representationString
-								isWrite: writeAccess" ] ];
-				notFoundReplacementEntity: [ :identifier :currentEntity |
-					model irStub: PWBIRValueHolder named: identifier representationString ].
-			self resolve: identifiers ]
-]
-
 { #category : #accessing }
 PWBEntityCreatorFutureReferenceSolverVisitor >> currentLibrary: aFamixPWBLibrary [
 	currentLibrary := aFamixPWBLibrary
@@ -73,22 +47,24 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	| sRIdentifierWithNode |
-	self flag: 'Clone of PWBEntityCreatorFutureReferenceSolverVisitor>>createAttributeAcces: ?'.
+	self flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
 	self visit: aPWBASTAccess arrayPosition.
 	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifFalse: [ | writeAccess |
+
+		ifTrue: [ self visit: aPWBASTAccess accessed ]
+
+		ifFalse: [ | sRIdentifierWithNode writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := expressionIsLeftHandSide.
 
 			sRIdentifierWithNode foundAction ifNil: [
 				"Special variable THIS already has a foundAction"
 				sRIdentifierWithNode foundAction: [ :identifier :currentEntity |
-					(sRIdentifierWithNode entity class inheritsFrom: FamixPWBmajorObject)
+					(identifier entity class inheritsFrom: FamixPWBmajorObject)
 						ifFalse: [
 							currentEntity addDependency: identifier entity.
-							self flag: 'will need to deal with read/write accesses'.
+							self flag: #TODO.   "'will need to deal with read/write accesses'"
 							"self
 								createAccessFrom: currentEntity
 								to: sRIdentifierWithNode
@@ -96,7 +72,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 				notFoundReplacementEntity: [ :identifier :currentEntity | 
 					model irStub: PWBIRValueHolder named: identifier representationString ]].
 			self resolve: sRIdentifierWithNode ]
-		ifTrue: [ self visit: aPWBASTAccess accessed ]
 ]
 
 { #category : #visiting }
@@ -377,8 +352,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
 	^ aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [ self createAttributeAcces: aPWBASTExpressionAction ]
-		ifFalse: [ aPWBASTExpressionAction expressionAction
+		ifTrue: [ self auxiliaryVisitor: PWBAttributeAccessVisitor visit: aPWBASTExpressionAction ]
+		ifFalse: [
+			aPWBASTExpressionAction expressionAction
 			ifNil: [ self visit: aPWBASTExpressionAction action ]
 			ifNotNil: [
 				self visit: aPWBASTExpressionAction action.

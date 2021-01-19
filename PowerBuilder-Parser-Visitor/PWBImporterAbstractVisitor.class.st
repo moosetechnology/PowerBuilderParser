@@ -36,22 +36,6 @@ PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 		visit: aNode
 ]
 
-{ #category : #'entities creation' }
-PWBImporterAbstractVisitor >> createSRIdentifier: aPWBASTExpressionAction [
-	| sRIdentifierWithNode |
-	sRIdentifierWithNode := SRTypeIdentifierWithNode
-		name: (self visit: aPWBASTExpressionAction action)
-		expectedKind: PWBIRValueHolder defaultFamixClasses
-		node: aPWBASTExpressionAction.
-	aPWBASTExpressionAction expressionAction
-		ifNotNil: [ :subExprAction | 
-			subExprAction isAttributeAccess
-				ifTrue:
-					[ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
-				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
-	^ sRIdentifierWithNode
-]
-
 { #category : #accessing }
 PWBImporterAbstractVisitor >> currentEntityIfAny [
 	^ [ self currentEntity ]
