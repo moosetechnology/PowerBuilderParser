@@ -108,10 +108,7 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	resolvable
 		foundAction:
 				[ :identifier :currentEntity | irType superType: identifier entity ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(model irStub: PWBIRType named: typeIdentifier identifier)
-				expectedFamixKinds: irType expectedFamixKinds ;
-				yourself ].
+		defaultNotFoundReplacementBlockInModel: model.
 	self resolve: resolvable
 ]
 

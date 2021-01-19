@@ -58,7 +58,6 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 								createAccessFrom: currentEntity
 								to: identifier representationString
 								isWrite: writeAccess" ] ];
-				notFoundReplacementEntity: [ :identifier :currentEntity |
-					model irStub: PWBIRValueHolder named: identifier representationString ].
+				defaultNotFoundReplacementBlockInModel: model.
 			self resolve: sRIdentifierWithNode ]
 ]

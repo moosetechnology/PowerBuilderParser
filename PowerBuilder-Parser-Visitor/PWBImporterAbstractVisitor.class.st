@@ -56,10 +56,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			(model irStub: PWBIRType named: typeIdentifier identifier)
-				setExpectedFamixKindsToDefault ;
-				yourself ].
+		defaultNotFoundReplacementBlockInModel: model.
 	self resolve: resolvable
 ]
 

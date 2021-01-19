@@ -69,8 +69,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 								createAccessFrom: currentEntity
 								to: sRIdentifierWithNode
 								isWrite: writeAccess" ] ];
-				notFoundReplacementEntity: [ :identifier :currentEntity | 
-					model irStub: PWBIRValueHolder named: identifier representationString ]].
+				defaultNotFoundReplacementBlockInModel: model ].
 			self resolve: sRIdentifierWithNode ]
 ]
 
@@ -156,14 +155,14 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	typeToResolve := (self
 		resolvable:
 		(SRIdentifierToIR
-		name: (self visit: aPWBASTCustomType identifier)
-		expectedKind:
-			{FamixPWBCustomType.
-			FamixPWBGlobalFunction.
-			FamixPWBStructure.
-			FamixPWBQuery.
-			FamixPWBUserObject}
-		node: aPWBASTCustomType identifier))
+			name: (self visit: aPWBASTCustomType identifier)
+			expectedKind:
+				{FamixPWBCustomType.
+				FamixPWBGlobalFunction.
+				FamixPWBStructure.
+				FamixPWBQuery.
+				FamixPWBUserObject}
+			node: aPWBASTCustomType identifier))
 		foundAction: [ :identifier :currentEntity | 
 			self flag: #TODOSourceAnchor.
 			"self preprocessedFile: currentEntity sourceAnchor fileReference."
@@ -171,8 +170,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 			"(self create: FamixPWBReference from: identifier node)
 				source: currentEntity;
 				target: identifier entity" ];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			model irStubForFamixClass: FamixPWBCustomType	named: aPWBASTCustomType identifier identifier ].
+		defaultNotFoundReplacementBlockInModel: model.
 	^ self resolve: typeToResolve
 ]
 
@@ -208,18 +206,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 		resolve:
 			((self
 				resolvable:
-				(SRInvocationWithNode
-				identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-				expectedKind:
-					{FamixPWBFunction.
-					FamixPWBEvent}
-				node: aPWBASTMethodInvocation
-				arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-				notFoundReplacementEntity: [ :aResolvable | 
-					{ model irStubForFamixClass: FamixPWBFunction named: aResolvable
-					"((self createStub: FamixPWBFunction)
-						name: aResolvable identifier;
-						yourself)"} ];
+				(SRInvocationIdentifierToIR
+					identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
+					expectedKind: { FamixPWBFunction . FamixPWBEvent }
+					node: aPWBASTMethodInvocation
+					arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
+				defaultNotFoundReplacementBlockInModel: model ;
 				foundAction: [ :identifier :currentEntity | 
 					| invocation |
 					self flag: #TODOSourceAnchor.
@@ -276,15 +268,11 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWB
 		resolve:
 			((self
 				resolvable:
-				(SRInvocationWithNode
-				name: (self visit: aPWBASTEventInvocation identifier)
-				expectedKind: FamixPWBEvent
-				node: aPWBASTEventInvocation))
-				notFoundReplacementEntity: [ :aResolvable | 
-					{ model irStubForFamixClass: FamixPWBEvent named: aResolvable identifier
-					"((self createStub: FamixPWBEvent)
-						name: aResolvable identifier;
-						yourself)"} ];
+				(SRInvocationIdentifierToIR
+					name: (self visit: aPWBASTEventInvocation identifier)
+					expectedKind: FamixPWBEvent
+					node: aPWBASTEventInvocation))
+				defaultNotFoundReplacementBlockInModel: model ;
 				foundAction: [ :identifier :currentEntity | 
 					| invocation |
 					self flag: #TODOSourceAnchor.
@@ -434,18 +422,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 		resolve:
 			((self
 				resolvable:
-				(SRInvocationWithNode
-				identifier: (self visit: aPWBASTFunctionInvocation functionName)
-				expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
-				node: aPWBASTFunctionInvocation
-				arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
-				notFoundReplacementEntity: [ :aResolvable | 
-					{ (model irStub: PWBIRFunction named: aResolvable identifier)
-							expectedFamixKinds: { FamixPWBSubRoutine . FamixPWBFunction } ;
-							yourself
-					"((self createStub: FamixPWBSubRoutine)
-						name: aResolvable identifier;
-						yourself)"} ];
+				(SRInvocationIdentifierToIR
+					identifier: (self visit: aPWBASTFunctionInvocation functionName)
+					expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
+					node: aPWBASTFunctionInvocation
+					arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
+				defaultNotFoundReplacementBlockInModel: model ;
 				foundAction: [ :identifier :currentEntity | 
 					| invocation |
 					self flag: #TODOSourceAnchor.
@@ -577,7 +559,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 	| toResolve |
 	toResolve := (self
 		resolvable:
-		(SRInvocationWithNode
+		(SRInvocationIdentifierToIR
 		identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
 		expectedKind:
 			{FamixPWBFunction.
@@ -585,12 +567,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocati
 			FamixPWBSubRoutine}
 		node: aPWBASTMethodInvocation
 		arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-		notFoundReplacementEntity: [ :aResolvable | 
-			{
-				model irStubForFamixClass: FamixPWBFunction named: aResolvable identifier
-				"((self createStub: FamixPWBFunction)
-					name: aResolvable identifier;
-					yourself)"} ];
+		defaultNotFoundReplacementBlockInModel: model ;
 		foundAction: [ :identifier :currentEntity | 
 			self flag: #TODOSourceAnchor.
 			"self preprocessedFile: currentEntity sourceAnchor fileReference."
@@ -735,7 +712,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	| resolvable arrayWithSize |
 	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
-	resolvable := SRIdentifierWithNode
+	resolvable := SRIdentifierToIR
 		name: (self visit: aPWBASTVariable identifier)
 		expectedKind: PWBIRValueHolder defaultFamixClasses
 		node: aPWBASTVariable identifier.
