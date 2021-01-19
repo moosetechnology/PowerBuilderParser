@@ -293,7 +293,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpression: aPWBASTEx
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
 	^ aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [ self auxiliaryVisitor: PWBAttributeAccessVisitor visit: aPWBASTExpressionAction ]
+		ifTrue: [
+			self resolve:
+				(self auxiliaryVisitor: PWBAttributeAccessVisitor visit: aPWBASTExpressionAction) ]
 		ifFalse: [
 			aPWBASTExpressionAction expressionAction
 			ifNil: [ self visit: aPWBASTExpressionAction action ]

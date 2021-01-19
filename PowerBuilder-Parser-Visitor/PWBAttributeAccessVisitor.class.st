@@ -4,21 +4,6 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
-{ #category : #'entities creation' }
-PWBAttributeAccessVisitor >> createSRIdentifier: aPWBASTExpressionAction [
-	| sRIdentifierWithNode |
-	sRIdentifierWithNode := SRIdentifierToIR
-		name: (self visit: aPWBASTExpressionAction action)
-		expectedKind: PWBIRValueHolder defaultFamixClasses
-		node: aPWBASTExpressionAction.
-	aPWBASTExpressionAction expressionAction
-		ifNotNil: [ :subExprAction | 
-			subExprAction isAttributeAccess
-				ifTrue: [ sRIdentifierWithNode next: (self createSRIdentifier: subExprAction) ]
-				ifFalse: [ sRIdentifierWithNode next: (self visit: subExprAction) ] ].
-	^ sRIdentifierWithNode
-]
-
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	| accessOrType variable |
@@ -34,7 +19,10 @@ PWBAttributeAccessVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignation
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 	self visit: aPWBASTAttributeAccess arrayInformation.
-	^ self visit: aPWBASTAttributeAccess uncheckedIdentifier
+	^SRIdentifierToIR
+		name: aPWBASTAttributeAccess uncheckedIdentifier uncheckedIdentifier
+		expectedKind: PWBIRValueHolder defaultFamixClasses
+		node: aPWBASTAttributeAccess. 
 ]
 
 { #category : #visiting }
@@ -45,13 +33,16 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 		
-		ifFalse: [ | sRIdentifierWithNode writeAccess |
-			sRIdentifierWithNode := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction).
+		ifFalse: [ | srIdentifierWithNode writeAccess |
+			"srIdentifierWithNode := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)."
+			srIdentifierWithNode := self visit: aPWBASTExpressionAction action.
+			aPWBASTExpressionAction expressionAction
+				ifNotNil: [ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
+
 			"writeAccess := expressionIsLeftHandSide."
-			sRIdentifierWithNode
+			srIdentifierWithNode
 				ifNotFoundCreateStubInModel: model ;
 				ifFoundCreateDependencyWhen: [ :identifier :currentEntity | 
 					(identifier entity class inheritsFrom: FamixPWBmajorObject) not ].
-
-			self resolve: sRIdentifierWithNode ]
+		 ]
 ]

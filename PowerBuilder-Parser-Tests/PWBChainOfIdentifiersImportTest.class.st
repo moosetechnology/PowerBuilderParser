@@ -259,7 +259,7 @@ type variables
 end variables
 
 private function integer myFunc ();
-  this.my_uo.uo_var_integer = 5
+  this.my_uo.uo_var_string = 5
 end function'.
 
 	self assert: (model getAllIR: PWBIRType) size equals: nbType.
@@ -273,10 +273,10 @@ end function'.
 	self assert: accesses size equals: 3.
 	self
 		assertCollection: (accesses collect: #name)
-		hasSameElements: #( this my_uo uo_var_integer ).
+		hasSameElements: #( this my_uo uo_var_string ).
 
-	self assert: (accesses detect: [:ir | ir name = 'uo_var_integer']) declaredType isNotNil.
-	self assert: (accesses detect: [:ir | ir name = 'uo_var_integer']) declaredType name equals: 'integer'.
+	self assert: (accesses detect: [:ir | ir name = 'uo_var_string']) declaredType isNotNil.
+	self assert: (accesses detect: [:ir | ir name = 'uo_var_string']) declaredType name equals: 'string'.
 
 ]
 
