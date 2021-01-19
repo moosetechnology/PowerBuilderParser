@@ -14,7 +14,7 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 			owner: self currentEntity.
 	resolvable := self
 		resolvable:
-			(SRTypeIdentifierWithNode
+			(SRIdentifierToIR
 				name: ownerIdentifier identifier
 				expectedKind: PWBIRType defaultFamixClasses
 				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
@@ -22,6 +22,7 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 		foundAction: [ :identifier :currentEntity |
 			irAlias
 				aliasedEntity:
+					"ensure aliased type"
 					(identifier entity members 
 						detect: [ :externalIR | externalIR name = aliasName ]
 						ifNone: [
@@ -29,10 +30,7 @@ PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
 								owner: (identifier entity) ;
 								yourself ])
 			] ;
-		notFoundReplacementEntity:  [ :identifier :currentEntity |
-			model irStub: PWBIRType named: ownerIdentifier identifier
-		].
-	
+		defaultNotFoundReplacementBlockInModel: model.	
 	self resolve: resolvable.
 	^irAlias
 
@@ -103,7 +101,7 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	| resolvable |
 	resolvable := self
 		resolvable:
-			(SRTypeIdentifierWithNode
+			(SRIdentifierToIR
 				name: typeIdentifier identifier
 				expectedKind: irType expectedFamixKinds
 				node: typeIdentifier).

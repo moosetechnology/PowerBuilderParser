@@ -155,7 +155,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	| typeToResolve |
 	typeToResolve := (self
 		resolvable:
-		(SRTypeIdentifierWithNode
+		(SRIdentifierToIR
 		name: (self visit: aPWBASTCustomType identifier)
 		expectedKind:
 			{FamixPWBCustomType.
@@ -172,7 +172,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				source: currentEntity;
 				target: identifier entity" ];
 		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			model irStubForFamixClass: FamixPWBCustomType	named: (self visit: aPWBASTCustomType identifier) ].
+			model irStubForFamixClass: FamixPWBCustomType	named: aPWBASTCustomType identifier identifier ].
 	^ self resolve: typeToResolve
 ]
 

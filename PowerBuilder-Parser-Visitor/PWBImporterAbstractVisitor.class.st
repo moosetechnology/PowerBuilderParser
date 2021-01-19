@@ -48,10 +48,11 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 	| resolvable |
 	resolvable := self
 		resolvable:
-			(SRTypeIdentifierWithNode
+			(SRIdentifierToIR
 				name: typeIdentifier identifier
 				expectedKind: PWBIRType defaultFamixClasses
 				node: typeIdentifier).
+
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
