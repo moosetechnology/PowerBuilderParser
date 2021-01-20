@@ -25,7 +25,7 @@ PWBImporterAbstractVisitor class >> mappingFileExtensionFamixClass [
 ]
 
 { #category : #helpers }
-PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
+PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass [
 	^aPWBVisitorClass new
 		solver: self solver ;
 		"importingContext: self importingContext ;"
@@ -33,6 +33,12 @@ PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 		"preprocessingMap: self preprocessingMap ;"
 		file: self file ;
 
+		yourself
+]
+
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
+	^(self auxiliaryVisitor: aPWBVisitorClass)
 		visit: aNode
 ]
 

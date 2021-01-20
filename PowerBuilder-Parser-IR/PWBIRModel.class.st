@@ -17,7 +17,6 @@ PWBIRModel >> anyOne [
 { #category : #private }
 PWBIRModel >> createIR: anIRKind named: aName owner: owner [
 	| ofKind irEntity |
-
 	ofKind := self getAllIR: anIRKind.
 	irEntity := 	anIRKind new
 		name: aName ;

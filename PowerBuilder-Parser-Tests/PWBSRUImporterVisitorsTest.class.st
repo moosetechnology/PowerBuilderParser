@@ -19,7 +19,11 @@ PWBSRUImporterVisitorsTest >> setUp [
 		mooseModel: model;
 		yourself."
 
-	model ensureIRForFamixClass: FamixPWBUserObject named: 'majorObjectTest' owner: nil.
+	(model
+		ensureIRForFamixClass: FamixPWBUserObject
+		named: 'majorObjectTest'
+		owner: nil)
+		superType: (model irStubForFamixClass: FamixPWBUserObject named: 'userobject').
 ]
 
 { #category : #tests }

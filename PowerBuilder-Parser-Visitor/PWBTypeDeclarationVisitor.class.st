@@ -4,38 +4,6 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
-{ #category : #visiting }
-PWBTypeDeclarationVisitor >> ensureAlias: aliasName fromOwner: ownerIdentifier [
-	| irAlias resolvable |
-	irAlias :=
-		model
-			ensureIR: PWBIRAliasEntity
-			named: aliasName
-			owner: self currentEntity.
-	resolvable := self
-		resolvable:
-			(SRIdentifierToIR
-				name: ownerIdentifier identifier
-				expectedKind: PWBIRType defaultFamixClasses
-				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
-	resolvable
-		foundAction: [ :identifier :currentEntity |
-			irAlias
-				aliasedEntity:
-					"ensure aliased type"
-					(identifier entity members 
-						detect: [ :externalIR | externalIR name = aliasName ]
-						ifNone: [
-							(model irStub: PWBIRType named: aliasName)
-								owner: (identifier entity) ;
-								yourself ])
-			] ;
-		ifNotFoundCreateStubInModel: model.	
-	self resolve: resolvable.
-	^irAlias
-
-]
-
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIdentifier [
 	| irType |
@@ -78,6 +46,40 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 			"hopefully there is only one ..."
 			^superCandidates anyOne
 		]
+]
+
+{ #category : #visiting }
+PWBTypeDeclarationVisitor >> importType: importedName fromOwner: ownerIdentifier [
+	"import mreans we have access to an external type just has if it was define in the file"
+	| irAlias resolvable |
+	irAlias :=
+		model
+			ensureIR: PWBIRImportedType
+			named: importedName
+			owner: self currentEntity.
+	resolvable := self
+		resolvable:
+			(SRIdentifierToIR
+				name: ownerIdentifier identifier
+				expectedKind: PWBIRType defaultFamixClasses
+				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			irAlias
+				importedType:
+					"ensure aliased type"
+					(identifier entity members 
+						detect: [ :externalIR | externalIR name = importedName ]
+						ifNone: [
+							(model irStub: PWBIRType named: importedName)
+								owner: (identifier entity) ;
+								expectedFamixKinds: (PWBIRType defaultFamixClasses) ;
+								yourself ])
+			] ;
+		ifNotFoundCreateStubInModel: model.	
+	self resolve: resolvable.
+	^irAlias
+
 ]
 
 { #category : #testing }
@@ -136,7 +138,7 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 	(self isExternallyDefinedType: aPWBASTTypeDeclaration withinClause)
 		ifTrue: [
 			self
-				ensureAlias: aPWBASTTypeDeclaration type identifier identifier
+				importType: aPWBASTTypeDeclaration type identifier identifier
 				fromOwner: aPWBASTTypeDeclaration withinClause customType identifier ]
 		ifFalse: [
 			self
@@ -154,4 +156,11 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 			during: [ self visit: aPWBASTTypeDeclaration attributes ]
 	]
 
+]
+
+{ #category : #visiting }
+PWBTypeDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
+	"definition of instance variables of whartever type we are currently decalring,
+	PWBTypeDeclarationVisitor can handle that"
+	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTVariableDeclarations
 ]

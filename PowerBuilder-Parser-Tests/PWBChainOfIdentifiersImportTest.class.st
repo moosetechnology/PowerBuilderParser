@@ -28,10 +28,13 @@ PWBChainOfIdentifiersImportTest >> setUp [
 ]
 
 { #category : #tests }
-PWBChainOfIdentifiersImportTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
-	| accVar |
-	
-	self skip.
+PWBChainOfIdentifiersImportTest >> testAccessChainOfIdentifierDefinedInForward [
+	| localuo fct accesses |
+	localuo := model
+		ensureIRForFamixClass: FamixPWBUserObject
+		named: 'local_uo'
+		owner: (model getAllIR: PWBIRType named: 'other_uo') anyOne.
+	model ensureIRForFamixClass: FamixPWBInstanceVariable named: 'localuo_var' owner: localuo.
 
 	self importCode:
 'forward
@@ -43,29 +46,21 @@ end forward
 
 global type majorObjectTest from userobject
   local_uo local_uo
-  boolean toto
 end type
-global majorObjectTest majorObjectTest
-
-type variables
-  test_uo my_uo
-end variables
 
 private function integer aFunction ();
-  this.my_uo
-  this.my_uo.uo_var_integer = 5
-  this.local_uo.other_att.uo_var_string = "blah"
-  return this.my_uo.myFunc()
-  return this.my_uo.myFunc(5,"allo")
+  this.local_uo.localuo_var = "blah"
 end function'.
 
-	self assert: model allAccesses size equals: 3.
-	accVar := model allAccesses
-		detect: [ :access | access variable name = 'uo_var_string' ]
-		ifNone: [ self fail ].
-	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable attributeType name equals: 'string'.
-	self assert: accVar variable parentType name equals: 'test_uo'
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	self assert: accesses size equals: 3.
+	self assert: ((accesses select: [ :var | var name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :var | var name = 'local_uo']) size) equals: 1.
+	self assert: ((accesses select: [ :var | var name = 'localuo_var']) size) equals: 1.
+
 ]
 
 { #category : #tests }

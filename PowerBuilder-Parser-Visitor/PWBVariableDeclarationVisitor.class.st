@@ -13,6 +13,16 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
+{ #category : #accessing }
+PWBVariableDeclarationVisitor >> defaultFamixClass [
+	^ defaultFamixClass
+]
+
+{ #category : #accessing }
+PWBVariableDeclarationVisitor >> defaultFamixClass: anObject [
+	defaultFamixClass := anObject
+]
+
 { #category : #initialization }
 PWBVariableDeclarationVisitor >> initialize [
 	super initialize.
