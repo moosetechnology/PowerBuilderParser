@@ -145,7 +145,7 @@ end function'.
 PWBChainOfIdentifiersImportTest >> testAccessReadOrWriteIsConsistent [
 	| access |
 	self skip.
-	self flag: 'TODO read/write accesses'.
+	self flag: #TODO.  "read/write accesses"
 
 	self importCode:
 'forward
@@ -270,7 +270,7 @@ end function'.
 PWBChainOfIdentifiersImportTest >> testReturnFunctionInvocationValueIsCorrect [
 	| returnValues |
 	self skip.
-	self flag: #TODO.
+	self flag: #TODOArgumentInFAST.  "weel, not argument, but return value. Still do it in FAST"
 
 	self importCode:
 'forward

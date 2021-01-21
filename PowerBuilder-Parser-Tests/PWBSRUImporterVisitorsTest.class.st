@@ -9,28 +9,16 @@ PWBSRUImporterVisitorsTest >> fileExtension [
 	^'sru'
 ]
 
-{ #category : #running }
-PWBSRUImporterVisitorsTest >> setUp [
-	super setUp.
-
-	self flag: 'TODO: deal with libraries'.
-	"library := FamixPWBLibrary new
-		name: 'TestLib';
-		mooseModel: model;
-		yourself."
-
-	(model
-		ensureIRForFamixClass: FamixPWBUserObject
-		named: 'majorObjectTest'
-		owner: nil)
-		superType: (model irStubForFamixClass: FamixPWBUserObject named: 'userobject').
-]
-
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventInvocation [
 	| events fct |
 	self importCode:
-'private function integer eventTestingFunction()
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer eventTestingFunction()
   this.triggerEvent("evt_trigger", 0, "")
   this.postEvent("evt_post", 0, "")
   TriggerEvent( this, "destructor" )
@@ -56,7 +44,12 @@ end function
 PWBSRUImporterVisitorsTest >> testFunction [
 	| fct |
 	self importCode:
-'private function integer aFunction ();
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
   var.isNull()
   anotherFunction(2, "blah")
   return -1
@@ -92,7 +85,12 @@ end function
 PWBSRUImporterVisitorsTest >> testFunctionInvocationCorrectCase [
 	| caller callee |
 	self importCode:
-'private function integer aFunction ();
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
   anotherFunction(2, "blah")
   return -1
 end function
@@ -118,7 +116,12 @@ end function
 PWBSRUImporterVisitorsTest >> testFunctionInvocationMixedCase [
 	| caller callee |
 	self importCode:
-'private function integer aFunction ();
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
   anotherFunction(2, "blah")
   return -1
 end function
@@ -410,7 +413,12 @@ end function
 PWBSRUImporterVisitorsTest >> testThisFunction [
 	| fct |
 	self importCode:
-'private function integer aFunction ();
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
   this.anotherFunction(2)
 end function
 '.
@@ -463,7 +471,12 @@ end function
 PWBSRUImporterVisitorsTest >> testVariableAccessesMixedCase [
 	| accesses fct |
 	self importCode:
-'private function integer aFunction ();
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction ();
   long lL_return
   var.isNull()
   return LL_RETURN

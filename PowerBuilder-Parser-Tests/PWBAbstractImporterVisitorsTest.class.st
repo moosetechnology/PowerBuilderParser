@@ -34,6 +34,18 @@ PWBAbstractImporterVisitorsTest >> importCode: aString [
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> setUp [
 	model := PWBIRModel new.
+
+	self flag: 'TODO: deal with libraries'.
+	"library := FamixPWBLibrary new
+		name: 'TestLib';
+		mooseModel: model;
+		yourself."
+
+	(model
+		ensureIRForFamixClass: FamixPWBUserObject
+		named: 'majorObjectTest'
+		owner: nil)
+		superType: (model irStubForFamixClass: FamixPWBUserObject named: 'userobject').
 ]
 
 { #category : #running }
@@ -45,11 +57,4 @@ PWBAbstractImporterVisitorsTest >> setupVisitor [
 		file: ('majorObjectTest.' , self fileExtension) asFileReference;
 		"preprocessingMap: OrderedDictionary new;"
 		initContextStackFromModel: model
-]
-
-{ #category : #running }
-PWBAbstractImporterVisitorsTest >> sourceText: anEntity [
-	^sourceExample
-		copyFrom: anEntity sourceAnchor startPos
-		to: anEntity sourceAnchor endPos
 ]
