@@ -13,7 +13,7 @@ Class {
 
 { #category : #visiting }
 PWBTypeReferenceVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
-	model irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
+	self model irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
 		stopPosition: aPWBASTBasicType stopPosition ;

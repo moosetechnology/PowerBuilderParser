@@ -25,15 +25,8 @@ PWBImporterAbstractVisitor class >> mappingFileExtensionFamixClass [
 ]
 
 { #category : #helpers }
-PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass [
-	^aPWBVisitorClass new
-		solver: self solver ;
-		"importingContext: self importingContext ;"
-		model: self model ;
-		"preprocessingMap: self preprocessingMap ;"
-		file: self file ;
-
-		yourself
+PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBAuxiliaryVisitorClass [
+	^aPWBAuxiliaryVisitorClass newFrom: self
 ]
 
 { #category : #helpers }
@@ -62,7 +55,7 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 	resolvable
 		foundAction: [ :identifier :currentEntity |
 			irTypedEntity declaredType: identifier entity ];
-		ifNotFoundCreateStubInModel: model.
+		ifNotFoundCreateStubInModel: self model.
 	self resolve: resolvable
 ]
 
@@ -102,12 +95,8 @@ PWBImporterAbstractVisitor >> importingContext: anObject [
 PWBImporterAbstractVisitor >> initContextStackFromModel: aModel [
 	self model: aModel.
 	
-	self pushIRModelAsScope: model
-	"self pushAsScopeAll: FamixPWBFunction ofModel: aModel.
-	self pushAsScopeAll: FamixPWBEvent ofModel: aModel.
-	self pushAsScopeAll: FamixPWBSubRoutine ofModel: aModel.
-	self pushAsScopeAll: FamixPWBUserObject ofModel: aModel.
-	self pushAsScopeAll: FamixPWBBasicType ofModel: aModel"
+	self pushIRModelAsScope: self model
+
 ]
 
 { #category : #initialization }
@@ -177,8 +166,8 @@ PWBImporterAbstractVisitor >> unpreprocessedFile [
 
 { #category : #helpers }
 PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
-	^ preprocessingMap
-		at: file fullName
+	^self preprocessingMap
+		at: self file fullName
 		ifPresent: [ :found | anInteger + found ]
 		ifAbsent: [ anInteger ]
 ]

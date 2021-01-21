@@ -64,45 +64,36 @@ end function'.
 ]
 
 { #category : #tests }
-PWBChainOfIdentifiersImportTest >> testAccessInstanceVariable [
-	| accesses fct |
+PWBChainOfIdentifiersImportTest >> testAccessChainOfIdentifierWithFunctionCall [
+	| fct candidates |
 	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
-  type local_uo from other_uo within majorObjectTest
-  end type
 end forward
 
-global type majorObjectTest from userobject
-  local_uo local_uo
-  boolean toto
-end type
-global majorObjectTest majorObjectTest
-
 type variables
-  test_uo my_uo
+  other_uo my_uo
 end variables
 
 private function integer aFunction ();
-  this.my_uo
-  this.my_uo.uo_var_integer = 5
-  this.local_uo.other_att.uo_var_string = "blah"
-  return this.my_uo.myFunc()
-  return this.my_uo.myFunc(5,"allo")
-end function'.
+  this.my_uo.myFunc(5,"allo")
+end function
+'.
 
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
-	self assert: accesses size equals: 13.
-	self assert: ((accesses select: [ :var | var name = 'this']) size) equals: 5.
-	self assert: ((accesses select: [ :var | var name = 'my_uo']) size) equals: 4.
-	self assert: ((accesses select: [ :var | var name = 'uo_var_integer']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'local_uo']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'other_att']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'uo_var_string']) size) equals: 1.
+	self assert: fct dependencies size equals: 3.
+	fct dependencies detect: [ :dep | dep name = 'this']  ifNone: [ self fail ].
+	fct dependencies detect: [ :dep | dep name = 'my_uo'] ifNone: [ self fail ].
+
+	candidates := fct dependencies detect: [ :dep | dep isCollection] ifNone: [ self fail ].
+	self assert: candidates size equals: 1.
+	self assert: candidates anyOne name equals: 'myFunc'.
+	self assert: candidates anyOne class equals: PWBIRFunction.
+	self assert: candidates anyOne owner isNil.
+
 ]
 
 { #category : #tests }

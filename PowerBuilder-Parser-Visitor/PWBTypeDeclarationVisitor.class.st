@@ -9,7 +9,7 @@ PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIde
 	| irType |
 	(self isMainEntityOfCurrentFile: typeIdentifier identifier)
 		ifTrue: [ ^ self currentEntity ].
-	irType := model
+	irType := self model
 		ensureIR: PWBIRType
 		named: typeIdentifier identifier
 		owner: self currentEntity.
@@ -28,7 +28,7 @@ PWBTypeDeclarationVisitor >> famixTypeKindFromFileExtension [
 	"expected famix kind of a PWB type with the same name as its containing file
 	We get the famix class associated to the extension, then check it corresponds to a PWB type"
 	| famixKind |
-	famixKind := self famixClassForFileExtension: file extension.
+	famixKind := self famixClassForFileExtension: self file extension.
 	^(PWBIRType defaultFamixClasses includes: famixKind) 
 	ifTrue: [ famixKind ]
 	ifFalse: [ nil ]
@@ -36,9 +36,9 @@ PWBTypeDeclarationVisitor >> famixTypeKindFromFileExtension [
 
 { #category : #'famix kind' }
 PWBTypeDeclarationVisitor >> getSuperType: superName [
-	(model getAllIR: PWBIRType named: superName)
+	(self model getAllIR: PWBIRType named: superName)
 		ifEmpty: [
-			^(model irStub: PWBIRType named: superName)
+			^(self model irStub: PWBIRType named: superName)
 				setExpectedFamixKindsToDefault ;
 				yourself.
 		]
@@ -53,7 +53,7 @@ PWBTypeDeclarationVisitor >> importType: importedName fromOwner: ownerIdentifier
 	"import mreans we have access to an external type just has if it was define in the file"
 	| irAlias resolvable |
 	irAlias :=
-		model
+		self model
 			ensureIR: PWBIRImportedType
 			named: importedName
 			owner: self currentEntity.
@@ -71,12 +71,12 @@ PWBTypeDeclarationVisitor >> importType: importedName fromOwner: ownerIdentifier
 					(identifier entity members 
 						detect: [ :externalIR | externalIR name = importedName ]
 						ifNone: [
-							(model irStub: PWBIRType named: importedName)
+							(self model irStub: PWBIRType named: importedName)
 								owner: (identifier entity) ;
 								expectedFamixKinds: (PWBIRType defaultFamixClasses) ;
 								yourself ])
 			] ;
-		ifNotFoundCreateStubInModel: model.	
+		ifNotFoundCreateStubInModel: self model.	
 	self resolve: resolvable.
 	^irAlias
 
@@ -94,7 +94,7 @@ PWBTypeDeclarationVisitor >> isExternallyDefinedType: aPWBASTWithinClause [
 
 { #category : #testing }
 PWBTypeDeclarationVisitor >> isMainEntityOfCurrentFile: typeName [
-	^(typeName = (file basename allButLast: 4)) and:
+	^(typeName = (self file basename allButLast: 4)) and:
 	[ typeName = (self currentEntity name) ] "i.e. we are in top scope of this file"
 ]
 
@@ -110,7 +110,7 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 	resolvable
 		foundAction:
 				[ :identifier :currentEntity | irType superType: identifier entity ];
-		ifNotFoundCreateStubInModel: model.
+		ifNotFoundCreateStubInModel: self model.
 	self resolve: resolvable
 ]
 

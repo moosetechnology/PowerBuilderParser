@@ -61,7 +61,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess
 			sRIdentifierWithNode foundAction ifNil: [
 				"Special variable THIS already has a foundAction"
 				sRIdentifierWithNode
-					ifNotFoundCreateStubInModel: model ;
+					ifNotFoundCreateStubInModel: self model ;
 					ifFoundCreateDependencyWhen: [ :identifier :currentEntity |
 						(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
 
@@ -129,7 +129,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBas
 	"ensures the basicType as a top level entity
 	+ translates the ASTBasicType into an ASTIdentifier
 	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
-	model
+	self model
 		irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
@@ -159,7 +159,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 				FamixPWBUserObject}
 			node: aPWBASTCustomType identifier))
 		ifFoundCreateDependency ;
-		ifNotFoundCreateStubInModel: model.
+		ifNotFoundCreateStubInModel: self model.
 	^ self resolve: typeToResolve
 ]
 
@@ -189,20 +189,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoWhileLoop: aPWBASTD
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
-	| argumentASTs |
-	argumentASTs := aPWBASTMethodInvocation functionArguments.
-	self
-		resolve:
-			((self
-				resolvable:
-				(SRInvocationIdentifierToIR
-					identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-					expectedKind: { FamixPWBFunction . FamixPWBEvent }
-					node: aPWBASTMethodInvocation
-					arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-
-				ifNotFoundCreateStubInModel: model ;
-				ifFoundCreateDependency )
+	aPWBASTMethodInvocation functionArguments.
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTMethodInvocation)
 ]
 
 { #category : #visiting }
@@ -233,19 +222,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
-	| argumentASTs |
-	argumentASTs := aPWBASTEventInvocation functionArguments.
-	self
-		resolve:
-			((self
-				resolvable:
-				(SRInvocationIdentifierToIR
-					name: (self visit: aPWBASTEventInvocation identifier)
-					expectedKind: FamixPWBEvent
-					node: aPWBASTEventInvocation))
-
-				ifNotFoundCreateStubInModel: model ;
-				ifFoundCreateDependency )
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTEventInvocation)
 ]
 
 { #category : #visiting }
@@ -253,7 +231,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: a
 	self flag: 'Manage object class correctly'.
 	self visit: aPWBASTEventReferenceName objectClass.
 	self visit: aPWBASTEventReferenceName arguments.
-	^model
+	^self model
 		ensureIRForFamixClass: FamixPWBEvent
 		named: (self visit: aPWBASTEventReferenceName eventName)
 		owner: self currentEntity.
@@ -319,7 +297,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTExpressionWithSign: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFile: aPWBASTFile [
 	| majorEntity |
-	majorEntity := model
+	majorEntity := self model
 		ensureIRForFamixClass: (self famixClassForFileExtension: aPWBASTFile fileExtension)
 		named: aPWBASTFile fileName
 		owner: self currentEntityIfAny.
@@ -371,21 +349,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
-	"| argumentASTs |
-	argumentASTs := aPWBASTFunctionInvocation functionArguments."
-	self
-		resolve:
-			((self
-				resolvable:
-				(SRInvocationIdentifierToIR
-					identifier: (self visit: aPWBASTFunctionInvocation functionName)
-					expectedKind: { FamixPWBSubRoutine . FamixPWBFunction }
-					node: aPWBASTFunctionInvocation
-					arguments: (self visit: aPWBASTFunctionInvocation functionArguments)))
-
-				ifNotFoundCreateStubInModel: model ;
-				ifFoundCreateDependency ).
-	self visit: aPWBASTFunctionInvocation defaultVariable
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTFunctionInvocation)
 ]
 
 { #category : #visiting }
@@ -393,7 +358,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 	| irFunction |
 	self visit: aPWBASTFunctionSignature accessModifier.
 
-	irFunction := model
+	irFunction := self model
 		ensureIRForFamixClass: FamixPWBFunction
 		named: (self visit: aPWBASTFunctionSignature identifier)
 		owner: self currentEntity.
@@ -433,7 +398,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	self visit: aPWBASTGlobalVariableDeclaration type.
-	model
+	self model
 		ensureIRForFamixClass: FamixPWBGlobalVariable
 		named: ((self visit: aPWBASTGlobalVariableDeclaration variable)
 					representationString)
@@ -447,7 +412,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariables: aPWB
 		ifNotNil: [ :attributeStrings | 
 			attributeStrings flatten
 				do: [ :attString | 
-					model
+					self model
 						ensureIRForFamixClass: FamixPWBGlobalVariable
 						named: attString
 						owner: self currentEntity ] ]
@@ -481,7 +446,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPW
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
 	self flag: 'not sure what a parameterized type is?'.
-	^ model
+	^self model
 		irStubForFamixClass: FamixPWBBasicType
 		named: (anPWBASTParametrizedType parametrizedType
 			copyWithRegex: '{.*}'
@@ -490,24 +455,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anP
 ]
 
 { #category : #visiting }
-PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
-	| toResolve |
-	toResolve := (self
-		resolvable:
-		(SRInvocationIdentifierToIR
-		identifier: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
-		expectedKind:
-			{FamixPWBFunction.
-			FamixPWBEvent.
-			FamixPWBSubRoutine}
-		node: aPWBASTMethodInvocation
-		arguments: (self visit: aPWBASTMethodInvocation functionArguments)))
-		
-		ifNotFoundCreateStubInModel: model ;
-		ifFoundCreateDependency .
-
-	self resolve: toResolve.
-	^ toResolve
+PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation)
 ]
 
 { #category : #visiting }
@@ -558,7 +508,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDeclaration
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
 	self
-		useCurrentEntity: (model
+		useCurrentEntity: (self model
 			ensureIRForFamixClass: FamixPWBSubRoutine
 			named: (self visit: aPWBASTSubroutineDefinition subroutineSignature identifier)
 			owner: self currentEntity)
@@ -590,7 +540,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
 	| resolvable thisVariable |
-	thisVariable := model
+	thisVariable := self model
 		irStub: PWBIRValueHolder
 		named: 'this'.
 	self currentEntity
@@ -615,7 +565,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
 	| trigger |
-	trigger := model
+	trigger := self model
 		ensureIRForFamixClass: FamixPWBTrigger
 		named: (self visit: aPWBASTTriggerDefinition eventType)
 		owner: self currentEntity.
@@ -660,7 +610,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
 	^ self currentEntity isBehavioural
-		ifTrue: [ model
+		ifTrue: [ self model
 						ensureIRForFamixClass: FamixPWBLocalVariable
 						named: variable
 						owner: self currentEntity ]

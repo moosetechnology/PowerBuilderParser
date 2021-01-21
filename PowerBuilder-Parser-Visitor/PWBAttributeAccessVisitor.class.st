@@ -34,14 +34,22 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
 		
 		ifFalse: [ | srIdentifierWithNode writeAccess |
-			"srIdentifierWithNode := self resolvable: (self createSRIdentifier: aPWBASTExpressionAction)."
 			srIdentifierWithNode := self visit: aPWBASTExpressionAction action.
 			aPWBASTExpressionAction expressionAction
 				ifNotNil: [ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
-
-			"writeAccess := expressionIsLeftHandSide."
+			self flag: #TODO. 	"writeAccess := expressionIsLeftHandSide."
 			srIdentifierWithNode
-				ifNotFoundCreateStubInModel: model ;
+				ifNotFoundCreateStubInModel: self model ;
 				ifFoundCreateDependency.
 		 ]
+]
+
+{ #category : #visiting }
+PWBAttributeAccessVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
+	^self visit: aPWBASTMethodInvocation methodInvocation.
+]
+
+{ #category : #visiting }
+PWBAttributeAccessVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	^self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation
 ]

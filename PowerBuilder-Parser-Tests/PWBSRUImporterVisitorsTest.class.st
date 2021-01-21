@@ -452,9 +452,11 @@ end function
 
 	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
 	self assert: accesses size equals: 5.
-	self
-		assertCollection: (accesses collect: #name)
-		hasSameElements: { 'this' . 'aLong' . 'il_long1' . 'll_pos' }
+	self assert: ((accesses select: [ :var | var name = 'aLong']) size) equals: 1.
+	self assert: ((accesses select: [ :var | var name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :var | var name = 'il_long1']) size) equals: 2.
+	self assert: ((accesses select: [ :var | var name = 'll_pos']) size) equals: 1.
+
 ]
 
 { #category : #tests }
