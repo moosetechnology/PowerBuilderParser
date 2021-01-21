@@ -1,3 +1,8 @@
+"
+A specialization of SRInvocationWithNode for IRFunctions and IREvents
+
+Similar to SRIdentifierToIR
+"
 Class {
 	#name : #SRInvocationIdentifierToIR,
 	#superclass : #SRInvocationWithNode,

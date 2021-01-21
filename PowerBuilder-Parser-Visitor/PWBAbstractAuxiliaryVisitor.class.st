@@ -1,3 +1,10 @@
+"
+This is an abstract superclass for all AuxiliaryVisitors: small specialized visitors like a visitor to handle variableDeclarations.
+
+Auxiliary visitors are 'spawned' by a parentVisitor during the visit of the AST.
+they share common properties like the name of the file from which the AST was created, the ReferenceSolver they use, the model they populate ...
+AuxiliaryVisitors know their parent visitor to ask it all these informations
+"
 Class {
 	#name : #PWBAbstractAuxiliaryVisitor,
 	#superclass : #PWBImporterAbstractVisitor,

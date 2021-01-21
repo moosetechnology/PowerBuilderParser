@@ -1,3 +1,10 @@
+"
+A specialization of SRIdentifierWithNode for IREntities
+
+It has convenient methods to create default #foundAction: and #notFoundReplacementEntity: blocks
+By default #foundAction: creates a dependency from 'currentEntity' to the entity found
+By default #notFoundReplacementEntity: creates a stub IREntity for the identifier not found
+"
 Class {
 	#name : #SRIdentifierToIR,
 	#superclass : #SRIdentifierWithNode,

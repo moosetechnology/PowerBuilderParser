@@ -52,8 +52,7 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 PWBTypeDeclarationVisitor >> importType: importedName fromOwner: ownerIdentifier [
 	"import mreans we have access to an external type just has if it was define in the file"
 	| irAlias resolvable |
-	irAlias :=
-		self model
+	irAlias := self model
 			ensureIR: PWBIRImportedType
 			named: importedName
 			owner: self currentEntity.
@@ -141,9 +140,11 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 				importType: aPWBASTTypeDeclaration type identifier identifier
 				fromOwner: aPWBASTTypeDeclaration withinClause customType identifier ]
 		ifFalse: [
-			self
+			(self
 				ensureTypeNamed: (aPWBASTTypeDeclaration type identifier)
-				withSuper: aPWBASTTypeDeclaration fromClause customType identifier.
+				withSuper: aPWBASTTypeDeclaration fromClause customType identifier)
+				setSourceAnchorFrom: aPWBASTTypeDeclaration ;
+				file: self file.
 		].
 
 	self visit: aPWBASTTypeDeclaration descriptor.

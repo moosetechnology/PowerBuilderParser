@@ -1,3 +1,11 @@
+"
+An Intermediary Representation of an entity with members (e.g. a structuredType, a function, ...)
+
+Instance variables:
+- members, owned (e.g. parameters or local variables for a function)
+- dependencies, references made (e.g. function invocations or variable accesses from a function)
+
+"
 Class {
 	#name : #PWBIRComplexEntity,
 	#superclass : #PWBIRNamedEntity,

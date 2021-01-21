@@ -1,3 +1,12 @@
+"
+An Intermediary Representation of an entity with a name
+
+Instance variables:
+- expectedFamixKinds, to help when creating a real FamixEntity for me
+- owner, IREntity to which I belong (e.g. function for a local variable)
+- famixEntity, constructed from me after call to #toFamix
+- file + startPos + endPos, source anchor data: the file where the entity was found and the position in the file
+"
 Class {
 	#name : #PWBIRNamedEntity,
 	#superclass : #Object,
@@ -5,7 +14,10 @@ Class {
 		'name',
 		'owner',
 		'famixEntity',
-		'expectedFamixKinds'
+		'expectedFamixKinds',
+		'file',
+		'startPos',
+		'endPos'
 	],
 	#category : #'PowerBuilder-Parser-IR-Core'
 }
@@ -36,6 +48,16 @@ PWBIRNamedEntity >> addDependency: anIREntity [
 ]
 
 { #category : #accessing }
+PWBIRNamedEntity >> endPos [
+	^ endPos
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> endPos: anObject [
+	endPos := anObject
+]
+
+{ #category : #accessing }
 PWBIRNamedEntity >> expectedFamixKinds [
 	^ expectedFamixKinds
 ]
@@ -43,6 +65,16 @@ PWBIRNamedEntity >> expectedFamixKinds [
 { #category : #accessing }
 PWBIRNamedEntity >> expectedFamixKinds: aCollection [
 	expectedFamixKinds := aCollection
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> file [
+	^ file
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> file: anObject [
+	file := anObject
 ]
 
 { #category : #testing }
@@ -87,6 +119,22 @@ PWBIRNamedEntity >> printOn: aStream [
 { #category : #accessing }
 PWBIRNamedEntity >> setExpectedFamixKindsToDefault [
 	expectedFamixKinds := self class defaultFamixClasses
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> setSourceAnchorFrom: astNode [
+	startPos := astNode startPosition.
+	endPos := astNode stopPosition
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> startPos [
+	^ startPos
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> startPos: anObject [
+	startPos := anObject
 ]
 
 { #category : #converting }

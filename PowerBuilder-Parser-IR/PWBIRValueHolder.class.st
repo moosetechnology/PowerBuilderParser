@@ -1,3 +1,9 @@
+"
+An Intermediary Representation of a variable entity
+
+Instance variables:
+- declaredType, reference to a PWBIRType
+"
 Class {
 	#name : #PWBIRValueHolder,
 	#superclass : #PWBIRNamedEntity,

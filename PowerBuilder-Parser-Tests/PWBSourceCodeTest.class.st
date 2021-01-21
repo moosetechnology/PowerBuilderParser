@@ -45,3 +45,17 @@ end function
 	self assert: (self sourceCodeOf: fct) equals: fctCode.
 
 ]
+
+{ #category : #tests }
+PWBSourceCodeTest >> testMainTypeSourceCode [
+	| typ |
+	self importCodeWithForward: ''.
+
+	typ := (model getAllIR: PWBIRType) anyOne.
+
+	self assert: typ isNotNil.
+	self assert: (self sourceCodeOf: typ) equals: 'global type majorObjectTest from userobject
+  end type'.
+	self assert: typ file basename equals: 'majorObjectTest.sru'
+
+]
