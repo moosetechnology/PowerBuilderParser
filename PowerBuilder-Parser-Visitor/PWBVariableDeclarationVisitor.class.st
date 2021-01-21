@@ -31,19 +31,27 @@ PWBVariableDeclarationVisitor >> initialize [
 
 { #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTArgument: aPWBASTArgument [
+	| var |
+	var := self model
+		ensureIRForFamixClass: defaultFamixClass
+		named: (self visit: aPWBASTArgument identifier)
+		owner: self currentEntity.
+	var setSourceAnchorFrom: aPWBASTArgument file: self file.
 	self
 		declaredType: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTArgument type)
-		forIR:
-			(self model
-				ensureIRForFamixClass: defaultFamixClass
-				named: (self visit: aPWBASTArgument identifier)
-				owner: self currentEntity)
+		forIR: var.
 ]
 
 { #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTArguments: aPWBASTArguments [
 	defaultFamixClass := FamixPWBParameter.
 	^self visitAll: aPWBASTArguments arguments
+]
+
+{ #category : #visiting }
+PWBVariableDeclarationVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
+	defaultFamixClass := FamixPWBGlobalVariable.
+	^self visit: aPWBASTGlobalVariables attributes.
 ]
 
 { #category : #visiting }
@@ -57,12 +65,11 @@ PWBVariableDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariabl
 	| typeIdentifier |
 	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTVariableDeclarations type type.
 	aPWBASTVariableDeclarations variableAssignations
-		do: [ :anASTVariableAssignation | 
-			self
-				declaredType: typeIdentifier
-				forIR:
-					(self model
+		do: [ :anASTVariableAssignation || var |
+			var := self model
 						ensureIRForFamixClass: defaultFamixClass
 						named: anASTVariableAssignation variable identifier identifier
-						owner: self currentEntity) ]
+						owner: self currentEntity.
+			var setSourceAnchorFrom: aPWBASTVariableDeclarations file: self file.
+			self declaredType: typeIdentifier forIR: var ]
 ]

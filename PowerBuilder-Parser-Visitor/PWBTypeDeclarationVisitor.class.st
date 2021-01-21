@@ -136,15 +136,15 @@ PWBTypeDeclarationVisitor >> visitPWBASTTypeDeclaration: aPWBASTTypeDeclaration 
 	irType :=
 	(self isExternallyDefinedType: aPWBASTTypeDeclaration withinClause)
 		ifTrue: [
-			self
+			(self
 				importType: aPWBASTTypeDeclaration type identifier identifier
-				fromOwner: aPWBASTTypeDeclaration withinClause customType identifier ]
+				fromOwner: aPWBASTTypeDeclaration withinClause customType identifier)
+				setSourceAnchorFrom: aPWBASTTypeDeclaration file: self file ]
 		ifFalse: [
 			(self
 				ensureTypeNamed: (aPWBASTTypeDeclaration type identifier)
 				withSuper: aPWBASTTypeDeclaration fromClause customType identifier)
-				setSourceAnchorFrom: aPWBASTTypeDeclaration ;
-				file: self file.
+				setSourceAnchorFrom: aPWBASTTypeDeclaration file: self file
 		].
 
 	self visit: aPWBASTTypeDeclaration descriptor.

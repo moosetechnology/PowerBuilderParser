@@ -128,6 +128,12 @@ PWBIRNamedEntity >> setSourceAnchorFrom: astNode [
 ]
 
 { #category : #accessing }
+PWBIRNamedEntity >> setSourceAnchorFrom: astNode file: aFile [
+	self setSourceAnchorFrom: astNode.
+	self file: aFile
+]
+
+{ #category : #accessing }
 PWBIRNamedEntity >> startPos [
 	^ startPos
 ]

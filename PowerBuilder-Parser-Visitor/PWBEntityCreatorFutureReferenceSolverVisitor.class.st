@@ -356,7 +356,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: a
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	| irFunction |
-	self visit: aPWBASTFunctionSignature accessModifier.
+	"self visit: aPWBASTFunctionSignature accessModifier."
 
 	irFunction := self model
 		ensureIRForFamixClass: FamixPWBFunction
@@ -368,35 +368,19 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 			visit: aPWBASTFunctionSignature type)
 		forIR: irFunction.
 
-	self flag: #TODOArgumentInFAST.
-	self visit: aPWBASTFunctionSignature arguments.
-"	| signature arguments retunTypeHolder |
-	self currentEntity isNullPatternObject
-		ifTrue: [ ^ self ].
-	arguments := aPWBASTFunctionSignature arguments arguments.
-	arguments ifNotNil: [ self createPWBParameters: arguments ].
-	signature := self
-		createEntity: FamixPWBBehaviorSignature
-		withAnchorFrom: aPWBASTFunctionSignature.
-	signature
-		name: self currentEntity name;
-		behavioral: self currentEntity.
-	""A signature always ends with a $; charater at definition""
-	signature sourceAnchor endPos: signature sourceAnchor endPos + 1.
-	retunTypeHolder := self visit: aPWBASTFunctionSignature type.
-	retunTypeHolder isResolvable
-		ifTrue: [ retunTypeHolder addTypedVariable: self currentEntity ].
-	self currentEntity returnType: retunTypeHolder.
-	self currentEntity
-		name: (self visit: aPWBASTFunctionSignature identifier);
-		accessModifier: (self visit: aPWBASTFunctionSignature accessModifier).
-	^ signature
-"
+	self
+		useCurrentEntity: irFunction
+		during: [ self
+			auxiliaryVisitor: PWBVariableDeclarationVisitor
+			visit: aPWBASTFunctionSignature arguments].
+
 	^irFunction
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
+self shouldNotImplement .
+self flag: #TODO.  "remove"
 	self visit: aPWBASTGlobalVariableDeclaration type.
 	self model
 		ensureIRForFamixClass: FamixPWBGlobalVariable
@@ -408,14 +392,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclara
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
-	(self visit: aPWBASTGlobalVariables attributes)
-		ifNotNil: [ :attributeStrings | 
-			attributeStrings flatten
-				do: [ :attString | 
-					self model
-						ensureIRForFamixClass: FamixPWBGlobalVariable
-						named: attString
-						owner: self currentEntity ] ]
+	self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTGlobalVariables
 ]
 
 { #category : #visiting }
@@ -606,6 +583,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVari
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	| variable |
+	1halt.
 	variable := (self visit: aPWBASTVariableAssignation variable)
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
@@ -619,9 +597,5 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
-	| varNames vartype |
-	varNames := self
-		visitAll: aPWBASTVariableDeclarations variableAssignations.
-	vartype := self visit: aPWBASTVariableDeclarations type.
-	^ varNames
+	self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTVariableDeclarations
 ]
