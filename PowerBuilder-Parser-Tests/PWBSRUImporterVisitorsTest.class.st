@@ -165,6 +165,7 @@ PWBSRUImporterVisitorsTest >> testFunctionInvocationSourceText [
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testGlobalVariables [
+	| majorUO |
 	self importCode:
 'forward
   global type majorObjectTest from userobject
@@ -172,27 +173,31 @@ PWBSRUImporterVisitorsTest >> testGlobalVariables [
 end forward
 
 global variables
-  long gl_long1;
-  global String gs_string1;
+  long gl_long;
+  global String gs_string;
 end variables
-
-shared variables
-  test_uo uo_var;
-end variables
-
-type variables
-  long il_long1;
-end variables
-
-private function integer aFunction ();
-  long lL_return
-  return -1
-end function
 '.
 
-	self
-		assertCollection: ((model getAllFamixType: FamixPWBGlobalVariable) collect: #name)
-		hasSameElements: {'gl_long1' . 'gs_string1'}
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 2.
+
+	majorUO := (model getAllIR: PWBIRType named: 'majorObjectTest')
+		anyOne.
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'gl_long' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBGlobalVariable }.
+			self assert: var owner equals: majorUO
+		]
+		ifNone: [ self fail ].
+
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'gs_string' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBGlobalVariable }.
+			self assert: var owner equals: majorUO
+		]
+		ifNone: [ self fail ].
+
 ]
 
 { #category : #tests }
@@ -225,89 +230,86 @@ PWBSRUImporterVisitorsTest >> testInstanceVariables [
   end type
 end forward
 
-global variables
-  long gl_long1;
-  global String gs_string1;
-end variables
-
-shared variables
-  test_uo uo_var;
-end variables
-
 type variables
-  long il_long1;
+  long il_long;
 end variables
-
-private function integer aFunction ();
-  long lL_return
-  return -1
-end function
 '.
 
-	self
-		assertCollection: ((model getAllFamixType: FamixPWBInstanceVariable) collect: #name)
-		hasSameElements: { 'il_long1' }
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'il_long' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBInstanceVariable }.
+			self
+				assert: var owner
+				equals: ((model getAllIR: PWBIRType named: 'majorObjectTest') anyOne)
+		]
+		ifNone: [ self fail ].
+
 ]
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testLocalVariables [
-	| locals fct |
 	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
 end forward
 
-global variables
-  long gl_long1;
-  global String gs_string1;
-end variables
-
-shared variables
-  test_uo uo_var;
-end variables
-
-type variables
-  long il_long1;
-end variables
-
 private function integer aFunction ();
   long lL_return
   return -1
 end function
 '.
 
-	locals := model getAllFamixType: FamixPWBLocalVariable.
-	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
-		anyOne.
-	
-	self assert: locals size equals: 1.
-	self assert: locals anyOne name equals: 'lL_return'.
-	self assert: locals anyOne owner equals: fct.
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'lL_return' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBLocalVariable }.
+			self
+				assert: var owner
+				equals: ((model getAllIR: PWBIRFunction) anyOne)
+		]
+		ifNone: [ self fail ].
 
 ]
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testParameter [
+	| fct |
 	self importCode:
 'forward
   global type majorObjectTest from userobject
   end type
 end forward
-
-private function integer aFunction ();
-  long lL_return
-  return -1
-end function
 
 private function long anotherFunction (long aLong, uo_datawindow dw_param); 
   return 5
 end function
 '.
 
-	self
-		assertCollection: ((model getAllFamixType: FamixPWBParameter) collect: #name)
-		hasSameElements: {'aLong' . 'dw_param'}
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 2.
+
+	fct := (model getAllIR: PWBIRFunction) anyOne.
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'aLong' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBParameter }.
+			self assert: var owner equals: fct
+		]
+		ifNone: [ self fail ].
+
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'dw_param' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBParameter }.
+			self assert: var owner equals: fct
+		]
+		ifNone: [ self fail ].
+
 ]
 
 { #category : #tests }
@@ -356,34 +358,23 @@ PWBSRUImporterVisitorsTest >> testSharedVariables [
   end type
 end forward
 
-global variables
-  long gl_long1;
-  global String gs_string1;
-end variables
-
 shared variables
   test_uo uo_var;
 end variables
-
-type variables
-  long il_long1;
-end variables
-
-private function integer aFunction ();
-  long lL_return
-  return -1
-end function
 '.
 
-	shared := model getAllFamixType: FamixPWBSharedVariable.
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
 
-	self assert: shared size equals: 1.
-	self assert: shared anyOne name equals: 'uo_var'.
-	self
-		assert: shared anyOne owner
-		equals: ((model getAllIR: PWBIRType named: 'majorObjectTest')
-			anyOne)
-
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'uo_var' ]
+		ifOne: [ :var |
+			self assertCollection: var expectedFamixKinds equals: { FamixPWBSharedVariable }.
+			self
+				assert: var owner
+				equals: ((model getAllIR: PWBIRType named: 'majorObjectTest')
+					anyOne)
+		]
+		ifNone: [ self fail ].
 ]
 
 { #category : #tests }
