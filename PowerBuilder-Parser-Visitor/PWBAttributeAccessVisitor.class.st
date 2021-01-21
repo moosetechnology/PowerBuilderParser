@@ -42,7 +42,6 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 			"writeAccess := expressionIsLeftHandSide."
 			srIdentifierWithNode
 				ifNotFoundCreateStubInModel: model ;
-				ifFoundCreateDependencyWhen: [ :identifier :currentEntity | 
-					(identifier entity class inheritsFrom: FamixPWBmajorObject) not ].
+				ifFoundCreateDependency.
 		 ]
 ]
