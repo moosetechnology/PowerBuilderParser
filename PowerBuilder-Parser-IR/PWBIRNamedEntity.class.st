@@ -87,6 +87,11 @@ PWBIRNamedEntity >> isBehavioural [
 	^false
 ]
 
+{ #category : #testing }
+PWBIRNamedEntity >> isResolverReachable [
+	^owner isNil
+]
+
 { #category : #accessing }
 PWBIRNamedEntity >> name [
 	^ name
