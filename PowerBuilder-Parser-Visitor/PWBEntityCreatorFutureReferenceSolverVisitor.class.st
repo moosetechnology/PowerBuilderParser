@@ -47,24 +47,22 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	self flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
+	self
+		flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
 	self visit: aPWBASTAccess arrayPosition.
 	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-
 		ifTrue: [ self visit: aPWBASTAccess accessed ]
-
 		ifFalse: [ | sRIdentifierWithNode writeAccess |
 			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
 			writeAccess := expressionIsLeftHandSide.
-
-			sRIdentifierWithNode foundAction ifNil: [
-				"Special variable THIS already has a foundAction"
-				sRIdentifierWithNode
-					ifNotFoundCreateStubInModel: self model ;
-					ifFoundCreateDependencyWhen: [ :identifier :currentEntity |
-						(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
-
+			sRIdentifierWithNode foundAction
+				ifNil: [ "Special variable THIS already has a foundAction"
+					sRIdentifierWithNode
+						ifNotFoundCreateStubInModel: self model;
+						ifFoundCreateDependencyInModel: self model
+						when: [ :identifier :currentEntity |
+							(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
 			self resolve: sRIdentifierWithNode ]
 ]
 
@@ -150,15 +148,15 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 	typeToResolve := (self
 		resolvable:
 		(SRIdentifierToIR
-			name: (self visit: aPWBASTCustomType identifier)
-			expectedKind:
-				{FamixPWBCustomType.
-				FamixPWBGlobalFunction.
-				FamixPWBStructure.
-				FamixPWBQuery.
-				FamixPWBUserObject}
-			node: aPWBASTCustomType identifier))
-		ifFoundCreateDependency ;
+		name: (self visit: aPWBASTCustomType identifier)
+		expectedKind:
+			{FamixPWBCustomType.
+			FamixPWBGlobalFunction.
+			FamixPWBStructure.
+			FamixPWBQuery.
+			FamixPWBUserObject}
+		node: aPWBASTCustomType identifier))
+		ifFoundCreateDependencyInModel: self model;
 		ifNotFoundCreateStubInModel: self model.
 	^ self resolve: typeToResolve
 ]
@@ -520,8 +518,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
 	thisVariable := self model
 		irStub: PWBIRValueHolder
 		named: 'this'.
-	self currentEntity
-		addDependency: thisVariable.
+	self currentEntity addAccessDependency: thisVariable inModel: self model.
 	resolvable :=
 		(SRThisWithNode
 			node: aPWBASTThis
@@ -565,6 +562,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
+	self flag: #TODO.
+	self shouldNotImplement.
 	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTTypeVariable
 ]
 
@@ -583,7 +582,8 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVari
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: aPWBASTVariableAssignation [
 	| variable |
-	1halt.
+	self flag: #TODO.
+	self shouldNotImplement.
 	variable := (self visit: aPWBASTVariableAssignation variable)
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.

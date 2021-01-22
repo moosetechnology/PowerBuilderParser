@@ -8,11 +8,11 @@ By default #notFoundReplacementEntity: creates a stub IREntity for the identifie
 Class {
 	#name : #SRIdentifierToIR,
 	#superclass : #SRIdentifierWithNode,
-	#category : #'PowerBuilder-Parser-IR-Core'
+	#category : #'PowerBuilder-Parser-IR-symbolResolver'
 }
 
 { #category : #hooks }
-SRIdentifierToIR >> ifFoundCreateDependency [
+SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	"Action block called by SymbolResolver when identifier to resolve is found
 	 Default is to create a dependency from the currentEntity to the entity found"
 
@@ -22,11 +22,11 @@ SRIdentifierToIR >> ifFoundCreateDependency [
 	self flag: #TODO.   "'will need to deal with read/write accesses'"
 
 	self foundAction: [ :me :currentEntity | 
-			currentEntity addDependency: self entity ]
+			currentEntity addAccessDependency: self entity inModel: irModel ]
 ]
 
 { #category : #hooks }
-SRIdentifierToIR >> ifFoundCreateDependencyWhen: aConditionalBlock [
+SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel when: aConditionalBlock [
 	"Action block called by SymbolResolver when identifier to resolve is found
 	 Default is to create a dependency from the currentEntity to the entity found
 	 IF the conditionalBlock evals to true.
@@ -39,11 +39,11 @@ SRIdentifierToIR >> ifFoundCreateDependencyWhen: aConditionalBlock [
 
 	self foundAction: [ :me :currentEntity |
 			(aConditionalBlock value: me value: currentEntity)
-			ifTrue: [ currentEntity addDependency: self entity ] ]
+			ifTrue: [ currentEntity addAccessDependency: self entity inModel: irModel ] ]
 ]
 
 { #category : #hooks }
-SRIdentifierToIR >> ifNotFoundCreateStubInModel: model [
+SRIdentifierToIR >> ifNotFoundCreateStubInModel: irModel [
 	"Action block called by SymbolResolver if an identifier to resolve is not found
 	 Default is to create a stub entity with the right kind"
 	| irKind |
@@ -53,7 +53,7 @@ SRIdentifierToIR >> ifNotFoundCreateStubInModel: model [
 			ifFalse: [ self expectedKind ]).
 
 	self notFoundReplacementEntity: [ :me :currentEntity |
-		(model irStub: irKind named: self identifier)
+		(irModel irStub: irKind named: self identifier)
 			expectedFamixKinds: (self expectedKind) ;
 			yourself ]
 ]

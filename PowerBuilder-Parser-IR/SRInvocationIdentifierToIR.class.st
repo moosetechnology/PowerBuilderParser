@@ -6,11 +6,11 @@ Similar to SRIdentifierToIR
 Class {
 	#name : #SRInvocationIdentifierToIR,
 	#superclass : #SRInvocationWithNode,
-	#category : #'PowerBuilder-Parser-IR-Core'
+	#category : #'PowerBuilder-Parser-IR-symbolResolver'
 }
 
 { #category : #hooks }
-SRInvocationIdentifierToIR >> ifFoundCreateDependency [
+SRInvocationIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	"Action block called by SymbolResolver when identifier to resolve is found
 	 Default is to create a dependency from the currentEntity to the entity found"
 
@@ -30,11 +30,11 @@ SRInvocationIdentifierToIR >> ifFoundCreateDependency [
 											famixPWBArgument invocation: invocation ] ] ]"
 
 	self foundAction: [ :me :currentEntity | 
-			currentEntity addDependency: self candidates ]
+		currentEntity addInvocationDependency: (self candidates) inModel: irModel ]
 ]
 
 { #category : #hooks }
-SRInvocationIdentifierToIR >> ifNotFoundCreateStubInModel: model [
+SRInvocationIdentifierToIR >> ifNotFoundCreateStubInModel: irModel [
 	"Action block called by SymbolResolver if an identifier to resolve is not found
 	 Default is to create a stub entity with the right kind"
 	| famixKinds irKind |
@@ -44,7 +44,7 @@ SRInvocationIdentifierToIR >> ifNotFoundCreateStubInModel: model [
 	irKind := PWBIRNamedEntity irClassForFamixClass: famixKinds first.
 
 	self notFoundReplacementEntity: [ :me :currentEntity |
-		{ (model irStub: irKind named: self identifier)
+		{ (irModel irStub: irKind named: self identifier)
 				expectedFamixKinds: famixKinds ;
 				yourself } ]
 ]

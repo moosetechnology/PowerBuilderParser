@@ -14,15 +14,24 @@ PWBIRModel >> anyOne [
 	^irEntities anyOne anyOne
 ]
 
-{ #category : #private }
+{ #category : #creating }
+PWBIRModel >> createIR: anIRKind [
+	| irEntity |
+	irEntity := 	anIRKind new.
+	(self getAllIR: anIRKind)
+		add: irEntity.
+	^irEntity
+
+]
+
+{ #category : #creating }
 PWBIRModel >> createIR: anIRKind named: aName owner: owner [
-	| ofKind irEntity |
-	ofKind := self getAllIR: anIRKind.
-	irEntity := 	anIRKind new
+	| irEntity |
+	1haltIf:[ aName = 'lL_return'].
+	irEntity := 	(self createIR: anIRKind)
 		name: aName ;
 		owner: owner ;
 		yourself.
-	ofKind add: irEntity.
 
 	owner ifNotNil: [ owner addMember: irEntity ].
 
@@ -107,7 +116,7 @@ PWBIRModel >> irStubForFamixClass: aFamixClass named: aName [
 
 { #category : #accessing }
 PWBIRModel >> reachableEntitiesOwned [
-	^ irEntities flatCollect: [ :kindEntities | kindEntities select: [ :ir | ir owner isNil ] ]
+	^ irEntities flatCollect: [ :kindEntities | kindEntities select: [ :ir | ir isResolverReachable ] ]
 ]
 
 { #category : #enumerating }

@@ -31,11 +31,10 @@ end function
 	events := model getAllFamixType: FamixPWBEvent.
 	self assert: events size equals: 2.
 
+	self assert: (fct dependencies allSatisfy: [:dep | dep class = PWBIRDependencyInvocation]).
+
 	events do: [ :evt |
-		self assert:
-			(fct dependencies
-				contains: [:dep |
-					dep isCollection and: [dep anyOne = evt]])
+		self assert: (fct dependencies anySatisfy: [:dep | dep candidates = { evt } ])
 	]
 
 ]
@@ -107,9 +106,9 @@ end function
 				anyOne.
 
 	self assert: caller dependencies size equals: 1.
-	self assert: caller dependencies anyOne isCollection.
-	self assert: caller dependencies anyOne size equals: 1.
-	self assert: caller dependencies anyOne anyOne equals: callee.
+	self assert: caller dependencies anyOne class equals: PWBIRDependencyInvocation.
+	self assert: caller dependencies anyOne candidates size equals: 1.
+	self assert: caller dependencies anyOne candidates anyOne equals: callee.
 ]
 
 { #category : #tests }
@@ -138,9 +137,9 @@ end function
 				anyOne.
 
 	self assert: caller dependencies size equals: 1.
-	self assert: caller dependencies anyOne isCollection.
-	self assert: caller dependencies anyOne size equals: 1.
-	self assert: caller dependencies anyOne anyOne equals: callee.
+	self assert: caller dependencies anyOne class equals: PWBIRDependencyInvocation.
+	self assert: caller dependencies anyOne candidates size equals: 1.
+	self assert: caller dependencies anyOne candidates anyOne equals: callee.
 ]
 
 { #category : #tests }
@@ -414,11 +413,11 @@ private function integer aFunction ();
 end function
 '.
 
-	fct := ((model getAllIR: PWBIRFunction named: 'aFunction')
-		anyOne
-		dependencies
-			detect: [ :dep | dep isCollection])
-				anyOne.
+	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
+		anyOne dependencies
+			detect: [ :dep | dep class = PWBIRDependencyInvocation]
+			ifOne: [ :dep | dep candidates anyOne ]
+			ifNone: [ self fail ].
 
 	self assert: fct isNotNil.
 	self assert: fct name equals: 'anotherFunction'.
@@ -449,12 +448,12 @@ end function
 	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
 	self assert: accesses size equals: 5.
-	self assert: ((accesses select: [ :var | var name = 'aLong']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'this']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'il_long1']) size) equals: 2.
-	self assert: ((accesses select: [ :var | var name = 'll_pos']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'aLong']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long1']) size) equals: 2.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'll_pos']) size) equals: 1.
 
 ]
 
@@ -478,9 +477,8 @@ end function
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	accesses := fct dependencies select: [ :dep | dep class = PWBIRDependencyAccess ].
 	self assert: accesses size equals: 2.
-	self
-		assertCollection: (accesses collect: #name)
-		hasSameElements: {'lL_return' . 'var'}
+	self assert: (accesses anySatisfy: [ :dep | dep irEntity name = 'lL_return']).
+	self assert: (accesses anySatisfy: [ :dep | dep irEntity name = 'var']).
 ]

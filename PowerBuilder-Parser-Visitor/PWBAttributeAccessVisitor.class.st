@@ -27,21 +27,21 @@ PWBAttributeAccessVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess 
 
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
-	self flag: 'Quasi clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess:'.
+	self
+		flag:
+			'Quasi clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess:'.
 	^ (self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-
 		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
-		
 		ifFalse: [ | srIdentifierWithNode writeAccess |
 			srIdentifierWithNode := self visit: aPWBASTExpressionAction action.
 			aPWBASTExpressionAction expressionAction
-				ifNotNil: [ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
-			self flag: #TODO. 	"writeAccess := expressionIsLeftHandSide."
+				ifNotNil:
+					[ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
+			self flag: #TODO.	"writeAccess := expressionIsLeftHandSide."
 			srIdentifierWithNode
-				ifNotFoundCreateStubInModel: self model ;
-				ifFoundCreateDependency.
-		 ]
+				ifNotFoundCreateStubInModel: self model;
+				ifFoundCreateDependencyInModel: self model ]
 ]
 
 { #category : #visiting }

@@ -55,11 +55,11 @@ end function'.
 	fct := (model getAllIR: PWBIRFunction named: 'aFunction')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
 	self assert: accesses size equals: 3.
-	self assert: ((accesses select: [ :var | var name = 'this']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'local_uo']) size) equals: 1.
-	self assert: ((accesses select: [ :var | var name = 'localuo_var']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'local_uo']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'localuo_var']) size) equals: 1.
 
 ]
 
@@ -85,10 +85,23 @@ end function
 				anyOne.
 
 	self assert: fct dependencies size equals: 3.
-	fct dependencies detect: [ :dep | dep name = 'this']  ifNone: [ self fail ].
-	fct dependencies detect: [ :dep | dep name = 'my_uo'] ifNone: [ self fail ].
-
-	candidates := fct dependencies detect: [ :dep | dep isCollection] ifNone: [ self fail ].
+	"dependecy to valueHolder 'this'"
+	self assert:
+		(fct dependencies
+			anySatisfy: [ :dep |
+				(dep class = PWBIRDependencyAccess) and:
+				[dep irEntity name = 'this'] ]).
+	"dependecy to valueHolder 'my_uo'"
+	self assert:
+		(fct dependencies
+			anySatisfy: [ :dep |
+				(dep class = PWBIRDependencyAccess) and:
+				[dep irEntity name = 'my_uo'] ]).
+	"dependecy to function 'myFunc'"
+	candidates := fct dependencies
+		detect: [ :dep | dep class = PWBIRDependencyInvocation]
+		ifOne: [ :dep | dep candidates ]
+		ifNone: [ self fail ].
 	self assert: candidates size equals: 1.
 	self assert: candidates anyOne name equals: 'myFunc'.
 	self assert: candidates anyOne class equals: PWBIRFunction.
@@ -212,17 +225,14 @@ end function'.
 	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
 	self assert: accesses size equals: 2.
-	self
-		assertCollection: (accesses collect: #name)
-		hasSameElements: #( this my_uo ).
 
-	self assert: (accesses detect: [:ir | ir name = 'this']) declaredType isNotNil.
-	self assert: (accesses detect: [:ir | ir name = 'this']) declaredType name equals: 'majorObjectTest'.
+	self assert: (accesses detect: [ :dep | dep irEntity name = 'this']) irEntity declaredType isNotNil.
+	self assert: (accesses detect: [ :dep | dep irEntity name = 'this']) irEntity declaredType name equals: 'majorObjectTest'.
 
-	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType isNotNil.
-	self assert: (accesses detect: [:ir | ir name = 'my_uo']) declaredType name equals: 'other_uo'.
+	self assert: (accesses detect: [ :dep | dep irEntity name = 'my_uo']) irEntity declaredType isNotNil.
+	self assert: (accesses detect: [ :dep | dep irEntity name = 'my_uo']) irEntity declaredType name equals: 'other_uo'.
 
 ]
 
@@ -255,14 +265,14 @@ end function'.
 	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
 				anyOne.
 
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRValueHolder ].
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
 	self assert: accesses size equals: 3.
 	self
-		assertCollection: (accesses collect: #name)
+		assertCollection: (accesses collect: [ :dep | dep irEntity name])
 		hasSameElements: #( this my_uo uo_var_string ).
 
-	self assert: (accesses detect: [:ir | ir name = 'uo_var_string']) declaredType isNotNil.
-	self assert: (accesses detect: [:ir | ir name = 'uo_var_string']) declaredType name equals: 'string'.
+	self assert: (accesses detect: [:dep | dep irEntity name = 'uo_var_string']) irEntity declaredType isNotNil.
+	self assert: (accesses detect: [:dep | dep irEntity name = 'uo_var_string']) irEntity declaredType name equals: 'string'.
 
 ]
 

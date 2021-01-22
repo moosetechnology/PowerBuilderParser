@@ -22,14 +22,28 @@ PWBIRComplexEntity class >> defaultFamixClasses [
 ]
 
 { #category : #accessing }
-PWBIRComplexEntity >> addDependencies: aCollection [
-	"for invocation candidates, but actually needs to be kept together as one invocation"
-	self addDependency: aCollection
+PWBIRComplexEntity >> addAccessDependency: anIREntity inModel: irModel [
+	| dep |
+	dep := (irModel createIR: PWBIRDependencyAccess)
+		irEntity: anIREntity ;
+		yourself.
+	self addDependency: dep.
+	^dep
 ]
 
 { #category : #accessing }
 PWBIRComplexEntity >> addDependency: anIREntity [
 	self dependencies add: anIREntity 
+]
+
+{ #category : #accessing }
+PWBIRComplexEntity >> addInvocationDependency: irEntities inModel: irModel [
+	| dep |
+	dep := (irModel createIR: PWBIRDependencyInvocation)
+		candidates: irEntities ;
+		yourself.
+	self dependencies add: dep.
+	^dep
 ]
 
 { #category : #accessing }
