@@ -10,6 +10,30 @@ PWBSRUImporterVisitorsTest >> fileExtension [
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testChainedVariableAccesses [
+	| accesses fct |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function long anotherFunction (); 
+  this.il_long = 5
+end function
+'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	self assert: accesses size equals: 2.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long']) size) equals: 1.
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventInvocation [
 	| events fct |
 	self importCode:
@@ -163,6 +187,30 @@ PWBSRUImporterVisitorsTest >> testFunctionInvocationSourceText [
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testGlobalVariableSingleLine [
+	| var majorUO |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+global long gl_long
+'.
+
+	majorUO := (model getAllIR: PWBIRType named: 'majorObjectTest')
+		anyOne.
+
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+
+	var := (model getAllIR: PWBIRValueHolder) anyOne.
+	self assert: var name equals: 'gl_long'.
+	self assertCollection: var expectedFamixKinds equals: { FamixPWBGlobalVariable }.
+	self assert: var owner equals: majorUO
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testGlobalVariables [
 	| majorUO |
 	self importCode:
@@ -312,6 +360,31 @@ end function
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testParameterAccesses [
+	| accesses fct |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function long anotherFunction (long aLong, uo_datawindow dw_param); 
+  aLong = 5
+  return dw_param
+end function
+'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	self assert: accesses size equals: 2.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'aLong']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'dw_param']) size) equals: 1
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testParameterType [
 	| param |
 	self importCode:
@@ -425,7 +498,7 @@ end function
 ]
 
 { #category : #tests }
-PWBSRUImporterVisitorsTest >> testVariableAccesses [
+PWBSRUImporterVisitorsTest >> testTypeVariableAccess [
 	| accesses fct |
 	self importCode:
 'forward
@@ -434,14 +507,11 @@ PWBSRUImporterVisitorsTest >> testVariableAccesses [
 end forward
 
 type variables
-  long il_long1;
+  long il_long;
 end variables
 
-private function long anotherFunction (long aLong, uo_datawindow dw_param); 
-  AFUNCTION(aLong)
-  this.il_long1 = 5
-  return ll_pos - 1 
-  return il_long1[1]
+private function long anotherFunction (); 
+  return il_long
 end function
 '.
 
@@ -449,11 +519,8 @@ end function
 				anyOne.
 
 	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
-	self assert: accesses size equals: 5.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'aLong']) size) equals: 1.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long1']) size) equals: 2.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'll_pos']) size) equals: 1.
+	self assert: accesses size equals: 1.
+	self assert: accesses anyOne irEntity name equals: 'il_long'.
 
 ]
 
@@ -481,4 +548,26 @@ end function
 	self assert: accesses size equals: 2.
 	self assert: (accesses anySatisfy: [ :dep | dep irEntity name = 'lL_return']).
 	self assert: (accesses anySatisfy: [ :dep | dep irEntity name = 'var']).
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testVariableInArgumentAccess [
+	| accesses fct |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function long anotherFunction (); 
+  AFUNCTION(aLong)
+end function
+'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	self assert: accesses size equals: 1.
+	self assert: accesses anyOne irEntity name equals: 'aLong'
 ]

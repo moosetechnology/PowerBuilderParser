@@ -83,8 +83,7 @@ PWBSourceCodeTest >> testFunctionSourceCode [
 	fctCode :=
 'private function integer aFunction ();
   blah = 2
-end function
-'.
+end function'.
 	self importCodeWithForward: fctCode.
 
 	fct := (model getAllIR: PWBIRFunction) anyOne.

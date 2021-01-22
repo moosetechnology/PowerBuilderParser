@@ -178,10 +178,12 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTFunctionDeclaration: aPWBASTFunct
 
 { #category : #visiting }
 PWBBehaviouralDeclarationVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
+	| irFct |
+	irFct := self visit: aPWBASTFunctionDefinition functionSignature.	
+	irFct setSourceAnchorFrom: aPWBASTFunctionDefinition file: self file.
 
 	self
-		useCurrentEntity:
-			(self visit: aPWBASTFunctionDefinition functionSignature)
+		useCurrentEntity: irFct
 		during: [
 			self visit: aPWBASTFunctionDefinition statements ].
 	^ self currentEntity
@@ -202,6 +204,8 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctio
 		ensureIRForFamixClass: FamixPWBFunction
 		named: (self visit: aPWBASTFunctionSignature identifier)
 		owner: self currentEntity.
+	irFunction setSourceAnchorFrom: aPWBASTFunctionSignature file: self file.
+
 	self
 		declaredType: (self
 			auxiliaryVisitor: PWBTypeReferenceVisitor

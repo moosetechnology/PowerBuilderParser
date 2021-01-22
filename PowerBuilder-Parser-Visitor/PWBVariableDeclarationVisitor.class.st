@@ -44,19 +44,32 @@ PWBVariableDeclarationVisitor >> visitPWBASTArgument: aPWBASTArgument [
 
 { #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTArguments: aPWBASTArguments [
-	defaultFamixClass := FamixPWBParameter.
+	self defaultFamixClass: FamixPWBParameter.
 	^self visitAll: aPWBASTArguments arguments
 ]
 
 { #category : #visiting }
+PWBVariableDeclarationVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
+	"Single line global variable declaration (only o1 variable)"
+	| typeIdentifier var |
+	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTGlobalVariableDeclaration type type.
+	var := self model
+		ensureIRForFamixClass: FamixPWBGlobalVariable
+		named: aPWBASTGlobalVariableDeclaration variable identifier identifier
+		owner: self currentEntity.
+	var setSourceAnchorFrom: aPWBASTGlobalVariableDeclaration file: self file.
+		self declaredType: typeIdentifier forIR: var
+]
+
+{ #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
-	defaultFamixClass := FamixPWBGlobalVariable.
+	self defaultFamixClass: FamixPWBGlobalVariable.
 	^self visit: aPWBASTGlobalVariables attributes.
 ]
 
 { #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
-	defaultFamixClass := FamixPWBSharedVariable.
+	self defaultFamixClass: FamixPWBSharedVariable.
 	^self visit: aPWBASTSharedVariables attributes.
 ]
 

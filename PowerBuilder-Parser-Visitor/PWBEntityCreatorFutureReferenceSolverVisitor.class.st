@@ -42,23 +42,10 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	self
-		flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
-	self visit: aPWBASTAccess arrayPosition.
-	^ (self currentEntity class = FamixPWBDataWindow
-		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifTrue: [ self visit: aPWBASTAccess accessed ]
-		ifFalse: [ | sRIdentifierWithNode writeAccess |
-			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
-			writeAccess := expressionIsLeftHandSide.
-			sRIdentifierWithNode foundAction
-				ifNil: [ "Special variable THIS already has a foundAction"
-					sRIdentifierWithNode
-						ifNotFoundCreateStubInModel: self model;
-						ifFoundCreateDependencyInModel: self model
-						when: [ :identifier :currentEntity |
-							(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
-			self resolve: sRIdentifierWithNode ]
+	"found in SRD files
+	 ignored for now"
+	(self file extension = 'srd')
+	ifFalse: [ self shouldNotImplement ]
 ]
 
 { #category : #visiting }
@@ -68,6 +55,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAccessOrType: aPWBAST
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArguments: aPWBASTArguments [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTArguments
 ]
 
@@ -78,18 +68,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTArrayWithSize: aPWBAS
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
-	| accessOrType variable |
-	accessOrType := self visit: aPWBASTAssignationStatement accessOrType.
-	expressionIsLeftHandSide := true.
-	variable := self visit: aPWBASTAssignationStatement expressionAction.
-	(variable isNotNil and: [ variable isResolvable ])
-		ifTrue: [ variable previous: accessOrType ].
-	expressionIsLeftHandSide := false.
-	self visit: aPWBASTAssignationStatement assignation
+	"found in SRD files
+	 ignored for now"
+	(self file extension = 'srd')
+	ifFalse: [ self shouldNotImplement ]
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAttribute [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self visit: aPWBASTAttribute accessModifier.
 	self visit: aPWBASTAttribute descriptor.
 	^ self visit: aPWBASTAttribute variableDeclarations
@@ -97,12 +86,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttribute: aPWBASTAtt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self visit: aPWBASTAttributeAccess arrayInformation.
 	^ self visit: aPWBASTAttributeAccess uncheckedIdentifier
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAttributes [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self
 		visitAll:
 			(aPWBASTAttributes attributes
@@ -119,6 +114,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTAttributes: aPWBASTAt
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	"ensures the basicType as a top level entity
 	+ translates the ASTBasicType into an ASTIdentifier
 	the Famix entity will be recovered by the symbolResolver from the ASTIdentifier"
@@ -133,6 +131,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTBasicType: aPWBASTBas
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTCase: aPWBASTCase
 ]
@@ -140,6 +141,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCase: aPWBASTCase [
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	| typeToResolve |
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	typeToResolve := (self
 		resolvable:
 		(SRIdentifierToIR
@@ -158,30 +162,45 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTCustomType: aPWBASTCu
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTDoLoopUntil: aPWBASTDoLoopUntil
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoLoopWhile: aPWBASTDoLoopWhile [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTDoLoopWhile: aPWBASTDoLoopWhile
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoUntilLoop: aPWBASTDoUntilLoop [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTDoUntilLoop: aPWBASTDoUntilLoop
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	aPWBASTMethodInvocation functionArguments.
 	^self resolve:
 		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTMethodInvocation)
@@ -189,6 +208,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTDynamicMethodInvocati
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTElseIf: aPWBASTElseIf [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTElseIf: aPWBASTElseIf
 ]
@@ -200,12 +222,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPW
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^self resolve:
 		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTEventInvocation)
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self flag: 'Manage object class correctly'.
 	self visit: aPWBASTEventReferenceName objectClass.
 	self visit: aPWBASTEventReferenceName arguments.
@@ -219,6 +247,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventReferenceName: a
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
 	"converting it to a PWBASTEventInvocation"
 	| customIdentifier eventName |
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	[ eventName := aPWBASTEventTriggeringOrPosting eventName toString ]
 		on: Error
 		do: [ ^ self ].
@@ -237,6 +268,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventTriggeringOrPost
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventType: aPWBASTEventType [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^ self visit: aPWBASTEventType eventType
 ]
 
@@ -321,13 +355,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
-	^self resolve:
-		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTFunctionInvocation)
+	"found in SRD files
+	 ignored for now"
+	(self file extension = 'srd')
+	ifFalse: [ self shouldNotImplement ]
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	| irFunction |
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	"self visit: aPWBASTFunctionSignature accessModifier."
 
 	irFunction := self model
@@ -351,15 +390,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionSignature: aP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
+	self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTGlobalVariableDeclaration
+
+"self flag: #TODO.
 self shouldNotImplement .
-self flag: #TODO.  "remove"
+
 	self visit: aPWBASTGlobalVariableDeclaration type.
 	self model
 		ensureIRForFamixClass: FamixPWBGlobalVariable
 		named: ((self visit: aPWBASTGlobalVariableDeclaration variable)
 					representationString)
 		owner: self currentEntity
-
+"
 ]
 
 { #category : #visiting }
@@ -377,18 +419,27 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTGraphicComponent: aPW
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfMultiLine: aPWBASTIfMultiLine [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTIfMultiLine: aPWBASTIfMultiLine
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^ self visit: aPWBASTMethodInvocation methodInvocation
 ]
 
@@ -405,12 +456,18 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTParametrizedType: anP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^self resolve:
 		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation)
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTReturnStatement: aPWBASTReturnStatement [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	self flag: 'Don t do anything, return statement should be treated in FAST'.
 	^super visitPWBASTReturnStatement: aPWBASTReturnStatement
 "
@@ -439,11 +496,17 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSharedVariables: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^ self visit: aPWBASTSpecialVariable this
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTStatement: aPWBASTStatement [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^ self visit: aPWBASTStatement statement
 ]
 
@@ -459,6 +522,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition:
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	super visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature.
 
 	self flag: #TODOArgumentInFAST.
@@ -482,6 +548,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineSignature: 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
 	| resolvable thisVariable |
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	thisVariable := self model
 		irStub: PWBIRValueHolder
 		named: 'this'.
@@ -510,6 +579,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTType: aPWBASTType [
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	^ self visit: aPWBASTType type
 ]
 
@@ -527,6 +599,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBAST
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariable: aPWBASTVariable [
 	| resolvable arrayWithSize |
+self flag: #TODO.  "remove"
+self shouldNotImplement .
+
 	arrayWithSize := self visit: aPWBASTVariable arrayDefinition.
 	resolvable := SRIdentifierToIR
 		name: (self visit: aPWBASTVariable identifier)
@@ -541,6 +616,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTVariableAssignation: 
 	| variable |
 	self flag: #TODO.
 	self shouldNotImplement.
+
 	variable := (self visit: aPWBASTVariableAssignation variable)
 		representationString.
 	self visit: aPWBASTVariableAssignation assignation.
