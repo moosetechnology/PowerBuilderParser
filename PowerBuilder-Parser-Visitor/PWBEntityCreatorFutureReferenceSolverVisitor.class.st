@@ -34,11 +34,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> initialize [
 	expressionIsLeftHandSide := false.
 ]
 
-{ #category : #testing }
-PWBEntityCreatorFutureReferenceSolverVisitor >> isMajorObjectKind: aClass [
-	^self majorObjectFamixClasses includes: aClass
-]
-
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitAll: childrenNodes [
 	^childrenNodes
@@ -200,22 +195,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTElseIf: aPWBASTElseIf
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
-	| irEntity |
-	irEntity := self visit: aPWBASTEventDeclaration eventReferenceName.
-
-	aPWBASTEventDeclaration returnType
-	ifNotNil: [
-		self
-			declaredType: (self
-				auxiliaryVisitor: PWBTypeReferenceVisitor
-				visit: aPWBASTEventDeclaration returnType)
-			forIR: irEntity].
-
-	self
-		useCurrentEntity: irEntity
-		during: [
-			self visit: aPWBASTEventDeclaration customCallStatement.
-			self visit: aPWBASTEventDeclaration statements ]
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTEventDeclaration
 ]
 
 { #category : #visiting }
@@ -318,6 +298,9 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTForwardDeclaration: a
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionArguments: aPWBASTFunctionArguments [
+	self flag: #TODO.
+	self shouldNotImplement.
+
 	super visitPWBASTFunctionArguments: aPWBASTFunctionArguments.
 	^ SRArgumentsOnlyNumber
 		numberOfArguments:
@@ -328,21 +311,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionArguments: aP
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration [
-	self flag: 'why this "empty" scope ?'.
-	self
-		useCurrentEntity: PWBNullEntityObject new
-		during: [ super visitPWBASTFunctionDeclaration: aPWBASTFunctionDeclaration ]
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTFunctionDeclaration
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
-
-	self
-		useCurrentEntity:
-			(self visit: aPWBASTFunctionDefinition functionSignature)
-		during: [
-			self visit: aPWBASTFunctionDefinition statements ].
-	^ self currentEntity
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTFunctionDefinition
 ]
 
 { #category : #visiting }
@@ -475,19 +449,12 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTStatement: aPWBASTSta
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDeclaration: aPWBASTSubroutineDeclaration [
-	self
-		useCurrentEntity: PWBNullEntityObject new
-		during: [ super visitPWBASTSubroutineDeclaration: aPWBASTSubroutineDeclaration ]
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTSubroutineDeclaration
 ]
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
-	self
-		useCurrentEntity: (self model
-			ensureIRForFamixClass: FamixPWBSubRoutine
-			named: (self visit: aPWBASTSubroutineDefinition subroutineSignature identifier)
-			owner: self currentEntity)
-		during: [ super visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition ]
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTSubroutineDefinition
 ]
 
 { #category : #visiting }
@@ -538,15 +505,7 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTThis: aPWBASTThis [
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
-	| trigger |
-	trigger := self model
-		ensureIRForFamixClass: FamixPWBTrigger
-		named: (self visit: aPWBASTTriggerDefinition eventType)
-		owner: self currentEntity.
-	self visit: aPWBASTTriggerDefinition identifier.
-	self
-		useCurrentEntity: trigger
-		during: [ self visit: aPWBASTTriggerDefinition statements ]
+	self auxiliaryVisitor: PWBBehaviouralDeclarationVisitor visit: aPWBASTTriggerDefinition
 ]
 
 { #category : #visiting }
@@ -562,8 +521,6 @@ PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeDeclaration: aPWB
 
 { #category : #visiting }
 PWBEntityCreatorFutureReferenceSolverVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
-	self flag: #TODO.
-	self shouldNotImplement.
 	^self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTTypeVariable
 ]
 

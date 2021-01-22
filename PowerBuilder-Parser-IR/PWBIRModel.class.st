@@ -27,7 +27,6 @@ PWBIRModel >> createIR: anIRKind [
 { #category : #creating }
 PWBIRModel >> createIR: anIRKind named: aName owner: owner [
 	| irEntity |
-	1haltIf:[ aName = 'lL_return'].
 	irEntity := 	(self createIR: anIRKind)
 		name: aName ;
 		owner: owner ;

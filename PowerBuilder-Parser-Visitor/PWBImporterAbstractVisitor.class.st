@@ -106,6 +106,11 @@ PWBImporterAbstractVisitor >> initialize [
 	model := PWBIRModel new
 ]
 
+{ #category : #testing }
+PWBImporterAbstractVisitor >> isMajorObjectKind: aClass [
+	^self majorObjectFamixClasses includes: aClass
+]
+
 { #category : #helpers }
 PWBImporterAbstractVisitor >> majorObjectFamixClasses [
 	^ self class mappingFileExtensionFamixClass
