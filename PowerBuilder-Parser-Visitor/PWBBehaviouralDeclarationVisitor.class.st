@@ -27,8 +27,7 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDec
 
 { #category : #visiting }
 PWBBehaviouralDeclarationVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
-	self flag: 'still used?'.
-	self shouldNotImplement.
+
 	self flag: 'Manage object class correctly'.
 	self visit: aPWBASTEventReferenceName objectClass.
 	self visit: aPWBASTEventReferenceName arguments.
