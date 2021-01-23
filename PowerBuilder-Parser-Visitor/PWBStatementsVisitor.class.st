@@ -6,23 +6,21 @@ Class {
 
 { #category : #visiting }
 PWBStatementsVisitor >> visitPWBASTAccess: aPWBASTAccess [
+	| sRIdentifierWithNode writeAccess |
 	self
 		flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
 	self visit: aPWBASTAccess arrayPosition.
-	^ (self currentEntity class = FamixPWBDataWindow
-		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifTrue: [ self visit: aPWBASTAccess accessed ]
-		ifFalse: [ | sRIdentifierWithNode writeAccess |
-			sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
-			self flag: #TODO . "writeAccess := expressionIsLeftHandSide."
-			sRIdentifierWithNode foundAction
-				ifNil: [ "Special variable THIS already has a foundAction"
-					sRIdentifierWithNode
-						ifNotFoundCreateStubInModel: self model;
-						ifFoundCreateDependencyInModel: self model
-						when: [ :identifier :currentEntity |
-							(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
-			self resolve: sRIdentifierWithNode ]
+
+	sRIdentifierWithNode := self visit: aPWBASTAccess accessed.
+	self flag: #TODO . "writeAccess := expressionIsLeftHandSide."
+	sRIdentifierWithNode foundAction
+		ifNil: [ "Special variable THIS already has a foundAction"
+			sRIdentifierWithNode
+				ifNotFoundCreateStubInModel: self model ;
+				ifFoundCreateDependencyInModel: self model
+					when: [ :identifier :currentEntity |
+						(identifier entity class inheritsFrom: FamixPWBmajorObject) not ] ].
+	^self resolve: sRIdentifierWithNode
 ]
 
 { #category : #visiting }
@@ -45,7 +43,13 @@ PWBStatementsVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 
 { #category : #visiting }
 PWBStatementsVisitor >> visitPWBASTCallStatement: aPWBASTCallStatement [
-	self visit: aPWBASTCallStatement variable.
+
+	self resolve:
+		((self visit: aPWBASTCallStatement variable)
+			ifNotFoundCreateStubInModel: (self model) ;
+			ifFoundCreateDependencyInModel: (self model) ;
+			yourself).
+
 	self visit: aPWBASTCallStatement identifier.
 
 	^self visit:
@@ -59,6 +63,15 @@ PWBStatementsVisitor >> visitPWBASTCallStatement: aPWBASTCallStatement [
 PWBStatementsVisitor >> visitPWBASTCase: aPWBASTCase [
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTCase: aPWBASTCase
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTDefaultVariable: aPWBASTDefaultVariable [
+	^self resolvable:
+		(SRIdentifierToIR
+			name: aPWBASTDefaultVariable defaultVariable
+			expectedKind: { FamixPWBVariable }
+			node: aPWBASTDefaultVariable)
 ]
 
 { #category : #visiting }

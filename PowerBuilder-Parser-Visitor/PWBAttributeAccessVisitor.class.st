@@ -51,5 +51,6 @@ PWBAttributeAccessVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocatio
 
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	self flag: 'why not self resolve: here ?'.
 	^self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation
 ]
