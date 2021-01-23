@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'accessModifier'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-importers'
 }
 
 { #category : #accessing }

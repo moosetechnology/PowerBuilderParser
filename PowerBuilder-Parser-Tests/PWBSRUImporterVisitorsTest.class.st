@@ -65,40 +65,6 @@ end function
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventTrigger [
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-end forward
-
-on someEvent.create
-end on
-'.
-
-	self assert: (model getAllIR: PWBIRTrigger) size equals: 1.
-	self fail.
-]
-
-{ #category : #tests }
-PWBSRUImporterVisitorsTest >> testEventTriggerLocalVariable [
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-end forward
-
-on someEvent.create
-int iCurrent
-call super::create
-end on
-'.
-
-	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
-	self skip.
-]
-
-{ #category : #tests }
-PWBSRUImporterVisitorsTest >> testEventTriggerSuperCall [
 	| trigger |
 	self importCode:
 'forward
@@ -106,7 +72,7 @@ PWBSRUImporterVisitorsTest >> testEventTriggerSuperCall [
   end type
 end forward
 
-on someEvent.create
+on dataWindow.create
 end on
 '.
 
@@ -114,12 +80,68 @@ end on
 
 	trigger := (model getAllIR: PWBIRTrigger) anyOne.
 	self assert: trigger name equals: 'create'.
-	self assert: trigger event isNotNil.
-	self assert: trigger event name equals: 'someEvent'.
+	self assert: trigger irEntity isNotNil.
+	self assert: trigger irEntity class equals: PWBIRType.
+	self assert: trigger irEntity name equals: 'dataWindow'.
 
-	self assert: (model getAllIR: PWBIREvent) size equals: 1.
-	self assert: (model getAllIR: PWBIREvent) anyOne name equals: 'someEvent'.
+]
 
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testEventTriggerLocalVariable [
+	| trigger var |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+on someEvent.create
+  int iCurrent
+end on
+'.
+
+	self assert: (model getAllIR: PWBIRTrigger) size equals: 1.
+	trigger := (model getAllIR: PWBIRTrigger) anyOne.
+	self assert: trigger members size equals: 1.
+	var := trigger members anyOne.
+	self assert: var class = PWBIRValueHolder.
+	self assert: var name equals: 'iCurrent'.
+	self assert: var declaredType name equals: 'int'.
+
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testEventTriggerSuperCall [
+	| trigger dependency |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+on someEvent.create
+  call super::create
+end on
+'.
+
+	self assert: (model getAllIR: PWBIRTrigger) size equals: 1.
+
+	trigger := (model getAllIR: PWBIRTrigger) anyOne.
+	self assert: trigger dependencies size equals: 2.
+
+	dependency := trigger dependencies
+		detect: [ :dep | dep class = PWBIRDependencyInvocation]
+		ifNone: [ self fail ].
+	self assert: dependency candidates size equals: 1.
+	self assert: dependency candidates anyOne class equals: PWBIREvent.
+	self assert: dependency candidates anyOne name equals: 'create'.
+
+	dependency := trigger dependencies
+		detect: [ :dep | dep class = PWBIRDependencyAccess]
+		ifNone: [ self fail ].
+	self assert: dependency irEntity class equals: PWBIRValueHolder.
+	self assert: dependency irEntity name equals: 'super'.
+	
 ]
 
 { #category : #tests }

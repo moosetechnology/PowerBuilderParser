@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBBehaviouralInvocationVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #visiting }

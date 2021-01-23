@@ -43,7 +43,7 @@ Class {
 	#classInstVars : [
 		'builder'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-importers'
 }
 
 { #category : #accessing }

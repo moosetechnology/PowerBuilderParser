@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'parentVisitor'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #'instance creation' }

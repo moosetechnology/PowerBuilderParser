@@ -9,7 +9,7 @@ Class {
 		'importingContext',
 		'preprocessingMap'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #'as yet unclassified' }
@@ -33,6 +33,15 @@ PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBAuxiliaryVisitorClass [
 PWBImporterAbstractVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 	^(self auxiliaryVisitor: aPWBVisitorClass)
 		visit: aNode
+]
+
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> convertNode: aPWBASTNode to: PWBASTIdentifierClass withIdentifier: identifier [
+	^PWBASTIdentifierClass new
+		identifier: identifier ;
+		startPosition: aPWBASTNode startPosition ;
+		stopPosition: aPWBASTNode stopPosition ;
+		yourself
 ]
 
 { #category : #accessing }
@@ -62,24 +71,6 @@ PWBImporterAbstractVisitor >> declaredType: typeIdentifier forIR: irTypedEntity 
 { #category : #'famix kind' }
 PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
 	^PWBIRType defaultFamixClasses
-]
-
-{ #category : #helpers }
-PWBImporterAbstractVisitor >> eventType: eventIdentifier forIRTrigger: irTriggerEntity [
-	"Very similar to #declaredType:forIR:"
-	| resolvable |
-	resolvable := self
-		resolvable:
-			(SRIdentifierToIR
-				name: eventIdentifier identifier
-				expectedKind: { FamixPWBEvent }
-				node: eventIdentifier).
-
-	resolvable
-		foundAction: [ :identifier :currentEntity |
-			irTriggerEntity event: identifier entity ];
-		ifNotFoundCreateStubInModel: self model.
-	self resolve: resolvable
 ]
 
 { #category : #helpers }
@@ -127,6 +118,25 @@ PWBImporterAbstractVisitor >> initialize [
 { #category : #testing }
 PWBImporterAbstractVisitor >> isMajorObjectKind: aClass [
 	^self majorObjectFamixClasses includes: aClass
+]
+
+{ #category : #helpers }
+PWBImporterAbstractVisitor >> majorObject: objectIdentifier forIRTrigger: irTriggerEntity [
+	"Very similar to #declaredType:forIR:
+	Type of majorObject assumed to be DataWindow for now"
+	| resolvable |
+	resolvable := self
+		resolvable:
+			(SRIdentifierToIR
+				name: objectIdentifier identifier
+				expectedKind: { FamixPWBDataWindow }
+				node: objectIdentifier).
+
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			irTriggerEntity irEntity: identifier entity ];
+		ifNotFoundCreateStubInModel: self model.
+	self resolve: resolvable
 ]
 
 { #category : #helpers }

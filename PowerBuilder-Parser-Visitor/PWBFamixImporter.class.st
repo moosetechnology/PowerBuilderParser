@@ -15,7 +15,7 @@ It:
 Class {
 	#name : #PWBFamixImporter,
 	#superclass : #PWBSimpleImporter,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-importers'
 }
 
 { #category : #'as yet unclassified' }

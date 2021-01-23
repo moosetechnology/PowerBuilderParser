@@ -8,7 +8,7 @@ Class {
 		'currentLibrary',
 		'expressionIsLeftHandSide'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #'entities creation' }

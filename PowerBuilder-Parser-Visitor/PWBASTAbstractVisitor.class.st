@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBASTAbstractVisitor,
 	#superclass : #Object,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #helpers }

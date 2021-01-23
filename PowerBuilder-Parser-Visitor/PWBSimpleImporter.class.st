@@ -6,7 +6,7 @@ Class {
 		'visitor',
 		'folder'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-importers'
 }
 
 { #category : #'as yet unclassified' }

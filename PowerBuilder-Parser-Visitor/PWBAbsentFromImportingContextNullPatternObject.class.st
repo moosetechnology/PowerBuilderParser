@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBAbsentFromImportingContextNullPatternObject,
 	#superclass : #PWBNullEntityObject,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-importers'
 }
 
 { #category : #'reflective operations' }

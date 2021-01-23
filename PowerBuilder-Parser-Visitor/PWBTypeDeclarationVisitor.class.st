@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBTypeDeclarationVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #'ir entities' }

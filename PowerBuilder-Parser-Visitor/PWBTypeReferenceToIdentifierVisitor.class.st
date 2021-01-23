@@ -8,18 +8,14 @@ But may create types, for example in the case of an ASTBasicType
 Class {
 	#name : #PWBTypeReferenceToIdentifierVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #visiting }
 PWBTypeReferenceToIdentifierVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
 	"converts the basicType to a simple identifier returned to the calling visitor"
 	self model irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
-	^PWBASTIdentifier new
-		startPosition: aPWBASTBasicType startPosition ;
-		stopPosition: aPWBASTBasicType stopPosition ;
-		identifier: aPWBASTBasicType basicType ;
-		yourself
+	^self convertNode: aPWBASTBasicType to: PWBASTIdentifier withIdentifier: aPWBASTBasicType basicType
 ]
 
 { #category : #visiting }

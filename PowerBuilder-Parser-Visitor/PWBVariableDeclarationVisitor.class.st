@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'defaultFamixClass'
 	],
-	#category : #'PowerBuilder-Parser-Visitor'
+	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
 { #category : #accessing }
