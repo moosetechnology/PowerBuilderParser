@@ -117,7 +117,7 @@ PWBIRNamedEntity >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $( ;
-		nextPutAll: name ;
+		nextPutAll: name asString ;
 		nextPut: $)
 ]
 

@@ -38,7 +38,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTArgument: aPWBASTArgument [
 		owner: self currentEntity.
 	var setSourceAnchorFrom: aPWBASTArgument file: self file.
 	self
-		declaredType: (self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTArgument type)
+		declaredType: (self auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor visit: aPWBASTArgument type)
 		forIR: var.
 ]
 
@@ -52,7 +52,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTArguments: aPWBASTArguments [
 PWBVariableDeclarationVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	"Single line global variable declaration (only o1 variable)"
 	| typeIdentifier var |
-	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTGlobalVariableDeclaration type type.
+	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor visit: aPWBASTGlobalVariableDeclaration type type.
 	var := self model
 		ensureIRForFamixClass: FamixPWBGlobalVariable
 		named: aPWBASTGlobalVariableDeclaration variable identifier identifier
@@ -76,7 +76,7 @@ PWBVariableDeclarationVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariab
 { #category : #visiting }
 PWBVariableDeclarationVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
 	| typeIdentifier |
-	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTVariableDeclarations type type.
+	typeIdentifier := self auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor visit: aPWBASTVariableDeclarations type type.
 	aPWBASTVariableDeclarations variableAssignations
 		do: [ :anASTVariableAssignation || var |
 			var := self model

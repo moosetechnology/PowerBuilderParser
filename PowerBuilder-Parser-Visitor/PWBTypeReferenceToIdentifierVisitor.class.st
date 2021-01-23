@@ -1,18 +1,19 @@
 "
 A special visitor for type references
-Will always return an ASTIdentifier
+Will always return an ASTIdentifier to the calling visitor
 
 But may create types, for example in the case of an ASTBasicType
 
 "
 Class {
-	#name : #PWBTypeReferenceVisitor,
+	#name : #PWBTypeReferenceToIdentifierVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
 	#category : #'PowerBuilder-Parser-Visitor'
 }
 
 { #category : #visiting }
-PWBTypeReferenceVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
+PWBTypeReferenceToIdentifierVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
+	"converts the basicType to a simple identifier returned to the calling visitor"
 	self model irStubForFamixClass: FamixPWBBasicType named: aPWBASTBasicType basicType.
 	^PWBASTIdentifier new
 		startPosition: aPWBASTBasicType startPosition ;
@@ -22,12 +23,13 @@ PWBTypeReferenceVisitor >> visitPWBASTBasicType: aPWBASTBasicType [
 ]
 
 { #category : #visiting }
-PWBTypeReferenceVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
+PWBTypeReferenceToIdentifierVisitor >> visitPWBASTCustomType: aPWBASTCustomType [
 	^aPWBASTCustomType identifier
 ]
 
 { #category : #visiting }
-PWBTypeReferenceVisitor >> visitPWBASTParametrizedType: aPWBASTParametrizedType [
+PWBTypeReferenceToIdentifierVisitor >> visitPWBASTParametrizedType: aPWBASTParametrizedType [
+	"converts the parameterizedType to a simple identifier returned to the calling visitor"
 	^PWBASTIdentifier new
 		startPosition: aPWBASTParametrizedType startPosition ;
 		stopPosition: aPWBASTParametrizedType stopPosition ;
@@ -36,6 +38,6 @@ PWBTypeReferenceVisitor >> visitPWBASTParametrizedType: aPWBASTParametrizedType 
 ]
 
 { #category : #visiting }
-PWBTypeReferenceVisitor >> visitPWBASTType: aPWBASTType [
+PWBTypeReferenceToIdentifierVisitor >> visitPWBASTType: aPWBASTType [
 	^self visit: aPWBASTType type.
 ]

@@ -40,7 +40,7 @@ PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 					[ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
 			self flag: #TODO.	"writeAccess := expressionIsLeftHandSide."
 			srIdentifierWithNode
-				ifNotFoundCreateStubInModel: self model;
+				ifNotFoundCreateStubInModel: self model ;
 				ifFoundCreateDependencyInModel: self model ]
 ]
 

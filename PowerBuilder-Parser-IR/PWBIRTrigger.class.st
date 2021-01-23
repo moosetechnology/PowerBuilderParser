@@ -11,3 +11,13 @@ Class {
 PWBIRTrigger class >> defaultFamixClasses [
 	^{ FamixPWBTrigger }
 ]
+
+{ #category : #accessing }
+PWBIRTrigger >> event [
+	^ event
+]
+
+{ #category : #accessing }
+PWBIRTrigger >> event: anObject [
+	event := anObject
+]

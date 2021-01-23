@@ -95,7 +95,7 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDec
 	ifNotNil: [
 		self
 			declaredType: (self
-				auxiliaryVisitor: PWBTypeReferenceVisitor
+				auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor
 				visit: aPWBASTEventDeclaration returnType)
 			forIR: irEntity].
 
@@ -208,7 +208,7 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctio
 
 	self
 		declaredType: (self
-			auxiliaryVisitor: PWBTypeReferenceVisitor
+			auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor
 			visit: aPWBASTFunctionSignature type)
 		forIR: irFunction.
 
@@ -336,12 +336,14 @@ PWBBehaviouralDeclarationVisitor >> visitPWBASTThis: aPWBASTThis [
 
 { #category : #visiting }
 PWBBehaviouralDeclarationVisitor >> visitPWBASTTriggerDefinition: aPWBASTTriggerDefinition [
-	| trigger |
+	| trigger resolvable |
 	trigger := self model
 		ensureIRForFamixClass: FamixPWBTrigger
-		named: (self visit: aPWBASTTriggerDefinition eventType)
+		named: (aPWBASTTriggerDefinition eventType eventType defaultEventType)
 		owner: self currentEntity.
-	self visit: aPWBASTTriggerDefinition identifier.
+	
+	self eventType: aPWBASTTriggerDefinition identifier forIRTrigger: trigger.
+
 	self
 		useCurrentEntity: trigger
 		during: [ self visit: aPWBASTTriggerDefinition statements ]

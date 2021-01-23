@@ -64,6 +64,65 @@ end function
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testEventTrigger [
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+on someEvent.create
+end on
+'.
+
+	self assert: (model getAllIR: PWBIRTrigger) size equals: 1.
+	self fail.
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testEventTriggerLocalVariable [
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+on someEvent.create
+int iCurrent
+call super::create
+end on
+'.
+
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+	self skip.
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testEventTriggerSuperCall [
+	| trigger |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+on someEvent.create
+end on
+'.
+
+	self assert: (model getAllIR: PWBIRTrigger) size equals: 1.
+
+	trigger := (model getAllIR: PWBIRTrigger) anyOne.
+	self assert: trigger name equals: 'create'.
+	self assert: trigger event isNotNil.
+	self assert: trigger event name equals: 'someEvent'.
+
+	self assert: (model getAllIR: PWBIREvent) size equals: 1.
+	self assert: (model getAllIR: PWBIREvent) anyOne name equals: 'someEvent'.
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testFunction [
 	| fct |
 	self importCode:

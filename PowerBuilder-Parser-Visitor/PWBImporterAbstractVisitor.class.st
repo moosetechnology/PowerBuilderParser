@@ -65,6 +65,24 @@ PWBImporterAbstractVisitor >> defaultFamixTypeKinds [
 ]
 
 { #category : #helpers }
+PWBImporterAbstractVisitor >> eventType: eventIdentifier forIRTrigger: irTriggerEntity [
+	"Very similar to #declaredType:forIR:"
+	| resolvable |
+	resolvable := self
+		resolvable:
+			(SRIdentifierToIR
+				name: eventIdentifier identifier
+				expectedKind: { FamixPWBEvent }
+				node: eventIdentifier).
+
+	resolvable
+		foundAction: [ :identifier :currentEntity |
+			irTriggerEntity event: identifier entity ];
+		ifNotFoundCreateStubInModel: self model.
+	self resolve: resolvable
+]
+
+{ #category : #helpers }
 PWBImporterAbstractVisitor >> famixClassForFileExtension: anExtension [
 	^ self class mappingFileExtensionFamixClass
 	detect: [ :assoc | assoc key = anExtension ]

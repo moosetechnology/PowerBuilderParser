@@ -124,7 +124,7 @@ PWBTypeDeclarationVisitor >> testRedefinesAttributesValuesOfKnownType: aPWBASTTy
 
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> visitPWBASTFromClause: aPWBASTFromClause [
-	^self auxiliaryVisitor: PWBTypeReferenceVisitor visit: aPWBASTFromClause customType.
+	^self auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor visit: aPWBASTFromClause customType.
 ]
 
 { #category : #visiting }

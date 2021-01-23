@@ -375,7 +375,7 @@ self shouldNotImplement .
 		owner: self currentEntity.
 	self
 		declaredType: (self
-			auxiliaryVisitor: PWBTypeReferenceVisitor
+			auxiliaryVisitor: PWBTypeReferenceToIdentifierVisitor
 			visit: aPWBASTFunctionSignature type)
 		forIR: irFunction.
 
