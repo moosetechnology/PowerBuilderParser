@@ -10,7 +10,7 @@ PWBChainOfIdentifiersImportTest >> setUp [
 	super setUp.
 
 	mainuo := (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne.
-	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: nil.
+	otheruo := model ensureIRForFamixClass: FamixPWBUserObject named: 'other_uo' owner: mainuo.
 
 	(model ensureIRForFamixClass: FamixPWBFunction named: 'myFunc' owner: mainuo)
 		declaredType: mainuo.
@@ -237,16 +237,14 @@ end function'.
 ]
 
 { #category : #tests }
-PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableInstanceVariable [
-	| accesses fct nbType nbFunc nbVar |
-
-	nbType := (model getAllIR: PWBIRType) size.
-	nbFunc := (model getAllIR: PWBIRFunction) size.
-	nbVar  := (model getAllIR: PWBIRValueHolder) size.
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableInstanceVariableExisting [
+	| accesses var |
 
 	self importCode:
 'forward
   global type majorObjectTest from userobject
+  end type
+  type other_uo from userobject
   end type
 end forward
 
@@ -258,21 +256,87 @@ private function integer myFunc ();
   this.my_uo.uo_var_string = 5
 end function'.
 
-	self assert: (model getAllIR: PWBIRType) size equals: nbType.
-	self assert: (model getAllIR: PWBIRFunction) size equals: nbFunc.
-	self assert: (model getAllIR: PWBIRValueHolder) size equals: nbVar + 2. "my_uo, this"
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 5.
+	self
+		assertCollection: ((model getAllIR: PWBIRValueHolder) collect: #name)
+		hasSameElements: #( this my_uo uo_var_string uo_var_integer other_att ).
 
-	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
-				anyOne.
-
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	accesses := (model getAllIR: PWBIRFunction) anyOne dependencies.
 	self assert: accesses size equals: 3.
+	self assert: (accesses allSatisfy: [ :dep | dep class = PWBIRDependencyAccess ]).
 	self
 		assertCollection: (accesses collect: [ :dep | dep irEntity name])
 		hasSameElements: #( this my_uo uo_var_string ).
 
-	self assert: (accesses detect: [:dep | dep irEntity name = 'uo_var_string']) irEntity declaredType isNotNil.
-	self assert: (accesses detect: [:dep | dep irEntity name = 'uo_var_string']) irEntity declaredType name equals: 'string'.
+	var := (model getAllIR: PWBIRValueHolder named: 'uo_var_string')
+				anyOne.
+	self assert: var owner class equals: PWBIRType.
+	self assert: var owner name equals: 'other_uo'.
+	self assert: var owner owner name equals: 'majorObjectTest'.
+
+]
+
+{ #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableInstanceVariableStub [
+	| accesses var |
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+  type other_uo from userobject
+  end type
+end forward
+
+type variables
+  other_uo my_uo
+end variables
+
+private function integer myFunc ();
+  this.my_uo.new_var = 5
+end function'.
+
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 6.
+	self
+		assertCollection: ((model getAllIR: PWBIRValueHolder) collect: #name)
+		hasSameElements: #( this my_uo new_var uo_var_string uo_var_integer other_att ).
+
+	accesses := (model getAllIR: PWBIRFunction) anyOne dependencies.
+	self assert: accesses size equals: 3.
+	self assert: (accesses allSatisfy: [ :dep | dep class = PWBIRDependencyAccess ]).
+	self
+		assertCollection: (accesses collect: [ :dep | dep irEntity name])
+		hasSameElements: #( this my_uo new_var ).
+
+	var := (model getAllIR: PWBIRValueHolder named: 'new_var')
+				anyOne.
+	self assert: var owner class equals: PWBIRType.
+	self assert: var owner name equals: 'other_uo'.
+	self assert: var owner owner name equals: 'majorObjectTest'.
+
+]
+
+{ #category : #tests }
+PWBChainOfIdentifiersImportTest >> testChainedVariableAccesses [
+	| accesses fct |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function long anotherFunction (); 
+  this.il_long = 5
+end function
+'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	self assert: accesses size equals: 2.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long']) size) equals: 1.
 
 ]
 

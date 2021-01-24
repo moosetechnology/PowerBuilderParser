@@ -1,8 +1,26 @@
+"
+A special visitor for chained access to identifiers (i.e. `a.b.c`)
+
+Chained identifiers are handled by the `next` instance variable of SRIdentifier
+Plus there are some special actions to be taken, for example in the expression above, `b` must be looked for within the scope of `a`, not in the current scope
+
+Instance variables:
+- isChained, a boolean indication whether the current expression is the first identifier (=`false`) or another one in the chain
+"
 Class {
 	#name : #PWBAttributeAccessVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
+	#instVars : [
+		'isChained'
+	],
 	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
+
+{ #category : #initialization }
+PWBAttributeAccessVisitor >> initialize [
+	super initialize.
+	isChained := false
+]
 
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
@@ -27,21 +45,33 @@ PWBAttributeAccessVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess 
 
 { #category : #visiting }
 PWBAttributeAccessVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
-	self
-		flag:
-			'Quasi clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess:'.
-	^ (self currentEntity class = FamixPWBDataWindow
+	| srIdentifier |
+	self flag: 'Quasi clone of PWBEntityCreatorFutureReferenceSolverVisitor>>visitPWBASTAccess:'.
+	(self currentEntity class = FamixPWBDataWindow
 		or: [ self currentEntity class = FamixPWBGraphicComponent ])
-		ifTrue: [ super visitPWBASTExpressionAction: aPWBASTExpressionAction ]
-		ifFalse: [ | srIdentifierWithNode writeAccess |
-			srIdentifierWithNode := self visit: aPWBASTExpressionAction action.
-			aPWBASTExpressionAction expressionAction
-				ifNotNil:
-					[ :subExprAction | srIdentifierWithNode next: (self visit: subExprAction) ].
-			self flag: #TODO.	"writeAccess := expressionIsLeftHandSide."
-			srIdentifierWithNode
-				ifNotFoundCreateStubInModel: self model ;
-				ifFoundCreateDependencyInModel: self model ]
+		ifTrue: [ ^super visitPWBASTExpressionAction: aPWBASTExpressionAction ].
+
+	srIdentifier := self visit: aPWBASTExpressionAction action.
+	aPWBASTExpressionAction expressionAction
+		ifNotNil: [ :subExprAction ||wasChained|
+			wasChained := isChained.
+			isChained := true.
+			srIdentifier next: (self visit: subExprAction).
+			isChained := wasChained ].
+
+	self flag: #TODO.	"writeAccess := expressionIsLeftHandSide."
+	isChained
+		ifFalse: [ srIdentifier ifNotFoundCreateStubInModel: self model ]
+		ifTrue: [ srIdentifier ifNotFoundCreateFromChainInModel: self model ].
+	srIdentifier isLast
+		ifTrue: [ srIdentifier ifFoundCreateDependencyInModel: self model ]
+		ifFalse: [
+			srIdentifier foundAction: [ :identifier :currentEntity |
+				currentEntity addAccessDependency: identifier entity inModel: self model.
+				identifier next chainedOwner: identifier entity declaredType ]
+		].
+	^srIdentifier
+
 ]
 
 { #category : #visiting }

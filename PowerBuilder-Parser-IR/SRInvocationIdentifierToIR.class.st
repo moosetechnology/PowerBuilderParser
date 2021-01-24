@@ -1,11 +1,14 @@
 "
 A specialization of SRInvocationWithNode for IRFunctions and IREvents
 
-Similar to SRIdentifierToIR
+Similar to SRIdentifierToIR but for functions
 "
 Class {
 	#name : #SRInvocationIdentifierToIR,
 	#superclass : #SRInvocationWithNode,
+	#instVars : [
+		'chainedOwner'
+	],
 	#category : #'PowerBuilder-Parser-IR-symbolResolver'
 }
 
