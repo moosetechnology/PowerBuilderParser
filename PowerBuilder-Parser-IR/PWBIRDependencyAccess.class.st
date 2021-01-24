@@ -34,3 +34,14 @@ PWBIRDependencyAccess >> isWrite [
 PWBIRDependencyAccess >> isWrite: anObject [
 	isWrite := anObject
 ]
+
+{ #category : #printing }
+PWBIRDependencyAccess >> printOn: stream [
+	super printOn: stream.
+	irEntity ifNotNil: [
+		stream
+			nextPut: $( ;
+			nextPutAll: (irEntity name asString) ;
+			nextPut: $)
+	]
+]
