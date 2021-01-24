@@ -50,33 +50,39 @@ PWBTypeDeclarationVisitor >> getSuperType: superName [
 
 { #category : #visiting }
 PWBTypeDeclarationVisitor >> importType: importedName fromOwner: ownerIdentifier [
-	"import mreans we have access to an external type just has if it was define in the file"
-	| irAlias resolvable |
+	"import means we have access to an external type just has if it was define in the file
+	 Several things to do:
+	 - ensure a PWBIRType (importedName) in the type ownerIdentifier
+	   resolve its type name as if it was ownerIdentifier.importedName
+	 - ensure a PWBIRImportedType (importedName) in currentEntity. It points to the PWBIRType
+	"
+	| irAlias firstSRIdentifier secondSRIdentifier |
+
+	"ensure the importedType"
 	irAlias := self model
 			ensureIR: PWBIRImportedType
 			named: importedName
 			owner: self currentEntity.
-	resolvable := self
-		resolvable:
-			(SRIdentifierToIR
-				name: ownerIdentifier identifier
-				expectedKind: PWBIRType defaultFamixClasses
-				node: ownerIdentifier). "for now, 'node' could be the parent PWBASTTypeDeclaration"
-	resolvable
+
+	"now create the identifier ownerIdentifier.importedName"
+	firstSRIdentifier := (SRIdentifierToIR
+		name: ownerIdentifier identifier
+		expectedKind: PWBIRType defaultFamixClasses
+		node: ownerIdentifier)
+		ifNotFoundCreateStubInModel: (self model) ;
 		foundAction: [ :identifier :currentEntity |
-			irAlias
-				importedType:
-					"ensure aliased type"
-					(identifier entity members 
-						detect: [ :externalIR | externalIR name = importedName ]
-						ifNone: [
-							(self model irStub: PWBIRType named: importedName)
-								owner: (identifier entity) ;
-								expectedFamixKinds: (PWBIRType defaultFamixClasses) ;
-								yourself ])
-			] ;
-		ifNotFoundCreateStubInModel: self model.	
-	self resolve: resolvable.
+			identifier next chainedOwner: identifier entity ] ;
+		yourself.
+	secondSRIdentifier := (SRIdentifierToIR
+		name: importedName
+		expectedKind: PWBIRType defaultFamixClasses
+		node: nil)
+		foundAction: [ :identifier :currentEntity | irAlias importedType: identifier entity ] ;
+		ifNotFoundCreateFromChainInModel: (self model).
+	firstSRIdentifier next: secondSRIdentifier.
+
+	self resolve: (self resolvable: firstSRIdentifier).
+
 	^irAlias
 
 ]
