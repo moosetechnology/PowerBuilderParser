@@ -317,6 +317,51 @@ end function'.
 ]
 
 { #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableStubInstanceVariable [
+	| accesses var |
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+  type new_uo from userobject
+  end type
+end forward
+
+type variables
+  new_uo my_uo
+end variables
+
+private function integer myFunc ();
+  this.my_uo.new_var = 5
+end function'.
+
+	self assert: (model getAllIR: PWBIRType) size equals: 6.
+	self
+		assertCollection: ((model getAllIR: PWBIRType) collect: #name)
+		hasSameElements: #( majorObjectTest userobject new_uo other_uo integer string ).
+
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 6.
+	self
+		assertCollection: ((model getAllIR: PWBIRValueHolder) collect: #name)
+		hasSameElements: #( this my_uo new_var uo_var_string uo_var_integer other_att ).
+
+	accesses := (model getAllIR: PWBIRFunction) anyOne dependencies.
+	self assert: accesses size equals: 3.
+	self assert: (accesses allSatisfy: [ :dep | dep class = PWBIRDependencyAccess ]).
+	self
+		assertCollection: (accesses collect: [ :dep | dep irEntity name])
+		hasSameElements: #( this my_uo new_var ).
+
+	var := (model getAllIR: PWBIRValueHolder named: 'new_var')
+				anyOne.
+	self assert: var owner class equals: PWBIRType.
+	self assert: var owner name equals: 'new_uo'.
+	self assert: var owner owner name equals: 'majorObjectTest'.
+
+]
+
+{ #category : #tests }
 PWBChainOfIdentifiersImportTest >> testChainedVariableAccesses [
 	| accesses fct |
 	self importCode:
