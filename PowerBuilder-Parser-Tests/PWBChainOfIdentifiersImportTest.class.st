@@ -65,7 +65,7 @@ end function'.
 
 { #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessChainOfIdentifierWithFunctionCall [
-	| fct candidates |
+	| fct invoked |
 	self importCode:
 'forward
   global type majorObjectTest from userobject
@@ -98,14 +98,14 @@ end function
 				(dep class = PWBIRDependencyAccess) and:
 				[dep irEntity name = 'my_uo'] ]).
 	"dependecy to function 'myFunc'"
-	candidates := fct dependencies
+	invoked := fct dependencies
 		detect: [ :dep | dep class = PWBIRDependencyInvocation]
 		ifOne: [ :dep | dep candidates ]
 		ifNone: [ self fail ].
-	self assert: candidates size equals: 1.
-	self assert: candidates anyOne name equals: 'myFunc'.
-	self assert: candidates anyOne class equals: PWBIRFunction.
-	self assert: candidates anyOne owner isNil.
+	self assert: invoked size equals: 1.
+	self assert: invoked anyOne name equals: 'myFunc'.
+	self assert: invoked anyOne class equals: PWBIRFunction.
+	self assert: invoked anyOne owner name equals: 'other_uo'.
 
 ]
 

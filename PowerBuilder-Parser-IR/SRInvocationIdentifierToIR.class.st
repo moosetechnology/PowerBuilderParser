@@ -12,6 +12,16 @@ Class {
 	#category : #'PowerBuilder-Parser-IR-symbolResolver'
 }
 
+{ #category : #accessing }
+SRInvocationIdentifierToIR >> chainedOwner [
+	^ chainedOwner
+]
+
+{ #category : #accessing }
+SRInvocationIdentifierToIR >> chainedOwner: anObject [
+	chainedOwner := anObject
+]
+
 { #category : #hooks }
 SRInvocationIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	"Action block called by SymbolResolver when identifier to resolve is found
@@ -37,6 +47,22 @@ SRInvocationIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 ]
 
 { #category : #hooks }
+SRInvocationIdentifierToIR >> ifNotFoundCreateFromChainInModel: irModel [
+	"very similar to SRIdentifierToIR >> #ifNotFoundCreateFromChainInModel:,
+	 but DependencyInvocation needs a collection of candidates, not a single entity"
+
+	^self notFoundReplacementEntity: [ :me :currentEntity |
+		{(irModel
+			ensureIR: self mainIRKind
+			named: self identifier
+			owner: self chainedOwner)
+
+			expectedFamixKinds: (self expectedKind) ;
+			yourself} ]
+
+]
+
+{ #category : #hooks }
 SRInvocationIdentifierToIR >> ifNotFoundCreateStubInModel: irModel [
 	"Action block called by SymbolResolver if an identifier to resolve is not found
 	 Default is to create a stub entity with the right kind"
@@ -50,4 +76,16 @@ SRInvocationIdentifierToIR >> ifNotFoundCreateStubInModel: irModel [
 		{ (irModel irStub: irKind named: self identifier)
 				expectedFamixKinds: famixKinds ;
 				yourself } ]
+]
+
+{ #category : #accessing }
+SRInvocationIdentifierToIR >> mainFamixKind [
+	^self expectedKind isCollection
+		ifTrue: [ self expectedKind first ]
+		ifFalse: [ self expectedKind ]
+]
+
+{ #category : #accessing }
+SRInvocationIdentifierToIR >> mainIRKind [
+	^PWBIRNamedEntity irClassForFamixClass: self mainFamixKind
 ]
