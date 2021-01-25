@@ -110,93 +110,6 @@ end function
 ]
 
 { #category : #tests }
-PWBChainOfIdentifiersImportTest >> testAccessInstanceVariableSourceText [
-	| accVar accMy_uo |
-	self skip.
-	self flag: #TODOSourceAnchor.
-
-
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-  type local_uo from other_uo within majorObjectTest
-  end type
-end forward
-
-global type majorObjectTest from userobject
-  local_uo local_uo
-  boolean toto
-end type
-global majorObjectTest majorObjectTest
-
-type variables
-  test_uo my_uo
-end variables
-
-private function integer aFunction ();
-  this.my_uo
-  this.my_uo.uo_var_integer = 5
-  this.local_uo.other_att.uo_var_string = "blah"
-  return this.my_uo.myFunc()
-  return this.my_uo.myFunc(5,"allo")
-end function'.
-
-	self assert: model allAccesses size equals: 3.
-	accVar := model allAccesses
-		detect: [ :access | access variable name = 'uo_var_integer' ]
-		ifNone: [self fail].
-	self assert: (self sourceText: accVar) equals: 'this.my_uo.uo_var_integer'.
-	accMy_uo := model allAccesses
-		detect: [ :acc | acc variable name = 'my_uo' ]
-		ifNone: [self fail].
-		"Because my_uo is not write so it not in an assignation statement"
-	self assert: (self sourceText: accMy_uo) equals: '.my_uo'
-]
-
-{ #category : #tests }
-PWBChainOfIdentifiersImportTest >> testAccessReadOrWriteIsConsistent [
-	| access |
-	self skip.
-	self flag: #TODO.  "read/write accesses"
-
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-  type local_uo from other_uo within majorObjectTest
-  end type
-end forward
-
-global type majorObjectTest from userobject
-  local_uo local_uo
-  boolean toto
-end type
-global majorObjectTest majorObjectTest
-
-type variables
-  test_uo my_uo
-end variables
-
-private function integer aFunction ();
-  this.my_uo
-  this.my_uo.uo_var_integer = 5
-  this.local_uo.other_att.uo_var_string = "blah"
-  return this.my_uo.myFunc()
-  return this.my_uo.myFunc(5,"allo")
-end function'.
-
-	access := model allAccesses
-		detect: [ :acc | acc variable name = 'my_uo' ]
-		ifNone: [self fail].
-	self deny: access isWrite.
-	access := model allAccesses
-		detect: [ :acc | acc variable name = 'uo_var_integer' ]
-		ifNone: [self fail].
-	self assert: access isWrite
-]
-
-{ #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariable [
 	| accesses fct nbType nbFunc nbVar |
 
@@ -273,7 +186,6 @@ end function'.
 	self assert: var owner class equals: PWBIRType.
 	self assert: var owner name equals: 'other_uo'.
 	self assert: var owner owner name equals: 'majorObjectTest'.
-
 ]
 
 { #category : #tests }
@@ -383,46 +295,4 @@ end function
 	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
 	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long']) size) equals: 1.
 
-]
-
-{ #category : #tests }
-PWBChainOfIdentifiersImportTest >> testReturnFunctionInvocationValueIsCorrect [
-	| returnValues |
-	self skip.
-	self flag: #TODOArgumentInFAST.  "weel, not argument, but return value. Still do it in FAST"
-
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-  type local_uo from other_uo within majorObjectTest
-  end type
-end forward
-
-global type majorObjectTest from userobject
-  local_uo local_uo
-  boolean toto
-end type
-global majorObjectTest majorObjectTest
-
-type variables
-  test_uo my_uo
-end variables
-
-private function integer aFunction ();
-  this.my_uo
-  this.my_uo.uo_var_integer = 5
-  this.local_uo.other_att.uo_var_string = "blah"
-  return this.my_uo.myFunc()
-  return this.my_uo.myFunc(5,"allo")
-end function'.
-
-	returnValues := (model allModelMethods
-		detect: [ :uf | uf name = 'aFunction' ]
-		ifNone: [self fail])
-		returns
-			collect: #returnValue.
-	self
-		assertCollection: returnValues
-		hasSameElements: {'this.my_uo.myFunc(5,"allo")' . 'this.my_uo.myFunc()'}
 ]

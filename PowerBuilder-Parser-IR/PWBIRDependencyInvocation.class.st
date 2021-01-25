@@ -15,6 +15,7 @@ Class {
 
 { #category : #accessing }
 PWBIRDependencyInvocation >> candidates [
+	self flag: #TODO. "It is possible that we could have only one irEntity instead of a collection of candidates. In that case, we could factor irEntity up in PWBIRDependencyEntity"
 	^ candidates
 ]
 

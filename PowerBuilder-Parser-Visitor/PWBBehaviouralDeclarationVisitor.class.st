@@ -1,3 +1,7 @@
+"
+A special visitor for all behavioural definitions / declarations
+Behaviourals are: Functions, SubRoutines, Events
+"
 Class {
 	#name : #PWBBehaviouralDeclarationVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,

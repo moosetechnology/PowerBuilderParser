@@ -27,7 +27,7 @@ PWBIRDependencyAccess >> irEntity: anObject [
 
 { #category : #accessing }
 PWBIRDependencyAccess >> isWrite [
-	^ isWrite
+	^isWrite ifNil: [ false ]
 ]
 
 { #category : #accessing }

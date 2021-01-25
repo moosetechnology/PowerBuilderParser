@@ -10,6 +10,32 @@ PWBSRUImporterVisitorsTest >> fileExtension [
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testAccessReadWrite [
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function integer aFunction (long aLong);
+  long anotherLong;
+  aLong = 42;
+  return aFunction(anotherLong)
+end function'.
+
+	self assert: (model getAllIR: PWBIRDependencyAccess) size equals: 2.
+	(model getAllIR: PWBIRDependencyAccess)
+		detect: [ :dep | dep irEntity name = 'anotherLong' ]
+		ifOne: [ :dep | self deny: dep isWrite ]
+		ifNone: [ self fail ].
+	(model getAllIR: PWBIRDependencyAccess)
+		detect: [ :dep | dep irEntity name = 'aLong' ]
+		ifOne: [ :dep | self assert: dep isWrite ]
+		ifNone: [ self fail ].
+
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventInvocation [
 	| events fct |
 	self importCode:
@@ -159,6 +185,7 @@ end function
 	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
 		anyOne.
 	self assert: fct declaredType name equals: 'long'.
+
 ]
 
 { #category : #tests }
@@ -221,26 +248,6 @@ end function
 	self assert: caller dependencies anyOne class equals: PWBIRDependencyInvocation.
 	self assert: caller dependencies anyOne candidates size equals: 1.
 	self assert: caller dependencies anyOne candidates anyOne equals: callee.
-]
-
-{ #category : #tests }
-PWBSRUImporterVisitorsTest >> testFunctionInvocationSourceText [
-	| invocation1 invocation2 |
-	
-	self flag: #TODOSourceAnchor.
-	self skip.
-
-	invocation1 := ((model getAllFamixType: FamixPWBFunction)
-		detect: [ :function | function name = 'anotherFunction' ]
-		ifNone: [self fail])
-		incomingInvocations anyOne.
-	invocation2 := model allInvocations
-		detect: [ :inv | inv candidates anyOne name = 'isNull' ]
-		ifNone: [self fail].
-	self
-		assert: (self sourceText: invocation1)
-		equals: 'anotherFunction(2, "blah")'.
-	self assert: (self sourceText: invocation2) equals: '.isNull()'
 ]
 
 { #category : #tests }
@@ -479,6 +486,48 @@ PWBSRUImporterVisitorsTest >> testResolveUserObjectType [
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testReturnFunctionInvocationValueIsCorrect [
+	| returnValues |
+	self skip.
+	self flag: #TODOArgumentInFAST.  "weel, not argument, but return value. Still do it in FAST"
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+  type local_uo from other_uo within majorObjectTest
+  end type
+end forward
+
+global type majorObjectTest from userobject
+  local_uo local_uo
+  boolean toto
+end type
+global majorObjectTest majorObjectTest
+
+type variables
+  test_uo my_uo
+end variables
+
+private function integer aFunction ();
+  this.my_uo
+  this.my_uo.uo_var_integer = 5
+  this.local_uo.other_att.uo_var_string = "blah"
+  return this.my_uo.myFunc()
+  return this.my_uo.myFunc(5,"allo")
+end function'.
+
+	returnValues := (model allModelMethods
+		detect: [ :uf | uf name = 'aFunction' ]
+		ifNone: [self fail])
+		returns
+			collect: #returnValue.
+	self
+		assertCollection: returnValues
+		hasSameElements: {'this.my_uo.myFunc(5,"allo")' . 'this.my_uo.myFunc()'}
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testSharedVariables [
 	| shared |
 	self importCode:
@@ -504,29 +553,6 @@ end variables
 					anyOne)
 		]
 		ifNone: [ self fail ].
-]
-
-{ #category : #tests }
-PWBSRUImporterVisitorsTest >> testSourceTestSettings [
-	| eventTestingFunction |
-
-	self flag: #TODOSourceAnchor.
-	self skip.
-
-	self importCode:
-'private function integer eventTestingFunction()
-  this.triggerEvent("evt_trigger", 0, "")
-  this.postEvent("evt_post", 0, "")
-  TriggerEvent( this, "destructor" )
-end function
-'.
-
-	eventTestingFunction := (model getAllFamixType: FamixPWBFunction)
-		detect: [ :function | function name = 'eventTestingFunction' ]
-		ifNone: [self fail].
-	self
-		assert: (self sourceText: eventTestingFunction)
-		equals: sourceExample.
 ]
 
 { #category : #tests }

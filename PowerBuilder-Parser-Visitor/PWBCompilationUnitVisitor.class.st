@@ -42,28 +42,32 @@ PWBCompilationUnitVisitor >> visitAll: childrenNodes [
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTAccess: aPWBASTAccess [
-	"found in SRD files
-	 ignored for now"
 	(self file extension = 'srd')
 	ifFalse: [ self shouldNotImplement ]
+	ifTrue: [ "ignore" ]
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
+self flag: #TODO.
+self shouldNotImplement.
+
 	^ self visit: aPWBASTAccessOrType accessOrType
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
+self flag: #TODO.
+self shouldNotImplement.
+
 	^ self visitAll: aPWBASTArrayWithSize expressions
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
-	"found in SRD files
-	 ignored for now"
 	(self file extension = 'srd')
 	ifFalse: [ self shouldNotImplement ]
+	ifTrue: [ "ignore" ]
 ]
 
 { #category : #visiting }
@@ -73,12 +77,18 @@ PWBCompilationUnitVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaratio
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTExpression: aPWBASTExpression [
+self flag: #TODO.
+self shouldNotImplement.
+
 	self visit: aPWBASTExpression expressionAction.
 	^ self visit: aPWBASTExpression expression
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
+self flag: #TODO.
+self shouldNotImplement.
+
 	^ aPWBASTExpressionAction isAttributeAccess
 		ifTrue: [
 			self resolve:
@@ -94,11 +104,17 @@ PWBCompilationUnitVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionActio
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
+self flag: #TODO.
+self shouldNotImplement.
+
 	^ self visit: aPWBASTExpressionTerm expressionTerm
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
+self flag: #TODO.
+self shouldNotImplement.
+
 	self visit: aPWBASTExpressionWithSign expressionSign.
 	^ self visit: aPWBASTExpressionWithSign expression
 ]
@@ -139,26 +155,15 @@ PWBCompilationUnitVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefin
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
-	"found in SRD files
-	 ignored for now"
 	(self file extension = 'srd')
 	ifFalse: [ self shouldNotImplement ]
+	ifTrue: [ "ignore" ]
 ]
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTGlobalVariableDeclaration: aPWBASTGlobalVariableDeclaration [
 	self auxiliaryVisitor: PWBVariableDeclarationVisitor visit: aPWBASTGlobalVariableDeclaration
 
-"self flag: #TODO.
-self shouldNotImplement .
-
-	self visit: aPWBASTGlobalVariableDeclaration type.
-	self model
-		ensureIRForFamixClass: FamixPWBGlobalVariable
-		named: ((self visit: aPWBASTGlobalVariableDeclaration variable)
-					representationString)
-		owner: self currentEntity
-"
 ]
 
 { #category : #visiting }
@@ -176,6 +181,9 @@ PWBCompilationUnitVisitor >> visitPWBASTGraphicComponent: aPWBASTGraphicComponen
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
+self flag: #TODO.
+self shouldNotImplement.
+
 	self flag: 'not sure what a parameterized type is?'.
 	^self model
 		irStubForFamixClass: FamixPWBBasicType

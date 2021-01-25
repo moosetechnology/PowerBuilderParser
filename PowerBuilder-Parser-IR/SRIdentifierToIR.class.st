@@ -35,27 +35,8 @@ SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	self flag: #TODOSourceAnchor.
 	"for example: self preprocessedFile: currentEntity sourceAnchor fileReference."
 
-	self flag: #TODO.   "'will need to deal with read/write accesses'"
-
 	self foundAction: [ :me :currentEntity | 
 			currentEntity addAccessDependency: self entity inModel: irModel ]
-]
-
-{ #category : #hooks }
-SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel when: aConditionalBlock [
-	"Action block called by SymbolResolver when identifier to resolve is found
-	 Default is to create a dependency from the currentEntity to the entity found
-	 IF the conditionalBlock evals to true.
-	 conditionalBlock takes 2 parameters: myself and currentEntity when resolving"
-
-	self flag: #TODOSourceAnchor.
-	"for example: self preprocessedFile: currentEntity sourceAnchor fileReference."
-
-	self flag: #TODO.   "'will need to deal with read/write accesses'"
-
-	self foundAction: [ :me :currentEntity |
-			(aConditionalBlock value: me value: currentEntity)
-			ifTrue: [ currentEntity addAccessDependency: self entity inModel: irModel ] ]
 ]
 
 { #category : #hooks }

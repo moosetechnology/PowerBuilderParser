@@ -30,6 +30,71 @@ PWBSourceCodeTest >> sourceCodeOf: anEntity [
 ]
 
 { #category : #tests }
+PWBSourceCodeTest >> testAccessInstanceVariableSourceText [
+	| accVar accMy_uo |
+	self skip.
+	self flag: #TODOSourceAnchor.
+
+
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+  type local_uo from other_uo within majorObjectTest
+  end type
+end forward
+
+global type majorObjectTest from userobject
+  local_uo local_uo
+  boolean toto
+end type
+global majorObjectTest majorObjectTest
+
+type variables
+  test_uo my_uo
+end variables
+
+private function integer aFunction ();
+  this.my_uo
+  this.my_uo.uo_var_integer = 5
+  this.local_uo.other_att.uo_var_string = "blah"
+  return this.my_uo.myFunc()
+  return this.my_uo.myFunc(5,"allo")
+end function'.
+
+	self assert: model allAccesses size equals: 3.
+	accVar := model allAccesses
+		detect: [ :access | access variable name = 'uo_var_integer' ]
+		ifNone: [self fail].
+	self assert: (self sourceText: accVar) equals: 'this.my_uo.uo_var_integer'.
+	accMy_uo := model allAccesses
+		detect: [ :acc | acc variable name = 'my_uo' ]
+		ifNone: [self fail].
+		"Because my_uo is not write so it not in an assignation statement"
+	self assert: (self sourceText: accMy_uo) equals: '.my_uo'
+]
+
+{ #category : #tests }
+PWBSourceCodeTest >> testFunctionInvocationSourceText [
+	| invocation1 invocation2 |
+	
+	self flag: #TODOSourceAnchor.
+	self skip.
+
+	invocation1 := ((model getAllFamixType: FamixPWBFunction)
+		detect: [ :function | function name = 'anotherFunction' ]
+		ifNone: [self fail])
+		incomingInvocations anyOne.
+	invocation2 := model allInvocations
+		detect: [ :inv | inv candidates anyOne name = 'isNull' ]
+		ifNone: [self fail].
+	self
+		assert: (self sourceText: invocation1)
+		equals: 'anotherFunction(2, "blah")'.
+	self assert: (self sourceText: invocation2) equals: '.isNull()'
+]
+
+{ #category : #tests }
 PWBSourceCodeTest >> testFunctionLocalVariableSourceCode [
 	self importCodeWithForward:
 'private function integer aFunction ();
@@ -199,4 +264,27 @@ end variables
 		]
 		ifNone: [ self fail ].
 
+]
+
+{ #category : #tests }
+PWBSourceCodeTest >> testSourceTestSettings [
+	| eventTestingFunction |
+
+	self flag: #TODOSourceAnchor.
+	self skip.
+
+	self importCode:
+'private function integer eventTestingFunction()
+  this.triggerEvent("evt_trigger", 0, "")
+  this.postEvent("evt_post", 0, "")
+  TriggerEvent( this, "destructor" )
+end function
+'.
+
+	eventTestingFunction := (model getAllFamixType: FamixPWBFunction)
+		detect: [ :function | function name = 'eventTestingFunction' ]
+		ifNone: [self fail].
+	self
+		assert: (self sourceText: eventTestingFunction)
+		equals: sourceExample.
 ]

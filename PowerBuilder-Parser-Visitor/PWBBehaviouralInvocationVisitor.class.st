@@ -1,5 +1,5 @@
 "
-A special visitor for all behaviorual invocations
+A special visitor for all behavioural invocations
 Will always return an SRIdentifier to resolve to the calling visitor
 
 "
@@ -11,7 +11,7 @@ Class {
 
 { #category : #visiting }
 PWBBehaviouralInvocationVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
-	parentVisitor visit: aPWBASTMethodInvocation functionArguments.
+	self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTMethodInvocation functionArguments.
 	^self resolvable:
 		((SRInvocationIdentifierToIR
 			name: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
@@ -44,7 +44,7 @@ PWBBehaviouralInvocationVisitor >> visitPWBASTEventType: aPWBASTEventType [
 
 { #category : #visiting }
 PWBBehaviouralInvocationVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
-	parentVisitor visit: aPWBASTFunctionInvocation functionArguments.
+	self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTFunctionInvocation functionArguments.
 	parentVisitor visit: aPWBASTFunctionInvocation defaultVariable.
 	^self resolvable:
 		((SRInvocationIdentifierToIR
@@ -59,7 +59,7 @@ PWBBehaviouralInvocationVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctio
 
 { #category : #visiting }
 PWBBehaviouralInvocationVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTMethodInvocation [
-	parentVisitor visit: aPWBASTMethodInvocation functionArguments.
+	self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTMethodInvocation functionArguments.
 	^self resolvable:
 		((SRInvocationIdentifierToIR
 			name: (self visit: aPWBASTMethodInvocation uncheckedIdentifier)
