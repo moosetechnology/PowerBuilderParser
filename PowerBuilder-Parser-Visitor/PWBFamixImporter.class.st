@@ -88,7 +88,7 @@ PWBFamixImporter >> initialize [
 { #category : #private }
 PWBFamixImporter >> setUp [
 	super setUp.
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new.
+	visitor := PWBCompilationUnitVisitor new.
 	visitor initContextStackFromModel: PWBIRModel new.
 	visitor importingContext: self importingContext.
 ]

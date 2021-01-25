@@ -51,7 +51,7 @@ PWBAbstractImporterVisitorsTest >> setUp [
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> setupVisitor [
 	self flag: 'TODO: deal with libraries'.
-	visitor := PWBEntityCreatorFutureReferenceSolverVisitor new
+	visitor := PWBCompilationUnitVisitor new
 		"importingContext: PWBFamixImporter new importingContext;"
 		"currentLibrary: (model entityNamed: 'TestLib');"
 		file: ('majorObjectTest.' , self fileExtension) asFileReference;
