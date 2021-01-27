@@ -4,10 +4,16 @@ Class {
 	#instVars : [
 		'repoUrl',
 		'diff',
-		'lines'
+		'lines',
+		'dest'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
+
+{ #category : #'as yet unclassified' }
+PWBSVNManager class >> downloadLastestModifiedFiles [
+	self new downloadLastestModifiedFiles
+]
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> computeDiff [
@@ -25,9 +31,9 @@ PWBSVNManager >> computeDiff [
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> downloadLastestModifiedFiles [
-	| dest |
-	dest := FileSystem workingDirectory / 'svnChanges'.
-	dest ensureDeleteAll.
+	(FileSystem workingDirectory / 'svnChanges') ensureDeleteAll.
+	(FileSystem workingDirectory / 'svnChanges') ensureCreateDirectory.
+	dest := FileSystem workingDirectory / 'svnChanges' / 'lib'.
 	dest ensureCreateDirectory.
 	self computeDiff
 		do: [ :file | 
@@ -49,4 +55,11 @@ PWBSVNManager >> getSvnHEADNumber [
 PWBSVNManager >> initialize [
 	super initialize.
 	repoUrl := 'https://CIM-SVN.SA-CIM.local/svn/IzyProtect_Production/'
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNManager >> runViolations [
+	self downloadLastestModifiedFiles.
+	^ ViolationRunner
+		importFromFolder: FileSystem workingDirectory / 'svnChanges'
 ]
