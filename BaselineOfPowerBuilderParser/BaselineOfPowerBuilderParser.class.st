@@ -9,11 +9,11 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ "Dependencies"
+			do: [ "Dependencies"
 			"Groups"
 			self baselineOfPetitParser2: spec.
 			self baselineOfSymbolResolver: spec.
-			"	self baselineOfFamix: spec."
+			self baselineOfXMLParser: spec.
 
 			"Packages"
 			spec
@@ -23,14 +23,14 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 					with: [ spec requires: #('PetitParser2' 'PetitParserTooling') ];
 				package: 'PowerBuilder-Parser-AST';
 				package: 'Famix-PowerBuilder-Entities';
-			
 				package: 'PowerBuilder-Parser-Visitor'
 					with: [ "with: [ spec requires: #('Famix') ]"
+					"
+					with: [ spec requires: #('Famix') ]"
 					spec
 						requires:
-							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ]	"
-					with: [ spec requires: #('Famix') ]" ];
-					package: 'PowerBuilder-Parser-Violation'
+							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ];
+		package: 'PowerBuilder-Parser-Violation'
 ]
 
 { #category : #baselines }
@@ -63,4 +63,12 @@ BaselineOfPowerBuilderParser >> baselineOfSymbolResolver: spec [
 
 		with: [ spec repository: 'github://moosetechnology/SymbolResolver:main/src' ]
 
+]
+
+{ #category : #baselines }
+BaselineOfPowerBuilderParser >> baselineOfXMLParser: spec [
+	spec
+		baseline: 'XMLParser'
+		with: [ spec
+				repository: 'github://pharo-contributions/XML-XMLParser:master/src' ]
 ]
