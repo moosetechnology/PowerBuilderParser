@@ -52,11 +52,6 @@ FamixPWBAttribute >> isInstanceVariable [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
-FamixPWBAttribute >> isResolvable [
-	^ false
-]
-
 { #category : #accessing }
 FamixPWBAttribute >> reachableEntities [
 	^self attributeType
