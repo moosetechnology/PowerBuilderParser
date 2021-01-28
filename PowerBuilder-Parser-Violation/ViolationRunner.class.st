@@ -14,7 +14,7 @@ ViolationRunner >> basicRun [
 
 { #category : #running }
 ViolationRunner >> exportToCSV: violations [
-	(folder asFileReference / 'violations.csv')
+	"(folder asFileReference / 'violations.csv')
 		writeStreamDo: [ :stream | 
 			stream
 				<< 'objet,behavior,line,value';
@@ -29,11 +29,13 @@ ViolationRunner >> exportToCSV: violations [
 						<< violation relativeLine asString;
 						nextPut: $,;
 						<< violation value;
-						cr ] ]
+						cr ] ]"
+
+	
 ]
 
 { #category : #initialization }
 ViolationRunner >> setUp [ 
 	super setUp.
-	self visitor: PWBViolationDetectVisitor new
+	self visitor: PWBAbstractViolationDetectVisitor new
 ]

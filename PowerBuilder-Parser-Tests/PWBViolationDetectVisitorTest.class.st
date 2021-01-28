@@ -11,7 +11,7 @@ Class {
 { #category : #running }
 PWBViolationDetectVisitorTest >> setUp [
 	| file |
-	visitor := PWBViolationDetectVisitor new.
+	visitor := PWBAbstractViolationDetectVisitor new.
 	visitor preprocessingMap: Dictionary new.
 	parser := PWBCommonParser new.
 	file := Mock named: 'file'.
