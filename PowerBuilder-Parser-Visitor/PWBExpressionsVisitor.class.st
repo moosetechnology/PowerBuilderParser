@@ -17,7 +17,7 @@ PWBExpressionsVisitor >> handleExpression: exprBeforeDot dotExpression: exprAfte
 		ifNotNil: [ :subExprAction ||wasChained|
 			wasChained := isChained.
 			isChained := true.
-			srIdentifier next: (self visit: subExprAction).
+			srIdentifier next: (self visit: exprAfterDot).
 			isChained := wasChained ].
 
 	isChained
@@ -27,7 +27,7 @@ PWBExpressionsVisitor >> handleExpression: exprBeforeDot dotExpression: exprAfte
 		ifTrue: [ srIdentifier ifFoundCreateDependencyInModel: self model ]
 		ifFalse: [
 			srIdentifier foundAction: [ :identifier :currentEntity |
-				currentEntity addAccessDependency: identifier entity inModel: self model.
+				identifier entity addReferenceBy: currentEntity inModel: self model.
 				identifier next chainedOwner: identifier entity declaredType ]
 		].
 	^isChained

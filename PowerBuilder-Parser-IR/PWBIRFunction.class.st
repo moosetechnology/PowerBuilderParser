@@ -12,6 +12,11 @@ PWBIRFunction class >> defaultFamixClasses [
 	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBSubRoutine }
 ]
 
+{ #category : #adding }
+PWBIRFunction >> addReferenceBy: referer inModel: irModel [
+	^referer addInvocationDependency: { self } inModel: irModel.
+]
+
 { #category : #accessing }
 PWBIRFunction >> declaredType [
 	^ declaredType

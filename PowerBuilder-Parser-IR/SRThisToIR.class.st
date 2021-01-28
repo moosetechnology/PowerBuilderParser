@@ -30,7 +30,7 @@ SRThisToIR class >> node: aNode validationBlock: validationAsTypeBlock [
 SRThisToIR >> ifFoundCreateDependencyInModel: irModel [
 
 	self foundAction: [ :me :currentEntity | 
-			currentEntity addAccessDependency: self entity inModel: irModel ]
+			self entity addReferenceBy: currentEntity inModel: irModel ]
 ]
 
 { #category : #resolution }

@@ -110,6 +110,49 @@ end function
 ]
 
 { #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisFunctionFunction [
+	| fct invoked |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function majorObjectTest myFunc ();
+  this.myFunc().otherFunc()
+end function'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'myFunc')
+				anyOne.
+
+	self assert: fct dependencies size equals: 3.
+	"dependecy to valueHolder 'this'"
+	self assert:
+		(fct dependencies
+			anySatisfy: [ :dep |
+				(dep class = PWBIRDependencyAccess) and:
+				[dep irEntity name = 'this'] ]).
+	"dependecy to function 'myFunc'"
+	self assert:
+		(fct dependencies
+			anySatisfy: [ :dep |
+				(dep class = PWBIRDependencyInvocation) and:
+				[dep candidates anySatisfy: [ :c | c name = 'myFunc']] ]).
+	"dependecy to function 'otherFunc'"
+	invoked := fct dependencies
+		detect: [ :dep | (dep class = PWBIRDependencyInvocation)  and:
+				[dep candidates anySatisfy: [ :c | c name = 'otherFunc']] ]
+		ifOne: [ :dep | dep candidates ]
+		ifNone: [ self fail ].
+
+	self assert: invoked size equals: 1.
+	self assert: invoked anyOne name equals: 'otherFunc'.
+	self assert: invoked anyOne class equals: PWBIRFunction.
+	self assert: invoked anyOne owner name equals: 'majorObjectTest'.
+
+]
+
+{ #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariable [
 	| accesses fct nbType nbFunc nbVar |
 
@@ -127,7 +170,7 @@ type variables
   other_uo my_uo
 end variables
 
-private function integer myFunc ();
+private function majorObjectTest myFunc ();
   this.my_uo
 end function'.
 
@@ -165,7 +208,7 @@ type variables
   other_uo my_uo
 end variables
 
-private function integer myFunc ();
+private function majorObjectTest myFunc ();
   this.my_uo.uo_var_string = 5
 end function'.
 
@@ -204,7 +247,7 @@ type variables
   other_uo my_uo
 end variables
 
-private function integer myFunc ();
+private function majorObjectTest myFunc ();
   this.my_uo.new_var = 5
 end function'.
 
@@ -268,7 +311,7 @@ type variables
   new_uo my_uo
 end variables
 
-private function integer myFunc ();
+private function majorObjectTest myFunc ();
   this.my_uo.new_var = 5
 end function'.
 

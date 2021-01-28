@@ -33,7 +33,7 @@ SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	"Action block called by SymbolResolver when identifier to resolve is found
 	 Default is to create a dependency from the currentEntity to the entity found"
 	self foundAction: [ :me :currentEntity | 
-			(currentEntity addAccessDependency: self entity inModel: irModel)
+			(self entity addReferenceBy: currentEntity inModel: irModel)
 				isWrite: referenceIsAssigned ]
 ]
 

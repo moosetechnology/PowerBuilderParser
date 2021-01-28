@@ -23,6 +23,11 @@ PWBIRValueHolder >> addDependency: anIREntity [
 	self shouldNotImplement 
 ]
 
+{ #category : #adding }
+PWBIRValueHolder >> addReferenceBy: referer inModel: irModel [
+	^referer addAccessDependency: self inModel: irModel.
+]
+
 { #category : #converting }
 PWBIRValueHolder >> asSREntityScope [
 	^declaredType

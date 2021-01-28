@@ -77,11 +77,9 @@ PWBCompilationUnitVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaratio
 
 { #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTExpression: aPWBASTExpression [
-self flag: #TODO.
-self shouldNotImplement.
-
-	self visit: aPWBASTExpression expressionAction.
-	^ self visit: aPWBASTExpression expression
+	(self file extension = 'srd')
+	ifFalse: [ self shouldNotImplement ]
+	ifTrue: [ "ignore" ]
 ]
 
 { #category : #visiting }
