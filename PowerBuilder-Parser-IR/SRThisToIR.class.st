@@ -26,22 +26,6 @@ SRThisToIR class >> node: aNode validationBlock: validationAsTypeBlock [
 		yourself
 ]
 
-{ #category : #hooks }
-SRThisToIR >> applyReplacementStrategyWithCurrentEntity: aCurrentEntity [
-	"there should always be a #currentEntity to which 'this' refers"
-	self shouldNotImplement
-]
-
-{ #category : #accessing }
-SRThisToIR >> entity [
-	^ entity
-]
-
-{ #category : #accessing }
-SRThisToIR >> entity: anObject [
-	entity := anObject
-]
-
 { #category : #resolution }
 SRThisToIR >> ifFoundCreateDependencyInModel: irModel [
 
@@ -53,11 +37,6 @@ SRThisToIR >> ifFoundCreateDependencyInModel: irModel [
 SRThisToIR >> ifNotFoundCreateStubInModel: irModel [
 	"defined for polymorphism, but THIS is always resolved in any scope so nothing to do"
 
-]
-
-{ #category : #printing }
-SRThisToIR >> printIdentifierPath: aStream [
-	aStream nextPutAll: 'this'
 ]
 
 { #category : #accessing }
@@ -81,19 +60,4 @@ SRThisToIR >> resolveInScope: aSRScope currentEntity: currentEntity [
 			definedIn: self entity asSREntityScope  ].
 	^self entity
 
-]
-
-{ #category : #validation }
-SRThisToIR >> validateThisEntity: aFamixEntity [
-	^ self validationBlock value: aFamixEntity
-]
-
-{ #category : #accessing }
-SRThisToIR >> validationBlock [
-	^ validationAsTypeBlock
-]
-
-{ #category : #accessing }
-SRThisToIR >> validationBlock: anObject [
-	validationAsTypeBlock := anObject
 ]
