@@ -47,7 +47,6 @@ end forward
 private function integer eventTestingFunction()
   this.triggerEvent("evt_trigger", 0, "")
   this.postEvent("evt_post", 0, "")
-  TriggerEvent( this, "destructor" )
 end function
 '.
 
@@ -56,6 +55,9 @@ end function
 
 	events := model getAllFamixType: FamixPWBEvent.
 	self assert: events size equals: 2.
+	self
+		assertCollection: (events collect: #name)
+		hasSameElements: #( evt_trigger evt_post ).
 
 	self assert: (fct dependencies allSatisfy: [:dep | dep class = PWBIRDependencyInvocation]).
 

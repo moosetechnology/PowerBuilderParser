@@ -20,9 +20,8 @@ PWBStatementsVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationState
 		action: (aPWBASTAssignationStatement accessOrType) ;
 		expressionAction: (aPWBASTAssignationStatement expressionAction) ;
 		yourself.
-	(self auxiliaryVisitor: PWBExpressionsVisitor)
-		isLeftHandSide: true ;
-		visit:  lhsIdentifier.
+	(self auxiliaryVisitor: PWBExpressionsVisitor visit:  lhsIdentifier)
+		referenceIsAssigned.
 	"accessOrType := self visit: aPWBASTAssignationStatement accessOrType.
 	variable := self visit: aPWBASTAssignationStatement expressionAction.
 	(variable isNotNil and: [ variable isResolvable ])
@@ -30,6 +29,11 @@ PWBStatementsVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationState
 
 	"right hand side (i.e. value)"
 	self auxiliaryVisitor: PWBExpressionsVisitor visit:  aPWBASTAssignationStatement assignation
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTCallStatement: aPWBASTCallStatement [
+	^self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTCallStatement
 ]
 
 { #category : #visiting }
@@ -63,14 +67,42 @@ PWBStatementsVisitor >> visitPWBASTDoWhileLoop: aPWBASTDoWhileLoop [
 ]
 
 { #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTMethodInvocation)
+]
+
+{ #category : #visiting }
 PWBStatementsVisitor >> visitPWBASTElseIf: aPWBASTElseIf [
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTElseIf: aPWBASTElseIf
 ]
 
 { #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTEventInvocation: aPWBASTEventInvocation [
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTEventInvocation)
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTriggeringOrPosting [
+	^self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTEventTriggeringOrPosting
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTExpression: aPWBASTExpression [
+	^self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTExpression
+]
+
+{ #category : #visiting }
 PWBStatementsVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
 	^self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTExpressionAction
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocation [
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTFunctionInvocation)
 ]
 
 { #category : #visiting }
@@ -83,6 +115,12 @@ PWBStatementsVisitor >> visitPWBASTIfMultiLine: aPWBASTIfMultiLine [
 PWBStatementsVisitor >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
 	self currentEntity increaseCyclomaticComplexity.
 	^ super visitPWBASTIfSingleLine: aPWBASTIfSingleLine
+]
+
+{ #category : #visiting }
+PWBStatementsVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	^self resolve:
+		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation)
 ]
 
 { #category : #visiting }

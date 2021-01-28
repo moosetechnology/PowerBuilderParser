@@ -92,7 +92,7 @@ self shouldNotImplement.
 	^ aPWBASTExpressionAction isAttributeAccess
 		ifTrue: [
 			self resolve:
-				(self auxiliaryVisitor: PWBAttributeAccessVisitor visit: aPWBASTExpressionAction) ]
+				(self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTExpressionAction) ]
 		ifFalse: [
 			aPWBASTExpressionAction expressionAction
 			ifNil: [ self visit: aPWBASTExpressionAction action ]

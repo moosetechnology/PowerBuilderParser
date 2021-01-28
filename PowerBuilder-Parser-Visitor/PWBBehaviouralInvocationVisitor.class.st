@@ -1,6 +1,6 @@
 "
 A special visitor for all behavioural invocations
-Will always return an SRIdentifier to resolve to the calling visitor
+Will always return an SRIdentifier to resolve to the calling visitor because ta function invocation can be part of a chainedIdentifier ( a.b() ) which be treated by the calling visitor
 
 "
 Class {

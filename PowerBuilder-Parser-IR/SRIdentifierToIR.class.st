@@ -12,7 +12,8 @@ Class {
 	#name : #SRIdentifierToIR,
 	#superclass : #SRIdentifierWithNode,
 	#instVars : [
-		'chainedOwner'
+		'chainedOwner',
+		'referenceIsAssigned'
 	],
 	#category : #'PowerBuilder-Parser-IR-symbolResolver'
 }
@@ -31,12 +32,9 @@ SRIdentifierToIR >> chainedOwner: anObject [
 SRIdentifierToIR >> ifFoundCreateDependencyInModel: irModel [
 	"Action block called by SymbolResolver when identifier to resolve is found
 	 Default is to create a dependency from the currentEntity to the entity found"
-
-	self flag: #TODOSourceAnchor.
-	"for example: self preprocessedFile: currentEntity sourceAnchor fileReference."
-
 	self foundAction: [ :me :currentEntity | 
-			currentEntity addAccessDependency: self entity inModel: irModel ]
+			(currentEntity addAccessDependency: self entity inModel: irModel)
+				isWrite: referenceIsAssigned ]
 ]
 
 { #category : #hooks }
@@ -68,6 +66,12 @@ SRIdentifierToIR >> ifNotFoundCreateStubInModel: irModel [
 			yourself ]
 ]
 
+{ #category : #resolution }
+SRIdentifierToIR >> initialize [ 
+	super initialize.
+	referenceIsAssigned := false
+]
+
 { #category : #hooks }
 SRIdentifierToIR >> mainFamixKind [
 	^self expectedKind isCollection
@@ -78,4 +82,13 @@ SRIdentifierToIR >> mainFamixKind [
 { #category : #hooks }
 SRIdentifierToIR >> mainIRKind [
 	^PWBIRNamedEntity irClassForFamixClass: self mainFamixKind
+]
+
+{ #category : #accessing }
+SRIdentifierToIR >> referenceIsAssigned [
+	"State that the referenced identifier is assigned
+	 therefore this is a write access to a variable"
+	self isLast
+	ifTrue: [ referenceIsAssigned := true ]
+	ifFalse: [ self next referenceIsAssigned ]
 ]

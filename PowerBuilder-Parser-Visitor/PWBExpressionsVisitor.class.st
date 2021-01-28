@@ -1,63 +1,82 @@
-"
-A special visitor for some of the expressions in statements or declarations.
-PWBAttributeAccessVisitor and PWBBehaviouralInvocationVisitor or the other special visitors taking care of expressions.
-
-
-Instance variables:
-- isLeftHandSide, whether the expression (actually a variable name) is on the left hand side of an assignement. If so creates an access in writing, otherwise, all accesses are assumed to be in reading
-"
 Class {
 	#name : #PWBExpressionsVisitor,
 	#superclass : #PWBAbstractAuxiliaryVisitor,
 	#instVars : [
-		'isLeftHandSide'
+		'isChained'
 	],
 	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
+{ #category : #helpers }
+PWBExpressionsVisitor >> handleExpression: exprBeforeDot dotExpression: exprAfterDot [
+	| srIdentifier |
+	srIdentifier := self visit: exprBeforeDot.
+	srIdentifier isResolvable ifFalse: [ ^PWBNullEntityObject new ].
+
+	exprAfterDot
+		ifNotNil: [ :subExprAction ||wasChained|
+			wasChained := isChained.
+			isChained := true.
+			srIdentifier next: (self visit: subExprAction).
+			isChained := wasChained ].
+
+	isChained
+		ifFalse: [ srIdentifier ifNotFoundCreateStubInModel: self model ]
+		ifTrue: [ srIdentifier ifNotFoundCreateFromChainInModel: self model ].
+	srIdentifier isLast
+		ifTrue: [ srIdentifier ifFoundCreateDependencyInModel: self model ]
+		ifFalse: [
+			srIdentifier foundAction: [ :identifier :currentEntity |
+				currentEntity addAccessDependency: identifier entity inModel: self model.
+				identifier next chainedOwner: identifier entity declaredType ]
+		].
+	^isChained
+		ifTrue: [ srIdentifier ]
+		ifFalse: [  self resolve: srIdentifier ]
+]
+
 { #category : #initialization }
 PWBExpressionsVisitor >> initialize [
 	super initialize.
-	isLeftHandSide := false
-]
-
-{ #category : #accessing }
-PWBExpressionsVisitor >> isLeftHandSide [
-	^ isLeftHandSide
-]
-
-{ #category : #accessing }
-PWBExpressionsVisitor >> isLeftHandSide: anObject [
-	isLeftHandSide := anObject
+	isChained := false
 ]
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTAccess: aPWBASTAccess [
 	| srIdentifier |
-	self
-		flag: 'Quasi clone of PWBAttributeAccessVisitor>>createAttributeAcces:'.
 	self visit: aPWBASTAccess arrayPosition.
 
 	srIdentifier := self visit: aPWBASTAccess accessed.
+	"if accessed is THIS, we already set its #foundAction"
 	srIdentifier foundAction
-		ifNil: [ "Special variable THIS already has a foundAction"
+		ifNil: [
 			srIdentifier
-				ifNotFoundCreateStubInModel: self model.
-			(srIdentifier entity class inheritsFrom: FamixPWBmajorObject) 
-				ifFalse: [
-					srIdentifier foundAction: [ :identifier :currentEntity | 
-						(currentEntity addAccessDependency: identifier entity inModel: self model)
-							isWrite: self isLeftHandSide ]
-				] ].
+				ifNotFoundCreateStubInModel: (self model) ;
+				ifFoundCreateDependencyInModel: (self model)
+		].
 
-	^self resolve: srIdentifier
+	^srIdentifier
+]
+
+{ #category : #visiting }
+PWBExpressionsVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
+	"returns the value of the visit"
+	^self visit: aPWBASTAccessOrType accessOrType.
+]
+
+{ #category : #visiting }
+PWBExpressionsVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
+	self flag: #TODO.
+	self shouldNotImplement
 ]
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
-self shouldNotImplement .
 	self visit: aPWBASTAttributeAccess arrayInformation.
-	^ self visit: aPWBASTAttributeAccess uncheckedIdentifier
+	^SRIdentifierToIR
+		name: aPWBASTAttributeAccess uncheckedIdentifier uncheckedIdentifier
+		expectedKind: PWBIRValueHolder defaultFamixClasses
+		node: aPWBASTAttributeAccess. 
 ]
 
 { #category : #visiting }
@@ -66,11 +85,7 @@ PWBExpressionsVisitor >> visitPWBASTCallStatement: aPWBASTCallStatement [
 	self resolve:
 		((self visit: aPWBASTCallStatement variable)
 			ifNotFoundCreateStubInModel: (self model) ;
-			foundAction: [ :identifier :currentEntity | 
-				(currentEntity addAccessDependency: identifier entity inModel: self model)
-					isWrite: (self isLeftHandSide) ;
-					yourself.
-			] ;
+			ifFoundCreateDependencyInModel: (self model) ;
 			yourself).
 
 	self visit: aPWBASTCallStatement identifier.
@@ -93,9 +108,8 @@ PWBExpressionsVisitor >> visitPWBASTDefaultVariable: aPWBASTDefaultVariable [
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTDynamicMethodInvocation: aPWBASTMethodInvocation [
-	aPWBASTMethodInvocation functionArguments.
-	^self resolve:
-		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTMethodInvocation)
+	"do not call #resolve: here because is part of a chaineIdentifier"
+	^self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTMethodInvocation
 ]
 
 { #category : #visiting }
@@ -121,18 +135,29 @@ PWBExpressionsVisitor >> visitPWBASTEventTriggeringOrPosting: aPWBASTEventTrigge
 ]
 
 { #category : #visiting }
+PWBExpressionsVisitor >> visitPWBASTExpression: aPWBASTExpression [
+	(self currentEntity class = FamixPWBDataWindow
+		or: [ self currentEntity class = FamixPWBGraphicComponent ])
+		ifTrue: [ ^super visitPWBASTExpressionAction: aPWBASTExpression ].
+
+	^self handleExpression: aPWBASTExpression expression dotExpression: aPWBASTExpression expressionAction
+
+]
+
+{ #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
-	^ aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [
-			self resolve:
-				(self auxiliaryVisitor: PWBAttributeAccessVisitor visit: aPWBASTExpressionAction) ]
-		ifFalse: [
-			aPWBASTExpressionAction expressionAction
-			ifNil: [ self visit: aPWBASTExpressionAction action ]
-			ifNotNil: [
-				self visit: aPWBASTExpressionAction action.
-				self visit: aPWBASTExpressionAction expressionAction
-		] ]
+	(self currentEntity class = FamixPWBDataWindow
+		or: [ self currentEntity class = FamixPWBGraphicComponent ])
+		ifTrue: [ ^super visitPWBASTExpressionAction: aPWBASTExpressionAction ].
+
+	^self handleExpression: aPWBASTExpressionAction action dotExpression: aPWBASTExpressionAction expressionAction
+
+]
+
+{ #category : #visiting }
+PWBExpressionsVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
+	"returns the value of the visit"
+	^self visit: aPWBASTExpressionTerm expressionTerm.
 ]
 
 { #category : #visiting }
@@ -143,13 +168,14 @@ PWBExpressionsVisitor >> visitPWBASTFunctionInvocation: aPWBASTFunctionInvocatio
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTMethodInvocation: aPWBASTMethodInvocation [
-	^ self visit: aPWBASTMethodInvocation methodInvocation
+	"returns the value of the visit"
+	^self visit: aPWBASTMethodInvocation methodInvocation.
 ]
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
-	^self resolve:
-		(self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation)
+	"do not call #resolve: here because is part of a chaineIdentifier"
+	^self auxiliaryVisitor: PWBBehaviouralInvocationVisitor visit: aPWBASTRegularMethodInvocation
 ]
 
 { #category : #visiting }
@@ -160,25 +186,19 @@ PWBExpressionsVisitor >> visitPWBASTSpecialVariable: aPWBASTSpecialVariable [
 
 { #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTThis: aPWBASTThis [
-	| resolvable thisVariable |
+	| thisVariable |
 	thisVariable := self model
 		irStub: PWBIRValueHolder
 		named: 'this'.
-	self currentEntity addAccessDependency: thisVariable inModel: self model.
-	resolvable :=
-		(SRThisWithNode
-			node: aPWBASTThis
-			validationBlock: [ :entity |
-				entity expectedFamixKinds anySatisfy: [ :kind | self isMajorObjectKind: kind ] ]).
+	thisVariable declaredType: 
+		(self solver scopes detect: [ :scope |
+			scope currentEntity expectedFamixKinds
+				anySatisfy: [ :kind | self isMajorObjectKind: kind ] ])
+			entity.
 
-	resolvable
-		foundAction: [ :identifier :currentEntity |
-			thisVariable declaredType: identifier entity
-		];
-		notFoundReplacementEntity: [ :identifier :currentEntity | 
-			self shouldNotImplement ].
-
-	^self resolvable: resolvable
+	^(SRThisToIR node: aPWBASTThis)
+		entity: thisVariable ;
+		yourself.
 
 ]
 

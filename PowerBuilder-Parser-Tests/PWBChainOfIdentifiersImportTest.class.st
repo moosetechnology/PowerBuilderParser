@@ -229,6 +229,30 @@ end function'.
 ]
 
 { #category : #tests }
+PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableStub [
+	| accesses fct |
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+private function long anotherFunction (); 
+  this.il_long = 5
+end function
+'.
+
+	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
+				anyOne.
+
+	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
+	self assert: accesses size equals: 2.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
+	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long']) size) equals: 1.
+
+]
+
+{ #category : #tests }
 PWBChainOfIdentifiersImportTest >> testAccessThisInstanceVariableStubInstanceVariable [
 	| accesses var |
 
@@ -270,29 +294,5 @@ end function'.
 	self assert: var owner class equals: PWBIRType.
 	self assert: var owner name equals: 'new_uo'.
 	self assert: var owner owner name equals: 'majorObjectTest'.
-
-]
-
-{ #category : #tests }
-PWBChainOfIdentifiersImportTest >> testChainedVariableAccesses [
-	| accesses fct |
-	self importCode:
-'forward
-  global type majorObjectTest from userobject
-  end type
-end forward
-
-private function long anotherFunction (); 
-  this.il_long = 5
-end function
-'.
-
-	fct := (model getAllIR: PWBIRFunction named: 'anotherFunction')
-				anyOne.
-
-	accesses := fct dependencies select: [ :ir | ir class = PWBIRDependencyAccess ].
-	self assert: accesses size equals: 2.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'this']) size) equals: 1.
-	self assert: ((accesses select: [ :dep | dep irEntity name = 'il_long']) size) equals: 1.
 
 ]
