@@ -13,6 +13,13 @@ PWBSVNDiffViolationManager class >> prev: aPrevViolations head: aHeadViolations 
 	^ self new prev: aPrevViolations head: aHeadViolations
 ]
 
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> diffHeadPrev [
+	^ self head
+		select:
+			[ :violation | self prev allSatisfy: [ :each | (violation isSameAs: each) not ] ]
+]
+
 { #category : #accessing }
 PWBSVNDiffViolationManager >> head [
 	^ head

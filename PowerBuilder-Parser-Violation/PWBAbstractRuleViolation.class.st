@@ -36,6 +36,14 @@ PWBAbstractRuleViolation >> file: aFileReference [
 	file := aFileReference
 ]
 
+{ #category : #testing }
+PWBAbstractRuleViolation >> isSameAs: aPWBViolation [
+	^ self class = aPWBViolation class
+		and: [ self file basename = aPWBViolation file basename
+				and: [ self startPosition = aPWBViolation startPosition
+						and: [ self stopPosition = aPWBViolation stopPosition ] ] ]
+]
+
 { #category : #accessing }
 PWBAbstractRuleViolation >> libray: aFamixPWBLibrary [
 	library := aFamixPWBLibrary
