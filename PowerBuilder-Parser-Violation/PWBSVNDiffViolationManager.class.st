@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'head',
-		'prev'
+		'prev',
+		'stream'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -30,6 +31,29 @@ PWBSVNDiffViolationManager >> head: anObject [
 	head := anObject
 ]
 
+{ #category : #initialization }
+PWBSVNDiffViolationManager >> initialize [
+	super initialize.
+	stream := WriteStream on: String new
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> prepareReport: aCollection [
+	stream
+		<< '<p><h3>Vous avez';
+		space;
+		<< aCollection size asString;
+		space;
+		<< 'violation'.
+	aCollection size = 1
+		ifFalse: [ stream nextPut: $s ].
+	stream
+		<< ' sur vos derniers changements qui sont:</h3><ul>';
+		cr.
+	aCollection do: [ :violation | violation reportOn: stream ].
+	stream << '</ul></p>'
+]
+
 { #category : #accessing }
 PWBSVNDiffViolationManager >> prev [
 	^ prev
@@ -44,4 +68,23 @@ PWBSVNDiffViolationManager >> prev: anObject [
 PWBSVNDiffViolationManager >> prev: aPrevViolations head: aHeadViolations [
 	prev := aPrevViolations.
 	head := aHeadViolations
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> publishDiff [
+	| diff |
+	diff := self diffHeadPrev.
+	diff ifNotEmpty: [ self reportViolation: diff ]
+]
+
+{ #category : #running }
+PWBSVNDiffViolationManager >> reportViolation: violations [
+	self prepareReport: violations.
+	LibC
+		resultOfCommand: 'powershell -file "sendMail.ps1" "' , self stream , '"'
+]
+
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> stream [
+	^ stream contents
 ]

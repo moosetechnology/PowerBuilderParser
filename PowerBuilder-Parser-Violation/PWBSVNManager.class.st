@@ -80,7 +80,7 @@ PWBSVNManager >> initialize [
 { #category : #'as yet unclassified' }
 PWBSVNManager >> runViolations [
 	self downloadDiffFilesForHeadAndPrev.
-	^ PWBSVNDiffViolationManager
+	^ (PWBSVNDiffViolationManager
 		prev:
 			(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / 'svnPrev')
@@ -88,5 +88,5 @@ PWBSVNManager >> runViolations [
 		head:
 			(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / 'svnHead')
-				violations
+				violations) publishDiff
 ]

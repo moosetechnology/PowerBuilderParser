@@ -54,6 +54,11 @@ PWBAbstractRuleViolation >> objectName [
 ]
 
 { #category : #accessing }
+PWBAbstractRuleViolation >> pwbobjectName [
+	^ self file basenameWithoutExtension
+]
+
+{ #category : #accessing }
 PWBAbstractRuleViolation >> relativeLine [
 	| contents |
 	contents := self file contents.
@@ -61,6 +66,11 @@ PWBAbstractRuleViolation >> relativeLine [
 		-
 			(contents
 				lineNumberCorrespondingToIndex: self behavior sourceAnchor startPos)
+]
+
+{ #category : #'as yet unclassified' }
+PWBAbstractRuleViolation >> reportOn: stream [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }

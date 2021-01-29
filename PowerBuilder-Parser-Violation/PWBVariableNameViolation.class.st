@@ -9,16 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-PWBVariableNameViolation >> pwbobject [
-	^ pwbobject
-]
-
-{ #category : #accessing }
-PWBVariableNameViolation >> pwbobject: anObject [
-	pwbobject := anObject
-]
-
-{ #category : #accessing }
 PWBVariableNameViolation >> value [
 	^ value
 ]

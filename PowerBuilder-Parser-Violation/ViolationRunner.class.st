@@ -1,15 +1,16 @@
 Class {
 	#name : #ViolationRunner,
 	#superclass : #PWBSimpleImporter,
+	#instVars : [
+		'stream'
+	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
 { #category : #running }
 ViolationRunner >> basicRun [
-	| violations |
-	violations := super basicRun violations.
-	self exportToCSV: violations.
-	^visitor
+	super basicRun violations.
+	^ visitor
 ]
 
 { #category : #running }
@@ -32,6 +33,12 @@ ViolationRunner >> exportToCSV: violations [
 						cr ] ]"
 
 	
+]
+
+{ #category : #initialization }
+ViolationRunner >> initialize [
+	super initialize.
+	stream := WriteStream on: String new
 ]
 
 { #category : #initialization }
