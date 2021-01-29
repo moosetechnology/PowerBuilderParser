@@ -40,8 +40,7 @@ PWBAbstractRuleViolation >> file: aFileReference [
 PWBAbstractRuleViolation >> isSameAs: aPWBViolation [
 	^ self class = aPWBViolation class
 		and: [ self file basename = aPWBViolation file basename
-				and: [ self startPosition = aPWBViolation startPosition
-						and: [ self stopPosition = aPWBViolation stopPosition ] ] ]
+				and: [ self value = aPWBViolation value ] ]
 ]
 
 { #category : #accessing }
