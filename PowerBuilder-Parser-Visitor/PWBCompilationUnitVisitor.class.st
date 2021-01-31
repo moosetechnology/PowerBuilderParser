@@ -48,22 +48,6 @@ PWBCompilationUnitVisitor >> visitPWBASTAccess: aPWBASTAccess [
 ]
 
 { #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
-self flag: #TODO.
-self shouldNotImplement.
-
-	^ self visit: aPWBASTAccessOrType accessOrType
-]
-
-{ #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTArrayWithSize: aPWBASTArrayWithSize [
-self flag: #TODO.
-self shouldNotImplement.
-
-	^ self visitAll: aPWBASTArrayWithSize expressions
-]
-
-{ #category : #visiting }
 PWBCompilationUnitVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
 	(self file extension = 'srd')
 	ifFalse: [ self shouldNotImplement ]
@@ -80,41 +64,6 @@ PWBCompilationUnitVisitor >> visitPWBASTExpression: aPWBASTExpression [
 	(self file extension = 'srd')
 	ifFalse: [ self shouldNotImplement ]
 	ifTrue: [ "ignore" ]
-]
-
-{ #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTExpressionAction: aPWBASTExpressionAction [
-self flag: #TODO.
-self shouldNotImplement.
-
-	^ aPWBASTExpressionAction isAttributeAccess
-		ifTrue: [
-			self resolve:
-				(self auxiliaryVisitor: PWBExpressionsVisitor visit: aPWBASTExpressionAction) ]
-		ifFalse: [
-			aPWBASTExpressionAction expressionAction
-			ifNil: [ self visit: aPWBASTExpressionAction action ]
-			ifNotNil: [
-				self visit: aPWBASTExpressionAction action.
-				self visit: aPWBASTExpressionAction expressionAction
-		] ]
-]
-
-{ #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm [
-self flag: #TODO.
-self shouldNotImplement.
-
-	^ self visit: aPWBASTExpressionTerm expressionTerm
-]
-
-{ #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTExpressionWithSign: aPWBASTExpressionWithSign [
-self flag: #TODO.
-self shouldNotImplement.
-
-	self visit: aPWBASTExpressionWithSign expressionSign.
-	^ self visit: aPWBASTExpressionWithSign expression
 ]
 
 { #category : #visiting }
@@ -175,20 +124,6 @@ PWBCompilationUnitVisitor >> visitPWBASTGraphicComponent: aPWBASTGraphicComponen
 	"self
 		useCurrentEntity: (self create: FamixPWBGraphicComponent from: aPWBASTGraphicComponent)
 		during: [ super visitPWBASTGraphicComponent: aPWBASTGraphicComponent ]"
-]
-
-{ #category : #visiting }
-PWBCompilationUnitVisitor >> visitPWBASTParametrizedType: anPWBASTParametrizedType [
-self flag: #TODO.
-self shouldNotImplement.
-
-	self flag: 'not sure what a parameterized type is?'.
-	^self model
-		irStubForFamixClass: FamixPWBBasicType
-		named: (anPWBASTParametrizedType parametrizedType
-			copyWithRegex: '{.*}'
-			matchesReplacedWith: '')
-
 ]
 
 { #category : #visiting }

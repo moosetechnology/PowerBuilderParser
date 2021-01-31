@@ -65,12 +65,6 @@ PWBExpressionsVisitor >> visitPWBASTAccessOrType: aPWBASTAccessOrType [
 ]
 
 { #category : #visiting }
-PWBExpressionsVisitor >> visitPWBASTAssignationStatement: aPWBASTAssignationStatement [
-	self flag: #TODO.
-	self shouldNotImplement
-]
-
-{ #category : #visiting }
 PWBExpressionsVisitor >> visitPWBASTAttributeAccess: aPWBASTAttributeAccess [
 	self visit: aPWBASTAttributeAccess arrayInformation.
 	^SRIdentifierToIR
