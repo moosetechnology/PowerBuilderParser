@@ -15,7 +15,7 @@ Class {
 
 { #category : #mapping }
 PWBIRValueHolder class >> defaultFamixClasses [
-	^{ FamixPWBAttribute . FamixPWBInstanceVariable . FamixPWBGlobalVariable . FamixPWBLocalVariable . FamixPWBSharedVariable . FamixPWBParameter . FamixPWBVariable }
+	^{ FamixPWBVariable . FamixPWBAttribute . FamixPWBInstanceVariable . FamixPWBGlobalVariable . FamixPWBLocalVariable . FamixPWBSharedVariable . FamixPWBParameter }
 ]
 
 { #category : #accessing }

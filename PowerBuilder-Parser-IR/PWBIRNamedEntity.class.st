@@ -47,6 +47,12 @@ PWBIRNamedEntity >> addDependency: anIREntity [
 	self subclassResponsibility 
 ]
 
+{ #category : #converting }
+PWBIRNamedEntity >> classToFamix [
+	^(expectedFamixKinds ifNil: [ self class defaultFamixClasses ])
+		anyOne
+]
+
 { #category : #accessing }
 PWBIRNamedEntity >> endPos [
 	^ endPos
@@ -152,8 +158,34 @@ PWBIRNamedEntity >> startPos: anObject [
 PWBIRNamedEntity >> toFamix [
 	famixEntity ifNotNil: [ ^famixEntity ].
 
-	^famixEntity := expectedFamixKinds anyOne new
+	^famixEntity := self classToFamix new
 		name: name ;
 		isStub: (owner isNil) ;
 		yourself.
+]
+
+{ #category : #converting }
+PWBIRNamedEntity >> toFamix: aFamixClass [
+	| concreteClass |
+	famixEntity ifNotNil: [
+		self
+			verifyActualClasses: { famixEntity class }
+			matchGivenClass: aFamixClass.
+		^famixEntity ].
+
+	concreteClass := self
+		verifyActualClasses: (self expectedFamixKinds ifNil: [ self class defaultFamixClasses ])
+		matchGivenClass: aFamixClass.
+
+	^famixEntity := concreteClass new
+		name: name ;
+		isStub: (owner isNil) ;
+		yourself.
+]
+
+{ #category : #converting }
+PWBIRNamedEntity >> verifyActualClasses: aCollection matchGivenClass: aFamixClass [
+	^aCollection
+		detect: [ :class | class includesBehavior: aFamixClass ]
+		ifNone: [  PWBIRWrongFamixClass signal ]
 ]

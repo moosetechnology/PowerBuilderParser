@@ -106,30 +106,3 @@ PWBIRModelTest >> testSize [
 	self assert: model size equals: 4.
 
 ]
-
-{ #category : #tests }
-PWBIRModelTest >> testToFamixFunctionWithParameterAndVariable [
-	| ir fmxFct famixModel |
-	ir := model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	model ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
-	model ensureIRForFamixClass: FamixPWBVariable named: 'var' owner: ir.
-
-	famixModel := model toFamix.
-	
-	self assert: famixModel size equals: 2 + 3. "userobject, datawindow + 3"
-
-	self assert: (famixModel allWithType: FamixPWBFunction) size equals: 1.
-
-	fmxFct := (famixModel allWithType: FamixPWBFunction) anyOne.
-	self assert: fmxFct name equals: 'fct'.
-	self assert: fmxFct isStub.
-
-	self assert: fmxFct parameters size equals: 1.
-	self assert: fmxFct parameters anyOne name equals: 'param'.
-	self deny: fmxFct parameters anyOne isStub.
-
-	self assert: fmxFct variables size equals: 1.
-	self assert: fmxFct variables anyOne name equals: 'var'.
-	self deny: fmxFct variables anyOne isStub.
-
-]
