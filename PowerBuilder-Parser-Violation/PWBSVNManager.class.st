@@ -12,12 +12,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> diffFilesUrls [
-	| head prev |
-	head := self getSvnHEADNumber.
-	prev := head - 1.
+	| prev |
+	"self getSvnHEADNumber."
+	prev := svnHead - 1.
 	diff := LibC
 		resultOfCommand:
-			'svn diff -r ' , prev asString , ':' , head asString , String space
+			'svn diff -r ' , prev asString , ':' , svnHead asString , String space
 				, repoUrl , ' --summarize'.
 	lines := diff lines asOrderedCollection
 		reject: [ :line | 
@@ -89,4 +89,19 @@ PWBSVNManager >> runViolations [
 			(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / 'svnHead')
 				violations) publishDiff
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNManager >> watchChangesOnSVNServer [
+	| lastHead |
+	[ [ true ]
+		whileTrue: [ lastHead := svnHead.
+			Transcript
+				show:
+					'Run
+			'.
+			self getSvnHEADNumber.
+			svnHead = lastHead
+				ifFalse: [ self runViolations ].
+			(Duration minutes: 1) asDelay wait ] ] fork
 ]
