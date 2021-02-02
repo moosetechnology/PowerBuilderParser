@@ -191,6 +191,38 @@ end function
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testFunctionInForwardPrototypeOwnByMajorObject [
+	self importCode:
+'forward
+  global type majorObjectTest from userobject
+  end type
+end forward
+
+forward prototypes
+private function integer aFunction ()
+public function integer anotherFunction ()
+end prototypes
+
+private function integer aFunction ();
+  return -1
+end function
+
+private function long anotherFunction (long aLong, string str_param);  
+  return 42
+end function
+'.
+
+	self assert: (model getAllFamixType: FamixPWBFunction) size equals: 2.
+	self
+		assertCollection: ((model getAllFamixType: FamixPWBFunction) collect: #name)
+		hasSameElements: #( aFunction anotherFunction).
+
+	self assert:
+		((model getAllFamixType: FamixPWBFunction)
+			allSatisfy: [:f | f owner name = 'majorObjectTest' ])
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testFunctionInvocationCorrectCase [
 	| caller callee |
 	self importCode:
