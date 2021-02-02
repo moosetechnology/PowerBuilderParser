@@ -10,6 +10,19 @@ Class {
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
+{ #category : #running }
+PWBSVNManager class >> run [
+	<example>
+	self new run
+]
+
+{ #category : #running }
+PWBSVNManager class >> run: aSVNRepoURL [
+	self new
+		repoUrl: aSVNRepoURL;
+		run
+]
+
 { #category : #'as yet unclassified' }
 PWBSVNManager >> diffFilesUrls [
 	| prev |
@@ -77,6 +90,22 @@ PWBSVNManager >> initialize [
 	repoUrl := 'https://CIM-SVN.SA-CIM.local/svn/TestCI/'
 ]
 
+{ #category : #accessing }
+PWBSVNManager >> repoUrl: aSVNRepoURL [
+	repoUrl := aSVNRepoURL
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNManager >> run [
+	| lastHead |
+	[ [ true ]
+		whileTrue: [ lastHead := svnHead.
+			self getSvnHEADNumber.
+			svnHead = lastHead
+				ifFalse: [ self runViolations ].
+			(Duration minutes: 1) asDelay wait ] ] fork
+]
+
 { #category : #'as yet unclassified' }
 PWBSVNManager >> runViolations [
 	self downloadDiffFilesForHeadAndPrev.
@@ -89,15 +118,4 @@ PWBSVNManager >> runViolations [
 			(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / 'svnHead')
 				violations) publishDiff
-]
-
-{ #category : #'as yet unclassified' }
-PWBSVNManager >> watchChangesOnSVNServer [
-	| lastHead |
-	[ [ true ]
-		whileTrue: [ lastHead := svnHead.
-			self getSvnHEADNumber.
-			svnHead = lastHead
-				ifFalse: [ self runViolations ].
-			(Duration minutes: 1) asDelay wait ] ] fork
 ]
