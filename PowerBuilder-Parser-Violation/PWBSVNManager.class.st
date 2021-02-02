@@ -96,10 +96,6 @@ PWBSVNManager >> watchChangesOnSVNServer [
 	| lastHead |
 	[ [ true ]
 		whileTrue: [ lastHead := svnHead.
-			Transcript
-				show:
-					'Run
-			'.
 			self getSvnHEADNumber.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
