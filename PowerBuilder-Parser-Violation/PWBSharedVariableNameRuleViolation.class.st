@@ -13,7 +13,7 @@ PWBSharedVariableNameRuleViolation >> reportOn: stream [
 		space;
 		<< self pwbobjectName;
 		space;
-		<< 'doit commencer par <<s>> ';
+		<< 'doit commencer par <code>s</code> ';
 		space;
 		<< '</li>'
 ]

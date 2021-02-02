@@ -5,9 +5,17 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+PWBQueryLimitRuleViolation >> isReportCrossCommitViolation [
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
 PWBQueryLimitRuleViolation >> reportOn: stream [
+	self behavior ifNil: [ ^ self ].
 	stream
-		<< '<li>9999 dans ';
+		<< '<li>';
+		<< self value asString;
+		<< ' dans ';
 		<< self pwbobjectName;
 		<< '>>';
 		<< self behavior name;

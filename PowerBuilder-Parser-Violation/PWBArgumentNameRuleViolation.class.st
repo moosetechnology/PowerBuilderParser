@@ -14,7 +14,7 @@ PWBArgumentNameRuleViolation >> reportOn: stream [
 		<< '>>';
 		<< self behavior name;
 		space;
-		<< 'doit commencer par <<a>> ';
+		<< 'doit commencer par <code>a</code> ';
 		space;
 		<< '</li>'
 ]

@@ -36,6 +36,11 @@ PWBAbstractRuleViolation >> file: aFileReference [
 	file := aFileReference
 ]
 
+{ #category : #'as yet unclassified' }
+PWBAbstractRuleViolation >> isReportCrossCommitViolation [
+	^ false
+]
+
 { #category : #testing }
 PWBAbstractRuleViolation >> isSameAs: aPWBViolation [
 	^ self class = aPWBViolation class

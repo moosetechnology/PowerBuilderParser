@@ -13,7 +13,7 @@ PWBInstanceVariableNameRuleViolation >> reportOn: stream [
 		space;
 		<< self pwbobjectName;
 		space;
-		<< 'doit commencer par <<i>> ';
+		<< 'doit commencer par <code>i</code>';
 		space;
 		<< '</li>'
 ]

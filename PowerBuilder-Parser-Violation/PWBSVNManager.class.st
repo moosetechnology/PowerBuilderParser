@@ -6,6 +6,7 @@ Class {
 		'diff',
 		'lines',
 		'svnHead',
+		'svnHeadAuthor',
 		'repoUrlTextInput'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
@@ -116,8 +117,7 @@ PWBSVNManager >> initializePresenters [
 		label: 'SVN repository URL:';
 		whenTextIsAccepted: [ repoUrl := repoUrlTextInput text.
 			self isValidRepoUrl
-				ifTrue: [ repoUrlTextInput subwidget color: Color white.
-					self window close.
+				ifTrue: [ self window close.
 					self run ]
 				ifFalse: [ repoUrlTextInput subwidget color: Color red ] ]
 ]
@@ -148,7 +148,7 @@ PWBSVNManager >> run [
 			self getSvnHEADNumber.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
-			(Duration minutes: 1) asDelay wait ] ] fork
+			(Duration minutes: 5) asDelay wait ] ] fork
 ]
 
 { #category : #'as yet unclassified' }

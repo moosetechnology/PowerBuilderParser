@@ -15,7 +15,7 @@ PWBLocalVariableNameRuleViolation >> reportOn: stream [
 		<< '>>';
 		<< self behavior name;
 		space;
-		<< 'doit commencer par <<l>> ';
+		<< 'doit commencer par <code>l</code>';
 		space;
 		<< '</li>'
 ]

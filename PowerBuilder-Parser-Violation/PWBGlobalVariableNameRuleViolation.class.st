@@ -10,7 +10,7 @@ PWBGlobalVariableNameRuleViolation >> reportOn: stream [
 		<< '<li>Le nom de la variable global ';
 		<< self value;
 		space;
-		<< 'doit commencer par <<g>> ';
+		<< 'doit commencer par <code>g</code> ';
 		space;
 		<< '</li>'
 ]

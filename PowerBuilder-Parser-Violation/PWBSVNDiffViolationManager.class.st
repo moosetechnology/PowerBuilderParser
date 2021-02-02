@@ -17,8 +17,10 @@ PWBSVNDiffViolationManager class >> prev: aPrevViolations head: aHeadViolations 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> diffHeadPrev [
 	^ self head
-		select:
-			[ :violation | self prev allSatisfy: [ :each | (violation isSameAs: each) not ] ]
+		select: [ :violation | 
+			self prev
+				allSatisfy:
+					[ :each | (violation isSameAs: each) not or: [ violation isReportCrossCommitViolation ] ] ]
 ]
 
 { #category : #accessing }
