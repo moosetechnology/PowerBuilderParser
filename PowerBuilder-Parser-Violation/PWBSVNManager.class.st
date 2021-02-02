@@ -1,19 +1,27 @@
 Class {
 	#name : #PWBSVNManager,
-	#superclass : #Object,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'repoUrl',
 		'diff',
 		'lines',
-		'svnHead'
+		'svnHead',
+		'repoUrlTextInput'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
+{ #category : #specs }
+PWBSVNManager class >> defaultSpec [
+	^ SpBoxLayout newVertical
+		add: #repoUrlTextInput;
+		yourself
+]
+
 { #category : #running }
 PWBSVNManager class >> run [
 	<example>
-	self new run
+	^ self new openWithSpec
 ]
 
 { #category : #running }
@@ -88,6 +96,25 @@ PWBSVNManager >> getSvnHEADNumber [
 PWBSVNManager >> initialize [
 	super initialize.
 	repoUrl := 'https://CIM-SVN.SA-CIM.local/svn/TestCI/'
+]
+
+{ #category : #initialization }
+PWBSVNManager >> initializePresenters [
+	repoUrlTextInput := self instantiate: SpLabelledTextInput.
+	repoUrlTextInput acceptOnCR: true.
+	repoUrlTextInput
+		label: 'SVN repository URL:';
+		whenTextIsAccepted: [ repoUrl := repoUrlTextInput text.
+			self window close.
+			self run ]
+]
+
+{ #category : #initialization }
+PWBSVNManager >> initializeWindow: aWindowPresenter [
+
+	aWindowPresenter 
+		title: 'PWB Violation Manager';
+		initialExtent: 500@100
 ]
 
 { #category : #accessing }
