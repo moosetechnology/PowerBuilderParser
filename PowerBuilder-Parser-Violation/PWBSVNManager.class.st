@@ -31,6 +31,16 @@ PWBSVNManager class >> run: aSVNRepoURL [
 		run
 ]
 
+{ #category : #running }
+PWBSVNManager class >> updateData: aBuilder [
+	<worldMenu>
+	(aBuilder item: #RunPWBViolations)
+		parent: #PWBTools;
+		help: 'Launch process to alert on new violations on last commit';
+		label: 'RunPWBViolations';
+		action: [ self run ]
+]
+
 { #category : #'as yet unclassified' }
 PWBSVNManager >> diffFilesUrls [
 	| prev |
@@ -105,8 +115,11 @@ PWBSVNManager >> initializePresenters [
 	repoUrlTextInput
 		label: 'SVN repository URL:';
 		whenTextIsAccepted: [ repoUrl := repoUrlTextInput text.
-			self window close.
-			self run ]
+			self isValidRepoUrl
+				ifTrue: [ repoUrlTextInput subwidget color: Color white.
+					self window close.
+					self run ]
+				ifFalse: [ repoUrlTextInput subwidget color: Color red ] ]
 ]
 
 { #category : #initialization }
@@ -115,6 +128,11 @@ PWBSVNManager >> initializeWindow: aWindowPresenter [
 	aWindowPresenter 
 		title: 'PWB Violation Manager';
 		initialExtent: 500@100
+]
+
+{ #category : #initialization }
+PWBSVNManager >> isValidRepoUrl [
+	^ repoUrl beginsWith: 'https://'
 ]
 
 { #category : #accessing }
