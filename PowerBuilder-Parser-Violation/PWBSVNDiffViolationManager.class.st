@@ -15,6 +15,11 @@ PWBSVNDiffViolationManager class >> prev: aPrevViolations head: aHeadViolations 
 	^ self new prev: aPrevViolations head: aHeadViolations
 ]
 
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> author: aString [ 
+	author := aString
+]
+
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> diffHeadPrev [
 	^ self head
