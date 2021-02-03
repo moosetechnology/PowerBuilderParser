@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'head',
 		'prev',
-		'stream'
+		'stream',
+		'author'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -83,7 +84,9 @@ PWBSVNDiffViolationManager >> publishDiff [
 PWBSVNDiffViolationManager >> reportViolation: violations [
 	self prepareReport: violations.
 	LibC
-		resultOfCommand: 'powershell -file "sendMail.ps1" "' , self stream , '"'
+		resultOfCommand:
+			'powershell -file "sendMail.ps1" "' , self stream , '" "' , author
+				, '@sa-cim.fr"'
 ]
 
 { #category : #accessing }

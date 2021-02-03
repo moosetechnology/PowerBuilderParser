@@ -7,6 +7,7 @@ Class {
 		'lines',
 		'svnHead',
 		'svnHeadAuthor',
+		'svnHeadDate',
 		'repoUrlTextInput'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
@@ -94,13 +95,19 @@ PWBSVNManager >> ensureCreateDirStructure: aString [
 ]
 
 { #category : #'as yet unclassified' }
-PWBSVNManager >> getSvnHEADNumber [
+PWBSVNManager >> getSvnHEADInfo [
 	| info |
-	info := LibC resultOfCommand: 'svn info ' , repoUrl , ' --xml'.
-	svnHead := (((XMLDOMParser parse: info) document
-		descendantElementsDetect: [ :xmlElt | xmlElt name = 'commit' ])
-		attributeNodeAt: 'revision') value asInteger.
-	^ svnHead
+	info := (XMLDOMParser
+		parse: (LibC resultOfCommand: 'svn info ' , repoUrl , ' --xml'))
+		document
+		descendantElementsDetect: [ :xmlElt | xmlElt name = 'commit' ].
+	svnHead := (info attributeNodeAt: 'revision') value asInteger.
+	svnHeadAuthor := (info
+		descendantElementsDetect: [ :xmlElt | xmlElt name = 'author' ])
+		nodes anyOne asString.
+	svnHeadDate := (info
+		descendantElementsDetect: [ :xmlElt | xmlElt name = 'date' ]) nodes
+		anyOne asString asDateAndTime
 ]
 
 { #category : #initialization }
@@ -145,7 +152,7 @@ PWBSVNManager >> run [
 	| lastHead |
 	[ [ true ]
 		whileTrue: [ lastHead := svnHead.
-			self getSvnHEADNumber.
+			self getSvnHEADInfo.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
 			(Duration minutes: 5) asDelay wait ] ] fork
@@ -156,11 +163,13 @@ PWBSVNManager >> runViolations [
 	self downloadDiffFilesForHeadAndPrev.
 	^ (PWBSVNDiffViolationManager
 		prev:
-			(ViolationRunner
-				importFromFolder: FileSystem workingDirectory / 'svnPrev')
-				violations
+		(ViolationRunner
+		importFromFolder: FileSystem workingDirectory / 'svnPrev')
+		violations
 		head:
-			(ViolationRunner
+		(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / 'svnHead')
-				violations) publishDiff
+				violations)
+		author: svnHeadAuthor;
+		publishDiff
 ]
