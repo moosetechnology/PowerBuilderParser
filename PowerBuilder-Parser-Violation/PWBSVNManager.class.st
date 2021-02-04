@@ -144,7 +144,11 @@ PWBSVNManager >> isValidRepoUrl [
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> repoName [
-	^ ('/' split: repoUrl) last
+	"https://CIM-SVN.SA-CIM.local/svn/TestCI/>>TestCI"
+
+	^ (repoUrl
+		copyReplaceAll: 'https://CIM-SVN.SA-CIM.local/svn/'
+		with: '') copyReplaceAll: '/' with: ''
 ]
 
 { #category : #accessing }
