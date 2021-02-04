@@ -155,7 +155,7 @@ PWBSVNManager >> run [
 			self getSvnHEADInfo.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
-			(Duration minutes: 5) asDelay wait ] ] fork
+			(Duration minutes: 5) asDelay wait ] ] forkNamed: 'ViolationRunner'
 ]
 
 { #category : #'as yet unclassified' }
