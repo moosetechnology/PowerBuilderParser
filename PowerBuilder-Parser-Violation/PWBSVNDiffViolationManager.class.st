@@ -98,3 +98,8 @@ PWBSVNDiffViolationManager >> reportViolation: violations [
 PWBSVNDiffViolationManager >> stream [
 	^ stream contents
 ]
+
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> violationContext [
+	^ 'Dans le but d''ameliorer le code Protect, on a décider de supprimer progressivement les 9999 des requettes find ainsi que tous ce qui ne respect pas les normes de developpements instaurées dans l''equipe. Dans cet optique, je vous repporte les violations suivantes:'
+]

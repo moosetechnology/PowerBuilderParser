@@ -132,6 +132,23 @@ PWBAbstractViolationDetectVisitor >> violations: anObject [
 ]
 
 { #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
+	| eventName |
+	eventName := self visit: aPWBASTEventDeclaration eventReferenceName.
+	currentBehavior := (FamixPWBEvent named: eventName)
+		sourceAnchor:
+			(FamixPWBIndexedFileAnchor new
+				startPos: (self unpreprocessedPosition: aPWBASTEventDeclaration startPosition);
+				endPos: (self unpreprocessedPosition: aPWBASTEventDeclaration stopPosition)).
+	self visit: aPWBASTEventDeclaration statements
+]
+
+{ #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTEventReferenceName: aPWBASTEventReferenceName [
+	^ self visit: aPWBASTEventReferenceName eventName
+]
+
+{ #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
 	| functionName |
 	functionName := self
