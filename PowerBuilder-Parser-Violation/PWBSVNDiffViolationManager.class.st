@@ -48,16 +48,8 @@ PWBSVNDiffViolationManager >> initialize [
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> prepareReport: aCollection [
 	stream
-		<< '<p><h3>Vous avez';
-		space;
-		<< aCollection size asString;
-		space;
-		<< 'violation'.
-	aCollection size = 1
-		ifFalse: [ stream nextPut: $s ].
-	stream
-		<< ' sur vos derniers changements qui sont:</h3><ul>';
-		cr.
+		<< '<p>';
+		<< self violationContext.
 	aCollection do: [ :violation | violation reportOn: stream ].
 	stream << '</ul></p>'
 ]
@@ -101,5 +93,5 @@ PWBSVNDiffViolationManager >> stream [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> violationContext [
-	^ 'Dans le but d''ameliorer le code Protect, on a décider de supprimer progressivement les 9999 des requettes find ainsi que tous ce qui ne respect pas les normes de developpements instaurées dans l''equipe. Dans cet optique, je vous repporte les violations suivantes:'
+	^ 'Dans le but d''ameliorer le code Protect, on a decider de supprimer progressivement les 9999 des requettes find ainsi que tout ce qui ne respecte pas les normes de developpement instaurées dans l''equipe. Dans cette optique, je vous rapporte les violations suivantes:'
 ]
