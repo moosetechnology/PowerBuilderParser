@@ -142,6 +142,11 @@ PWBSVNManager >> isValidRepoUrl [
 	^ repoUrl beginsWith: 'https://'
 ]
 
+{ #category : #'as yet unclassified' }
+PWBSVNManager >> repoName [
+	^ ('/' split: repoUrl) last
+]
+
 { #category : #accessing }
 PWBSVNManager >> repoUrl: aSVNRepoURL [
 	repoUrl := aSVNRepoURL
@@ -155,7 +160,8 @@ PWBSVNManager >> run [
 			self getSvnHEADInfo.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
-			(Duration minutes: 5) asDelay wait ] ] forkNamed: 'ViolationRunner'
+			(Duration minutes: 5) asDelay wait ] ]
+		forkNamed: 'ViolationRunner' , self repoName
 ]
 
 { #category : #'as yet unclassified' }
@@ -171,5 +177,6 @@ PWBSVNManager >> runViolations [
 				importFromFolder: FileSystem workingDirectory / 'svnHead')
 				violations)
 		author: svnHeadAuthor;
+		repoName: self repoName;
 		publishDiff
 ]

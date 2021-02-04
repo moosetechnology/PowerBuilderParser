@@ -5,7 +5,8 @@ Class {
 		'head',
 		'prev',
 		'stream',
-		'author'
+		'author',
+		'repoName'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -77,6 +78,16 @@ PWBSVNDiffViolationManager >> publishDiff [
 	diff ifNotEmpty: [ self reportViolation: diff ]
 ]
 
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> repoName [
+	^ repoName
+]
+
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> repoName: aString [
+	repoName := aString
+]
+
 { #category : #running }
 PWBSVNDiffViolationManager >> reportViolation: violations [
 	self prepareReport: violations.
@@ -93,5 +104,6 @@ PWBSVNDiffViolationManager >> stream [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> violationContext [
-	^ 'Dans le but d''ameliorer le code Protect, on a decider de supprimer progressivement les 9999 des requettes find ainsi que tout ce qui ne respecte pas les normes de developpement instaurées dans l''equipe. Dans cette optique, je vous rapporte les violations suivantes:'
+	^ 'Dans le but d''ameliorer le code Protect, on a decider de supprimer progressivement les 9999 des requettes find ainsi que tout ce qui ne respecte pas les normes de developpement instaurées dans l''equipe. Dans cette optique, je vous rapporte les violations suivantes sur la version '
+		, repoName , ':'
 ]
