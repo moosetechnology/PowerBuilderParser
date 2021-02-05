@@ -44,6 +44,15 @@ PWBSVNManager class >> updateData: aBuilder [
 ]
 
 { #category : #'as yet unclassified' }
+PWBSVNManager >> cleanUp [
+	(FileSystem workingDirectory / ('svnPrev' , self repoName))
+		ensureDeleteAll.
+		(FileSystem workingDirectory / ('svnHead' , self repoName))
+		ensureDeleteAll.
+		
+]
+
+{ #category : #'as yet unclassified' }
 PWBSVNManager >> diffFilesUrls [
 	| prev |
 	"self getSvnHEADNumber."
@@ -64,7 +73,6 @@ PWBSVNManager >> diffFilesUrls [
 { #category : #'as yet unclassified' }
 PWBSVNManager >> downloadDiffFilesForHeadAndPrev [
 	| diffFiles |
-	self halt.
 	diffFiles := self diffFilesUrls.
 	self
 		downloadFiles: diffFiles
@@ -176,7 +184,7 @@ PWBSVNManager >> run [
 { #category : #'as yet unclassified' }
 PWBSVNManager >> runViolations [
 	self downloadDiffFilesForHeadAndPrev.
-	^ (PWBSVNDiffViolationManager
+	(PWBSVNDiffViolationManager
 		prev:
 		(ViolationRunner
 		importFromFolder: FileSystem workingDirectory / ('svnPrev' , self repoName))
@@ -187,5 +195,6 @@ PWBSVNManager >> runViolations [
 				violations)
 		author: svnHeadAuthor;
 		repoName: self repoName;
-		publishDiff
+		publishDiff.
+	self cleanUp
 ]
