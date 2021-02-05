@@ -49,3 +49,10 @@ PWBIRValueHolder >> declaredType: anObject [
 PWBIRValueHolder >> name: aString [
 	name := aString
 ]
+
+{ #category : #converting }
+PWBIRValueHolder >> toFamixAsMemberOfUserObject: userObject [
+	^(self toFamix: FamixPWBAttribute) 
+		parentType: userObject ;
+		yourself
+]

@@ -27,7 +27,7 @@ PWBIRFunction >> declaredType: anObject [
 	declaredType := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PWBIRFunction >> increaseCyclomaticComplexity [
 	self flag: #TODO
 ]
@@ -35,4 +35,11 @@ PWBIRFunction >> increaseCyclomaticComplexity [
 { #category : #testing }
 PWBIRFunction >> isBehavioural [
 	^true
+]
+
+{ #category : #converting }
+PWBIRFunction >> toFamixAsMemberOfUserObject: userObject [
+	^(self toFamix: FamixPWBFunction) 
+		parentType: userObject ;
+		yourself
 ]

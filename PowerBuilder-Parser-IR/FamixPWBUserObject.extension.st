@@ -2,6 +2,6 @@ Extension { #name : #FamixPWBUserObject }
 
 { #category : #'*PowerBuilder-Parser-IR' }
 FamixPWBUserObject >> addMemberIR: anIREntity [
-	(anIREntity toFamix: FamixPWBAttribute)
+	(anIREntity toFamixAsMemberOfUserObject: self)
 		parentType: self
 ]

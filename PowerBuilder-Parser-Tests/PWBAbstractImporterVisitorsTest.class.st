@@ -58,3 +58,8 @@ PWBAbstractImporterVisitorsTest >> setupVisitor [
 		"preprocessingMap: OrderedDictionary new;"
 		initContextStackFromModel: model
 ]
+
+{ #category : #running }
+PWBAbstractImporterVisitorsTest >> tearDown [ 
+	model inspect
+]

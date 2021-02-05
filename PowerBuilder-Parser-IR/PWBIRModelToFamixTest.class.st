@@ -119,3 +119,33 @@ PWBIRModelToFamixTest >> testToFamixValueHolderSeveralExpectedKind [
 	self assert: fmx isStub.
 
 ]
+
+{ #category : #tests }
+PWBIRModelToFamixTest >> testUserobjectFunctionMemberToFamixMethod [
+	| typ |
+	typ := model ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
+	model ensureIR: PWBIRFunction named: 'mth' owner: typ.
+	
+	typ := typ toFamix.
+
+	self assert: typ methods size equals: 1.
+	self assert: typ methods anyOne name equals: 'mth'.
+	self assert: typ methods anyOne parentType equals: typ.
+	
+
+]
+
+{ #category : #tests }
+PWBIRModelToFamixTest >> testUserobjectVarMemberToFamixAttribute [
+	| typ |
+	typ := model ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
+	model ensureIR: PWBIRValueHolder named: 'att' owner: typ.
+	
+	typ := typ toFamix.
+
+	self assert: typ attributes size equals: 1.
+	self assert: typ attributes anyOne name equals: 'att'.
+	self assert: typ attributes anyOne parentType equals: typ.
+	
+
+]

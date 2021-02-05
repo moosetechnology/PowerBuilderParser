@@ -74,6 +74,16 @@ PWBIRNamedEntity >> expectedFamixKinds: aCollection [
 ]
 
 { #category : #accessing }
+PWBIRNamedEntity >> famixEntity [
+	^ famixEntity
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> famixEntity: anObject [
+	^ famixEntity := anObject
+]
+
+{ #category : #accessing }
 PWBIRNamedEntity >> file [
 	^ file
 ]
@@ -187,5 +197,6 @@ PWBIRNamedEntity >> toFamix: aFamixClass [
 PWBIRNamedEntity >> verifyActualClasses: aCollection matchGivenClass: aFamixClass [
 	^aCollection
 		detect: [ :class | class includesBehavior: aFamixClass ]
-		ifNone: [  PWBIRWrongFamixClass signal ]
+		ifNone: [  PWBIRWrongFamixClass signal:
+			( aFamixClass name , ' does not match any of: ' , (', ' join: (aCollection collect: #name)) ) ]
 ]
