@@ -64,15 +64,16 @@ PWBSVNManager >> diffFilesUrls [
 { #category : #'as yet unclassified' }
 PWBSVNManager >> downloadDiffFilesForHeadAndPrev [
 	| diffFiles |
+	self halt.
 	diffFiles := self diffFilesUrls.
 	self
 		downloadFiles: diffFiles
 		rev: svnHead - 1
-		dest: (self ensureCreateDirStructure: 'svnPrev') pathString.
+		dest: (self ensureCreateDirStructure: 'svnPrev' , self repoName) pathString.
 	self
 		downloadFiles: diffFiles
 		rev: svnHead
-		dest: (self ensureCreateDirStructure: 'svnHead') pathString
+		dest: (self ensureCreateDirStructure: 'svnHead' , self repoName) pathString
 ]
 
 { #category : #'as yet unclassified' }
@@ -122,7 +123,7 @@ PWBSVNManager >> initializePresenters [
 	repoUrlTextInput acceptOnCR: true.
 	repoUrlTextInput
 		label: 'SVN repository URL:';
-		whenTextIsAccepted: [ repoUrl := repoUrlTextInput text.
+		whenTextIsAccepted: [ self repoUrl: repoUrlTextInput text.
 			self isValidRepoUrl
 				ifTrue: [ self window close.
 					self run ]
@@ -144,16 +145,20 @@ PWBSVNManager >> isValidRepoUrl [
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> repoName [
-	"https://CIM-SVN.SA-CIM.local/svn/TestCI/>>TestCI"
+	"https://CIM-SVN.SA-CIM.local/svn/TestCI>>TestCI"
+	^ ('/' split: repoUrl) last
+]
 
-	^ (repoUrl
-		copyReplaceAll: 'https://CIM-SVN.SA-CIM.local/svn/'
-		with: '') copyReplaceAll: '/' with: ''
+{ #category : #accessors }
+PWBSVNManager >> repoUrl [
+	^ repoUrl
 ]
 
 { #category : #accessing }
 PWBSVNManager >> repoUrl: aSVNRepoURL [
-	repoUrl := aSVNRepoURL
+	repoUrl := (aSVNRepoURL endsWith: '/')
+		ifTrue: [ aSVNRepoURL copyFrom: 1 to: aSVNRepoURL size - 1 ]
+		ifFalse: [ aSVNRepoURL ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -174,11 +179,11 @@ PWBSVNManager >> runViolations [
 	^ (PWBSVNDiffViolationManager
 		prev:
 		(ViolationRunner
-		importFromFolder: FileSystem workingDirectory / 'svnPrev')
+		importFromFolder: FileSystem workingDirectory / ('svnPrev' , self repoName))
 		violations
 		head:
 		(ViolationRunner
-				importFromFolder: FileSystem workingDirectory / 'svnHead')
+				importFromFolder: FileSystem workingDirectory / ('svnHead' , self repoName))
 				violations)
 		author: svnHeadAuthor;
 		repoName: self repoName;
