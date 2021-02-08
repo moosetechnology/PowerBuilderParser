@@ -5,11 +5,6 @@ Class {
 }
 
 { #category : #visiting }
-PWBIfStatementViolationDetector >> visitPWBASTIfMultiLine: aPWBASTIfMultiLine [
-	self halt
-]
-
-{ #category : #visiting }
 PWBIfStatementViolationDetector >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine [
 	self
 		addViolation:
