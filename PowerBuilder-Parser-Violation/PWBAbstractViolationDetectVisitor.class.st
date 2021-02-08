@@ -140,7 +140,8 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDe
 			(FamixPWBIndexedFileAnchor new
 				startPos: (self unpreprocessedPosition: aPWBASTEventDeclaration startPosition);
 				endPos: (self unpreprocessedPosition: aPWBASTEventDeclaration stopPosition)).
-	self visit: aPWBASTEventDeclaration statements
+	self visit: aPWBASTEventDeclaration statements.
+	currentBehavior := nil
 ]
 
 { #category : #visiting }
@@ -158,7 +159,8 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunct
 			(FamixPWBIndexedFileAnchor new
 				startPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition startPosition);
 				endPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition stopPosition)).
-	self visit: aPWBASTFunctionDefinition statements
+	self visit: aPWBASTFunctionDefinition statements.
+	currentBehavior := nil
 ]
 
 { #category : #visiting }
@@ -201,7 +203,8 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSub
 						unpreprocessedPosition: aPWBASTSubroutineDefinition startPosition);
 				endPos:
 					(self unpreprocessedPosition: aPWBASTSubroutineDefinition stopPosition)).
-	self visit: aPWBASTSubroutineDefinition statements
+	self visit: aPWBASTSubroutineDefinition statements.
+	currentBehavior := nil
 ]
 
 { #category : #visiting }
