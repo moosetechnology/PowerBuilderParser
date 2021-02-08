@@ -20,6 +20,32 @@ PWBViolationDetectVisitorTest >> setUp [
 ]
 
 { #category : #tests }
+PWBViolationDetectVisitorTest >> testMultiLineIfStatement [
+	| ast |
+	self skip.
+	ast := parser ifStatement
+		parse:
+			'if boolean = true then 
+			else li_vaiable  = 2 
+			endif'.
+	self assert: (visitor visit: ast) violations size equals: 1
+]
+
+{ #category : #tests }
+PWBViolationDetectVisitorTest >> testSingleLineIfStatement [
+	| ast |
+	ast := parser ifStatement parse: 'if alpha = true then dosomething'.
+	self assert: (visitor visit: ast) violations size equals: 1
+]
+
+{ #category : #tests }
+PWBViolationDetectVisitorTest >> testSingleLineIfStatement1 [
+	| ast |
+	ast := parser ifStatement parse: 'if alpha = true then dosomething else dosomthingelse'.
+	self assert: (visitor visit: ast) violations size equals: 1
+]
+
+{ #category : #tests }
 PWBViolationDetectVisitorTest >> testVisitViolationNumber [
 	| ast |
 	ast := parser number parse: '999999'.

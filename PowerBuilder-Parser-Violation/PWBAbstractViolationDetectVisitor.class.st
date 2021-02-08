@@ -177,6 +177,13 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVa
 ]
 
 { #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTIfStatement: aPWBASTIfStatement [
+	self
+		auxiliaryVisitor: PWBIfStatementViolationDetector
+		visit: aPWBASTIfStatement
+]
+
+{ #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTNumber: aPWBASTNumber [
 	self
 		auxiliaryVisitor: PWBQueryLimitViolationDetector
