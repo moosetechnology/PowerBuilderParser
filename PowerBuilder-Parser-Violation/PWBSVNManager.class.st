@@ -74,7 +74,7 @@ PWBSVNManager >> downloadDiffFilesForHeadAndPrev [
 	diffFiles := self diffFilesUrls.
 	self
 		downloadFiles: diffFiles
-		rev: svnHead - 1
+		rev: svnPrev
 		dest: (self ensureCreateDirStructure: 'svnPrev' , self repoName) pathString.
 	self
 		downloadFiles: diffFiles

@@ -6,7 +6,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 PWBSingleLineIfStatementRuleViolation >> reportOn: stream [
-	self behavior ifNil: [ ^ self ].
+	"self behavior ifNil: [ ^ self ].
 	stream
 		<< '<li> Une instruction if sur la ligne sans end if ';
 		<< ' dans ';
@@ -18,5 +18,7 @@ PWBSingleLineIfStatementRuleViolation >> reportOn: stream [
 		space;
 		<< self relativeLine asString;
 		space;
-		<< '</li>'
+		<< '</li>'"
+
+	^ stream
 ]
