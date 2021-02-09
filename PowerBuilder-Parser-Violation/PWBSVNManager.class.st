@@ -8,7 +8,8 @@ Class {
 		'svnHead',
 		'svnHeadAuthor',
 		'svnHeadDate',
-		'repoUrlTextInput'
+		'repoUrlTextInput',
+		'svnPrev'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -54,13 +55,10 @@ PWBSVNManager >> cleanUp [
 
 { #category : #'as yet unclassified' }
 PWBSVNManager >> diffFilesUrls [
-	| prev |
-	"self getSvnHEADNumber."
-	prev := svnHead - 1.
 	diff := LibC
 		resultOfCommand:
-			'svn diff -r ' , prev asString , ':' , svnHead asString , String space
-				, repoUrl , ' --summarize'.
+			'svn diff -r ' , svnPrev asString , ':' , svnHead asString
+				, String space , repoUrl , ' --summarize'.
 	lines := diff lines asOrderedCollection
 		reject: [ :line | 
 			(line beginsWith: 'D')
@@ -104,19 +102,21 @@ PWBSVNManager >> ensureCreateDirStructure: aString [
 ]
 
 { #category : #'as yet unclassified' }
-PWBSVNManager >> getSvnHEADInfo [
+PWBSVNManager >> getSvnInfo [
 	| info |
 	info := (XMLDOMParser
-		parse: (LibC resultOfCommand: 'svn info ' , repoUrl , ' --xml'))
-		document
-		descendantElementsDetect: [ :xmlElt | xmlElt name = 'commit' ].
-	svnHead := (info attributeNodeAt: 'revision') value asInteger.
-	svnHeadAuthor := (info
+		parse: (LibC resultOfCommand: 'svn log ' , repoUrl , ' --limit 2 --xml'))
+		document descendantElementsDetect: [ :xmlElt | xmlElt name = 'log' ].
+	svnHead := (info firstElement attributeNodeAt: 'revision') value
+		asInteger.
+	svnHeadAuthor := (info firstElement
 		descendantElementsDetect: [ :xmlElt | xmlElt name = 'author' ])
 		nodes anyOne asString.
-	svnHeadDate := (info
+	svnHeadDate := (info firstElement
 		descendantElementsDetect: [ :xmlElt | xmlElt name = 'date' ]) nodes
-		anyOne asString asDateAndTime
+		anyOne asString asDateAndTime.
+	svnPrev := (info lastElement attributeNodeAt: 'revision') value
+		asInteger
 ]
 
 { #category : #initialization }
@@ -174,7 +174,7 @@ PWBSVNManager >> run [
 	| lastHead |
 	[ [ true ]
 		whileTrue: [ lastHead := svnHead.
-			self getSvnHEADInfo.
+			self getSvnInfo.
 			svnHead = lastHead
 				ifFalse: [ self runViolations ].
 			(Duration minutes: 5) asDelay wait ] ]
