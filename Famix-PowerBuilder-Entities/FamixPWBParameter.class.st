@@ -60,6 +60,11 @@ FamixPWBParameter >> isPWBDataWindow [
 ]
 
 { #category : #testing }
+FamixPWBParameter >> isParameter [
+	^ true
+]
+
+{ #category : #testing }
 FamixPWBParameter >> isReadOnly [
 	^ ({'readOnly' . 'ref'}
 		anySatisfy: [ :each | each = parameterOption ]) or: [ self isBasic ]
