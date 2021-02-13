@@ -23,3 +23,10 @@ PWBIRDependencyInvocation >> candidates [
 PWBIRDependencyInvocation >> candidates: anObject [
 	candidates := anObject
 ]
+
+{ #category : #converting }
+PWBIRDependencyInvocation >> toFamixDependencyFromBehavioural: aFamixBehavioural [
+	FamixPWBInvocation new
+		sender: aFamixBehavioural ;
+		candidates: candidates
+]

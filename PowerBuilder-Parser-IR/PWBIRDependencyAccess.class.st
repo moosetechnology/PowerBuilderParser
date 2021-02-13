@@ -45,3 +45,15 @@ PWBIRDependencyAccess >> printOn: stream [
 			nextPut: $)
 	]
 ]
+
+{ #category : #converting }
+PWBIRDependencyAccess >> toFamix [
+
+]
+
+{ #category : #converting }
+PWBIRDependencyAccess >> toFamixDependencyFromBehavioural: aFamixBehavioural [
+	FamixPWBAccess new
+		accessor: aFamixBehavioural ;
+		variable: irEntity toFamix
+]
