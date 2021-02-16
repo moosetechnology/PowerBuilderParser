@@ -2,7 +2,8 @@ Class {
 	#name : #PWBQueryLimitViolationDetector,
 	#superclass : #PWBAbstractViolationDetectVisitor,
 	#instVars : [
-		'limit'
+		'limit',
+		'caseNumber'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -14,15 +15,23 @@ PWBQueryLimitViolationDetector >> initialize [
 ]
 
 { #category : #visiting }
+PWBQueryLimitViolationDetector >> visitPWBASTChooseCase: aPWBASTChooseCase [
+	self halt.
+	self visitAll: aPWBASTChooseCase cases.
+	self visit: aPWBASTChooseCase caseElse
+]
+
+{ #category : #visiting }
 PWBQueryLimitViolationDetector >> visitPWBASTNumber: anPWBASTNumber [
 	(anPWBASTNumber number beginsWith: limit)
 		ifTrue: [ self
 				addViolation:
-					(PWBQueryLimitRuleViolation new
+					(PWBLimitRuleViolation new
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: anPWBASTNumber startPosition);
 						stopPosition: (self unpreprocessedPosition: anPWBASTNumber stopPosition);
 						libray: currentLibrary;
 						behavior: currentBehavior;
+						reportMessageFor9999;
 						yourself) ]
 ]

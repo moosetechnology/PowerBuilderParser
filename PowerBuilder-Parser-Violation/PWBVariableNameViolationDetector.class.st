@@ -5,21 +5,19 @@ Class {
 }
 
 { #category : #visiting }
-PWBVariableNameViolationDetector >> verifyNode: aPWBASTNode begin: aString violationClass: aPWBViolationClass [
+PWBVariableNameViolationDetector >> verifyNode: aPWBASTNode begin: aString [
 	| attributes |
 	attributes := (self visit: aPWBASTNode attributes) flatten.
-	attributes
-		do: [ :att | 
+	^ attributes
+		collect: [ :att | 
 			(att asLowercase beginsWith: aString)
-				ifFalse: [ self
-						addViolation:
-							(aPWBViolationClass new
-								value: att;
-								file: self unpreprocessedFile;
-								startPosition: (self unpreprocessedPosition: aPWBASTNode startPosition);
-								stopPosition: (self unpreprocessedPosition: aPWBASTNode stopPosition);
-								libray: currentLibrary;
-								yourself) ] ]
+				ifFalse: [ PWBVariableNameViolation new
+						value: att;
+						file: self unpreprocessedFile;
+						startPosition: (self unpreprocessedPosition: aPWBASTNode startPosition);
+						stopPosition: (self unpreprocessedPosition: aPWBASTNode stopPosition);
+						libray: currentLibrary;
+						yourself ] ]
 ]
 
 { #category : #helpers }
@@ -35,14 +33,14 @@ PWBVariableNameViolationDetector >> visitPWBASTArgument: aPWBASTArgument [
 	(name beginsWith: 'a')
 		ifFalse: [ self
 				addViolation:
-					(PWBArgumentNameRuleViolation new
+					(PWBVariableNameViolation new
 						value: name;
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: aPWBASTArgument startPosition);
 						stopPosition: (self unpreprocessedPosition: aPWBASTArgument stopPosition);
 						libray: currentLibrary;
 						behavior: currentBehavior;
-						yourself) ]
+						reportMessageForArgumentName) ]
 ]
 
 { #category : #visiting }
@@ -57,26 +55,26 @@ PWBVariableNameViolationDetector >> visitPWBASTAttributes: aPWBASTAttributes [
 
 { #category : #visiting }
 PWBVariableNameViolationDetector >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
-	self
-		verifyNode: aPWBASTGlobalVariables
-		begin: 'g'
-		violationClass: PWBGlobalVariableNameRuleViolation
+	(self verifyNode: aPWBASTGlobalVariables begin: 'g')
+		do: [ :each | 
+			each reportMessageForGlobalVariableName.
+			self addViolation: each ]
 ]
 
 { #category : #visiting }
 PWBVariableNameViolationDetector >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
-	self
-		verifyNode: aPWBASTSharedVariables
-		begin: 's'
-		violationClass: PWBSharedVariableNameRuleViolation
+	(self verifyNode: aPWBASTSharedVariables begin: 's')
+		do: [ :each | 
+			each reportMessageForSharedVariableName.
+			self addViolation: each ]
 ]
 
 { #category : #visiting }
 PWBVariableNameViolationDetector >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
-	self
-		verifyNode: aPWBASTTypeVariable
-		begin: 'i'
-		violationClass: PWBInstanceVariableNameRuleViolation
+	(self verifyNode: aPWBASTTypeVariable begin: 'i')
+		do: [ :each | 
+			each reportMessageForInstanceVariableName.
+			self addViolation: each ]
 ]
 
 { #category : #helpers }
@@ -101,7 +99,7 @@ PWBVariableNameViolationDetector >> visitPWBASTVariableDeclarations: aPWBASTVari
 					(var asLowercase beginsWith: 'l')
 						ifFalse: [ self
 								addViolation:
-									(PWBLocalVariableNameRuleViolation new
+									(PWBVariableNameViolation new
 										value: var;
 										file: self unpreprocessedFile;
 										startPosition:
@@ -111,5 +109,6 @@ PWBVariableNameViolationDetector >> visitPWBASTVariableDeclarations: aPWBASTVari
 											(self unpreprocessedPosition: aPWBASTVariableDeclarations stopPosition);
 										libray: currentLibrary;
 										behavior: currentBehavior;
+										reportMessageForLocalVariableName;
 										yourself) ] ] ]
 ]

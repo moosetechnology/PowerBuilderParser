@@ -132,6 +132,20 @@ PWBAbstractViolationDetectVisitor >> violations: anObject [
 ]
 
 { #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTArgument: aPWBASTArgument [
+	self
+		auxiliaryVisitor: PWBVariableNameViolationDetector
+		visit: aPWBASTArgument
+]
+
+{ #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTChooseCase: aPWBASTChooseCase [
+	self
+		auxiliaryVisitor: PWBQueryLimitViolationDetector
+		visit: aPWBASTChooseCase
+]
+
+{ #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTEventDeclaration: aPWBASTEventDeclaration [
 	| eventName |
 	eventName := self visit: aPWBASTEventDeclaration eventReferenceName.
@@ -151,22 +165,21 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTEventReferenceName: aPWBASTEvent
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunctionDefinition [
-	| functionName |
-	functionName := self
-		visit: aPWBASTFunctionDefinition functionSignature.
-	currentBehavior := (FamixPWBFunction named: functionName)
+	currentBehavior := FamixPWBFunction new
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				startPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition startPosition);
 				endPos: (self unpreprocessedPosition: aPWBASTFunctionDefinition stopPosition)).
+	self visit: aPWBASTFunctionDefinition functionSignature.
 	self visit: aPWBASTFunctionDefinition statements.
 	currentBehavior := nil
 ]
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
-	self visit: aPWBASTFunctionSignature arguments.
-	^ self visit: aPWBASTFunctionSignature identifier
+	self currentBehavior
+		name: (self visit: aPWBASTFunctionSignature identifier).
+	self visit: aPWBASTFunctionSignature arguments
 ]
 
 { #category : #visiting }
@@ -201,10 +214,7 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVa
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSubroutineDefinition [
-	| subroutineName |
-	subroutineName := self
-		visit: aPWBASTSubroutineDefinition subroutineSignature.
-	currentBehavior := (FamixPWBSubRoutine named: subroutineName)
+	currentBehavior := FamixPWBSubRoutine new
 		sourceAnchor:
 			(FamixPWBIndexedFileAnchor new
 				startPos:
@@ -212,13 +222,16 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSub
 						unpreprocessedPosition: aPWBASTSubroutineDefinition startPosition);
 				endPos:
 					(self unpreprocessedPosition: aPWBASTSubroutineDefinition stopPosition)).
+	self visit: aPWBASTSubroutineDefinition subroutineSignature.
 	self visit: aPWBASTSubroutineDefinition statements.
 	currentBehavior := nil
 ]
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	^ self visit: aPWBASTSubroutineSignature identifier
+	currentBehavior
+		name: (self visit: aPWBASTSubroutineSignature identifier).
+	self visit: aPWBASTSubroutineSignature arguments
 ]
 
 { #category : #visiting }

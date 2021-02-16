@@ -6,7 +6,8 @@ Class {
 		'startPosition',
 		'stopPosition',
 		'library',
-		'behavior'
+		'behavior',
+		'report'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -34,6 +35,11 @@ PWBAbstractRuleViolation >> file [
 { #category : #accessing }
 PWBAbstractRuleViolation >> file: aFileReference [
 	file := aFileReference
+]
+
+{ #category : #testing }
+PWBAbstractRuleViolation >> isNameViolation [
+	^ false
 ]
 
 { #category : #'as yet unclassified' }
@@ -75,7 +81,7 @@ PWBAbstractRuleViolation >> relativeLine [
 
 { #category : #'as yet unclassified' }
 PWBAbstractRuleViolation >> reportOn: stream [
-	self subclassResponsibility
+	stream << report
 ]
 
 { #category : #accessing }

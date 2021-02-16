@@ -104,6 +104,6 @@ PWBSVNDiffViolationManager >> stream [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> violationContext [
-	^ 'Dans le but d''ameliorer le code Protect, on a decider de supprimer progressivement les 9999 des requettes find ainsi que tout ce qui ne respecte pas les normes de developpement instaurees dans l''equipe. Dans cette optique, je vous rapporte les violations suivantes sur la version '
+	^ 'Dans le but d''ameliorer le code Protect, on a decider de supprimer progressivement les 9999 sur find ou rowscopy ainsi que tout ce qui ne respecte pas les normes de developpement instaurees dans l''equipe. Dans cette optique, je vous rapporte les violations suivantes sur la version '
 		, repoName , ':'
 ]
