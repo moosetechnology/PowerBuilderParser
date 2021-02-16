@@ -1,16 +1,16 @@
 Class {
-	#name : #PWBLimitRuleViolation,
+	#name : #PWB999RuleViolation,
 	#superclass : #PWBAbstractRuleViolation,
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
 { #category : #'as yet unclassified' }
-PWBLimitRuleViolation >> isReportCrossCommitViolation [
+PWB999RuleViolation >> isReportCrossCommitViolation [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-PWBLimitRuleViolation >> reportMessageFor9999 [
+PWB999RuleViolation >> reportMessageFor9999 [
 	report := [ '<li>' , self value asString , ' dans '
 		, self pwbobjectName , '>>' , self behavior name , String space
 		, 'a la ligne' , String space , self relativeLine asString

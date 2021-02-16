@@ -177,9 +177,9 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionDefinition: aPWBASTFunct
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
-	self currentBehavior
-		name: (self visit: aPWBASTFunctionSignature identifier).
-	self visit: aPWBASTFunctionSignature arguments
+	self
+		auxiliaryVisitor: PWBQueryLimitViolationDetector
+		visit: aPWBASTFunctionSignature
 ]
 
 { #category : #visiting }
@@ -229,9 +229,9 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineDefinition: aPWBASTSub
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
-	currentBehavior
-		name: (self visit: aPWBASTSubroutineSignature identifier).
-	self visit: aPWBASTSubroutineSignature arguments
+	self
+		auxiliaryVisitor: PWBQueryLimitViolationDetector
+		visit: aPWBASTSubroutineSignature
 ]
 
 { #category : #visiting }
