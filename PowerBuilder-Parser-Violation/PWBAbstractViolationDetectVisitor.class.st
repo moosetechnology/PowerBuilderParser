@@ -141,7 +141,7 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTArgument: aPWBASTArgument [
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTChooseCase: aPWBASTChooseCase [
 	self
-		auxiliaryVisitor: PWBQueryLimitViolationDetector
+		auxiliaryVisitor: PWBChooseCaseViolationDetector
 		visit: aPWBASTChooseCase
 ]
 

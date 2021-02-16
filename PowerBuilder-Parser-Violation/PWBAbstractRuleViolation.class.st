@@ -7,7 +7,8 @@ Class {
 		'stopPosition',
 		'library',
 		'behavior',
-		'report'
+		'report',
+		'value'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -81,7 +82,7 @@ PWBAbstractRuleViolation >> relativeLine [
 
 { #category : #'as yet unclassified' }
 PWBAbstractRuleViolation >> reportOn: stream [
-	stream << report
+	stream << report value
 ]
 
 { #category : #accessing }
@@ -106,5 +107,10 @@ PWBAbstractRuleViolation >> stopPosition: anInteger [
 
 { #category : #accessing }
 PWBAbstractRuleViolation >> value [
-	^ file contents copyFrom: self startPosition to: self stopPosition
+	^ value
+]
+
+{ #category : #accessing }
+PWBAbstractRuleViolation >> value: aString [
+	value := aString
 ]

@@ -15,18 +15,12 @@ PWBQueryLimitViolationDetector >> initialize [
 ]
 
 { #category : #visiting }
-PWBQueryLimitViolationDetector >> visitPWBASTChooseCase: aPWBASTChooseCase [
-	self halt.
-	self visitAll: aPWBASTChooseCase cases.
-	self visit: aPWBASTChooseCase caseElse
-]
-
-{ #category : #visiting }
 PWBQueryLimitViolationDetector >> visitPWBASTNumber: anPWBASTNumber [
 	(anPWBASTNumber number beginsWith: limit)
 		ifTrue: [ self
 				addViolation:
 					(PWBLimitRuleViolation new
+						value: anPWBASTNumber number;
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: anPWBASTNumber startPosition);
 						stopPosition: (self unpreprocessedPosition: anPWBASTNumber stopPosition);

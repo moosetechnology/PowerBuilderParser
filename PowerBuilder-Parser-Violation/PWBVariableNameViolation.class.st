@@ -2,8 +2,7 @@ Class {
 	#name : #PWBVariableNameViolation,
 	#superclass : #PWBAbstractRuleViolation,
 	#instVars : [
-		'pwbobject',
-		'value'
+		'pwbobject'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
