@@ -4,10 +4,16 @@ Class {
 	#instVars : [
 		'parser',
 		'visitor',
-		'file'
+		'file',
+		'stream'
 	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
+
+{ #category : #running }
+PWBAbtractViolationDetectVisitorTest >> script [
+	^ stream contents
+]
 
 { #category : #running }
 PWBAbtractViolationDetectVisitorTest >> setUp [
@@ -17,7 +23,8 @@ PWBAbtractViolationDetectVisitorTest >> setUp [
 	file := Mock named: 'file'.
 	file stub fullName willReturn: ''.
 	file stub asFileReference willReturn: file.
-	visitor file: file
+	visitor file: file.
+	stream := WriteStream on: String new
 ]
 
 { #category : #'as yet unclassified' }

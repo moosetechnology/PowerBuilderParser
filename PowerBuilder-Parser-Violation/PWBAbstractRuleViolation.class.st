@@ -8,7 +8,8 @@ Class {
 		'library',
 		'behavior',
 		'report',
-		'value'
+		'value',
+		'severty'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -83,6 +84,16 @@ PWBAbstractRuleViolation >> relativeLine [
 { #category : #'as yet unclassified' }
 PWBAbstractRuleViolation >> reportOn: stream [
 	stream << report value
+]
+
+{ #category : #accessing }
+PWBAbstractRuleViolation >> severty [
+	^ severty
+]
+
+{ #category : #accessing }
+PWBAbstractRuleViolation >> severty: aString [
+	severty := aString
 ]
 
 { #category : #accessing }

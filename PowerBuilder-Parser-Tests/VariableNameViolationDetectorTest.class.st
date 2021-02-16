@@ -1,22 +1,8 @@
 Class {
 	#name : #VariableNameViolationDetectorTest,
 	#superclass : #PWBAbtractViolationDetectVisitorTest,
-	#instVars : [
-		'stream'
-	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
-
-{ #category : #running }
-VariableNameViolationDetectorTest >> script [
-	^ stream contents
-]
-
-{ #category : #running }
-VariableNameViolationDetectorTest >> setUp [
-	super setUp.
-	stream := WriteStream on: String new
-]
 
 { #category : #tests }
 VariableNameViolationDetectorTest >> testArgumentNameViolationDetection [

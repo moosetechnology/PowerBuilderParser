@@ -1,21 +1,53 @@
 Class {
 	#name : #ChooseCaseViolationDetectorTest,
 	#superclass : #PWBAbtractViolationDetectVisitorTest,
-	#instVars : [
-		'stream'
-	],
 	#category : #'PowerBuilder-Parser-Tests'
 }
 
 { #category : #tests }
-ChooseCaseViolationDetectorTest >> testLimitOfChooseCase [
+ChooseCaseViolationDetectorTest >> testChooseCaseWithOutCaseElse [
+	| violation |
+	self
+		sourceExample:
+			'public  function integer myfunc();
+CHOOSE CASE Real(cnt)
+
+CASE is < 10
+		sle_message = " < 10"
+END CHOOSE
+	end function'.
+	violation := (visitor visit: (parser parse: file contents))
+		violations anyOne.
+	violation file: file.
+	violation reportOn: stream.
+	self
+		assert: self script
+		equals:
+			'<li> ChooseCase  dans >>myfunc sans un elseCase. La violation commence a la  ligne 1 </li>'
 ]
 
 { #category : #tests }
-ChooseCaseViolationDetectorTest >> testVisitViolationCaseNumberFunction [
-	| ast violations |
-	ast := parser functionDefinition
-		parse:
+ChooseCaseViolationDetectorTest >> testNumberOfCaseIsLowerToNormal [
+	self
+		sourceExample:
+			'public  function integer myfunc();
+CHOOSE CASE Real(cnt)
+
+CASE is < 10
+		sle_message = " < 10"
+CASE ELSE
+		sle_message = "Cannot evaluate!"  
+END CHOOSE
+	end function'.
+	self
+		assert: (visitor visit: (parser parse: file contents)) violations isEmpty
+]
+
+{ #category : #tests }
+ChooseCaseViolationDetectorTest >> testNumberOfCaseIsUpperToNormal [
+	| violation |
+	self
+		sourceExample:
 			'public  function integer myfunc();
 CHOOSE CASE Real(cnt)
 
@@ -45,8 +77,12 @@ CASE ELSE
 		sle_message = "Cannot evaluate!"  
 END CHOOSE
 	end function'.
-	violations := (visitor visit: ast) violations.
-	self assert: violations size equals: 1.
-	self assert: violations anyOne behaviorName equals: 'myfunc'.
-	
+	violation := (visitor visit: (parser parse: file contents))
+		violations anyOne.
+	violation file: file.
+	violation reportOn: stream.
+	self
+		assert: self script
+		equals:
+			'<li> ChooseCase avec 12 dans >>myfunc . Le nombre de case doit etre normalement a 10. La violation commence a la  ligne 1 </li>'
 ]
