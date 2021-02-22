@@ -35,16 +35,6 @@ PWBIRModelToFamixTest >> testEntityToFamixExpectedKindSuperclassOfGivenType [
 ]
 
 { #category : #tests }
-PWBIRModelToFamixTest >> testEntityToFamixPreviousTypeNotGivenType [
-	| ir |
-	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	ir toFamix: fmxModel.
-
-	self should: [ ir toFamix: fmxModel class: FamixPWBRoutine ] raise: PWBIRWrongFamixClass.
-
-]
-
-{ #category : #tests }
 PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 	| ir fmx |
 	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
@@ -124,7 +114,7 @@ PWBIRModelToFamixTest >> testToFamixValueHolderSeveralExpectedKind [
 ]
 
 { #category : #tests }
-PWBIRModelToFamixTest >> testUserobjectFunctionMemberToFamixMethod [
+PWBIRModelToFamixTest >> testUserObjectMemberFunctionToFamixMethod [
 	| typ |
 	typ := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
 	irModel ensureIR: PWBIRFunction named: 'mth' owner: typ.
@@ -139,7 +129,7 @@ PWBIRModelToFamixTest >> testUserobjectFunctionMemberToFamixMethod [
 ]
 
 { #category : #tests }
-PWBIRModelToFamixTest >> testUserobjectVarMemberToFamixAttribute [
+PWBIRModelToFamixTest >> testUserObjectMemberVariableToFamixAttribute [
 	| typ |
 	typ := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
 	irModel ensureIR: PWBIRValueHolder named: 'att' owner: typ.
