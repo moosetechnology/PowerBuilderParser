@@ -15,6 +15,7 @@ Class {
 
 { #category : #mapping }
 PWBIRValueHolder class >> defaultFamixClasses [
+	"order is important here, the first in the list is meaningful"
 	^{ FamixPWBVariable . FamixPWBAttribute . FamixPWBInstanceVariable . FamixPWBGlobalVariable . FamixPWBLocalVariable . FamixPWBSharedVariable . FamixPWBParameter }
 ]
 
@@ -51,8 +52,8 @@ PWBIRValueHolder >> name: aString [
 ]
 
 { #category : #converting }
-PWBIRValueHolder >> toFamixAsMemberOfUserObject: userObject [
-	^(self toFamix: FamixPWBAttribute) 
+PWBIRValueHolder >> toFamix: famixModel asMemberOfUserObject: userObject [
+	^(self toFamix: famixModel class: FamixPWBAttribute) 
 		parentType: userObject ;
 		yourself
 ]

@@ -61,5 +61,5 @@ PWBAbstractImporterVisitorsTest >> setupVisitor [
 
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> tearDown [ 
-	model inspect
+	"model inspect"
 ]

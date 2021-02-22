@@ -7,7 +7,7 @@ Instance variable:
 "
 Class {
 	#name : #PWBIRDependencyAccess,
-	#superclass : #PWBIRDependencyEntity,
+	#superclass : #PWBIRDependency,
 	#instVars : [
 		'irEntity',
 		'isWrite'

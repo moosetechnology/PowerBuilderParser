@@ -104,6 +104,11 @@ PWBIRNamedEntity >> isBehavioural [
 ]
 
 { #category : #testing }
+PWBIRNamedEntity >> isIREntity [
+	^true
+]
+
+{ #category : #testing }
 PWBIRNamedEntity >> isResolverReachable [
 	^owner isNil
 ]
@@ -165,17 +170,18 @@ PWBIRNamedEntity >> startPos: anObject [
 ]
 
 { #category : #converting }
-PWBIRNamedEntity >> toFamix [
+PWBIRNamedEntity >> toFamix: famixModel [
 	famixEntity ifNotNil: [ ^famixEntity ].
 
 	^famixEntity := self classToFamix new
 		name: name ;
+		mooseModel: famixModel ;
 		isStub: (owner isNil) ;
 		yourself.
 ]
 
 { #category : #converting }
-PWBIRNamedEntity >> toFamix: aFamixClass [
+PWBIRNamedEntity >> toFamix: famixModel class: aFamixClass [
 	| concreteClass |
 	famixEntity ifNotNil: [
 		self
@@ -189,6 +195,7 @@ PWBIRNamedEntity >> toFamix: aFamixClass [
 
 	^famixEntity := concreteClass new
 		name: name ;
+		mooseModel: famixModel ;
 		isStub: (owner isNil) ;
 		yourself.
 ]

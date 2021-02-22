@@ -6,7 +6,7 @@ Instance variable:
 "
 Class {
 	#name : #PWBIRDependencyInvocation,
-	#superclass : #PWBIRDependencyEntity,
+	#superclass : #PWBIRDependency,
 	#instVars : [
 		'candidates'
 	],

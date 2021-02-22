@@ -10,6 +10,7 @@ Class {
 
 { #category : #mapping }
 PWBIRType class >> defaultFamixClasses [
+	"order is important here, the first in the list is meaningful"
 	^{ FamixPWBCustomType . FamixPWBBasicType . FamixPWBDataWindow . FamixPWBUserObject . FamixPWBStructure }
 ]
 

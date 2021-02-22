@@ -9,6 +9,7 @@ Class {
 
 { #category : #mapping }
 PWBIRFunction class >> defaultFamixClasses [
+	"order is important here, the first in the list is meaningful"
 	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBSubRoutine }
 ]
 
@@ -38,8 +39,8 @@ PWBIRFunction >> isBehavioural [
 ]
 
 { #category : #converting }
-PWBIRFunction >> toFamixAsMemberOfUserObject: userObject [
-	^(self toFamix: FamixPWBFunction) 
+PWBIRFunction >> toFamix: famixModel asMemberOfUserObject: userObject [
+	^(self toFamix: famixModel class: FamixPWBFunction) 
 		parentType: userObject ;
 		yourself
 ]

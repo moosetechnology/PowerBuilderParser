@@ -1,11 +1,3 @@
-"
-An Intermediary Representation of an entity with members (e.g. a structuredType, a function, ...)
-
-Instance variables:
-- members, owned (e.g. parameters or local variables for a function)
-- dependencies, references made (e.g. function invocations or variable accesses from a function)
-
-"
 Class {
 	#name : #PWBIRComplexEntity,
 	#superclass : #PWBIRNamedEntity,
@@ -84,10 +76,10 @@ PWBIRComplexEntity >> reachableEntities [
 ]
 
 { #category : #converting }
-PWBIRComplexEntity >> toFamix [
+PWBIRComplexEntity >> toFamix: famixModel [
 	famixEntity ifNotNil: [ ^famixEntity ].
 
-	super toFamix.
+	super toFamix: famixModel.
 	
 	members ifNotNil: [
 		members do: [ :irEntity | famixEntity addMemberIR: irEntity ] ].
