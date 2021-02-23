@@ -30,6 +30,7 @@ FamixPWBInvocation >> arguments [
 
 	<generated>
 	<derived>
+self flag: 'invocation argument should be treated in FAST'.
 	^ arguments
 ]
 

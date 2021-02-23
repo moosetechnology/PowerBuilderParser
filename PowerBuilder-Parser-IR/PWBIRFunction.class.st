@@ -10,7 +10,7 @@ Class {
 { #category : #mapping }
 PWBIRFunction class >> defaultFamixClasses [
 	"order is important here, the first in the list is meaningful"
-	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBSubRoutine }
+	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBRoutine . FamixPWBSubRoutine }
 ]
 
 { #category : #adding }
@@ -28,6 +28,16 @@ PWBIRFunction >> declaredType: anObject [
 	declaredType := anObject
 ]
 
+{ #category : #converting }
+PWBIRFunction >> dependingFamixBehavioural: aFamixBehavioural [
+	| invok |
+	^invok := FamixPWBInvocation new
+		candidates: {  self } ;
+		sender: aFamixBehavioural ;
+		mooseModel: self mooseModel ;
+		yourself
+]
+
 { #category : #accessing }
 PWBIRFunction >> increaseCyclomaticComplexity [
 	self flag: #TODO
@@ -42,5 +52,14 @@ PWBIRFunction >> isBehavioural [
 PWBIRFunction >> toFamix: famixModel asMemberOfUserObject: userObject [
 	^(self toFamix: famixModel class: FamixPWBFunction) 
 		parentType: userObject ;
+		yourself
+]
+
+{ #category : #converting }
+PWBIRFunction >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [
+	^FamixPWBInvocation new
+		candidates: {  self toFamix: aFamixModel } ;
+		sender: aFamixBehavioural ;
+		mooseModel: aFamixModel ;
 		yourself
 ]

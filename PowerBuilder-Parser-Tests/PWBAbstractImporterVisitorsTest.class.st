@@ -7,8 +7,26 @@ Class {
 		'model',
 		'sourceExample'
 	],
+	#classInstVars : [
+		'teardownInspect'
+	],
 	#category : #'PowerBuilder-Parser-Tests-Visitors'
 }
+
+{ #category : #'instance creation' }
+PWBAbstractImporterVisitorsTest class >> teardownInspect [
+	^teardownInspect
+]
+
+{ #category : #'instance creation' }
+PWBAbstractImporterVisitorsTest class >> teardownInspect: aBoolean [
+	teardownInspect := aBoolean
+]
+
+{ #category : #'instance creation' }
+PWBAbstractImporterVisitorsTest class >> toggleTeardownInspect [
+	teardownInspect := teardownInspect not
+]
 
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> fileExtension [
@@ -60,6 +78,8 @@ PWBAbstractImporterVisitorsTest >> setupVisitor [
 ]
 
 { #category : #running }
-PWBAbstractImporterVisitorsTest >> tearDown [ 
-	"model inspect"
+PWBAbstractImporterVisitorsTest >> tearDown [
+	PWBAbstractImporterVisitorsTest teardownInspect
+		ifTrue: [model inspect].
+	super tearDown.
 ]

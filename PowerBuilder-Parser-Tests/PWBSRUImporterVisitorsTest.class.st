@@ -11,7 +11,6 @@ PWBSRUImporterVisitorsTest >> fileExtension [
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testAccessReadWrite [
-self flag: 'model toFamix creates 2 userobject ...'.
 	self importCode:
 'forward
   global type majorObjectTest from userobject

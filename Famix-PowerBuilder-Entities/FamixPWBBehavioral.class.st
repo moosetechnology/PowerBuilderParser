@@ -138,6 +138,16 @@ FamixPWBBehavioral >> cyclomaticComplexity: anObject [
 	cyclomaticComplexity := anObject
 ]
 
+{ #category : #converting }
+FamixPWBBehavioral >> dependingFamixBehavioural: aFamixBehavioural [
+	| invok |
+	^invok := FamixPWBInvocation new
+		candidates: {  self } ;
+		sender: aFamixBehavioural ;
+		mooseModel: self mooseModel ;
+		yourself
+]
+
 { #category : #accessing }
 FamixPWBBehavioral >> getOneAccessPerInsVarAccessed [
 	| instVarAccesses |
