@@ -37,7 +37,7 @@ PWBVariableNameViolation >> reportMessageForInstanceVariableName [
 { #category : #message }
 PWBVariableNameViolation >> reportMessageForLocalVariableName [
 	behavior name ifNil: [ ^ self ].
-	report := '<li>Le nom de la variable locale ' , self value , 'de '
+	report := '<li>Le nom de la variable locale ' , self value , ' de '
 		, self pwbobjectName , '>>' , self behavior name , String space
 		, 'doit commencer par <code>l</code> ' , String space , '</li>'
 ]

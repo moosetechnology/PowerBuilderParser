@@ -6,18 +6,22 @@ Class {
 
 { #category : #visiting }
 PWBVariableNameViolationDetector >> verifyNode: aPWBASTNode begin: aString [
-	| attributes |
+	| attributes detectedViolations |
 	attributes := (self visit: aPWBASTNode attributes) flatten.
-	^ attributes
-		collect: [ :att | 
+	detectedViolations := OrderedCollection new: attributes size.
+	attributes
+		do: [ :att | 
 			(att asLowercase beginsWith: aString)
-				ifFalse: [ PWBVariableNameViolation new
-						value: att;
-						file: self unpreprocessedFile;
-						startPosition: (self unpreprocessedPosition: aPWBASTNode startPosition);
-						stopPosition: (self unpreprocessedPosition: aPWBASTNode stopPosition);
-						libray: currentLibrary;
-						yourself ] ]
+				ifFalse: [ detectedViolations
+						add:
+							(PWBVariableNameViolation new
+								value: att;
+								file: self unpreprocessedFile;
+								startPosition: (self unpreprocessedPosition: aPWBASTNode startPosition);
+								stopPosition: (self unpreprocessedPosition: aPWBASTNode stopPosition);
+								libray: currentLibrary;
+								yourself) ] ].
+	^ detectedViolations
 ]
 
 { #category : #helpers }

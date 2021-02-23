@@ -7,9 +7,9 @@ Class {
 { #category : #'as yet unclassified' }
 PWBSizeRuleViolation >> reportMessageForBehaviorParametersSize [
 	report := [ report := '<li>La routine ' , self pwbobjectName , '>>'
-		, self behavior name , String space
+		, self behavior name , String space , 'a' , self value asString
 		,
-			'a trop de parametres. En effet le nombre de parametres doit être inferieur a 10 '
+			' de parametres. En effet le nombre de parametres doit être inferieur a 10 '
 		, String space , '</li>' ]
 ]
 

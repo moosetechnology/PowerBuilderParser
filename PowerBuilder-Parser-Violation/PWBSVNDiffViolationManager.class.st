@@ -48,6 +48,7 @@ PWBSVNDiffViolationManager >> initialize [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> prepareReport: aCollection [
+	1 halt.
 	stream
 		<< '<p>';
 		<< self violationContext.
@@ -74,6 +75,7 @@ PWBSVNDiffViolationManager >> prev: aPrevViolations head: aHeadViolations [
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> publishDiff [
 	| diff |
+	1 halt.
 	diff := self diffHeadPrev.
 	diff ifNotEmpty: [ self reportViolation: diff ]
 ]

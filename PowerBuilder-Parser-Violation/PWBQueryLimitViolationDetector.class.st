@@ -11,7 +11,7 @@ Class {
 { #category : #visiting }
 PWBQueryLimitViolationDetector >> initialize [
 	super initialize.
-	limit := '9999'
+	limit := '999'
 ]
 
 { #category : #visiting }
@@ -29,10 +29,13 @@ PWBQueryLimitViolationDetector >> visitPWBASTFile: aPWBASTFile [
 { #category : #visiting }
 PWBQueryLimitViolationDetector >> visitPWBASTFunctionSignature: aPWBASTFunctionSignature [
 	| argumentsSize |
+	self currentBehavior ifNil: [ ^ self ].
 	self currentBehavior
 		name: (self visit: aPWBASTFunctionSignature identifier).
 	self visit: aPWBASTFunctionSignature arguments.
-	argumentsSize := aPWBASTFunctionSignature arguments arguments size.
+	argumentsSize := aPWBASTFunctionSignature arguments arguments
+		ifNil: [ 0 ]
+		ifNotNil: [ :collection | collection size ].
 	argumentsSize >= 10
 		ifTrue: [ self
 				addViolation:
@@ -63,10 +66,13 @@ PWBQueryLimitViolationDetector >> visitPWBASTNumber: anPWBASTNumber [
 { #category : #visiting }
 PWBQueryLimitViolationDetector >> visitPWBASTSubroutineSignature: aPWBASTSubroutineSignature [
 	| argumentsSize |
+	currentBehavior ifNil: [ ^ self ].
 	currentBehavior
 		name: (self visit: aPWBASTSubroutineSignature identifier).
 	self visit: aPWBASTSubroutineSignature arguments.
-	argumentsSize := aPWBASTSubroutineSignature arguments arguments size.
+	argumentsSize := aPWBASTSubroutineSignature arguments arguments
+		ifNil: [ 0 ]
+		ifNotNil: [ :each | each size ].
 	argumentsSize >= 10
 		ifTrue: [ self
 				addViolation:
