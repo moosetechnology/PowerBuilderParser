@@ -52,8 +52,11 @@ PWBIRDependencyAccess >> toFamix [
 ]
 
 { #category : #converting }
-PWBIRDependencyAccess >> toFamixDependencyFromBehavioural: aFamixBehavioural [
+PWBIRDependencyAccess >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [ 
 	FamixPWBAccess new
 		accessor: aFamixBehavioural ;
-		variable: irEntity toFamix
+		variable: (irEntity toFamix: aFamixModel) ;
+		mooseModel: aFamixModel ;
+		isWrite: self isWrite
+		yourself
 ]

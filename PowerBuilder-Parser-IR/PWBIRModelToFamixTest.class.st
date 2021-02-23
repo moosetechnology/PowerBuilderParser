@@ -15,6 +15,26 @@ PWBIRModelToFamixTest >> setUp [
 	irModel famixModel: fmxModel 
 ]
 
+{ #category : #'tests-accesses' }
+PWBIRModelToFamixTest >> testDependencyAccessToFamix [
+	| fct var access |
+	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
+	fct addDependency: (PWBIRDependencyAccess new
+		irEntity: var ;
+		yourself).
+
+	irModel toFamix.
+
+	self assert: fmxModel allAccesses size equals: 1.
+	access := fmxModel allAccesses anyOne.
+
+	self assert: access variable equals: (var famixEntity).
+	self assert: access accessor equals: (fct famixEntity).
+	self deny: access isWrite
+
+]
+
 { #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
 	| ir |
@@ -40,7 +60,9 @@ PWBIRModelToFamixTest >> testFunctionDependencyFunctionToFamixInvocation [
 	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBFunction named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBFunction named: 'callee' owner: nil.
-	caller addDependency: callee.
+	caller addDependency: (PWBIRDependencyInvocation new
+		candidates: {callee} ;
+		yourself).
 
 	irModel toFamix.
 
@@ -65,7 +87,9 @@ PWBIRModelToFamixTest >> testFunctionDependencySubRoutineToFamixInvocation [
 	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBFunction named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBSubRoutine named: 'callee' owner: nil.
-	caller addDependency: callee.
+	caller addDependency: (PWBIRDependencyInvocation new
+		candidates: {callee} ;
+		yourself).
 
 	irModel toFamix.
 
@@ -85,30 +109,14 @@ PWBIRModelToFamixTest >> testFunctionDependencySubRoutineToFamixInvocation [
 ]
 
 { #category : #'tests-accesses' }
-PWBIRModelToFamixTest >> testFunctionDependencyVariableToFamixAccess [
-	"function accessing a variable"
-	| fct var access |
-	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
-	fct addDependency: var.
-
-	irModel toFamix.
-
-	self assert: fmxModel allAccesses size equals: 1.
-	access := fmxModel allAccesses anyOne.
-
-	self assert: access variable equals: (var famixEntity).
-	self assert: access accessor equals: (fct famixEntity).
-
-]
-
-{ #category : #'tests-accesses' }
 PWBIRModelToFamixTest >> testRoutineDependencyParameterToFamixAccess [
 	"Routine accessing a parameter"
 	| fct var access |
 	fct := irModel ensureIRForFamixClass: FamixPWBRoutine named: 'fct' owner: nil.
 	var := irModel ensureIRForFamixClass: FamixPWBParameter named: 'var' owner: fct.
-	fct addDependency: var.
+	fct addDependency: (PWBIRDependencyAccess new
+		irEntity: var ;
+		yourself).
 
 	irModel toFamix.
 
@@ -126,7 +134,9 @@ PWBIRModelToFamixTest >> testSubRoutineDependencyFunctionToFamixInvocation [
 	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBSubRoutine named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBFunction named: 'callee' owner: nil.
-	caller addDependency: callee.
+	caller addDependency: (PWBIRDependencyInvocation new
+		candidates: {callee} ;
+		yourself).
 
 	irModel toFamix.
 
@@ -251,5 +261,26 @@ PWBIRModelToFamixTest >> testUserObjectMemberVariableToFamixAttribute [
 	self assert: typ attributes anyOne name equals: 'att'.
 	self assert: typ attributes anyOne parentType equals: typ.
 	
+
+]
+
+{ #category : #'tests-accesses' }
+PWBIRModelToFamixTest >> testWriteDependencyAccessToFamix [
+	| fct var access |
+	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
+	fct addDependency: (PWBIRDependencyAccess new
+		irEntity: var ;
+		isWrite: true ;
+		yourself).
+
+	irModel toFamix.
+
+	self assert: fmxModel allAccesses size equals: 1.
+	access := fmxModel allAccesses anyOne.
+
+	self assert: access variable equals: (var famixEntity).
+	self assert: access accessor equals: (fct famixEntity).
+	self assert: access isWrite
 
 ]

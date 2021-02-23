@@ -54,12 +54,3 @@ PWBIRFunction >> toFamix: famixModel asMemberOfUserObject: userObject [
 		parentType: userObject ;
 		yourself
 ]
-
-{ #category : #converting }
-PWBIRFunction >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [
-	^FamixPWBInvocation new
-		candidates: {  self toFamix: aFamixModel } ;
-		sender: aFamixBehavioural ;
-		mooseModel: aFamixModel ;
-		yourself
-]

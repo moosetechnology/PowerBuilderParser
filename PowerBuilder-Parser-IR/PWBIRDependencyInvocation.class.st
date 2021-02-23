@@ -25,8 +25,10 @@ PWBIRDependencyInvocation >> candidates: anObject [
 ]
 
 { #category : #converting }
-PWBIRDependencyInvocation >> toFamixDependencyFromBehavioural: aFamixBehavioural [
-	FamixPWBInvocation new
+PWBIRDependencyInvocation >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [ 
+	^FamixPWBInvocation new
+		candidates: (candidates collect: [ :ir | ir toFamix: aFamixModel ]) ;
 		sender: aFamixBehavioural ;
-		candidates: candidates
+		mooseModel: aFamixModel ;
+		yourself
 ]

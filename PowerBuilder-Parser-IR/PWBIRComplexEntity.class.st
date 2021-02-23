@@ -84,7 +84,7 @@ PWBIRComplexEntity >> toFamix: famixModel [
 	members ifNotNil: [
 		members do: [ :irEntity | famixEntity addMemberIR: irEntity ] ].
 	dependencies ifNotNil: [
-		dependencies do: [ :irEntity | famixEntity addDependencyToIR: irEntity ] ].
+		dependencies do: [ :irDependency | famixEntity addDependencyToIR: irDependency ] ].
 
 	^famixEntity
 ]
