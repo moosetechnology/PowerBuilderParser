@@ -84,6 +84,42 @@ PWBIRModelToFamixTest >> testFunctionDependencySubRoutineToFamixInvocation [
 
 ]
 
+{ #category : #'tests-accesses' }
+PWBIRModelToFamixTest >> testFunctionDependencyVariableToFamixAccess [
+	"function accessing a variable"
+	| fct var access |
+	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
+	fct addDependency: var.
+
+	irModel toFamix.
+
+	self assert: fmxModel allAccesses size equals: 1.
+	access := fmxModel allAccesses anyOne.
+
+	self assert: access variable equals: (var famixEntity).
+	self assert: access accessor equals: (fct famixEntity).
+
+]
+
+{ #category : #'tests-accesses' }
+PWBIRModelToFamixTest >> testRoutineDependencyParameterToFamixAccess [
+	"Routine accessing a parameter"
+	| fct var access |
+	fct := irModel ensureIRForFamixClass: FamixPWBRoutine named: 'fct' owner: nil.
+	var := irModel ensureIRForFamixClass: FamixPWBParameter named: 'var' owner: fct.
+	fct addDependency: var.
+
+	irModel toFamix.
+
+	self assert: fmxModel allAccesses size equals: 1.
+	access := fmxModel allAccesses anyOne.
+
+	self assert: access variable equals: (var famixEntity).
+	self assert: access accessor equals: (fct famixEntity).
+
+]
+
 { #category : #'tests-invocations' }
 PWBIRModelToFamixTest >> testSubRoutineDependencyFunctionToFamixInvocation [
 	"subroutine calling a function"

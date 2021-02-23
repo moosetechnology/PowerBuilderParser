@@ -57,3 +57,12 @@ PWBIRValueHolder >> toFamix: famixModel asMemberOfUserObject: userObject [
 		parentType: userObject ;
 		yourself
 ]
+
+{ #category : #converting }
+PWBIRValueHolder >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [
+	^FamixPWBAccess new
+		variable: (self toFamix: aFamixModel) ;
+		accessor: aFamixBehavioural ;
+		mooseModel: aFamixModel ;
+		yourself
+]
