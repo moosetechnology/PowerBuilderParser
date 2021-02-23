@@ -15,7 +15,7 @@ PWBIRModelToFamixTest >> setUp [
 	irModel famixModel: fmxModel 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
 	| ir |
 	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
@@ -25,7 +25,7 @@ PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testEntityToFamixExpectedKindSuperclassOfGivenType [
 	| ir |
 	ir := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'uo' owner: nil.
@@ -34,76 +34,82 @@ PWBIRModelToFamixTest >> testEntityToFamixExpectedKindSuperclassOfGivenType [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-invocations' }
 PWBIRModelToFamixTest >> testFunctionDependencyFunctionToFamixInvocation [
 	"function calling a function"
-	| caller callee |
+	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBFunction named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBFunction named: 'callee' owner: nil.
 	caller addDependency: callee.
 
 	irModel toFamix.
 
-	caller := fmxModel entityNamed: 'caller'.
-	callee := fmxModel entityNamed: 'callee'.
+	self assert: fmxModel allInvocations size equals: 1.
+	invok := fmxModel allInvocations anyOne.
 
-	self assert: caller outgoingInvocations size equals: 1.
-	self assert: caller outgoingInvocations anyOne candidates anyOne name equals: 'callee'.
-	self assert: caller incomingInvocations size equals: 0.
+	self assert: invok sender equals: (caller famixEntity).
+	self assert: invok candidates size equals: 1.
+	self assert: invok candidates anyOne equals:(callee famixEntity).
+
+	self assert: caller famixEntity outgoingInvocations size equals: 1.
+	self assert: caller famixEntity incomingInvocations size equals: 0.
 	
-	self assert: callee incomingInvocations size equals: 1.
-	self assert: callee incomingInvocations anyOne sender name equals: 'caller'.
-	self assert: callee outgoingInvocations size equals: 0.
+	self assert: callee famixEntity incomingInvocations size equals: 1.
+	self assert: callee famixEntity outgoingInvocations size equals: 0.
 
 ]
 
-{ #category : #tests }
-PWBIRModelToFamixTest >> testFunctionDependencyRoutineToFamixInvocation [
+{ #category : #'tests-invocations' }
+PWBIRModelToFamixTest >> testFunctionDependencySubRoutineToFamixInvocation [
 	"function calling a subroutine"
-	| caller callee |
+	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBFunction named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBSubRoutine named: 'callee' owner: nil.
 	caller addDependency: callee.
 
 	irModel toFamix.
 
-	caller := fmxModel entityNamed: 'caller'.
-	callee := fmxModel entityNamed: 'callee'.
+	self assert: fmxModel allInvocations size equals: 1.
+	invok := fmxModel allInvocations anyOne.
 
-	self assert: caller outgoingInvocations size equals: 1.
-	self assert: caller outgoingInvocations anyOne candidates anyOne name equals: 'callee'.
-	self assert: caller incomingInvocations size equals: 0.
+	self assert: invok sender equals: (caller famixEntity).
+	self assert: invok candidates size equals: 1.
+	self assert: invok candidates anyOne equals:(callee famixEntity).
+
+	self assert: caller famixEntity outgoingInvocations size equals: 1.
+	self assert: caller famixEntity incomingInvocations size equals: 0.
 	
-	self assert: callee incomingInvocations size equals: 1.
-	self assert: callee incomingInvocations anyOne sender name equals: 'caller'.
-	self assert: callee outgoingInvocations size equals: 0.
+	self assert: callee famixEntity incomingInvocations size equals: 1.
+	self assert: callee famixEntity outgoingInvocations size equals: 0.
 
 ]
 
-{ #category : #tests }
-PWBIRModelToFamixTest >> testRoutineDependencyFunctionToFamixInvocation [
+{ #category : #'tests-invocations' }
+PWBIRModelToFamixTest >> testSubRoutineDependencyFunctionToFamixInvocation [
 	"subroutine calling a function"
-	| caller callee |
+	| caller callee invok |
 	caller := irModel ensureIRForFamixClass: FamixPWBSubRoutine named: 'caller' owner: nil.
 	callee := irModel ensureIRForFamixClass: FamixPWBFunction named: 'callee' owner: nil.
 	caller addDependency: callee.
 
 	irModel toFamix.
 
-	caller := fmxModel entityNamed: 'caller'.
-	callee := fmxModel entityNamed: 'callee'.
+	self assert: fmxModel allInvocations size equals: 1.
+	invok := fmxModel allInvocations anyOne.
 
-	self assert: caller outgoingInvocations size equals: 1.
-	self assert: caller outgoingInvocations anyOne candidates anyOne name equals: 'callee'.
-	self assert: caller incomingInvocations size equals: 0.
+	self assert: invok sender equals: (caller famixEntity).
+	self assert: invok candidates size equals: 1.
+	self assert: invok candidates anyOne equals:(callee famixEntity).
+
+	self assert: caller famixEntity outgoingInvocations size equals: 1.
+	self assert: caller famixEntity incomingInvocations size equals: 0.
 	
-	self assert: callee incomingInvocations size equals: 1.
-	self assert: callee incomingInvocations anyOne sender name equals: 'caller'.
-	self assert: callee outgoingInvocations size equals: 0.
+	self assert: callee famixEntity incomingInvocations size equals: 1.
+	self assert: callee famixEntity outgoingInvocations size equals: 0.
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-members' }
 PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 	| ir fmx |
 	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
@@ -129,7 +135,7 @@ PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testToFamixTypeFromExpectedKind [
 	| ir fmx |
 	ir := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'uo' owner: nil.
@@ -151,7 +157,7 @@ PWBIRModelToFamixTest >> testToFamixTypeFromExpectedKind [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testToFamixValueHolderNoExpectedKind [
 	| fmx |
 	irModel irStub: PWBIRValueHolder named: 'var'.
@@ -166,7 +172,7 @@ PWBIRModelToFamixTest >> testToFamixValueHolderNoExpectedKind [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-expectedKind' }
 PWBIRModelToFamixTest >> testToFamixValueHolderSeveralExpectedKind [
 	| fmx |
 	(irModel irStub: PWBIRValueHolder named: 'var')
@@ -182,7 +188,7 @@ PWBIRModelToFamixTest >> testToFamixValueHolderSeveralExpectedKind [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-members' }
 PWBIRModelToFamixTest >> testUserObjectMemberFunctionToFamixMethod [
 	| typ |
 	typ := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
@@ -197,7 +203,7 @@ PWBIRModelToFamixTest >> testUserObjectMemberFunctionToFamixMethod [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests-members' }
 PWBIRModelToFamixTest >> testUserObjectMemberVariableToFamixAttribute [
 	| typ |
 	typ := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'typ' owner: nil.
