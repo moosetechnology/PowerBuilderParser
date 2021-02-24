@@ -264,6 +264,19 @@ PWBIRModelToFamixTest >> testUserObjectMemberVariableToFamixAttribute [
 
 ]
 
+{ #category : #tests }
+PWBIRModelToFamixTest >> testVariableDeclaredType [
+	| var typ |
+	typ := irModel ensureIRForFamixClass: FamixPWBBasicType named: 'long' owner: nil..
+	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: nil.
+	var declaredType: typ.
+
+	irModel toFamix.
+
+	self assert: var famixEntity declaredType equals: typ famixEntity
+
+]
+
 { #category : #'tests-accesses' }
 PWBIRModelToFamixTest >> testWriteDependencyAccessToFamix [
 	| fct var access |

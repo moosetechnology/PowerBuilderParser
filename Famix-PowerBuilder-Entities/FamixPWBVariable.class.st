@@ -25,7 +25,7 @@ FamixPWBVariable class >> isDeprecated [
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FamixPWBVariable >> accessAssociation [
 	^ FamixPWBVariableAccess
 ]
