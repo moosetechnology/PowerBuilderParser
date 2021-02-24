@@ -48,7 +48,6 @@ PWBSVNDiffViolationManager >> initialize [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> prepareReport: aCollection [
-	1 halt.
 	stream
 		<< '<p>';
 		<< self violationContext.
@@ -75,9 +74,19 @@ PWBSVNDiffViolationManager >> prev: aPrevViolations head: aHeadViolations [
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> publishDiff [
 	| diff |
-	1 halt.
 	diff := self diffHeadPrev.
 	diff ifNotEmpty: [ self reportViolation: diff ]
+]
+
+{ #category : #running }
+PWBSVNDiffViolationManager >> recipientList [
+	| recipientList authorMail |
+	authorMail := author , '@sa-cim.fr'.
+	recipientList := {'Jerome.Sudich@sa-cim.fr'.
+	'fatiha.Djareddir@sa-cim.fr'.
+	'MahugnonHonore.Houekpetodji@sa-cim.fr'.
+	authorMail}.
+	^ recipientList
 ]
 
 { #category : #accessing }
@@ -92,11 +101,18 @@ PWBSVNDiffViolationManager >> repoName: aString [
 
 { #category : #running }
 PWBSVNDiffViolationManager >> reportViolation: violations [
+	| mailMessage |
 	self prepareReport: violations.
-	LibC
-		resultOfCommand:
-			'powershell -file "sendMail.ps1" "' , self stream , '" "' , author
-				, '@sa-cim.fr"'
+	mailMessage := MailMessage empty
+		from: 'pwbcritics@gmail.com';
+		date: DateAndTime now asEmailString;
+		subject: 'PWB Critics violation';
+		to: self recipientList;
+		addAlternativePart: self stream contentType: 'text/html'.
+	ZdcSecureSMTPClient
+		sendPWBCriticsUsingGMailAccountPassword: '8v$oPDA0cA'
+		to: self recipientList
+		message: mailMessage
 ]
 
 { #category : #accessing }

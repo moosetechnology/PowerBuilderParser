@@ -7,6 +7,7 @@ Class {
 { #category : #visiting }
 PWBVariableNameViolationDetector >> verifyNode: aPWBASTNode begin: aString [
 	| attributes detectedViolations |
+	aPWBASTNode attributes ifNil: [ ^ #() ].
 	attributes := (self visit: aPWBASTNode attributes) flatten.
 	detectedViolations := OrderedCollection new: attributes size.
 	attributes

@@ -14,7 +14,7 @@ PWBVariableNameViolation >> isNameViolation [
 
 { #category : #message }
 PWBVariableNameViolation >> reportMessageForArgumentName [
-	behavior name ifNil: [ ^ self ].
+	behavior ifNil: [ ^ self ].
 	report := '<li>Le nom de l''argument ' , self value , 'de '
 		, self pwbobjectName , '>>' , self behavior name , String space
 		, 'doit commencer par <code>a</code> ' , String space , '</li>'
