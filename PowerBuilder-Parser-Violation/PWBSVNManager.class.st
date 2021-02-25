@@ -62,7 +62,7 @@ PWBSVNManager >> diffFilesUrls [
 	lines := diff lines asOrderedCollection
 		reject: [ :line | 
 			(line beginsWith: 'D')
-				or: [ {'.pbl' . '.pbd' . '.pbg' . 'pbt' . '.srd' . '.sra'}
+				or: [ {'.pbl' . '.pbd' . '.pbg' . 'pbt' . '.srd' . '.sra'. '.opt'}
 						anySatisfy: [ :extension | line endsWith: extension ] ] ]
 		thenCollect: [ :e | e copyFrom: 9 to: e size ].
 	^ lines
