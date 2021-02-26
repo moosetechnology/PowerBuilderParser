@@ -130,6 +130,11 @@ FamixPWBEntity >> isPWBClass [
 ]
 
 { #category : #testing }
+FamixPWBEntity >> isParameter [
+	^ false
+]
+
+{ #category : #testing }
 FamixPWBEntity >> isReference [
 
 	<generated>
