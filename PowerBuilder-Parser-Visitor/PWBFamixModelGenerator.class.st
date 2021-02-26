@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'graphicComponent',
 		'event',
-		'function',
 		'sqlQuery',
 		'subRoutine',
 		'variable',
@@ -71,7 +70,6 @@ PWBFamixModelGenerator >> defineClasses [
 	graphicComponent := builder newClassNamed: #GraphicComponent.
 	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
-	function := builder newClassNamed: #Routine.
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
@@ -126,10 +124,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TMethod;
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	function
-		--|> behavioral;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TFunction.
 	trigger
 		--|> #TWithAttributes;
 		--|> behavioral;

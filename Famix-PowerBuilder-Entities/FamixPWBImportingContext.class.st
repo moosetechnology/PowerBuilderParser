@@ -197,12 +197,6 @@ FamixPWBImportingContext >> importReference [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importRoutine [
-	<generated>
-	^ self import: FamixPWBRoutine
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importSharedVariable [
 	<generated>
 	^ self import: FamixPWBSharedVariable
@@ -482,12 +476,6 @@ FamixPWBImportingContext >> shouldImportQuery [
 FamixPWBImportingContext >> shouldImportReference [
 	<generated>
 	^ self shouldImport: FamixPWBReference
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportRoutine [
-	<generated>
-	^ self shouldImport: FamixPWBRoutine
 ]
 
 { #category : #testing }
