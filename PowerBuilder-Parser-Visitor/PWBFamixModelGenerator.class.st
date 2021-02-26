@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'graphicComponent',
 		'event',
-		'function',
 		'sqlQuery',
 		'subRoutine',
 		'variable',
@@ -29,7 +28,6 @@ Class {
 		'queryFile',
 		'library',
 		'reference',
-		'tNamed',
 		'tWithMethods',
 		'sharedVariable',
 		'localVariable',
@@ -71,7 +69,6 @@ PWBFamixModelGenerator >> defineClasses [
 	graphicComponent := builder newClassNamed: #GraphicComponent.
 	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
-	function := builder newClassNamed: #Routine.
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
@@ -112,7 +109,6 @@ PWBFamixModelGenerator >> defineClasses [
 { #category : #definition }
 PWBFamixModelGenerator >> defineHierarchy [
 	super defineHierarchy.
-	tNamed --|> #TNamedEntity.
 	tWithMethods --|> #TWithMethods.
 	library
 		--|> #TNamedEntity;
@@ -124,22 +120,15 @@ PWBFamixModelGenerator >> defineHierarchy [
 	event
 		--|> behavioral;
 		--|> #TMethod;
-		--|> #TInvocable;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	function
-		--|> behavioral;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TFunction.
+		--|> #TInvocable.
 	trigger
 		--|> #TWithAttributes;
 		--|> behavioral;
-		--|> #TMethod;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+		--|> #TMethod.
 	subRoutine
 		--|> behavioral;
 		--|> #TMethod;
-		--|> #TInvocable;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+		--|> #TInvocable.
 	variable
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
@@ -160,12 +149,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithAttributes.
 	attribute
 		--|> #TSourceEntity;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute.
 	method
 		--|> behavioral;
 		--|> #TMethod;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TWithParameters;
 		--|> #TInvocable;
 		--|> #THasSignature.
@@ -203,7 +190,6 @@ PWBFamixModelGenerator >> defineHierarchy [
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
-	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	abstractType --|> #TType.
 	abstractType --|> #TReferenceable.
 	customType --|> abstractType.
@@ -219,20 +205,19 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TReference.
 	attribute
 		--|> #TSourceEntity;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute;
 		--|> #TWithTypes;
 		--|> #TAccessible.
 	argument
-		--|> tNamed;
+		--|> #TNamedEntity;
 		--|> #TSourceEntity.
 	parameter --|> #TParameter.
 	functionReturn
 		--|> #TSourceEntity;
-		--|> tNamed.
+		--|> #TNamedEntity.
 	behaviorSignature
 		--|> #TSourceEntity;
-		--|> tNamed
+		--|> #TNamedEntity
 ]
 
 { #category : #definition }
@@ -274,7 +259,6 @@ PWBFamixModelGenerator >> defineRelations [
 { #category : #definition }
 PWBFamixModelGenerator >> defineTraits [
 	super defineTraits.
-	tNamed := builder newTraitNamed: #PBTNamed.
 	tWithMethods := builder newTraitNamed: #PBTWithMethods
 ]
 

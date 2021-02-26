@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBSubRoutine,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTInvocable + FamixTMethod',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTInvocable classTrait + FamixTMethod classTrait',
+	#traits : 'FamixTInvocable + FamixTMethod',
+	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

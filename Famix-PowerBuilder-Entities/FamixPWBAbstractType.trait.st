@@ -1,6 +1,7 @@
 Trait {
 	#name : #FamixPWBAbstractType,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTReferenceable + FamixTType',
+	#traits : 'FamixTReferenceable + FamixTType',
+	#classTraits : 'FamixTReferenceable classTrait + FamixTType classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 

@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBAttribute,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTAccessible + FamixTAttribute + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
+	#traits : 'FamixTAccessible + FamixTAttribute + FamixTSourceEntity + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
 	#instVars : [
 		'#attributeType => FMProperty'
 	],

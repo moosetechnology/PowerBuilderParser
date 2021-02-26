@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBTrigger,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTMethod + FamixTWithAttributes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTMethod classTrait + FamixTWithAttributes classTrait',
+	#traits : 'FamixTMethod + FamixTWithAttributes',
+	#classTraits : 'FamixTMethod classTrait + FamixTWithAttributes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
