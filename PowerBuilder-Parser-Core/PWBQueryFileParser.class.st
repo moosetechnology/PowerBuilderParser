@@ -995,18 +995,6 @@ PWBQueryFileParser >> time [
 ]
 
 { #category : #rules }
-PWBQueryFileParser >> triggerEvent [
-	<generated>
-	^ super triggerEvent flatten withPositions
-		==> [ :production | 
-			PWBASTTriggerEvent new
-				startPosition: production start;
-				stopPosition: production stop;
-				triggerEvent: production content;
-				yourself ]
-]
-
-{ #category : #rules }
 PWBQueryFileParser >> type [
 	<generated>
 	^ super type withPositions

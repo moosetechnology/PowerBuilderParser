@@ -399,18 +399,6 @@ PWBDataWindowParser >> destroyStatement [
 ]
 
 { #category : #rules }
-PWBDataWindowParser >> dot [
-	<generated>
-	^ super dot flatten withPositions
-		==> [ :production | 
-			PWBASTDot new
-				startPosition: production start;
-				stopPosition: production stop;
-				dot: production content;
-				yourself ]
-]
-
-{ #category : #rules }
 PWBDataWindowParser >> dynamicMethodInvocation [
 	<generated>
 	^ super dynamicMethodInvocation withPositions
@@ -1194,18 +1182,6 @@ PWBDataWindowParser >> time [
 				startPosition: production start;
 				stopPosition: production stop;
 				time: production content;
-				yourself ]
-]
-
-{ #category : #rules }
-PWBDataWindowParser >> triggerEvent [
-	<generated>
-	^ super triggerEvent flatten withPositions
-		==> [ :production | 
-			PWBASTTriggerEvent new
-				startPosition: production start;
-				stopPosition: production stop;
-				triggerEvent: production content;
 				yourself ]
 ]
 
