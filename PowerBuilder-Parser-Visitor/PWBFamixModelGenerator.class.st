@@ -142,13 +142,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	variable
 		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
+
+		--|> #TStructuralEntity ;
 		--|> #TAccessible.
 	parameter
 		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
+	
+		--|> #TStructuralEntity;
 		--|> #TAccessible.
 	sharedVariable --|> attribute.
 	globalVariable --|> attribute.
