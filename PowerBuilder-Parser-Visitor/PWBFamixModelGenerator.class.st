@@ -117,6 +117,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 	library
 		--|> #TNamedEntity;
 		--|> #TSourceEntity.
+
+	"behaviorals"
+	behavioral
+		--|> #TSourceEntity;
+		--|> #TWithAccesses;
+		--|> #TWithInvocations;
+		--|> #TWithReferences.
 	graphicComponent
 		--|> #TSourceEntity;
 		--|> #TWithAttributes;
@@ -130,6 +137,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> behavioral;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TFunction.
+	method
+		--|> behavioral;
+		--|> #TMethod;
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TWithParameters;
+		--|> #TInvocable;
+		--|> #THasSignature.
 	trigger
 		--|> #TWithAttributes;
 		--|> behavioral;
@@ -145,41 +159,45 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
+
+	"structural entities (valueHodlers)"
 	parameter
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-	sharedVariable --|> attribute.
-	globalVariable --|> attribute.
-	localVariable --|> variable.
-	instanceVariable --|> attribute.
-	dataWindow
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithAttributes.
 	attribute
 		--|> #TSourceEntity;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
 		--|> #TAttribute.
-	method
-		--|> behavioral;
-		--|> #TMethod;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TWithParameters;
-		--|> #TInvocable;
-		--|> #THasSignature.
-	behavioral
+	sharedVariable --|> attribute.
+	globalVariable --|> attribute.
+	localVariable --|> variable.
+	instanceVariable --|> attribute.
+	attribute
 		--|> #TSourceEntity;
-		--|> #TWithAccesses;
-		--|> #TWithInvocations;
-		--|> #TWithReferences.
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
+		--|> #TAttribute;
+		--|> #TWithTypes;
+		--|> #TAccessible.
+	parameter --|> #TParameter.
+
+	"associations"
 	invocation --|> #TInvocation.
 	invocation
 		--|> #THasSignature;
 		--|> #TSourceEntity.
+	access
+		--|> #TSourceEntity;
+		--|> #TAccess.
+	variableAccess
+		--|> #TSourceEntity;
+		--|> #TAccess.
+	reference
+		--|> #TSourceEntity;
+		--|> #TReference.
 
-	"Defining all major objects (files)"
+	"Major objects"
 	majorObject
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
@@ -188,13 +206,18 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
 		--|> #TWithFunctions;
 		--|> #TWithReferences.
-	userObject --|> majorObject.
-	userObject --|> abstractType.
-	userObject --|> #TWithInvocations.
+	userObject
+		--|> majorObject ;
+		--|> abstractType ;
+		--|> #TWithInvocations.
 	window --|> majorObject.
 	window --|> #TWithInvocations.
-	dataWindow --|> majorObject.
-	dataWindow --|> #TWithInvocations.
+	dataWindow
+		--|> majorObject ;
+		--|> #TWithInvocations ;
+		--|> #TSourceEntity;
+		--|> #TNamedEntity;
+		--|> #TWithAttributes.
 	structureFile --|> majorObject.
 	functionFile
 		--|> majorObject;
@@ -208,25 +231,11 @@ PWBFamixModelGenerator >> defineHierarchy [
 	abstractType --|> #TReferenceable.
 	customType --|> abstractType.
 	basicType --|> abstractType.
-	access
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	variableAccess
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	reference
-		--|> #TSourceEntity;
-		--|> #TReference.
-	attribute
-		--|> #TSourceEntity;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TAttribute;
-		--|> #TWithTypes;
-		--|> #TAccessible.
+
+	"to remove"
 	argument
 		--|> tNamed;
 		--|> #TSourceEntity.
-	parameter --|> #TParameter.
 	functionReturn
 		--|> #TSourceEntity;
 		--|> tNamed.
