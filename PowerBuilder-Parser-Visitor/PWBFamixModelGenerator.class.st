@@ -1,6 +1,6 @@
 Class {
 	#name : #PWBFamixModelGenerator,
-	#superclass : #FamixFileBasedLanguageGenerator,
+	#superclass : #FamixBasicInfrastructureGenerator,
 	#instVars : [
 		'graphicComponent',
 		'event',

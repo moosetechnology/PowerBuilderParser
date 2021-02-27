@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBSourcedEntity,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTSourceEntity + FamixTWithComments + FamixTWithFiles',
-	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithComments classTrait + FamixTWithFiles classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithComments',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithComments classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
