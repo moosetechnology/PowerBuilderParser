@@ -4,13 +4,11 @@ Class {
 	#instVars : [
 		'graphicComponent',
 		'event',
-		'function',
 		'sqlQuery',
 		'subRoutine',
 		'variable',
 		'dataWindow',
 		'attribute',
-		'method',
 		'invocation',
 		'userObject',
 		'trigger',
@@ -22,11 +20,8 @@ Class {
 		'variableAccess',
 		'window',
 		'majorObject',
-		'structureFile',
-		'functionFile',
 		'menuObject',
 		'application',
-		'queryFile',
 		'library',
 		'reference',
 		'tNamed',
@@ -38,7 +33,12 @@ Class {
 		'instanceVariable',
 		'argument',
 		'functionReturn',
-		'behaviorSignature'
+		'behaviorSignature',
+		'routine',
+		'function',
+		'globalFunction',
+		'structure',
+		'query'
 	],
 	#classInstVars : [
 		'builder'
@@ -71,7 +71,7 @@ PWBFamixModelGenerator >> defineClasses [
 	graphicComponent := builder newClassNamed: #GraphicComponent.
 	behavioral := builder newClassNamed: #Behavioral.
 	event := builder newClassNamed: #Event.
-	function := builder newClassNamed: #Routine.
+	routine := builder newClassNamed: #Routine.
 	sqlQuery := builder newClassNamed: #SqlQuery.
 	subRoutine := builder newClassNamed: #SubRoutine.
 	variable := builder newClassNamed: #Variable.
@@ -81,7 +81,7 @@ PWBFamixModelGenerator >> defineClasses [
 	localVariable := builder newClassNamed: #LocalVariable.
 	globalVariable := builder newClassNamed: #GlobalVariable.
 	instanceVariable := builder newClassNamed: #InstanceVariable.
-	method := builder newClassNamed: #Function.
+	function := builder newClassNamed: #Function.
 	trigger := builder newClassNamed: #Trigger.
 	argument := builder newClassNamed: #Argument.
 	functionReturn := builder newClassNamed: #FunctionReturn.
@@ -91,11 +91,11 @@ PWBFamixModelGenerator >> defineClasses [
 	dataWindow := builder newClassNamed: #DataWindow.
 	userObject := builder newClassNamed: #UserObject.
 	window := builder newClassNamed: #Window.
-	structureFile := builder newClassNamed: #Structure.
-	functionFile := builder newClassNamed: #GlobalFunction.
+	structure := builder newClassNamed: #Structure.
+	globalFunction := builder newClassNamed: #GlobalFunction.
 	menuObject := builder newClassNamed: #MenuObject.
 	application := builder newClassNamed: #Application.
-	queryFile := builder newClassNamed: #Query.
+	query := builder newClassNamed: #Query.
 	behaviorSignature := builder newClassNamed: #BehaviorSignature.
 	"Type"
 	abstractType := builder newTraitNamed: #AbstractType.
@@ -135,13 +135,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TMethod;
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	function
+	routine
 		--|> behavioral ;
 		--|> #TNamedEntity ;
 		--|> #THasSignature ;
 		--|> #TTypedEntity ;
 		--|> #TWithParameters.
-	method
+	function
 		--|> behavioral;
 		--|> #TMethod;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
@@ -222,14 +222,14 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithAttributes.
-	structureFile --|> majorObject.
-	functionFile
+	structure --|> majorObject.
+	globalFunction
 		--|> majorObject;
 		--|> #TWithInvocations;
 		--|> abstractType.
 	menuObject --|> majorObject.
 	application --|> majorObject.
-	queryFile --|> majorObject.
+	query --|> majorObject.
 	abstractType
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:) ;
 		--|> #TType ;
@@ -261,7 +261,7 @@ PWBFamixModelGenerator >> defineProperties [
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
 
-	method property: #returnType type: #Object.
+	function property: #returnType type: #Object.
 
 	functionReturn property: #type type: #Object.
 	functionReturn property: #returnValue type: #Object.
