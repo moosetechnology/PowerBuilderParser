@@ -104,13 +104,6 @@ FamixPWBEntity >> isEvent [
 ]
 
 { #category : #testing }
-FamixPWBEntity >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBEntity >> isInvocation [
 
 	<generated>
