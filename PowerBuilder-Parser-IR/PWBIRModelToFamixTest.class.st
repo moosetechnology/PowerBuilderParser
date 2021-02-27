@@ -157,10 +157,10 @@ PWBIRModelToFamixTest >> testSubRoutineDependencyFunctionToFamixInvocation [
 
 { #category : #'tests-members' }
 PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
-	| ir fmx |
-	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	irModel ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
-	irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
+	| fct fmx |
+	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	irModel ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: fct.
+	irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
 	irModel toFamix.
 
 	self assert: irModel famixModel size equals: 3.

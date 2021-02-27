@@ -103,6 +103,7 @@ FamixPWBBehavioral >> content [
 
 { #category : #'visitor-double dispatching' }
 FamixPWBBehavioral >> createAccessTo: aFamixPWBAccessible writing: aBoolean [
+	self flag: #REMOVEME .
 	^ aFamixPWBAccessible accessAssociation new
 		source: self;
 		target: aFamixPWBAccessible;

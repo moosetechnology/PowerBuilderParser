@@ -27,6 +27,7 @@ FamixPWBVariable class >> isDeprecated [
 
 { #category : #accessing }
 FamixPWBVariable >> accessAssociation [
+	self flag: #REMOVEME .
 	^ FamixPWBVariableAccess
 ]
 

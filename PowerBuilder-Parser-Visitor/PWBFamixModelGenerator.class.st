@@ -125,11 +125,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TWithInvocations;
 		--|> #TWithReferences.
 	graphicComponent
-		--|> #TSourceEntity;
 		--|> #TWithAttributes;
 		--|> behavioral.
 	event
-		--|> behavioral;
+		--|> #TSourceEntity;
+		--|> #TWithAccesses;
+		--|> #TWithInvocations;
+		--|> #TWithReferences ;
 		--|> #TMethod;
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
@@ -156,13 +158,13 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TMethod;
 		--|> #TInvocable;
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+
+	"structural entities (valueHodlers)"
 	variable
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-
-	"structural entities (valueHodlers)"
 	parameter
 		--|> #TSourceEntity;
 		--|> #TNamedEntity;
@@ -228,9 +230,10 @@ PWBFamixModelGenerator >> defineHierarchy [
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	queryFile --|> majorObject.
-	abstractType inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	abstractType --|> #TType.
-	abstractType --|> #TReferenceable.
+	abstractType
+		inheritsFromTrait: tNamed without: #(#mooseNameOn:) ;
+		--|> #TType ;
+		--|> #TReferenceable.
 	customType --|> abstractType.
 	basicType --|> abstractType.
 
@@ -249,18 +252,25 @@ PWBFamixModelGenerator >> defineHierarchy [
 { #category : #definition }
 PWBFamixModelGenerator >> defineProperties [
 	majorObject property: #cyclomaticComplexity type: #Number.
+	
 	behavioral property: #cyclomaticComplexity type: #Number.
+
 	argument property: #argumentValue type: #Object.
+
 	parameter property: #parameterOption type: #Object.
 	parameter property: #parameterType type: #String.
 	parameter property: #startPos type: #Number.
+
 	method property: #returnType type: #Object.
+
 	functionReturn property: #type type: #Object.
 	functionReturn property: #returnValue type: #Object.
 	functionReturn
 		property: #doesBelongToSingleLineIfStatement
 		type: #Boolean.
+
 	attribute property: #attributeType type: #Object.
+	
 	behavioral property: #accessModifier type: #String
 ]
 
