@@ -119,7 +119,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TSourceEntity.
 
 	"behaviorals"
-	behavioral "TWithStatements"
+	behavioral
 		--|> #TSourceEntity;
 		--|> #TWithAccesses;
 		--|> #TWithInvocations;
@@ -135,7 +135,7 @@ PWBFamixModelGenerator >> defineHierarchy [
 		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
 	function
 		--|> behavioral ;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:) ;
+		--|> #TNamedEntity ;
 		--|> #THasSignature ;
 		--|> #TTypedEntity ;
 		--|> #TWithParameters.

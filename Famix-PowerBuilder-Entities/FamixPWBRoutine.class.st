@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBRoutine,
 	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTHasSignature + FamixTTypedEntity + FamixTWithParameters',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTHasSignature classTrait + FamixTTypedEntity classTrait + FamixTWithParameters classTrait',
+	#traits : 'FamixTHasSignature + FamixTNamedEntity + FamixTTypedEntity + FamixTWithParameters',
+	#classTraits : 'FamixTHasSignature classTrait + FamixTNamedEntity classTrait + FamixTTypedEntity classTrait + FamixTWithParameters classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
