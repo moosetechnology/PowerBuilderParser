@@ -1,7 +1,6 @@
 Trait {
 	#name : #FamixPWBAbstractType,
 	#traits : 'FamixTType',
-	#classTraits : 'FamixTType classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 

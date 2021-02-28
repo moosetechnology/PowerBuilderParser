@@ -4,6 +4,7 @@ Class {
 	#traits : 'FamixTNamedEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithReferences',
 	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithReferences classTrait',
 	#instVars : [
+		'#attributes => FMMany type: #FamixPWBAttribute opposite: #parentType',
 		'#content',
 		'#methods => FMMany type: #FamixPWBRoutine opposite: #parentType'
 	],
@@ -17,6 +18,12 @@ FamixPWBmajorObject class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #adding }
+FamixPWBmajorObject >> addAttribute: anObject [
+	<generated>
+	^ self attributes add: anObject
 ]
 
 { #category : #adding }
@@ -45,6 +52,22 @@ FamixPWBmajorObject >> attributeAccess: attributeName [
 		select: [ :method | 
 			(method accesses collectAsSet: [ :acces | acces variable ])
 				anySatisfy: [ :var | var name endsWith: attributeName ] ]
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> attributes [
+	"Relation named: #attributes type: #FamixPWBAttribute opposite: #parentType"
+
+	<generated>
+	<derived>
+	^ attributes
+]
+
+{ #category : #accessing }
+FamixPWBmajorObject >> attributes: anObject [
+
+	<generated>
+	attributes value: anObject
 ]
 
 { #category : #accessing }

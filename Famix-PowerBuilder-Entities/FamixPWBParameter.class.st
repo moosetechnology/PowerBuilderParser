@@ -1,8 +1,6 @@
 Class {
 	#name : #FamixPWBParameter,
-	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTParameter + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTParameter classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
+	#superclass : #FamixPWBVariable,
 	#instVars : [
 		'#parentBehaviouralEntity => FMOne type: #FamixPWBRoutine opposite: #parameters'
 	],
@@ -12,7 +10,7 @@ Class {
 { #category : #meta }
 FamixPWBParameter class >> annotation [
 
-	<FMClass: #Parameter super: #FamixPWBEntity>
+	<FMClass: #Parameter super: #FamixPWBVariable>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

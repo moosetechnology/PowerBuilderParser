@@ -85,13 +85,6 @@ FamixPWBEntity >> isAssociation [
 ]
 
 { #category : #testing }
-FamixPWBEntity >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBEntity >> isEvent [
 	^ false
 ]

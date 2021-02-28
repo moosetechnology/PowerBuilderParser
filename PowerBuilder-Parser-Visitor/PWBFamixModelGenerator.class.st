@@ -148,20 +148,11 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TNamedEntity;
 		--|> #TWithTypes;
 		--|> #TAccessible.
-	parameter
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	sharedVariable --|> attribute.
-	globalVariable --|> attribute.
+	parameter --|> variable .
+	sharedVariable --|> variable.
+	globalVariable --|> variable.
 	localVariable --|> #TLocalVariable.
-	instanceVariable --|> attribute.
-	attribute
-		--|> #TAttribute;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	parameter --|> #TParameter.
+	attribute --|> variable.
 
 	"associations"
 	invocation
@@ -176,8 +167,9 @@ PWBFamixModelGenerator >> defineHierarchy [
 		--|> #TReference.
 
 	"Major objects"
-	abstractType
-		--|> #TType .
+	abstractType --|> #TType .
+	customType --|> abstractType.
+	basicType --|> abstractType.
 	majorObject
 		--|> #TNamedEntity ;
 		--|> #TWithAttributes ;
@@ -201,282 +193,11 @@ PWBFamixModelGenerator >> defineHierarchy [
 	structure --|> majorObject.
 	globalFunction
 		--|> majorObject;
-		--|> #TWithInvocations;
-		--|> abstractType.
-	menuObject --|> majorObject.
-	application --|> majorObject.
-	query --|> majorObject.
-	customType --|> abstractType.
-	basicType --|> abstractType.
-
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> defineHierarchyNew [
-	super defineHierarchy.
-	library
-		--|> #TNamedEntity.
-
-	"behaviorals"
-	behavioral
-		--|> #TNamedEntity;
-		--|> #TWithAccesses;
-		--|> #TWithInvocations;
-		--|> #TWithReferences.
-	graphicComponent
-		--|> #TWithAttributes;
-		--|> behavioral.
-	routine
-		--|> behavioral ;
-		--|> #THasSignature ;
-		--|> #TWithImplicitVariables ;
-		--|> #TWithLocalVariables ;
-		--|> #TInvocable ;
-		--|> #TWithParameters.
-	function
-		--|> routine ;
-		--|> #TTypedEntity .
-	event
-		--|> routine.
-	trigger
-		--|> #TWithAttributes ;
-		--|> routine .
-	subRoutine
-		--|> routine .
-
-	"structural entities (valueHodlers)"
-	variable
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	parameter
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	sharedVariable --|> attribute.
-	globalVariable --|> attribute.
-	localVariable --|> #TLocalVariable.
-	instanceVariable --|> attribute.
-	attribute
-		--|> #TAttribute;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	parameter --|> #TParameter.
-
-	"associations"
-	invocation --|> #TInvocation.
-	invocation
-		--|> #THasSignature;
-		--|> #TSourceEntity.
-	access
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	variableAccess
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	reference
-		--|> #TSourceEntity;
-		--|> #TReference.
-
-	"Major objects"
-	majorObject
-		--|> #TSourceEntity ;
-		--|> #TNamedEntity ;
-		--|> #TWithAttributes ;
-		--|> #TWithAccesses ;
-		--|> #TWithMethods ;
-		--|> #TWithFunctions ;
-		--|> #TWithReferences.
-	userObject
-		--|> majorObject ;
-		--|> abstractType ;
 		--|> #TWithInvocations.
-	window --|> majorObject.
-	window --|> #TWithInvocations.
-	dataWindow
-		--|> majorObject ;
-		--|> #TWithInvocations ;
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithAttributes.
-	structure --|> majorObject.
-	globalFunction
-		--|> majorObject;
-		--|> #TWithInvocations;
-		--|> abstractType.
 	menuObject --|> majorObject.
 	application --|> majorObject.
 	query --|> majorObject.
-	abstractType
-		--|> #TType ;
-		--|> #TReferenceable.
-	customType --|> abstractType.
-	basicType --|> abstractType.
 
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> defineHierarchyOld [
-	super defineHierarchy.
-	tNamed --|> #TNamedEntity.
-	tWithMethods --|> #TWithMethods.
-	library
-		--|> #TNamedEntity;
-		--|> #TSourceEntity.
-
-	"behaviorals"
-	behavioral
-		--|> #TSourceEntity;
-		--|> #TWithAccesses;
-		--|> #TWithInvocations;
-		--|> #TWithReferences.
-	graphicComponent
-		--|> #TWithAttributes;
-		--|> behavioral.
-	routine
-		--|> behavioral ;
-		--|> #TNamedEntity ;
-		--|> #THasSignature ;
-		--|> #TTypedEntity ;
-		--|> #TWithParameters.
-	function
-		--|> #TMethod ";
-		--|> behavioral" .
-	event
-		--|> #TSourceEntity;
-		--|> #TWithAccesses;
-		--|> #TWithInvocations;
-		--|> #TWithReferences ;
-		--|> #TMethod;
-		--|> #TInvocable;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	trigger
-		--|> #TWithAttributes;
-		--|> behavioral;
-		--|> #TMethod;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-	subRoutine
-		--|> behavioral;
-		--|> #TMethod;
-		--|> #TInvocable;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:).
-
-	"structural entities (valueHodlers)"
-	variable
-		--|> #TStructuralEntity .
-"		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
-		--|> #TAccessible."
-	parameter
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	attribute
-		--|> #TSourceEntity;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TAttribute.
-	sharedVariable --|> attribute.
-	globalVariable --|> attribute.
-	localVariable --|> #TLocalVariable.
-	instanceVariable --|> attribute.
-	attribute
-		--|> #TSourceEntity;
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:);
-		--|> #TAttribute;
-		--|> #TWithTypes;
-		--|> #TAccessible.
-	parameter --|> #TParameter.
-
-	"associations"
-	invocation --|> #TInvocation.
-	invocation
-		--|> #THasSignature;
-		--|> #TSourceEntity.
-	access
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	variableAccess
-		--|> #TSourceEntity;
-		--|> #TAccess.
-	reference
-		--|> #TSourceEntity;
-		--|> #TReference.
-
-	"Major objects"
-	majorObject
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithAttributes;
-		--|> #TWithAccesses;
-		inheritsFromTrait: tWithMethods without: #(#numberOfLinesOfCode);
-		--|> #TWithFunctions;
-		--|> #TWithReferences.
-	userObject
-		--|> majorObject ;
-		--|> abstractType ;
-		--|> #TWithInvocations.
-	window --|> majorObject.
-	window --|> #TWithInvocations.
-	dataWindow
-		--|> majorObject ;
-		--|> #TWithInvocations ;
-		--|> #TSourceEntity;
-		--|> #TNamedEntity;
-		--|> #TWithAttributes.
-	structure --|> majorObject.
-	globalFunction
-		--|> majorObject;
-		--|> #TWithInvocations;
-		--|> abstractType.
-	menuObject --|> majorObject.
-	application --|> majorObject.
-	query --|> majorObject.
-	abstractType
-		inheritsFromTrait: tNamed without: #(#mooseNameOn:) ;
-		--|> #TType ;
-		--|> #TReferenceable.
-	customType --|> abstractType.
-	basicType --|> abstractType.
-
-	"to remove"
-	argument
-		--|> tNamed;
-		--|> #TSourceEntity.
-	functionReturn
-		--|> #TSourceEntity;
-		--|> tNamed.
-	behaviorSignature
-		--|> #TSourceEntity;
-		--|> tNamed
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> definePropertiesOld [
-	majorObject property: #cyclomaticComplexity type: #Number.
-	
-	behavioral property: #cyclomaticComplexity type: #Number.
-	behavioral property: #accessModifier type: #String.
-
-	argument property: #argumentValue type: #Object.
-
-	parameter property: #parameterOption type: #Object.
-	parameter property: #parameterType type: #String.
-	parameter property: #startPos type: #Number.
-
-	function property: #returnType type: #Object.
-
-	functionReturn property: #type type: #Object.
-	functionReturn property: #returnValue type: #Object.
-	functionReturn
-		property: #doesBelongToSingleLineIfStatement
-		type: #Boolean.
-
-	attribute property: #attributeType type: #Object.
-	
 ]
 
 { #category : #definition }
@@ -491,49 +212,13 @@ PWBFamixModelGenerator >> defineRelations [
 		*-
 	(routine property: #parameters).
 
+	((attribute property: #parentType) container)
+		*-
+	(majorObject property: #attributes).
+
 	((routine property: #parentType) container)
 		*-
 	(majorObject property: #methods).
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> defineRelationsNew [
-	super defineRelations.
-
-	((localVariable property: #parentBehaviouralEntity) container)
-		*-
-	(behavioral property: #localVariables).
-
-	((parameter property: #parentBehaviouralEntity) container)
-		*-
-	(routine property: #parameters).
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> defineRelationsOld [
-	super defineRelations.
-	(behavioral property: #returns)
-		<>-* (functionReturn property: #behavioral).
-	(behavioral property: #signature)
-		<>- (behaviorSignature property: #behavioral).
-	(parameter property: #behavioral)
-		*-<> (behavioral property: #parameters).
-	"(variable property: #behavioral)
-		*-<> (behavioral property: #variables)."
-	(dataWindow property: #graphicComponents)
-		<>-* (graphicComponent property: #dataWindow).
-	(majorObject property: #library)
-		*-<> (library property: #userObjects).
-	(invocation property: #arguments)
-		<>-* (argument property: #invocation).
-
-]
-
-{ #category : #definition }
-PWBFamixModelGenerator >> defineTraitsOld [
-	super defineTraits.
-	tNamed := builder newTraitNamed: #PBTNamed.
-	tWithMethods := builder newTraitNamed: #PBTWithMethods
 ]
 
 { #category : #definition }
