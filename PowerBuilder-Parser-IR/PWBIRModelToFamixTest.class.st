@@ -175,9 +175,9 @@ PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 	self assert: fmx parameters anyOne name equals: 'param'.
 	self deny: fmx parameters anyOne isStub.
 
-	self assert: fmx variables size equals: 1.
-	self assert: fmx variables anyOne name equals: 'var'.
-	self deny: fmx variables anyOne isStub.
+	self assert: fmx localVariables size equals: 1.
+	self assert: fmx localVariables anyOne name equals: 'var'.
+	self deny: fmx localVariables anyOne isStub.
 
 ]
 

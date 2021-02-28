@@ -1,11 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
-	#instVars : [
-		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #variables'
-	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -29,29 +26,6 @@ FamixPWBVariable class >> isDeprecated [
 FamixPWBVariable >> accessAssociation [
 	self flag: #REMOVEME .
 	^ FamixPWBVariableAccess
-]
-
-{ #category : #accessing }
-FamixPWBVariable >> behavioral [
-	"Relation named: #behavioral type: #FamixPWBBehavioral opposite: #variables"
-
-	<generated>
-	<container>
-	^ behavioral
-]
-
-{ #category : #accessing }
-FamixPWBVariable >> behavioral: anObject [
-
-	<generated>
-	behavioral := anObject
-]
-
-{ #category : #navigation }
-FamixPWBVariable >> behavioralGroup [
-	<generated>
-	<navigation: 'Behavioral'>
-	^ MooseSpecializedGroup with: self behavioral
 ]
 
 { #category : #testing }

@@ -14,8 +14,7 @@ Class {
 		'#incomingInvocationSenders',
 		'#parameters => FMMany type: #FamixPWBParameter opposite: #behavioral',
 		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
-		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral',
-		'#variables => FMMany type: #FamixPWBVariable opposite: #behavioral'
+		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -64,12 +63,6 @@ FamixPWBBehavioral >> addParameter: anObject [
 FamixPWBBehavioral >> addReturn: anObject [
 	<generated>
 	^ self returns add: anObject
-]
-
-{ #category : #adding }
-FamixPWBBehavioral >> addVariable: anObject [
-	<generated>
-	^ self variables add: anObject
 ]
 
 { #category : #api }
@@ -217,11 +210,12 @@ FamixPWBBehavioral >> isPrivate [
 
 { #category : #printing }
 FamixPWBBehavioral >> mooseNameOn: stream [
-	self parentType
+	^super mooseNameOn: stream.
+"	self parentType
 		ifNotNil: [ :parent | 
 			parent mooseNameOn: stream.
 			stream nextPut: $. ].
-	self name ifNotNil: [ :aName | stream nextPutAll: aName ]
+	self name ifNotNil: [ :aName | stream nextPutAll: aName ]"
 ]
 
 { #category : #api }
@@ -315,29 +309,6 @@ FamixPWBBehavioral >> signatureGroup [
 	<generated>
 	<navigation: 'Signature'>
 	^ MooseSpecializedGroup with: self signature
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> variables [
-	"Relation named: #variables type: #FamixPWBVariable opposite: #behavioral"
-
-	<generated>
-	<derived>
-	^ variables
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> variables: anObject [
-
-	<generated>
-	variables value: anObject
-]
-
-{ #category : #navigation }
-FamixPWBBehavioral >> variablesGroup [
-	<generated>
-	<navigation: 'Variables'>
-	^ MooseSpecializedGroup withAll: self variables asSet
 ]
 
 { #category : #api }
