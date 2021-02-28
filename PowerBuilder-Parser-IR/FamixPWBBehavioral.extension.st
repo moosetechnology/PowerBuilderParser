@@ -8,5 +8,5 @@ FamixPWBBehavioral >> addDependencyToIR: anIRDependency [
 { #category : #'*PowerBuilder-Parser-IR' }
 FamixPWBBehavioral >> addMemberIR: anIREntity [
 	(anIREntity toFamix: (self mooseModel))
-		behavioral: self
+		beMemberOfBehavioural: self
 ]

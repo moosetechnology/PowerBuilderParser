@@ -1,15 +1,13 @@
 Class {
 	#name : #FamixPWBEvent,
-	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTInvocable + FamixTMethod + FamixTSourceEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
+	#superclass : #FamixPWBRoutine,
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBEvent class >> annotation [
 
-	<FMClass: #Event super: #FamixPWBEntity>
+	<FMClass: #Event super: #FamixPWBRoutine>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

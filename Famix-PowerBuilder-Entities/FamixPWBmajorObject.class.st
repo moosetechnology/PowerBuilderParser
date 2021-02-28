@@ -1,12 +1,11 @@
 Class {
 	#name : #FamixPWBmajorObject,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTWithMethods - {#numberOfLinesOfCode} + FamixTNamedEntity + FamixTSourceEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithReferences',
-	#classTraits : 'FamixPWBPBTWithMethods classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithReferences classTrait',
+	#traits : 'FamixTNamedEntity + FamixTWithAccesses + FamixTWithAttributes + FamixTWithFunctions + FamixTWithMethods + FamixTWithReferences',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithAttributes classTrait + FamixTWithFunctions classTrait + FamixTWithMethods classTrait + FamixTWithReferences classTrait',
 	#instVars : [
 		'#content',
-		'#cyclomaticComplexity => FMProperty',
-		'#library => FMOne type: #FamixPWBLibrary opposite: #userObjects'
+		'#methods => FMMany type: #FamixPWBRoutine opposite: #parentType'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -18,6 +17,12 @@ FamixPWBmajorObject class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #adding }
+FamixPWBmajorObject >> addMethod: anObject [
+	<generated>
+	^ self methods add: anObject
 ]
 
 { #category : #accessing }
@@ -40,20 +45,6 @@ FamixPWBmajorObject >> attributeAccess: attributeName [
 		select: [ :method | 
 			(method accesses collectAsSet: [ :acces | acces variable ])
 				anySatisfy: [ :var | var name endsWith: attributeName ] ]
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> cyclomaticComplexity [
-
-	<FMProperty: #cyclomaticComplexity type: #Number>
-	<generated>
-	^ cyclomaticComplexity
-]
-
-{ #category : #accessing }
-FamixPWBmajorObject >> cyclomaticComplexity: anObject [
-	<generated>
-	cyclomaticComplexity := anObject
 ]
 
 { #category : #accessing }
@@ -140,26 +131,19 @@ FamixPWBmajorObject >> isPWBClass [
 ]
 
 { #category : #accessing }
-FamixPWBmajorObject >> library [
-	"Relation named: #library type: #FamixPWBLibrary opposite: #userObjects"
+FamixPWBmajorObject >> methods [
+	"Relation named: #methods type: #FamixPWBRoutine opposite: #parentType"
 
 	<generated>
-	<container>
-	^ library
+	<derived>
+	^ methods
 ]
 
 { #category : #accessing }
-FamixPWBmajorObject >> library: anObject [
+FamixPWBmajorObject >> methods: anObject [
 
 	<generated>
-	library := anObject
-]
-
-{ #category : #navigation }
-FamixPWBmajorObject >> libraryGroup [
-	<generated>
-	<navigation: 'Library'>
-	^ MooseSpecializedGroup with: self library
+	methods value: anObject
 ]
 
 { #category : #query }

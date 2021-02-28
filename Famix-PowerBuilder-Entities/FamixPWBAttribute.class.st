@@ -1,11 +1,8 @@
 Class {
 	#name : #FamixPWBAttribute,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTAccessible + FamixTAttribute + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
-	#instVars : [
-		'#attributeType => FMProperty'
-	],
+	#traits : 'FamixTAccessible + FamixTAttribute + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -21,20 +18,6 @@ FamixPWBAttribute class >> annotation [
 { #category : #accessing }
 FamixPWBAttribute >> accessAssociation [
 	^ FamixPWBAccess
-]
-
-{ #category : #accessing }
-FamixPWBAttribute >> attributeType [
-
-	<FMProperty: #attributeType type: #Object>
-	<generated>
-	^ attributeType
-]
-
-{ #category : #accessing }
-FamixPWBAttribute >> attributeType: anObject [
-	<generated>
-	attributeType := anObject
 ]
 
 { #category : #accessing }

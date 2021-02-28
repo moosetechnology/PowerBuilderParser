@@ -1,10 +1,9 @@
 Class {
 	#name : #FamixPWBBehavioral,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTSourceEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
-	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
+	#traits : 'FamixTNamedEntity + FamixTWithAccesses + FamixTWithInvocations + FamixTWithReferences',
+	#classTraits : 'FamixTNamedEntity classTrait + FamixTWithAccesses classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait',
 	#instVars : [
-		'#accessModifier => FMProperty',
 		'#addedCharacter',
 		'#businessRulePath',
 		'#content',
@@ -12,9 +11,7 @@ Class {
 		'#deadArguments',
 		'#deadLocalVariables',
 		'#incomingInvocationSenders',
-		'#parameters => FMMany type: #FamixPWBParameter opposite: #behavioral',
-		'#returns => FMMany type: #FamixPWBFunctionReturn opposite: #behavioral',
-		'#signature => FMOne type: #FamixPWBBehaviorSignature opposite: #behavioral'
+		'#localVariables => FMMany type: #FamixPWBLocalVariable opposite: #parentBehaviouralEntity'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -28,41 +25,10 @@ FamixPWBBehavioral class >> annotation [
 	^self
 ]
 
-{ #category : #accessing }
-FamixPWBBehavioral >> accessModifier [
-
-	<FMProperty: #accessModifier type: #String>
-	<generated>
-	^ accessModifier
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> accessModifier: anObject [
-	<generated>
-	accessModifier := anObject
-]
-
-{ #category : #'Famix-Extensions' }
-FamixPWBBehavioral >> accessedAttributes [
-	"Returns the set of attributes of my class accessed by me (method). 
-	Used to support the calculation of LCOM"
-
-	^ ((self queryOutgoingAccesses opposites
-		withinParentUsing: FamixPWBPBTWithMethods) asSet
-		select: #isInstanceVariable)
-		reject: [ :aMethod | {'true' . 'false'} includes: aMethod name asLowercase ]
-]
-
 { #category : #adding }
-FamixPWBBehavioral >> addParameter: anObject [
+FamixPWBBehavioral >> addLocalVariable: anObject [
 	<generated>
-	^ self parameters add: anObject
-]
-
-{ #category : #adding }
-FamixPWBBehavioral >> addReturn: anObject [
-	<generated>
-	^ self returns add: anObject
+	^ self localVariables add: anObject
 ]
 
 { #category : #api }
@@ -116,20 +82,6 @@ FamixPWBBehavioral >> createParameter: argAST [
 		mooseModel: self mooseModel;
 		behavioral: self;
 		startPos: argAST startPosition
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> cyclomaticComplexity [
-
-	<FMProperty: #cyclomaticComplexity type: #Number>
-	<generated>
-	^ cyclomaticComplexity
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> cyclomaticComplexity: anObject [
-	<generated>
-	cyclomaticComplexity := anObject
 ]
 
 { #category : #converting }
@@ -208,6 +160,22 @@ FamixPWBBehavioral >> isPrivate [
 		and: [ self accessModifier asLowercase = 'private' ]
 ]
 
+{ #category : #accessing }
+FamixPWBBehavioral >> localVariables [
+	"Relation named: #localVariables type: #FamixPWBLocalVariable opposite: #parentBehaviouralEntity"
+
+	<generated>
+	<derived>
+	^ localVariables
+]
+
+{ #category : #accessing }
+FamixPWBBehavioral >> localVariables: anObject [
+
+	<generated>
+	localVariables value: anObject
+]
+
 { #category : #printing }
 FamixPWBBehavioral >> mooseNameOn: stream [
 	^super mooseNameOn: stream.
@@ -235,20 +203,6 @@ FamixPWBBehavioral >> parameters [
 	^ parameters
 ]
 
-{ #category : #accessing }
-FamixPWBBehavioral >> parameters: anObject [
-
-	<generated>
-	parameters value: anObject
-]
-
-{ #category : #navigation }
-FamixPWBBehavioral >> parametersGroup [
-	<generated>
-	<navigation: 'Parameters'>
-	^ MooseSpecializedGroup withAll: self parameters asSet
-]
-
 { #category : #api }
 FamixPWBBehavioral >> predifinedMethods [
 	^ #('sort' 'len' 'setnull' 'string' 'long' 'rowcount' 'Find' 'getitemdate' 'retrieve' 'isnull' 'setsort' 'getitemstring' 'isnull' 'left' 'setrow' 'upprt' 'trim' 'right' 'now' 'datetime' 'relativedate' 'today' 'triggerevent' 'replace' 'long' 'isnumber' 'getitemnumber' 'constructor' 'destroy')
@@ -259,56 +213,11 @@ FamixPWBBehavioral >> reachableEntities [
 	^ self variables
 ]
 
-{ #category : #accessing }
-FamixPWBBehavioral >> returns [
-	"Relation named: #returns type: #FamixPWBFunctionReturn opposite: #behavioral"
-
-	<generated>
-	<derived>
-	^ returns
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> returns: anObject [
-
-	<generated>
-	returns value: anObject
-]
-
-{ #category : #navigation }
-FamixPWBBehavioral >> returnsGroup [
-	<generated>
-	<navigation: 'Returns'>
-	^ MooseSpecializedGroup withAll: self returns asSet
-]
-
 { #category : #api }
 FamixPWBBehavioral >> setContent [
 	content := self allOutgoingInvocationCandidates
 		add: self;
 		yourself
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> signature [
-	"Relation named: #signature type: #FamixPWBBehaviorSignature opposite: #behavioral"
-
-	<generated>
-	^ signature
-]
-
-{ #category : #accessing }
-FamixPWBBehavioral >> signature: anObject [
-
-	<generated>
-	signature := anObject
-]
-
-{ #category : #navigation }
-FamixPWBBehavioral >> signatureGroup [
-	<generated>
-	<navigation: 'Signature'>
-	^ MooseSpecializedGroup with: self signature
 ]
 
 { #category : #api }

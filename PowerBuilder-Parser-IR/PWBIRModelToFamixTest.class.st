@@ -41,7 +41,7 @@ PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
 	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
 	ir toFamix: fmxModel.
 
-	self should: [ ir toFamix: fmxModel class: FamixPWBRoutine ] raise: PWBIRWrongFamixClass.
+	self should: [ ir toFamix: fmxModel class: FamixPWBGraphicComponent ] raise: PWBIRWrongFamixClass.
 
 ]
 

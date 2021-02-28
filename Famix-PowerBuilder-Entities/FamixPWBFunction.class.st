@@ -1,18 +1,15 @@
 Class {
 	#name : #FamixPWBFunction,
-	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTMethod',
-	#classTraits : 'FamixTMethod classTrait',
-	#instVars : [
-		'#returnType => FMProperty'
-	],
+	#superclass : #FamixPWBRoutine,
+	#traits : 'FamixTTypedEntity',
+	#classTraits : 'FamixTTypedEntity classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBFunction class >> annotation [
 
-	<FMClass: #Function super: #FamixPWBEntity>
+	<FMClass: #Function super: #FamixPWBRoutine>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -39,20 +36,6 @@ FamixPWBFunction >> parameters [
 
 	
 	^ parameters
-]
-
-{ #category : #accessing }
-FamixPWBFunction >> returnType [
-
-	<FMProperty: #returnType type: #Object>
-	<generated>
-	^ returnType
-]
-
-{ #category : #accessing }
-FamixPWBFunction >> returnType: anObject [
-	<generated>
-	returnType := anObject
 ]
 
 { #category : #accessing }

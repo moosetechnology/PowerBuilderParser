@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBVariable,
 	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTStructuralEntity',
-	#classTraits : 'FamixTStructuralEntity classTrait',
+	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTSourceEntity + FamixTWithTypes',
+	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
