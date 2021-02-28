@@ -15,8 +15,27 @@ PWBIRModelToFamixTest >> setUp [
 	irModel famixModel: fmxModel 
 ]
 
+{ #category : #'tests-expectedKind' }
+PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
+	| ir |
+	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	ir toFamix: fmxModel.
+
+	self should: [ ir toFamix: fmxModel class: FamixPWBGraphicComponent ] raise: PWBIRWrongFamixClass.
+
+]
+
+{ #category : #'tests-expectedKind' }
+PWBIRModelToFamixTest >> testEntityToFamixExpectedKindSuperclassOfGivenType [
+	| ir |
+	ir := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'uo' owner: nil.
+
+	self assert: (ir toFamix: fmxModel class: FamixPWBmajorObject) class equals: FamixPWBUserObject.
+
+]
+
 { #category : #'tests-accesses' }
-PWBIRModelToFamixTest >> testDependencyAccessToFamix [
+PWBIRModelToFamixTest >> testFunctionAccessingLocalVariableToFamix [
 	| fct var access |
 	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
 	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: fct.
@@ -35,22 +54,16 @@ PWBIRModelToFamixTest >> testDependencyAccessToFamix [
 
 ]
 
-{ #category : #'tests-expectedKind' }
-PWBIRModelToFamixTest >> testEntityToFamixExpectedKindNotWishedType [
-	| ir |
-	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	ir toFamix: fmxModel.
+{ #category : #'tests-declaredType' }
+PWBIRModelToFamixTest >> testFunctionDeclaredTypeBasic [
+	| fct typ |
+	typ := irModel ensureIRForFamixClass: FamixPWBBasicType named: 'long' owner: nil..
+	fct := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	fct declaredType: typ.
 
-	self should: [ ir toFamix: fmxModel class: FamixPWBGraphicComponent ] raise: PWBIRWrongFamixClass.
+	irModel toFamix.
 
-]
-
-{ #category : #'tests-expectedKind' }
-PWBIRModelToFamixTest >> testEntityToFamixExpectedKindSuperclassOfGivenType [
-	| ir |
-	ir := irModel ensureIRForFamixClass: FamixPWBUserObject named: 'uo' owner: nil.
-
-	self assert: (ir toFamix: fmxModel class: FamixPWBmajorObject) class equals: FamixPWBUserObject.
+	self assert: fct famixEntity declaredType equals: typ famixEntity
 
 ]
 
@@ -109,7 +122,7 @@ PWBIRModelToFamixTest >> testFunctionDependencySubRoutineToFamixInvocation [
 ]
 
 { #category : #'tests-accesses' }
-PWBIRModelToFamixTest >> testRoutineDependencyParameterToFamixAccess [
+PWBIRModelToFamixTest >> testRoutineAccessingParameter [
 	"Routine accessing a parameter"
 	| fct var access |
 	fct := irModel ensureIRForFamixClass: FamixPWBRoutine named: 'fct' owner: nil.
@@ -264,8 +277,8 @@ PWBIRModelToFamixTest >> testUserObjectMemberVariableToFamixAttribute [
 
 ]
 
-{ #category : #tests }
-PWBIRModelToFamixTest >> testVariableDeclaredType [
+{ #category : #'tests-declaredType' }
+PWBIRModelToFamixTest >> testVariableDeclaredTypeBasic [
 	| var typ |
 	typ := irModel ensureIRForFamixClass: FamixPWBBasicType named: 'long' owner: nil..
 	var := irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: nil.

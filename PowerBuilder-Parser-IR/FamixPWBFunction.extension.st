@@ -1,11 +1,6 @@
 Extension { #name : #FamixPWBFunction }
 
 { #category : #'*PowerBuilder-Parser-IR' }
-FamixPWBFunction >> addDependencyToIR: anIRDependency [
-	anIRDependency toFamix: self mooseModel dependingBehavioural: self
-]
-
-{ #category : #'*PowerBuilder-Parser-IR' }
 FamixPWBFunction >> addMemberIR: anIREntity [
 	(anIREntity toFamix: (self mooseModel))
 		parentBehaviouralEntity: self

@@ -49,6 +49,17 @@ PWBIRFunction >> isBehavioural [
 ]
 
 { #category : #converting }
+PWBIRFunction >> toFamix: famixModel [
+	famixEntity ifNotNil: [ ^famixEntity ].
+
+	super toFamix: famixModel.
+	
+	declaredType ifNotNil: [ (declaredType toFamix: famixModel) addTypedEntity: famixEntity].
+
+	^famixEntity
+]
+
+{ #category : #converting }
 PWBIRFunction >> toFamix: famixModel asMemberOfUserObject: userObject [
 	^(self toFamix: famixModel class: FamixPWBFunction) 
 		parentType: userObject ;

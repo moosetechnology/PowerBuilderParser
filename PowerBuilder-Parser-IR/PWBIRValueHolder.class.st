@@ -57,7 +57,7 @@ PWBIRValueHolder >> toFamix: famixModel [
 
 	super toFamix: famixModel.
 	
-	declaredType ifNotNil: [famixEntity addDependencyToIR: declaredType].
+	declaredType ifNotNil: [ (declaredType toFamix: famixModel) addTypedEntity: famixEntity ].
 
 	^famixEntity
 ]

@@ -18,13 +18,7 @@ FamixPWBLocalVariable class >> annotation [
 	^self
 ]
 
-{ #category : #converting }
-FamixPWBLocalVariable >> addDependencyToIR: anIRType [
-	(anIRType toFamix: self mooseModel)
-		addTypedEntity: self
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FamixPWBLocalVariable >> beMemberOfBehavioural: aFamixBehavioural [
 	self parentBehaviouralEntity: aFamixBehavioural
 ]
