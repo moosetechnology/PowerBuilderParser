@@ -52,6 +52,17 @@ PWBIRValueHolder >> name: aString [
 ]
 
 { #category : #converting }
+PWBIRValueHolder >> toFamix: famixModel [
+	famixEntity ifNotNil: [ ^famixEntity ].
+
+	super toFamix: famixModel.
+	
+	declaredType ifNotNil: [famixEntity addDependencyToIR: declaredType].
+
+	^famixEntity
+]
+
+{ #category : #converting }
 PWBIRValueHolder >> toFamix: famixModel asMemberOfUserObject: userObject [
 	^(self toFamix: famixModel class: FamixPWBAttribute) 
 		parentType: userObject ;

@@ -14,3 +14,9 @@ FamixPWBLocalVariable class >> annotation [
 	<generated>
 	^self
 ]
+
+{ #category : #converting }
+FamixPWBLocalVariable >> addDependencyToIR: anIRType [
+	(anIRType toFamix: self mooseModel)
+		addTypedEntity: self
+]
