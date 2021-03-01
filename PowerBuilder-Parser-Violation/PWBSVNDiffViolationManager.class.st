@@ -156,7 +156,7 @@ PWBSVNDiffViolationManager >> reportViolation: diffHeadPrev withFixed: diffPrevH
 							'<h1>Falicitation <span font-size: 100px;>&#128079;&#127997;</span><span>&#128076;&#127998;</span> </h1>';
 						<< '<br/>';
 						<< '<p>Vous avez fixé toutes les violations</p>' ] ].
-	self sendMailMessageToCommitAuthor
+	self stream ifNotEmpty: [ self sendMailMessageToCommitAuthor ]
 ]
 
 { #category : #running }
