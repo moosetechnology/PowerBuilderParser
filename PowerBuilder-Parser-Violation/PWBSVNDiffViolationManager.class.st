@@ -5,8 +5,9 @@ Class {
 		'head',
 		'prev',
 		'stream',
-		'author',
-		'repoName'
+		'repoName',
+		'headAuthor',
+		'prevAuthor'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -14,11 +15,6 @@ Class {
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager class >> prev: aPrevViolations head: aHeadViolations [
 	^ self new prev: aPrevViolations head: aHeadViolations
-]
-
-{ #category : #accessing }
-PWBSVNDiffViolationManager >> author: aString [ 
-	author := aString
 ]
 
 { #category : #'as yet unclassified' }
@@ -35,6 +31,11 @@ PWBSVNDiffViolationManager >> diffHeadPrev [
 	^ self diffBetween: self head and: self prev
 ]
 
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> existViolations: diffHeadPrev [
+	^ diffHeadPrev isNotEmpty
+]
+
 { #category : #accessing }
 PWBSVNDiffViolationManager >> head [
 	^ head
@@ -45,10 +46,20 @@ PWBSVNDiffViolationManager >> head: anObject [
 	head := anObject
 ]
 
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> headAuthor: aString [ 
+	headAuthor := aString
+]
+
 { #category : #initialization }
 PWBSVNDiffViolationManager >> initialize [
 	super initialize.
 	stream := WriteStream on: String new
+]
+
+{ #category : #'as yet unclassified' }
+PWBSVNDiffViolationManager >> isAuthorFixViolations: diffPrevHead [
+	^ diffPrevHead isNotEmpty and: [ prevAuthor = headAuthor ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -92,19 +103,23 @@ PWBSVNDiffViolationManager >> prev: aPrevViolations head: aHeadViolations [
 	head := aHeadViolations
 ]
 
+{ #category : #accessing }
+PWBSVNDiffViolationManager >> prevAuthor: aString [
+	prevAuthor := aString
+]
+
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> publishDiff [
 	| diffHeadPrev diffPrevHead |
 	diffHeadPrev := self diffBetween: self head and: self prev.
 	diffPrevHead := self diffBetween: self prev and: self head.
-	diffHeadPrev
-		ifNotEmpty: [ self reportViolation: diffHeadPrev withFixed: diffPrevHead ]
+	self reportViolation: diffHeadPrev withFixed: diffPrevHead
 ]
 
 { #category : #running }
 PWBSVNDiffViolationManager >> recipientList [
 	| recipientList authorMail |
-	authorMail := author , '@sa-cim.fr'.
+	authorMail := headAuthor , '@sa-cim.fr'.
 	recipientList := {'Jerome.Sudich@sa-cim.fr'.
 	'fatiha.Djareddir@sa-cim.fr'.
 	'MahugnonHonore.Houekpetodji@sa-cim.fr'.
@@ -130,10 +145,17 @@ PWBSVNDiffViolationManager >> reportViolation: violations [
 
 { #category : #'as yet unclassified' }
 PWBSVNDiffViolationManager >> reportViolation: diffHeadPrev withFixed: diffPrevHead [
-	diffPrevHead
-		ifEmpty: [ self prepareViolationReport: diffHeadPrev ]
-		ifNotEmpty:
-			[ self prepareEncouragmentReport: diffHeadPrev with: diffPrevHead size ].
+	(self existViolations: diffHeadPrev)
+		ifTrue: [ (self isAuthorFixViolations: diffPrevHead)
+				ifTrue:
+					[ self prepareEncouragmentReport: diffHeadPrev with: diffPrevHead size ]
+				ifFalse: [ self prepareViolationReport: diffHeadPrev ] ]
+		ifFalse: [ (self isAuthorFixViolations: diffPrevHead)
+				ifTrue: [ stream
+						<<
+							'<h1>Falicitation <span font-size: 100px;>&#128079;&#127997;</span><span>&#128076;&#127998;</span> </h1>';
+						<< '<br/>';
+						<< '<p>Vous avez fixé toutes les violations</p>' ] ].
 	self sendMailMessageToCommitAuthor
 ]
 

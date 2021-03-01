@@ -19,7 +19,7 @@ LimitViolationDetectorTest >> testFunctionMaximumParameterSize [
 	self
 		assert: self script
 		equals:
-			'<li>La routine >>myfunc a trop de parametres. En effet le nombre de parametres doit être inferieur a 10  </li>'
+			'<li>La routine >>myfunc à 10 de parametres. En effet le nombre de parametres doit être inferieur à 10  </li>'
 ]
 
 { #category : #tests }
@@ -38,7 +38,7 @@ LimitViolationDetectorTest >> testSubroutineMaximumParameterSize [
 	self
 		assert: self script
 		equals:
-			'<li>La routine >>myfunc a trop de parametres. En effet le nombre de parametres doit être inferieur a 10  </li>'
+			'<li>La routine >>myfunc à 10 de parametres. En effet le nombre de parametres doit être inferieur à 10  </li>'
 ]
 
 { #category : #tests }

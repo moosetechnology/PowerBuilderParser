@@ -7,6 +7,7 @@ Class {
 		'lines',
 		'svnHead',
 		'svnHeadAuthor',
+		'svnPrevAuthor',
 		'svnHeadDate',
 		'repoUrlTextInput',
 		'svnPrev'
@@ -116,7 +117,10 @@ PWBSVNManager >> getSvnInfo [
 		descendantElementsDetect: [ :xmlElt | xmlElt name = 'date' ]) nodes
 		anyOne asString asDateAndTime.
 	svnPrev := (info lastElement attributeNodeAt: 'revision') value
-		asInteger
+		asInteger.
+	svnPrevAuthor := (info lastElement
+		descendantElementsDetect: [ :xmlElt | xmlElt name = 'author' ])
+		nodes anyOne asString
 ]
 
 { #category : #initialization }
@@ -193,7 +197,8 @@ PWBSVNManager >> runViolations [
 		(ViolationRunner
 				importFromFolder: FileSystem workingDirectory / ('svnHead' , self repoName))
 				violations)
-		author: svnHeadAuthor;
+		headAuthor: svnHeadAuthor;
+		prevAuthor: svnPrevAuthor;
 		repoName: self repoName;
 		publishDiff.
 	self cleanUp
