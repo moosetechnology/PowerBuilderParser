@@ -68,7 +68,7 @@ LimitViolationDetectorTest >> testVisitViolationNumberInSubRoutine [
 	self
 		sourceExample:
 			'public  subroutine  mysub();
-	999999
+		dw_1.find(''val3="''+ls_table+''"'',0,999999)
 	end subroutine'.
 	ast := parser subroutineDefinition parse: file contents.
 	violations := (visitor visit: ast) violations.

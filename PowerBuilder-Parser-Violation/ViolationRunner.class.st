@@ -7,42 +7,28 @@ Class {
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
+{ #category : #adding }
+ViolationRunner >> addConstraint: aConstraint [
+	visitor addConstraint: aConstraint
+]
+
 { #category : #running }
 ViolationRunner >> basicRun [
 	super basicRun violations.
 	^ visitor
 ]
 
-{ #category : #running }
-ViolationRunner >> exportToCSV: violations [
-	"(folder asFileReference / 'violations.csv')
-		writeStreamDo: [ :stream | 
-			stream
-				<< 'objet,behavior,line,value';
-				cr.
-			violations
-				do: [ :violation | 
-					stream
-						<< violation objectName;
-						nextPut: $,;
-						<< violation behaviorName;
-						nextPut: $,;
-						<< violation relativeLine asString;
-						nextPut: $,;
-						<< violation value;
-						cr ] ]"
-
+{ #category : #initialization }
+ViolationRunner >> initialize [
+	super initialize.
+	stream := WriteStream on: String new.
 	
 ]
 
 { #category : #initialization }
-ViolationRunner >> initialize [
-	super initialize.
-	stream := WriteStream on: String new
-]
-
-{ #category : #initialization }
-ViolationRunner >> setUp [ 
+ViolationRunner >> setUp [
 	super setUp.
-	self visitor: PWBAbstractViolationDetectVisitor new
+	self visitor: PWBAbstractViolationDetectVisitor new.
+	self
+		addConstraint: (LimitDetectRestriction new restrictionName: 'find')
 ]

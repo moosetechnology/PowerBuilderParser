@@ -8,10 +8,10 @@ Class {
 	#category : #'PowerBuilder-Parser-Violation'
 }
 
-{ #category : #visiting }
-PWBQueryLimitViolationDetector >> initialize [
-	super initialize.
-	limit := '999'
+{ #category : #initialization }
+PWBQueryLimitViolationDetector >> initialize [ 
+super initialize .
+limit := '9999'
 ]
 
 { #category : #visiting }
@@ -61,6 +61,15 @@ PWBQueryLimitViolationDetector >> visitPWBASTNumber: anPWBASTNumber [
 						behavior: currentBehavior;
 						reportMessageFor9999;
 						yourself) ]
+]
+
+{ #category : #visiting }
+PWBQueryLimitViolationDetector >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	(constraints
+		anySatisfy: [ :const | 
+			const restrictionName
+				= (self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier) ])
+		ifTrue: [ self visit: aPWBASTRegularMethodInvocation functionArguments ]
 ]
 
 { #category : #visiting }

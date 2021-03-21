@@ -7,7 +7,8 @@ Class {
 		'file',
 		'currentLibrary',
 		'currentBehavior',
-		'parentVisitor'
+		'parentVisitor',
+		'constraints'
 	],
 	#category : #'PowerBuilder-Parser-Violation'
 }
@@ -17,6 +18,19 @@ PWBAbstractViolationDetectVisitor class >> newFrom: parentVisitor [
 	^ self new
 		parentVisitor: parentVisitor;
 		yourself
+]
+
+{ #category : #initialization }
+PWBAbstractViolationDetectVisitor >> accept: const [
+	^ {'LimitDetectRestriction'}
+		anySatisfy: [ :each | each = const restrictionName ]
+]
+
+{ #category : #adding }
+PWBAbstractViolationDetectVisitor >> addConstraint: aConstraint [
+	constraints
+		detect: [ :const | const restrictionName = aConstraint restrictionName ]
+		ifNone: [ constraints add: aConstraint ]
 ]
 
 { #category : #accessing }
@@ -32,12 +46,19 @@ PWBAbstractViolationDetectVisitor >> auxiliaryVisitor: aPWBAuxiliaryVisitorClass
 { #category : #'as yet unclassified' }
 PWBAbstractViolationDetectVisitor >> auxiliaryVisitor: aPWBVisitorClass visit: aNode [
 	^ (self auxiliaryVisitor: aPWBVisitorClass)
+		constraints: constraints;
 		violations: self violations;
 		file: self file;
 		preprocessingMap: self preprocessingMap;
 		currentLibrary: self currentLibrary;
 		currentBehavior: self currentBehavior;
 		visit: aNode
+]
+
+{ #category : #initialization }
+PWBAbstractViolationDetectVisitor >> constraints: aCollection [
+	constraints
+		addAll: (aCollection select: [ :const | self accept: const ])
 ]
 
 { #category : #accessing }
@@ -73,7 +94,8 @@ PWBAbstractViolationDetectVisitor >> file: anObject [
 { #category : #initialization }
 PWBAbstractViolationDetectVisitor >> initialize [
 	super initialize.
-	violations := OrderedCollection new
+	violations := OrderedCollection new.
+	constraints := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -191,11 +213,11 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVa
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTIfStatement: aPWBASTIfStatement [
-	"self
+	self
 		auxiliaryVisitor: PWBIfStatementViolationDetector
-		visit: aPWBASTIfStatement"
+		visit: aPWBASTIfStatement."
 
-	self visit: aPWBASTIfStatement ifStatement
+	self visit: aPWBASTIfStatement ifStatement"
 ]
 
 { #category : #visiting }
@@ -203,6 +225,13 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTNumber: aPWBASTNumber [
 	self
 		auxiliaryVisitor: PWBQueryLimitViolationDetector
 		visit: aPWBASTNumber
+]
+
+{ #category : #visiting }
+PWBAbstractViolationDetectVisitor >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
+	self
+		auxiliaryVisitor: PWBQueryLimitViolationDetector
+		visit: aPWBASTRegularMethodInvocation
 ]
 
 { #category : #visiting }

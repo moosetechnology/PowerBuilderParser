@@ -105,9 +105,12 @@ PWBSVNManager >> ensureCreateDirStructure: aString [
 { #category : #'as yet unclassified' }
 PWBSVNManager >> getSvnInfo [
 	| info |
-	info := (XMLDOMParser
+	info := [ (XMLDOMParser
 		parse: (LibC resultOfCommand: 'svn log ' , repoUrl , ' --limit 2 --xml'))
-		document descendantElementsDetect: [ :xmlElt | xmlElt name = 'log' ].
+		document descendantElementsDetect: [ :xmlElt | xmlElt name = 'log' ] ]
+		on: XMLParserException
+		do: [  ].
+	info ifNil: [ ^ self ].
 	svnHead := (info firstElement attributeNodeAt: 'revision') value
 		asInteger.
 	svnHeadAuthor := (info firstElement

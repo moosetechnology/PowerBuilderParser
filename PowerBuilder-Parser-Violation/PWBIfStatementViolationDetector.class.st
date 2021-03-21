@@ -19,5 +19,5 @@ PWBIfStatementViolationDetector >> visitPWBASTIfSingleLine: aPWBASTIfSingleLine 
 
 { #category : #visiting }
 PWBIfStatementViolationDetector >> visitPWBASTIfStatement: aPWBASTIfStatement [
-	^ self visit: aPWBASTIfStatement ifStatement
+	"^ self visit: aPWBASTIfStatement ifStatement"
 ]
