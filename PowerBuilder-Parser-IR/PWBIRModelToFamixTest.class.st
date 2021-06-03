@@ -171,40 +171,40 @@ PWBIRModelToFamixTest >> testSubRoutineDependencyFunctionToFamixInvocation [
 { #category : #tests }
 PWBIRModelToFamixTest >> testToFamixEventWithVariable [
 	| ir fmx |
-	ir := model
+	ir := irModel
 		ensureIRForFamixClass: FamixPWBEvent
 		named: 'evt'
 		owner: nil.
-	model
+	irModel
 		ensureIRForFamixClass: FamixPWBLocalVariable
 		named: 'var'
 		owner: ir.
-	model toFamix.
-	self assert: model famixModel size equals: 1 + 3.	"userobject, datawindow + 3"
+	irModel toFamix.
+	self assert:  fmxModel size equals: 2.	"evt,var"
 	self
-		assert: (model famixModel allWithType: FamixPWBEvent) size
+		assert: (fmxModel allWithType: FamixPWBEvent) size
 		equals: 1.
-	fmx := (model famixModel allWithType: FamixPWBEvent) anyOne.
+	fmx := (fmxModel allWithType: FamixPWBEvent) anyOne.
 	self assert: fmx name equals: 'evt'.
 	self assert: fmx isStub.
-	self assert: fmx variables size equals: 1.
-	self assert: fmx variables anyOne name equals: 'var'.
-	self deny: fmx variables anyOne isStub
+	self assert: fmx localVariables size equals: 1.
+	self assert: fmx localVariables anyOne name equals: 'var'.
+	self deny: fmx localVariables anyOne isStub
 ]
 
 { #category : #tests }
 PWBIRModelToFamixTest >> testToFamixFunctionWithOwner [
 	| ir fmx |
-	ir := model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
-	model ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
-	model ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
-	model toFamix.
+	ir := irModel ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	irModel ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
+	irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
+	irModel toFamix.
 
-	self assert: model famixModel size equals: 2 + 3. "userobject, datawindow + 3"
+	self assert: irModel famixModel size equals: 3. "fct, param,var"
 
-	self assert: (model famixModel allWithType: FamixPWBFunction) size equals: 1.
+	self assert: (irModel famixModel allWithType: FamixPWBFunction) size equals: 1.
 
-	fmx := (model famixModel allWithType: FamixPWBFunction) anyOne.
+	fmx := (irModel famixModel allWithType: FamixPWBFunction) anyOne.
 	self assert: fmx name equals: 'fct'.
 	self assert: fmx isStub.
 
@@ -212,9 +212,9 @@ PWBIRModelToFamixTest >> testToFamixFunctionWithOwner [
 	self assert: fmx parameters anyOne name equals: 'param'.
 	self deny: fmx parameters anyOne isStub.
 
-	self assert: fmx variables size equals: 1.
-	self assert: fmx variables anyOne name equals: 'var'.
-	self deny: fmx variables anyOne isStub.
+	self assert: fmx localVariables size equals: 1.
+	self assert: fmx localVariables anyOne name equals: 'var'.
+	self deny: fmx localVariables anyOne isStub.
 
 ]
 
@@ -247,16 +247,16 @@ PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 { #category : #tests }
 PWBIRModelToFamixTest >> testToFamixSubroutineWithParameterAndVariable [
 	| ir fmx |
-	ir := model ensureIRForFamixClass: FamixPWBSubRoutine  named: 'subr' owner: nil.
-	model ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
-	model ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
-	model toFamix.
+	ir := irModel ensureIRForFamixClass: FamixPWBSubRoutine  named: 'subr' owner: nil.
+	irModel ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
+	irModel ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
+	irModel toFamix.
 
-	self assert: model famixModel size equals: 2 + 3. "userobject, datawindow + 3"
+	self assert: irModel famixModel size equals: 3. "subr,param, var"
 
-	self assert: (model famixModel allWithType: FamixPWBSubRoutine) size equals: 1.
+	self assert: (irModel famixModel allWithType: FamixPWBSubRoutine) size equals: 1.
 
-	fmx := (model famixModel allWithType: FamixPWBSubRoutine) anyOne.
+	fmx := (irModel famixModel allWithType: FamixPWBSubRoutine) anyOne.
 	self assert: fmx name equals: 'subr'.
 	self assert: fmx isStub.
 
@@ -264,9 +264,9 @@ PWBIRModelToFamixTest >> testToFamixSubroutineWithParameterAndVariable [
 	self assert: fmx parameters anyOne name equals: 'param'.
 	self deny: fmx parameters anyOne isStub.
 
-	self assert: fmx variables size equals: 1.
-	self assert: fmx variables anyOne name equals: 'var'.
-	self deny: fmx variables anyOne isStub.
+	self assert: fmx localVariables   size equals: 1.
+	self assert: fmx localVariables anyOne name equals: 'var'.
+	self deny: fmx localVariables anyOne isStub.
 
 ]
 
@@ -295,20 +295,23 @@ PWBIRModelToFamixTest >> testToFamixTypeFromExpectedKind [
 { #category : #tests }
 PWBIRModelToFamixTest >> testToFamixTypeWithFunction [
 	| ir fmx fct |
-	ir := model
+	ir := irModel
 		ensureIRForFamixClass: FamixPWBUserObject
 		named: 'uo'
 		owner: nil.
-	model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: ir.
-	model toFamix.
-	self assert: model famixModel size equals: 2 + 3.	"userobject, datawindow + 3"
+	irModel
+		ensureIRForFamixClass: FamixPWBFunction
+		named: 'fct'
+		owner: ir.
+	irModel toFamix.
+	self assert: fmxModel size equals: 2.	"userobject, fct "
 	self
-		assert: (model famixModel allWithType: FamixPWBFunction) size
+		assert: (irModel famixModel allWithType: FamixPWBFunction) size
 		equals: 1.
-	fmx := model famixModel entityNamed: 'uo'.
+	fmx := irModel famixModel entityNamed: 'uo'.
 	self assert: fmx class equals: FamixPWBUserObject.
 	self assert: fmx isStub.
-	fct := fmx functions.
+	fct := fmx methods anyOne.
 	self assert: fct name equals: 'fct'.
 	self deny: fct isStub
 ]
