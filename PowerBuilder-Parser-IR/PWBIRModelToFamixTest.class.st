@@ -42,6 +42,56 @@ PWBIRModelToFamixTest >> testEntityToFamixPreviousTypeNotGivenType [
 ]
 
 { #category : #tests }
+PWBIRModelToFamixTest >> testToFamixEventWithVariable [
+	| ir fmx |
+	ir := model
+		ensureIRForFamixClass: FamixPWBEvent
+		named: 'evt'
+		owner: nil.
+	model
+		ensureIRForFamixClass: FamixPWBLocalVariable
+		named: 'var'
+		owner: ir.
+	model toFamix.
+	self assert: model famixModel size equals: 1 + 3.	"userobject, datawindow + 3"
+	self
+		assert: (model famixModel allWithType: FamixPWBEvent) size
+		equals: 1.
+	fmx := (model famixModel allWithType: FamixPWBEvent) anyOne.
+	self assert: fmx name equals: 'evt'.
+	self assert: fmx isStub.
+	self assert: fmx variables size equals: 1.
+	self assert: fmx variables anyOne name equals: 'var'.
+	self deny: fmx variables anyOne isStub
+]
+
+{ #category : #tests }
+PWBIRModelToFamixTest >> testToFamixFunctionWithOwner [
+	| ir fmx |
+	ir := model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
+	model ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
+	model ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
+	model toFamix.
+
+	self assert: model famixModel size equals: 2 + 3. "userobject, datawindow + 3"
+
+	self assert: (model famixModel allWithType: FamixPWBFunction) size equals: 1.
+
+	fmx := (model famixModel allWithType: FamixPWBFunction) anyOne.
+	self assert: fmx name equals: 'fct'.
+	self assert: fmx isStub.
+
+	self assert: fmx parameters size equals: 1.
+	self assert: fmx parameters anyOne name equals: 'param'.
+	self deny: fmx parameters anyOne isStub.
+
+	self assert: fmx variables size equals: 1.
+	self assert: fmx variables anyOne name equals: 'var'.
+	self deny: fmx variables anyOne isStub.
+
+]
+
+{ #category : #tests }
 PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 	| ir fmx |
 	ir := model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: nil.
@@ -55,6 +105,32 @@ PWBIRModelToFamixTest >> testToFamixFunctionWithParameterAndVariable [
 
 	fmx := (model famixModel allWithType: FamixPWBFunction) anyOne.
 	self assert: fmx name equals: 'fct'.
+	self assert: fmx isStub.
+
+	self assert: fmx parameters size equals: 1.
+	self assert: fmx parameters anyOne name equals: 'param'.
+	self deny: fmx parameters anyOne isStub.
+
+	self assert: fmx variables size equals: 1.
+	self assert: fmx variables anyOne name equals: 'var'.
+	self deny: fmx variables anyOne isStub.
+
+]
+
+{ #category : #tests }
+PWBIRModelToFamixTest >> testToFamixSubroutineWithParameterAndVariable [
+	| ir fmx |
+	ir := model ensureIRForFamixClass: FamixPWBSubRoutine  named: 'subr' owner: nil.
+	model ensureIRForFamixClass: FamixPWBParameter named: 'param' owner: ir.
+	model ensureIRForFamixClass: FamixPWBLocalVariable named: 'var' owner: ir.
+	model toFamix.
+
+	self assert: model famixModel size equals: 2 + 3. "userobject, datawindow + 3"
+
+	self assert: (model famixModel allWithType: FamixPWBSubRoutine) size equals: 1.
+
+	fmx := (model famixModel allWithType: FamixPWBSubRoutine) anyOne.
+	self assert: fmx name equals: 'subr'.
 	self assert: fmx isStub.
 
 	self assert: fmx parameters size equals: 1.
@@ -87,6 +163,27 @@ PWBIRModelToFamixTest >> testToFamixTypeFromExpectedKind [
 	self assert: (fmx attributes allSatisfy: [ :att | att name beginsWith: 'att' ]).
 	self assert: (fmx attributes noneSatisfy: [ :att | att isStub ]).
 
+]
+
+{ #category : #tests }
+PWBIRModelToFamixTest >> testToFamixTypeWithFunction [
+	| ir fmx fct |
+	ir := model
+		ensureIRForFamixClass: FamixPWBUserObject
+		named: 'uo'
+		owner: nil.
+	model ensureIRForFamixClass: FamixPWBFunction named: 'fct' owner: ir.
+	model toFamix.
+	self assert: model famixModel size equals: 2 + 3.	"userobject, datawindow + 3"
+	self
+		assert: (model famixModel allWithType: FamixPWBFunction) size
+		equals: 1.
+	fmx := model famixModel entityNamed: 'uo'.
+	self assert: fmx class equals: FamixPWBUserObject.
+	self assert: fmx isStub.
+	fct := fmx functions.
+	self assert: fct name equals: 'fct'.
+	self deny: fct isStub
 ]
 
 { #category : #tests }
