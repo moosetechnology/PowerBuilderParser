@@ -1,15 +1,15 @@
 Class {
 	#name : #FamixPWBTrigger,
-	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTMethod + FamixTWithAttributes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTMethod classTrait + FamixTWithAttributes classTrait',
+	#superclass : #FamixPWBRoutine,
+	#traits : 'FamixTWithAttributes',
+	#classTraits : 'FamixTWithAttributes classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBTrigger class >> annotation [
 
-	<FMClass: #Trigger super: #FamixPWBBehavioral>
+	<FMClass: #Trigger super: #FamixPWBRoutine>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self

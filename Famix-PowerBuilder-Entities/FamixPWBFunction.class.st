@@ -1,21 +1,28 @@
 Class {
 	#name : #FamixPWBFunction,
-	#superclass : #FamixPWBBehavioral,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTHasSignature + FamixTInvocable + FamixTMethod + FamixTWithParameters',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTHasSignature classTrait + FamixTInvocable classTrait + FamixTMethod classTrait + FamixTWithParameters classTrait',
-	#instVars : [
-		'#returnType => FMProperty'
-	],
+	#superclass : #FamixPWBRoutine,
+	#traits : 'FamixTTypedEntity',
+	#classTraits : 'FamixTTypedEntity classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
 { #category : #meta }
 FamixPWBFunction class >> annotation [
 
-	<FMClass: #Function super: #FamixPWBBehavioral>
+	<FMClass: #Function super: #FamixPWBRoutine>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
+]
+
+{ #category : #converting }
+FamixPWBFunction >> dependingFamixBehavioural: aFamixBehavioural [
+	| invok |
+	^invok := FamixPWBInvocation new
+		candidates: {  self } ;
+		sender: aFamixBehavioural ;
+		mooseModel: self mooseModel ;
+		yourself
 ]
 
 { #category : #testing }
@@ -24,34 +31,11 @@ FamixPWBFunction >> isFunction [
 ]
 
 { #category : #accessing }
-FamixPWBFunction >> mooseNameOn: stream [
-	self parentType
-		ifNotNil: [ :parent | 
-			parent mooseNameOn: stream.
-			stream nextPut: $. ].
-	self name ifNotNil: [ :aName | stream nextPutAll: aName ]
-]
-
-{ #category : #accessing }
 FamixPWBFunction >> parameters [
 	"Relation named: #parameters type: #FamixPWBParameter opposite: #behavioral"
 
 	
 	^ parameters
-]
-
-{ #category : #accessing }
-FamixPWBFunction >> returnType [
-
-	<FMProperty: #returnType type: #Object>
-	<generated>
-	^ returnType
-]
-
-{ #category : #accessing }
-FamixPWBFunction >> returnType: anObject [
-	<generated>
-	returnType := anObject
 ]
 
 { #category : #accessing }

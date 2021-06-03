@@ -85,40 +85,12 @@ FamixPWBEntity >> isAssociation [
 ]
 
 { #category : #testing }
-FamixPWBEntity >> isAttribute [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBEntity >> isBehavioural [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBEntity >> isEvent [
 	^ false
 ]
 
 { #category : #testing }
-FamixPWBEntity >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixPWBEntity >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixPWBEntity >> isMethod [
 
 	<generated>
 	^ false

@@ -1,13 +1,8 @@
 Class {
 	#name : #FamixPWBParameter,
-	#superclass : #FamixPWBEntity,
-	#traits : 'FamixTAccessible + FamixTNamedEntity + FamixTParameter + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixTAccessible classTrait + FamixTNamedEntity classTrait + FamixTParameter classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
+	#superclass : #FamixPWBVariable,
 	#instVars : [
-		'#behavioral => FMOne type: #FamixPWBBehavioral opposite: #parameters',
-		'#parameterOption => FMProperty',
-		'#parameterType => FMProperty',
-		'#startPos => FMProperty'
+		'#parentBehaviouralEntity => FMOne type: #FamixPWBRoutine opposite: #parameters'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -15,7 +10,7 @@ Class {
 { #category : #meta }
 FamixPWBParameter class >> annotation [
 
-	<FMClass: #Parameter super: #FamixPWBEntity>
+	<FMClass: #Parameter super: #FamixPWBVariable>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -26,27 +21,9 @@ FamixPWBParameter >> basicTypes [
 	^ PWBCommonGrammar new basicTypeArray
 ]
 
-{ #category : #accessing }
-FamixPWBParameter >> behavioral [
-	"Relation named: #behavioral type: #FamixPWBBehavioral opposite: #parameters"
-
-	<generated>
-	<container>
-	^ behavioral
-]
-
-{ #category : #accessing }
-FamixPWBParameter >> behavioral: anObject [
-
-	<generated>
-	behavioral := anObject
-]
-
-{ #category : #navigation }
-FamixPWBParameter >> behavioralGroup [
-	<generated>
-	<navigation: 'Behavioral'>
-	^ MooseSpecializedGroup with: self behavioral
+{ #category : #'as yet unclassified' }
+FamixPWBParameter >> beMemberOfBehavioural: aFamixBehavioural [
+	self parentBehaviouralEntity: aFamixBehavioural
 ]
 
 { #category : #testing }
@@ -66,45 +43,26 @@ FamixPWBParameter >> isReadOnly [
 ]
 
 { #category : #accessing }
-FamixPWBParameter >> parameterOption [
+FamixPWBParameter >> parentBehaviouralEntity [
+	"Relation named: #parentBehaviouralEntity type: #FamixPWBRoutine opposite: #parameters"
 
-	<FMProperty: #parameterOption type: #Object>
 	<generated>
-	^ parameterOption
+	<container>
+	^ parentBehaviouralEntity
 ]
 
 { #category : #accessing }
-FamixPWBParameter >> parameterOption: anObject [
+FamixPWBParameter >> parentBehaviouralEntity: anObject [
+
 	<generated>
-	parameterOption := anObject
+	parentBehaviouralEntity := anObject
 ]
 
-{ #category : #accessing }
-FamixPWBParameter >> parameterType [
-
-	<FMProperty: #parameterType type: #String>
+{ #category : #navigation }
+FamixPWBParameter >> parentBehaviouralEntityGroup [
 	<generated>
-	^ parameterType
-]
-
-{ #category : #accessing }
-FamixPWBParameter >> parameterType: anObject [
-	<generated>
-	parameterType := anObject
-]
-
-{ #category : #accessing }
-FamixPWBParameter >> startPos [
-
-	<FMProperty: #startPos type: #Number>
-	<generated>
-	^ startPos
-]
-
-{ #category : #accessing }
-FamixPWBParameter >> startPos: anObject [
-	<generated>
-	startPos := anObject
+	<navigation: 'ParentBehaviouralEntity'>
+	^ MooseSpecializedGroup with: self parentBehaviouralEntity
 ]
 
 { #category : #accessing }

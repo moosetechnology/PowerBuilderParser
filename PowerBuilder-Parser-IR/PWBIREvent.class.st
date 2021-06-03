@@ -9,7 +9,7 @@ PWBIREvent class >> defaultFamixClasses [
 	^{ FamixPWBEvent }
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PWBIREvent >> increaseCyclomaticComplexity [
 	self flag: #TODO
 ]

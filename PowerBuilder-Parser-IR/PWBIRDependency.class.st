@@ -5,22 +5,27 @@ This is almost a ""marker class"" that does not define anything useful
 Defined method are here to ensure polymorphism with PWBIRNamedEntity
 "
 Class {
-	#name : #PWBIRDependencyEntity,
+	#name : #PWBIRDependency,
 	#superclass : #Object,
 	#category : #'PowerBuilder-Parser-IR-Core'
 }
 
 { #category : #testing }
-PWBIRDependencyEntity >> isResolverReachable [
+PWBIRDependency >> isIREntity [
+	^false
+]
+
+{ #category : #testing }
+PWBIRDependency >> isResolverReachable [
 	^false
 ]
 
 { #category : #accessing }
-PWBIRDependencyEntity >> name [
+PWBIRDependency >> name [
 	^nil
 ]
 
 { #category : #accessing }
-PWBIRDependencyEntity >> owner [
+PWBIRDependency >> owner [
 	^nil
 ]

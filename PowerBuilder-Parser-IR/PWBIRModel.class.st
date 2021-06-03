@@ -126,7 +126,8 @@ PWBIRModel >> size [
 { #category : #converting }
 PWBIRModel >> toFamix [
 	famixModel ifNil: [ famixModel := FamixPWBModel new ].
-	self do: [ :irEntity |
-			famixModel add: irEntity toFamix ].
+	self do: [ :ir | 
+		ir isIREntity "dependencies created as part of the dependent entity"
+		ifTrue: [ ir toFamix: famixModel] ].
 	^famixModel
 ]

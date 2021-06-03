@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixPWBGlobalFunction,
 	#superclass : #FamixPWBmajorObject,
-	#traits : 'FamixPWBAbstractType + FamixTWithInvocations',
-	#classTraits : 'FamixPWBAbstractType classTrait + FamixTWithInvocations classTrait',
+	#traits : 'FamixTWithInvocations',
+	#classTraits : 'FamixTWithInvocations classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 

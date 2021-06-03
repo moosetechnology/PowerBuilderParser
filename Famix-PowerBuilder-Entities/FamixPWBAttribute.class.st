@@ -1,10 +1,8 @@
 Class {
 	#name : #FamixPWBAttribute,
-	#superclass : #FamixPWBEntity,
-	#traits : 'FamixPWBPBTNamed - {#mooseNameOn:} + FamixTAccessible + FamixTAttribute + FamixTSourceEntity + FamixTWithTypes',
-	#classTraits : 'FamixPWBPBTNamed classTrait + FamixTAccessible classTrait + FamixTAttribute classTrait + FamixTSourceEntity classTrait + FamixTWithTypes classTrait',
+	#superclass : #FamixPWBVariable,
 	#instVars : [
-		'#attributeType => FMProperty'
+		'#parentType => FMOne type: #FamixPWBmajorObject opposite: #attributes'
 	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
@@ -12,7 +10,7 @@ Class {
 { #category : #meta }
 FamixPWBAttribute class >> annotation [
 
-	<FMClass: #Attribute super: #FamixPWBEntity>
+	<FMClass: #Attribute super: #FamixPWBVariable>
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
@@ -21,20 +19,6 @@ FamixPWBAttribute class >> annotation [
 { #category : #accessing }
 FamixPWBAttribute >> accessAssociation [
 	^ FamixPWBAccess
-]
-
-{ #category : #accessing }
-FamixPWBAttribute >> attributeType [
-
-	<FMProperty: #attributeType type: #Object>
-	<generated>
-	^ attributeType
-]
-
-{ #category : #accessing }
-FamixPWBAttribute >> attributeType: anObject [
-	<generated>
-	attributeType := anObject
 ]
 
 { #category : #accessing }
@@ -50,6 +34,29 @@ FamixPWBAttribute >> deadLocalVariables [
 { #category : #testing }
 FamixPWBAttribute >> isInstanceVariable [
 	^ true
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> parentType [
+	"Relation named: #parentType type: #FamixPWBmajorObject opposite: #attributes"
+
+	<generated>
+	<container>
+	^ parentType
+]
+
+{ #category : #accessing }
+FamixPWBAttribute >> parentType: anObject [
+
+	<generated>
+	parentType := anObject
+]
+
+{ #category : #navigation }
+FamixPWBAttribute >> parentTypeGroup [
+	<generated>
+	<navigation: 'ParentType'>
+	^ MooseSpecializedGroup with: self parentType
 ]
 
 { #category : #accessing }

@@ -3,9 +3,6 @@ Class {
 	#superclass : #FamixPWBmajorObject,
 	#traits : 'FamixTNamedEntity + FamixTSourceEntity + FamixTWithAttributes + FamixTWithInvocations',
 	#classTraits : 'FamixTNamedEntity classTrait + FamixTSourceEntity classTrait + FamixTWithAttributes classTrait + FamixTWithInvocations classTrait',
-	#instVars : [
-		'#graphicComponents => FMMany type: #FamixPWBGraphicComponent opposite: #dataWindow'
-	],
 	#category : #'Famix-PowerBuilder-Entities-Entities'
 }
 
@@ -16,33 +13,4 @@ FamixPWBDataWindow class >> annotation [
 	<package: #'Famix-PowerBuilder-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #adding }
-FamixPWBDataWindow >> addGraphicComponent: anObject [
-	<generated>
-	^ self graphicComponents add: anObject
-]
-
-{ #category : #accessing }
-FamixPWBDataWindow >> graphicComponents [
-	"Relation named: #graphicComponents type: #FamixPWBGraphicComponent opposite: #dataWindow"
-
-	<generated>
-	<derived>
-	^ graphicComponents
-]
-
-{ #category : #accessing }
-FamixPWBDataWindow >> graphicComponents: anObject [
-
-	<generated>
-	graphicComponents value: anObject
-]
-
-{ #category : #navigation }
-FamixPWBDataWindow >> graphicComponentsGroup [
-	<generated>
-	<navigation: 'GraphicComponents'>
-	^ MooseSpecializedGroup withAll: self graphicComponents asSet
 ]

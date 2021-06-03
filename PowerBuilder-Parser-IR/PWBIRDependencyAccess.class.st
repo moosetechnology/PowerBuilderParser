@@ -7,7 +7,7 @@ Instance variable:
 "
 Class {
 	#name : #PWBIRDependencyAccess,
-	#superclass : #PWBIRDependencyEntity,
+	#superclass : #PWBIRDependency,
 	#instVars : [
 		'irEntity',
 		'isWrite'
@@ -44,4 +44,19 @@ PWBIRDependencyAccess >> printOn: stream [
 			nextPutAll: (irEntity name asString) ;
 			nextPut: $)
 	]
+]
+
+{ #category : #converting }
+PWBIRDependencyAccess >> toFamix [
+
+]
+
+{ #category : #converting }
+PWBIRDependencyAccess >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [ 
+	FamixPWBAccess new
+		accessor: aFamixBehavioural ;
+		variable: (irEntity toFamix: aFamixModel) ;
+		mooseModel: aFamixModel ;
+		isWrite: self isWrite
+		yourself
 ]

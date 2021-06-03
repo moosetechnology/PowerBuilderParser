@@ -6,7 +6,7 @@ Instance variable:
 "
 Class {
 	#name : #PWBIRDependencyInvocation,
-	#superclass : #PWBIRDependencyEntity,
+	#superclass : #PWBIRDependency,
 	#instVars : [
 		'candidates'
 	],
@@ -22,4 +22,13 @@ PWBIRDependencyInvocation >> candidates [
 { #category : #accessing }
 PWBIRDependencyInvocation >> candidates: anObject [
 	candidates := anObject
+]
+
+{ #category : #converting }
+PWBIRDependencyInvocation >> toFamix: aFamixModel dependingBehavioural: aFamixBehavioural [ 
+	^FamixPWBInvocation new
+		candidates: (candidates collect: [ :ir | ir toFamix: aFamixModel ]) ;
+		sender: aFamixBehavioural ;
+		mooseModel: aFamixModel ;
+		yourself
 ]

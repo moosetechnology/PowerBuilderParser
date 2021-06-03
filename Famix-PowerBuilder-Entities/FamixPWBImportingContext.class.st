@@ -5,12 +5,6 @@ Class {
 }
 
 { #category : #testing }
-FamixPWBImportingContext >> importAbstractFileAnchor [
-	<generated>
-	^ self import: FamixPWBAbstractFileAnchor
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importAccess [
 	<generated>
 	^ self import: FamixPWBAccess
@@ -83,24 +77,6 @@ FamixPWBImportingContext >> importEvent [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importFile [
-	<generated>
-	^ self import: FamixPWBFile
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> importFileAnchor [
-	<generated>
-	^ self import: FamixPWBFileAnchor
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> importFolder [
-	<generated>
-	^ self import: FamixPWBFolder
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importFunction [
 	<generated>
 	^ self import: FamixPWBFunction
@@ -131,12 +107,6 @@ FamixPWBImportingContext >> importGraphicComponent [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> importIndexedFileAnchor [
-	<generated>
-	^ self import: FamixPWBIndexedFileAnchor
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> importInstanceVariable [
 	<generated>
 	^ self import: FamixPWBInstanceVariable
@@ -164,12 +134,6 @@ FamixPWBImportingContext >> importLocalVariable [
 FamixPWBImportingContext >> importMenuObject [
 	<generated>
 	^ self import: FamixPWBMenuObject
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> importMultipleFileAnchor [
-	<generated>
-	^ self import: FamixPWBMultipleFileAnchor
 ]
 
 { #category : #testing }
@@ -293,12 +257,6 @@ FamixPWBImportingContext >> importmajorObject [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportAbstractFileAnchor [
-	<generated>
-	^ self shouldImport: FamixPWBAbstractFileAnchor
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> shouldImportAccess [
 	<generated>
 	^ self shouldImport: FamixPWBAccess
@@ -371,24 +329,6 @@ FamixPWBImportingContext >> shouldImportEvent [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportFile [
-	<generated>
-	^ self shouldImport: FamixPWBFile
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportFileAnchor [
-	<generated>
-	^ self shouldImport: FamixPWBFileAnchor
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportFolder [
-	<generated>
-	^ self shouldImport: FamixPWBFolder
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> shouldImportFunction [
 	<generated>
 	^ self shouldImport: FamixPWBFunction
@@ -419,12 +359,6 @@ FamixPWBImportingContext >> shouldImportGraphicComponent [
 ]
 
 { #category : #testing }
-FamixPWBImportingContext >> shouldImportIndexedFileAnchor [
-	<generated>
-	^ self shouldImport: FamixPWBIndexedFileAnchor
-]
-
-{ #category : #testing }
 FamixPWBImportingContext >> shouldImportInstanceVariable [
 	<generated>
 	^ self shouldImport: FamixPWBInstanceVariable
@@ -452,12 +386,6 @@ FamixPWBImportingContext >> shouldImportLocalVariable [
 FamixPWBImportingContext >> shouldImportMenuObject [
 	<generated>
 	^ self shouldImport: FamixPWBMenuObject
-]
-
-{ #category : #testing }
-FamixPWBImportingContext >> shouldImportMultipleFileAnchor [
-	<generated>
-	^ self shouldImport: FamixPWBMultipleFileAnchor
 ]
 
 { #category : #testing }

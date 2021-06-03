@@ -1,12 +1,12 @@
 Extension { #name : #FamixPWBBehavioral }
 
 { #category : #'*PowerBuilder-Parser-IR' }
-FamixPWBBehavioral >> addDependencyToIR: anIREntity [
-	
+FamixPWBBehavioral >> addDependencyToIR: anIRDependency [
+	anIRDependency toFamix: self mooseModel dependingBehavioural: self
 ]
 
 { #category : #'*PowerBuilder-Parser-IR' }
 FamixPWBBehavioral >> addMemberIR: anIREntity [
-	anIREntity toFamix
-		behavioral: self
+	(anIREntity toFamix: (self mooseModel))
+		beMemberOfBehavioural: self
 ]

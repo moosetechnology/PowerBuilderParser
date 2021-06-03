@@ -74,6 +74,16 @@ PWBIRNamedEntity >> expectedFamixKinds: aCollection [
 ]
 
 { #category : #accessing }
+PWBIRNamedEntity >> famixEntity [
+	^ famixEntity
+]
+
+{ #category : #accessing }
+PWBIRNamedEntity >> famixEntity: anObject [
+	^ famixEntity := anObject
+]
+
+{ #category : #accessing }
 PWBIRNamedEntity >> file [
 	^ file
 ]
@@ -91,6 +101,11 @@ PWBIRNamedEntity >> hasMatchingType: aClass [
 { #category : #testing }
 PWBIRNamedEntity >> isBehavioural [
 	^false
+]
+
+{ #category : #testing }
+PWBIRNamedEntity >> isIREntity [
+	^true
 ]
 
 { #category : #testing }
@@ -155,17 +170,18 @@ PWBIRNamedEntity >> startPos: anObject [
 ]
 
 { #category : #converting }
-PWBIRNamedEntity >> toFamix [
+PWBIRNamedEntity >> toFamix: famixModel [
 	famixEntity ifNotNil: [ ^famixEntity ].
 
 	^famixEntity := self classToFamix new
 		name: name ;
+		mooseModel: famixModel ;
 		isStub: (owner isNil) ;
 		yourself.
 ]
 
 { #category : #converting }
-PWBIRNamedEntity >> toFamix: aFamixClass [
+PWBIRNamedEntity >> toFamix: famixModel class: aFamixClass [
 	| concreteClass |
 	famixEntity ifNotNil: [
 		self
@@ -179,6 +195,7 @@ PWBIRNamedEntity >> toFamix: aFamixClass [
 
 	^famixEntity := concreteClass new
 		name: name ;
+		mooseModel: famixModel ;
 		isStub: (owner isNil) ;
 		yourself.
 ]
@@ -187,5 +204,6 @@ PWBIRNamedEntity >> toFamix: aFamixClass [
 PWBIRNamedEntity >> verifyActualClasses: aCollection matchGivenClass: aFamixClass [
 	^aCollection
 		detect: [ :class | class includesBehavior: aFamixClass ]
-		ifNone: [  PWBIRWrongFamixClass signal ]
+		ifNone: [  PWBIRWrongFamixClass signal:
+			( aFamixClass name , ' does not match any of: ' , (', ' join: (aCollection collect: #name)) ) ]
 ]

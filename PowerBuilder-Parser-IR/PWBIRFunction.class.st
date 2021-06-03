@@ -9,7 +9,8 @@ Class {
 
 { #category : #mapping }
 PWBIRFunction class >> defaultFamixClasses [
-	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBSubRoutine }
+	"order is important here, the first in the list is meaningful"
+	^{ FamixPWBFunction . FamixPWBGlobalFunction . FamixPWBRoutine . FamixPWBSubRoutine }
 ]
 
 { #category : #adding }
@@ -27,7 +28,17 @@ PWBIRFunction >> declaredType: anObject [
 	declaredType := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
+PWBIRFunction >> dependingFamixBehavioural: aFamixBehavioural [
+	| invok |
+	^invok := FamixPWBInvocation new
+		candidates: {  self } ;
+		sender: aFamixBehavioural ;
+		mooseModel: self mooseModel ;
+		yourself
+]
+
+{ #category : #accessing }
 PWBIRFunction >> increaseCyclomaticComplexity [
 	self flag: #TODO
 ]
@@ -35,4 +46,22 @@ PWBIRFunction >> increaseCyclomaticComplexity [
 { #category : #testing }
 PWBIRFunction >> isBehavioural [
 	^true
+]
+
+{ #category : #converting }
+PWBIRFunction >> toFamix: famixModel [
+	famixEntity ifNotNil: [ ^famixEntity ].
+
+	super toFamix: famixModel.
+	
+	declaredType ifNotNil: [ (declaredType toFamix: famixModel) addTypedEntity: famixEntity].
+
+	^famixEntity
+]
+
+{ #category : #converting }
+PWBIRFunction >> toFamix: famixModel asMemberOfUserObject: userObject [
+	^(self toFamix: famixModel class: FamixPWBFunction) 
+		parentType: userObject ;
+		yourself
 ]

@@ -47,18 +47,8 @@ FamixPWBModel >> extractVariables: aCollectionOfPWBObjects [
 ]
 
 { #category : #initialization }
-FamixPWBModel >> initDefaultPWBEntities [
-	(FamixPWBUserObject named: 'userobject')
-		mooseModel: self.
-
-	(FamixPWBDataWindow named: 'datawindow')
-		mooseModel: self.
-]
-
-{ #category : #initialization }
 FamixPWBModel >> initialize [
-	super initialize.
-	self initDefaultPWBEntities
+	super initialize
 ]
 
 { #category : #actions }
