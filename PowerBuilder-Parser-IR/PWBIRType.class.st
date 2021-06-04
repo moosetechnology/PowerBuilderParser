@@ -14,6 +14,21 @@ PWBIRType class >> defaultFamixClasses [
 	^{ FamixPWBCustomType . FamixPWBBasicType . FamixPWBDataWindow . FamixPWBUserObject . FamixPWBStructure }
 ]
 
+{ #category : #mapping }
+PWBIRType class >> defaultFamixClasses: aString [
+	"For powerbuilder defalt classes like datawindow, datastore, userobject declared as variable type"
+
+	^ self powerbuilderSystemClasses
+		at: aString asLowercase
+		ifAbsent: self defaultFamixClasses
+]
+
+{ #category : #'as yet unclassified' }
+PWBIRType class >> powerbuilderSystemClasses [
+	^ {('datawindow' -> {FamixPWBDataWindow}).
+	('userobject' -> {FamixPWBUserObject})} asDictionary
+]
+
 { #category : #accessing }
 PWBIRType >> addSubType: anIRType [
 	subTypes

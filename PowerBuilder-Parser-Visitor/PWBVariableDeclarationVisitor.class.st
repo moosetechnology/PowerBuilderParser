@@ -13,6 +13,22 @@ Class {
 	#category : #'PowerBuilder-Parser-Visitor-visitors'
 }
 
+{ #category : #helpers }
+PWBVariableDeclarationVisitor >> declaredType: typeIdentifier forIR: irTypedEntity [
+	| resolvable |
+	resolvable := self
+		resolvable:
+			(SRIdentifierToIR
+				name: typeIdentifier identifier
+				expectedKind: (PWBIRType defaultFamixClasses: typeIdentifier identifier)
+				node: typeIdentifier).
+	resolvable
+		foundAction:
+				[ :identifier :currentEntity | irTypedEntity declaredType: identifier entity ];
+		ifNotFoundCreateStubInModel: self model.
+	self resolve: resolvable
+]
+
 { #category : #accessing }
 PWBVariableDeclarationVisitor >> defaultFamixClass [
 	^ defaultFamixClass

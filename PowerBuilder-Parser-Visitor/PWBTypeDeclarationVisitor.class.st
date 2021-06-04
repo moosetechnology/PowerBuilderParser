@@ -6,20 +6,20 @@ Class {
 
 { #category : #'ir entities' }
 PWBTypeDeclarationVisitor >> ensureTypeNamed: typeIdentifier withSuper: superIdentifier [
-	| irType |
+	| irType expectedKind |
+	"I have to have the expected type of my super class"
 	(self isMainEntityOfCurrentFile: typeIdentifier identifier)
 		ifTrue: [ ^ self currentEntity ].
 	irType := self model
 		ensureIR: PWBIRType
 		named: typeIdentifier identifier
 		owner: self currentEntity.
-	irType expectedFamixKinds
-		ifNil: [ irType setExpectedFamixKindsToDefault ].
-
 	superIdentifier
-		ifNotNil: [
-			self superType: superIdentifier forIrType: irType.
-		].
+		ifNil: [ expectedKind := PWBIRType defaultFamixClasses ]
+		ifNotNil: [ expectedKind := (self superType: superIdentifier forIrType: irType)
+				expectedKind ].
+	irType expectedFamixKinds
+		ifNil: [ irType expectedFamixKinds: expectedKind ].
 	^ irType
 ]
 
@@ -110,13 +110,13 @@ PWBTypeDeclarationVisitor >> superType: typeIdentifier forIrType: irType [
 		resolvable:
 			(SRIdentifierToIR
 				name: typeIdentifier identifier
-				expectedKind: irType expectedFamixKinds
+				expectedKind: (PWBIRType defaultFamixClasses: typeIdentifier identifier)
 				node: typeIdentifier).
 	resolvable
-		foundAction:
-				[ :identifier :currentEntity | irType superType: identifier entity ];
+		foundAction: [ :identifier :currentEntity | irType superType: identifier entity ];
 		ifNotFoundCreateStubInModel: self model.
-	self resolve: resolvable
+	self resolve: resolvable.
+	^ resolvable
 ]
 
 { #category : #testing }

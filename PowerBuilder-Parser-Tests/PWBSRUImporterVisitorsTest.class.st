@@ -36,6 +36,24 @@ end function'.
 ]
 
 { #category : #tests }
+PWBSRUImporterVisitorsTest >> testDefaultTypeLocalVariable [
+	self
+		importCode:
+			'private subroutine  aSubroutine ();
+  datawindow dw_var
+end subroutine
+'.
+	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
+	(model getAllIR: PWBIRValueHolder)
+		detect: [ :var | var name = 'dw_var' ]
+		ifOne: [ :var | 
+			self
+				assertCollection: var declaredType expectedFamixKinds
+				equals: {FamixPWBDataWindow} ]
+		ifNone: [ self fail ]
+]
+
+{ #category : #tests }
 PWBSRUImporterVisitorsTest >> testEventInvocation [
 	| events fct |
 	self importCode:
@@ -507,6 +525,28 @@ end function
 	self
 		assertCollection: param declaredType expectedFamixKinds
 		hasSameElements: PWBIRType defaultFamixClasses
+]
+
+{ #category : #tests }
+PWBSRUImporterVisitorsTest >> testPowerbuilderDefaultType [
+	| irTypes |
+	self
+		importCode:
+			'forward
+  global type majorObjectTest from userobject
+  end type
+  type dw_test from datawindow within majorObjectTest
+end type
+end forward
+'.
+	irTypes := model getAllIR: PWBIRType.
+	self assert: irTypes size equals: 4.
+	irTypes
+		detect: [ :each | each name = 'dw_test' ]
+		ifOne: [ :dw_test | 
+			self
+				assertCollection: dw_test expectedFamixKinds
+				hasSameElements: {FamixPWBDataWindow} ]
 ]
 
 { #category : #tests }
