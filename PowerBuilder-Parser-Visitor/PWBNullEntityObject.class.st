@@ -18,6 +18,11 @@ PWBNullEntityObject >> accessModifier: anObject [
 ]
 
 { #category : #testing }
+PWBNullEntityObject >> isIREntity [
+	^ false
+]
+
+{ #category : #testing }
 PWBNullEntityObject >> isNullPatternObject [
 	^ true
 ]

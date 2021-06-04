@@ -563,9 +563,9 @@ end function'.
 
 { #category : #tests }
 PWBSRUImporterVisitorsTest >> testSharedVariables [
-	| shared |
-	self importCode:
-'forward
+	self
+		importCode:
+			'forward
   global type majorObjectTest from userobject
   end type
 end forward
@@ -574,19 +574,17 @@ shared variables
   test_uo uo_var;
 end variables
 '.
-
 	self assert: (model getAllIR: PWBIRValueHolder) size equals: 1.
-
 	(model getAllIR: PWBIRValueHolder)
 		detect: [ :var | var name = 'uo_var' ]
-		ifOne: [ :var |
-			self assertCollection: var expectedFamixKinds equals: { FamixPWBSharedVariable }.
+		ifOne: [ :var | 
+			self
+				assertCollection: var expectedFamixKinds
+				equals: {FamixPWBSharedVariable}.
 			self
 				assert: var owner
-				equals: ((model getAllIR: PWBIRType named: 'majorObjectTest')
-					anyOne)
-		]
-		ifNone: [ self fail ].
+				equals: (model getAllIR: PWBIRType named: 'majorObjectTest') anyOne ]
+		ifNone: [ self fail ]
 ]
 
 { #category : #tests }

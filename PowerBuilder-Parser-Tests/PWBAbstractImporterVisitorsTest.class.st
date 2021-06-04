@@ -52,18 +52,19 @@ PWBAbstractImporterVisitorsTest >> importCode: aString [
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> setUp [
 	model := PWBIRModel new.
-
+	self class teardownInspect: false.
+	
+	
 	self flag: 'TODO: deal with libraries'.
 	"library := FamixPWBLibrary new
 		name: 'TestLib';
 		mooseModel: model;
 		yourself."
-
 	(model
 		ensureIRForFamixClass: FamixPWBUserObject
 		named: 'majorObjectTest'
 		owner: nil)
-		superType: (model irStubForFamixClass: FamixPWBUserObject named: 'userobject').
+		superType: (model irStubForFamixClass: FamixPWBUserObject named: 'userobject')
 ]
 
 { #category : #running }
@@ -79,7 +80,7 @@ PWBAbstractImporterVisitorsTest >> setupVisitor [
 
 { #category : #running }
 PWBAbstractImporterVisitorsTest >> tearDown [
-	PWBAbstractImporterVisitorsTest teardownInspect
-		ifTrue: [model inspect].
-	super tearDown.
+	self class teardownInspect
+		ifTrue: [ model inspect ].
+	super tearDown
 ]

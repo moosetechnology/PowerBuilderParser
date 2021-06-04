@@ -207,9 +207,13 @@ PWBImporterAbstractVisitor >> unpreprocessedPosition: anInteger [
 
 { #category : #scope }
 PWBImporterAbstractVisitor >> useCurrentEntity: anEntity during: aBlock [
-	self useScope: (SREntityScope currentEntity: anEntity) during: aBlock.
+	anEntity isIREntity
+		ifTrue: [ self
+				useScope: (SREntityScope currentEntity: anEntity)
+				during: aBlock ].
+
 	"backward compatibility with old return"
-	^anEntity
+	^ anEntity
 ]
 
 { #category : #scope }
