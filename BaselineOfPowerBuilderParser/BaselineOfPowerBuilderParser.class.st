@@ -31,6 +31,7 @@ BaselineOfPowerBuilderParser >> baseline: spec [
 						requires:
 							#('Famix-PowerBuilder-Entities' 'PowerBuilder-Parser-AST' 'SymbolResolver') ] ];
 		package: 'PowerBuilder-Parser-Violation'
+			with: [ spec requires: #('PowerBuilder-Parser-Visitor') ]
 ]
 
 { #category : #baselines }
