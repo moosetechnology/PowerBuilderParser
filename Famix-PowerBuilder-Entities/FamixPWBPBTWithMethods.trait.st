@@ -1,6 +1,7 @@
 Trait {
 	#name : #FamixPWBPBTWithMethods,
 	#traits : 'FamixTWithMethods',
+	#classTraits : 'FamixTWithMethods classTrait',
 	#category : #'Famix-PowerBuilder-Entities-Traits'
 }
 

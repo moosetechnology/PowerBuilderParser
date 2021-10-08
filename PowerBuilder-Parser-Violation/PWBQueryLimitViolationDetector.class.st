@@ -66,9 +66,9 @@ PWBQueryLimitViolationDetector >> visitPWBASTNumber: anPWBASTNumber [
 { #category : #visiting }
 PWBQueryLimitViolationDetector >> visitPWBASTRegularMethodInvocation: aPWBASTRegularMethodInvocation [
 	(constraints
-		anySatisfy: [ :const | 
+		allSatisfy: [ :const | 
 			const restrictionName
-				= (self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier) ])
+				~= (self visit: aPWBASTRegularMethodInvocation uncheckedIdentifier) ])
 		ifTrue: [ self visit: aPWBASTRegularMethodInvocation functionArguments ]
 ]
 

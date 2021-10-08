@@ -23,7 +23,7 @@ END CHOOSE
 	self
 		assert: self script
 		equals:
-			'<li> ChooseCase  dans >>myfunc sans un elseCase. La violation commence a la  ligne 1 </li>'
+			'<li> <code>ChooseCase </code> dans >>myfunc sans un <code>elseCase</code>. La violation commence a la  ligne 1 </li>'
 ]
 
 { #category : #tests }
@@ -84,5 +84,5 @@ END CHOOSE
 	self
 		assert: self script
 		equals:
-			'<li> ChooseCase avec 12 dans >>myfunc . Le nombre de case doit etre normalement a 10. La violation commence a la  ligne 1 </li>'
+			'<li> <code> ChooseCase</code> avec 12<code>case</code> dans >>myfunc . Le nombre de <code>case</code> doit etre normalement a 10. La violation commence a la  ligne 1 </li>'
 ]

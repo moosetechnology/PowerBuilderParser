@@ -156,7 +156,7 @@ PWBAbstractViolationDetectVisitor >> violations: anObject [
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTArgument: aPWBASTArgument [
 	self
-		auxiliaryVisitor: PWBVariableNameViolationDetector
+		auxiliaryVisitor: PWBVariableViolationDetector
 		visit: aPWBASTArgument
 ]
 
@@ -207,7 +207,7 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTFunctionSignature: aPWBASTFuncti
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
 	self
-		auxiliaryVisitor: PWBVariableNameViolationDetector
+		auxiliaryVisitor: PWBVariableViolationDetector
 		visit: aPWBASTGlobalVariables
 ]
 
@@ -237,7 +237,7 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTRegularMethodInvocation: aPWBAST
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
 	self
-		auxiliaryVisitor: PWBVariableNameViolationDetector
+		auxiliaryVisitor: PWBVariableViolationDetector
 		visit: aPWBASTSharedVariables
 ]
 
@@ -266,13 +266,13 @@ PWBAbstractViolationDetectVisitor >> visitPWBASTSubroutineSignature: aPWBASTSubr
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
 	self
-		auxiliaryVisitor: PWBVariableNameViolationDetector
+		auxiliaryVisitor: PWBVariableViolationDetector
 		visit: aPWBASTTypeVariable
 ]
 
 { #category : #visiting }
 PWBAbstractViolationDetectVisitor >> visitPWBASTVariableDeclarations: aPWBASTVariableDeclarations [
 	self
-		auxiliaryVisitor: PWBVariableNameViolationDetector
+		auxiliaryVisitor: PWBVariableViolationDetector
 		visit: aPWBASTVariableDeclarations
 ]

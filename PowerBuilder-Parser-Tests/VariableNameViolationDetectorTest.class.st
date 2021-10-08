@@ -53,5 +53,5 @@ dffdfd
 	self
 		assert: self script
 		equals:
-			'<li>Le nom de la variable locale myvarde >>mysub doit commencer par <code>l</code>  </li>'
+			'<li>Le nom de la variable locale myvar de >>mysub doit commencer par <code>l</code>  </li>'
 ]
