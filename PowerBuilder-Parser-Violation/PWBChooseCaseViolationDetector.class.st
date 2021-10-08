@@ -17,7 +17,6 @@ PWBChooseCaseViolationDetector >> visitPWBASTChooseCase: aPWBASTChooseCase [
 						stopPosition: (self unpreprocessedPosition: aPWBASTChooseCase stopPosition);
 						libray: currentLibrary;
 						behavior: currentBehavior;
-						reportMessageForChooseWithoutElseCase;
 						yourself) ]
 		ifNotNil: [ nbCases := nbCases + 1 ].
 	nbCases >= 10

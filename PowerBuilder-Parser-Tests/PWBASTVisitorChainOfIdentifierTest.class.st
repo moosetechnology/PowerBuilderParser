@@ -66,21 +66,6 @@ end function'
 ]
 
 { #category : #tests }
-PWBASTVisitorChainOfIdentifierTest >> testAccessChainOfIdentifierDefinedInForwardIsWellSet [
-	| accVar |
-	
-	self skip.
-
-	self assert: model allAccesses size equals: 3.
-	accVar := model allAccesses
-		detect: [ :access | access variable name = 'uo_var_string' ]
-		ifNone: [ self fail ].
-	self assert: accVar variable class equals: FamixPWBInstanceVariable.
-	self assert: accVar variable attributeType name equals: 'string'.
-	self assert: accVar variable parentType name equals: 'test_uo'
-]
-
-{ #category : #tests }
 PWBASTVisitorChainOfIdentifierTest >> testAccessInstanceVariable [
 	| accVar |
 	self assert: model allAccesses size equals: 3.
