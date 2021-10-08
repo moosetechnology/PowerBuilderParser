@@ -19,7 +19,7 @@ PWBQueryLimitViolationDetector >> visitPWBASTFile: aPWBASTFile [
 	self file content lines size >= 0
 		ifTrue: [ self
 				addViolation:
-					(PWBSizeRuleViolation new
+					(PWBFileSizeRuleViolation new
 						file: self unpreprocessedFile;
 						reportMessageForFileSize;
 						yourself) ].
@@ -39,12 +39,12 @@ PWBQueryLimitViolationDetector >> visitPWBASTFunctionSignature: aPWBASTFunctionS
 	argumentsSize >= 10
 		ifTrue: [ self
 				addViolation:
-					(PWBSizeRuleViolation new
+					(PWBBehaviorParamsSizeRuleViolation new
 						value: argumentsSize;
 						file: self unpreprocessedFile;
 						libray: currentLibrary;
 						behavior: currentBehavior;
-						reportMessageForBehaviorParametersSize) ]
+						yourself) ]
 ]
 
 { #category : #visiting }
@@ -85,10 +85,10 @@ PWBQueryLimitViolationDetector >> visitPWBASTSubroutineSignature: aPWBASTSubrout
 	argumentsSize >= 10
 		ifTrue: [ self
 				addViolation:
-					(PWBSizeRuleViolation new
+					(PWBBehaviorParamsSizeRuleViolation new
 						value: argumentsSize;
 						file: self unpreprocessedFile;
 						libray: currentLibrary;
 						behavior: currentBehavior;
-						reportMessageForBehaviorParametersSize) ]
+						yourself) ]
 ]

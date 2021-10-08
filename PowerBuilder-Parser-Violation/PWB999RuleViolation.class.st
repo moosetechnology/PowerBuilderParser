@@ -10,9 +10,8 @@ PWB999RuleViolation >> isReportCrossCommitViolation [
 ]
 
 { #category : #'as yet unclassified' }
-PWB999RuleViolation >> reportMessageFor9999 [
-	report := [ '<li>' , self value asString , ' dans '
-		, self pwbobjectName , '>>' , self behavior name , String space
-		, 'a la ligne' , String space , self relativeLine asString
-		, String space , '</li>' ]
+PWB999RuleViolation >> report [
+	^ [ '<li>' , self value asString , ' dans ' , self pwbobjectName
+		, '>>' , self behavior name , String space , 'a la ligne'
+		, String space , self relativeLine asString , String space , '</li>' ]
 ]

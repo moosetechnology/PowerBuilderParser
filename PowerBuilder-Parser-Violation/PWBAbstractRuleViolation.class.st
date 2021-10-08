@@ -82,8 +82,13 @@ PWBAbstractRuleViolation >> relativeLine [
 ]
 
 { #category : #'as yet unclassified' }
+PWBAbstractRuleViolation >> report [
+	^ self subclassResponsibility
+]
+
+{ #category : #'as yet unclassified' }
 PWBAbstractRuleViolation >> reportOn: stream [
-	stream << report value
+	stream << self report value
 ]
 
 { #category : #accessing }

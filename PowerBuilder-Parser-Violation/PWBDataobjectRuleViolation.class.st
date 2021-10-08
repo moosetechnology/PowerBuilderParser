@@ -5,7 +5,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-PWBDataobjectRuleViolation >> reportMessageForChooseWithoutElseCase [
-	report := [ '<li> <code>string dataobject = "" </code> dans '
+PWBDataobjectRuleViolation >> isReportCrossCommitViolation [
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
+PWBDataobjectRuleViolation >> report [
+	^ [ '<li> <code>string dataobject = "" </code> dans '
 		, self pwbobjectName ]
 ]

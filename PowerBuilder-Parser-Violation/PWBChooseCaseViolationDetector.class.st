@@ -8,10 +8,10 @@ Class {
 PWBChooseCaseViolationDetector >> visitPWBASTChooseCase: aPWBASTChooseCase [
 	| nbCases |
 	nbCases := aPWBASTChooseCase cases size.
-	aPWBASTChooseCase caseElse isNil
-		ifTrue: [ self
+	aPWBASTChooseCase caseElse
+		ifNil: [ self
 				addViolation:
-					(PWBChooseCaseRuleViolation new
+					(PWBChooseCaseWithoutElseCaseRuleViolation new
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: aPWBASTChooseCase startPosition);
 						stopPosition: (self unpreprocessedPosition: aPWBASTChooseCase stopPosition);
@@ -19,17 +19,16 @@ PWBChooseCaseViolationDetector >> visitPWBASTChooseCase: aPWBASTChooseCase [
 						behavior: currentBehavior;
 						reportMessageForChooseWithoutElseCase;
 						yourself) ]
-		ifFalse: [ nbCases := nbCases + 1 ].
+		ifNotNil: [ nbCases := nbCases + 1 ].
 	nbCases >= 10
 		ifTrue: [ self
 				addViolation:
-					(PWBChooseCaseRuleViolation new
+					(PWBNumberOfCaseInChooseCaseRuleViolation new
 						value: nbCases;
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: aPWBASTChooseCase startPosition);
 						stopPosition: (self unpreprocessedPosition: aPWBASTChooseCase stopPosition);
 						libray: currentLibrary;
 						behavior: currentBehavior;
-						reportMessageForNumberOfCase;
 						yourself) ]
 ]
