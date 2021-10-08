@@ -38,14 +38,13 @@ PWBVariableViolationDetector >> visitPWBASTArgument: aPWBASTArgument [
 	(name beginsWith: 'a')
 		ifFalse: [ self
 				addViolation:
-					(PWBVariableNameViolation new
+					(PWBArgumentNameViolation new
 						value: name;
 						file: self unpreprocessedFile;
 						startPosition: (self unpreprocessedPosition: aPWBASTArgument startPosition);
 						stopPosition: (self unpreprocessedPosition: aPWBASTArgument stopPosition);
 						libray: currentLibrary;
-						behavior: currentBehavior;
-						reportMessageForArgumentName) ]
+						behavior: currentBehavior) ]
 ]
 
 { #category : #visiting }
@@ -67,7 +66,7 @@ PWBVariableViolationDetector >> visitPWBASTExpressionTerm: aPWBASTExpressionTerm
 PWBVariableViolationDetector >> visitPWBASTGlobalVariables: aPWBASTGlobalVariables [
 	(self verifyNode: aPWBASTGlobalVariables begin: 'g')
 		do: [ :each | 
-			each reportMessageForGlobalVariableName.
+			each asGlobalVariableNameViolation.
 			self addViolation: each ]
 ]
 
@@ -75,7 +74,7 @@ PWBVariableViolationDetector >> visitPWBASTGlobalVariables: aPWBASTGlobalVariabl
 PWBVariableViolationDetector >> visitPWBASTSharedVariables: aPWBASTSharedVariables [
 	(self verifyNode: aPWBASTSharedVariables begin: 's')
 		do: [ :each | 
-			each reportMessageForSharedVariableName.
+			each asSharedVariableNameViolation.
 			self addViolation: each ]
 ]
 
@@ -83,7 +82,7 @@ PWBVariableViolationDetector >> visitPWBASTSharedVariables: aPWBASTSharedVariabl
 PWBVariableViolationDetector >> visitPWBASTTypeVariable: aPWBASTTypeVariable [
 	(self verifyNode: aPWBASTTypeVariable begin: 'i')
 		do: [ :each | 
-			each reportMessageForInstanceVariableName.
+			each asInstanceVariableNameViolation.
 			self addViolation: each ]
 ]
 
@@ -108,7 +107,6 @@ PWBVariableViolationDetector >> visitPWBASTVariableAssignation: aPWBASTVariableA
 							(self unpreprocessedPosition: aPWBASTVariableAssignation startPosition);
 						stopPosition: (self unpreprocessedPosition: aPWBASTVariableAssignation stopPosition);
 						libray: currentLibrary;
-						reportMessageForChooseWithoutElseCase;
 						yourself) ].
 	self visit: aPWBASTVariableAssignation assignation.
 	^ self visit: aPWBASTVariableAssignation variable
@@ -126,7 +124,7 @@ PWBVariableViolationDetector >> visitPWBASTVariableDeclarations: aPWBASTVariable
 					(var asLowercase beginsWith: 'l')
 						ifFalse: [ self
 								addViolation:
-									(PWBVariableNameViolation new
+									(PWBLocalVariableNameViolation new
 										value: var;
 										file: self unpreprocessedFile;
 										startPosition:
@@ -136,6 +134,5 @@ PWBVariableViolationDetector >> visitPWBASTVariableDeclarations: aPWBASTVariable
 											(self unpreprocessedPosition: aPWBASTVariableDeclarations stopPosition);
 										libray: currentLibrary;
 										behavior: currentBehavior;
-										reportMessageForLocalVariableName;
 										yourself) ] ] ]
 ]
